@@ -81,8 +81,7 @@ typedef enum {
 - (void)handleTouchBeganAtLocation:(CGPoint)touchLocation sectorId:(uint)sectorId;
 - (void)handleTouchMovedAtLocation:(CGPoint)touchLocation sectorId:(uint)sectorId;
 - (void)handleTouchEndedAtLocation:(CGPoint)touchLocation sectorId:(uint)sectorId;
-- (void)handleSingleTapAtLocation:(CGPoint)touchLocation sectorId:(uint)sectorId;
-- (void)handleDoubleTapAtLocation:(CGPoint)touchLocation sectorId:(uint)sectorId;
+- (void)handleTouchCanceledAtLocation:(CGPoint)touchLocation sectorId:(uint)sectorId;
 
 // 当Tap并拖动SectorView后，在view上绘制一个拖动的矩形块，类似鼠标拖曳效果，测试用
 -(void)manageTouches:(NSSet*)touches;

@@ -21,14 +21,6 @@
     
     BOOL _pressAndDrag; // YES if user press and move one finger on view
     CGPoint _touchLocation;// 记录下触摸的位置
-    
-    // 不知为什么在有的时候，明明是手指点击下去，稍微滑动一下，然后抬起来，也就是说函数touchesBegan:withEvent:仅被执行了一次，
-    // 在- (void)touchesEnded:withEvent:函数里报告是点击了两次，即[touch tapCount] == 2。
-    // 所以这里我们采用自定义的变量_realTapCount来记录touchesBegan:withEvent:被调用的次数。
-    // 在成功执行单击或双击处理函数时，对_realTapCount清零。
-    //当报告[touch tapCount] == 2时，只有在_realTapCount>=2时，才视作真正的双击，否则当做单击处理. 
-    // 这是经过一天千辛万苦调试才找到的原因，然后想出来的办法
-    NSInteger _realTapCount;
 }
 @property (retain, nonatomic) UIColor *fillColor;
 @property (nonatomic) BOOL isFlashing;

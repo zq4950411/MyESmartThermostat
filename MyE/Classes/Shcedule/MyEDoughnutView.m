@@ -952,19 +952,48 @@ typedef enum {
 #pragma mark 触摸函数和触摸识别代理方法
 // tap响应函数
 - (void)_singleTaped:(id)sender {
+    NSInteger sectorId = -1;
+    UITapGestureRecognizer *rcg = sender;
+
+    for (NSInteger i = 0; i < NUM_SECTOR; i++) {
+        MyESectorView *sectorView = [_sectorViews objectAtIndex:i];
+        CGPoint point = [rcg  locationInView:sectorView];
+        if ([sectorView pointInside:point]) {
+            sectorId = sectorView.uid;
+        }
+    }
     NSLog(@"_singleTaped");
+    if ([self.delegate respondsToSelector:@selector(didSingleTapSectorIndex:)]) {
+        [self.delegate didSingleTapSectorIndex:sectorId];
+    }
 }
 - (void)_doubleTaped:(id)sender {
-    NSLog(@"_doubleTaped");
+    NSInteger sectorId = -1;
+    UITapGestureRecognizer *rcg = sender;
     
+    for (NSInteger i = 0; i < NUM_SECTOR; i++) {
+        MyESectorView *sectorView = [_sectorViews objectAtIndex:i];
+        CGPoint point = [rcg  locationInView:sectorView];
+        if ([sectorView pointInside:point]) {
+            sectorId = sectorView.uid;
+        }
+    }
+    NSLog(@"_doubleTaped");
+    if ([self.delegate respondsToSelector:@selector(didDoubleTapSectorIndex:)]) {
+        [self.delegate didDoubleTapSectorIndex:sectorId];
+    }
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
-        // Disallow recognition of tap gestures in the segmented control.
-//        if ( ) {//change it to your condition
-//            return NO;
-//        }
-    return YES;
+    // Disallow recognition of tap gestures in the segmented control.
+    BOOL shouldReceiveTouch = NO;
+    for (NSInteger i = 0; i < NUM_SECTOR; i++) {
+        MyESectorView *sectorView = [_sectorViews objectAtIndex:i];
+        if (touch.view == sectorView) {
+            shouldReceiveTouch = YES;
+        }
+    }
+    return shouldReceiveTouch;
 }
 
 @end
@@ -1009,16 +1038,18 @@ typedef enum {
         //        theLayer.borderWidth = 1;
         
         [self setBackgroundColor:[UIColor clearColor]];
-        
-        _singleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_singleTaped:)] ;
-        [_singleTapRecognizer setNumberOfTapsRequired:1];
-        [_singleTapRecognizer setDelegate:self];
-        [self addGestureRecognizer:_singleTapRecognizer];
-        
         _doubleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_doubleTaped:)] ;
         [_doubleTapRecognizer setNumberOfTapsRequired:2];
         [_doubleTapRecognizer setDelegate:self];
         [self addGestureRecognizer:_doubleTapRecognizer];
+        
+        _singleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_singleTaped:)] ;
+        [_singleTapRecognizer setNumberOfTapsRequired:1];
+        [_singleTapRecognizer requireGestureRecognizerToFail: _doubleTapRecognizer];
+        [_singleTapRecognizer setDelegate:self];
+        [self addGestureRecognizer:_singleTapRecognizer];
+        
+        
     }
     return self;
 }
@@ -1231,20 +1262,20 @@ typedef enum {
         }
     }
 }
-
-
-//sectorId参数记录每次触摸sector view时，手指点击的第一个sector的id
-- (void)handleSingleTapAtLocation:(CGPoint)touchLocation sectorId:(uint)sectorId {
-    if ([self.delegate respondsToSelector:@selector(didSingleTapSectorIndex:)]) {
-        [self.delegate didSingleTapSectorIndex:sectorId];
+- (void)handleTouchCanceledAtLocation:(CGPoint)touchLocation sectorId:(uint)sectorId {
+    // 如果当前不允许远程控制，那么直接返回
+    if (!self.delegate.isRemoteControl) {
+        return;
+    }
+    
+    _isScheduleChanged = NO;
+    
+    //如果当这次触摸中，并没改变schedule，就调用deldgeate的方法，但传回nil作为参数
+    // 每当用户手指触摸修改了若干sector的模式，用户手指抬起来后，就向delegate发送这个消息
+    if ([self.delegate respondsToSelector:@selector(didSchecduleChangeWithModeIdArray:)]) {
+        [self.delegate didSchecduleChangeWithModeIdArray:nil];
     }
 }
-- (void)handleDoubleTapAtLocation:(CGPoint)touchLocation sectorId:(uint)sectorId {
-    if ([self.delegate respondsToSelector:@selector(didDoubleTapSectorIndex:)]) {
-        [self.delegate didDoubleTapSectorIndex:sectorId];
-    }
-}
-
 
 
 
