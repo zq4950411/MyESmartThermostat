@@ -69,7 +69,7 @@
         
         _doughnutView = [[MyEDoughnutView alloc] initWithFrame:CGRectMake(30, 15, TODAY_DOUGHNUT_VIEW_SIZE, TODAY_DOUGHNUT_VIEW_SIZE) delegate:self];
         _doughnutView.delegate = self;
-        self.todayModel = [[MyEScheduleTodayData alloc] initWithJSONString:@"{\"currentTime\":\"4/22/2012 05:33\",\"houseId\":419,\"periods\":[{\"color\":\"0x006699\",\"cooling\":77,\"etid\":12,\"heating\":65,\"hold\":\"None\",\"stid\":0,\"title\":\"Period1\"},{\"color\":\"0xffcc66\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12,\"title\":\"Period2\"},{\"color\":\"0x9999ff\",\"cooling\":73,\"etid\":42,\"heating\":68,\"hold\":\"None\",\"stid\":16,\"title\":\"Period3\"},{\"color\":\"0x006699\",\"cooling\":75,\"etid\":48,\"heating\":62,\"hold\":\"None\",\"stid\":42,\"title\":\"Period4\"}],\"userId\":\"1000100000000000317\",\"weeklyid\":0}"];
+        self.todayModel = [[MyEScheduleTodayData alloc] initWithJSONString:@"{\"currentTime\":\"7/23/2012 1:20\",\"hold\":2,\"houseId\":419,\"isheatcool\":1,\"periods\":[{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":1,\"heating\":70,\"hold\":\"None\",\"stid\":0,\"title\":\"Period1\"},{\"color\":\"0xf06e70\",\"cooling\":74,\"etid\":10,\"heating\":69,\"hold\":\"Temporary Hold\",\"stid\":1,\"title\":\"Period2\"},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":26,\"heating\":64,\"hold\":\"None\",\"stid\":10,\"title\":\"Period3\"},{\"color\":\"0xf2cf45\",\"cooling\":75,\"etid\":42,\"heating\":69,\"hold\":\"None\",\"stid\":26,\"title\":\"Period4\"},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42,\"title\":\"Period5\"}],\"setpoint\":69,\"userId\":\"1000100000000000317\",\"weeklyid\":0}"];
         NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
         NSLog(@"sectorIdSpaningCurrentTime = %i",sectorIdSpaningCurrentTime);
         // 生成hold数组
@@ -419,7 +419,7 @@
 - (void) didFinishEditingPeriodIndex:(NSInteger)periodIndex cooling:(float)cooling heating:(float)heating {
     [self _togglePeriodEditingView];
     if(periodIndex >= 0){// periodIndex<0 表示用户点击了period editing panel的Cancel按钮
-        [self.todayModel updateWithSectorIndex:periodIndex heating:heating cooling:cooling];
+        [self.todayModel updateWithPeriodIndex:periodIndex heating:heating cooling:cooling];
 
         //因为编辑了setpoint信息，所以需要把这些信息更新到_doughnutView的数据模型中
         [_doughnutView updateWithModeIdArray:[self.todayModel modeIdArray]];
@@ -473,6 +473,7 @@
 }
 // 当用户双击一个Secotr时，表示要修改这个sector所在period的heating/cooling或颜色，把这个sector的序号传递回去
 - (void)didDoubleTapSectorIndex:(NSUInteger)sectorInedx {
+    NSLog(@"Double touched sector of index: %i", sectorInedx);
     NSMutableArray * modeIdArray = [self.todayModel modeIdArray];
     self.currentSelectedModeId = [[modeIdArray objectAtIndex:sectorInedx] intValue];
     MyETodayPeriodData *period = [self.todayModel.periods objectAtIndex:self.currentSelectedModeId];

@@ -52,9 +52,11 @@
 // 定义tip显示的标志位的key，该可以会用于NSDefaults里面存储此标志位
 #define KEY_FOR_HIDE_TIP_OF_DASHBOARD1 @"hide_tip_of_dashboard1"
 #define KEY_FOR_HIDE_TIP_OF_DASHBOARD2 @"hide_tip_of_dashboard2"
-#define KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY1 @"hide_tip_of_schedule_today1"
-#define KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY2 @"hide_tip_of_schedule_today2"
-#define KEY_FOR_HIDE_TIP_OF_SCHEDULE_WEEKLY @"hide_tip_of_schedule_weekly"
+#define KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY1 @"hide_tip_of_schedule1"
+#define KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY2 @"hide_tip_of_schedule2"
+#define KEY_FOR_HIDE_TIP_OF_SCHEDULE_NEXT24HRS1 @"hide_tip_of_schedule1"
+#define KEY_FOR_HIDE_TIP_OF_SCHEDULE_NEXT24HRS2 @"hide_tip_of_schedule2"
+#define KEY_FOR_HIDE_TIP_OF_SCHEDULE_WEEKLY @"hide_tip_of_schedule1"
 #define KEY_FOR_HIDE_TIP_OF_VACATION @"hide_tip_of_vacation"
 #define KEY_FOR_HIDE_TIP_OF_SETTINGS @"hide_tip_of_settings"
 

@@ -73,7 +73,7 @@
     self.next24hrsModel = [[MyEScheduleNext24HrsData alloc] initWithJSONString:@"{\"currentTime\":\"7/20/2012 22:14\",\"dayItems\":[{\"date\":20,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":14,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":18,\"heating\":70,\"hold\":\"None\",\"stid\":14},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":36,\"heating\":64,\"hold\":\"None\",\"stid\":18},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":44,\"heating\":70,\"hold\":\"None\",\"stid\":36},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":44}],\"year\":2012},{\"date\":21,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":12,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":42,\"heating\":70,\"hold\":\"None\",\"stid\":16},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42}],\"year\":2012}],\"hold\":0,\"houseId\":419,\"setpoint\":66,\"userId\":\"1000100000000000317\"}"];
      */
     // 测试运行在零点
-    self.next24hrsModel = [[MyEScheduleNext24HrsData alloc] initWithJSONString:@"{\"currentTime\":\"7/21/2012 0:29\",\"dayItems\":[{\"date\":21,\"month\":7,\"periods\":[{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":1,\"heating\":70,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":42,\"heating\":70,\"hold\":\"None\",\"stid\":1},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42}],\"year\":2012},{\"date\":22,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":12,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":42,\"heating\":70,\"hold\":\"None\",\"stid\":16},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42}],\"year\":2012}],\"hold\":0,\"houseId\":419,\"setpoint\":66,\"userId\":\"1000100000000000317\"}"];
+    self.next24hrsModel = [[MyEScheduleNext24HrsData alloc] initWithJSONString:@"{\"currentTime\":\"7/21/2012 0:29\",\"dayItems\":[{\"date\":21,\"month\":7,\"periods\":[{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":8,\"heating\":70,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":22,\"heating\":70,\"hold\":\"None\",\"stid\":8},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":22}],\"year\":2012},{\"date\":22,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":12,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":42,\"heating\":70,\"hold\":\"None\",\"stid\":16},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42}],\"year\":2012}],\"hold\":0,\"houseId\":419,\"setpoint\":66,\"userId\":\"1000100000000000317\"}"];
     self.next24hrsModelCache = [self.next24hrsModel copy];
     
 //    NSLog(@"next24hrsModel = %@ ", [self.next24hrsModel description]);
@@ -105,6 +105,9 @@
     [self.applyButton setBackgroundImage:[UIImage imageNamed:@"buttonbgdisabled.png"] forState:UIControlStateDisabled];
     [self.applyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.applyButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+    
+    [self.resetButton setImage:[UIImage imageNamed:@"reset.png"] forState:UIControlStateNormal];
+    [self.resetButton setImage:[UIImage imageNamed:@"reset_disabled.png"] forState:UIControlStateDisabled];
     
     self.applyButton.enabled = NO;
     self.resetButton.enabled = NO;
@@ -475,7 +478,7 @@
 - (void) didFinishEditingPeriodIndex:(NSInteger)periodIndex cooling:(float)cooling heating:(float)heating {
     [self _togglePeriodEditingView];
     if(periodIndex >= 0){// periodIndex<0 表示用户点击了period editing panel的Cancel按钮
-        [self.next24hrsModel updateWithSectorIndex:periodIndex heating:heating cooling:cooling];
+        [self.next24hrsModel updateWithPeriodIndex:periodIndex heating:heating cooling:cooling];
         
         //因为编辑了setpoint信息，所以需要把这些信息更新到_doughnutView的数据模型中
         [_doughnutView updateWithModeIdArray:[self.next24hrsModel modeIdArray]];
@@ -516,12 +519,10 @@
         _scheduleChangedByUserTouch = YES;
         [self.applyButton setEnabled:YES];
         [self.resetButton setEnabled:YES];
-        NSLog(@"---in MyENext24HrsScheduleSubviewController.didSchecduleChangeWithModeIdArray, before [self.next24hrsModel updateWithModeIdArray:modeIdArray] ------");
         [self.next24hrsModel updateWithModeIdArray:modeIdArray];
-        NSLog(@"---in MyENext24HrsScheduleSubviewController.didSchecduleChangeWithModeIdArray, after [self.next24hrsModel updateWithModeIdArray:modeIdArray] ------");
     }
     
-    // 下面代码用于修正bug：2.1.	通过涂抹操作调整时间点后，在手抬起来的那一刹那，经常错误触发显示setpoint的单击事件。
+    // 下面代码用于修正bug：通过涂抹操作调整时间点后，在手抬起来的那一刹那，经常错误触发显示setpoint的单击事件。
     if(_periodInforDoughnutViewShowing)
         [self _togglePeriodInforDoughnutView];
 }

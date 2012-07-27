@@ -74,15 +74,16 @@
     
     NSArray *tipDataArrayToday = [NSArray arrayWithObjects:
                                   [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY1 title:@"Tip" message:@"Swipe along the circle to adjust the time setting. Double click on the colored block to view/edit the temperature setpoint. However, you cannot change any setpoint that has been or is being executed."], 
-                                  [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY2 title:@"Tip" message:@"When the setpoint is held from Dashboard, the corresponding time block will turn gray. Double click to view the setpoint."],
+                                  [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY2 title:@"Tip" message:@"When the setpoint is held from Dashboard, the corresponding time block will turn gray. Double tap to view the setpoint."],
                                   nil];
     _tipViewControllerForTodayPanel = [MyETipViewController tipViewControllerWithTipDataArray:tipDataArrayToday];
+    
     NSArray *tipDataArrayWeekly = [NSArray arrayWithObjects:
-                                  [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_WEEKLY title:@"Tip" message:@"Swipe along the circle to adjust the time setting. Double click on the colored block to view/edit the temperature setpoint. Select a mode first, and swipe on the circle to apply the selected mode."],
+                                  [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_WEEKLY title:@"Tip" message:@"Swipe along the circle to adjust the time setting. Double click on the colored block to view/edit the temperature setpoint. However, you cannot change any setpoint that has been or is being executed."],
                                   nil];
     _tipViewControllerForWeeklyPanel = [MyETipViewController tipViewControllerWithTipDataArray:tipDataArrayWeekly];
     
-    _tipViewControllerForNext24HrsPanel  = [MyETipViewController tipViewControllerWithTipDataArray:[NSArray array]];
+    _tipViewControllerForNext24HrsPanel  = _tipViewControllerForTodayPanel;
 }
 
 - (void)viewDidUnload
@@ -118,7 +119,7 @@
         [_tipViewControllerForTodayPanel showTips];
     } else if (_currentPanelType == SCHEDULE_TYPE_NEXT24HRS){
         [self.next24HrsBaseViewController downloadModelFromServer];
-        [_tipViewControllerForWeeklyPanel showTips];
+        [_tipViewControllerForNext24HrsPanel showTips];
     } else if (_currentPanelType == SCHEDULE_TYPE_WEEKLY){
         [self.weeklyBaseViewController downloadModelFromServer];
         [_tipViewControllerForWeeklyPanel showTips];
@@ -181,7 +182,7 @@
                         completion:^(BOOL finished){
                             // Save the old data and then swap the views.
                             NSLog(@"switch to Next24Hrs panel"); 
-                            [_tipViewControllerForWeeklyPanel showTips];
+                            [_tipViewControllerForNext24HrsPanel showTips];
                         }];
         
         [self.next24HrsBaseViewController downloadModelFromServer];

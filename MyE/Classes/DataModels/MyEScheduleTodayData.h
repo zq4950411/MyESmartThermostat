@@ -36,7 +36,7 @@
 
 - (MyEScheduleTodayData *)initWithDictionary:(NSDictionary *)dictionary;
 - (MyEScheduleTodayData *)initWithJSONString:(NSString *)jsonString;
-- (NSString *)JSONDictionary;
+- (NSDictionary *)JSONDictionary;
 
 // 根据更新的时段数组，来更新对应的元模式数组
 - (void)refreshMetaModeArrayByPeriods;
@@ -52,5 +52,5 @@
 
 // 用户双击某个sector后，对其heating/cooling进行编辑，这里就用新的数据更新periods数据。
 // 注意传入的已经是时段period的序号，而不是sector的序号
-- (void)updateWithSectorIndex:(NSUInteger)periodIndex heating:(float)heating cooling:(float)cooling;
+- (void)updateWithPeriodIndex:(NSUInteger)periodIndex heating:(float)heating cooling:(float)cooling;
 @end

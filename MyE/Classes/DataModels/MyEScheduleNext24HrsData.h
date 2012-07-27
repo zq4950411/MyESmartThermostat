@@ -23,7 +23,7 @@
 
 - (MyEScheduleNext24HrsData *)initWithDictionary:(NSDictionary *)dictionary;
 - (MyEScheduleNext24HrsData *)initWithJSONString:(NSString *)jsonString;
-- (NSString *)JSONDictionary;
+- (NSDictionary *)JSONDictionary;
 
 // 因为today的时段数据和Weekly的数据情况不同。Today的时段数据没有mode的概念，而MyEDoughnutView类需要用到mode数组和mode到颜色的映射词典。
 // 下面两个函数的功能就是从today的periods数据中计算取得需要的mode数组和mode到颜色的映射词典
@@ -46,7 +46,7 @@
 
 // 用户双击某个sector后，对其heating/cooling进行编辑，这里就用新的数据更新periods数据。
 // 注意传入的已经是时段period的序号，而不是sector的序号
-- (void)updateWithSectorIndex:(NSUInteger)periodIndex heating:(float)heating cooling:(float)cooling;
+- (void)updateWithPeriodIndex:(NSUInteger)periodIndex heating:(float)heating cooling:(float)cooling;
 
 // 测试函数，测试拼接结果是否正确,就是today和第二天的periods数组中的时段是否前后衔接真确，第一时段开始时刻是0， 最后时段的结束时刻是48；
 -(BOOL)isResultValid;

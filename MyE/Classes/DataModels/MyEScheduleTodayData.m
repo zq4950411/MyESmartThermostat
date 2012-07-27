@@ -252,7 +252,7 @@ metaModeArray = _metaModeArray;
 
 // 用户双击某个sector后，对其heating/cooling进行编辑，这里就用新的数据更新periods数据。
 // 注意传入的已经是时段period的序号，而不是sector的序号
-- (void)updateWithSectorIndex:(NSUInteger)periodIndex heating:(float)heating cooling:(float)cooling {
+- (void)updateWithPeriodIndex:(NSUInteger)periodIndex heating:(float)heating cooling:(float)cooling {
     MyETodayPeriodData *period = [self.periods objectAtIndex:periodIndex];
     
     period.heating = heating;
@@ -261,5 +261,7 @@ metaModeArray = _metaModeArray;
     MyEScheduleModeData *mode = [self.metaModeArray objectAtIndex:periodIndex];
     mode.heating = heating;
     mode.cooling = cooling;
+    
+    [self refreshMetaModeArrayByPeriods];// 根据变化了的periods数组，更新元模式数组
 }
 @end

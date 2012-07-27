@@ -57,6 +57,10 @@ typedef enum {
 // 私有函数，用于判定是否涂抹以及实现当前涂抹的动作。仅用于在手指触摸sector时Touch事件的Move、End阶段
 - (BOOL)_paintingSectorWithStartSectorId:(uint)sectorId currentSectorId:(NSInteger)csid;
 
+
+// tap响应函数
+- (void)_singleTaped:(id)sender;
+- (void)_doubleTaped:(id)sender;
 @end
 
 
@@ -135,7 +139,9 @@ typedef enum {
     NSInteger currentModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
     NSInteger prevModeId = -1;//初始化为一个不存在的modeId
     NSInteger nextModeId = -1;//初始化为一个不存在的modeId
-    
+    NSString *hold = [self.holdArray objectAtIndex:sectorId];
+    if ([hold caseInsensitiveCompare:@"none"] != NSOrderedSame)// 如果当前涂抹的sector被hold了，就不允许拖动
+        return SectorTouchTypeDisable;
     if (sectorId == 0 ) {
         nextModeId = [[self.modeIdArray objectAtIndex:(sectorId + 1)] intValue];
         if(currentModeId == nextModeId)
@@ -151,10 +157,21 @@ typedef enum {
         prevModeId = [[self.modeIdArray objectAtIndex:(sectorId - 1)] intValue];
         if( currentModeId != prevModeId && currentModeId != nextModeId)
             return SectorPositionTypeSingle;
-        if( currentModeId != prevModeId )
-            return SectorPositionTypeFirst;
-        if( currentModeId != nextModeId )
-            return SectorPositionTypeLast;
+        if( currentModeId != prevModeId ){
+            NSString *hold = [self.holdArray objectAtIndex:(sectorId + 1)];
+            if ([hold caseInsensitiveCompare:@"none"] != NSOrderedSame) { // 如果前一sector属于不同时段，并且前一时段被hold，就不允许拖动
+                return SectorTouchTypeDisable;
+            } else 
+                return SectorPositionTypeFirst;
+        }
+        if( currentModeId != nextModeId ){
+             NSString *hold = [self.holdArray objectAtIndex:(sectorId - 1)];
+            if ([hold caseInsensitiveCompare:@"none"] != NSOrderedSame) {// 如果后一sector属于不同时段，并且后一时段被hold，就不允许拖动
+
+                return SectorTouchTypeDisable;
+            } else
+                return SectorPositionTypeLast;
+        }
         return SectorPositionTypeMiddle;
         
     }
@@ -295,7 +312,7 @@ typedef enum {
         
     }
     
-    //    NSLog(@"2222range.location = %i, length = %i", location, length);
+//    NSLog(@"2222range.location = %i, length = %i", location, length);
     return NSMakeRange(location, length);
 }
 
@@ -303,17 +320,25 @@ typedef enum {
 // 私有函数，用于判定是否涂抹以及实现当前涂抹的动作
 //如果触摸过程真正地改变了Schedule，就返回YES，
 //如果仅仅触摸了，但触摸过程并没满足触摸条件或者触摸在不可改变地sector上，这就实际上没有真正修改Schedule，那就返回NO
-- (BOOL)_paintingSectorWithStartSectorId:(uint)sectorId currentSectorId:(NSInteger)csid {
+- (BOOL)_paintingSectorWithStartSectorId:(uint)sectorId currentSectorId:(NSInteger)csid {    
     //首先，如果当前触摸不在任何一个sector上，直接退出。这种情况不应出现，因为调用本函数之前，已经处理了。
     if(csid <0) {
         NSLog(@"没有触摸在sector上，退出");
         return NO;
     }
-    
+    if (csid == 0) {
+        NSLog(@"-------跨过0点----------, _lastSectorViewIdTouched = %i",  _lastSectorViewIdTouched);
+        self.sectorTouchType = SectorTouchTypeDisable;
+    }
     ///today模块中，如果当前触摸到的sector的id小于当前时刻所在sector的下一个sector，就退出
     if (_scheduleType == SCHEDULE_TYPE_TODAY || _scheduleType == SCHEDULE_TYPE_NEXT24HRS) {
+        NSString *hold = [self.holdArray objectAtIndex:sectorId];
+        if ([hold caseInsensitiveCompare:@"None"] != NSOrderedSame) {
+            NSLog(@"today|Next24Hrs模块中，如果当前触摸到的sector的hold不是None，就退出");
+            return NO;
+        }
         if (csid <= self.sectorIdSpaningCurrentTime + 1) {
-            NSLog(@"today模块中，如果当前触摸到的sector的id小于当前时刻所在sector的下一个sector，就退出");
+            NSLog(@"today|Next24Hrs模块中，如果当前触摸到的sector的id小于当前时刻所在sector的下一个sector，就退出");
             return NO;
         }
     }
@@ -323,22 +348,8 @@ typedef enum {
     // 就会用时段B的mode涂抹手指触摸经过的前一个sector，而不是手指当前所在的sector
     int psid = csid;
     
-    NSRange changeableSectorRange = {0, 48};
-    /*
-     switch (self.sectorTouchType) {
-     case SectorTouchTypeDraggingBorder:
-     NSLog(@"self.sectorTouchType ---->  SectorTouchTypeDraggingBorder");
-     break;
-     case SectorTouchTypePainting :
-     NSLog(@"self.sectorTouchType ---->  SectorTouchTypePainting");
-     break;
-     case SectorTouchTypeDisable:
-     NSLog(@"self.sectorTouchType ---->  SectorTouchTypeDisable");
-     break;
-     default:
-     break;
-     }
-     */
+    NSRange changeableSectorRange = [self _changeableSectorRangeForSelectedSector:sectorId];
+
     // 首先如果是不允许触摸的情况就直接返回。
     if (self.sectorTouchType == SectorTouchTypeDisable) {
         NSLog(@"禁止触摸的类型，退出");
@@ -382,13 +393,18 @@ typedef enum {
             }
             
             if (position == SectorPositionTypeFirst ) {// if the current sector is the first sector of the period
-                // 计算允许的拖动范围，以前一次涂抹过的sector为标准计算
+                // Comment 1: 计算允许的拖动范围，以前一次涂抹过的sector为标准计算，如果前一次拖动到边界了，
+                // 就以边界沿着拖动方向向前的下一个sectorId的mode为准继续拖动。
+                // 现在注释的目的是只允许以触摸的第一sectorId为准计算允许的范围，
+                //其结果就是只能在当前时段的前后两个相邻时段里面进行拖动，不能影响到第三个时段。
+                // 如果下句注释，原因见Comment 1
                 changeableSectorRange = [self _changeableSectorRangeForSelectedSector:_lastSectorViewIdTouched+1];
                 // 如果当准备要修改涂抹的sector(psid)不允许被改变，就返回。
                 if (psid < changeableSectorRange.location || psid > changeableSectorRange.location + changeableSectorRange.length) {
                     NSLog(@"拖动边界 & 逆时针 & position first, 超出许可范围退出");
                     return NO;
                 }
+
                 self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:_lastSectorViewIdTouched] intValue];
                 NSLog(@"拖动边界 & 逆时针 & position First");
             } 
@@ -398,8 +414,7 @@ typedef enum {
                     NSLog(@"拖动边界 & 逆时针 & position Last, psid>47超出范围退出");
                     return NO;
                 }
-                
-                // 计算允许的拖动范围，以前一次涂抹过的sector为标准计算
+                // 如果下句注释，原因见Comment 1
                 changeableSectorRange = [self _changeableSectorRangeForSelectedSector:_lastSectorViewIdTouched+1];
                 // 如果当准备要修改涂抹的sector(psid)不允许被改变，就返回。
                 if (psid < changeableSectorRange.location || psid > changeableSectorRange.location + changeableSectorRange.length) {
@@ -425,7 +440,7 @@ typedef enum {
                     return NO;
                 }
                 
-                // 计算允许的拖动范围，以前一次涂抹过的sector为标准计算
+                // 如果下句注释，原因见Comment 1
                 changeableSectorRange = [self _changeableSectorRangeForSelectedSector:_lastSectorViewIdTouched - 1];
                 // 如果当准备要修改涂抹的sector(psid)不允许被改变，就返回。
                 if (psid < changeableSectorRange.location || psid > changeableSectorRange.location + changeableSectorRange.length) {
@@ -437,7 +452,7 @@ typedef enum {
                 NSLog(@"拖动边界 & 顺时针 & position First");
             }
             if (position == SectorPositionTypeLast ) {// if the current sector is the last sector of the period
-                // 计算允许的拖动范围，以前一次涂抹过的sector为标准计算
+                // 如果下句注释，原因见Comment 1
                 changeableSectorRange = [self _changeableSectorRangeForSelectedSector:_lastSectorViewIdTouched-1];
                 // 如果当准备要修改涂抹的sector(psid)不允许被改变，就返回。
                 if (psid < changeableSectorRange.location || psid > changeableSectorRange.location + changeableSectorRange.length) {
@@ -933,6 +948,24 @@ typedef enum {
 
     }
 }
+#pragma mark -
+#pragma mark 触摸函数和触摸识别代理方法
+// tap响应函数
+- (void)_singleTaped:(id)sender {
+    NSLog(@"_singleTaped");
+}
+- (void)_doubleTaped:(id)sender {
+    NSLog(@"_doubleTaped");
+    
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+        // Disallow recognition of tap gestures in the segmented control.
+//        if ( ) {//change it to your condition
+//            return NO;
+//        }
+    return YES;
+}
 
 @end
 
@@ -976,6 +1009,16 @@ typedef enum {
         //        theLayer.borderWidth = 1;
         
         [self setBackgroundColor:[UIColor clearColor]];
+        
+        _singleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_singleTaped:)] ;
+        [_singleTapRecognizer setNumberOfTapsRequired:1];
+        [_singleTapRecognizer setDelegate:self];
+        [self addGestureRecognizer:_singleTapRecognizer];
+        
+        _doubleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_doubleTaped:)] ;
+        [_doubleTapRecognizer setNumberOfTapsRequired:2];
+        [_doubleTapRecognizer setDelegate:self];
+        [self addGestureRecognizer:_doubleTapRecognizer];
     }
     return self;
 }
@@ -1056,30 +1099,74 @@ typedef enum {
         return;
     }
     
-    if(sectorId == 0 || sectorId == NUM_SECTOR - 1) {// 如果当前点击在第一个和最后一个sector，就是禁止触摸的模块
-        self.sectorTouchType = SectorTouchTypeDisable;
-    }else {
-        _lastSectorViewIdTouched = sectorId;
-        // Decide the touch type
-        SectorPositionType position = [self _sectorPositionTypeOfSectorId:sectorId];
-        
-        if (_scheduleType == SCHEDULE_TYPE_TODAY) {//如果在today模块
+    
+    _lastSectorViewIdTouched = sectorId;
+    self.sectorTouchType = SectorTouchTypeDraggingBorder;//初始化
+    // Decide the touch type
+    SectorPositionType position = [self _sectorPositionTypeOfSectorId:sectorId];
+    
+    if (_scheduleType == SCHEDULE_TYPE_TODAY) {//如果在today模块
+        if(sectorId == 0 || (sectorId == NUM_SECTOR - 1 && position != SectorPositionTypeSingle)) {// 如果当前点击在第一个和最后一个sector，就是禁止触摸的模块
+            self.sectorTouchType = SectorTouchTypeDisable;
+        } else {
             if ([[self.holdArray objectAtIndex:sectorId] caseInsensitiveCompare:@"none"] != NSOrderedSame) {
                 //如果当前sector被hold了，就不允许拖动
+                NSLog(@"today模块，hold不是none，设置self.sectorTouchType = SectorTouchTypeDisable;");
                 self.sectorTouchType = SectorTouchTypeDisable;
-            }
-            if(position == SectorPositionTypeMiddle ) {//如果当前触摸的sector位于一个时段的中间，就不允许拖动
+            } else if(position == SectorPositionTypeMiddle ) {//如果当前触摸的sector位于一个时段的中间，就不允许拖动
                 self.sectorTouchType = SectorTouchTypeDisable;
+            } else if(position == SectorPositionTypeFirst ) {// if the current sector is the first sector of the period
+                if ([[self.holdArray objectAtIndex:sectorId - 1] caseInsensitiveCompare:@"none"] != NSOrderedSame) {// 如果前一时段被hold住了，也不能拖动
+                    self.sectorTouchType = SectorTouchTypeDisable;
+                }else {
+                    self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
+                    self.sectorTouchType = SectorTouchTypeDraggingBorder;
+                    
+                }
+            } else if(position == SectorPositionTypeLast ){// if the current sector is the last sector of the period
+                if ([[self.holdArray objectAtIndex:sectorId + 1] caseInsensitiveCompare:@"none"] != NSOrderedSame) {// 如果后一时段被hold住了，也不能拖动
+                    self.sectorTouchType = SectorTouchTypeDisable;
+                }else {
+                    self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
+                    self.sectorTouchType = SectorTouchTypeDraggingBorder;
+                }
             }
-            else if(position == SectorPositionTypeFirst ) {// if the current sector is the first sector of the period
-                self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
-                self.sectorTouchType = SectorTouchTypeDraggingBorder;
-            } else {// if the current sector is the last sector of the period
-                self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
-                self.sectorTouchType = SectorTouchTypeDraggingBorder;
+        }
+
+    } else if (_scheduleType == SCHEDULE_TYPE_NEXT24HRS){ //如果在Next24Hrs模块
+        if(sectorId == 0 || (sectorId == NUM_SECTOR - 1 && position != SectorPositionTypeSingle)) {// 如果当前点击在第一个, 或者如果当前点击在最后一个sector，并且该sector不是一个孤立的，就是禁止触摸的模块
+            self.sectorTouchType = SectorTouchTypeDisable;
+        } else {
+            if ([[self.holdArray objectAtIndex:sectorId] caseInsensitiveCompare:@"none"] != NSOrderedSame) {
+                //如果当前sector被hold了，就不允许拖动
+                NSLog(@"Next24Hrs模块，hold不是none，设置self.sectorTouchType = SectorTouchTypeDisable;");
+                self.sectorTouchType = SectorTouchTypeDisable;
+            } else if(position == SectorPositionTypeMiddle ) {//如果当前触摸的sector位于一个时段的中间，就不允许拖动
+                self.sectorTouchType = SectorTouchTypeDisable;
+            } else if(position == SectorPositionTypeFirst ) {// if the current sector is the first sector of the period
+                if ([[self.holdArray objectAtIndex:sectorId - 1] caseInsensitiveCompare:@"none"] != NSOrderedSame) {// 如果前一时段被hold住了，也不能拖动
+                    self.sectorTouchType = SectorTouchTypeDisable;
+                }else {
+                    self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
+                    self.sectorTouchType = SectorTouchTypeDraggingBorder;
+                    
+                }
+            } else if(position == SectorPositionTypeLast ) {// if the current sector is the last sector of the period
+                if ([[self.holdArray objectAtIndex:sectorId + 1] caseInsensitiveCompare:@"none"] != NSOrderedSame) {// 如果后一时段被hold住了，也不能拖动
+                    self.sectorTouchType = SectorTouchTypeDisable;
+                }else {
+                    self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
+                    self.sectorTouchType = SectorTouchTypeDraggingBorder;
+                }
             }
-        } else if (_scheduleType == SCHEDULE_TYPE_WEEKLY){ //如果在Weekly模块
-            if( self.delegate.currentSelectedModeId == -1){//如果没有选择某个mode，就不允许涂抹
+        }
+        
+    } else if (_scheduleType == SCHEDULE_TYPE_WEEKLY){ //如果在Weekly模块
+        if( self.delegate.currentSelectedModeId == -1){//如果没有选择某个mode，就不允许涂抹
+            if((sectorId == 0 && position != SectorPositionTypeSingle) || // 如果当前点击在第一个sector，并且该sector不是一个孤立的，就是禁止触摸的模块
+               (sectorId == NUM_SECTOR - 1 && position != SectorPositionTypeSingle)) {// 如果当前点击在最后一个sector，并且该sector不是一个孤立的，就是禁止触摸的模块
+                self.sectorTouchType = SectorTouchTypeDisable;
+            } else {
                 if(position == SectorPositionTypeMiddle ) {//如果当前触摸的sector位于一个时段的中间
                     self.sectorTouchType = SectorTouchTypeDisable;
                 } else if(position == SectorPositionTypeFirst ) {// if the current sector is the first sector of the period
@@ -1089,26 +1176,13 @@ typedef enum {
                     self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
                     self.sectorTouchType = SectorTouchTypeDraggingBorder;
                 }
-            } else { // 如果选择了某个mode
-                self.sectorTouchType = SectorTouchTypePainting;//如果选择了某个mode，就允许涂抹
             }
-        } else if (_scheduleType == SCHEDULE_TYPE_NEXT24HRS){ //如果在Next24Hrs模块
-            if ([[self.holdArray objectAtIndex:sectorId] caseInsensitiveCompare:@"none"] != NSOrderedSame) {
-                //如果当前sector被hold了，就不允许拖动
-                self.sectorTouchType = SectorTouchTypeDisable;
-            }
-            if(position == SectorPositionTypeMiddle ) {//如果当前触摸的sector位于一个时段的中间，就不允许拖动
-                self.sectorTouchType = SectorTouchTypeDisable;
-            }
-            else if(position == SectorPositionTypeFirst ) {// if the current sector is the first sector of the period
-                self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
-                self.sectorTouchType = SectorTouchTypeDraggingBorder;
-            } else {// if the current sector is the last sector of the period
-                self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
-                self.sectorTouchType = SectorTouchTypeDraggingBorder;
-            }
+            
+        } else { // 如果选择了某个mode
+            self.sectorTouchType = SectorTouchTypePainting;//如果选择了某个mode，就允许涂抹
         }
     }
+    
     _isScheduleChanged = NO;//触摸一开始，标记当前没有修改Schedule时段
 }
 

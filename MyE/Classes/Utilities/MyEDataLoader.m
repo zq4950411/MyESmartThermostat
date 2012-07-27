@@ -109,8 +109,7 @@
     // receivedData is an instance variable declared elsewhere.
     [_receivedData appendData:data];
 }
-- (void)connection:(NSURLConnection *)connection
-  didFailWithError:(NSError *)error
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     // inform the user
     NSLog(@"Connection failed! Error - %@ %@",
@@ -135,8 +134,7 @@
     }
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO; 
 }
--(void)connection:(NSURLConnection *)connection
-didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+-(void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
     if ([challenge previousFailureCount] == 0) {
         NSURLCredential *newCredential;

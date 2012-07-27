@@ -136,6 +136,10 @@
 		C3927C661504A8BB00E00230 /* MyEThumbColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3927C651504A8BB00E00230 /* MyEThumbColorView.m */; };
 		C393B7781524D6BE00B72FAF /* MyEPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C393B7771524D6BE00B72FAF /* MyEPasswordResetViewController.m */; };
 		C393B77C1524F41C00B72FAF /* MyESettingsData.m in Sources */ = {isa = PBXBuildFile; fileRef = C393B77B1524F41C00B72FAF /* MyESettingsData.m */; };
+		C394B8D915BDE75300283D0A /* reset_halfcircle_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C394B8D515BDE75300283D0A /* reset_halfcircle_disabled.png */; };
+		C394B8DA15BDE75300283D0A /* reset_halfcircle_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C394B8D615BDE75300283D0A /* reset_halfcircle_disabled@2x.png */; };
+		C394B8DB15BDE75300283D0A /* reset_halfcircle.png in Resources */ = {isa = PBXBuildFile; fileRef = C394B8D715BDE75300283D0A /* reset_halfcircle.png */; };
+		C394B8DC15BDE75300283D0A /* reset_halfcircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C394B8D815BDE75300283D0A /* reset_halfcircle@2x.png */; };
 		C396550F150F32EB00AFDEDE /* MyEVacationItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = C396550E150F32EB00AFDEDE /* MyEVacationItemData.m */; };
 		C3965513150F508300AFDEDE /* MyEStaycationItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3965512150F508200AFDEDE /* MyEStaycationItemData.m */; };
 		C3965519150F7F9500AFDEDE /* MyEVacationListData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3965518150F7F9400AFDEDE /* MyEVacationListData.m */; };
@@ -431,6 +435,10 @@
 		C393B7771524D6BE00B72FAF /* MyEPasswordResetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyEPasswordResetViewController.m; path = Settings/MyEPasswordResetViewController.m; sourceTree = "<group>"; };
 		C393B77A1524F41C00B72FAF /* MyESettingsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESettingsData.h; sourceTree = "<group>"; };
 		C393B77B1524F41C00B72FAF /* MyESettingsData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESettingsData.m; sourceTree = "<group>"; };
+		C394B8D515BDE75300283D0A /* reset_halfcircle_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset_halfcircle_disabled.png; sourceTree = "<group>"; };
+		C394B8D615BDE75300283D0A /* reset_halfcircle_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reset_halfcircle_disabled@2x.png"; sourceTree = "<group>"; };
+		C394B8D715BDE75300283D0A /* reset_halfcircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset_halfcircle.png; sourceTree = "<group>"; };
+		C394B8D815BDE75300283D0A /* reset_halfcircle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reset_halfcircle@2x.png"; sourceTree = "<group>"; };
 		C396550D150F32EB00AFDEDE /* MyEVacationItemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEVacationItemData.h; sourceTree = "<group>"; };
 		C396550E150F32EB00AFDEDE /* MyEVacationItemData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEVacationItemData.m; sourceTree = "<group>"; };
 		C3965511150F508200AFDEDE /* MyEStaycationItemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEStaycationItemData.h; sourceTree = "<group>"; };
@@ -743,6 +751,10 @@
 		C38654191565710500B85F66 /* schedule */ = {
 			isa = PBXGroup;
 			children = (
+				C394B8D515BDE75300283D0A /* reset_halfcircle_disabled.png */,
+				C394B8D615BDE75300283D0A /* reset_halfcircle_disabled@2x.png */,
+				C394B8D715BDE75300283D0A /* reset_halfcircle.png */,
+				C394B8D815BDE75300283D0A /* reset_halfcircle@2x.png */,
 				C386D6E5159BAF8F00B640D7 /* reset_disabled.png */,
 				C386D6E6159BAF8F00B640D7 /* reset_disabled@2x.png */,
 				C386D6E7159BAF8F00B640D7 /* reset.png */,
@@ -1067,8 +1079,8 @@
 				C3A1C33D155DD1D9008848A5 /* MyETodayScheduleController.m */,
 				C317869F150DAA1300A4E3B5 /* MyETodayPeriodEditingView.h */,
 				C31786A0150DAA1400A4E3B5 /* MyETodayPeriodEditingView.m */,
-				C38E12F6159FC0D400ACDC66 /* MyETodayHoldEditingView.m */,
 				C38E12F5159FC0D300ACDC66 /* MyETodayHoldEditingView.h */,
+				C38E12F6159FC0D400ACDC66 /* MyETodayHoldEditingView.m */,
 				C39ED53E1546077900010A1A /* MyETodayPeriodInforView.h */,
 				C39ED53F1546077900010A1A /* MyETodayPeriodInforView.m */,
 				C30924BE159D6894005C2C23 /* MyEPeriodInforDoughnutView.h */,
@@ -1341,6 +1353,10 @@
 				C38C293215A558A0007B7945 /* checkbox-unchecked.png in Resources */,
 				C38C293315A558A0007B7945 /* checkbox-unchecked@2x.png in Resources */,
 				C32A09AF15AD009700A7BF8A /* MyENext24HrsScheduleView.xib in Resources */,
+				C394B8D915BDE75300283D0A /* reset_halfcircle_disabled.png in Resources */,
+				C394B8DA15BDE75300283D0A /* reset_halfcircle_disabled@2x.png in Resources */,
+				C394B8DB15BDE75300283D0A /* reset_halfcircle.png in Resources */,
+				C394B8DC15BDE75300283D0A /* reset_halfcircle@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

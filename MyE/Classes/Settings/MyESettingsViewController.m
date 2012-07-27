@@ -392,6 +392,8 @@
     [prefs setBool:NO forKey:KEY_FOR_HIDE_TIP_OF_DASHBOARD2];
     [prefs setBool:NO forKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY1];
     [prefs setBool:NO forKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY2];
+    [prefs setBool:NO forKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_NEXT24HRS1];
+    [prefs setBool:NO forKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_NEXT24HRS2];
     [prefs setBool:NO forKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_WEEKLY];
     [prefs setBool:NO forKey:KEY_FOR_HIDE_TIP_OF_VACATION];
     [prefs setBool:NO forKey:KEY_FOR_HIDE_TIP_OF_SETTINGS];

@@ -107,6 +107,7 @@
 }
 
 - (void)_handleSingleTap:(NSSet *)touches {
+    _realTapCount = 0;
     UITouch *touch = [touches anyObject];
     CGPoint touchLocation = [touch locationInView:self];
     CGPoint ap = [self convertPoint:_touchLocation toView:self.delegate];
@@ -116,6 +117,7 @@
 }
 
 - (void)_handleDoubleTap {
+    _realTapCount = 0;
 //    NSLog(@"========Double taped");
     CGPoint ap = [self convertPoint:_touchLocation toView:self.delegate];
     if ([self.delegate respondsToSelector:@selector(handleDoubleTapAtLocation:sectorId:)])
@@ -146,6 +148,8 @@
         _path = [self _drawBezierPath];
         
         _isFlashing = isFlashing;
+        
+        _realTapCount = 0;
         
         //[self _highlightBorder];
         
@@ -290,14 +294,15 @@
 #pragma mark -
 #pragma mark UIResponder touches
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    NSLog(@"~~~~~~~~~~~~~~~~~~~sector view touch beging");
+    _realTapCount ++;
     UITouch *touch = [touches anyObject];
     _touchLocation = [touch locationInView:self];
+//    NSLog(@"~~~~~~~~~~~~~~~~~~~sector view touch begins， [touch tapCount] = %i",[touch tapCount]);
     
     // cancel any pending handleSingleTap messages 
-    if (touch.tapCount == 2)
-        [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    
+    if (touch.tapCount == 2 && _realTapCount == 2) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self ];
+    }
 
     
     // Animate the first touch, "Pulse" the view by scaling up then down.
@@ -308,9 +313,11 @@
     [self.delegate manageTouches:touches];
     
     _pressAndDrag = NO;
+
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+//    NSLog(@"SectorView touchesMoved");
     UITouch *touch = [touches anyObject];
     _touchLocation = [touch locationInView:self];
     
@@ -323,12 +330,14 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {    
     UITouch *touch = [touches anyObject];
     _touchLocation = [touch locationInView:self];
-
     
     // first check for plain single/double tap, which is only possible if we haven't seen multiple touches
-    if ([touch tapCount] <= 1) {//有时候单指触摸并拖动结束后，tapCount可能是0或1，不知原因，
-        if([self pointInside:_touchLocation])// 如果手指抬起头的点是在本view上，才算是单击
+//    NSLog(@"==== SectorView touchesEnded,  [touch tapCount] = %i, touches.count = %i, _realTapCount = %i",[touch tapCount], touches.count, _realTapCount);
+
+    if ([touch tapCount] < 2) {//有时候单指触摸并拖动结束后，tapCount可能是0或1，不知原因，
+        if([self pointInside:_touchLocation]){// 如果手指抬起头的点是在本view上，才算是单击
             [self performSelector:@selector(_handleSingleTap:) withObject:touches afterDelay:DOUBLE_TAP_DELAY];
+        }
         
         // 如果拖动过才发送下面的给delegate，否则不发送
        // if (_pressAndDrag ) {
@@ -336,9 +345,19 @@
             [self.delegate handleTouchEndedAtLocation:ap  sectorId:self.uid];
         //}
         
-    } else if([touch tapCount] == 2) {
-        [self _handleDoubleTap];
-        
+    } else if([touch tapCount] >= 2) {
+        // 不知为什么在有的时候，明明是手指点击下去，稍微滑动一下，然后抬起来，也就是说函数touchesBegan:withEvent:仅被执行了一次，
+        // 在- (void)touchesEnded:withEvent:函数里报告是点击了两次，即[touch tapCount] == 2。
+        // 所以这里我们采用自定义的变量_realTapCount来记录touchesBegan:withEvent:被调用的次数。
+        // 在成功执行单击或双击处理函数时，对_realTapCount清零。
+        //当报告[touch tapCount] == 2时，只有在_realTapCount>=2时，才视作真正的双击，否则当做单击处理.
+        // 这是经过一天千辛万苦调试才找到的原因，然后想出来的办法
+        if (_realTapCount >=2) {// 如果真实的点击是两次
+            [NSObject cancelPreviousPerformRequestsWithTarget:self];
+            [self _handleDoubleTap];
+        }else if (_realTapCount <2){// 如果真正的点击是小于两次，即一次
+            [self performSelector:@selector(_handleSingleTap:) withObject:touches afterDelay:DOUBLE_TAP_DELAY];
+        }
     }
    
     _pressAndDrag = NO;

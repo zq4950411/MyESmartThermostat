@@ -127,8 +127,8 @@
     [self.applyButton setImage:[UIImage imageNamed:@"apply.png"] forState:UIControlStateNormal];
     //self.applyButton.enabled = NO;
     
-    [self.resetButton setImage:[UIImage imageNamed:@"reset.png"] forState:UIControlStateNormal];
-    [self.resetButton setImage:[UIImage imageNamed:@"reset_disabled.png"] forState:UIControlStateDisabled];
+    [self.resetButton setImage:[UIImage imageNamed:@"reset_halfcircle.png"] forState:UIControlStateNormal];
+    [self.resetButton setImage:[UIImage imageNamed:@"reset_halfcircle_disabled.png"] forState:UIControlStateDisabled];
     self.resetButton.enabled = NO;
     
     NSDate *aDate = [NSDate date];
@@ -959,7 +959,10 @@
             self.delegate.todayWeeklySwitchButton.enabled = YES;
             _resetButton.alpha = 1;
             _applyButton.alpha = 1;
-            
+            _modePickerView.alpha = 1.0f;
+            _weeklyDaySelectionView.alpha = 1.0f;
+            _addNewModeButton.alpha = 1.0f;
+            _editModeButton.alpha = 1.0f;
         }
     } else {
         [_periodInforDoughnutView setHidden:NO];
@@ -969,6 +972,10 @@
             self.delegate.todayWeeklySwitchButton.enabled = NO;
             _resetButton.alpha = 0.66;
             _applyButton.alpha = 0.66;
+            _modePickerView.alpha = 0.66f;
+             _weeklyDaySelectionView.alpha = 0.66f;
+            _addNewModeButton.alpha = 0.66f;
+            _editModeButton.alpha = 0.66f;
         }
         
         _periodInforDoughnutView.periods = [self.weeklyModel periodsForWeekdayId:self.currentWeekdayId];

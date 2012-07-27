@@ -122,7 +122,7 @@ metaModeArray = _metaModeArray;
     // 在分析第二天时段之前，需要进行判定。
     // 有可能在当前正在运行在0点到1:00之前这个时间时，self.periods的最后一个时段的结束半点时刻刚好是48，就不用再从第二天里面取数据，就可以退出了
     // 只有在lastPeriodOfToday.etid < NUM_SECTOR（即48） 时，也就是已经添加到结果数组的时段还没达到48个半点时，才需要从第二天取数据。
-    if (lastPeriodOfToday.etid < NUM_SECTOR) { // 如果已经添加进self.periods的最后一个时段的结束不是48. 
+    if (lastPeriodOfToday.etid < NUM_SECTOR) { // 如果已经添加进self.periods的最后一个时段的结束不是48,表示至少最后一个时段还有一部分是从第二天获取的. 
         // 对第二天的每个时段进行循环分析处理
         for (NSInteger i = 0; i < [nextDayItem.periods count]; i++) {
             MyETodayPeriodData *period = [nextDayItem.periods objectAtIndex:i];// 取得第i个时段
@@ -239,9 +239,10 @@ metaModeArray = _metaModeArray;
                 }
             }
 
-            if (lastPeriod.stid > zeroHourSectorId) {
-                originalLastPeriod.stid = lastPeriod.stid - NUM_SECTOR + currentHalfHr;
-                originalLastPeriod.stid = lastPeriod.stid - NUM_SECTOR + currentHalfHr;
+            // next24Hrs的最后一个时段刚好跨越0点,或者从0点开始, 或者如果next24Hrs中最后一个时段是second dayItem的第一个时段
+            if ((lastPeriod.stid <= zeroHourSectorId && lastPeriod.etid > zeroHourSectorId) || originalLastPeriodIndex == 0) {
+                NSLog(@"originalLastPeriodIndex = %i ", originalLastPeriodIndex);
+                originalLastPeriod.stid = 0;
                 originalLastPeriod.heating = lastPeriod.heating;
                 originalLastPeriod.cooling = lastPeriod.cooling;
                 originalLastPeriod.color = [MyEUtil colorWithHexString:[MyEUtil hexStringWithUIColor:lastPeriod.color]];
@@ -249,14 +250,15 @@ metaModeArray = _metaModeArray;
                 originalLastPeriod.hold = lastPeriod.hold;
                 
             }
-            
-            if (originalLastPeriodIndex == 0) {// 如果next24Hrs中最后一个时段是second dayItem的第一个时段
-                originalLastPeriod.stid = 0;
+            // next24Hrs的最后一个时段比0点晚，把原始时段的开始时刻修改为此最后时段的开始时刻，而且也要修改setpoint，因为用户修改了的时段如果是原来时段拆分的，就要对原来时段的setpoint进行修改
+            if (lastPeriod.stid > zeroHourSectorId) {
+                originalLastPeriod.stid = lastPeriod.stid - zeroHourSectorId;
                 originalLastPeriod.heating = lastPeriod.heating;
                 originalLastPeriod.cooling = lastPeriod.cooling;
                 originalLastPeriod.color = [MyEUtil colorWithHexString:[MyEUtil hexStringWithUIColor:lastPeriod.color]];
                 originalLastPeriod.title = lastPeriod.title;
                 originalLastPeriod.hold = lastPeriod.hold;
+                
             }
             
             // 执行删除第二天的其他非next24Hrs中最后一个时段
@@ -265,28 +267,26 @@ metaModeArray = _metaModeArray;
             }
 
             // 执行添加next24Hrs中periods里面非next24Hrs的最后一个时段但属于second dayItem的时段
-            for (NSInteger i = [self.periods count] - 2; i >=0; i--){
-                
-                MyETodayPeriodData *p = [self.periods objectAtIndex:i];
-                if (p.stid > zeroHourSectorId) {// 如果p不是跨越0点的时段
-                    MyETodayPeriodData *np = [p copy];
-                    np.stid = p.stid - zeroHourSectorId;
-                    np.etid = p.etid - zeroHourSectorId;
-                    [dayItem.periods insertObject:np atIndex:0];//添加
-                }else {// 如果p是跨越0点的时段
-                    MyETodayPeriodData *np = [p copy];
-                    np.stid = 0;
-                    np.etid = p.etid - zeroHourSectorId;
-                    [dayItem.periods insertObject:np atIndex:0];//添加
-                    break;
+            if ([self.periods count] >= 2) {
+                for (NSInteger i = [self.periods count] - 2; i >=0; i--){
+                    //对每一个Next24Hrs.periods中最后一个时段之前的个时段进行检查
+                    MyETodayPeriodData *p = [self.periods objectAtIndex:i];
+                    if (p.stid > zeroHourSectorId) {// 如果p不是跨越0点的时段,比0点晚
+                        MyETodayPeriodData *np = [p copy];
+                        np.stid = p.stid - zeroHourSectorId;
+                        np.etid = p.etid - zeroHourSectorId;
+                        [dayItem.periods insertObject:np atIndex:0];//添加
+                    }else if(p.stid <= zeroHourSectorId && p.etid > zeroHourSectorId){// 如果p是跨越0点的时段
+                        MyETodayPeriodData *np = [p copy];
+                        np.stid = 0;
+                        np.etid = p.etid - zeroHourSectorId;
+                        [dayItem.periods insertObject:np atIndex:0];//添加
+                        break;
+                    }
                 }
             }
         }
-
     }
-    
-    
-    
        
     if(![self isResultValid])
         NSLog(@"[MyEScheduleNext24HrsData updaeDayItemsByPeriods] run error");
@@ -342,8 +342,6 @@ metaModeArray = _metaModeArray;
 #pragma mark -
 #pragma mark JSON methods
 - (NSDictionary *)JSONDictionary{
-    // 注意，每次获取JSON词典之前，需要用periods里面的最新时段数据反向更新dayItems里面的两天数据
-//    [self updaeDayItemsByPeriods];// 为了测试，暂时不用此语句试试
     // 这里把self.dayItems里面的每个dayItem对象进行json序列化后放入数组dayItems。这样才能把数组dayItems进行正确的JSON序列化
     NSMutableArray *dayItems = [NSMutableArray array];
     for (MyENext24HrsDayItemData *dayItem in self.dayItems)
@@ -362,20 +360,19 @@ metaModeArray = _metaModeArray;
     return dict;
 }
 -(id)copyWithZone:(NSZone *)zone {
-    NSDictionary *dict = [self JSONDictionary];
-    MyEScheduleNext24HrsData *cloned = [[MyEScheduleNext24HrsData alloc] initWithDictionary:dict];
+    MyEScheduleNext24HrsData *cloned = [[MyEScheduleNext24HrsData alloc] initWithDictionary:[self JSONDictionary]];
     
-    NSString *selfStr = [NSString stringWithFormat:@"%@",self];
-    NSString *clonedStr = [NSString stringWithFormat:@"%@",cloned];
-    if ([selfStr compare:clonedStr]== NSOrderedSame) {
-        NSLog(@"克隆Next24Hrs数据对象一样");
-    }
-    else {
-        NSLog(@"克隆Next24Hrs数据对象不一样???????????????????");
-        NSLog(@"--------------%@",self);
-        NSLog(@"--------------%@",cloned);
-        MyEScheduleNext24HrsData *cloned = [[MyEScheduleNext24HrsData alloc] initWithDictionary:dict];
-    }
+//    NSString *selfStr = [NSString stringWithFormat:@"%@",self];
+//    NSString *clonedStr = [NSString stringWithFormat:@"%@",cloned];
+//    if ([selfStr compare:clonedStr]== NSOrderedSame) {
+//        NSLog(@"克隆Next24Hrs数据对象一样");
+//    }
+//    else {
+//        NSLog(@"克隆Next24Hrs数据对象不一样???????????????????");
+//        NSLog(@"--------------%@",self);
+//        NSLog(@"--------------%@",cloned);
+//        MyEScheduleNext24HrsData *cloned = [[MyEScheduleNext24HrsData alloc] initWithDictionary:dict];
+//    }
     return cloned;
 }
 -(NSString *)description
@@ -497,12 +494,12 @@ metaModeArray = _metaModeArray;
     // 处理最后一个时段
     period.etid = NUM_SECTOR;
     [periods addObject:period];
-
+ 
     
     //注意，这里不能调用self.periods进行复制，因为在setPeriods函数中对metaModeArray进行了更新，这里用空数组进行复制，导致metaModeArray也为空
     _periods = periods;
     [self updaeDayItemsByPeriods];
-    self.periods = [self computePeriodsFromDayItems];
+    //self.periods = [self computePeriodsFromDayItems];// 此语句应该不需要，并且疑似此语句导致在真机运行上crash，但在模拟器上不crash。再确认一下，如果确实不需要，就删除
     
     if(![self isPeriodsValid:periods ])
         NSLog(@"[MyEScheduleNext24HrsData updateWithModeIdArray] 正在拆分生成的Next24Hrs的periods不正确");
@@ -514,7 +511,7 @@ metaModeArray = _metaModeArray;
 
 // 用户双击某个sector后，对其heating/cooling进行编辑，这里就用新的数据更新periods数据。
 // 注意传入的已经是时段period的序号，而不是sector的序号
-- (void)updateWithSectorIndex:(NSUInteger)periodIndex heating:(float)heating cooling:(float)cooling {
+- (void)updateWithPeriodIndex:(NSUInteger)periodIndex heating:(float)heating cooling:(float)cooling {
     MyETodayPeriodData *period = [self.periods objectAtIndex:periodIndex];
     
     period.heating = heating;
@@ -523,6 +520,9 @@ metaModeArray = _metaModeArray;
     MyEScheduleModeData *mode = [self.metaModeArray objectAtIndex:periodIndex];
     mode.heating = heating;
     mode.cooling = cooling;
+    
+    [self updaeDayItemsByPeriods];// 根据变化了的Next24Hrs.periods数组，更新dayItems
+    [self refreshMetaModeArrayByPeriods];// 根据变化了的Next24Hrs.periods数组，更新元模式数组
 }
 
 #pragma mark

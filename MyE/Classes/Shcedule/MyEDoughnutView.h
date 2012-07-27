@@ -24,7 +24,7 @@ typedef enum {
 
 @protocol MyEDoughnutViewDelegate;
 
-@interface MyEDoughnutView : UIView
+@interface MyEDoughnutView : UIView <UIGestureRecognizerDelegate>
 {
     NSMutableArray *_sectorViews;
     NSMutableArray *_timeArrowViews;
@@ -42,6 +42,10 @@ typedef enum {
     NSInteger _sectorIdSpaningCurrentTime;//指定刚好跨越当前时刻的sector，如果时刻刚好在整半点处，那么就取下一个sector的id
 
     // ------------------------------------------------------------------------------
+    
+    
+    UITapGestureRecognizer *_singleTapRecognizer;// 单击姿势识别器
+    UITapGestureRecognizer *_doubleTapRecognizer;// 单击姿势识别器
 }
 
 @property (retain, nonatomic) id <MyEDoughnutViewDelegate> delegate;
