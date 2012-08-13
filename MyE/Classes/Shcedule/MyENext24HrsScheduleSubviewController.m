@@ -82,7 +82,7 @@
     NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
     NSLog(@"Next24Hrs panel viewDidLoad: sectorIdSpaningCurrentTime = %i",sectorIdSpaningCurrentTime);
     // 生成hold数组
-    NSArray *holdArray = [self.next24hrsModel holdArray];
+    NSMutableArray *holdArray = [self.next24hrsModel holdArray];
     _doughnutView.holdArray = holdArray;
     _doughnutView.sectorIdSpaningCurrentTime = sectorIdSpaningCurrentTime;
     _doughnutView.zeroHourSectorId = NUM_SECTOR - [self.next24hrsModel getHoursForCurrentTime] * 2;
@@ -288,7 +288,7 @@
             NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
             NSLog(@"sectorIdSpaningCurrentTime = %i",sectorIdSpaningCurrentTime);
             // 生成hold数组
-            NSArray *holdArray = [self.next24hrsModel holdArray];
+            NSMutableArray *holdArray = [self.next24hrsModel holdArray];
             _doughnutView.holdArray = holdArray;
             _doughnutView.sectorIdSpaningCurrentTime = sectorIdSpaningCurrentTime;
 
@@ -335,7 +335,7 @@
                 NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
                 NSLog(@"sectorIdSpaningCurrentTime = %i",sectorIdSpaningCurrentTime);
                 // 生成hold数组
-                NSArray *holdArray = [self.next24hrsModel holdArray];
+                NSMutableArray *holdArray = [self.next24hrsModel holdArray];
                 _doughnutView.holdArray = holdArray;
                 _doughnutView.sectorIdSpaningCurrentTime = sectorIdSpaningCurrentTime;
                 
@@ -404,7 +404,7 @@
                 NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
                 NSLog(@"sectorIdSpaningCurrentTime = %i",sectorIdSpaningCurrentTime);
                 // 生成hold数组
-                NSArray *holdArray = [self.next24hrsModel holdArray];
+                NSMutableArray *holdArray = [self.next24hrsModel holdArray];
                 _doughnutView.holdArray = holdArray;
                 _doughnutView.sectorIdSpaningCurrentTime = sectorIdSpaningCurrentTime;
                 
@@ -492,7 +492,7 @@
 - (void) didFinishHoldEditingWithAction:(NSInteger)action setpoint:(NSInteger)setpoint run:(BOOL)isRun{
     NSLog(@"action = %i, setpoint = %i, run = %@", action, setpoint, (isRun ? @"YES" : @"NO"));
     [self _toggleHoldEditingView];
-    
+
     // action: 0-run, 1-ok, 2-cancel
     if (action == 0) {
         [self uploadHoldModelToServerWithSetpoint:setpoint hold:0];
@@ -520,6 +520,7 @@
         [self.applyButton setEnabled:YES];
         [self.resetButton setEnabled:YES];
         [self.next24hrsModel updateWithModeIdArray:modeIdArray];
+        _doughnutView.holdArray = [self.next24hrsModel holdArray];//现在允许拖动hold时段了，所以必须更新holdArray
     }
     
     // 下面代码用于修正bug：通过涂抹操作调整时间点后，在手抬起来的那一刹那，经常错误触发显示setpoint的单击事件。
@@ -579,6 +580,8 @@
 @implementation MyENext24HrsScheduleSubviewController(PrivateMethods)
 - (void)_restoreToLastUnchanged {
     self.next24hrsModel = [self.next24hrsModelCache copy];//将主数据模型整体恢复为缓冲数据模型里面保持的老的数据，这里不需要恢复Modes部分，所以注释了
+    NSMutableArray *holdArray = [self.next24hrsModel holdArray];
+    _doughnutView.holdArray = holdArray;
     
     NSMutableArray * modeIdArray = [self.next24hrsModel modeIdArray];
     [_doughnutView updateWithModeIdArray:modeIdArray];

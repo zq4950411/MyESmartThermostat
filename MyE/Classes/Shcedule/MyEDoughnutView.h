@@ -57,7 +57,7 @@ typedef enum {
 
 // 这是一个48个元素的数组，每个元素是一个字符串，对应于一个sector，表示是该sector所在period的hold字符。
 // 该字符串如果为none，表示没有hold，否则就表示hold了。
-@property (retain, nonatomic) NSArray *holdArray;//hold字符串数组，每个时段对应一个hold字符串
+@property (retain, nonatomic) NSMutableArray *holdArray;//hold字符串数组，每个时段对应一个hold字符串
 
 @property (nonatomic) BOOL isRemoteControl;
 

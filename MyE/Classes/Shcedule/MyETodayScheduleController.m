@@ -69,11 +69,15 @@
         
         _doughnutView = [[MyEDoughnutView alloc] initWithFrame:CGRectMake(30, 15, TODAY_DOUGHNUT_VIEW_SIZE, TODAY_DOUGHNUT_VIEW_SIZE) delegate:self];
         _doughnutView.delegate = self;
+        /*
         self.todayModel = [[MyEScheduleTodayData alloc] initWithJSONString:@"{\"currentTime\":\"7/23/2012 1:20\",\"hold\":2,\"houseId\":419,\"isheatcool\":1,\"periods\":[{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":1,\"heating\":70,\"hold\":\"None\",\"stid\":0,\"title\":\"Period1\"},{\"color\":\"0xf06e70\",\"cooling\":74,\"etid\":10,\"heating\":69,\"hold\":\"Temporary Hold\",\"stid\":1,\"title\":\"Period2\"},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":26,\"heating\":64,\"hold\":\"None\",\"stid\":10,\"title\":\"Period3\"},{\"color\":\"0xf2cf45\",\"cooling\":75,\"etid\":42,\"heating\":69,\"hold\":\"None\",\"stid\":26,\"title\":\"Period4\"},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42,\"title\":\"Period5\"}],\"setpoint\":69,\"userId\":\"1000100000000000317\",\"weeklyid\":0}"];
+        */
+        self.todayModel = [[MyEScheduleTodayData alloc] initWithJSONString:@"{\"currentTime\":\"7/27/2012 20:59\",\"hold\":2,\"houseId\":419,\"isheatcool\":2,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":16,\"heating\":66,\"hold\":\"None\",\"stid\":0,\"title\":\"Period1\"},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":19,\"heating\":70,\"hold\":\"None\",\"stid\":16,\"title\":\"Period2\"},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":34,\"heating\":64,\"hold\":\"None\",\"stid\":19,\"title\":\"Period3\"},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":41,\"heating\":70,\"hold\":\"None\",\"stid\":34,\"title\":\"Period4\"},{\"color\":\"0xf06e70\",\"cooling\":76,\"etid\":42,\"heating\":70,\"hold\":\"Temporary Hold\",\"stid\":41,\"title\":\"Period5\"},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42,\"title\":\"Period6\"}],\"setpoint\":76,\"userId\":\"1000100000000000317\",\"weeklyid\":0}"];
+        
         NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
         NSLog(@"sectorIdSpaningCurrentTime = %i",sectorIdSpaningCurrentTime);
         // 生成hold数组
-        NSArray *holdArray = [self.todayModel holdArray];
+        NSMutableArray *holdArray = [self.todayModel holdArray];
         _doughnutView.holdArray = holdArray;
         _doughnutView.sectorIdSpaningCurrentTime = sectorIdSpaningCurrentTime;
         
@@ -271,7 +275,7 @@
             NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
             NSLog(@"sectorIdSpaningCurrentTime = %i",sectorIdSpaningCurrentTime);
             // 生成hold数组
-            NSArray *holdArray = [self.todayModel holdArray];
+            NSMutableArray *holdArray = [self.todayModel holdArray];
             _doughnutView.holdArray = holdArray;
             _doughnutView.sectorIdSpaningCurrentTime = sectorIdSpaningCurrentTime;
             
@@ -313,7 +317,7 @@
                 NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
                 NSLog(@"sectorIdSpaningCurrentTime = %i",sectorIdSpaningCurrentTime);
                 // 生成hold数组
-                NSArray *holdArray = [self.todayModel holdArray];
+                NSMutableArray *holdArray = [self.todayModel holdArray];
                 _doughnutView.holdArray = holdArray;
                 _doughnutView.sectorIdSpaningCurrentTime = sectorIdSpaningCurrentTime;
                 
@@ -365,7 +369,7 @@
             NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
             NSLog(@"sectorIdSpaningCurrentTime = %i",sectorIdSpaningCurrentTime);
             // 生成hold数组
-            NSArray *holdArray = [self.todayModel holdArray];
+            NSMutableArray *holdArray = [self.todayModel holdArray];
             _doughnutView.holdArray = holdArray;
             _doughnutView.sectorIdSpaningCurrentTime = sectorIdSpaningCurrentTime;
             
@@ -433,7 +437,7 @@
 - (void) didFinishHoldEditingWithAction:(NSInteger)action setpoint:(NSInteger)setpoint run:(BOOL)isRun{
     NSLog(@"action = %i, setpoint = %i, run = %@", action, setpoint, (isRun ? @"YES" : @"NO"));
     [self _toggleHoldEditingView];
-    
+
     // action: 0-run, 1-ok, 2-cancel
     if (action == 0) {
         [self uploadHoldModelToServerWithSetpoint:setpoint hold:0];
@@ -460,6 +464,7 @@
         _scheduleChangedByUserTouch = YES;
         [_applyButton setEnabled:YES];
         [self.todayModel updateWithModeIdArray:modeIdArray];
+        _doughnutView.holdArray = [self.todayModel holdArray];//现在允许拖动hold时段了，所以必须更新holdArray
     }
     
     // 下面代码用于修正bug：2.1.	通过涂抹操作调整时间点后，在手抬起来的那一刹那，经常错误触发显示setpoint的单击事件。
@@ -503,6 +508,11 @@
 #pragma mark MyEDoughnutViewDelegate methods
 - (UIColor *)currentModeColor
 {
+//    NSArray *holdArray = [self.todayModel holdArray];
+//    NSString *hold = [holdArray objectAtIndex:self.currentSelectedModeId];
+//    if ([hold caseInsensitiveCompare:@"none"] == NSOrderedSame) {
+//        <#statements#>
+//    }
     NSMutableDictionary *modeIdColorDictionary = [self.todayModel modeIdColorDictionary];
     return [modeIdColorDictionary objectForKey:[NSNumber numberWithInt:self.currentSelectedModeId]];
 }

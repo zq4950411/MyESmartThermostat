@@ -323,13 +323,20 @@
     NSLog(@"touch canceld in sector");
     
     // 由于在DoughnutView里面识别了单击和双击，当单双击发生时，此处的touch识别就会执行touchesBegan、touchesMoved，而不会执行touchesEnded而直接进入touchesCancelled，所以可能导致touchesEnded中的本类代理的handleTouchEndedAtLocation函数未被调用，但是前两个touch函数中调用的代理函数已经设置了拖动、涂抹变量，这就会导致以后真正进行拖动涂抹是，选择的modeId不正确的错误，所以这里需要进一步处理
+    // touchesCancelled被调用的情况也分为两种，在单双击的时候有可能被调用，在拖动正常时手指到另外的sector时，也有可能被调用（原因未知）
     //*
     UITouch *touch = [touches anyObject];
     _touchLocation = [touch locationInView:self];
+//    if([self pointInside:_touchLocation]){
+//        NSLog(@"11==================== SectorView touchesCancelled,  [touch tapCount] = %i",[touch tapCount]);
+//        CGPoint ap = [self convertPoint:_touchLocation toView:self.delegate];
+//        [self.delegate handleTouchCanceledAtLocation:ap  sectorId:self.uid];
+//    }
+//    else 
     if(![self pointInside:_touchLocation]){
-        NSLog(@"==================== SectorView touchesCancelled,  [touch tapCount] = %i",[touch tapCount]);
+        NSLog(@"22==================== SectorView touchesCancelled,  [touch tapCount] = %i",[touch tapCount]);
         CGPoint ap = [self convertPoint:_touchLocation toView:self.delegate];
-        [self.delegate handleTouchCanceledAtLocation:ap  sectorId:self.uid];
+        [self.delegate handleTouchEndedAtLocation:ap  sectorId:self.uid];
     }
     //*/
 
