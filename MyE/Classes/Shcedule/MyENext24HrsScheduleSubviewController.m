@@ -177,7 +177,7 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i",URL_FOR_NEXT24HRS_SCHEDULE_VIEW, self.userId, self.houseId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"Next24HrsyDownloader" userDataDictionary:nil];
-    NSLog(@"Next24HrsyDownloader : %@",downloader);
+    NSLog(@"Next24HrsyDownloader.name = %@",downloader.name);
 }
 - (void) downloadWeeklyModelFromServer  
 {

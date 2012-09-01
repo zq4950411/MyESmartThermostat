@@ -18,7 +18,7 @@
     NSMutableData *_receivedData;
 }
 @property (nonatomic, retain) id <MyEDataLoaderDelegate> delegate;
-@property (nonatomic, retain) NSString *name;
+@property (nonatomic, copy) NSString *name;
 @property (nonatomic, retain) NSDictionary *userDataDictionary;
 
 // 1.判断是否联网：// 需要加入 frameworks:/System/Library/Frameworks/SystemConfiguration.framework

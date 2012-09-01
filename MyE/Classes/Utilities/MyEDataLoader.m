@@ -88,6 +88,7 @@
         } else {
             // Inform the user that the connection failed.
         }
+        return  self;
     }
     return  nil;
 }

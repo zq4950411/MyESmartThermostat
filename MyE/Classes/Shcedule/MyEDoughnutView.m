@@ -282,7 +282,7 @@ typedef enum {
         
     }
     
-//    NSLog(@"2222range.location = %i, length = %i", location, length);
+    NSLog(@"99999999range.location = %i, length = %i", location, length);
     return NSMakeRange(location, length);
 }
 
@@ -353,6 +353,19 @@ typedef enum {
         }
         
         SectorPositionType position = [self _sectorPositionTypeOfSectorId:_lastSectorViewIdTouched];
+        if (position == SectorPositionTypeFirst) {
+            NSLog(@"第一次计算的 position = First，   _lastSectorViewIdTouched = %i", _lastSectorViewIdTouched);
+        }
+        if (position == SectorPositionTypeLast) {
+            NSLog(@"第一次计算的 position = last，   _lastSectorViewIdTouched = %i", _lastSectorViewIdTouched);
+        }
+        if (position == SectorPositionTypeMiddle) {
+            NSLog(@"第一次计算的 position = Middle，   _lastSectorViewIdTouched = %i", _lastSectorViewIdTouched);
+        }
+        if (position == SectorPositionTypeSingle) {
+            NSLog(@"第一次计算的 position = Single，   _lastSectorViewIdTouched = %i", _lastSectorViewIdTouched);
+        }
+        
         if( csid < _lastSectorViewIdTouched ) {//逆时针触摸
             // 处理从最后一个sector触摸移动到倒数第二个sector的情况，此时强制设置触摸位置为时段的开始sector
             if (_lastSectorViewIdTouched == NUM_SECTOR - 1 && csid == NUM_SECTOR - 2) {
@@ -392,11 +405,12 @@ typedef enum {
                     NSLog(@"拖动边界 & 逆时针 & position Last, 超出许可范围退出");
                     return NO;
                 }
-                realLastSelectedSectorId = _lastSectorViewIdTouched+1;
+                realLastSelectedSectorId = _lastSectorViewIdTouched + 1;
                 
                 NSLog(@"拖动边界 & 逆时针 & position Last");
             }
         } else if( csid > _lastSectorViewIdTouched ) {//顺时针触摸
+//            NSLog(@"顺时针触摸 1");
             // 处理从第一个sector触摸移动到第二个sector的情况，此时强制设置触摸位置为时段的最后sector
             if (_lastSectorViewIdTouched == 0 && csid ==1) {
                 position = SectorPositionTypeLast;
@@ -404,7 +418,7 @@ typedef enum {
             if (position == SectorPositionTypeSingle) {
                 position = SectorPositionTypeLast;
             }
-            
+//            NSLog(@"顺时针触摸 2");
             if (position == SectorPositionTypeFirst ) {// if the current sector is the first sector of the period
                 psid = csid - 1;//允许涂抹的当前sid设置为比当前sid小1
                 if (psid < 0) {
@@ -417,14 +431,15 @@ typedef enum {
                 // 如果当准备要修改涂抹的sector(psid)不允许被改变，就返回。
                 if (psid < changeableSectorRange.location || psid > changeableSectorRange.location + changeableSectorRange.length) {
                     NSLog(@"拖动边界 & 顺时针 & position First, 超出许可范围退出");
+                    self.sectorTouchType = SectorTouchTypeDisable;// 这句话的起效情况是在Today页面试图去调节当前时段的截止时间，当时current time离截止时间已经不足半小时，是不允许调整的，
                     return NO;
                 }
-                realLastSelectedSectorId = _lastSectorViewIdTouched-1;
+                realLastSelectedSectorId = _lastSectorViewIdTouched - 1;
                 NSLog(@"拖动边界 & 顺时针 & position First");
             }
             if (position == SectorPositionTypeLast ) {// if the current sector is the last sector of the period
                 // 如果下句注释，原因见Comment 1
-                changeableSectorRange = [self _changeableSectorRangeForSelectedSector:_lastSectorViewIdTouched-1];
+                changeableSectorRange = [self _changeableSectorRangeForSelectedSector:_lastSectorViewIdTouched - 1];
                 // 如果当准备要修改涂抹的sector(psid)不允许被改变，就返回。
                 if (psid < changeableSectorRange.location || psid > changeableSectorRange.location + changeableSectorRange.length) {
                     NSLog(@"拖动边界 & 顺时针 & position last, 超出许可范围退出");
@@ -433,6 +448,7 @@ typedef enum {
                 realLastSelectedSectorId = _lastSectorViewIdTouched;
                 NSLog(@"拖动边界 & 顺时针 & position Last");
             }
+            NSLog(@"顺时针触摸 3,   position = %i", position);
         }
     } 
     // 下面处理涂抹的情况。
@@ -475,20 +491,26 @@ typedef enum {
             eid = psid;
         }
     }
+    
+    NSLog(@"22222222222-------sectorId=%i, csid=%i, _lastSectorViewIdTouched = %i", sectorId, csid, _lastSectorViewIdTouched);
+    
+    NSString *hold = @"None";// 记录下当前选择sector的hold字符串
     if (realLastSelectedSectorId> - 1) {// 如果在weekly选择mode后进行涂抹，此时realLastSelectedSectorId就仍然是-1
         self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:realLastSelectedSectorId] intValue];
+        hold = [self.holdArray objectAtIndex:realLastSelectedSectorId];// 记录下当前选择sector的hold字符串
+    } else {
+        NSLog(@"realLastSelectedSectorId < 0");
     }
     
-    NSLog(@"sectorId=%i, csid=%i, _lastSectorViewIdTouched = %i", sectorId, csid, _lastSectorViewIdTouched);
-    
-    NSString *hold = [self.holdArray objectAtIndex:realLastSelectedSectorId];// 记录下当前选择sector的hold字符串
-    
+
+
     UIColor *fillColor = [self.delegate currentModeColor];
     // 现在要加入hold时段被拖动的情况。
     if ([hold caseInsensitiveCompare:@"none"] != NSOrderedSame) {
         fillColor = [UIColor lightGrayColor];
+        NSLog(@"444444444");
     }
-    
+
     //如果开始的sector id大于当前sector id，表示用户触摸动作跨过了0分界线，需要分两个部分处理
     if(eid < sid)
     {

@@ -72,7 +72,7 @@
         /*
         self.todayModel = [[MyEScheduleTodayData alloc] initWithJSONString:@"{\"currentTime\":\"7/23/2012 1:20\",\"hold\":2,\"houseId\":419,\"isheatcool\":1,\"periods\":[{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":1,\"heating\":70,\"hold\":\"None\",\"stid\":0,\"title\":\"Period1\"},{\"color\":\"0xf06e70\",\"cooling\":74,\"etid\":10,\"heating\":69,\"hold\":\"Temporary Hold\",\"stid\":1,\"title\":\"Period2\"},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":26,\"heating\":64,\"hold\":\"None\",\"stid\":10,\"title\":\"Period3\"},{\"color\":\"0xf2cf45\",\"cooling\":75,\"etid\":42,\"heating\":69,\"hold\":\"None\",\"stid\":26,\"title\":\"Period4\"},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42,\"title\":\"Period5\"}],\"setpoint\":69,\"userId\":\"1000100000000000317\",\"weeklyid\":0}"];
         */
-        self.todayModel = [[MyEScheduleTodayData alloc] initWithJSONString:@"{\"currentTime\":\"7/27/2012 20:59\",\"hold\":2,\"houseId\":419,\"isheatcool\":2,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":16,\"heating\":66,\"hold\":\"None\",\"stid\":0,\"title\":\"Period1\"},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":19,\"heating\":70,\"hold\":\"None\",\"stid\":16,\"title\":\"Period2\"},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":34,\"heating\":64,\"hold\":\"None\",\"stid\":19,\"title\":\"Period3\"},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":41,\"heating\":70,\"hold\":\"None\",\"stid\":34,\"title\":\"Period4\"},{\"color\":\"0xf06e70\",\"cooling\":76,\"etid\":42,\"heating\":70,\"hold\":\"Temporary Hold\",\"stid\":41,\"title\":\"Period5\"},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42,\"title\":\"Period6\"}],\"setpoint\":76,\"userId\":\"1000100000000000317\",\"weeklyid\":0}"];
+        self.todayModel = [[MyEScheduleTodayData alloc] initWithJSONString:@"{\"currentTime\":\"8/15/2012 12:3\",\"hold\":0,\"houseId\":419,\"isheatcool\":2,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":80,\"etid\":12,\"heating\":64,\"hold\":\"None\",\"stid\":0,\"title\":\"Period1\"},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12,\"title\":\"Period2\"},{\"color\":\"0xdd99d8\",\"cooling\":85,\"etid\":23,\"heating\":60,\"hold\":\"None\",\"stid\":16,\"title\":\"Period3\"},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":25,\"heating\":70,\"hold\":\"None\",\"stid\":23,\"title\":\"Period4\"},{\"color\":\"0x5598cb\",\"cooling\":80,\"etid\":48,\"heating\":64,\"hold\":\"None\",\"stid\":25,\"title\":\"Period5\"}],\"setpoint\":74,\"userId\":\"1000100000000000317\",\"weeklyid\":0}"];
         
         NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
         NSLog(@"sectorIdSpaningCurrentTime = %i",sectorIdSpaningCurrentTime);
@@ -166,7 +166,7 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i",URL_FOR_TODAY_SCHEDULE_VIEW, self.userId, self.houseId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"TodayDownloader" userDataDictionary:nil];
-    NSLog(@"%@",downloader);
+    NSLog(@"%@",downloader.name);
 }
 - (void) downloadWeeklyModelFromServer  
 {
@@ -190,7 +190,7 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i",URL_FOR_TODAY_DEFAULT_SCHEDULE_VIEW, self.userId, self.houseId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"TodayUseWeeklyModelDownloader" userDataDictionary:nil];
-    NSLog(@"%@",downloader);
+    NSLog(@"downloader.name = %@",downloader.name);
 }
 
 
@@ -251,7 +251,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&setpoint=%i&hold=%i",URL_FOR_TODAY_HOLD_SAVE, self.userId, self.houseId, setpoint, hold];
     
     MyEDataLoader *uploader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"TodayHoldUploader" userDataDictionary:nil];
-    NSLog(@"TodayHoldUploader is %@",uploader.name);
+    NSLog(@"TodayHoldUploader.name is %@",uploader.name);
     
 }
 

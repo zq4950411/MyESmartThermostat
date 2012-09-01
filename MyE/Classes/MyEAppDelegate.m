@@ -26,22 +26,6 @@
     // Override point for customization after application launch.
     sleep(2);//让程序休眠两秒，以使Launch image多停留一会。
     
-    //想显示记录下来的被迫退出的原因，仅用于调试
-//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-//    
-//    NSInteger exitcode = [prefs integerForKey:@"exitcode"];
-//    
-//    if (exitcode < 0) {
-//        NSLog(@"exit by applicationWillTerminate, abnormally.");
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" 
-//                                                        message:@"App exit with exit code of -1 last time."
-//                                                       delegate:self 
-//                                              cancelButtonTitle:@"Close" 
-//                                              otherButtonTitles: nil];   
-//        [alert show];
-//        [prefs setInteger:0  forKey:@"exitcode"]; //恢复此exitcode为0的状态
-//    }
-    
     return YES;
 }
 							
@@ -51,6 +35,7 @@
      Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
+    NSLog(@"------------=============applicationWillResignActive");
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -59,7 +44,11 @@
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
-
+    // 防御性编程，如果程序正常转到后台或由用户退出，就把exitcode设置为1
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setInteger:1  forKey:@"exitcode"]; 
+    [prefs synchronize];
+    NSLog(@"------------=============applicationDidEnterBackground, exitcode = 1");
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -67,6 +56,8 @@
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
+    NSLog(@"------------=============applicationWillEnterForeground");
+    
     UINavigationController *nc = (UINavigationController *)self.window.rootViewController;
     NSArray *subVS = [nc viewControllers];
     if([subVS count] == 1){// 在HouseListView模块时，view堆栈的数目是1
@@ -109,7 +100,7 @@
         }
         
     }else if([subVS count] > 2){// 在vacation模块的添加、修改vacation时，view堆栈的数目是3或4
-        NSLog(@"%i", [subVS count]);
+        NSLog(@"view堆栈的数目是 %i", [subVS count]);
     }
 }
 
@@ -118,8 +109,34 @@
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
-    NSLog(@"----------applicationDidBecomeActive");
-
+    NSLog(@"----------===================applicationDidBecomeActive, exitcode = -1");
+    
+    //想显示记录下来的被迫退出的原因，仅用于调试
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    // exitcode < 1表示上次程序正常转到后台，直至退出。如果程序是异常crash，就没有机会把exitcode设置为1
+    BOOL exitcode = [prefs boolForKey:@"exitcode"];
+    
+    if (exitcode != 1) {
+        // 表示程序上一次退出时是在前台异常crash，没有机会把appInActiveSinceLastExit变量设置为1
+        // 这里就把所有上次保存的东西删除，使得程序像初始化一样运行
+        
+        [prefs removeObjectForKey:@"username"]; 
+        [prefs removeObjectForKey:@"password"];
+        [prefs removeObjectForKey:@"rememberme"];
+        [prefs removeObjectForKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
+        [prefs removeObjectForKey:@"defaulthouseid"];
+        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_DASHBOARD1];
+        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_DASHBOARD2];
+        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY1];
+        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY2];
+        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_NEXT24HRS1];
+        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_NEXT24HRS2];
+        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_WEEKLY];
+        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_VACATION];
+        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_SETTINGS];
+    }
+    [prefs setInteger:-1 forKey:@"exitcode"]; //设置exitcode为-1，如果程序异常crash，此exitcode就没有机会设置为1
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -129,12 +146,11 @@
      Save data if appropriate.
      See also applicationDidEnterBackground:.
      */
-    //想记录下来被迫退出的原因，仅用于调试
-//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-//
-//    [prefs setInteger:-1  forKey:@"exitcode"]; 
-//
-//    [prefs synchronize];
+    // 防御性编程，如果程序正常转到后台或由用户退出，就把exitcode设置为1
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setInteger:1  forKey:@"exitcode"]; 
+    [prefs synchronize];
+    NSLog(@"------------=============applicationWillTerminate");
 }
 
 @end

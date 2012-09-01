@@ -322,6 +322,19 @@
 #pragma mark -
 #pragma mark private methods
 -(void)_doLogin {
+    // 如果用户名和密码的输入不足长度，提示后退出
+    if([self.usernameInput.text  length] < 4 || [self.passwordInput.text length] < 6) {
+        UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Alert" 
+                                                      message:@"Username or password is not correct."
+                                                     delegate:nil 
+                                            cancelButtonTitle:@"Ok"
+                                            otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    
+    
     [self saveSettings];
     
     /* 这段语句用于根据标示符，从Storyboard生成一个新的标示符为
@@ -367,6 +380,6 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@?username=%@&password=%@&type=1", URL_FOR_LOGIN, self.usernameInput.text, self.passwordInput.text] ;
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"LoginDownloader" userDataDictionary:nil];
-    NSLog(@"%@ ---- %@",downloader.name, urlStr);
+    NSLog(@"downloader.name is  %@ urlStr =  %@",downloader.name, urlStr);
 }
 @end

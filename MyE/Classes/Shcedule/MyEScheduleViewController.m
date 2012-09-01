@@ -78,12 +78,18 @@
                                   nil];
     _tipViewControllerForTodayPanel = [MyETipViewController tipViewControllerWithTipDataArray:tipDataArrayToday];
     
+    NSArray *tipDataArrayNext24Hrs = [NSArray arrayWithObjects:
+                                      [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_NEXT24HRS1 title:@"Tip" message:@"Swipe along the circle to adjust the time setting. Double click on the colored block to view/edit the temperature setpoint. However, you cannot change any setpoint that has been or is being executed."],
+                                      [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_NEXT24HRS2 title:@"Tip" message:@"When the setpoint is held from Dashboard, the corresponding time block will turn gray. Double tap to view the setpoint."],
+                                      nil];
+    _tipViewControllerForNext24HrsPanel = [MyETipViewController tipViewControllerWithTipDataArray:tipDataArrayNext24Hrs];
+
+    
     NSArray *tipDataArrayWeekly = [NSArray arrayWithObjects:
                                   [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_WEEKLY title:@"Tip" message:@"Swipe along the circle to adjust the time setting. Double click on the colored block to view/edit the temperature setpoint. However, you cannot change any setpoint that has been or is being executed."],
                                   nil];
     _tipViewControllerForWeeklyPanel = [MyETipViewController tipViewControllerWithTipDataArray:tipDataArrayWeekly];
     
-    _tipViewControllerForNext24HrsPanel  = _tipViewControllerForTodayPanel;
 }
 
 - (void)viewDidUnload
@@ -124,8 +130,6 @@
         [self.weeklyBaseViewController downloadModelFromServer];
         [_tipViewControllerForWeeklyPanel showTips];
     }
-    
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -136,12 +140,13 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
-
+    NSLog(@"```````````MyEScheduleViewController viewWillDisappear````````````");
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
+    NSLog(@"```````````MyEScheduleViewController viewDidDisappear````````````");
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
