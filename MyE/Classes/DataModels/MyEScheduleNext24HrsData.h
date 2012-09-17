@@ -17,6 +17,7 @@
 @property (nonatomic) NSInteger hold;//hold状态，对应于Dashboard模块的isOvrried字段。	整型	分别对应0(Run), 1(Permanent Hold), 2(Temporary Hold)。
 @property (retain, nonatomic) NSMutableArray *dayItems;
 @property (retain, nonatomic) NSMutableArray *metaModeArray;
+@property (nonatomic, copy) NSString *locWeb;
 
 // 用24小时的时段模拟一天的时段数组// 模拟MyEScheduleToday.h类中的属性periods的设置
 @property (retain, nonatomic) NSMutableArray *periods;

@@ -11,6 +11,7 @@
 @interface MyESettingsData : NSObject <NSCopying> 
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *userId;
+@property (nonatomic, copy) NSString *locWeb;
 @property (nonatomic, copy) NSString *mediator;
 @property (nonatomic, copy) NSString * thermostat;
 @property (nonatomic) NSInteger keyPad;//拨动开关(0:Unlock  1:Lock).

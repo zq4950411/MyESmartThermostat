@@ -65,15 +65,15 @@
     _doughnutView.delegate = self;
     /*
      // 当前时刻运行在0:0~0:30的情况示例
-    self.next24hrsModel = [[MyEScheduleNext24HrsData alloc] initWithJSONString:@"{\"currentTime\":\"7/19/2012 0:2\",\"dayItems\":[{\"date\":19,\"month\":7,\"periods\":[{\"color\":\"0XF2CF45\",\"cooling\":78,\"etid\":13,\"heating\":70,\"hold\":\"None\",\"stid\":0},{\"color\":\"0X5598CB\",\"cooling\":83,\"etid\":14,\"heating\":66,\"hold\":\"None\",\"stid\":13},{\"color\":\"0XFA6748\",\"cooling\":74,\"etid\":27,\"heating\":70,\"hold\":\"None\",\"stid\":14},{\"color\":\"0XDD99D8\",\"cooling\":80,\"etid\":48,\"heating\":64,\"hold\":\"None\",\"stid\":27}],\"year\":2012},{\"date\":20,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":12,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":34,\"heating\":64,\"hold\":\"None\",\"stid\":16},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":42,\"heating\":70,\"hold\":\"None\",\"stid\":34},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42}],\"year\":2012}],\"hold\":0,\"houseId\":419,\"setpoint\":78,\"userId\":\"1000100000000000317\"}"];
+    self.next24hrsModel = [[MyEScheduleNext24HrsData alloc] initWithJSONString:@"{\"currentTime\":\"7/19/2012 0:2\",\"dayItems\":[{\"date\":19,\"month\":7,\"periods\":[{\"color\":\"0XF2CF45\",\"cooling\":78,\"etid\":13,\"heating\":70,\"hold\":\"None\",\"stid\":0},{\"color\":\"0X5598CB\",\"cooling\":83,\"etid\":14,\"heating\":66,\"hold\":\"None\",\"stid\":13},{\"color\":\"0XFA6748\",\"cooling\":74,\"etid\":27,\"heating\":70,\"hold\":\"None\",\"stid\":14},{\"color\":\"0XDD99D8\",\"cooling\":80,\"etid\":48,\"heating\":64,\"hold\":\"None\",\"stid\":27}],\"year\":2012},{\"date\":20,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":12,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":34,\"heating\":64,\"hold\":\"None\",\"stid\":16},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":42,\"heating\":70,\"hold\":\"None\",\"stid\":34},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42}],\"year\":2012}],\"hold\":0,\"houseId\":419,\"setpoint\":78,\"userId\":\"1000100000000000317\",\"locWeb\":\"enabled\"}"];
      // 当前时刻运行在0:30~1:00的情况示例
-     self.next24hrsModel = [[MyEScheduleNext24HrsData alloc] initWithJSONString:@"{\"currentTime\":\"7/19/2012 0:40\",\"dayItems\":[{\"date\":19,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":14,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":17,\"heating\":70,\"hold\":\"None\",\"stid\":14},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":36,\"heating\":64,\"hold\":\"None\",\"stid\":17},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":44,\"heating\":70,\"hold\":\"None\",\"stid\":36},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":44}],\"year\":2012},{\"date\":20,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":12,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":34,\"heating\":64,\"hold\":\"None\",\"stid\":16},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":42,\"heating\":70,\"hold\":\"None\",\"stid\":34},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42}],\"year\":2012}],\"hold\":0,\"houseId\":419,\"setpoint\":78,\"userId\":\"1000100000000000317\"}"];
+     self.next24hrsModel = [[MyEScheduleNext24HrsData alloc] initWithJSONString:@"{\"currentTime\":\"7/19/2012 0:40\",\"dayItems\":[{\"date\":19,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":14,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":17,\"heating\":70,\"hold\":\"None\",\"stid\":14},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":36,\"heating\":64,\"hold\":\"None\",\"stid\":17},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":44,\"heating\":70,\"hold\":\"None\",\"stid\":36},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":44}],\"year\":2012},{\"date\":20,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":12,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":34,\"heating\":64,\"hold\":\"None\",\"stid\":16},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":42,\"heating\":70,\"hold\":\"None\",\"stid\":34},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42}],\"year\":2012}],\"hold\":0,\"houseId\":419,\"setpoint\":78,\"userId\":\"1000100000000000317\",\"locWeb\":\"enabled\"}"];
      self.next24hrsModelCache = [self.next24hrsModel copy];
     
-    self.next24hrsModel = [[MyEScheduleNext24HrsData alloc] initWithJSONString:@"{\"currentTime\":\"7/20/2012 22:14\",\"dayItems\":[{\"date\":20,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":14,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":18,\"heating\":70,\"hold\":\"None\",\"stid\":14},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":36,\"heating\":64,\"hold\":\"None\",\"stid\":18},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":44,\"heating\":70,\"hold\":\"None\",\"stid\":36},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":44}],\"year\":2012},{\"date\":21,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":12,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":42,\"heating\":70,\"hold\":\"None\",\"stid\":16},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42}],\"year\":2012}],\"hold\":0,\"houseId\":419,\"setpoint\":66,\"userId\":\"1000100000000000317\"}"];
+    self.next24hrsModel = [[MyEScheduleNext24HrsData alloc] initWithJSONString:@"{\"currentTime\":\"7/20/2012 22:14\",\"dayItems\":[{\"date\":20,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":14,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":18,\"heating\":70,\"hold\":\"None\",\"stid\":14},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":36,\"heating\":64,\"hold\":\"None\",\"stid\":18},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":44,\"heating\":70,\"hold\":\"None\",\"stid\":36},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":44}],\"year\":2012},{\"date\":21,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":12,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":42,\"heating\":70,\"hold\":\"None\",\"stid\":16},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42}],\"year\":2012}],\"hold\":0,\"houseId\":419,\"setpoint\":66,\"userId\":\"1000100000000000317\",\"locWeb\":\"enabled\"}"];
      */
     // 测试运行在零点
-    self.next24hrsModel = [[MyEScheduleNext24HrsData alloc] initWithJSONString:@"{\"currentTime\":\"7/21/2012 0:29\",\"dayItems\":[{\"date\":21,\"month\":7,\"periods\":[{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":8,\"heating\":70,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":22,\"heating\":70,\"hold\":\"None\",\"stid\":8},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":22}],\"year\":2012},{\"date\":22,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":12,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":42,\"heating\":70,\"hold\":\"None\",\"stid\":16},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42}],\"year\":2012}],\"hold\":0,\"houseId\":419,\"setpoint\":66,\"userId\":\"1000100000000000317\"}"];
+    self.next24hrsModel = [[MyEScheduleNext24HrsData alloc] initWithJSONString:@"{\"currentTime\":\"7/21/2012 0:29\",\"dayItems\":[{\"date\":21,\"month\":7,\"periods\":[{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":8,\"heating\":70,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":22,\"heating\":70,\"hold\":\"None\",\"stid\":8},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":22}],\"year\":2012},{\"date\":22,\"month\":7,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":12,\"heating\":66,\"hold\":\"None\",\"stid\":0},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":42,\"heating\":70,\"hold\":\"None\",\"stid\":16},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42}],\"year\":2012}],\"hold\":0,\"houseId\":419,\"setpoint\":66,\"userId\":\"1000100000000000317\",\"locWeb\":\"enabled\"}"];
     self.next24hrsModelCache = [self.next24hrsModel copy];
     
 //    NSLog(@"next24hrsModel = %@ ", [self.next24hrsModel description]);
@@ -176,8 +176,8 @@
         [HUD show:YES];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i",URL_FOR_NEXT24HRS_SCHEDULE_VIEW, self.userId, self.houseId];
-    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"Next24HrsyDownloader" userDataDictionary:nil];
-    NSLog(@"Next24HrsyDownloader.name = %@",downloader.name);
+    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"Next24HrsDownloader" userDataDictionary:nil];
+    NSLog(@"Next24HrsDownloader.name = %@",downloader.name);
 }
 - (void) downloadWeeklyModelFromServer  
 {
@@ -270,7 +270,7 @@
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"Next24Hrs schedule JSON String from server is \n%@",string);
     
-    if([name isEqualToString:@"Next24HrsyDownloader"]) {
+    if([name isEqualToString:@"Next24HrsDownloader"]) {
         
         // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
         // Navigation View Controller跳转到Houselist view。
@@ -302,6 +302,9 @@
             _scheduleChangedByUserTouch = NO;
             [self.applyButton setEnabled:NO];
             [self.resetButton setEnabled:NO];
+            
+            //刷新远程控制的状态。
+            self.isRemoteControl = [next24hrsModel.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame;
         } else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
                                                           message:@"Communication error. Please try again."
@@ -458,7 +461,8 @@
           [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
 }
 
-
+#pragma mark -
+#pragma mark action methods
 - (IBAction)applyNewSchedule:(id)sender {
     // 上传当前最新数据到服务器
     [self uploadModelToServer];

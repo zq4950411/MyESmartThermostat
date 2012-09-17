@@ -91,6 +91,5 @@
 - (void)refreshAction;
 - (void)downloadModelFromServer;
 - (void)uploadModelToServer;
-- (void)setRemoteControlEnabled:(BOOL)isEnabled;
 
 @end

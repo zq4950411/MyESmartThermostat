@@ -301,12 +301,16 @@
     tabBarController.houseId = houseData.houseId;
     tabBarController.houseName = houseData.houseName;
     
+    //注意，在下面houseData.remote和后面每个面板的查看请求中的locWeb字段功能含义是相同的，
+    // 只是houseData.remote是在HouseList面板时表示硬件是否可控，而locWeb是在每个面板单独查看硬件信息时，
+    // 服务器通知本App硬件状态是否有变化。
+    // 实际上，现在每个面板都添加了locWeb这个字段来设定面板是否可控，这里的houseData.remote就多余了 2012-9-7
+
     MyEDashboardViewController *dashboardViewController = [[tabBarController childViewControllers] objectAtIndex:0];
     dashboardViewController.userId = self.accountData.userId;
     dashboardViewController.houseId = houseData.houseId;
     dashboardViewController.houseName = houseData.houseName;
-    dashboardViewController.isRemoteControl = houseData.remote == 0? NO:YES;
-    
+    dashboardViewController.isRemoteControl = houseData.remote == 0? NO:YES;     
     
     MyEScheduleViewController *scheduleViewController = [[tabBarController childViewControllers] objectAtIndex:1];
     scheduleViewController.userId = self.accountData.userId;

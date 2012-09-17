@@ -17,6 +17,7 @@
     if (self = [super init]) {
         _userId = @"1234567";
         _username = @"demo";
+        _locWeb = @"Disabled";
         _keyPad = 0;
         _mediator = @"00-00-00-00-00-01";
         _thermostat = @"023456789";
@@ -29,6 +30,7 @@
 - (MyESettingsData *)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
         _userId = [dictionary objectForKey:@"userId"];
+        _locWeb = [dictionary objectForKey:@"locWeb"];
         _username = [dictionary objectForKey:@"username"];
         _keyPad = [[dictionary objectForKey:@"keyPad"] intValue];
         _mediator = [dictionary objectForKey:@"mediator"];
@@ -55,6 +57,7 @@
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           self.userId, @"userId",
+                          self.locWeb, @"locWeb",
                           self.username, @"username",                        
                           [NSNumber numberWithInt:self.keyPad], @"keyPad",
                           self.mediator, @"mediator",

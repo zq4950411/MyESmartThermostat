@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MyE/Classes/DataModels/MyEScheduleNext24HrsData.m"
-         timestampString = "364924964.528523"
+         timestampString = "368731184.172547"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "543"
-         endingLineNumber = "543"
+         startingLineNumber = "547"
+         endingLineNumber = "547"
          landmarkName = "-isPeriodsValid:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MyE/Classes/DataModels/MyEScheduleNext24HrsData.m"
-         timestampString = "364924964.528523"
+         timestampString = "368731184.172547"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "548"
-         endingLineNumber = "548"
+         startingLineNumber = "552"
+         endingLineNumber = "552"
          landmarkName = "-isPeriodsValid:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MyE/Classes/DataModels/MyEScheduleNext24HrsData.m"
-         timestampString = "364924964.528523"
+         timestampString = "368731184.172547"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "561"
-         endingLineNumber = "561"
+         startingLineNumber = "565"
+         endingLineNumber = "565"
          landmarkName = "-isPeriodsValid:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MyE/Classes/DataModels/MyEScheduleNext24HrsData.m"
-         timestampString = "364924964.528523"
+         timestampString = "368731184.172547"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "558"
-         endingLineNumber = "558"
+         startingLineNumber = "562"
+         endingLineNumber = "562"
          landmarkName = "-isPeriodsValid:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MyE/Classes/DataModels/MyEScheduleNext24HrsData.m"
-         timestampString = "364924964.528523"
+         timestampString = "368731184.172547"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "508"
-         endingLineNumber = "508"
+         startingLineNumber = "512"
+         endingLineNumber = "512"
          landmarkName = "-updateWithModeIdArray:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -73,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MyE/Classes/DataModels/MyEScheduleNext24HrsData.m"
-         timestampString = "364924964.528523"
+         timestampString = "368731184.172547"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "505"
-         endingLineNumber = "505"
+         startingLineNumber = "509"
+         endingLineNumber = "509"
          landmarkName = "-updateWithModeIdArray:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MyE/Classes/Shcedule/MyEDoughnutView.m"
-         timestampString = "368166890.682487"
+         timestampString = "368837311.817079"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "503"
-         endingLineNumber = "503"
+         startingLineNumber = "485"
+         endingLineNumber = "485"
          landmarkName = "-_paintingSectorWithStartSectorId:currentSectorId:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -137,26 +137,39 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "MyE/Classes/Shcedule/MyEScheduleViewController.m"
-         timestampString = "367813967.824766"
+         filePath = "MyE/Classes/DataModels/MyEScheduleNext24HrsData.m"
+         timestampString = "368731184.172547"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "41"
-         endingLineNumber = "41"
-         landmarkName = "-didReceiveMemoryWarning"
+         startingLineNumber = "156"
+         endingLineNumber = "156"
+         landmarkName = "-computePeriodsFromDayItems"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "MyE/Classes/DataModels/MyEScheduleNext24HrsData.m"
-         timestampString = "368145598.288863"
+         filePath = "MyE/Classes/Shcedule/MyEPeriodInforDoughnutView.m"
+         timestampString = "368767463.466592"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "153"
-         endingLineNumber = "153"
-         landmarkName = "-computePeriodsFromDayItems"
+         startingLineNumber = "82"
+         endingLineNumber = "82"
+         landmarkName = "-setPeriods:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "MyE/Classes/Shcedule/MyEDoughnutView.m"
+         timestampString = "368837287.341034"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "420"
+         endingLineNumber = "420"
+         landmarkName = "-_paintingSectorWithStartSectorId:currentSectorId:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

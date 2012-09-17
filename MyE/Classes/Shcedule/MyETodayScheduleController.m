@@ -70,9 +70,9 @@
         _doughnutView = [[MyEDoughnutView alloc] initWithFrame:CGRectMake(30, 15, TODAY_DOUGHNUT_VIEW_SIZE, TODAY_DOUGHNUT_VIEW_SIZE) delegate:self];
         _doughnutView.delegate = self;
         /*
-        self.todayModel = [[MyEScheduleTodayData alloc] initWithJSONString:@"{\"currentTime\":\"7/23/2012 1:20\",\"hold\":2,\"houseId\":419,\"isheatcool\":1,\"periods\":[{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":1,\"heating\":70,\"hold\":\"None\",\"stid\":0,\"title\":\"Period1\"},{\"color\":\"0xf06e70\",\"cooling\":74,\"etid\":10,\"heating\":69,\"hold\":\"Temporary Hold\",\"stid\":1,\"title\":\"Period2\"},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":26,\"heating\":64,\"hold\":\"None\",\"stid\":10,\"title\":\"Period3\"},{\"color\":\"0xf2cf45\",\"cooling\":75,\"etid\":42,\"heating\":69,\"hold\":\"None\",\"stid\":26,\"title\":\"Period4\"},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42,\"title\":\"Period5\"}],\"setpoint\":69,\"userId\":\"1000100000000000317\",\"weeklyid\":0}"];
+        self.todayModel = [[MyEScheduleTodayData alloc] initWithJSONString:@"{\"currentTime\":\"7/23/2012 1:20\",\"hold\":2,\"houseId\":419,\"isheatcool\":1,\"periods\":[{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":1,\"heating\":70,\"hold\":\"None\",\"stid\":0,\"title\":\"Period1\"},{\"color\":\"0xf06e70\",\"cooling\":74,\"etid\":10,\"heating\":69,\"hold\":\"Temporary Hold\",\"stid\":1,\"title\":\"Period2\"},{\"color\":\"0xdd99d8\",\"cooling\":80,\"etid\":26,\"heating\":64,\"hold\":\"None\",\"stid\":10,\"title\":\"Period3\"},{\"color\":\"0xf2cf45\",\"cooling\":75,\"etid\":42,\"heating\":69,\"hold\":\"None\",\"stid\":26,\"title\":\"Period4\"},{\"color\":\"0x5598cb\",\"cooling\":78,\"etid\":48,\"heating\":66,\"hold\":\"None\",\"stid\":42,\"title\":\"Period5\"}],\"setpoint\":69,\"userId\":\"1000100000000000317\",\"weeklyid\":0,\"locWeb\":\"enabled\"}"];
         */
-        self.todayModel = [[MyEScheduleTodayData alloc] initWithJSONString:@"{\"currentTime\":\"8/15/2012 12:3\",\"hold\":0,\"houseId\":419,\"isheatcool\":2,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":80,\"etid\":12,\"heating\":64,\"hold\":\"None\",\"stid\":0,\"title\":\"Period1\"},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12,\"title\":\"Period2\"},{\"color\":\"0xdd99d8\",\"cooling\":85,\"etid\":23,\"heating\":60,\"hold\":\"None\",\"stid\":16,\"title\":\"Period3\"},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":25,\"heating\":70,\"hold\":\"None\",\"stid\":23,\"title\":\"Period4\"},{\"color\":\"0x5598cb\",\"cooling\":80,\"etid\":48,\"heating\":64,\"hold\":\"None\",\"stid\":25,\"title\":\"Period5\"}],\"setpoint\":74,\"userId\":\"1000100000000000317\",\"weeklyid\":0}"];
+        self.todayModel = [[MyEScheduleTodayData alloc] initWithJSONString:@"{\"currentTime\":\"8/15/2012 12:3\",\"hold\":0,\"houseId\":419,\"isheatcool\":2,\"periods\":[{\"color\":\"0x5598cb\",\"cooling\":80,\"etid\":12,\"heating\":64,\"hold\":\"None\",\"stid\":0,\"title\":\"Period1\"},{\"color\":\"0xfa6748\",\"cooling\":74,\"etid\":16,\"heating\":70,\"hold\":\"None\",\"stid\":12,\"title\":\"Period2\"},{\"color\":\"0xdd99d8\",\"cooling\":85,\"etid\":23,\"heating\":60,\"hold\":\"None\",\"stid\":16,\"title\":\"Period3\"},{\"color\":\"0xf2cf45\",\"cooling\":74,\"etid\":25,\"heating\":70,\"hold\":\"None\",\"stid\":23,\"title\":\"Period4\"},{\"color\":\"0x5598cb\",\"cooling\":80,\"etid\":48,\"heating\":64,\"hold\":\"None\",\"stid\":25,\"title\":\"Period5\"}],\"setpoint\":74,\"userId\":\"1000100000000000317\",\"weeklyid\":0,\"locWeb\":\"enabled\"}"];
         
         NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
         NSLog(@"sectorIdSpaningCurrentTime = %i",sectorIdSpaningCurrentTime);
@@ -285,6 +285,10 @@
             
             _scheduleChangedByUserTouch = NO;
             [_applyButton setEnabled:NO];
+            
+            //刷新远程控制的状态。 
+            self.isRemoteControl = [todayModel.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame;
+            
         } else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
                                                           message:@"Communication error. Please try again."

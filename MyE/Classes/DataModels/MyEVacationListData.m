@@ -12,11 +12,13 @@
 #import "SBJson.h"
 
 @implementation MyEVacationListData
-@synthesize vacationList = _vacationList, userId = _useId, houseId = _houseId;
+@synthesize vacationList = _vacationList, userId = _useId, locWeb = _locWeb, houseId = _houseId;
 - (id)init {
     if (self = [super init]) {
         _vacationList = [NSMutableArray arrayWithObjects:[[MyEVacationItemData alloc] init], [[MyEStaycationItemData alloc] init],nil];
-        
+        _useId = @"1000100000000000831";
+        _houseId = @"5379";
+        _locWeb = @"Disabled";
         return self;
     }
     return nil;
@@ -33,6 +35,7 @@
     if (self = [super init]) {
         self.userId = [dictionary objectForKey:@"userId"];
         self.houseId = [dictionary objectForKey:@"houseId"];
+        self.locWeb = [dictionary objectForKey:@"locWeb"];
         
         NSArray *listInDict = [dictionary objectForKey:@"vacations"];
         NSMutableArray *vacations = [NSMutableArray array];
@@ -75,6 +78,7 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           self.userId,@"userId",
                           self.houseId, @"houseId",
+                          self.locWeb, @"locWeb",
                           vacations, @"vacations",
                           nil ];
     return dict;

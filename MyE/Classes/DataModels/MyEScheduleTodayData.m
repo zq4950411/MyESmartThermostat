@@ -19,7 +19,8 @@
 
 @implementation MyEScheduleTodayData
 @synthesize userId = _useId, 
-houseId = _houseId, 
+houseId = _houseId,
+locWeb = _locWeb, 
 currentTime = _currentTime, 
 weeklyId = _weeklyId, 
 setpoint = _setpoint, 
@@ -27,10 +28,12 @@ hold = _hold,
 periods = _periods, 
 metaModeArray = _metaModeArray;
 
+
 - (id)init {
     if (self = [super init]) {
         _useId = @"1000100000000000831";
         _houseId = @"5379";
+        _locWeb = @"Disabled"; 
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"MM/dd/yyyy HH:mm"];
@@ -73,6 +76,7 @@ metaModeArray = _metaModeArray;
     if (self = [super init]) {
         self.userId = [dictionary objectForKey:@"userId"];
         self.houseId = [dictionary objectForKey:@"houseId"];
+        self.locWeb = [dictionary objectForKey:@"locWeb"];
         self.weeklyId = [[dictionary objectForKey:@"weeklyId"] intValue];
         self.setpoint = [[dictionary objectForKey:@"setpoint"] intValue];
         self.hold = [[dictionary objectForKey:@"hold"] intValue];
@@ -118,6 +122,7 @@ metaModeArray = _metaModeArray;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           self.userId, @"userId",
                           self.houseId, @"houseId",
+                          self.locWeb, @"locWeb",
                           [NSNumber numberWithInt:self.weeklyId], @"weeklyId",
                           [NSNumber numberWithInt:self.setpoint], @"setpoint",
                           [NSNumber numberWithInt:self.hold], @"hold",
@@ -133,7 +138,7 @@ metaModeArray = _metaModeArray;
 }
 -(NSString *)description
 {
-    NSMutableString *desc = [NSMutableString stringWithFormat:@"userId = (%@), houseId = %@, currentTime = %@, weeklyId = %i , \nsetpoint = %i, hold = %i\n periods:\n", _useId, _houseId, _currentTime, _weeklyId, _setpoint, _hold];
+    NSMutableString *desc = [NSMutableString stringWithFormat:@"userId = (%@), houseId = %@, locWeb = %@, currentTime = %@, weeklyId = %i , \nsetpoint = %i, hold = %i\n periods:\n", _useId, _houseId, _locWeb, _currentTime, _weeklyId, _setpoint, _hold];
     for (MyETodayPeriodData *period in _periods)
         [desc appendString:[period description]];
     return desc;

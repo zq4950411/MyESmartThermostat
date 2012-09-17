@@ -61,20 +61,26 @@
     }
     [_periods addObject:newpd];
      */
-    // 下面算法的功能是Sleep的两个区段，当setpoint都一样的时候，合并公用一个setpoint提示框
+    // 下面算法的功能是Sleep的两个区段，当setpoint都一样的时候，合并公用一个setpoint提示框，但必须传进来的periods数目大于1.
     NSInteger count = [periods count];
-    for (NSInteger i = 0; i < count - 1; i++) {
-        MyETodayPeriodData *pd = [periods objectAtIndex:i];
+    if(count > 1) {
+        for (NSInteger i = 0; i < count - 1; i++) {
+            MyETodayPeriodData *pd = [periods objectAtIndex:i];
+            [_periods addObject:[pd copy]];
+        }
+        MyETodayPeriodData *firstpd = [_periods objectAtIndex:0];
+        MyETodayPeriodData *lastpd = [periods objectAtIndex:count - 1];
+        if (firstpd.heating == lastpd.heating && firstpd.cooling == lastpd.cooling) {
+            firstpd.stid = lastpd.stid;
+        } else {
+            [_periods addObject:lastpd];
+        }
+    }else if(count == 1){// 如果传递进来的periods数组的数目只等于1，就不需要进行Sleep的两个区段的合并处理。
+        MyETodayPeriodData *pd = [periods objectAtIndex:0];
         [_periods addObject:[pd copy]];
-    }
-    MyETodayPeriodData *firstpd = [_periods objectAtIndex:0];
-    MyETodayPeriodData *lastpd = [periods objectAtIndex:count - 1];
-    if (firstpd.heating == lastpd.heating && firstpd.cooling == lastpd.cooling) {
-        firstpd.stid = lastpd.stid;
     } else {
-        [_periods addObject:lastpd];
+        NSLog(@"错误，传递进来的periods数组的数目<1");
     }
-    
     [self setNeedsDisplay];
 }
 

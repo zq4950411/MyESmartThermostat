@@ -31,6 +31,7 @@
 @property (nonatomic) NSInteger weeklyId;
 @property (nonatomic) NSInteger setpoint;
 @property (nonatomic) NSInteger hold;
+@property (nonatomic, copy) NSString *locWeb;
 @property (retain, nonatomic) NSMutableArray *periods;
 @property (retain, nonatomic) NSMutableArray *metaModeArray;
 

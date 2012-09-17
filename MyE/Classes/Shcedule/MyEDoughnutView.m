@@ -352,20 +352,7 @@ typedef enum {
             return NO;
         }
         
-        SectorPositionType position = [self _sectorPositionTypeOfSectorId:_lastSectorViewIdTouched];
-        if (position == SectorPositionTypeFirst) {
-            NSLog(@"第一次计算的 position = First，   _lastSectorViewIdTouched = %i", _lastSectorViewIdTouched);
-        }
-        if (position == SectorPositionTypeLast) {
-            NSLog(@"第一次计算的 position = last，   _lastSectorViewIdTouched = %i", _lastSectorViewIdTouched);
-        }
-        if (position == SectorPositionTypeMiddle) {
-            NSLog(@"第一次计算的 position = Middle，   _lastSectorViewIdTouched = %i", _lastSectorViewIdTouched);
-        }
-        if (position == SectorPositionTypeSingle) {
-            NSLog(@"第一次计算的 position = Single，   _lastSectorViewIdTouched = %i", _lastSectorViewIdTouched);
-        }
-        
+        SectorPositionType position = [self _sectorPositionTypeOfSectorId:_lastSectorViewIdTouched];       
         if( csid < _lastSectorViewIdTouched ) {//逆时针触摸
             // 处理从最后一个sector触摸移动到倒数第二个sector的情况，此时强制设置触摸位置为时段的开始sector
             if (_lastSectorViewIdTouched == NUM_SECTOR - 1 && csid == NUM_SECTOR - 2) {
@@ -410,7 +397,6 @@ typedef enum {
                 NSLog(@"拖动边界 & 逆时针 & position Last");
             }
         } else if( csid > _lastSectorViewIdTouched ) {//顺时针触摸
-//            NSLog(@"顺时针触摸 1");
             // 处理从第一个sector触摸移动到第二个sector的情况，此时强制设置触摸位置为时段的最后sector
             if (_lastSectorViewIdTouched == 0 && csid ==1) {
                 position = SectorPositionTypeLast;
@@ -418,7 +404,7 @@ typedef enum {
             if (position == SectorPositionTypeSingle) {
                 position = SectorPositionTypeLast;
             }
-//            NSLog(@"顺时针触摸 2");
+
             if (position == SectorPositionTypeFirst ) {// if the current sector is the first sector of the period
                 psid = csid - 1;//允许涂抹的当前sid设置为比当前sid小1
                 if (psid < 0) {
@@ -491,9 +477,6 @@ typedef enum {
             eid = psid;
         }
     }
-    
-    NSLog(@"22222222222-------sectorId=%i, csid=%i, _lastSectorViewIdTouched = %i", sectorId, csid, _lastSectorViewIdTouched);
-    
     NSString *hold = @"None";// 记录下当前选择sector的hold字符串
     if (realLastSelectedSectorId> - 1) {// 如果在weekly选择mode后进行涂抹，此时realLastSelectedSectorId就仍然是-1
         self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:realLastSelectedSectorId] intValue];
@@ -501,8 +484,6 @@ typedef enum {
     } else {
         NSLog(@"realLastSelectedSectorId < 0");
     }
-    
-
 
     UIColor *fillColor = [self.delegate currentModeColor];
     // 现在要加入hold时段被拖动的情况。

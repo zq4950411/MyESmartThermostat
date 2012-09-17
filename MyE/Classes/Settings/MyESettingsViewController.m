@@ -61,8 +61,6 @@
     _settingsData = [[MyESettingsData alloc] init];
     [self configueView];
     
-    [self setRemoteControlEnabled:self.isRemoteControl];
-    
     NSArray *tipDataArray = [NSArray arrayWithObjects:
                              [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_SETTINGS title:@"Tip" message:@"Reset “Tip Popups” to reactivate all closed tips."],
                              nil];
@@ -119,8 +117,9 @@
     }
 }
 
-- (void)setRemoteControlEnabled:(BOOL)isEnabled {
-    if(!isEnabled) {
+- (void)setIsRemoteControl:(BOOL)isRemoteControl {
+    _isRemoteControl = isRemoteControl;
+    if(!isRemoteControl) {
         // Create the layer if necessary.
         if(!_maskLayer) {
             _maskLayer = [[CALayer alloc] init];
@@ -189,6 +188,9 @@
 #pragma mark
 #pragma mark private method
 - (void)configueView {
+    //刷新远程控制的状态。
+    self.isRemoteControl = [self.settingsData.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame;
+    
     self.usernameLabel.text = self.settingsData.username;
     self.mediatorLabel.text = self.settingsData.mediator;
     self.thermostatLabel.text = self.settingsData.thermostat;

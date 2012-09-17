@@ -97,13 +97,12 @@
     [self.holdButton setBackgroundImage:buttonDisabledBackImage forState:UIControlStateDisabled];
     [self.holdButton setTitleColor:[UIColor colorWithWhite:0.77 alpha:1.0] forState:UIControlStateDisabled];
     
-    [self setRemoteControlEnabled:self.isRemoteControl];
-    
     _isSetpointChanged = NO;
     _isSystemControlToolbarViewShowing = NO;
     _isFanControlToolbarViewShowing = NO;
     
-    
+    [self.systemControlEmgHeatingButton setBackgroundImage:[UIImage imageNamed:@"Tb_EmgHDisabled.png"] forState:UIControlStateDisabled];
+    [self.systemControlEmgHeatingButton setBackgroundImage:[UIImage imageNamed:@"Tb_EmgH01.png"] forState:UIControlStateNormal];
     
     NSArray *tipDataArray = [NSArray arrayWithObjects:
                              [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_DASHBOARD1 title:@"Tip" message:@"Click on the icons to bring up the system and fan mode menu."],
@@ -160,8 +159,6 @@
                                   target:self 
                                   action:@selector(refreshAction)];
     self.parentViewController.navigationItem.rightBarButtonItem = refreshButton;
-    
-    [self setRemoteControlEnabled:self.isRemoteControl];
     
     [self downloadModelFromServer];
 
@@ -308,7 +305,7 @@
             return;
         
         // 加3秒延迟后再从服务器下载新数据，否则太快下载，Thermostat好像还没真正改变过来，传来的"realControlMode"字段还是上一个状态
-        loadTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f
+        loadTimer = [NSTimer scheduledTimerWithTimeInterval:3.5f
                                                      target:self 
                                                    selector:@selector(downloadModelFromServer) 
                                                    userInfo:nil 
@@ -452,7 +449,7 @@
 
 
 #pragma mark -
-#pragma mark 设置Dashboard数据
+#pragma mark 设置properties 属性的方法
 - (void)setDashboardData:(MyEDashboardData *) newDashboardData
 {
     if (_dashboardData != newDashboardData) {
@@ -463,6 +460,79 @@
         [self configureView];
     }
 }
+- (void)setIsRemoteControl:(BOOL) isRemoteControl
+{
+    _isRemoteControl = isRemoteControl;
+    
+    // Update the view.
+    self.holdButton.enabled = isRemoteControl;
+    self.setpointPickerView.alpha = isRemoteControl ? 1.0 : 0.77;
+    self.controlModeImageView.alpha = isRemoteControl ? 1.0 : 0.77;
+    self.fanImageView.alpha = isRemoteControl ? 1.0 : 0.77;
+    if(!isRemoteControl) {
+        // Create the layer if necessary.
+        if(!_maskLayer) {
+            _maskLayer = [[CALayer alloc] init];
+            
+            CGRect bounds = self.view.bounds;
+            //create a cglayer and draw the background graphic to it
+            CGContextRef context = MyECreateBitmapContext(bounds.size.width, bounds.size.height);
+            
+            
+            
+            
+            CGContextSaveGState(context);
+            CGContextAddRect(context, bounds);
+            CGContextEOClip(context);
+            
+            
+            CGGradientRef myGradient;
+            CGColorSpaceRef myColorspace;
+            size_t num_locations = 2;
+            CGFloat locations[2] = { 0.0, 1.0 };
+            CGFloat components[8] = { 0.0, 0.0, 0.0, 0.05, // Start color开始颜色位于view矩形中心，
+                0.0, 0.0, 0.0, 0.1 }; // End color
+            myColorspace = CGColorSpaceCreateDeviceRGB();
+            myGradient = CGGradientCreateWithColorComponents (myColorspace, components,
+                                                              locations, num_locations);
+            CGPoint centerPoint;
+            centerPoint.x = bounds.origin.x + bounds.size.width/2;
+            centerPoint.y = bounds.origin.y + bounds.size.height/2;
+            
+            CGContextDrawRadialGradient(context, myGradient, centerPoint, 80, centerPoint, bounds.size.height/2, kCGGradientDrawsAfterEndLocation | kCGGradientDrawsBeforeStartLocation);
+            CGGradientRelease(myGradient);
+            CGColorSpaceRelease (myColorspace);
+            CGContextRestoreGState(context);
+            
+            
+            
+            
+            
+            
+            CGImageRef myMaskImg = CGBitmapContextCreateImage(context);
+            UIImage *layerContents = [UIImage imageWithCGImage:myMaskImg];
+            CGContextRelease(context);
+            CGImageRelease(myMaskImg);
+            
+            CGSize imageSize = layerContents.size;
+            
+            _maskLayer.bounds = CGRectMake(0, 0, imageSize.width, imageSize.height);
+            _maskLayer.contents = (id)layerContents.CGImage;
+            
+        }
+        
+        // Add the layer to the view.
+        [self.view.layer addSublayer:_maskLayer];
+        
+        // Center the layer in the view.
+        _maskLayer.position = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
+        
+        self.view.userInteractionEnabled = NO;
+    } else {
+        self.view.userInteractionEnabled = YES;
+        [_maskLayer removeFromSuperlayer];
+    }
+}
 
 #pragma mark
 #pragma mark private methods
@@ -471,6 +541,9 @@
     // Update the user interface for the detail item.
     MyEDashboardData *theDashboardData = self.dashboardData;
 
+    //刷新远程控制的状态。
+    self.isRemoteControl = [theDashboardData.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame;
+        
     if (theDashboardData) {
         NSString *imgFileName = [NSString stringWithFormat:@"%@.png",theDashboardData.weather];
         UIImage *image = [UIImage imageNamed: imgFileName];
@@ -679,6 +752,14 @@
 
 - (void)_toggleSystemControlToolbarView
 {
+    if (self.dashboardData.con_hp == 1) {
+        self.systemControlEmgHeatingButton.enabled = YES;
+    } else {
+        self.systemControlEmgHeatingButton.enabled = NO;
+    }
+    
+    
+    
     CGRect frame = [self.systemControlToolbarView frame]; 
     if (_isSystemControlToolbarViewShowing) {
         frame.origin.y += frame.size.height;
@@ -710,7 +791,7 @@
     _isFanControlToolbarViewShowing = !_isFanControlToolbarViewShowing;
 }
 
-// 判定是否服务器相应正常，如果正常返回YES，如果服务器相应为-999/-998，
+// 判定是否服务器相应正常，如果正常返回一些字符串，如果服务器相应为-999/-998，
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
 - (BOOL)_processHttpRespondForString:(NSString *)respondText {
@@ -744,77 +825,6 @@
 
 }
 
-#pragma mark
-#pragma mark other methods
-- (void)setRemoteControlEnabled:(BOOL)isEnabled {
-    self.holdButton.enabled = isEnabled;
-    self.setpointPickerView.alpha = isEnabled ? 1.0 : 0.77;
-    self.controlModeImageView.alpha = isEnabled ? 1.0 : 0.77;
-    self.fanImageView.alpha = isEnabled ? 1.0 : 0.77;
-    if(!isEnabled) {
-    // Create the layer if necessary.
-        if(!_maskLayer) {
-            _maskLayer = [[CALayer alloc] init];
-            
-            CGRect bounds = self.view.bounds;
-            //create a cglayer and draw the background graphic to it
-            CGContextRef context = MyECreateBitmapContext(bounds.size.width, bounds.size.height);
-            
-            
-            
-        
-            CGContextSaveGState(context);
-            CGContextAddRect(context, bounds);
-            CGContextEOClip(context);
-            
-            
-            CGGradientRef myGradient;
-            CGColorSpaceRef myColorspace;
-            size_t num_locations = 2;
-            CGFloat locations[2] = { 0.0, 1.0 };
-            CGFloat components[8] = { 0.0, 0.0, 0.0, 0.05, // Start color开始颜色位于view矩形中心，
-                0.0, 0.0, 0.0, 0.1 }; // End color
-            myColorspace = CGColorSpaceCreateDeviceRGB();
-            myGradient = CGGradientCreateWithColorComponents (myColorspace, components,
-                                                              locations, num_locations);    
-            CGPoint centerPoint;
-            centerPoint.x = bounds.origin.x + bounds.size.width/2;
-            centerPoint.y = bounds.origin.y + bounds.size.height/2;
-                        
-            CGContextDrawRadialGradient(context, myGradient, centerPoint, 80, centerPoint, bounds.size.height/2, kCGGradientDrawsAfterEndLocation | kCGGradientDrawsBeforeStartLocation);
-            CGGradientRelease(myGradient);
-            CGColorSpaceRelease (myColorspace);
-            CGContextRestoreGState(context);
-
-            
-            
-            
-            
-                       
-            CGImageRef myMaskImg = CGBitmapContextCreateImage(context);
-            UIImage *layerContents = [UIImage imageWithCGImage:myMaskImg];
-            CGContextRelease(context);
-            CGImageRelease(myMaskImg);
-            
-            CGSize imageSize = layerContents.size;
-            
-            _maskLayer.bounds = CGRectMake(0, 0, imageSize.width, imageSize.height);
-            _maskLayer.contents = (id)layerContents.CGImage;
-            
-        }
-
-        // Add the layer to the view.
-        [self.view.layer addSublayer:_maskLayer];
-        
-        // Center the layer in the view.
-        _maskLayer.position = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
-        
-        self.view.userInteractionEnabled = NO;
-    } else {
-        self.view.userInteractionEnabled = YES;
-        [_maskLayer removeFromSuperlayer];
-    }
-}
 
 #pragma mark -
 #pragma mark MBProgressHUDDelegate methods

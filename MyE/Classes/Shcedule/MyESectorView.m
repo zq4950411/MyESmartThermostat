@@ -71,36 +71,30 @@
 // 仅用于Today面板的当前时刻所在的Sector的动画
 - (void)_backgroundFlash
 {
+    /*// debug freeze iPhone4 when press Home button on Schedule panel
+     // After the debugging in these days, I have confirmed the bug that cause the iPhone4 frozen when press Home button on Schedule panel. In MyESectorView class I used a Core Animation function to make sector view on current time blinks, there is a CALayer's removeAllAnimations method which cause the iPhone4's freezing. 
     if (self.isFlashing) {
         // Fade out the view right away
         [UIView animateWithDuration:2.0
                               delay: 0.0
          //必须有后面这个UIViewAnimationOptionAllowUserInteraction才能在动画是接受用户触摸事件
-                            options: UIViewAnimationOptionCurveEaseIn|UIViewAnimationOptionAllowUserInteraction
+                            options: UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction
                          animations:^{
                              [UIView setAnimationRepeatCount: FLT_MAX];
                              self.alpha = 0.6;
                              
                          }
                          completion:^(BOOL finished){
-                             // Wait one second and then fade in the view
-                             [UIView animateWithDuration:2.0
-                                                   delay: 2.0
-                              //必须有后面这个UIViewAnimationOptionAllowUserInteraction才能在动画是接受用户触摸事件
-                                                 options:UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionAllowUserInteraction
-                                              animations:^{
-                                                  
-                                                  self.alpha = 1.0;
-                                                  
-                                              }
-                                              completion:nil];
                          }];
-    } else
+    }
+    
+    else
     {
         // 取消前面的动画
         [self.layer removeAllAnimations];
         self.alpha = 1.0;
     }
+    //*/
 }
 @end
 

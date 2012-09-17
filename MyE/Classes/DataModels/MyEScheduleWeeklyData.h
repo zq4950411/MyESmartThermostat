@@ -23,6 +23,7 @@
 @property (copy, nonatomic) NSString *userId;
 @property (copy, nonatomic) NSString *houseId;
 @property (copy, nonatomic) NSString *currentTime;
+@property (nonatomic, copy) NSString *locWeb;
 @property (retain, nonatomic) NSMutableArray *dayItems;
 @property (retain, nonatomic) NSMutableArray *metaModeArray;
 

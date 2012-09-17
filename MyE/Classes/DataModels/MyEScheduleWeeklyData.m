@@ -15,12 +15,14 @@
 #import "SBJson.h"
 
 @implementation MyEScheduleWeeklyData
-@synthesize userId = _userId, houseId = _houseId, currentTime = _currentTime,  dayItems = _dayItems, metaModeArray = _metaModeArray;
+@synthesize userId = _userId, houseId = _houseId, currentTime = _currentTime,
+locWeb = _locWeb, dayItems = _dayItems, metaModeArray = _metaModeArray;
 
 - (id)init {
     if (self = [super init]) {
         _userId = @"1000100000000000831";
         _houseId = @"5379";
+        _locWeb = @"Disabled";
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"MM/dd/yyyy HH:mm"];
@@ -39,6 +41,7 @@
     _dayItems = [[NSMutableArray alloc] init];
     self.userId = [dictionary objectForKey:@"userId"];
     self.houseId = [dictionary objectForKey:@"houseId"];
+    self.locWeb = [dictionary objectForKey:@"locWeb"];
     self.currentTime = [dictionary objectForKey:@"currentTime"];
     NSArray *dayItemsInDict = [dictionary objectForKey:@"dayItems"];
     NSMutableArray *dayItems = [NSMutableArray array];
@@ -92,6 +95,7 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           self.userId, @"userId",
                           self.houseId, @"houseId",
+                          self.locWeb, @"locWeb",
                           self.currentTime, @"currentTime",
                           dayItems, @"dayItems",//这里不能把self.dayItems直接放在值的位置，因为其中数组的每个元素没有正确地进行JSON字符串序列化
                           modes, @"modes",//这里不能把self.metaModeArray直接放在值的位置，因为其中数组的每个元素没有正确地进行JSON字符串序列化
@@ -104,7 +108,7 @@
 }
 -(NSString *)description
 {
-    NSMutableString *desc = [NSMutableString stringWithFormat:@"userId = (%@), houseId = %@, currentTime = %@,  \ndayItems:\n", _userId, _houseId, _currentTime];
+    NSMutableString *desc = [NSMutableString stringWithFormat:@"userId = (%@), houseId = %@, locWeb = %@, currentTime = %@,  \ndayItems:\n", _userId, _houseId, _locWeb, _currentTime];
     for (MyEWeekDayItemData *day in self.dayItems)
         [desc appendString:[NSString stringWithFormat:@"\n{%@}",[day description]]];
     [desc appendString:@"\nmodes:\n"];

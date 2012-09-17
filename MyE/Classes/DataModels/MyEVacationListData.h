@@ -15,6 +15,7 @@
 }
 @property (copy, nonatomic) NSString *userId;
 @property (copy, nonatomic) NSString *houseId;
+@property (nonatomic, copy) NSString *locWeb;
 @property (retain, nonatomic) NSMutableArray *vacationList;
 
 - (MyEVacationListData *)initWithDictionary:(NSDictionary *)dictionary;

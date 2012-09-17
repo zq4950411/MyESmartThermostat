@@ -87,7 +87,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self addRightButtonsWithNewButton:self.isRemoteControl];
+    
     [self downloadModelFromServer];
     [_tipViewController showTips];
 }
@@ -149,6 +149,10 @@
         
         [detailViewController setEditable: self.isRemoteControl];
     }
+}
+-(void) setIsRemoteControl:(BOOL)isRemoteControl {
+    _isRemoteControl = isRemoteControl;
+    [self addRightButtonsWithNewButton:self.isRemoteControl];
 }
 
 #pragma mark
@@ -212,6 +216,9 @@
             NSLog(@"解析后的Vacations是： \n%@", [[self.vacationsModel JSONDictionary] JSONRepresentation]);
             
             [self.tableView reloadData];//重新加载数据,这一步骤是重要的，用来现实更新后的数据。
+            
+            //刷新远程控制的状态。
+            self.isRemoteControl = [vacationsModel.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame;
         }else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
                                                           message:@"Communication error. Please try again."
