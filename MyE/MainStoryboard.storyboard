@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12B19" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="7cr-m5-iJW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="7cr-m5-iJW">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
     </dependencies>
     <scenes>
         <!--MyE Dashboard View Controller - Dashboard-->
         <scene sceneID="11">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
                 <viewController title="Dashboard" id="2" customClass="MyEDashboardViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="16">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
@@ -173,7 +172,7 @@
                             </label>
                             <view contentMode="scaleToFill" id="8Ma-v2-iTg">
                                 <rect key="frame" x="0.0" y="367" width="320" height="367"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="dYD-oZ-hMN">
                                         <rect key="frame" x="0.0" y="300" width="320" height="67"/>
@@ -266,7 +265,7 @@
                             </view>
                             <view contentMode="scaleToFill" id="yjg-Zj-Heu">
                                 <rect key="frame" x="0.0" y="367" width="320" height="367"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="URT-J8-mAj">
                                         <rect key="frame" x="0.0" y="300" width="320" height="67"/>
@@ -342,6 +341,7 @@
                         <outlet property="weatherTemperatureRangeLabel" destination="cGD-dr-Mlq" id="9ff-JK-ecR"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="Tur-CA-Qgj">
                     <connections>
                         <action selector="changeControlMode:" destination="2" id="ctf-1l-37w"/>
@@ -370,7 +370,6 @@
         <!--MyE Settings View Controller - Settings-->
         <scene sceneID="3Br-sT-LRY">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="duE-f4-sem" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="tEM-od-uiU" customClass="MyESettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="EJ9-By-NQN">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
@@ -549,13 +548,13 @@
                         <outlet property="usernameLabel" destination="ctL-y2-cor" id="Tx7-2n-JSb"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="duE-f4-sem" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2258" y="1039"/>
         </scene>
         <!--MyE Password Reset View Controller-->
         <scene sceneID="V1V-Bm-QMW">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="n0A-Qu-lGP" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="tSe-iC-VpY" customClass="MyEPasswordResetViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="oLL-XU-oDz">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
@@ -692,13 +691,13 @@
                         <outlet property="npaswdTextField1" destination="ahS-65-iqe" id="kVR-xV-xxu"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n0A-Qu-lGP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2937" y="1028"/>
         </scene>
         <!--MyE Staycation Detail View Controller - Staycation Detail-->
         <scene sceneID="sB1-v7-bP5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ctv-qk-OOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="NYI-4b-KT5" customClass="MyEStaycationDetailViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="vii-Xc-H4I">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
@@ -985,13 +984,13 @@
                         <segue destination="xfm-Od-XGz" kind="custom" identifier="ShowVacationEditFromStaycation" customClass="MyENoAnimationSegue" id="nGW-AA-cXG"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ctv-qk-OOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2937" y="393"/>
         </scene>
         <!--MyE Vacation Master View Controller - Vacation-->
         <scene sceneID="b1r-aY-SzU">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OMO-4F-zPp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Vacation" id="Aak-uT-dou" customClass="MyEVacationMasterViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="hui-Cn-aMb">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
@@ -1075,13 +1074,13 @@
                     <tabBarItem key="tabBarItem" tag="2" title="Vacation" image="tab-vacation.png" id="bN0-7G-UN0"/>
                     <navigationItem key="navigationItem" id="hP1-tY-uLP"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OMO-4F-zPp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2257" y="484"/>
         </scene>
         <!--MyE Vacation Detail View Controller - Vacation Detail-->
         <scene sceneID="9V3-zL-wVN">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Qbj-Si-1sz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="UTm-15-6Nr" customClass="MyEVacationDetailViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="C3o-go-eZA">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
@@ -1313,13 +1312,13 @@
                         <segue destination="77D-zb-lY7" kind="custom" identifier="ShowStaycationEditFromVacation" customClass="MyENoAnimationSegue" id="xiE-cU-eIv"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qbj-Si-1sz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2937" y="-177"/>
         </scene>
         <!--MyE Schedule View Controller - Program Today-->
         <scene sceneID="13">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
                 <viewController title="Program Today" id="3" customClass="MyEScheduleViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="17">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
@@ -1329,7 +1328,6 @@
                                 <rect key="frame" x="31" y="10" width="259" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="Today"/>
                                     <segment title="Next 24Hrs"/>
                                     <segment title="Weekly"/>
                                 </segments>
@@ -1352,21 +1350,21 @@
                         <outlet property="todayWeeklySwitchButton" destination="fAv-Y0-bzq" id="BF0-AY-col"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2257" y="-76"/>
         </scene>
         <!--MyE Login View Controller - MyE-->
         <scene sceneID="jBU-9u-TJS">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="58G-Rq-sBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="Veh-ii-upQ" customClass="MyELoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="d5e-qP-Pme">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="loginbg.png" id="L9b-D9-iJM">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="512"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Username" lineBreakMode="tailTruncation" minimumFontSize="10" id="8tO-Yv-1ow">
                                 <rect key="frame" x="49" y="84" width="82" height="21"/>
@@ -1376,7 +1374,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kN1-E9-J34">
-                                <rect key="frame" x="49" y="266" width="222" height="42"/>
+                                <rect key="frame" x="49" y="245" width="222" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="Login" backgroundImage="buttonbg.png">
@@ -1426,13 +1424,6 @@
                                     <outlet property="delegate" destination="Veh-ii-upQ" id="Nhm-Id-8HS"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="MyE V1.1.17" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="t8G-XK-dDE">
-                                <rect key="frame" x="111" y="375" width="98" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -1446,13 +1437,13 @@
                         <segue destination="Zas-xh-c6g" kind="push" identifier="ShowHouseList" id="80l-Xk-3Us"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="58G-Rq-sBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-176" y="170"/>
         </scene>
         <!--MyE House List View Controller - House List-->
         <scene sceneID="LlY-EV-lpB">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yZj-8a-4ci" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="Zas-xh-c6g" customClass="MyEHouseListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="H60-Lm-wKN">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
@@ -1582,13 +1573,13 @@
                         <segue destination="4" kind="push" identifier="ShowMainTabViewByDefaultHouseId" id="RZM-CT-ypU"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yZj-8a-4ci" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="697" y="494"/>
         </scene>
         <!--MyE Main Tab Bar Controller - MyE-->
         <scene sceneID="15">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="14" sceneMemberID="firstResponder"/>
                 <tabBarController storyboardIdentifier="MainTabViewController" id="4" customClass="MyEMainTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="MyE" id="t4d-UP-H3o">
                         <barButtonItem key="backBarButtonItem" title="Back" id="QGz-gg-DCs"/>
@@ -1607,13 +1598,13 @@
                         <segue destination="tEM-od-uiU" kind="relationship" relationship="viewControllers" id="Xj0-pM-kiT"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="14" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1561" y="122"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0Vu-02-7ne">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="C4S-zW-Ut4" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="7cr-m5-iJW" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="bOX-wm-SWa">
@@ -1625,13 +1616,13 @@
                         <segue destination="Veh-ii-upQ" kind="relationship" relationship="rootViewController" id="hp1-GK-y2d"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C4S-zW-Ut4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-658" y="170"/>
         </scene>
         <!--MyE Vacation Edit From Staycation View Controller - Vacation Detail-->
         <scene sceneID="Yvb-c8-SAP">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0eg-d7-M7E" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="xfm-Od-XGz" customClass="MyEVacationEditFromStaycationViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="IoU-Pb-kKM">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -1861,13 +1852,13 @@
                         <outlet property="returnTimeTextField" destination="4TI-Kg-5rL" id="ncN-qI-qtN"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0eg-d7-M7E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3524" y="393"/>
         </scene>
         <!--MyE Staycation Edit From Vacation View Controller - Staycation Detail-->
         <scene sceneID="9AQ-ES-6Z5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OMf-Um-GK3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="77D-zb-lY7" customClass="MyEStaycationEditFromVacationViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="0f2-6b-cEh">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -2110,7 +2101,7 @@
                                         <rect key="frame" x="0.0" y="473" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Heating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="XnC-zR-EMM">
@@ -2152,6 +2143,7 @@
                         <outlet property="view" destination="0f2-6b-cEh" id="1c0-0V-9wU"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OMf-Um-GK3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3515" y="-177"/>
         </scene>
@@ -2170,7 +2162,7 @@
         <image name="Vacation02.png" width="45" height="45"/>
         <image name="buttonbg.png" width="100" height="37"/>
         <image name="cond000.png" width="125" height="105"/>
-        <image name="loginbg.png" width="320" height="416"/>
+        <image name="loginbg.png" width="320" height="512"/>
         <image name="nomark.png" width="30" height="30"/>
         <image name="tab-doshboard.png" width="30" height="30"/>
         <image name="tab-schedule.png" width="30" height="30"/>

@@ -943,7 +943,11 @@
             baseView = self.delegate.view;
         
         CGRect bounds = [baseView bounds];
-        CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, bounds.size.height);
+        
+        // 为了Retina4屏幕而修改的Doughnut圈高度固定
+        //CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, bounds.size.height);
+        CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, 367);
+
         _periodInforDoughnutView = [[MyEPeriodInforDoughnutView alloc] initWithFrame:frame];
         _periodInforDoughnutView.doughnutViewRadius = WEEKLY_DOUGHNUT_VIEW_SIZE / 2;
         _periodInforDoughnutView.doughnutCenterOffsetY = 12;

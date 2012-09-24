@@ -21,7 +21,7 @@
 
 
 @interface MyEScheduleViewController (PrivateMethods) 
-
+- (void) _createTodayViewControllerIfNescessary;
 - (void) _createWeeklyViewControllerIfNescessary;
 - (void) _createNext24HrsViewControllerIfNescessary;
 @end
@@ -52,26 +52,14 @@
     self.parentViewController.navigationItem.rightBarButtonItem.action = @selector(refreshAction);
     self.parentViewController.title = @"Schedule";
     
-    MyETodayScheduleController *todayViewController = [[MyETodayScheduleController alloc]init];
-    todayViewController.userId = self.userId;
-    todayViewController.houseId = self.houseId;
-    todayViewController.isRemoteControl = self.isRemoteControl;
-    todayViewController.navigationController = self.navigationController;
-    todayViewController.delegate = self;
-    
-    //在设置上面两个参数之前，不要在MyETodayScheduleController的init里面调用它的downloadModelFromServer方法
-    [self.baseView addSubview:todayViewController.view];
-    self.todayBaseViewController = todayViewController;
+    [self _createNext24HrsViewControllerIfNescessary];
+    self.next24HrsBaseViewController.view.hidden = false;
 
     UIColor *bgcolor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgpattern.png"]];
     [self.view setBackgroundColor:bgcolor];
 
-    _currentPanelType = SCHEDULE_TYPE_TODAY;
-    
-    
-    
-    
-    
+    _currentPanelType = SCHEDULE_TYPE_NEXT24HRS;
+        
     NSArray *tipDataArrayToday = [NSArray arrayWithObjects:
                                   [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY1 title:@"Tip" message:@"Swipe along the circle to adjust the time setting. Double click on the colored block to view/edit the temperature setpoint. However, you cannot change any setpoint that has been or is being executed."], 
                                   [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY2 title:@"Tip" message:@"When the setpoint is held from Dashboard, the corresponding time block will turn gray. Double tap to view the setpoint."],
@@ -158,23 +146,6 @@
 - (IBAction)switchSubPanel:(id)sender {
     UISegmentedControl *sc = sender;
     if ([sc selectedSegmentIndex] == 0) {
-        [UIView transitionWithView:self.baseView
-                          duration:1.0
-                           options:UIViewAnimationOptionTransitionFlipFromRight
-                        animations:^{
-                            self.todayBaseViewController.view.hidden = NO;
-                            self.weeklyBaseViewController.view.hidden = YES;
-                            self.next24HrsBaseViewController.view.hidden = YES;
-                        }
-                        completion:^(BOOL finished){
-                            // Save the old data and then swap the views.
-                            NSLog(@"switch to Today panel");
-                            [_tipViewControllerForTodayPanel showTips];
-                        }];
-        
-        [self.todayBaseViewController downloadModelFromServer];
-        _currentPanelType = SCHEDULE_TYPE_TODAY;
-    } else if ([sc selectedSegmentIndex] == 1) {
         [self _createNext24HrsViewControllerIfNescessary];
         [UIView transitionWithView:self.baseView
                           duration:1.0
@@ -192,7 +163,7 @@
         
         [self.next24HrsBaseViewController downloadModelFromServer];
         _currentPanelType = SCHEDULE_TYPE_NEXT24HRS;
-    }else if ([sc selectedSegmentIndex] == 2)
+    }else if ([sc selectedSegmentIndex] == 1)
     {
         [self _createWeeklyViewControllerIfNescessary ];
         [UIView transitionWithView:self.baseView
@@ -211,7 +182,25 @@
         
         [self.weeklyBaseViewController downloadModelFromServer];
         _currentPanelType = SCHEDULE_TYPE_WEEKLY;
-    } 
+    } else if ([sc selectedSegmentIndex] == 2) {
+        [self _createTodayViewControllerIfNescessary ];
+        [UIView transitionWithView:self.baseView
+                          duration:1.0
+                           options:UIViewAnimationOptionTransitionFlipFromRight
+                        animations:^{
+                            self.todayBaseViewController.view.hidden = NO;
+                            self.weeklyBaseViewController.view.hidden = YES;
+                            self.next24HrsBaseViewController.view.hidden = YES;
+                        }
+                        completion:^(BOOL finished){
+                            // Save the old data and then swap the views.
+                            NSLog(@"switch to Today panel");
+                            [_tipViewControllerForTodayPanel showTips];
+                        }];
+        
+        [self.todayBaseViewController downloadModelFromServer];
+        _currentPanelType = SCHEDULE_TYPE_TODAY;
+    }
 }
 
 - (void)refreshAction
@@ -258,5 +247,19 @@
     }
 }
 
-
+- (void) _createTodayViewControllerIfNescessary{
+    if(!self.todayBaseViewController)
+    {
+        self.todayBaseViewController = [[MyETodayScheduleController alloc]init];
+        self.todayBaseViewController.userId = self.userId;
+        self.todayBaseViewController.houseId = self.houseId;
+        self.todayBaseViewController.isRemoteControl = self.isRemoteControl;
+        self.todayBaseViewController.navigationController = self.navigationController;
+        self.todayBaseViewController.delegate = self;
+        
+        //在设置上面两个参数之前，不要在MyETodayScheduleController的init里面调用它的downloadModelFromServer方法
+        [self.baseView insertSubview:self.todayBaseViewController.view atIndex:0];
+        self.todayBaseViewController.view.hidden = YES;
+    }
+}
 @end

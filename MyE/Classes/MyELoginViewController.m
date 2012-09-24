@@ -166,7 +166,7 @@
     CGFloat keyboardTop = keyboardRect.origin.y;
     CGRect newTextViewFrame = self.view.bounds;
     //newTextViewFrame.size.height = keyboardTop - self.view.bounds.origin.y;
-    newTextViewFrame.origin.y = 120 - keyboardTop;
+    newTextViewFrame.origin.y = 220 - keyboardTop;
     
     // Get the duration of the animation.
     NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];

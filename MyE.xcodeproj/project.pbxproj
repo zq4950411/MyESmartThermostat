@@ -368,6 +368,7 @@
 		C3D5D943151240940046D44C /* MyEVacationEditFromStaycationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D5D942151240940046D44C /* MyEVacationEditFromStaycationViewController.m */; };
 		C3DAFF8715564584002F5B05 /* buttonbg.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DAFF8515564584002F5B05 /* buttonbg.png */; };
 		C3DAFF8815564584002F5B05 /* buttonbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DAFF8615564584002F5B05 /* buttonbg@2x.png */; };
+		C3E81543160F7E1000F9D15F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3E81542160F7E1000F9D15F /* Default-568h@2x.png */; };
 		C3FAAFC614F656560044CA03 /* Ctrl_Cooling01.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FAAF5114F656560044CA03 /* Ctrl_Cooling01.png */; };
 		C3FAAFC714F656560044CA03 /* Ctrl_Cooling01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FAAF5214F656560044CA03 /* Ctrl_Cooling01@2x.png */; };
 		C3FAAFC814F656560044CA03 /* Ctrl_Cooling02.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FAAF5314F656560044CA03 /* Ctrl_Cooling02.png */; };
@@ -833,6 +834,7 @@
 		C3D5D942151240940046D44C /* MyEVacationEditFromStaycationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEVacationEditFromStaycationViewController.m; sourceTree = "<group>"; };
 		C3DAFF8515564584002F5B05 /* buttonbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonbg.png; sourceTree = "<group>"; };
 		C3DAFF8615564584002F5B05 /* buttonbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonbg@2x.png"; sourceTree = "<group>"; };
+		C3E81542160F7E1000F9D15F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C3FAAF5114F656560044CA03 /* Ctrl_Cooling01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ctrl_Cooling01.png; sourceTree = "<group>"; };
 		C3FAAF5214F656560044CA03 /* Ctrl_Cooling01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ctrl_Cooling01@2x.png"; sourceTree = "<group>"; };
 		C3FAAF5314F656560044CA03 /* Ctrl_Cooling02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ctrl_Cooling02.png; sourceTree = "<group>"; };
@@ -969,6 +971,7 @@
 		C30E01E414C7A69000011160 = {
 			isa = PBXGroup;
 			children = (
+				C3E81542160F7E1000F9D15F /* Default-568h@2x.png */,
 				C39AD94E151C58BB00ACAB52 /* Default.png */,
 				C3A292AE151716AC00FB6E92 /* Default@2x.png */,
 				C39AD948151C589C00ACAB52 /* ApplicationIcon.png */,
@@ -1957,6 +1960,7 @@
 				C326D8C615F154FE00CB35EF /* cond176.png in Resources */,
 				C3AA84DB15F9ABC900939B8E /* Tb_EmgHDisabled.png in Resources */,
 				C3AA84DC15F9ABC900939B8E /* Tb_EmgHDisabled@2x.png in Resources */,
+				C3E81543160F7E1000F9D15F /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
