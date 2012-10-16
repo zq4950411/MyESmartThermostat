@@ -29,7 +29,7 @@
     [self.segmentedControl setTintColor:[UIColor lightGrayColor]];
     [self.segmentedControl setFrame:frame];
     
-    UIFont *font = [UIFont boldSystemFontOfSize:15.0f];
+    UIFont *font = [UIFont boldSystemFontOfSize:12.0f];
     NSArray *values = [[NSArray alloc] initWithObjects:font, [NSNumber numberWithFloat:2.0], nil];
     NSArray *keys = [[NSArray alloc] initWithObjects:UITextAttributeFont, UITextAttributeTextShadowOffset, nil];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjects:values forKeys:keys];
