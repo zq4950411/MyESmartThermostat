@@ -70,19 +70,6 @@
     _modeEditingViewShowing = NO;
     _periodInforDoughnutViewShowing = NO;
     _hasLoadFromServer = NO;
-    NSArray *items = [[NSArray alloc] initWithObjects:@"Mon", @"Tue", @"Wed",@"Thu", @"Fri",@"Sat", @"Sun",nil];
-    //这里不想使用自定义颜色，就把下面自定义颜色注释掉
-    NSArray *colors;/* = [[NSArray alloc] initWithObjects:[UIColor colorWithRed:134/255.0 green:145/255.0 blue:183/255.0 alpha:1.0], 
-                       [UIColor colorWithRed:134/255.0 green:145/255.0 blue:183/255.0 alpha:1.0], 
-                       [UIColor colorWithRed:134/255.0 green:145/255.0 blue:183/255.0 alpha:1.0], 
-                       [UIColor colorWithRed:134/255.0 green:145/255.0 blue:183/255.0 alpha:1.0], 
-                       [UIColor colorWithRed:134/255.0 green:145/255.0 blue:183/255.0 alpha:1.0], 
-                       [UIColor colorWithRed:134/255.0 green:145/255.0 blue:183/255.0 alpha:1.0], 
-                       [UIColor colorWithRed:134/255.0 green:145/255.0 blue:183/255.0 alpha:1.0],nil];*/
-    _weekdaySegmentedController = [[MyEWeekdayToolbarController alloc] initWithFrame:CGRectMake(20, 3, 280, 30) items:items tintColors:colors];
-    _weekdaySegmentedController.delegate = self;
-    [self.view addSubview:_weekdaySegmentedController.segmentedControl];
-    
     
     
     _modePickerView = [[MyEModePickerView alloc]
@@ -168,8 +155,8 @@
     if (selectedSegmentIndex < 0) {
         selectedSegmentIndex = 6;
     }
-    [_weekdaySegmentedController.segmentedControl setSelectedSegmentIndex:selectedSegmentIndex];
-    [_weekdaySegmentedController updateTextColors];
+    [self.weekdaySegmentedControl setSelectedSegmentIndex:selectedSegmentIndex];
+
 }
 
 - (void)viewDidUnload
@@ -178,10 +165,10 @@
     _weeklyModel = nil;
     _doughnutView = nil;
     _modeEditingView = nil;
-    _weeklyDaySelectionView = nil;
+    [self setWeekdaySegmentedControl:nil];
     _weeklyModel = nil;
     _weeklyModelCache = nil;
-    _weekdaySegmentedController = nil;
+    _weekdaySegmentedControl = nil;
     _periodInforDoughnutView = nil;
     HUD = nil;
     [self setApplyButton:nil];
@@ -747,12 +734,6 @@
 
 
 #pragma mark
-#pragma mark MyEWeekdayToolbarControllerDelegate methods
-// weekdayId顺序是:0-sun, 1-mon,2-Tue, ..., 6-Sat
-- (void)didSelectWeekdayId:(NSUInteger)weekdayId {
-    self.currentWeekdayId = weekdayId;//星期数，0-sun， 1-mon, ..., 6-sat
-}
-
 #pragma mark MyETodayPeriodInforViewDelegate methods
 - (void) didFinishPeriodInforDoughnutView {
     [self _togglePeriodInforDoughnutView];
@@ -776,6 +757,17 @@
 
 - (IBAction)resetSchedule:(id)sender {
     [self _restoreToLastUnchanged];
+}
+
+- (IBAction)weekdaySegmentedControlValueDidChange:(id)sender {
+    //在本App中，weekdayId顺序是:         0-sun, 1-mon, 2-Tue, ..., 6-Sat
+    // 调整顺序，因为segmentedControl顺序是       0-Mon, 1-Tue, ..., 5-Sat, 6-Sun
+    NSInteger weekdayId = ((UISegmentedControl *)sender).selectedSegmentIndex+1;
+    if (weekdayId >6) {
+        weekdayId = 0;
+    }
+    NSLog(@"selected weekdayId = %i", weekdayId);
+    self.currentWeekdayId = weekdayId;//星期数，0-sun， 1-mon, ..., 6-sat
 }
 @end
 

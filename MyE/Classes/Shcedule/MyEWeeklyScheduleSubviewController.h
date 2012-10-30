@@ -15,7 +15,6 @@
 #import "MyEDoughnutView.h"
 #import "MyEModePickerView.h"
 #import "MBProgressHUD.h"
-#import "MyEWeekdayToolbarController.h"
 #import "MyEPeriodInforDoughnutView.h"
 
 @class MyEScheduleWeeklyData;
@@ -24,12 +23,11 @@
 
 
 
-@interface MyEWeeklyScheduleSubviewController : MyESubviewController <MyEDoughnutViewDelegate, MyEModePickerViewDelegate, MyEWeeklyModeEditingViewDelegate,MyEApplyToDaysSelectionViewDelegate, MyEDataLoaderDelegate, MBProgressHUDDelegate, MyEWeekdayToolbarControllerDelegate,MyEPeriodInforDoughnutViewDelegate>
+@interface MyEWeeklyScheduleSubviewController : MyESubviewController <MyEDoughnutViewDelegate, MyEModePickerViewDelegate, MyEWeeklyModeEditingViewDelegate,MyEApplyToDaysSelectionViewDelegate, MyEDataLoaderDelegate, MBProgressHUDDelegate,MyEPeriodInforDoughnutViewDelegate>
 {
     MyEDoughnutView *_doughnutView;
 
     MyEModePickerView *_modePickerView;
-    MyEWeekdayToolbarController *_weekdaySegmentedController;
 
     MyEWeeklyModeEditingView *_modeEditingView;
     BOOL _modeEditingViewShowing;
@@ -68,6 +66,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *resetButton;
 @property (weak, nonatomic) IBOutlet UIButton *addNewModeButton;
 @property (weak, nonatomic) IBOutlet UIButton *editModeButton;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *weekdaySegmentedControl;
 
 @property (strong, nonatomic) MyEScheduleWeeklyData *weeklyModel;
 @property (strong, nonatomic) MyEScheduleWeeklyData *weeklyModelCache;//缓冲数据，用于恢复用户修改Schedule操作的
@@ -80,6 +79,7 @@
 - (IBAction)addNewMode:(id)sender;
 - (IBAction)applyNewSchedule:(id)sender;
 - (IBAction)resetSchedule:(id)sender;
+- (IBAction)weekdaySegmentedControlValueDidChange:(id)sender;
 
 
 
