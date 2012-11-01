@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SelectedTabBar.h"
 
 //定义用于TabBar View上每个UITabBarItem的Tag标签序号
 typedef enum {
@@ -21,8 +20,6 @@ typedef enum {
 @property (copy, nonatomic) NSString *userId;
 @property (nonatomic) NSInteger houseId;
 @property (nonatomic,copy) NSString *houseName;
-@property (nonatomic) NSInteger selectedTabIndex;
-@property (nonatomic, weak) id <SelectedTabBar> selectedTabIndexDelegate;
 
 - (void)navigationBarDoubleTap:(UIGestureRecognizer*)recognizer;
 
