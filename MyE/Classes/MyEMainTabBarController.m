@@ -14,8 +14,6 @@
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
 @synthesize houseName = _houseName;
-@synthesize selectedTabIndex = _selectedTabIndex;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -61,9 +59,7 @@
         NSLog(@"remove first view controller");
         [allViewControllers removeObjectAtIndex:0];//移除前一个Staycation detail view controller
         self.navigationController.viewControllers = allViewControllers;  
-    }
-    
-    self.selectedIndex = self.selectedTabIndex;
+    }  
 }
 //*/
 
@@ -95,32 +91,24 @@
     switch (item.tag) {
         case MYE_TAB_DASHBOARD:
             item.title = @"Dashboard";
-            //            self.title = @"Dashboard";
-            self.selectedTabIndex = 0;
+            self.title = @"Dashboard";
             break;
         case MYE_TAB_SHCHEDULE:
             item.title = @"Schedule";
-            //           self.title = @"Schedule";
-            self.selectedTabIndex = 1;
-            break;
+            self.title = @"Schedule";
+            break; 
         case MYE_TAB_VACATION:
             item.title = @"Vacation";
-            //            self.title = @"Vacation";
-            self.selectedTabIndex = 2;
-            break;
+            self.title = @"Vacation";
+            break; 
         case MYE_TAB_SETTING:
             item.title = @"Settings";
-            //            self.title = @"Settings";
-            self.selectedTabIndex = 3;
-            break;
+            self.title = @"Settings";
+            break; 
         default:
             break;
     }
-    self.title = self.houseName;
-    
-    [self.selectedTabIndexDelegate saveSeletedTabIndex:self.selectedTabIndex];
 }
-
 - (void)navigationBarDoubleTap:(UIGestureRecognizer*)recognizer {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Information"
                                                     message:[NSString stringWithFormat:@"You are currently viewing: %@", self.houseName] 

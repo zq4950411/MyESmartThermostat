@@ -29,7 +29,6 @@
 
 - (void)keyboardWillHide:(NSNotification *)notification;
 - (void)keyboardWillShow:(NSNotification *)notification;
-- (void)hideKeyboardBeforeResignActive:(NSNotification *)notification;
 
 // 加载持久存储的一下设置
 -(void)loadSettings;
