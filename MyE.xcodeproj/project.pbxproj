@@ -404,7 +404,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		90576898163FA3CF0094CFCE /* SelectedTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectedTabBar.h; sourceTree = "<group>"; };
 		C301CFFE1511CFE800778942 /* MyEVacationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEVacationDetailViewController.h; sourceTree = "<group>"; };
 		C301CFFF1511CFE800778942 /* MyEVacationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEVacationDetailViewController.m; sourceTree = "<group>"; };
 		C3062E041508487D00869E95 /* MyEModePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEModePickerView.h; sourceTree = "<group>"; };
@@ -898,14 +897,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		90576897163FA23E0094CFCE /* TabBarSelection */ = {
-			isa = PBXGroup;
-			children = (
-				90576898163FA3CF0094CFCE /* SelectedTabBar.h */,
-			);
-			name = TabBarSelection;
-			sourceTree = "<group>";
-		};
 		C308F0F214F6621500803626 /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -1492,7 +1483,6 @@
 		C3FAAF9914F656560044CA03 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				90576897163FA23E0094CFCE /* TabBarSelection */,
 				C38D61F2159839DC003EAEAA /* CustomViews */,
 				C38A83C31595074800B5C9BB /* BlockAlerts */,
 				C3A393AF152284B700E7827D /* MBProgressHUD */,
