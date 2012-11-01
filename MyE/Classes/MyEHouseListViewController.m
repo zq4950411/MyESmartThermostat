@@ -19,10 +19,21 @@
 #import "MyEDashboardData.h"
 #import "MyEUtil.h"
 #import "SBJson.h"
+#import "SelectedTabBar.h"
+
+@interface MyEHouseListViewController() <SelectedTabBar>
+
+@property (nonatomic) NSInteger selectedTabIndex;
+@property (nonatomic) NSInteger selectedHouseNo;
+
+@end
 
 @implementation MyEHouseListViewController
 @synthesize accountData = _accountData;
 @synthesize rememberHouseIdSwitch = _rememberHouseIdSwitch;
+
+@synthesize selectedTabIndex = _selectedTabIndex;
+@synthesize selectedHouseNo = _selectedHouseNo;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -296,10 +307,19 @@
     //在这里为每个tab view设置houseId和userId, 同时要为每个tab viewController中定义这两个变量，并实现一个统一的签名方法，以保存这个变量。
     MyEMainTabBarController *tabBarController = [segue destinationViewController];
     
-    [tabBarController setTitle:@"Dashboard"];
+    //    [tabBarController setTitle:@"Dashboard"];
+    [tabBarController setTitle:houseData.houseName];
     tabBarController.userId = self.accountData.userId;
     tabBarController.houseId = houseData.houseId;
     tabBarController.houseName = houseData.houseName;
+    
+    if (self.selectedHouseNo != houseData.houseId) {
+        self.selectedTabIndex = 0;
+        self.selectedHouseNo = houseData.houseId;
+    }
+    
+    tabBarController.selectedTabIndex = self.selectedTabIndex;
+    tabBarController.selectedTabIndexDelegate = self;    
     
     //注意，在下面houseData.remote和后面每个面板的查看请求中的locWeb字段功能含义是相同的，
     // 只是houseData.remote是在HouseList面板时表示硬件是否可控，而locWeb是在每个面板单独查看硬件信息时，
@@ -409,5 +429,17 @@
     [alert show];
     [self performSelector:@selector(dimissAlert:) withObject:alert afterDelay:delay];
 }
+
+
+#pragma mark -
+#pragma mark SelectedTabBar protocol methods
+
+- (void) saveSeletedTabIndex:(NSInteger) index {
+    
+    self.selectedTabIndex = index;
+    
+}
+
+
 
 @end
