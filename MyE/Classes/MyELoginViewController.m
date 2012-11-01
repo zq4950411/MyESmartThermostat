@@ -69,18 +69,8 @@
     [self loadSettings];
     
     // Observe keyboard hide and show notifications to resize the text view appropriately.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(hideKeyboardBeforeResignActive:)
-                                                 name:UIApplicationWillResignActiveNotification
-                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 
@@ -95,8 +85,6 @@
     // e.g. self.myOutlet = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    //    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
 
 
@@ -119,8 +107,7 @@
         [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
         [prefs synchronize];
         
-        //        [tabBarController setTitle:@"Dashboard"];
-        [tabBarController setTitle:houseData.houseName];
+        [tabBarController setTitle:@"Dashboard"];
         tabBarController.userId = self.accountData.userId;
         tabBarController.houseId = houseData.houseId;
         tabBarController.houseName = houseData.houseName;
@@ -170,21 +157,16 @@
     NSDictionary *userInfo = [notification userInfo];
     
     // Get the origin of the keyboard when it's displayed.
-    //    NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     
     // Get the top of the keyboard as the y coordinate of its origin in self's view's coordinate system. The bottom of the text view's frame should align with the top of the keyboard's final position.
-    //    CGRect keyboardRect = [aValue CGRectValue];
-    //    keyboardRect = [self.view convertRect:keyboardRect fromView:nil];
+    CGRect keyboardRect = [aValue CGRectValue];
+    keyboardRect = [self.view convertRect:keyboardRect fromView:nil];
     
-    //    CGFloat keyboardTop = keyboardRect.origin.y;
+    CGFloat keyboardTop = keyboardRect.origin.y;
     CGRect newTextViewFrame = self.view.bounds;
     //newTextViewFrame.size.height = keyboardTop - self.view.bounds.origin.y;
-    //newTextViewFrame.origin.y = 220 - keyboardTop;
-    
-    // move the main view frame upward by half of the gap
-    // between the navigation bar title (MyE) and the Username input text box
-    newTextViewFrame.origin.y = self.view.bounds.origin.y -
-    self.usernameInput.frame.origin.y / 2.0;
+    newTextViewFrame.origin.y = 220 - keyboardTop;
     
     // Get the duration of the animation.
     NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
@@ -245,17 +227,6 @@
 - (IBAction)login:(id)sender {
     [self _doLogin];
 }
-
-
-
-- (void)hideKeyboardBeforeResignActive:(NSNotification *)notification{
-    [self.usernameInput resignFirstResponder];
-    [self.passwordInput resignFirstResponder];
-}
-
-
-
-
 #pragma mark -
 #pragma mark URL Loading System methods
 
