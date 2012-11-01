@@ -50,7 +50,8 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.parentViewController.navigationItem.rightBarButtonItem.target = self;
     self.parentViewController.navigationItem.rightBarButtonItem.action = @selector(refreshAction);
-    self.parentViewController.title = @"Schedule";
+//    self.parentViewController.title = @"Schedule";
+    
     
     [self _createNext24HrsViewControllerIfNescessary];
     self.next24HrsBaseViewController.view.hidden = false;
