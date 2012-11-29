@@ -5,45 +5,28 @@
 //  Created by Ye Yuan on 2/23/12.
 //  Copyright (c) 2012 MyEnergy Domain. All rights reserved.
 //
-#
+
 #import <Foundation/Foundation.h>
-//原来写死的url
-//#define URL_FOR_LOGIN @"http://www.myenergydomain.com/user/user_login4mobile.do"
-//#define URL_FOR_DASHBOARD_VIEW @"http://www.myenergydomain.com/dashboard_view.do?houseId=419&userId=1000100000000000317"
-//#define URL_FOR_TODAY_SCHEDULE_VIEW @"http://www.myenergydomain.com/programToday_view.do?houseId=419&userId=1000100000000000317"
-//#define URL_FOR_WEEKLY_SCHEDULE_VIEW @"http://www.myenergydomain.com/masterProgram_view.do?houseId=419&userId=1000100000000000317"
-//#define URL_FOR_VACATION_VIEW @"http://www.myenergydomain.com/vacation_view.do?houseId=419&userId=1000100000000000317"
-//#define URL_FOR_SETTINGS_VIEW @"http://www.myenergydomain.com/setting_view.do?houseId=419&userId=1000100000000000317"
-//
-//#define URL_FOR_DASHBOARD_SAVE @"http://www.myenergydomain.com/dashboard_save.do?houseId=419&userId=1000100000000000317"
-//#define URL_FOR_TODAY_SCHEDULE_SAVE @"http://www.myenergydomain.com/programToday_save.do?houseId=419&userId=1000100000000000317"
-//#define URL_FOR_WEEKLY_SCHEDULE_SAVE @"http://www.myenergydomain.com/masterProgram_save.do?houseId=419&userId=1000100000000000317"
-//#define URL_FOR_VACATION_SAVE @"http://www.myenergydomain.com/vacation_save.do?houseId=419&userId=1000100000000000317"
-//#define URL_FOR_SETTINGS_SAVE @"http://www.myenergydomain.com/setting_save.do?houseId=419&userId=1000100000000000317"
 
+#define URL_FOR_LOGIN @"http://s1.myenergydomain.com/user/user_login4mobile.do"
+#define URL_FOR_HOUSELIST_VIEW @"http://s1.myenergydomain.com/house_view.do"
+#define URL_FOR_DASHBOARD_VIEW @"http://s1.myenergydomain.com/dashboard_view.do"
+#define URL_FOR_TODAY_SCHEDULE_VIEW @"http://s1.myenergydomain.com/programToday_view.do"
+#define URL_FOR_TODAY_DEFAULT_SCHEDULE_VIEW @"http://s1.myenergydomain.com/programToday_reset.do"
+#define URL_FOR_WEEKLY_SCHEDULE_VIEW @"http://s1.myenergydomain.com/masterProgram_view.do"
+#define URL_FOR_NEXT24HRS_SCHEDULE_VIEW @"http://s1.myenergydomain.com/next24Program_view.do"
+#define URL_FOR_NEXT24HRS_DEFAULT_SCHEDULE_VIEW @"http://s1.myenergydomain.com/next24Program_reset.do"
+#define URL_FOR_VACATION_VIEW @"http://s1.myenergydomain.com/vacation_view.do"
+#define URL_FOR_SETTINGS_VIEW @"http://s1.myenergydomain.com/setting_view.do"
 
-
-
-
-#define URL_FOR_LOGIN @"http://www.myenergydomain.com/user/user_login4mobile.do"
-#define URL_FOR_HOUSELIST_VIEW @"http://www.myenergydomain.com/house_view.do"
-#define URL_FOR_DASHBOARD_VIEW @"http://www.myenergydomain.com/dashboard_view.do"
-#define URL_FOR_TODAY_SCHEDULE_VIEW @"http://www.myenergydomain.com/programToday_view.do"
-#define URL_FOR_TODAY_DEFAULT_SCHEDULE_VIEW @"http://www.myenergydomain.com/programToday_reset.do"
-#define URL_FOR_WEEKLY_SCHEDULE_VIEW @"http://www.myenergydomain.com/masterProgram_view.do"
-#define URL_FOR_NEXT24HRS_SCHEDULE_VIEW @"http://www.myenergydomain.com/next24Program_view.do"
-#define URL_FOR_NEXT24HRS_DEFAULT_SCHEDULE_VIEW @"http://www.myenergydomain.com/next24Program_reset.do"
-#define URL_FOR_VACATION_VIEW @"http://www.myenergydomain.com/vacation_view.do"
-#define URL_FOR_SETTINGS_VIEW @"http://www.myenergydomain.com/setting_view.do"
-
-#define URL_FOR_DASHBOARD_SAVE @"http://www.myenergydomain.com/dashboard_save.do"
-#define URL_FOR_TODAY_SCHEDULE_SAVE @"http://www.myenergydomain.com/programToday_save.do"
-#define URL_FOR_TODAY_HOLD_SAVE @"http://www.myenergydomain.com/programToday_hold_save.do"
-#define URL_FOR_WEEKLY_SCHEDULE_SAVE @"http://www.myenergydomain.com/masterProgram_save.do"
-#define URL_FOR_NEXT24HRS_SCHEDULE_SAVE @"http://www.myenergydomain.com/next24Program_save.do"
-#define URL_FOR_NEXT24HRS_HOLD_SAVE @"http://www.myenergydomain.com/next24Program_hold_save.do"
-#define URL_FOR_VACATION_SAVE @"http://www.myenergydomain.com/vacation_save.do"
-#define URL_FOR_SETTINGS_SAVE @"http://www.myenergydomain.com/setting_save.do"
+#define URL_FOR_DASHBOARD_SAVE @"http://s1.myenergydomain.com/dashboard_save.do"
+#define URL_FOR_TODAY_SCHEDULE_SAVE @"http://s1.myenergydomain.com/programToday_save.do"
+#define URL_FOR_TODAY_HOLD_SAVE @"http://s1.myenergydomain.com/programToday_hold_save.do"
+#define URL_FOR_WEEKLY_SCHEDULE_SAVE @"http://s1.myenergydomain.com/masterProgram_save.do"
+#define URL_FOR_NEXT24HRS_SCHEDULE_SAVE @"http://s1.myenergydomain.com/next24Program_save.do"
+#define URL_FOR_NEXT24HRS_HOLD_SAVE @"http://s1.myenergydomain.com/next24Program_hold_save.do"
+#define URL_FOR_VACATION_SAVE @"http://s1.myenergydomain.com/vacation_save.do"
+#define URL_FOR_SETTINGS_SAVE @"http://s1.myenergydomain.com/setting_save.do"
 
 
 
