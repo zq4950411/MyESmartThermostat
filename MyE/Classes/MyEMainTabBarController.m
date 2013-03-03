@@ -64,8 +64,43 @@
     }
     
     self.selectedIndex = self.selectedTabIndex;
+    
+    
+    
+    
+    
+    
+    //// 下面用于测试切换红外转发器
+    // Do any additional setup after loading the view, typically from a nib.
+    UIImage *buttonImage = [UIImage imageNamed:@"ApplicationIcon.png"];
+    UIImage *highlightImage = [UIImage imageNamed:@"ApplicationIcon.png"];
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0.0, 0.0, buttonImage.size.width, buttonImage.size.height);
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
+    CGFloat heightDifference = buttonImage.size.height - self.tabBarController.tabBar.frame.size.height;
+    if (heightDifference < 0)
+        button.center = self.tabBarController.tabBar.center;
+    else
+    {
+        CGPoint center = self.tabBarController.tabBar.center;
+        center.y = center.y + heightDifference/2.0;
+        center.x = self.tabBar.frame.size.width - 2*self.tabBarController.tabBar.frame.size.height;
+        button.center = center;
+    }
+    [button addTarget:self action:@selector(switchTerminal) forControlEvents:UIControlEventTouchUpInside];
+    [self.tabBar addSubview:button];
+    
+    
+    // 测试修改最后一天tab item的title
+    [[self.tabBar.items objectAtIndex:4 ] setTitle:@"hello"];
 }
 //*/
+
+//// 用于测试切换红外转发器
+- (void)switchTerminal { 
+    NSLog(@"refresh");
+}
 
 - (void)viewDidUnload
 {

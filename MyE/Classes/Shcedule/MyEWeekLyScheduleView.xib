@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1536</int>
+		<int key="IBDocument.SystemTarget">1552</int>
 		<string key="IBDocument.SystemVersion">12C60</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2843</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1929</string>
+			<string key="NS.object.0">2083</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -45,7 +45,6 @@
 								<int key="NSvFlags">256</int>
 								<string key="NSFrame">{{115, 75}, {90, 45}}</string>
 								<reference key="NSSuperview" ref="354403563"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="343065068"/>
 								<string key="NSReuseIdentifierKey">_NS:225</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -83,7 +82,6 @@
 								<int key="NSvFlags">256</int>
 								<string key="NSFrame">{{115, 120}, {90, 45}}</string>
 								<reference key="NSSuperview" ref="354403563"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="578980760"/>
 								<string key="NSReuseIdentifierKey">_NS:225</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -106,7 +104,6 @@
 						</array>
 						<string key="NSFrame">{{0, 34}, {320, 261}}</string>
 						<reference key="NSSuperview" ref="650356297"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="470001736"/>
 						<string key="NSReuseIdentifierKey">_NS:196</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -122,7 +119,6 @@
 						<int key="NSvFlags">256</int>
 						<string key="NSFrame">{{20, 284}, {30, 30}}</string>
 						<reference key="NSSuperview" ref="650356297"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="571034435"/>
 						<string key="NSReuseIdentifierKey">_NS:225</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -154,8 +150,6 @@
 						<int key="NSvFlags">256</int>
 						<string key="NSFrame">{{270, 284}, {30, 30}}</string>
 						<reference key="NSSuperview" ref="650356297"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:225</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -180,7 +174,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{7, 2}, {306, 30}}</string>
 						<reference key="NSSuperview" ref="650356297"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="98889968"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -237,7 +230,6 @@
 				</array>
 				<string key="NSFrameSize">{320, 334}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="354403563"/>
 				<string key="NSReuseIdentifierKey">_NS:196</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -442,100 +434,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">138</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">MyESubviewController</string>
-					<string key="superclassName">NSObject</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">view</string>
-						<string key="NS.object.0">UIView</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">view</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">view</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/MyESubviewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">MyEWeeklyScheduleSubviewController</string>
-					<string key="superclassName">MyESubviewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="addNewMode:">id</string>
-						<string key="applyNewSchedule:">id</string>
-						<string key="editSelectedMode:">id</string>
-						<string key="resetSchedule:">id</string>
-						<string key="weekdaySegmentedControlValueDidChange:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="addNewMode:">
-							<string key="name">addNewMode:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="applyNewSchedule:">
-							<string key="name">applyNewSchedule:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="editSelectedMode:">
-							<string key="name">editSelectedMode:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="resetSchedule:">
-							<string key="name">resetSchedule:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="weekdaySegmentedControlValueDidChange:">
-							<string key="name">weekdaySegmentedControlValueDidChange:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="addNewModeButton">UIButton</string>
-						<string key="applyButton">UIButton</string>
-						<string key="centerContainerView">UIView</string>
-						<string key="editModeButton">UIButton</string>
-						<string key="resetButton">UIButton</string>
-						<string key="weekdaySegmentedControl">UISegmentedControl</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="addNewModeButton">
-							<string key="name">addNewModeButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="applyButton">
-							<string key="name">applyButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="centerContainerView">
-							<string key="name">centerContainerView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="editModeButton">
-							<string key="name">editModeButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="resetButton">
-							<string key="name">resetButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="weekdaySegmentedControl">
-							<string key="name">weekdaySegmentedControl</string>
-							<string key="candidateClassName">UISegmentedControl</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/MyEWeeklyScheduleSubviewController.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
@@ -546,6 +445,6 @@
 			<string key="pen.png">{30, 30}</string>
 			<string key="reset_halfcircle.png">{100, 50}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1929</string>
+		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>
