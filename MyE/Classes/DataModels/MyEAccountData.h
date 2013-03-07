@@ -15,8 +15,6 @@
 @interface MyEAccountData : NSObject <NSCopying> 
 @property (nonatomic, copy) NSString *userName;
 @property (nonatomic, copy) NSString *userId;
-@property (nonatomic, copy) NSString *password;
-@property (nonatomic, copy) NSString *checkCode;
 @property (nonatomic) BOOL rememberMe;
 @property (nonatomic) BOOL loginSuccess;
 
@@ -39,5 +37,5 @@
 - (BOOL)updateHouseListByJSONString:(NSString *)jsonString;
 
 - (NSString *)getHouseNameByHouseId:(NSInteger)houseId;
-- (void)addHouseWithName:(NSString *)inputName houseId:(NSInteger)inputId thermostat:(NSInteger)inputThermostat remote:(NSInteger)inputRemote;
+
 @end

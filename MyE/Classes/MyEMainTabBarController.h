@@ -25,6 +25,5 @@ typedef enum {
 @property (nonatomic, weak) id <SelectedTabBar> selectedTabIndexDelegate;
 
 - (void)navigationBarDoubleTap:(UIGestureRecognizer*)recognizer;
-- (void)switchTerminal;// 用于测试切换红外转发器
 
 @end

@@ -15,33 +15,15 @@
 @end
 
 @implementation MyEAccountData
-@synthesize userId = _userId, userName = _userName, password = _password , 
-            checkCode = _checkCode, rememberMe = _rememberMe, 
+@synthesize userId = _userId, userName = _userName, 
+            rememberMe = _rememberMe, 
             houseList = _houseList, loginSuccess = _loginSuccess;
 
-- (void)initializeDefaultHouseList{
-    NSMutableArray *aHouseList = [[NSMutableArray alloc]init];
-    self.houseList = aHouseList;
-    [self addHouseWithName:@"MyHouse" houseId:419 thermostat:2 remote:1];
-}
 
 - (void)setHouseList:(NSMutableArray *)newList {
     if(_houseList != newList) {
         _houseList = [newList mutableCopy];
     }
-}
-
-- (id)init {
-    if (self = [super init]) {
-        [self initializeDefaultHouseList];
-        _userName = @"demo";
-        _userId = @"123456789000";
-        _password = @"passoword111";
-        _checkCode = @"checkcode222";
-        _rememberMe = YES;
-        return self;
-    }
-    return nil;
 }
 
 #pragma mark
@@ -145,11 +127,6 @@
         }
     }
 return name;
-}
-
-- (void)addHouseWithName:(NSString *)inputName  houseId:(NSInteger)inputId thermostat:(NSInteger)inputThermostat  remote:(NSInteger)inputRemote{
-    MyEHouseData *houseData = [[MyEHouseData alloc] initWithName:inputName houseId:inputId thermostat:inputThermostat  remote:inputRemote];
-    [self.houseList addObject:houseData];
 }
 
 

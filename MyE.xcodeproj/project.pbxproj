@@ -364,10 +364,14 @@
 		C3B97F9115119C8E00A69E05 /* MyEDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C39655481511933E00AFDEDE /* MyEDataLoader.m */; };
 		C3BB6305155328AD00939EF1 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3FAB02114F656700044CA03 /* MainStoryboard.storyboard */; };
 		C3BB6FE0155B4FFB0056F004 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3BB6FDF155B4FFB0056F004 /* SystemConfiguration.framework */; };
+		C3C23F8116E8673F009A7C2A /* MyEThermostatData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C23F8016E8673F009A7C2A /* MyEThermostatData.m */; };
 		C3D04F3814DF7D41008B4090 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D04F3714DF7D41008B4090 /* QuartzCore.framework */; };
 		C3D5D943151240940046D44C /* MyEVacationEditFromStaycationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D5D942151240940046D44C /* MyEVacationEditFromStaycationViewController.m */; };
 		C3DAFF8715564584002F5B05 /* buttonbg.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DAFF8515564584002F5B05 /* buttonbg.png */; };
 		C3DAFF8815564584002F5B05 /* buttonbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DAFF8615564584002F5B05 /* buttonbg@2x.png */; };
+		C3E2760216E46AD100852FC1 /* MyETerminalListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2760116E46AD100852FC1 /* MyETerminalListViewController.m */; };
+		C3E2760516E46C7200852FC1 /* MyETerminalSelectedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2760416E46C7200852FC1 /* MyETerminalSelectedCell.m */; };
+		C3E2760816E46C9700852FC1 /* MyETerminalUnselectedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2760716E46C9700852FC1 /* MyETerminalUnselectedCell.m */; };
 		C3E81543160F7E1000F9D15F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3E81542160F7E1000F9D15F /* Default-568h@2x.png */; };
 		C3FAAFC614F656560044CA03 /* Ctrl_Cooling01.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FAAF5114F656560044CA03 /* Ctrl_Cooling01.png */; };
 		C3FAAFC714F656560044CA03 /* Ctrl_Cooling01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FAAF5214F656560044CA03 /* Ctrl_Cooling01@2x.png */; };
@@ -830,11 +834,19 @@
 		C3B1D15915368C750058A7BF /* UISegmentedControl+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISegmentedControl+Extension.m"; sourceTree = "<group>"; };
 		C3B1D15B1536B61D0058A7BF /* bgpattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgpattern.png; sourceTree = "<group>"; };
 		C3BB6FDF155B4FFB0056F004 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C3C23F7F16E8673F009A7C2A /* MyEThermostatData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEThermostatData.h; sourceTree = "<group>"; };
+		C3C23F8016E8673F009A7C2A /* MyEThermostatData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEThermostatData.m; sourceTree = "<group>"; };
 		C3D04F3714DF7D41008B4090 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C3D5D941151240940046D44C /* MyEVacationEditFromStaycationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEVacationEditFromStaycationViewController.h; sourceTree = "<group>"; };
 		C3D5D942151240940046D44C /* MyEVacationEditFromStaycationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEVacationEditFromStaycationViewController.m; sourceTree = "<group>"; };
 		C3DAFF8515564584002F5B05 /* buttonbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonbg.png; sourceTree = "<group>"; };
 		C3DAFF8615564584002F5B05 /* buttonbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonbg@2x.png"; sourceTree = "<group>"; };
+		C3E2760016E46AD100852FC1 /* MyETerminalListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETerminalListViewController.h; sourceTree = "<group>"; };
+		C3E2760116E46AD100852FC1 /* MyETerminalListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETerminalListViewController.m; sourceTree = "<group>"; };
+		C3E2760316E46C7200852FC1 /* MyETerminalSelectedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETerminalSelectedCell.h; sourceTree = "<group>"; };
+		C3E2760416E46C7200852FC1 /* MyETerminalSelectedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETerminalSelectedCell.m; sourceTree = "<group>"; };
+		C3E2760616E46C9700852FC1 /* MyETerminalUnselectedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETerminalUnselectedCell.h; sourceTree = "<group>"; };
+		C3E2760716E46C9700852FC1 /* MyETerminalUnselectedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETerminalUnselectedCell.m; sourceTree = "<group>"; };
 		C3E81542160F7E1000F9D15F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C3FAAF5114F656560044CA03 /* Ctrl_Cooling01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ctrl_Cooling01.png; sourceTree = "<group>"; };
 		C3FAAF5214F656560044CA03 /* Ctrl_Cooling01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ctrl_Cooling01@2x.png"; sourceTree = "<group>"; };
@@ -913,6 +925,8 @@
 				C308F0F414F6621500803626 /* MyEAccountData.m */,
 				C308F0F714F6621500803626 /* MyEHouseData.h */,
 				C308F0F814F6621500803626 /* MyEHouseData.m */,
+				C3C23F7F16E8673F009A7C2A /* MyEThermostatData.h */,
+				C3C23F8016E8673F009A7C2A /* MyEThermostatData.m */,
 				C308F0F514F6621500803626 /* MyEDashboardData.h */,
 				C308F0F614F6621500803626 /* MyEDashboardData.m */,
 				C308F0FB14F6621500803626 /* MyETodayPeriodData.h */,
@@ -1213,6 +1227,19 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
+		C3E275FF16E46AD100852FC1 /* TerminalSwitch */ = {
+			isa = PBXGroup;
+			children = (
+				C3E2760016E46AD100852FC1 /* MyETerminalListViewController.h */,
+				C3E2760116E46AD100852FC1 /* MyETerminalListViewController.m */,
+				C3E2760316E46C7200852FC1 /* MyETerminalSelectedCell.h */,
+				C3E2760416E46C7200852FC1 /* MyETerminalSelectedCell.m */,
+				C3E2760616E46C9700852FC1 /* MyETerminalUnselectedCell.h */,
+				C3E2760716E46C9700852FC1 /* MyETerminalUnselectedCell.m */,
+			);
+			path = TerminalSwitch;
+			sourceTree = "<group>";
+		};
 		C3FAAF4F14F656560044CA03 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -1492,6 +1519,7 @@
 		C3FAAF9914F656560044CA03 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C3E275FF16E46AD100852FC1 /* TerminalSwitch */,
 				90576897163FA23E0094CFCE /* TabBarSelection */,
 				C38D61F2159839DC003EAEAA /* CustomViews */,
 				C38A83C31595074800B5C9BB /* BlockAlerts */,
@@ -2055,6 +2083,10 @@
 				C32A09A815ACBFC500A7BF8A /* MyEScheduleNext24HrsData.m in Sources */,
 				C32A09AB15ACE46500A7BF8A /* MyENext24HrsScheduleSubviewController.m in Sources */,
 				C38B19AA15AE524F00C17FE0 /* MyENext24HrsDayItemData.m in Sources */,
+				C3E2760216E46AD100852FC1 /* MyETerminalListViewController.m in Sources */,
+				C3E2760516E46C7200852FC1 /* MyETerminalSelectedCell.m in Sources */,
+				C3E2760816E46C9700852FC1 /* MyETerminalUnselectedCell.m in Sources */,
+				C3C23F8116E8673F009A7C2A /* MyEThermostatData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

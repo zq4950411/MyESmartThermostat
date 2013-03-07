@@ -14,6 +14,7 @@
 #import "MyEScheduleViewController.h"
 #import "MyEVacationMasterViewController.h"
 #import "MyESettingsViewController.h"
+#import "MyETerminalListViewController.h"
 #import "MyEHouseData.h"
 #import "MyEUtil.h"
 #import "SBJson.h"
@@ -149,6 +150,16 @@
         settingsViewController.houseId = houseData.houseId;
         settingsViewController.houseName = houseData.houseName;
         settingsViewController.isRemoteControl = houseData.remote == 0? NO:YES;
+        
+        
+        MyETerminalListViewController *terminalListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
+        terminalListViewController.userId = self.accountData.userId;
+        terminalListViewController.houseId = houseData.houseId;
+        terminalListViewController.houseName = houseData.houseName;
+        terminalListViewController.isRemoteControl = houseData.remote == 0? NO:YES;
+        terminalListViewController.accountData = self.accountData;
+        NSArray *tl = [[NSArray alloc] initWithObjects:[NSString stringWithFormat: @"test1"], [NSString stringWithFormat: @"test2"], [NSString stringWithFormat: @"test2"], nil];
+        terminalListViewController.tList = tl;
 
     }
     if ([[segue identifier] isEqualToString:@"ShowHouseList"]) {
