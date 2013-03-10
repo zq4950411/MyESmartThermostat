@@ -13,7 +13,7 @@
 
 - (MyEThermostatData *)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
-        self.tId = [[dictionary objectForKey:@"tId"] intValue];
+        self.tId = [dictionary objectForKey:@"tId"];
         self.tName = [dictionary objectForKey:@"tName"];
         self.thermostat = [[dictionary objectForKey:@"thermostat"] intValue];
         self.deviceType = [[dictionary objectForKey:@"deviceType"] intValue];

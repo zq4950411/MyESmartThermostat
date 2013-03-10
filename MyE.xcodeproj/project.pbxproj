@@ -218,8 +218,6 @@
 		C34B47C0155309FF00848DB7 /* nomark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C34B47BC155309FF00848DB7 /* nomark@2x.png */; };
 		C34B47C1155309FF00848DB7 /* yesmark.png in Resources */ = {isa = PBXBuildFile; fileRef = C34B47BD155309FF00848DB7 /* yesmark.png */; };
 		C34B47C2155309FF00848DB7 /* yesmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C34B47BE155309FF00848DB7 /* yesmark@2x.png */; };
-		C34B47CE1553215E00848DB7 /* MyEHouseListRemoteYesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C34B47CD1553215D00848DB7 /* MyEHouseListRemoteYesCell.m */; };
-		C34B47D11553216E00848DB7 /* MyEHouseListRemoteNoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C34B47D01553216D00848DB7 /* MyEHouseListRemoteNoCell.m */; };
 		C34CF28C14FDF1B600E88079 /* MyEWeeklyPeriodData.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CF28B14FDF1B600E88079 /* MyEWeeklyPeriodData.m */; };
 		C34CF2A014FE06C000E88079 /* MyEScheduleWeeklyData.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CF29F14FE06C000E88079 /* MyEScheduleWeeklyData.m */; };
 		C34CF2A414FE23FA00E88079 /* MyEWeekDayItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = C34CF2A314FE23FA00E88079 /* MyEWeekDayItemData.m */; };
@@ -310,6 +308,11 @@
 		C39058D8159A36DF005041F6 /* MyETipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39058D7159A36DF005041F6 /* MyETipViewController.m */; };
 		C39058DC159A3A8B005041F6 /* MyETipDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C39058DB159A3A8B005041F6 /* MyETipDataModel.m */; };
 		C3927C661504A8BB00E00230 /* MyEThumbColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3927C651504A8BB00E00230 /* MyEThumbColorView.m */; };
+		C392B83416EBE38F00B0CEB5 /* MyEThermostatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C392B83116EBE38F00B0CEB5 /* MyEThermostatListViewController.m */; };
+		C392B83916EBE78400B0CEB5 /* MyEHouseListInvalidCell.h in Sources */ = {isa = PBXBuildFile; fileRef = C392B83516EBE6B200B0CEB5 /* MyEHouseListInvalidCell.h */; };
+		C392B83A16EBE78400B0CEB5 /* MyEHouseListInvalidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C392B83616EBE6B200B0CEB5 /* MyEHouseListInvalidCell.m */; };
+		C392B83B16EBE78400B0CEB5 /* MyEHouseListValidCell.h in Sources */ = {isa = PBXBuildFile; fileRef = C392B83716EBE6B200B0CEB5 /* MyEHouseListValidCell.h */; };
+		C392B83C16EBE78400B0CEB5 /* MyEHouseListValidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C392B83816EBE6B200B0CEB5 /* MyEHouseListValidCell.m */; };
 		C393B7781524D6BE00B72FAF /* MyEPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C393B7771524D6BE00B72FAF /* MyEPasswordResetViewController.m */; };
 		C393B77C1524F41C00B72FAF /* MyESettingsData.m in Sources */ = {isa = PBXBuildFile; fileRef = C393B77B1524F41C00B72FAF /* MyESettingsData.m */; };
 		C394B8D915BDE75300283D0A /* reset_halfcircle_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C394B8D515BDE75300283D0A /* reset_halfcircle_disabled.png */; };
@@ -362,16 +365,12 @@
 		C3B1D15A15368C750058A7BF /* UISegmentedControl+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B1D15915368C750058A7BF /* UISegmentedControl+Extension.m */; };
 		C3B1D15C1536B61D0058A7BF /* bgpattern.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B1D15B1536B61D0058A7BF /* bgpattern.png */; };
 		C3B97F9115119C8E00A69E05 /* MyEDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C39655481511933E00AFDEDE /* MyEDataLoader.m */; };
-		C3BB6305155328AD00939EF1 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3FAB02114F656700044CA03 /* MainStoryboard.storyboard */; };
 		C3BB6FE0155B4FFB0056F004 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3BB6FDF155B4FFB0056F004 /* SystemConfiguration.framework */; };
 		C3C23F8116E8673F009A7C2A /* MyEThermostatData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C23F8016E8673F009A7C2A /* MyEThermostatData.m */; };
 		C3D04F3814DF7D41008B4090 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D04F3714DF7D41008B4090 /* QuartzCore.framework */; };
 		C3D5D943151240940046D44C /* MyEVacationEditFromStaycationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D5D942151240940046D44C /* MyEVacationEditFromStaycationViewController.m */; };
 		C3DAFF8715564584002F5B05 /* buttonbg.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DAFF8515564584002F5B05 /* buttonbg.png */; };
 		C3DAFF8815564584002F5B05 /* buttonbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DAFF8615564584002F5B05 /* buttonbg@2x.png */; };
-		C3E2760216E46AD100852FC1 /* MyETerminalListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2760116E46AD100852FC1 /* MyETerminalListViewController.m */; };
-		C3E2760516E46C7200852FC1 /* MyETerminalSelectedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2760416E46C7200852FC1 /* MyETerminalSelectedCell.m */; };
-		C3E2760816E46C9700852FC1 /* MyETerminalUnselectedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2760716E46C9700852FC1 /* MyETerminalUnselectedCell.m */; };
 		C3E81543160F7E1000F9D15F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3E81542160F7E1000F9D15F /* Default-568h@2x.png */; };
 		C3FAAFC614F656560044CA03 /* Ctrl_Cooling01.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FAAF5114F656560044CA03 /* Ctrl_Cooling01.png */; };
 		C3FAAFC714F656560044CA03 /* Ctrl_Cooling01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FAAF5214F656560044CA03 /* Ctrl_Cooling01@2x.png */; };
@@ -650,10 +649,6 @@
 		C34B47BC155309FF00848DB7 /* nomark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nomark@2x.png"; sourceTree = "<group>"; };
 		C34B47BD155309FF00848DB7 /* yesmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yesmark.png; sourceTree = "<group>"; };
 		C34B47BE155309FF00848DB7 /* yesmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yesmark@2x.png"; sourceTree = "<group>"; };
-		C34B47CC1553215D00848DB7 /* MyEHouseListRemoteYesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEHouseListRemoteYesCell.h; sourceTree = "<group>"; };
-		C34B47CD1553215D00848DB7 /* MyEHouseListRemoteYesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEHouseListRemoteYesCell.m; sourceTree = "<group>"; };
-		C34B47CF1553216D00848DB7 /* MyEHouseListRemoteNoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEHouseListRemoteNoCell.h; sourceTree = "<group>"; };
-		C34B47D01553216D00848DB7 /* MyEHouseListRemoteNoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEHouseListRemoteNoCell.m; sourceTree = "<group>"; };
 		C34CF28A14FDF1B600E88079 /* MyEWeeklyPeriodData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEWeeklyPeriodData.h; sourceTree = "<group>"; };
 		C34CF28B14FDF1B600E88079 /* MyEWeeklyPeriodData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEWeeklyPeriodData.m; sourceTree = "<group>"; };
 		C34CF29E14FE06C000E88079 /* MyEScheduleWeeklyData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEScheduleWeeklyData.h; sourceTree = "<group>"; };
@@ -763,6 +758,12 @@
 		C39058DB159A3A8B005041F6 /* MyETipDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyETipDataModel.m; path = CustomViews/MyETipDataModel.m; sourceTree = "<group>"; };
 		C3927C641504A8BB00E00230 /* MyEThumbColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEThumbColorView.h; sourceTree = "<group>"; };
 		C3927C651504A8BB00E00230 /* MyEThumbColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEThumbColorView.m; sourceTree = "<group>"; };
+		C392B83016EBE38F00B0CEB5 /* MyEThermostatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEThermostatListViewController.h; sourceTree = "<group>"; };
+		C392B83116EBE38F00B0CEB5 /* MyEThermostatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEThermostatListViewController.m; sourceTree = "<group>"; };
+		C392B83516EBE6B200B0CEB5 /* MyEHouseListInvalidCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyEHouseListInvalidCell.h; sourceTree = "<group>"; };
+		C392B83616EBE6B200B0CEB5 /* MyEHouseListInvalidCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyEHouseListInvalidCell.m; sourceTree = "<group>"; };
+		C392B83716EBE6B200B0CEB5 /* MyEHouseListValidCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyEHouseListValidCell.h; sourceTree = "<group>"; };
+		C392B83816EBE6B200B0CEB5 /* MyEHouseListValidCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyEHouseListValidCell.m; sourceTree = "<group>"; };
 		C393B7761524D6BE00B72FAF /* MyEPasswordResetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyEPasswordResetViewController.h; path = Settings/MyEPasswordResetViewController.h; sourceTree = "<group>"; };
 		C393B7771524D6BE00B72FAF /* MyEPasswordResetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyEPasswordResetViewController.m; path = Settings/MyEPasswordResetViewController.m; sourceTree = "<group>"; };
 		C393B77A1524F41C00B72FAF /* MyESettingsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESettingsData.h; sourceTree = "<group>"; };
@@ -841,12 +842,6 @@
 		C3D5D942151240940046D44C /* MyEVacationEditFromStaycationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEVacationEditFromStaycationViewController.m; sourceTree = "<group>"; };
 		C3DAFF8515564584002F5B05 /* buttonbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonbg.png; sourceTree = "<group>"; };
 		C3DAFF8615564584002F5B05 /* buttonbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonbg@2x.png"; sourceTree = "<group>"; };
-		C3E2760016E46AD100852FC1 /* MyETerminalListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETerminalListViewController.h; sourceTree = "<group>"; };
-		C3E2760116E46AD100852FC1 /* MyETerminalListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETerminalListViewController.m; sourceTree = "<group>"; };
-		C3E2760316E46C7200852FC1 /* MyETerminalSelectedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETerminalSelectedCell.h; sourceTree = "<group>"; };
-		C3E2760416E46C7200852FC1 /* MyETerminalSelectedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETerminalSelectedCell.m; sourceTree = "<group>"; };
-		C3E2760616E46C9700852FC1 /* MyETerminalUnselectedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETerminalUnselectedCell.h; sourceTree = "<group>"; };
-		C3E2760716E46C9700852FC1 /* MyETerminalUnselectedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETerminalUnselectedCell.m; sourceTree = "<group>"; };
 		C3E81542160F7E1000F9D15F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C3FAAF5114F656560044CA03 /* Ctrl_Cooling01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ctrl_Cooling01.png; sourceTree = "<group>"; };
 		C3FAAF5214F656560044CA03 /* Ctrl_Cooling01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ctrl_Cooling01@2x.png"; sourceTree = "<group>"; };
@@ -891,7 +886,6 @@
 		C3FAAFC214F656560044CA03 /* MyESubviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESubviewController.h; sourceTree = "<group>"; };
 		C3FAAFC314F656560044CA03 /* MyESubviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESubviewController.m; sourceTree = "<group>"; };
 		C3FAAFC414F656560044CA03 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		C3FAB02114F656700044CA03 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1029,7 +1023,6 @@
 		C30E01F914C7A69200011160 /* MyE */ = {
 			isa = PBXGroup;
 			children = (
-				C3FAB02114F656700044CA03 /* MainStoryboard.storyboard */,
 				C3FAAF4F14F656560044CA03 /* Assets */,
 				C3FAAF9914F656560044CA03 /* Classes */,
 			);
@@ -1196,6 +1189,15 @@
 			name = CustomViews;
 			sourceTree = "<group>";
 		};
+		C392B82B16EBE38E00B0CEB5 /* ThermostatSwitch */ = {
+			isa = PBXGroup;
+			children = (
+				C392B83016EBE38F00B0CEB5 /* MyEThermostatListViewController.h */,
+				C392B83116EBE38F00B0CEB5 /* MyEThermostatListViewController.m */,
+			);
+			path = ThermostatSwitch;
+			sourceTree = "<group>";
+		};
 		C3974C2D1505F51B004BB659 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -1225,19 +1227,6 @@
 				C393B7771524D6BE00B72FAF /* MyEPasswordResetViewController.m */,
 			);
 			name = Settings;
-			sourceTree = "<group>";
-		};
-		C3E275FF16E46AD100852FC1 /* TerminalSwitch */ = {
-			isa = PBXGroup;
-			children = (
-				C3E2760016E46AD100852FC1 /* MyETerminalListViewController.h */,
-				C3E2760116E46AD100852FC1 /* MyETerminalListViewController.m */,
-				C3E2760316E46C7200852FC1 /* MyETerminalSelectedCell.h */,
-				C3E2760416E46C7200852FC1 /* MyETerminalSelectedCell.m */,
-				C3E2760616E46C9700852FC1 /* MyETerminalUnselectedCell.h */,
-				C3E2760716E46C9700852FC1 /* MyETerminalUnselectedCell.m */,
-			);
-			path = TerminalSwitch;
 			sourceTree = "<group>";
 		};
 		C3FAAF4F14F656560044CA03 /* Assets */ = {
@@ -1519,7 +1508,19 @@
 		C3FAAF9914F656560044CA03 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C3E275FF16E46AD100852FC1 /* TerminalSwitch */,
+				C392B83516EBE6B200B0CEB5 /* MyEHouseListInvalidCell.h */,
+				C392B83616EBE6B200B0CEB5 /* MyEHouseListInvalidCell.m */,
+				C392B83716EBE6B200B0CEB5 /* MyEHouseListValidCell.h */,
+				C392B83816EBE6B200B0CEB5 /* MyEHouseListValidCell.m */,
+				C3FAAFA114F656560044CA03 /* MyEAppDelegate.h */,
+				C3FAAFA214F656560044CA03 /* MyEAppDelegate.m */,
+				C3FAAFA514F656560044CA03 /* MyEHouseListViewController.h */,
+				C3FAAFA614F656560044CA03 /* MyEHouseListViewController.m */,
+				C3FAAFA714F656560044CA03 /* MyELoginViewController.h */,
+				C3FAAFA814F656560044CA03 /* MyELoginViewController.m */,
+				C3FAAFA914F656560044CA03 /* MyEMainTabBarController.h */,
+				C3FAAFAA14F656560044CA03 /* MyEMainTabBarController.m */,
+				C392B82B16EBE38E00B0CEB5 /* ThermostatSwitch */,
 				90576897163FA23E0094CFCE /* TabBarSelection */,
 				C38D61F2159839DC003EAEAA /* CustomViews */,
 				C38A83C31595074800B5C9BB /* BlockAlerts */,
@@ -1529,18 +1530,6 @@
 				C308F0F214F6621500803626 /* DataModels */,
 				C3FAAFAB14F656560044CA03 /* Shcedule */,
 				C3FAAF9A14F656560044CA03 /* Dashboard */,
-				C3FAAFA114F656560044CA03 /* MyEAppDelegate.h */,
-				C3FAAFA214F656560044CA03 /* MyEAppDelegate.m */,
-				C3FAAFA514F656560044CA03 /* MyEHouseListViewController.h */,
-				C3FAAFA614F656560044CA03 /* MyEHouseListViewController.m */,
-				C34B47CC1553215D00848DB7 /* MyEHouseListRemoteYesCell.h */,
-				C34B47CD1553215D00848DB7 /* MyEHouseListRemoteYesCell.m */,
-				C34B47CF1553216D00848DB7 /* MyEHouseListRemoteNoCell.h */,
-				C34B47D01553216D00848DB7 /* MyEHouseListRemoteNoCell.m */,
-				C3FAAFA714F656560044CA03 /* MyELoginViewController.h */,
-				C3FAAFA814F656560044CA03 /* MyELoginViewController.m */,
-				C3FAAFA914F656560044CA03 /* MyEMainTabBarController.h */,
-				C3FAAFAA14F656560044CA03 /* MyEMainTabBarController.m */,
 				C3FAAFC114F656560044CA03 /* Subview-Controller */,
 				C3FAAFC514F656560044CA03 /* Vacation */,
 				C3A393E0152424D300E7827D /* Settings */,
@@ -1757,7 +1746,6 @@
 				C34B47C0155309FF00848DB7 /* nomark@2x.png in Resources */,
 				C34B47C1155309FF00848DB7 /* yesmark.png in Resources */,
 				C34B47C2155309FF00848DB7 /* yesmark@2x.png in Resources */,
-				C3BB6305155328AD00939EF1 /* MainStoryboard.storyboard in Resources */,
 				C3DAFF8715564584002F5B05 /* buttonbg.png in Resources */,
 				C3DAFF8815564584002F5B05 /* buttonbg@2x.png in Resources */,
 				C3A7C38E155837A7007F5563 /* buttonbgdisabled.png in Resources */,
@@ -2009,6 +1997,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C392B83916EBE78400B0CEB5 /* MyEHouseListInvalidCell.h in Sources */,
+				C392B83A16EBE78400B0CEB5 /* MyEHouseListInvalidCell.m in Sources */,
+				C392B83B16EBE78400B0CEB5 /* MyEHouseListValidCell.h in Sources */,
+				C392B83C16EBE78400B0CEB5 /* MyEHouseListValidCell.m in Sources */,
 				C30E020014C7A69200011160 /* main.m in Sources */,
 				C3FAB00D14F656560044CA03 /* MyEDashboardViewController.m in Sources */,
 				C3FAB00F14F656560044CA03 /* MyEAppDelegate.m in Sources */,
@@ -2066,8 +2058,6 @@
 				C3B1D15515367F1D0058A7BF /* MyEWeekdayToolbarController.m in Sources */,
 				C3B1D15A15368C750058A7BF /* UISegmentedControl+Extension.m in Sources */,
 				C39ED5401546077900010A1A /* MyETodayPeriodInforView.m in Sources */,
-				C34B47CE1553215E00848DB7 /* MyEHouseListRemoteYesCell.m in Sources */,
-				C34B47D11553216E00848DB7 /* MyEHouseListRemoteNoCell.m in Sources */,
 				C3A1C33E155DD1D9008848A5 /* MyETodayScheduleController.m in Sources */,
 				C38A83CD1595074800B5C9BB /* BlockActionSheet.m in Sources */,
 				C38A83CE1595074800B5C9BB /* BlockAlertView.m in Sources */,
@@ -2083,10 +2073,8 @@
 				C32A09A815ACBFC500A7BF8A /* MyEScheduleNext24HrsData.m in Sources */,
 				C32A09AB15ACE46500A7BF8A /* MyENext24HrsScheduleSubviewController.m in Sources */,
 				C38B19AA15AE524F00C17FE0 /* MyENext24HrsDayItemData.m in Sources */,
-				C3E2760216E46AD100852FC1 /* MyETerminalListViewController.m in Sources */,
-				C3E2760516E46C7200852FC1 /* MyETerminalSelectedCell.m in Sources */,
-				C3E2760816E46C9700852FC1 /* MyETerminalUnselectedCell.m in Sources */,
 				C3C23F8116E8673F009A7C2A /* MyEThermostatData.m in Sources */,
+				C392B83416EBE38F00B0CEB5 /* MyEThermostatListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

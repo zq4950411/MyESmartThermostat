@@ -29,15 +29,18 @@
     if (self = [super init]) {
         self.houseId = [[dictionary objectForKey:@"houseId"] intValue];
         self.houseName = [dictionary objectForKey:@"houseName"];
-        self.mId = [[dictionary objectForKey:@"mId"] intValue];
+        self.mId = [dictionary objectForKey:@"mId"];
         self.connection = [[dictionary objectForKey:@"connection"] intValue];
         
         NSArray *thermostatsInDict = [dictionary objectForKey:@"thermostats"];
         NSMutableArray *thermostats = [NSMutableArray array];
-        for (NSDictionary *t in thermostatsInDict) {
-            [thermostats addObject:[[MyEThermostatData alloc] initWithDictionary:t]];
-        }
         
+        if ([thermostatsInDict isKindOfClass:[NSArray class]]){
+            for (NSDictionary *t in thermostatsInDict) {
+                if([[t objectForKey:@"thermostat"] intValue]<2)// 只统计有温控器的房屋。去掉这句就会统计所有房屋
+                    [thermostats addObject:[[MyEThermostatData alloc] initWithDictionary:t]];
+            }
+        }        
         self.thermostats = thermostats;
         
         return self;
@@ -58,4 +61,24 @@
     return [[MyEHouseData alloc] initWithDictionary:[self JSONDictionary]];
 }
 
+- (BOOL)isValid {
+    if([self.mId length] == 0 || self.connection == 1)
+        return NO;
+    for (MyEThermostatData *t  in self.thermostats) {
+        if (t.thermostat ==0 ) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (MyEThermostatData *)firstConnectedThermostat{
+    for (MyEThermostatData *t  in self.thermostats) {
+        if (t.thermostat ==0 ) {
+            return t;
+        }
+    }
+
+    return nil;
+}
 @end

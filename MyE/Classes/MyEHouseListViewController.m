@@ -12,10 +12,12 @@
 #import "MyEScheduleViewController.h"
 #import "MyEVacationMasterViewController.h"
 #import "MyESettingsViewController.h"
-#import "MyEHouseListRemoteYesCell.h"
-#import "MyEHouseListRemoteNoCell.h"
+#import "MyEThermostatListViewController.h"
+#import "MyEHouseListValidCell.h"
+#import "MyEHouseListInvalidCell.h"
 #import "MyEAccountData.h"
 #import "MyEHouseData.h"
+#import "MyEThermostatData.h"
 #import "MyEDashboardData.h"
 #import "MyEUtil.h"
 #import "SBJson.h"
@@ -140,12 +142,12 @@
      NSInteger count = [self.accountData.houseList count];
      MyEHouseData *defaultHouseData;
      for (NSInteger i = 0; i < count; i++ ) {
-     defaultHouseData = [self.accountData.houseList objectAtIndex:i];
-     if( defaultHouseData.houseId == _defaultHouseId )
-     break;
+         defaultHouseData = [self.accountData.houseList objectAtIndex:i];
+         if( defaultHouseData.houseId == _defaultHouseId )
+             break;
      }
-     if ( _defaultHouseId > 0 && defaultHouseData.thermostat==0) {
-     [self performSegueWithIdentifier:@"ShowMainTabViewByDefaultHouseId" sender:self];
+     if ( _defaultHouseId > 0 && [defaultHouseData.mId length]==0 ) {
+         [self performSegueWithIdentifier:@"ShowMainTabViewByDefaultHouseId" sender:self];
      
      }
      
@@ -175,33 +177,25 @@
     // Configure the cell...
     MyEHouseData *houseDataAtIndex = [self.accountData objectInHouseListAtIndex:indexPath.row];
     
-    if(houseDataAtIndex.thermostat == 0) {// 如果温控器正常连接
-        if (houseDataAtIndex.remote == 1) {
-            MyEHouseListRemoteYesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HouseListCellRemoteYes"];
+    if([houseDataAtIndex isValid]) {// 如果房间有M并且至少有一个温控器正常连接
+
+            MyEHouseListValidCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HouseListValidCell"];
             if (cell == nil) {
-                cell = [[MyEHouseListRemoteYesCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HouseListCellRemoteYes"];
+                cell = [[MyEHouseListValidCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HouseListValidCell"];
             }
             [[cell textLabel] setText:houseDataAtIndex.houseName];
-            NSLog(@"%i", houseDataAtIndex.houseId);
-//            [[cell detailTextLabel] setText:@"Remote YES"];
+
             return cell;
-        } else {
-            MyEHouseListRemoteNoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HouseListCellRemoteNo"];
-            if (cell == nil) {
-                cell = [[MyEHouseListRemoteNoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HouseListCellRemoteNo"];
-            }
-            [[cell textLabel] setText:houseDataAtIndex.houseName];
-//            [[cell detailTextLabel] setText:@"Remote NO"];
-            return cell;
-        }
+
+            
         
-    }
-    if(houseDataAtIndex.thermostat == 1) {// 如果温控器没有正常连接
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HouseListCellNoConnection"];
+    } else {
+        MyEHouseListInvalidCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HouseListInvalidCell"];
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HouseListCellNoConnection"];
+            cell = [[MyEHouseListInvalidCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HouseListInvalidCell"];
         }
         [[cell textLabel] setText:houseDataAtIndex.houseName];
+
         [[cell detailTextLabel] setText:@"No Connection"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         // Mac's native DigitalColor Meter reads exactly {R:143, G:143, B:143}.
@@ -211,9 +205,9 @@
         
         return cell;
     }
-    if(houseDataAtIndex.thermostat >= 2)// 如果没有购买温控器，就不显示
-        NSLog(@"Error for Developer: thermostat值大于1，表明温控器不存在或程序发生错误");
-        
+//    if(houseDataAtIndex.thermostat >= 2)// 如果没有购买温控器，就不显示
+//        NSLog(@"Error for Developer: thermostat值大于1，表明温控器不存在或程序发生错误");
+    
     return nil;
 }
 
@@ -289,6 +283,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     MyEHouseData *houseData;
+    MyEThermostatData *thermostatData;
     if ([[segue identifier] isEqualToString:@"ShowMainTabViewRemoteNo"] ||
         [[segue identifier] isEqualToString:@"ShowMainTabViewRemoteYes"]) {
 
@@ -298,6 +293,8 @@
     if([[segue identifier] isEqualToString:@"ShowMainTabViewByDefaultHouseId"] ) {
         houseData = [self.accountData houseDataByHouseId:_defaultHouseId];
     }
+    
+    thermostatData = [houseData firstConnectedThermostat];
     //在NSDefaults里面记录这次要进入的房屋
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
@@ -330,25 +327,31 @@
     dashboardViewController.userId = self.accountData.userId;
     dashboardViewController.houseId = houseData.houseId;
     dashboardViewController.houseName = houseData.houseName;
-    dashboardViewController.isRemoteControl = houseData.remote == 0? NO:YES;     
+    dashboardViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;     
     
     MyEScheduleViewController *scheduleViewController = [[tabBarController childViewControllers] objectAtIndex:1];
     scheduleViewController.userId = self.accountData.userId;
     scheduleViewController.houseId = houseData.houseId;
     scheduleViewController.houseName = houseData.houseName;
-    scheduleViewController.isRemoteControl = houseData.remote == 0? NO:YES;
+    scheduleViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
     
     MyEVacationMasterViewController *vacationViewController = [[tabBarController childViewControllers] objectAtIndex:2];
     vacationViewController.userId = self.accountData.userId;
     vacationViewController.houseId = houseData.houseId;
     vacationViewController.houseName = houseData.houseName;
-    vacationViewController.isRemoteControl = houseData.remote == 0? NO:YES;
+    vacationViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
     
     MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
     settingsViewController.userId = self.accountData.userId;
     settingsViewController.houseId = houseData.houseId;
     settingsViewController.houseName = houseData.houseName;
-    settingsViewController.isRemoteControl = houseData.remote == 0? NO:YES;    
+    settingsViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
+    
+    MyEThermostatListViewController *ThermostatListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
+    ThermostatListViewController.userId = self.accountData.userId;
+    ThermostatListViewController.houseId = houseData.houseId;
+    ThermostatListViewController.houseName = houseData.houseName;
+    ThermostatListViewController.thermostats = houseData.thermostats;
 }
 
 

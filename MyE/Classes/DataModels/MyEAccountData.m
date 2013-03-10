@@ -11,7 +11,7 @@
 #import "SBJson.h"
 
 @interface MyEAccountData ()
-- (void)initializeDefaultHouseList;
+//- (void)initializeDefaultHouseList;
 @end
 
 @implementation MyEAccountData
@@ -39,8 +39,7 @@
         
         if ([array isKindOfClass:[NSArray class]]){
             for (NSDictionary *house in array) {
-                if([[house objectForKey:@"thermostat"] intValue]<2)// 只统计有温控器的房屋。去掉这句就会统计所有房屋
-                    [houses addObject:[[MyEHouseData alloc] initWithDictionary:house]];
+                [houses addObject:[[MyEHouseData alloc] initWithDictionary:house]];
             }
         }
         // 这里必须调用 - (void) setPeriods:(NSArray *)periods，在其中由根据periods生成新的metaModeArray的代码。
@@ -98,7 +97,7 @@
 }
 
 /* 当用户在HouseList View面板手动刷新时，会从服务器传来houseList的JSON字符串，用这个函数进行更新House List。
- * 参数str就是服务器穿了的JSON String
+ * 参数str就是服务器传来的JSON String
  * 返回值表示是否解析正确了。如果JSON解析正确，返回YES，否则返回NO
  */
 - (BOOL)updateHouseListByJSONString:(NSString *)jsonString {
@@ -111,7 +110,7 @@
     if ([array isKindOfClass:[NSArray class]]){
         [self.houseList removeAllObjects];
         for (NSDictionary *house in array) {
-            if([[house objectForKey:@"thermostat"] intValue]<2)// 只统计有温控器的房屋。去掉这句就会统计所有房屋
+            if([[[house objectForKey:@"mId"] stringValue] length] == 0)// 只统计有mId的房屋。去掉这句就会统计所有房屋
                 [self.houseList addObject:[[MyEHouseData alloc] initWithDictionary:house]];
         }
         return YES;

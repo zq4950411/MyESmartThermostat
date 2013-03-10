@@ -14,8 +14,9 @@
 #import "MyEScheduleViewController.h"
 #import "MyEVacationMasterViewController.h"
 #import "MyESettingsViewController.h"
-#import "MyETerminalListViewController.h"
+#import "MyEThermostatListViewController.h"
 #import "MyEHouseData.h"
+#import "MyEThermostatData.h"
 #import "MyEUtil.h"
 #import "SBJson.h"
 
@@ -120,6 +121,12 @@
         [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
         [prefs synchronize];
         
+        
+        // 后面考虑需要保存选择的Tid，进入时，选择该t，现在先用该房子的第一个T
+        BOOL isRC = ((MyEThermostatData *)[houseData.thermostats objectAtIndex:0]).remote == 0? NO:YES;
+        
+        
+        
         //        [tabBarController setTitle:@"Dashboard"];
         [tabBarController setTitle:houseData.houseName];
         tabBarController.userId = self.accountData.userId;
@@ -130,36 +137,33 @@
         dashboardViewController.userId = self.accountData.userId;
         dashboardViewController.houseId = houseData.houseId;
         dashboardViewController.houseName = houseData.houseName;
-        dashboardViewController.isRemoteControl = houseData.remote == 0? NO:YES;
+        dashboardViewController.isRemoteControl = isRC;
         
         
         MyEScheduleViewController *scheduleViewController = [[tabBarController childViewControllers] objectAtIndex:1];
         scheduleViewController.userId = self.accountData.userId;
         scheduleViewController.houseId = houseData.houseId;
         scheduleViewController.houseName = houseData.houseName;
-        scheduleViewController.isRemoteControl = houseData.remote == 0? NO:YES;
+        scheduleViewController.isRemoteControl = isRC;
         
         MyEVacationMasterViewController *vacationViewController = [[tabBarController childViewControllers] objectAtIndex:2];
         vacationViewController.userId = self.accountData.userId;
         vacationViewController.houseId = houseData.houseId;
         vacationViewController.houseName = houseData.houseName;
-        vacationViewController.isRemoteControl = houseData.remote == 0? NO:YES;
+        vacationViewController.isRemoteControl = isRC;
         
         MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
         settingsViewController.userId = self.accountData.userId;
         settingsViewController.houseId = houseData.houseId;
         settingsViewController.houseName = houseData.houseName;
-        settingsViewController.isRemoteControl = houseData.remote == 0? NO:YES;
+        settingsViewController.isRemoteControl = isRC;
         
         
-        MyETerminalListViewController *terminalListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
-        terminalListViewController.userId = self.accountData.userId;
-        terminalListViewController.houseId = houseData.houseId;
-        terminalListViewController.houseName = houseData.houseName;
-        terminalListViewController.isRemoteControl = houseData.remote == 0? NO:YES;
-        terminalListViewController.accountData = self.accountData;
-        NSArray *tl = [[NSArray alloc] initWithObjects:[NSString stringWithFormat: @"test1"], [NSString stringWithFormat: @"test2"], [NSString stringWithFormat: @"test2"], nil];
-        terminalListViewController.tList = tl;
+        MyEThermostatListViewController *ThermostatListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
+        ThermostatListViewController.userId = self.accountData.userId;
+        ThermostatListViewController.houseId = houseData.houseId;
+        ThermostatListViewController.houseName = houseData.houseName;
+        ThermostatListViewController.thermostats = houseData.thermostats;
 
     }
     if ([[segue identifier] isEqualToString:@"ShowHouseList"]) {
@@ -283,7 +287,8 @@
                                                     cancelButtonTitle:@"Ok"
                                                     otherButtonTitles:@"Cancel",nil];
                 [alert show];
-            } else if (anAccountData.houseList.count == 1 && ((MyEHouseData *)[anAccountData.houseList objectAtIndex:0]).thermostat == 0){
+            } else if (anAccountData.houseList.count == 1 &&
+                       ([(MyEHouseData *)[anAccountData.houseList objectAtIndex:0] isValid])){
                 // 如果只有一个带硬件的房子，且硬件在线，则不用在House List停留，直接将该房子选中而进入Dashboard。
                 [self performSegueWithIdentifier:@"ShowMainTabViewDirectly" sender:self];
             } else if (anAccountData.houseList.count >= 1) {

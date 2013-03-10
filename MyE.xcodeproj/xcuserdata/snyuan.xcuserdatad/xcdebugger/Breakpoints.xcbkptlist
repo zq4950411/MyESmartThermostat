@@ -176,13 +176,26 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "MyE/Classes/MyELoginViewController.m"
-         timestampString = "384321651.48268"
+         filePath = "MyE/Classes/ThermostatSwitch/MyEThermostatListViewController.m"
+         timestampString = "384590370.601955"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "275"
-         endingLineNumber = "275"
-         landmarkName = "-didReceiveString:loaderName:userDataDictionary:"
+         startingLineNumber = "102"
+         endingLineNumber = "102"
+         landmarkName = "-tableView:cellForRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "MyE/Classes/ThermostatSwitch/MyEThermostatListViewController.m"
+         timestampString = "384590455.651062"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "176"
+         endingLineNumber = "176"
+         landmarkName = "-switchThermostatAction:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

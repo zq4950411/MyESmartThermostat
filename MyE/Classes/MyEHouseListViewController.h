@@ -20,7 +20,7 @@
 @property (nonatomic, retain) MyEAccountData *accountData;
 @property (weak, nonatomic) IBOutlet UISwitch *rememberHouseIdSwitch;
 
-// 加载持久存储的一下设置
+// 加载持久存储的设置
 -(void)loadSettings;
 -(void)saveSettings:(NSInteger)defaultHouseId;
 
