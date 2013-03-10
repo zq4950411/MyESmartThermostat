@@ -173,7 +173,8 @@
 }
 
 - (IBAction)switchThermostatAction:(id)sender {
-    UITabBarController *tbc = [[[self navigationController] childViewControllers] objectAtIndex:0];
+    NSArray *vcs = [[self navigationController] childViewControllers] ;
+    UITabBarController *tbc = [vcs objectAtIndex:1];
     [tbc setSelectedIndex:0];
     NSLog(@"test");
 }

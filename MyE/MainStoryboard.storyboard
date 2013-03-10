@@ -1450,7 +1450,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="yFa-h3-39w">
-                            <rect key="frame" x="0.0" y="190" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="146" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="e6K-MW-qQX">
@@ -1468,7 +1468,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HouseListCellRemoteYes" id="0ga-sc-Yt7" customClass="MyEHouseListRemoteYesCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HouseListValidCell" id="0ga-sc-Yt7" customClass="MyEHouseListValidCell">
                                 <rect key="frame" x="0.0" y="46" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1502,8 +1502,8 @@
                                     <segue destination="4" kind="push" identifier="ShowMainTabViewRemoteYes" id="DYc-Mv-lVP"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HouseListCellRemoteNo" id="XlM-z0-MBE" customClass="MyEHouseListRemoteNoCell">
-                                <rect key="frame" x="0.0" y="91" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HouseListInvalidCell" id="XlM-z0-MBE" customClass="MyEHouseListInvalidCell">
+                                <rect key="frame" x="0.0" y="91" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="280" height="43"/>
@@ -1535,31 +1535,6 @@
                                     <outlet property="textLabel" destination="Mgc-ca-X3e" id="uX0-MB-J3W"/>
                                     <segue destination="4" kind="push" identifier="ShowMainTabViewRemoteNo" id="ibK-CW-h5z"/>
                                 </connections>
-                            </tableViewCell>
-                            <tableViewCell userInteractionEnabled="NO" alpha="0.439216" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HouseListCellNoConnection" textLabel="8RK-0s-Mxl" detailTextLabel="7Gq-u7-vg5" style="IBUITableViewCellStyleValue1" id="xMH-Uh-Z2O">
-                                <rect key="frame" x="0.0" y="135" width="320" height="45"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8RK-0s-Mxl">
-                                            <rect key="frame" x="10" y="11" width="35" height="21"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="No Connection" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Gq-u7-vg5">
-                                            <rect key="frame" x="177" y="11" width="113" height="21"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.21960784310000001" green="0.3294117647" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1603,10 +1578,10 @@
             </objects>
             <point key="canvasLocation" x="1561" y="122"/>
         </scene>
-        <!--MyE Terminal List View Controller - Switch-->
+        <!--MyE Thermostat List View Controller - Switch-->
         <scene sceneID="3fO-Vf-yTc">
             <objects>
-                <viewController id="kMg-vd-QWM" customClass="MyETerminalListViewController" sceneMemberID="viewController">
+                <viewController id="kMg-vd-QWM" customClass="MyEThermostatListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="yWQ-Cx-xFi">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1619,7 +1594,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tLa-nk-1LF">
-                            <rect key="frame" x="0.0" y="170" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="214" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" title="Select">
@@ -1630,59 +1605,92 @@
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="selectTerminalAction:" destination="kMg-vd-QWM" eventType="touchUpInside" id="8vn-zO-00i"/>
+                                <action selector="switchThermostatAction:" destination="kMg-vd-QWM" eventType="touchUpInside" id="R7g-sp-Ykd"/>
                             </connections>
                         </button>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="TerminalSelectedCell" id="RPF-04-A41" customClass="MyETerminalSelectedCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="ThermostatCellRemoteYes" textLabel="r76-MW-SMP" detailTextLabel="JPj-gu-LNb" imageView="b33-U4-8DE" style="IBUITableViewCellStyleValue1" id="NFH-ev-4Uq">
                                 <rect key="frame" x="0.0" y="70" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="1" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="yesmark.png" id="mRe-yx-YD2">
-                                            <rect key="frame" x="20" y="11" width="29" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VYk-kv-qLv">
-                                            <rect key="frame" x="85" y="12" width="136" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="r76-MW-SMP">
+                                            <rect key="frame" x="55" y="11" width="35" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JPj-gu-LNb">
+                                            <rect key="frame" x="246" y="11" width="44" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.2196078431372549" green="0.32941176470588235" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="yesmark.png" id="b33-U4-8DE">
+                                            <rect key="frame" x="6" y="6" width="39" height="31"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <connections>
-                                    <outlet property="terminalLabel" destination="VYk-kv-qLv" id="8es-2V-Pgl"/>
-                                </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="TerminalUnselectedCell" id="D6X-vj-eHs" customClass="MyETerminalUnselectedCell">
-                                <rect key="frame" x="0.0" y="115" width="320" height="45"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="ThermostatCellRemoteNO" textLabel="qNm-Cz-zY5" detailTextLabel="MGH-Og-VBb" imageView="cg7-Zh-qTW" style="IBUITableViewCellStyleValue1" id="2Ys-9W-kSl">
+                                <rect key="frame" x="0.0" y="115" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="nomark.png" id="xBq-Ld-JRR">
-                                            <rect key="frame" x="20" y="7" width="24" height="24"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a4b-rM-Jmi">
-                                            <rect key="frame" x="86" y="8" width="42" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qNm-Cz-zY5">
+                                            <rect key="frame" x="46" y="11" width="35" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MGH-Og-VBb">
+                                            <rect key="frame" x="246" y="11" width="44" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.2196078431372549" green="0.32941176470588235" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="nomark.png" id="cg7-Zh-qTW">
+                                            <rect key="frame" x="6" y="6" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="ThermostatCellNoConnection" textLabel="wHF-0S-a6F" detailTextLabel="tBf-RR-iGR" style="IBUITableViewCellStyleValue1" id="aXa-a4-ChH">
+                                <rect key="frame" x="0.0" y="159" width="320" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wHF-0S-a6F">
+                                            <rect key="frame" x="10" y="11" width="35" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tBf-RR-iGR">
+                                            <rect key="frame" x="246" y="11" width="44" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.2196078431372549" green="0.32941176470588235" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <connections>
-                                    <outlet property="terminalLabel" destination="a4b-rM-Jmi" id="O2O-kf-Eqd"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                     </tableView>
@@ -2260,6 +2268,191 @@
         <image name="tab-vacation.png" width="30" height="30"/>
         <image name="yesmark.png" width="39" height="31"/>
     </resources>
+    <classes>
+        <class className="MyEDashboardViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEDashboardViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeControlMode:"/>
+                <relationship kind="action" name="changeControlModeToAutoAction:"/>
+                <relationship kind="action" name="changeControlModeToCoolingAction:"/>
+                <relationship kind="action" name="changeControlModeToEmgHeatingAction:"/>
+                <relationship kind="action" name="changeControlModeToHeatingAction:"/>
+                <relationship kind="action" name="changeControlModeToOffAction:"/>
+                <relationship kind="action" name="changeFanControl:"/>
+                <relationship kind="action" name="changeFanControlToAuto:"/>
+                <relationship kind="action" name="changeFanControlToOn:"/>
+                <relationship kind="action" name="hideFanControlToolbarView:"/>
+                <relationship kind="action" name="hideSystemControlToolbarView:"/>
+                <relationship kind="action" name="holdAction:"/>
+                <relationship kind="outlet" name="activeProgramLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="controlModeImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="fanControlAutoButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="fanControlOnButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="fanControlToolbarView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="fanControlToolbarViewTapRecognizer" candidateClass="UITapGestureRecognizer"/>
+                <relationship kind="outlet" name="fanImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="holdButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="humidityLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="indoorTemperatureLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="setpointPickerView" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="stageLevelLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="systemControlAutoButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="systemControlCoolingButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="systemControlEmgHeatingButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="systemControlHeatingButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="systemControlOffButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="systemControlToolbarView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="systemControlToolbarViewTapRecognizer" candidateClass="UITapGestureRecognizer"/>
+                <relationship kind="outlet" name="weatherImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="weatherTemperatureLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="weatherTemperatureRangeLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MyEHouseListInvalidCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEHouseListInvalidCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="detailTextLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="textLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MyEHouseListValidCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEHouseListValidCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="detailTextLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="textLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MyEHouseListViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEHouseListViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="rememberHouseIdSwitch" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="MyELoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyELoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="login:"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="passwordInput" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="rememberMeInput" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="usernameInput" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="MyEMainTabBarController" superclassName="UITabBarController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEMainTabBarController.h"/>
+        </class>
+        <class className="MyEPasswordResetViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEPasswordResetViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelAction:"/>
+                <relationship kind="action" name="okAction:"/>
+                <relationship kind="outlet" name="currentPasswordTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="npaswdTextField0" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="npaswdTextField1" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="MyEScheduleViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEScheduleViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="switchSubPanel:"/>
+                <relationship kind="outlet" name="baseView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="todayWeeklySwitchButton" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="MyESettingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyESettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeKaypadLock:"/>
+                <relationship kind="action" name="resetTipPopups:"/>
+                <relationship kind="outlet" name="keypadCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="keypadLockSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="mediatorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="thermostatLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="usernameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MyEStaycationDetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEStaycationDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="switchTypeToVacation:"/>
+                <relationship kind="outlet" name="dayCoolingTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="dayHeatingTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="endDateTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nightCoolingTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nightHeatingTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="riseTimeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="sleepTimeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="startDateTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="vacationTypeSegmentedControl" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="MyEStaycationEditFromVacationViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEStaycationEditFromVacationViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="switchTypeToVacation:"/>
+                <relationship kind="outlet" name="dayCoolingTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="dayHeatingTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="endDateTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nightCoolingTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nightHeatingTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="riseTimeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="sleepTimeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="startDateTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="MyEStaycationTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEStaycationTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="startDateLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MyEThermostatListViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEThermostatListViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="switchThermostatAction:"/>
+            </relationships>
+        </class>
+        <class className="MyEVacationDetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEVacationDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="switchTypeToStaycation:"/>
+                <relationship kind="outlet" name="coolingTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="heatingTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="leaveDateTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="leaveTimeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="returnDateTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="returnTimeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="vacationTypeSegmentedControl" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="MyEVacationEditFromStaycationViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEVacationEditFromStaycationViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="switchTypeToStaycation:"/>
+                <relationship kind="outlet" name="coolingTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="heatingTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="leaveDateTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="leaveTimeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="returnDateTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="returnTimeTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="MyEVacationMasterViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEVacationMasterViewController.h"/>
+        </class>
+        <class className="MyEVacationTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEVacationTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="leaveDateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

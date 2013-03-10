@@ -243,6 +243,7 @@
 		C34CF2CF14FE265A00E88079 /* tab-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C34CF2C714FE265A00E88079 /* tab-settings@2x.png */; };
 		C34CF2D014FE265A00E88079 /* tab-vacation.png in Resources */ = {isa = PBXBuildFile; fileRef = C34CF2C814FE265A00E88079 /* tab-vacation.png */; };
 		C34CF2D114FE265A00E88079 /* tab-vacation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C34CF2C914FE265A00E88079 /* tab-vacation@2x.png */; };
+		C352EF8E16EC68E1003B0B20 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C352EF8D16EC68E1003B0B20 /* MainStoryboard.storyboard */; };
 		C37EC7381511D57D00C23210 /* MyEStaycationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37EC7371511D57D00C23210 /* MyEStaycationDetailViewController.m */; };
 		C38654281565710500B85F66 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = C386541A1565710500B85F66 /* add.png */; };
 		C38654291565710500B85F66 /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C386541B1565710500B85F66 /* add@2x.png */; };
@@ -677,6 +678,7 @@
 		C34CF2C714FE265A00E88079 /* tab-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-settings@2x.png"; sourceTree = "<group>"; };
 		C34CF2C814FE265A00E88079 /* tab-vacation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-vacation.png"; sourceTree = "<group>"; };
 		C34CF2C914FE265A00E88079 /* tab-vacation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-vacation@2x.png"; sourceTree = "<group>"; };
+		C352EF8D16EC68E1003B0B20 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		C37EC7361511D57D00C23210 /* MyEStaycationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEStaycationDetailViewController.h; sourceTree = "<group>"; };
 		C37EC7371511D57D00C23210 /* MyEStaycationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEStaycationDetailViewController.m; sourceTree = "<group>"; };
 		C386541A1565710500B85F66 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
@@ -1023,6 +1025,7 @@
 		C30E01F914C7A69200011160 /* MyE */ = {
 			isa = PBXGroup;
 			children = (
+				C352EF8D16EC68E1003B0B20 /* MainStoryboard.storyboard */,
 				C3FAAF4F14F656560044CA03 /* Assets */,
 				C3FAAF9914F656560044CA03 /* Classes */,
 			);
@@ -1987,6 +1990,7 @@
 				C3AA84DB15F9ABC900939B8E /* Tb_EmgHDisabled.png in Resources */,
 				C3AA84DC15F9ABC900939B8E /* Tb_EmgHDisabled@2x.png in Resources */,
 				C3E81543160F7E1000F9D15F /* Default-568h@2x.png in Resources */,
+				C352EF8E16EC68E1003B0B20 /* MainStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
