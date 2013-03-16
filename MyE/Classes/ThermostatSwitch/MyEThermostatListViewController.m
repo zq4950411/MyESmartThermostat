@@ -8,15 +8,24 @@
 
 #import "MyEThermostatListViewController.h"
 #import "MyEThermostatData.h"
+#import "MyEHouseListViewController.h"
+#import "MyEMainTabBarController.h"
+#import "MyEDashboardViewController.h"
+#import "MyEScheduleViewController.h"
+#import "MyEVacationMasterViewController.h"
+#import "MyESettingsViewController.h"
+#import "MyEUtil.h"
 
 @interface MyEThermostatListViewController ()
-
+- (void)_refreshSelectionRowByTid;
 @end
 
 @implementation MyEThermostatListViewController
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
 @synthesize houseName = _houseName;
+@synthesize tId = _tId;
+
 
 
 @synthesize thermostats = _thermostats;
@@ -27,10 +36,15 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+
     }
     return self;
 }
 
+-(void)setTId:(NSString *)tId{
+    _tId = [NSString stringWithString:tId ];
+    [self _refreshSelectionRowByTid];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -51,6 +65,8 @@
                                       action:@selector(refreshAction)];
     self.navigationItem.rightBarButtonItem = refreshButton;
     [self.tableView reloadData];//重新加载数据,这一步骤是重要的，用来现实更新后的数据。
+    
+    [self _refreshSelectionRowByTid];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -172,10 +188,62 @@
 
 }
 
+//  下面函数的功能和MyEHouseListViewController的- (void)prepareForSegue:sender:函数功能类似，都是用来为每个tab页面设置所选择的房子和T信息的
 - (IBAction)switchThermostatAction:(id)sender {
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    NSInteger selectdIndex = [indexPath row];
+    
+    MyEThermostatData *thermostatData = [self.thermostats objectAtIndex:selectdIndex];
+    //在NSDefaults里面记录这次要进入的房屋
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
+    [prefs synchronize];
+    
+    
     NSArray *vcs = [[self navigationController] childViewControllers] ;
-    UITabBarController *tbc = [vcs objectAtIndex:1];
-    [tbc setSelectedIndex:0];
-    NSLog(@"test");
+    //在这里为每个tab view设置houseId和userId, 同时要为每个tab viewController中定义这两个变量，并实现一个统一的签名方法，以保存这个变量。
+    MyEMainTabBarController *tabBarController = [vcs objectAtIndex:1];
+    
+    //    [tabBarController setTitle:@"Dashboard"];
+
+    
+    tabBarController.selectedTabIndex = selectdIndex;
+    tabBarController.tId = thermostatData.tId;
+    
+    MyEDashboardViewController *dashboardViewController = [[tabBarController childViewControllers] objectAtIndex:0];
+    dashboardViewController.tId = thermostatData.tId;
+    dashboardViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
+    
+    MyEScheduleViewController *scheduleViewController = [[tabBarController childViewControllers] objectAtIndex:1];
+    scheduleViewController.tId = thermostatData.tId;
+    scheduleViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
+    
+    MyEVacationMasterViewController *vacationViewController = [[tabBarController childViewControllers] objectAtIndex:2];
+    vacationViewController.tId = thermostatData.tId;
+    vacationViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
+    
+    MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
+    settingsViewController.tId = thermostatData.tId;
+    settingsViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
+    
+    _tId = thermostatData.tId;
+    
+    [tabBarController setSelectedIndex:0];
+    
+    MyEHouseListViewController *hlvc = [vcs objectAtIndex:0];
+    hlvc.selectedTabIndex = 0;
+}
+#pragma mark private
+- (void)_refreshSelectionRowByTid{
+    for (NSInteger i=0; i < [self.thermostats count]; i++) {
+        MyEThermostatData *t = [self.thermostats objectAtIndex:i];
+        if([t.tId isEqualToString:self.tId]){
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            [self.tableView selectRowAtIndexPath:indexPath
+                                        animated:NO
+                                  scrollPosition:UITableViewScrollPositionMiddle];
+            return;
+        }
+    }
 }
 @end

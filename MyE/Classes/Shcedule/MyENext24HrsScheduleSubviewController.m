@@ -54,6 +54,7 @@
 @synthesize currentSelectedModeId = _currentSelectedModeId;
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
+@synthesize tId = _tId;
 @synthesize isRemoteControl = _isRemoteControl;
 - (void)viewDidLoad {
     _periodEditingViewShowing = NO;
@@ -175,7 +176,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i",URL_FOR_NEXT24HRS_SCHEDULE_VIEW, self.userId, self.houseId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_NEXT24HRS_SCHEDULE_VIEW, self.userId, self.houseId, self.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"Next24HrsDownloader" userDataDictionary:nil];
     NSLog(@"Next24HrsDownloader.name = %@",downloader.name);
 }
@@ -199,7 +200,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i",URL_FOR_NEXT24HRS_DEFAULT_SCHEDULE_VIEW, self.userId, self.houseId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_NEXT24HRS_DEFAULT_SCHEDULE_VIEW, self.userId, self.houseId, self.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"Next24HrsUseWeeklyDownloader" userDataDictionary:nil];
     NSLog(@"Next24HrsUseWeeklyDownloader : %@",downloader.name);
 }
@@ -230,9 +231,7 @@
     NSLog(@"Today ScheduleUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
     
-    //    NSString *urlStr = @"http://192.168.0.74:4000/MyEnergy/programToday_save.do?houseId=4351&userId=1000100000000000568&action=newmode";
-    //    NSString *urlStr = URL_FOR_TODAY_SCHEDULE_SAVE;
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i",URL_FOR_NEXT24HRS_SCHEDULE_SAVE, self.userId, self.houseId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_NEXT24HRS_SCHEDULE_SAVE, self.userId, self.houseId, self.tId];
     
     MyEDataLoader *uploader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"Next24HrsScheduleUploader" userDataDictionary:nil];
     NSLog(@"Next24HrsScheduleUploader is %@",uploader.name);
@@ -259,7 +258,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&setpoint=%i&hold=%i",URL_FOR_NEXT24HRS_HOLD_SAVE, self.userId, self.houseId, setpoint, hold];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&setpoint=%i&hold=%i",URL_FOR_NEXT24HRS_HOLD_SAVE, self.userId, self.houseId, self.tId, setpoint, hold];
     
     MyEDataLoader *uploader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"Next24HrsHoldUploader" userDataDictionary:nil];
     NSLog(@"Next24HrsHoldUploader is %@",uploader.name);

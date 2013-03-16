@@ -13,6 +13,9 @@
 @property (copy, nonatomic) NSString *userId;
 @property (nonatomic) NSInteger houseId;
 @property (nonatomic,copy) NSString *houseName;
+@property (nonatomic, copy) NSString *tId;
+
+
 
 @property (nonatomic, retain) NSArray *thermostats;
 - (IBAction)switchThermostatAction:(id)sender;

@@ -25,7 +25,7 @@
 
 @interface MyEHouseListViewController() <SelectedTabBar>
 
-@property (nonatomic) NSInteger selectedTabIndex;
+// selectedTabIndex变量原来是为SelectedTabBar protocol所定义的，定义在这里，但为了保证在ThermostatListViewController里面程序转移到新的tab后也能记住所进入的tab，就把此变量定义到类声明的地方，以便其他地方也可以访问。
 @property (nonatomic) NSInteger selectedHouseNo;
 
 @end
@@ -146,7 +146,7 @@
          if( defaultHouseData.houseId == _defaultHouseId )
              break;
      }
-     if ( _defaultHouseId > 0 && [defaultHouseData.mId length]==0 ) {
+     if ( _defaultHouseId > 0 && [defaultHouseData.mId length]>0 ) {
          [self performSegueWithIdentifier:@"ShowMainTabViewByDefaultHouseId" sender:self];
      
      }
@@ -224,7 +224,7 @@
     MyEHouseData *houseDataAtIndex = [self.accountData objectInHouseListAtIndex:indexPath.row];
     
     if (houseDataAtIndex.houseId == houseIdLastViewed) {
-        [cell setBackgroundColor:[UIColor yellowColor]];
+        [cell setBackgroundColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.8 alpha:0.9]];
     }else {
         [cell setBackgroundColor:[UIColor whiteColor]];
     }
@@ -298,9 +298,12 @@
     //在NSDefaults里面记录这次要进入的房屋
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
+    [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
     [prefs synchronize];
    
+    BOOL isRC = (thermostatData.remote == 0? NO:YES);
     
+    // 下面的这些语句功能和MyEThermostatListViewController下Selection按钮的Action函数功能一样
     //在这里为每个tab view设置houseId和userId, 同时要为每个tab viewController中定义这两个变量，并实现一个统一的签名方法，以保存这个变量。
     MyEMainTabBarController *tabBarController = [segue destinationViewController];
     
@@ -316,7 +319,10 @@
     }
     
     tabBarController.selectedTabIndex = self.selectedTabIndex;
-    tabBarController.selectedTabIndexDelegate = self;    
+    tabBarController.selectedTabIndexDelegate = self;
+    tabBarController.houseId = houseData.houseId;
+    tabBarController.houseName = houseData.houseName;
+    tabBarController.tId = thermostatData.tId;
     
     //注意，在下面houseData.remote和后面每个面板的查看请求中的locWeb字段功能含义是相同的，
     // 只是houseData.remote是在HouseList面板时表示硬件是否可控，而locWeb是在每个面板单独查看硬件信息时，
@@ -327,31 +333,36 @@
     dashboardViewController.userId = self.accountData.userId;
     dashboardViewController.houseId = houseData.houseId;
     dashboardViewController.houseName = houseData.houseName;
-    dashboardViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;     
+    dashboardViewController.tId = thermostatData.tId;
+    dashboardViewController.isRemoteControl = isRC;     
     
     MyEScheduleViewController *scheduleViewController = [[tabBarController childViewControllers] objectAtIndex:1];
     scheduleViewController.userId = self.accountData.userId;
     scheduleViewController.houseId = houseData.houseId;
     scheduleViewController.houseName = houseData.houseName;
-    scheduleViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
+    scheduleViewController.tId = thermostatData.tId;
+    scheduleViewController.isRemoteControl = isRC;
     
     MyEVacationMasterViewController *vacationViewController = [[tabBarController childViewControllers] objectAtIndex:2];
     vacationViewController.userId = self.accountData.userId;
     vacationViewController.houseId = houseData.houseId;
     vacationViewController.houseName = houseData.houseName;
+    vacationViewController.tId = thermostatData.tId;
     vacationViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
     
     MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
     settingsViewController.userId = self.accountData.userId;
     settingsViewController.houseId = houseData.houseId;
     settingsViewController.houseName = houseData.houseName;
-    settingsViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
+    settingsViewController.tId = thermostatData.tId;
+    settingsViewController.isRemoteControl = isRC;
     
-    MyEThermostatListViewController *ThermostatListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
-    ThermostatListViewController.userId = self.accountData.userId;
-    ThermostatListViewController.houseId = houseData.houseId;
-    ThermostatListViewController.houseName = houseData.houseName;
-    ThermostatListViewController.thermostats = houseData.thermostats;
+    MyEThermostatListViewController *thermostatListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
+    thermostatListViewController.userId = self.accountData.userId;
+    thermostatListViewController.houseId = houseData.houseId;
+    thermostatListViewController.houseName = houseData.houseName;
+    thermostatListViewController.thermostats = houseData.thermostats;
+    thermostatListViewController.tId = thermostatData.tId;
 }
 
 

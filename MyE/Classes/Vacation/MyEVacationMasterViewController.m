@@ -36,6 +36,7 @@
 @synthesize vacationsModel = _vacationsModel;
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
+@synthesize tId = _tId;
 @synthesize houseName = _houseName;
 @synthesize isRemoteControl = _isRemoteControl;
 
@@ -190,8 +191,7 @@
         [HUD show:YES];
     
     
-    //    NSString *urlStr = @"http://192.168.0.74:4000/MyEnergy/vacation_view.do?houseId=4351&userId=1000100000000000568";
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i",URL_FOR_VACATION_VIEW, self.userId, self.houseId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_VACATION_VIEW, self.userId, self.houseId, self.userId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:VACATION_DOWNLOADER_NMAE  userDataDictionary:nil];
     NSLog(@"%@",downloader.name);
 }
@@ -313,9 +313,7 @@
         [HUD show:YES];
     
     NSLog(@"上传给服务器的vacations字符串是：\n%@", string);
-    //    NSString *urlStr = [NSString stringWithFormat:@"http://192.168.0.74:4000/MyEnergy/vacation_save.do?houseId=4351&userId=1000100000000000568&action=%@", action];;
-//    NSString *urlStr = [NSString stringWithFormat:@"%@&action=%@", URL_FOR_VACATION_SAVE, action];
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&action=%@",URL_FOR_VACATION_SAVE, self.userId, self.houseId, action];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=%@",URL_FOR_VACATION_SAVE, self.userId,self.houseId,  self.tId, action];
     
     MyEDataLoader *uploader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:string delegate:self loaderName:VACATION_UPLOADER_NMAE userDataDictionary:dict];
     NSLog(@"uploader is %@",uploader.name);

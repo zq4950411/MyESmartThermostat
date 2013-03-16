@@ -119,11 +119,13 @@
         //在NSDefaults里面记录这次要进入的房屋
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
+        MyEThermostatData *thermostatData = [houseData.thermostats objectAtIndex:0];
+        [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
         [prefs synchronize];
         
         
-        // 后面考虑需要保存选择的Tid，进入时，选择该t，现在先用该房子的第一个T
-        BOOL isRC = ((MyEThermostatData *)[houseData.thermostats objectAtIndex:0]).remote == 0? NO:YES;
+        // 用该房子的第一个T
+        BOOL isRC = (thermostatData.remote == 0? NO:YES);
         
         
         
@@ -131,11 +133,13 @@
         [tabBarController setTitle:houseData.houseName];
         tabBarController.userId = self.accountData.userId;
         tabBarController.houseId = houseData.houseId;
+        tabBarController.tId = thermostatData.tId;
         tabBarController.houseName = houseData.houseName;
 
         MyEDashboardViewController *dashboardViewController = [[tabBarController childViewControllers] objectAtIndex:0];
         dashboardViewController.userId = self.accountData.userId;
         dashboardViewController.houseId = houseData.houseId;
+        dashboardViewController.tId = thermostatData.tId;
         dashboardViewController.houseName = houseData.houseName;
         dashboardViewController.isRemoteControl = isRC;
         
@@ -144,26 +148,30 @@
         scheduleViewController.userId = self.accountData.userId;
         scheduleViewController.houseId = houseData.houseId;
         scheduleViewController.houseName = houseData.houseName;
+        scheduleViewController.tId = thermostatData.tId;
         scheduleViewController.isRemoteControl = isRC;
         
         MyEVacationMasterViewController *vacationViewController = [[tabBarController childViewControllers] objectAtIndex:2];
         vacationViewController.userId = self.accountData.userId;
         vacationViewController.houseId = houseData.houseId;
         vacationViewController.houseName = houseData.houseName;
+        vacationViewController.tId = thermostatData.tId;
         vacationViewController.isRemoteControl = isRC;
         
         MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
         settingsViewController.userId = self.accountData.userId;
         settingsViewController.houseId = houseData.houseId;
         settingsViewController.houseName = houseData.houseName;
+        settingsViewController.tId = thermostatData.tId;
         settingsViewController.isRemoteControl = isRC;
         
         
-        MyEThermostatListViewController *ThermostatListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
-        ThermostatListViewController.userId = self.accountData.userId;
-        ThermostatListViewController.houseId = houseData.houseId;
-        ThermostatListViewController.houseName = houseData.houseName;
-        ThermostatListViewController.thermostats = houseData.thermostats;
+        MyEThermostatListViewController *thermostatListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
+        thermostatListViewController.userId = self.accountData.userId;
+        thermostatListViewController.houseId = houseData.houseId;
+        thermostatListViewController.houseName = houseData.houseName;
+        thermostatListViewController.thermostats = houseData.thermostats;
+        thermostatListViewController.tId = thermostatData.tId;
 
     }
     if ([[segue identifier] isEqualToString:@"ShowHouseList"]) {

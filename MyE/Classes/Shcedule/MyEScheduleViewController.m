@@ -34,6 +34,7 @@
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
 @synthesize houseName = _houseName;
+@synthesize tId = _tId;
 @synthesize isRemoteControl = _isRemoteControl;
 
 - (void)didReceiveMemoryWarning
@@ -224,6 +225,7 @@
         MyEWeeklyScheduleSubviewController *weeklyScheduleController = [[MyEWeeklyScheduleSubviewController alloc] initWithNibName:@"MyEWeekLyScheduleView" bundle:[NSBundle mainBundle] viewController:self parentController:self];
         weeklyScheduleController.userId = self.userId;
         weeklyScheduleController.houseId = self.houseId;
+        weeklyScheduleController.tId = self.tId;
         weeklyScheduleController.isRemoteControl = self.isRemoteControl;
         weeklyScheduleController.navigationController = self.navigationController;
         weeklyScheduleController.delegate = self;
@@ -239,6 +241,7 @@
         self.next24HrsBaseViewController = [[MyENext24HrsScheduleSubviewController alloc] initWithNibName:@"MyENext24HrsScheduleView" bundle:[NSBundle mainBundle] viewController:self parentController:self];
         self.next24HrsBaseViewController.userId = self.userId;
         self.next24HrsBaseViewController.houseId = self.houseId;
+        self.next24HrsBaseViewController.tId = self.tId;
         self.next24HrsBaseViewController.isRemoteControl = self.isRemoteControl;
         self.next24HrsBaseViewController.navigationController = self.navigationController;
         self.next24HrsBaseViewController.delegate = self;
@@ -254,6 +257,7 @@
         self.todayBaseViewController = [[MyETodayScheduleController alloc]init];
         self.todayBaseViewController.userId = self.userId;
         self.todayBaseViewController.houseId = self.houseId;
+        self.todayBaseViewController.tId = self.tId;
         self.todayBaseViewController.isRemoteControl = self.isRemoteControl;
         self.todayBaseViewController.navigationController = self.navigationController;
         self.todayBaseViewController.delegate = self;

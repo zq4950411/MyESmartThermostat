@@ -50,10 +50,10 @@
 - (NSDictionary *)JSONDictionary {
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           [NSNumber numberWithInt:self.houseId], @"houseId",
-                          [NSNumber numberWithInt:self.mId], @"mId",
+                          self.mId, @"mId",
                           [NSNumber numberWithInt:self.connection],@"connection",
                           self.houseName, @"houseName",
-                          [NSNumber numberWithInt:self.thermostats], @"thermostats",
+                          self.thermostats, @"thermostats",
                           nil ];
     return dict;
 }

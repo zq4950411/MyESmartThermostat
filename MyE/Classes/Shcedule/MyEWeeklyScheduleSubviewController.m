@@ -59,6 +59,7 @@
 @synthesize currentWeekdayId = _currentWeekdayId;
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
+@synthesize tId = _tId;
 @synthesize isRemoteControl = _isRemoteControl;
 
 
@@ -205,7 +206,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i",URL_FOR_WEEKLY_SCHEDULE_VIEW, self.userId, self.houseId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_WEEKLY_SCHEDULE_VIEW, self.userId, self.houseId, self.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"WeeklyScheduleDownloader" userDataDictionary:nil];
     NSLog(@"%@",downloader.name);
 }
@@ -232,7 +233,7 @@
     NSLog(@"WeeklyScheduleUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
 
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&action=saveschedule",URL_FOR_WEEKLY_SCHEDULE_SAVE, self.userId, self.houseId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=saveschedule",URL_FOR_WEEKLY_SCHEDULE_SAVE, self.userId, self.houseId, self.tId];
     
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"WeeklyScheduleUploader" userDataDictionary:nil];
     NSLog(@"WeeklyScheduleUploader is %@",[loader description]);
@@ -260,7 +261,7 @@
     NSLog(@"WeeklyScheduleEditingModeUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&action=editmode",URL_FOR_WEEKLY_SCHEDULE_SAVE, self.userId, self.houseId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=editmode",URL_FOR_WEEKLY_SCHEDULE_SAVE, self.userId, self.houseId, self.tId];
     
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"WeeklyScheduleEditingModeUploader" userDataDictionary:nil];
     NSLog(@"WeeklyScheduleEditingModeUploader is %@",[loader description]);
@@ -289,9 +290,7 @@
     NSLog(@"WeeklyScheduleDeletingModeUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
     
-//    NSString *urlStr = @"http://192.168.0.74:4000/MyEnergy/masterProgram_save.do?houseId=4351&userId=1000100000000000568&action=deletemode";
-//    NSString *urlStr = [NSString stringWithFormat:@"%@&action=deletemode",URL_FOR_WEEKLY_SCHEDULE_SAVE];
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&action=deletemode",URL_FOR_WEEKLY_SCHEDULE_SAVE, self.userId, self.houseId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=deletemode",URL_FOR_WEEKLY_SCHEDULE_SAVE, self.userId, self.houseId, self.tId];
     
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"WeeklyScheduleDeletingModeUploader" userDataDictionary:nil];
     NSLog(@"WeeklyScheduleEditingModeUploader is %@",[loader description]);
@@ -320,9 +319,7 @@
         NSLog(@"WeeklyScheduleNewModeUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
 
-//    NSString *urlStr = @"http://192.168.0.74:4000/MyEnergy/masterProgram_save.do?houseId=4351&userId=1000100000000000568&action=newmode";
-//    NSString *urlStr = [NSString stringWithFormat:@"%@&action=newmode",URL_FOR_WEEKLY_SCHEDULE_SAVE];
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&action=newmode",URL_FOR_WEEKLY_SCHEDULE_SAVE, self.userId, self.houseId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=newmode",URL_FOR_WEEKLY_SCHEDULE_SAVE, self.userId, self.houseId, self.tId];
 
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"WeeklyScheduleNewModeUploader" userDataDictionary:nil];
     NSLog(@"WeeklyScheduleNewModeUploader is %@",[loader description]);

@@ -71,6 +71,7 @@
 
 @property (copy, nonatomic) NSString *userId;
 @property (nonatomic) NSInteger houseId;
+@property (nonatomic, copy) NSString *tId;
 @property (nonatomic) BOOL isRemoteControl;
 
 @property (strong, nonatomic) UIView *view;

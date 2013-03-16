@@ -55,9 +55,11 @@
 @synthesize fanControlToolbarViewTapRecognizer = _fanControlToolbarViewTapRecognizer;
 @synthesize fanControlAutoButton = _fanControlAutoButton;
 @synthesize fanControlOnButton = _fanControlOnButton;
+
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
 @synthesize houseName = _houseName;
+@synthesize tId = _tId;
 @synthesize isRemoteControl = _isRemoteControl;
 
 
@@ -241,9 +243,9 @@
         HUD.delegate = self;
     } else
         [HUD show:YES];
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i",URL_FOR_DASHBOARD_VIEW, self.userId, self.houseId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_DASHBOARD_VIEW, self.userId, self.houseId, self.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"DashboardDownloader"  userDataDictionary:nil];
-    NSLog(@"DashboardDownloader is %@",downloader.name);
+    NSLog(@"DashboardDownloader is %@, url is %@",downloader.name, urlStr);
 }
 - (void)uploadModelToServer {
     ///////////////////////////////////////////////////////////////////////
@@ -265,7 +267,7 @@
     NSString *body = [NSString stringWithFormat:@"datamodel=%@", [[self.dashboardData JSONDictionary] JSONRepresentation]];
     NSLog(@"upload dashboar body is \n%@",body);
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i",URL_FOR_DASHBOARD_SAVE, self.userId, self.houseId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_DASHBOARD_SAVE, self.userId, self.houseId, self.tId];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"DashboardUploader" userDataDictionary:nil];
     NSLog(@"DashboardUploader is %@",[loader description]);
     [loadTimer invalidate];

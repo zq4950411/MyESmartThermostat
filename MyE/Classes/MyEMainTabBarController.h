@@ -18,9 +18,10 @@ typedef enum {
 } MyETabBarItemType;
 
 @interface MyEMainTabBarController : UITabBarController
-@property (copy, nonatomic) NSString *userId;
-@property (nonatomic) NSInteger houseId;
-@property (nonatomic,copy) NSString *houseName;
+@property (copy, nonatomic) NSString *userId;// 当前选用户
+@property (nonatomic) NSInteger houseId;// 当前选择的房子id
+@property (nonatomic,copy) NSString *houseName;// 当前选择的房子名称
+@property (nonatomic, copy) NSString *tId;// 当前选择的tid
 @property (nonatomic) NSInteger selectedTabIndex;
 @property (nonatomic, weak) id <SelectedTabBar> selectedTabIndexDelegate;
 

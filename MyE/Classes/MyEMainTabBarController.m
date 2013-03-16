@@ -14,6 +14,7 @@
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
 @synthesize houseName = _houseName;
+@synthesize tId = _tId;
 @synthesize selectedTabIndex = _selectedTabIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

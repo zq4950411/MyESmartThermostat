@@ -29,7 +29,7 @@
 }
 - (NSDictionary *)JSONDictionary {
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSNumber numberWithInt:self.tId], @"tId",
+                          self.tId, @"tId",
                           [NSNumber numberWithInt:self.thermostat], @"thermostat",
                           [NSNumber numberWithInt:self.remote ? 1 : 0],@"remote",
                           self.tName, @"tName",

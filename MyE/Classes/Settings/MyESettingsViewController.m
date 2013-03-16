@@ -36,6 +36,7 @@
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
 @synthesize houseName = _houseName;
+@synthesize tId = _tId;
 @synthesize isRemoteControl = _isRemoteControl;
 
 - (id)initWithStyle:(UITableViewStyle)style
