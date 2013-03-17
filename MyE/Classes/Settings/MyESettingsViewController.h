@@ -9,34 +9,38 @@
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
 #import "MyEDataLoader.h"
-@class MyESettingsData;
+#import "MyESettingsThermostatCell.h"
+@class MyEHouseData;
 @class UICustomSwitch;
-@class MyEDashboardData;
+@class MyEHouseData;
 @class MyETipViewController;
 
-@interface MyESettingsViewController : UITableViewController <MyEDataLoaderDelegate, MBProgressHUDDelegate>{
+@interface MyESettingsViewController : UITableViewController <MyEDataLoaderDelegate, MBProgressHUDDelegate, MyESettingsThermostatCellDelegate>{
     CALayer *_maskLayer;
     
     MBProgressHUD *HUD;
      MyETipViewController *_tipViewController;
 }
 @property (copy, nonatomic) NSString *userId;
+@property (copy, nonatomic) NSString *userName;
 @property (nonatomic) NSInteger houseId;
 @property (nonatomic,copy) NSString *houseName;
-@property (nonatomic, copy) NSString *tId;
-@property (nonatomic) BOOL isRemoteControl;
+@property (nonatomic, copy) NSString *tId;// 表示当前选择的t
+//@property (nonatomic) BOOL isRemoteControl;
 
-@property (retain, nonatomic) MyESettingsData *settingsData;
+@property (retain, nonatomic) MyEHouseData *houseData;
+
+
+
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
-@property (weak, nonatomic) IBOutlet UISwitch *keypadLockSwitch;
+
 
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITableViewCell *keypadCell;
 @property (weak, nonatomic) IBOutlet UILabel *mediatorLabel;
-@property (weak, nonatomic) IBOutlet UILabel *thermostatLabel;
 
-- (IBAction)changeKaypadLock:(id)sender;
+
 - (IBAction)resetTipPopups:(id)sender;
 
 - (void) downloadModelFromServer;

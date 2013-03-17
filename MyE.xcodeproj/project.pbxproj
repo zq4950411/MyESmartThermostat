@@ -1537,6 +1537,8 @@
 				C3FAAFA814F656560044CA03 /* MyELoginViewController.m */,
 				C3FAAFA914F656560044CA03 /* MyEMainTabBarController.h */,
 				C3FAAFAA14F656560044CA03 /* MyEMainTabBarController.m */,
+				C31B981816F50B5E00E0A329 /* MyEStartupViewController.h */,
+				C31B981916F50B5E00E0A329 /* MyEStartupViewController.m */,
 				C392B82B16EBE38E00B0CEB5 /* ThermostatSwitch */,
 				90576897163FA23E0094CFCE /* TabBarSelection */,
 				C38D61F2159839DC003EAEAA /* CustomViews */,
@@ -1550,8 +1552,6 @@
 				C3FAAFC114F656560044CA03 /* Subview-Controller */,
 				C3FAAFC514F656560044CA03 /* Vacation */,
 				C3A393E0152424D300E7827D /* Settings */,
-				C31B981816F50B5E00E0A329 /* MyEStartupViewController.h */,
-				C31B981916F50B5E00E0A329 /* MyEStartupViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

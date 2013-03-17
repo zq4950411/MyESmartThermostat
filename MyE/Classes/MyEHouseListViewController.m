@@ -352,10 +352,11 @@
     
     MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
     settingsViewController.userId = self.accountData.userId;
+    settingsViewController.userName = self.accountData.userName;
     settingsViewController.houseId = houseData.houseId;
     settingsViewController.houseName = houseData.houseName;
     settingsViewController.tId = thermostatData.tId;
-    settingsViewController.isRemoteControl = isRC;
+//    settingsViewController.isRemoteControl = isRC;
     
     MyEThermostatListViewController *thermostatListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
     thermostatListViewController.userId = self.accountData.userId;

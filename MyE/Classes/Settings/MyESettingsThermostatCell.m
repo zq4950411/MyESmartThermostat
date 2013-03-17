@@ -26,4 +26,8 @@
     // Configure the view for the selected state
 }
 
+#pragma mark 插座方法
+- (IBAction)changeKaypadLock:(id)sender {
+    [self.delegate didKeypadSwitchChanged:self];
+}
 @end

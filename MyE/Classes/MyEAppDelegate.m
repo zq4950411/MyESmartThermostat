@@ -37,13 +37,11 @@
      就用这个VC代替程序原来的self.window.rootViewController，这样程序就略过Startup Introduction ScrollView，
      而直接进入MainNavViewController.
      **/
+    /*
     if ([[NSUserDefaults standardUserDefaults] boolForKey:KEY_FOR_APP_HAS_LAUNCHED_ONCE])
     {
         // app already launched
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"msg" message:@"alread launched" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles: nil];
-        [alert show];
-        
-        
+       
         UIStoryboard *storybord = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
 //        UIViewController *vc =[storybord instantiateInitialViewController];// 这个是默认的第一个viewController
         
@@ -60,12 +58,8 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KEY_FOR_APP_HAS_LAUNCHED_ONCE];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"msg" message:@"Frist time" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles: nil];
-        [alert show];
-        
     }
-    
+    */
     return YES;
 }
 							

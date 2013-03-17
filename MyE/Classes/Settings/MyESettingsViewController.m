@@ -8,9 +8,11 @@
 
 #import "MyESettingsViewController.h"
 #import "MyEPasswordResetViewController.h"
-#import "MYESettingsData.h"
 #import "MyEAccountData.h"
+#import "MyEHouseData.h"
+#import "MyEThermostatData.h"
 #import "MyEHouseListViewController.h"
+#import "MyESettingsThermostatCell.h"
 #import "MyETipViewController.h"
 #import "MyETipDataModel.h"
 #import "MyEUtil.h"
@@ -28,16 +30,14 @@
 
 @implementation MyESettingsViewController
 @synthesize usernameLabel;
-@synthesize keypadLockSwitch;
 @synthesize keypadCell;
 @synthesize mediatorLabel;
-@synthesize thermostatLabel;
-@synthesize settingsData = _settingsData;
+@synthesize houseData = _houseData;
 @synthesize userId = _userId;
+@synthesize userName = _userName;
 @synthesize houseId = _houseId;
 @synthesize houseName = _houseName;
-@synthesize tId = _tId;
-@synthesize isRemoteControl = _isRemoteControl;
+//@synthesize isRemoteControl = _isRemoteControl;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -57,9 +57,8 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-	self.keypadLockSwitch.on = YES;
     
-    _settingsData = [[MyESettingsData alloc] init];
+    _houseData = [[MyEHouseData alloc] init];
     [self configueView];
     
     NSArray *tipDataArray = [NSArray arrayWithObjects:
@@ -73,9 +72,7 @@
 {
     [self setUsernameLabel:nil];
     [self setMediatorLabel:nil];
-    [self setThermostatLabel:nil];
     [self setKeypadCell:nil];
-    [self setKeypadLockSwitch:nil];
     [self setTableView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -106,9 +103,9 @@
     [_tipViewController showTips];
 }
 
-- (void)setSettingsData:(MyESettingsData *)settingsData {
-    if (_settingsData != settingsData)
-        _settingsData = settingsData;
+- (void)setHouseData:(MyEHouseData *)houseData {
+    if (_houseData != houseData)
+        _houseData = houseData;
     [self configueView];
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -119,6 +116,7 @@
     }
 }
 
+/*
 - (void)setIsRemoteControl:(BOOL)isRemoteControl {
     _isRemoteControl = isRemoteControl;
     if(!isRemoteControl) {
@@ -185,18 +183,18 @@
         [_maskLayer removeFromSuperlayer];
     }
 }
-
+*/
 
 #pragma mark
 #pragma mark private method
 - (void)configueView {
     //刷新远程控制的状态。
-    self.isRemoteControl = [self.settingsData.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame;
+//    self.isRemoteControl = [self.settingsData.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame;
     
-    self.usernameLabel.text = self.settingsData.username;
-    self.mediatorLabel.text = self.settingsData.mediator;
-    self.thermostatLabel.text = self.settingsData.thermostat;
-    self.keypadLockSwitch.on = self.settingsData.keyPad == 1;
+    self.usernameLabel.text = self.userName;
+    self.mediatorLabel.text = self.houseData.mId;
+    [self.tableView reloadData];
+
 }
 // 判定是否服务器相应正常，如果正常返回YES，如果服务器相应为-999/-998，
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
@@ -260,7 +258,7 @@
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"SettingsDownloader"  userDataDictionary:nil];
     NSLog(@"SettingsDownloader is %@",loader.name);
 }
-- (void)uploadModelToServerWithKeypad:(NSInteger)keypad {
+- (void)uploadModelToServerWithTId:(NSString *)tId keypad:(NSInteger)keypad {
     ///////////////////////////////////////////////////////////////////////
     // Demo 用户登录
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -280,8 +278,14 @@
         [HUD show:YES];
 
 //    NSString *urlStr = [NSString stringWithFormat:@"%@&currentPassowrd=null&newPassword=null&keyPad=%i",URL_FOR_SETTINGS_SAVE, keypad];
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&currentPassowrd=null&newPassword=null&keyPad=%i",URL_FOR_SETTINGS_SAVE, self.userId, self.houseId, keypad];
-    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:@"" delegate:self loaderName:@"SettingsKeypadUploader" userDataDictionary:nil];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&currentPassowrd=null&newPassword=null&keyPad=%i",URL_FOR_SETTINGS_SAVE, self.userId, self.houseId, tId, keypad];
+    
+    // 记录下这次修改的t的id
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                          tId, @"tId",
+                          keypad, @"keypad",
+                          nil ];
+    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:@"" delegate:self loaderName:@"SettingsKeypadUploader" userDataDictionary:dict];
     NSLog(@"SettingsUploader is %@",loader.name);
 }
 
@@ -296,10 +300,13 @@
             return;
         
         NSLog(@"View Settings JSON String from server is \n%@",string);
-        MyESettingsData *settingsData = [[MyESettingsData alloc] initWithJSONString:string];
-        if (settingsData) {
-            NSLog(@"settings data is \n %@", [[settingsData JSONDictionary] JSONRepresentation]);
-            [self setSettingsData:settingsData]; 
+        
+        // for  test
+        string = @"{\"mId\":\"05-00-00-00-00-00-02-0E\",\"connection\":0,\"houseName\":\"House5604\",\"thermostats\":[{\"thermostat\":0,\"tName\":\"T-50\",\"deviceType\":0,\"tId\":\"00-00-00-00-00-00-02-50\",\"keypad\":0,\"remote\":1},{\"thermostat\":0,\"tName\":\"T-74\",\"deviceType\":0,\"tId\":\"00-00-00-00-00-00-01-74\",\"keypad\":0,\"remote\":1}],\"houseId\":3374}";
+        MyEHouseData *houseData = [[MyEHouseData alloc] initWithJSONString:string];
+        if (houseData) {
+            NSLog(@"settings data is \n %@", [[houseData JSONDictionary] JSONRepresentation]);
+            [self setHouseData:houseData];
         }else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
                                                           message:@"Communication error. Please try again."
@@ -317,13 +324,22 @@
             return;
         
         NSLog(@"Keypad upload with result: %@", string);
-        if ([string isEqualToString:@"OK"]) {
+        NSInteger tIndex=0;
+        for (tIndex=0; tIndex<[self.houseData.thermostats count]; tIndex++) {
+            if(((MyEThermostatData *)[self.houseData.thermostats objectAtIndex:tIndex]).tId == [dict objectForKey:@"tId"]){
+                break;
+            }
+        }
+        if ([string isEqualToString:@"OK"]) {//TODO
             // 如果服务器修改成功了，这里才真正地修改keyPad的值
-            self.settingsData.keyPad = self.keypadLockSwitch.on?1:0;
+            ((MyEThermostatData *)[self.houseData.thermostats objectAtIndex:tIndex]).keypad = (NSInteger)[dict valueForKey:@"keypad"];
         } else {
             // 如果修改失败，把switch的开关转会原来状态
-            self.keypadLockSwitch.on = self.settingsData.keyPad == 1;
-            UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
+            
+            
+            NSIndexPath *ip = [NSIndexPath indexPathForItem:tIndex inSection:2];
+            ((MyESettingsThermostatCell *)[self.tableView cellForRowAtIndexPath:ip]).keypadLockSwitch.on = ((MyEThermostatData *)[self.houseData.thermostats objectAtIndex:tIndex]).keypad == 1;
+            UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:string  //@"Cannot change keypad lock."
                                                          delegate:self 
                                                 cancelButtonTitle:@"Ok"
@@ -380,17 +396,6 @@
 
 #pragma mark
 #pragma mark 插座方法
-- (IBAction)changeKaypadLock:(id)sender {
-    //上传新指令
-    if (((UISwitch *)sender).on) {
-        NSLog(@"lock");
-        [self uploadModelToServerWithKeypad:1];
-    } else {
-        NSLog(@"unlock");
-        [self uploadModelToServerWithKeypad:0];
-    }
-}
-
 - (IBAction)resetTipPopups:(id)sender {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setBool:NO forKey:KEY_FOR_HIDE_TIP_OF_DASHBOARD1];
@@ -406,5 +411,41 @@
     [prefs synchronize];
     
     [self showAutoDisappearAlertWithTile:@"Information" message:@"All tip popups have been reset to show automatically." delay:5.0f];
+}
+
+
+
+#pragma mark - Table view data source
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    // Return the number of rows in the section.
+    return [self.houseData.thermostats count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Configure the cell...
+    MyEThermostatData *thermostat = [self.houseData.thermostats objectAtIndex:indexPath.row];
+
+        
+    MyESettingsThermostatCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingsThermostatCell"];
+    if (cell == nil) {
+        cell = [[MyESettingsThermostatCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SettingsThermostatCell"];
+    }
+    [[cell thermostatLabel] setText:thermostat.tId];
+    [[cell nameLabel] setText:thermostat.tName];
+    cell.delegate = self;
+        
+    return cell;       
+}
+
+
+#pragma mark delegat methods for MyESettingsThermostatCellDelegate
+-(void) didKeypadSwitchChanged:(MyESettingsThermostatCell *)theCell
+{
+    NSString *tId = theCell.thermostatLabel.text;
+    NSInteger keypad = theCell.keypadLockSwitch.on?1:0;
+    [self uploadModelToServerWithTId:tId keypad:keypad];
 }
 @end

@@ -224,7 +224,7 @@
     
     MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
     settingsViewController.tId = thermostatData.tId;
-    settingsViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
+//    settingsViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
     
     _tId = thermostatData.tId;
     

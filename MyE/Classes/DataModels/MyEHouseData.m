@@ -47,6 +47,16 @@
     }
     return nil;
 }
+- (MyEHouseData *)initWithJSONString:(NSString *)jsonString {
+    // Create new SBJSON parser object
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    // 把JSON转为字典
+    NSError *error = [[NSError alloc] init];
+    NSDictionary *dict = [parser objectWithString:jsonString error:&error];
+    
+    MyEHouseData *house = [[MyEHouseData alloc] initWithDictionary:dict];
+    return house;
+}
 - (NSDictionary *)JSONDictionary {
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           [NSNumber numberWithInt:self.houseId], @"houseId",

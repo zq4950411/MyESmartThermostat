@@ -20,6 +20,7 @@
 - (MyEThermostatData *)firstConnectedThermostat;
 
 - (MyEHouseData *)initWithDictionary:(NSDictionary *)dictionary;
+- (MyEHouseData *)initWithJSONString:(NSString *)jsonString;
 - (NSDictionary *)JSONDictionary;
 
 @end

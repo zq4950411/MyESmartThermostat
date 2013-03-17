@@ -86,11 +86,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MyE/Classes/MyEAppDelegate.m"
-         timestampString = "385172060.750545"
+         timestampString = "385236091.497724"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "108"
-         endingLineNumber = "108"
+         startingLineNumber = "102"
+         endingLineNumber = "102"
          landmarkName = "-applicationWillEnterForeground:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MyE/Classes/MyEAppDelegate.m"
-         timestampString = "385172060.750545"
+         timestampString = "385236091.497724"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "139"
-         endingLineNumber = "139"
+         startingLineNumber = "133"
+         endingLineNumber = "133"
          landmarkName = "-applicationWillEnterForeground:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -112,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MyE/Classes/MyEAppDelegate.m"
-         timestampString = "385172060.750545"
+         timestampString = "385236091.497724"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "190"
-         endingLineNumber = "190"
+         startingLineNumber = "184"
+         endingLineNumber = "184"
          landmarkName = "-applicationWillTerminate:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -183,6 +183,45 @@
          startingLineNumber = "229"
          endingLineNumber = "229"
          landmarkName = "-switchThermostatAction:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "MyE/Classes/Settings/MyESettingsViewController.m"
+         timestampString = "385194393.553227"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "309"
+         endingLineNumber = "309"
+         landmarkName = "-didReceiveString:loaderName:userDataDictionary:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "MyE/Classes/Settings/MyESettingsViewController.m"
+         timestampString = "385194393.553227"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "306"
+         endingLineNumber = "306"
+         landmarkName = "-didReceiveString:loaderName:userDataDictionary:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "MyE/Classes/MyELoginViewController.m"
+         timestampString = "385234930.957482"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "288"
+         endingLineNumber = "288"
+         landmarkName = "-didReceiveString:loaderName:userDataDictionary:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

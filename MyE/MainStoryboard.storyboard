@@ -437,7 +437,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Hardware" id="PMZ-fB-OKa">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="w1s-8L-ehf">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="41" id="w1s-8L-ehf" customClass="MyESettingsThermostatCell">
                                         <rect key="frame" x="0.0" y="204" width="320" height="42"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -448,25 +448,25 @@
                                                     <rect key="frame" x="20" y="9" width="73" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="hAt-vb-QiF">
                                                     <rect key="frame" x="163" y="9" width="117" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsThermostatCell" rowHeight="73" id="1g3-s4-gLE" customClass="MyESettingsThermostatCell">
-                                        <rect key="frame" x="0.0" y="246" width="320" height="74"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsThermostatCell" rowHeight="106" id="1g3-s4-gLE" customClass="MyESettingsThermostatCell">
+                                        <rect key="frame" x="0.0" y="246" width="320" height="107"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="72"/>
+                                            <rect key="frame" x="10" y="0.0" width="300" height="105"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Key pad lock" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="jW4-CV-eIH">
@@ -480,33 +480,52 @@
                                                     <rect key="frame" x="203" y="8" width="79" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <connections>
-                                                        <action selector="changeKaypadLock:" destination="tEM-od-uiU" eventType="valueChanged" id="xcM-bh-rCS"/>
+                                                        <action selector="changeKaypadLock:" destination="1g3-s4-gLE" eventType="valueChanged" id="pS0-Ly-dVi"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Thermostat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="wXW-tb-Qx8">
-                                                    <rect key="frame" x="20" y="43" width="94" height="21"/>
+                                                    <rect key="frame" x="20" y="79" width="94" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="wqI-Ju-qm5">
-                                                    <rect key="frame" x="122" y="43" width="158" height="21"/>
+                                                    <rect key="frame" x="122" y="79" width="158" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5ar-r0-dBX">
+                                                    <rect key="frame" x="20" y="50" width="60" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6D1-ar-ZgO">
+                                                    <rect key="frame" x="113" y="50" width="167" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <outlet property="keypadLockSwitch" destination="8tF-A5-8Bj" id="8IN-vF-qCd"/>
+                                            <outlet property="nameLabel" destination="6D1-ar-ZgO" id="0HF-Pj-ylp"/>
+                                            <outlet property="thermostatLabel" destination="wqI-Ju-qm5" id="UBq-fl-RZ0"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="App Settings" id="Aor-uj-IwU">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="njP-Dl-xVN">
-                                        <rect key="frame" x="0.0" y="366" width="320" height="46"/>
+                                        <rect key="frame" x="0.0" y="399" width="320" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
@@ -542,10 +561,8 @@
                     <tabBarItem key="tabBarItem" tag="3" title="Settings" image="tab-settings.png" id="fcZ-Mf-Buc"/>
                     <connections>
                         <outlet property="keypadCell" destination="1g3-s4-gLE" id="uCE-3x-QyZ"/>
-                        <outlet property="keypadLockSwitch" destination="8tF-A5-8Bj" id="J2p-Ci-nXo"/>
                         <outlet property="mediatorLabel" destination="hAt-vb-QiF" id="8VZ-qr-idQ"/>
                         <outlet property="tableView" destination="EJ9-By-NQN" id="NHh-Sz-PJ0"/>
-                        <outlet property="thermostatLabel" destination="wqI-Ju-qm5" id="jde-Ak-V8g"/>
                         <outlet property="usernameLabel" destination="ctL-y2-cor" id="Tx7-2n-JSb"/>
                     </connections>
                 </tableViewController>
@@ -2327,203 +2344,6 @@
         <image name="tab-vacation.png" width="30" height="30"/>
         <image name="yesmark.png" width="39" height="31"/>
     </resources>
-    <classes>
-        <class className="MyEDashboardViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEDashboardViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changeControlMode:"/>
-                <relationship kind="action" name="changeControlModeToAutoAction:"/>
-                <relationship kind="action" name="changeControlModeToCoolingAction:"/>
-                <relationship kind="action" name="changeControlModeToEmgHeatingAction:"/>
-                <relationship kind="action" name="changeControlModeToHeatingAction:"/>
-                <relationship kind="action" name="changeControlModeToOffAction:"/>
-                <relationship kind="action" name="changeFanControl:"/>
-                <relationship kind="action" name="changeFanControlToAuto:"/>
-                <relationship kind="action" name="changeFanControlToOn:"/>
-                <relationship kind="action" name="hideFanControlToolbarView:"/>
-                <relationship kind="action" name="hideSystemControlToolbarView:"/>
-                <relationship kind="action" name="holdAction:"/>
-                <relationship kind="outlet" name="activeProgramLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="controlModeImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="fanControlAutoButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="fanControlOnButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="fanControlToolbarView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="fanControlToolbarViewTapRecognizer" candidateClass="UITapGestureRecognizer"/>
-                <relationship kind="outlet" name="fanImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="holdButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="humidityLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="indoorTemperatureLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="setpointPickerView" candidateClass="UIPickerView"/>
-                <relationship kind="outlet" name="stageLevelLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="systemControlAutoButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="systemControlCoolingButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="systemControlEmgHeatingButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="systemControlHeatingButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="systemControlOffButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="systemControlToolbarView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="systemControlToolbarViewTapRecognizer" candidateClass="UITapGestureRecognizer"/>
-                <relationship kind="outlet" name="weatherImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="weatherTemperatureLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="weatherTemperatureRangeLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="MyEHouseListInvalidCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEHouseListInvalidCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="detailTextLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="textLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="MyEHouseListValidCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEHouseListValidCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="detailTextLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="textLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="MyEHouseListViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEHouseListViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="rememberHouseIdSwitch" candidateClass="UISwitch"/>
-            </relationships>
-        </class>
-        <class className="MyELoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyELoginViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="login:"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="passwordInput" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="rememberMeInput" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="usernameInput" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="MyEMainTabBarController" superclassName="UITabBarController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEMainTabBarController.h"/>
-        </class>
-        <class className="MyEPasswordResetViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEPasswordResetViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelAction:"/>
-                <relationship kind="action" name="okAction:"/>
-                <relationship kind="outlet" name="currentPasswordTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="npaswdTextField0" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="npaswdTextField1" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="MyEScheduleViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEScheduleViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="switchSubPanel:"/>
-                <relationship kind="outlet" name="baseView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="todayWeeklySwitchButton" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="MyESettingsThermostatCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyESettingsThermostatCell.h"/>
-        </class>
-        <class className="MyESettingsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyESettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changeKaypadLock:"/>
-                <relationship kind="action" name="resetTipPopups:"/>
-                <relationship kind="outlet" name="keypadCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="keypadLockSwitch" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="mediatorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="thermostatLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="usernameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="MyEStartupViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEStartupViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="MyEStaycationDetailViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEStaycationDetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="switchTypeToVacation:"/>
-                <relationship kind="outlet" name="dayCoolingTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="dayHeatingTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="endDateTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nightCoolingTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nightHeatingTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="riseTimeTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="sleepTimeTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="startDateTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="vacationTypeSegmentedControl" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="MyEStaycationEditFromVacationViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEStaycationEditFromVacationViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="switchTypeToVacation:"/>
-                <relationship kind="outlet" name="dayCoolingTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="dayHeatingTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="endDateTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nightCoolingTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nightHeatingTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="riseTimeTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="sleepTimeTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="startDateTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="MyEStaycationTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEStaycationTableViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="startDateLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="MyEThermostatListViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEThermostatListViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="switchThermostatAction:"/>
-            </relationships>
-        </class>
-        <class className="MyEVacationDetailViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEVacationDetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="switchTypeToStaycation:"/>
-                <relationship kind="outlet" name="coolingTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="heatingTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="leaveDateTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="leaveTimeTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="returnDateTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="returnTimeTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="vacationTypeSegmentedControl" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="MyEVacationEditFromStaycationViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEVacationEditFromStaycationViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="switchTypeToStaycation:"/>
-                <relationship kind="outlet" name="coolingTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="heatingTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="leaveDateTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="leaveTimeTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="returnDateTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="returnTimeTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="MyEVacationMasterViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEVacationMasterViewController.h"/>
-        </class>
-        <class className="MyEVacationTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MyEVacationTableViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="leaveDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

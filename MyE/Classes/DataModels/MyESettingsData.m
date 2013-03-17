@@ -8,33 +8,18 @@
 
 #import "MyESettingsData.h"
 #import "SBJson.h"
-
+#import "MyEHouseData.h"
+//可以删除，此类现在完全用MyEHouseData类代替
 @implementation MyESettingsData
-@synthesize userId = _userId, username = _username, mediator = _mediator, thermostat = _thermostat, keyPad = _keyPad;
+@synthesize userId = _userId, username = _username, mediator = _mediator, house=_house;
 #pragma mark
 #pragma mark JSON methods
-- (MyESettingsData *)init:(NSDictionary *)dictionary {
-    if (self = [super init]) {
-        _userId = @"1234567";
-        _username = @"demo";
-        _locWeb = @"Disabled";
-        _keyPad = 0;
-        _mediator = @"00-00-00-00-00-01";
-        _thermostat = @"023456789";
-        return self;
-    }
-    return nil;
-    
-}
-
 - (MyESettingsData *)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
         _userId = [dictionary objectForKey:@"userId"];
-        _locWeb = [dictionary objectForKey:@"locWeb"];
         _username = [dictionary objectForKey:@"username"];
-        _keyPad = [[dictionary objectForKey:@"keyPad"] intValue];
         _mediator = [dictionary objectForKey:@"mediator"];
-        _thermostat = [dictionary objectForKey:@"thermostat"];
+        _house = [[MyEHouseData alloc] initWithDictionary:[dictionary objectForKey:@"house"]];
         return self;
     }
     return nil;
@@ -57,11 +42,9 @@
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           self.userId, @"userId",
-                          self.locWeb, @"locWeb",
                           self.username, @"username",                        
-                          [NSNumber numberWithInt:self.keyPad], @"keyPad",
                           self.mediator, @"mediator",
-                          self.thermostat, @"thermostat",
+                          [self.house JSONDictionary], @"house",
                           nil ];
     return dict;
 }
