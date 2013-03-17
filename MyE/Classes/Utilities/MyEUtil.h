@@ -61,6 +61,9 @@
 #define KEY_FOR_HIDE_TIP_OF_VACATION @"hide_tip_of_vacation"
 #define KEY_FOR_HIDE_TIP_OF_SETTINGS @"hide_tip_of_settings"
 
+// 定义App是否加载过的标志Key
+#define KEY_FOR_APP_HAS_LAUNCHED_ONCE @"AppHasLaunchedOnce"
+
 // 定义NSDefaults里面用于保存上次浏览房屋houseId的Key, tId的key
 #define KEY_FOR_HOUSE_ID_LAST_VIEWED @"house_id_last_viewed"
 #define KEY_FOR_TID_LAST_VIEWED @"thermostat_id_last_viewed"

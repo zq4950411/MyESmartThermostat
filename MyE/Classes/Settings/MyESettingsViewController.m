@@ -76,6 +76,7 @@
     [self setThermostatLabel:nil];
     [self setKeypadCell:nil];
     [self setKeypadLockSwitch:nil];
+    [self setTableView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -294,6 +295,7 @@
         if (![self _processHttpRespondForString:string])
             return;
         
+        NSLog(@"View Settings JSON String from server is \n%@",string);
         MyESettingsData *settingsData = [[MyESettingsData alloc] initWithJSONString:string];
         if (settingsData) {
             NSLog(@"settings data is \n %@", [[settingsData JSONDictionary] JSONRepresentation]);
@@ -400,6 +402,7 @@
     [prefs setBool:NO forKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_WEEKLY];
     [prefs setBool:NO forKey:KEY_FOR_HIDE_TIP_OF_VACATION];
     [prefs setBool:NO forKey:KEY_FOR_HIDE_TIP_OF_SETTINGS];
+    [prefs setBool:NO forKey:KEY_FOR_APP_HAS_LAUNCHED_ONCE];// App是否已经加载过
     [prefs synchronize];
     
     [self showAutoDisappearAlertWithTile:@"Information" message:@"All tip popups have been reset to show automatically." delay:5.0f];

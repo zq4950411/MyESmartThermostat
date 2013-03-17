@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *keypadLockSwitch;
 
 
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITableViewCell *keypadCell;
 @property (weak, nonatomic) IBOutlet UILabel *mediatorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *thermostatLabel;

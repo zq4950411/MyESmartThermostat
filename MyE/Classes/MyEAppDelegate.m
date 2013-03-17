@@ -16,6 +16,7 @@
 #import "MyENext24HrsScheduleSubviewController.h"
 #import "MyEVacationMasterViewController.h"
 #import "MyESettingsViewController.h"
+#import "MyEStartupViewController.h"
 
 @implementation MyEAppDelegate
 
@@ -24,7 +25,46 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    sleep(2);//让程序休眠两秒，以使Launch image多停留一会。
+    sleep(0.01);//让程序休眠0.01秒，以使Launch image多停留一会。
+    
+    
+    /**
+     说明与备忘：
+        下面这一段的目的是为程序添加一个Startup Introduction ScrollView。
+     当用户在第一次进入APP时，就沿着Storyboard里面确定的rootViewController顺序进行加载，
+     并且在standardUserDefaults里面记载程序已经加载过了。
+        在程序第二次加载时，就从storyBoard里面取得标示符为"MainNavViewController"的程序的主体VC，
+     就用这个VC代替程序原来的self.window.rootViewController，这样程序就略过Startup Introduction ScrollView，
+     而直接进入MainNavViewController.
+     **/
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:KEY_FOR_APP_HAS_LAUNCHED_ONCE])
+    {
+        // app already launched
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"msg" message:@"alread launched" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles: nil];
+        [alert show];
+        
+        
+        UIStoryboard *storybord = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+//        UIViewController *vc =[storybord instantiateInitialViewController];// 这个是默认的第一个viewController
+        
+        // 获取程序的主Navigation VC
+        MyEStartupViewController *controller = (MyEStartupViewController*)[storybord
+                                    instantiateViewControllerWithIdentifier: @"MainNavViewController"];
+        self.window.rootViewController = controller;// 用主Navigation VC作为程序的rootViewController
+        [self.window makeKeyAndVisible];
+        return YES;
+    }
+    else
+    {
+        // This is the first launch ever
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KEY_FOR_APP_HAS_LAUNCHED_ONCE];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"msg" message:@"Frist time" delegate:self cancelButtonTitle:@"cancel" otherButtonTitles: nil];
+        [alert show];
+        
+    }
     
     return YES;
 }

@@ -34,6 +34,7 @@
 		C30E01F814C7A69200011160 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30E01F714C7A69200011160 /* CoreGraphics.framework */; };
 		C30E020014C7A69200011160 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C30E01FF14C7A69200011160 /* main.m */; };
 		C31786A1150DAA1400A4E3B5 /* MyETodayPeriodEditingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C31786A0150DAA1400A4E3B5 /* MyETodayPeriodEditingView.m */; };
+		C31B981A16F50B5E00E0A329 /* MyEStartupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C31B981916F50B5E00E0A329 /* MyEStartupViewController.m */; };
 		C326D81615F154FE00CB35EF /* cond000.png in Resources */ = {isa = PBXBuildFile; fileRef = C326D76515F154FE00CB35EF /* cond000.png */; };
 		C326D81715F154FE00CB35EF /* cond001.png in Resources */ = {isa = PBXBuildFile; fileRef = C326D76615F154FE00CB35EF /* cond001.png */; };
 		C326D81815F154FE00CB35EF /* cond002.png in Resources */ = {isa = PBXBuildFile; fileRef = C326D76715F154FE00CB35EF /* cond002.png */; };
@@ -365,6 +366,9 @@
 		C3B1D15515367F1D0058A7BF /* MyEWeekdayToolbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B1D15415367F1C0058A7BF /* MyEWeekdayToolbarController.m */; };
 		C3B1D15A15368C750058A7BF /* UISegmentedControl+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B1D15915368C750058A7BF /* UISegmentedControl+Extension.m */; };
 		C3B1D15C1536B61D0058A7BF /* bgpattern.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B1D15B1536B61D0058A7BF /* bgpattern.png */; };
+		C3B3690716F52037009E0B40 /* startup.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B3690516F52037009E0B40 /* startup.png */; };
+		C3B3690816F52037009E0B40 /* startup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B3690616F52037009E0B40 /* startup@2x.png */; };
+		C3B3690B16F5583B009E0B40 /* MyESettingsThermostatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B3690A16F5583B009E0B40 /* MyESettingsThermostatCell.m */; };
 		C3B97F9115119C8E00A69E05 /* MyEDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C39655481511933E00AFDEDE /* MyEDataLoader.m */; };
 		C3BB6FE0155B4FFB0056F004 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3BB6FDF155B4FFB0056F004 /* SystemConfiguration.framework */; };
 		C3C23F8116E8673F009A7C2A /* MyEThermostatData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C23F8016E8673F009A7C2A /* MyEThermostatData.m */; };
@@ -464,6 +468,8 @@
 		C30E020114C7A69200011160 /* MyE-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyE-Prefix.pch"; sourceTree = "<group>"; };
 		C317869F150DAA1300A4E3B5 /* MyETodayPeriodEditingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETodayPeriodEditingView.h; sourceTree = "<group>"; };
 		C31786A0150DAA1400A4E3B5 /* MyETodayPeriodEditingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETodayPeriodEditingView.m; sourceTree = "<group>"; };
+		C31B981816F50B5E00E0A329 /* MyEStartupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEStartupViewController.h; sourceTree = "<group>"; };
+		C31B981916F50B5E00E0A329 /* MyEStartupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEStartupViewController.m; sourceTree = "<group>"; };
 		C326D76515F154FE00CB35EF /* cond000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cond000.png; sourceTree = "<group>"; };
 		C326D76615F154FE00CB35EF /* cond001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cond001.png; sourceTree = "<group>"; };
 		C326D76715F154FE00CB35EF /* cond002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cond002.png; sourceTree = "<group>"; };
@@ -836,6 +842,10 @@
 		C3B1D15815368C750058A7BF /* UISegmentedControl+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISegmentedControl+Extension.h"; sourceTree = "<group>"; };
 		C3B1D15915368C750058A7BF /* UISegmentedControl+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISegmentedControl+Extension.m"; sourceTree = "<group>"; };
 		C3B1D15B1536B61D0058A7BF /* bgpattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgpattern.png; sourceTree = "<group>"; };
+		C3B3690516F52037009E0B40 /* startup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startup.png; sourceTree = "<group>"; };
+		C3B3690616F52037009E0B40 /* startup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "startup@2x.png"; sourceTree = "<group>"; };
+		C3B3690916F5583B009E0B40 /* MyESettingsThermostatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyESettingsThermostatCell.h; path = Settings/MyESettingsThermostatCell.h; sourceTree = "<group>"; };
+		C3B3690A16F5583B009E0B40 /* MyESettingsThermostatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyESettingsThermostatCell.m; path = Settings/MyESettingsThermostatCell.m; sourceTree = "<group>"; };
 		C3BB6FDF155B4FFB0056F004 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C3C23F7F16E8673F009A7C2A /* MyEThermostatData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEThermostatData.h; sourceTree = "<group>"; };
 		C3C23F8016E8673F009A7C2A /* MyEThermostatData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEThermostatData.m; sourceTree = "<group>"; };
@@ -1228,6 +1238,8 @@
 				C3A393DE152424CC00E7827D /* MyESettingsViewController.m */,
 				C393B7761524D6BE00B72FAF /* MyEPasswordResetViewController.h */,
 				C393B7771524D6BE00B72FAF /* MyEPasswordResetViewController.m */,
+				C3B3690916F5583B009E0B40 /* MyESettingsThermostatCell.h */,
+				C3B3690A16F5583B009E0B40 /* MyESettingsThermostatCell.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1235,6 +1247,8 @@
 		C3FAAF4F14F656560044CA03 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C3B3690516F52037009E0B40 /* startup.png */,
+				C3B3690616F52037009E0B40 /* startup@2x.png */,
 				C38A3D481598D5BF00575DA3 /* CustomCheckbox */,
 				C38A83D1159515E200B5C9BB /* BlockAlerts-images */,
 				C38654361566245500B85F66 /* loginbg.png */,
@@ -1536,6 +1550,8 @@
 				C3FAAFC114F656560044CA03 /* Subview-Controller */,
 				C3FAAFC514F656560044CA03 /* Vacation */,
 				C3A393E0152424D300E7827D /* Settings */,
+				C31B981816F50B5E00E0A329 /* MyEStartupViewController.h */,
+				C31B981916F50B5E00E0A329 /* MyEStartupViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1991,6 +2007,8 @@
 				C3AA84DC15F9ABC900939B8E /* Tb_EmgHDisabled@2x.png in Resources */,
 				C3E81543160F7E1000F9D15F /* Default-568h@2x.png in Resources */,
 				C352EF8E16EC68E1003B0B20 /* MainStoryboard.storyboard in Resources */,
+				C3B3690716F52037009E0B40 /* startup.png in Resources */,
+				C3B3690816F52037009E0B40 /* startup@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2079,6 +2097,8 @@
 				C38B19AA15AE524F00C17FE0 /* MyENext24HrsDayItemData.m in Sources */,
 				C3C23F8116E8673F009A7C2A /* MyEThermostatData.m in Sources */,
 				C392B83416EBE38F00B0CEB5 /* MyEThermostatListViewController.m in Sources */,
+				C31B981A16F50B5E00E0A329 /* MyEStartupViewController.m in Sources */,
+				C3B3690B16F5583B009E0B40 /* MyESettingsThermostatCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
