@@ -125,7 +125,7 @@
 
 - (void)navigationBarDoubleTap:(UIGestureRecognizer*)recognizer {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Information"
-                                                    message:[NSString stringWithFormat:@"You are currently viewing: %@", self.houseName] 
+                                                    message:[NSString stringWithFormat:@"House and thermostat being viewed:\n %@ \n %@", self.houseName, self.tId]
                                                    delegate:self 
                                           cancelButtonTitle:@"Ok" 
                                           otherButtonTitles: nil];

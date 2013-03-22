@@ -286,6 +286,8 @@
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"Login account JSON String from server is \n%@",string);
     if([name isEqualToString:@"LoginDownloader"]) {
+        // for test
+        //string = @"{\"houses\":[{\"mId\":\"05-00-00-00-00-00-02-0E\",\"connection\":0,\"houseName\":\"House5604\",\"thermostats\":[{\"thermostat\":0,\"tName\":\"T_50\",\"deviceType\":0,\"tId\":\"00-00-00-00-00-00-02-50\",\"keypad\":0,\"remote\":1},{\"thermostat\":0,\"tName\":\"T_74\",\"deviceType\":0,\"tId\":\"00-00-00-00-00-00-01-74\",\"keypad\":0,\"remote\":1}],\"houseId\":3374},{\"mId\":\"\",\"connection\":1,\"houseName\":\"House623\",\"thermostats\":[],\"houseId\":7032}],\"success\":\"true\",\"userId\":\"1000100000000000578\",\"userName\":\"xyk2\"}";
         MyEAccountData *anAccountData = [[MyEAccountData alloc] initWithJSONString:string];
         if(anAccountData && anAccountData.loginSuccess) {
             self.accountData = anAccountData;

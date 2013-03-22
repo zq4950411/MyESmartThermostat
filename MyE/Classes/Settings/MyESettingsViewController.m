@@ -30,7 +30,6 @@
 
 @implementation MyESettingsViewController
 @synthesize usernameLabel;
-@synthesize keypadCell;
 @synthesize mediatorLabel;
 @synthesize houseData = _houseData;
 @synthesize userId = _userId;
@@ -72,7 +71,6 @@
 {
     [self setUsernameLabel:nil];
     [self setMediatorLabel:nil];
-    [self setKeypadCell:nil];
     [self setTableView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -254,7 +252,9 @@
     } else
         [HUD show:YES];
 
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i",URL_FOR_SETTINGS_VIEW, self.userId, self.houseId];
+//    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@",URL_FOR_SETTINGS_VIEW, self.userId, self.houseId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@",URL_FOR_HOUSELIST_VIEW, self.userId];
+    NSLog(@"%@", urlStr);
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"SettingsDownloader"  userDataDictionary:nil];
     NSLog(@"SettingsDownloader is %@",loader.name);
 }
@@ -277,18 +277,106 @@
     } else
         [HUD show:YES];
 
-//    NSString *urlStr = [NSString stringWithFormat:@"%@&currentPassowrd=null&newPassword=null&keyPad=%i",URL_FOR_SETTINGS_SAVE, keypad];
+//    NSString *urlStr = [NSString stringWithFormat:@"%@&currentPassowrd=null&newPassword=null&keyPad=%i",URL_FOR_SETTINGS_SAVE, keypad];  // 现在这个接口没用了
+    // 这里借用HouseList View的接口，但不过还是要编程从houseList里面取得当前房子，因为用户可以在settings面板刷新，取得全部新的houseList，然后需要从里面取得当前房子的house数据
     NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&currentPassowrd=null&newPassword=null&keyPad=%i",URL_FOR_SETTINGS_SAVE, self.userId, self.houseId, tId, keypad];
     
     // 记录下这次修改的t的id
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           tId, @"tId",
-                          keypad, @"keypad",
+                          [NSNumber numberWithInt:keypad], @"keypad",
                           nil ];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:@"" delegate:self loaderName:@"SettingsKeypadUploader" userDataDictionary:dict];
-    NSLog(@"SettingsUploader is %@",loader.name);
+    NSLog(@"SettingsKeypadUploader is %@, urlStr is %@",loader.name, urlStr);
 }
 
+/* 参考MyEAccountData的- (BOOL)getHouseListByJSONString:(NSString *)jsonString
+ * 
+ * 参数str就是服务器传来的JSON String
+ * 返回值表示是否解析正确了。如果JSON解析正确，返回YES，否则返回NO
+ */
+- (MyEHouseData *)getHouseFromJSONString:(NSString *)jsonString byHouseId:(NSInteger)theHouseId{
+    // Create new SBJSON parser object
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    // 把JSON转为字典
+    NSError *error = [[NSError alloc] init];
+    NSArray *array = [parser objectWithString:jsonString error:&error];
+    
+    if ([array isKindOfClass:[NSArray class]]){
+        for (NSDictionary *houseDict in array) {
+            MyEHouseData *houseData = (MyEHouseData *)[[MyEHouseData alloc] initWithDictionary:houseDict];
+            if (houseData.houseId == theHouseId) {
+                return houseData;
+            }
+        }
+    }
+    return NO;
+}
+
+- (void)uploadServerToDeleteThermostat:(NSString *)tId index:(NSInteger)index{
+    ///////////////////////////////////////////////////////////////////////
+    // Demo 用户登录
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    NSString *username = [prefs objectForKey:@"username"];
+    
+    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
+        return;
+    ///////////////////////////////////////////////////////////////////////
+    
+    
+    if(HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        //        HUD.dimBackground = YES;//容易产生灰条
+        HUD.delegate = self;
+    } else
+        [HUD show:YES];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_SETTINGS_DELETE_THERMOSTAT, self.userId, self.houseId, tId];
+    
+    // 记录下这次修改的t的id
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                        tId, @"tId",
+                        [NSNumber numberWithInt:index], @"index",
+                        nil ];
+    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:@"" delegate:self loaderName:@"SettingsDeleteThermostatUploader" userDataDictionary:dict];
+    NSLog(@"SettingsDeleteThermostatUploader is %@, urlstr is %@",loader.name, urlStr);
+    _deleteThermostatQueryNumber = 0;// 初始化查询次数
+}
+
+- (void)queryThermostatDeleteStatusFromServer:(NSTimer *)timer{
+    ///////////////////////////////////////////////////////////////////////
+    // Demo 用户登录
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    NSString *username = [prefs objectForKey:@"username"];
+    
+    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
+        return;
+    ///////////////////////////////////////////////////////////////////////
+    
+    
+    if(HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        //        HUD.dimBackground = YES;//容易产生灰条
+        HUD.delegate = self;
+    } else
+        [HUD show:YES];
+
+    NSDictionary *info = [timer userInfo];
+    NSString *tId = [info objectForKey:@"tId"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_SETTINGS_DELETE_THERMOSTAT_QUERY_STATUS, self.userId, self.houseId, tId];
+    
+    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:@"" delegate:self loaderName:@"SettingsDeleteThermostatQueryStatusUploader" userDataDictionary:info];
+    NSLog(@"SettingsDeleteThermostatQueryStatusUploader is %@, urlstr is %@",loader.name, urlStr);
+    
+    _deleteThermostatQueryNumber ++;// 查询次数增加
+    if ([loadTimer isValid]) {
+        [loadTimer invalidate];
+        loadTimer = nil;
+    }
+}
 
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     [HUD hide:YES];
@@ -302,8 +390,8 @@
         NSLog(@"View Settings JSON String from server is \n%@",string);
         
         // for  test
-        string = @"{\"mId\":\"05-00-00-00-00-00-02-0E\",\"connection\":0,\"houseName\":\"House5604\",\"thermostats\":[{\"thermostat\":0,\"tName\":\"T-50\",\"deviceType\":0,\"tId\":\"00-00-00-00-00-00-02-50\",\"keypad\":0,\"remote\":1},{\"thermostat\":0,\"tName\":\"T-74\",\"deviceType\":0,\"tId\":\"00-00-00-00-00-00-01-74\",\"keypad\":0,\"remote\":1}],\"houseId\":3374}";
-        MyEHouseData *houseData = [[MyEHouseData alloc] initWithJSONString:string];
+        //string = @"{\"mId\":\"05-00-00-00-00-00-02-0E\",\"connection\":0,\"houseName\":\"House5604\",\"thermostats\":[{\"thermostat\":0,\"tName\":\"T-50\",\"deviceType\":0,\"tId\":\"00-00-00-00-00-00-02-50\",\"keypad\":0,\"remote\":1},{\"thermostat\":0,\"tName\":\"T-74\",\"deviceType\":0,\"tId\":\"00-00-00-00-00-00-01-74\",\"keypad\":0,\"remote\":1}],\"houseId\":3374}";
+        MyEHouseData *houseData = [self getHouseFromJSONString:string byHouseId:self.houseId];
         if (houseData) {
             NSLog(@"settings data is \n %@", [[houseData JSONDictionary] JSONRepresentation]);
             [self setHouseData:houseData];
@@ -324,9 +412,11 @@
             return;
         
         NSLog(@"Keypad upload with result: %@", string);
+        NSString *tIdChanged = [dict objectForKey:@"tId"];
         NSInteger tIndex=0;
         for (tIndex=0; tIndex<[self.houseData.thermostats count]; tIndex++) {
-            if(((MyEThermostatData *)[self.houseData.thermostats objectAtIndex:tIndex]).tId == [dict objectForKey:@"tId"]){
+            MyEThermostatData *t = ((MyEThermostatData *)[self.houseData.thermostats objectAtIndex:tIndex]);
+            if([t.tId isEqualToString:tIdChanged]){
                 break;
             }
         }
@@ -346,6 +436,101 @@
                                                 otherButtonTitles:nil];
             [alert show];
         }
+    }
+    if([name isEqualToString:@"SettingsDeleteThermostatUploader"]) {
+        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
+        // Navigation View Controller跳转到Houselist view。
+        // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
+        if (![self _processHttpRespondForString:string])
+            return;
+        
+        NSLog(@"Delete Thermostat, get String from server is \n%@",string);
+        NSInteger index = [[dict objectForKey:@"index"] intValue];
+        NSString *tId = [dict objectForKey:@"tId"]; 
+        if([string isEqualToString:@"0"]){
+            NSMutableArray *discardedItems = [NSMutableArray array];
+            MyEThermostatData *item;
+            
+            for (item in self.houseData.thermostats) {
+                if ([item.tId isEqualToString:tId])
+                    [discardedItems addObject:item];
+            }
+            
+//            [self.houseData.thermostats removeObjectAtIndex:index]; // 这个报告错误，不知原因，改用上面的办法
+            [self.tableView reloadData];
+        }
+        if([string isEqualToString:@"1"]){
+            UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
+                                                          message:[NSString stringWithFormat:@"Fail to delete thermostat %@. Please try again.", tId ]
+                                                         delegate:self
+                                                cancelButtonTitle:@"Ok"
+                                                otherButtonTitles:nil];
+            [alert show];
+        }
+        if([string isEqualToString:@"2"]){
+            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  tId, @"tId",
+                                  [NSNumber numberWithInt:index], @"index",
+                                  nil ];
+            loadTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f
+                                                         target:self
+                                                       selector:@selector(queryThermostatDeleteStatusFromServer:)
+                                                       userInfo:dict
+                                                        repeats:NO];
+        }
+
+        
+    }
+    if([name isEqualToString:@"SettingsDeleteThermostatQueryStatusUploader"]) {
+        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
+        // Navigation View Controller跳转到Houselist view。
+        // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
+        if (![self _processHttpRespondForString:string])
+            return;
+        
+        NSLog(@"Query status of Delete Thermostat, get String from server is \n%@",string);
+        
+        NSInteger index = [[dict objectForKey:@"index"] intValue];
+        NSString *tId = [dict objectForKey:@"tId"];
+
+        if([string isEqualToString:@"0"]){
+            NSMutableArray *discardedItems = [NSMutableArray array];
+            MyEThermostatData *item;
+            
+            for (item in self.houseData.thermostats) {
+                if ([item.tId isEqualToString:tId])
+                    [discardedItems addObject:item];
+            }
+            
+            [self.houseData.thermostats removeObjectsInArray:discardedItems];
+//            [self.houseData.thermostats removeObjectAtIndex:index]; // 这个报告错误，不知原因，改用上面的办法
+            [self.tableView reloadData];
+            if ([loadTimer isValid]) {
+                [loadTimer invalidate];
+                loadTimer = nil;
+            }
+        }
+        if([string isEqualToString:@"1"]){
+            if(_deleteThermostatQueryNumber < 5){
+                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      tId, @"tId",
+                                      [NSNumber numberWithInt:index], @"index",
+                                      nil ];
+                loadTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f
+                                                             target:self
+                                                           selector:@selector(queryThermostatDeleteStatusFromServer:)
+                                                           userInfo:dict
+                                                            repeats:NO];
+            } else {
+                UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
+                                                          message:[NSString stringWithFormat:@"Fail to delete thermostat %@. Please try again.", tId ]
+                                                         delegate:self
+                                                cancelButtonTitle:@"Ok"
+                                                otherButtonTitles:nil];
+                [alert show];
+            }
+        }
+        
     }
 }
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
@@ -435,9 +620,49 @@
     }
     [[cell thermostatLabel] setText:thermostat.tId];
     [[cell nameLabel] setText:thermostat.tName];
+    [[cell keypadLockSwitch] setOn:thermostat.keypad==0?YES:NO];// 0: 开， 1： 关
     cell.delegate = self;
         
     return cell;       
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return  @"Delete";
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSLog(@"点击了删除");
+
+        MyEThermostatData *thermostat = [self.houseData.thermostats objectAtIndex:indexPath.row];
+        _tIdToDelete = thermostat.tId;
+        _tIndexToDelete = indexPath.row;
+
+        //记录下本来需要执行上传删除指令的相关变量，然后显示提示，如果用户点击YES后，再在提示的毁掉函数里面执行现在的删除指令
+        UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Delete"
+                                                      message:@"Are you sure you want to delete this thermostat?"
+                                                     delegate:self
+                                            cancelButtonTitle:@"YES"
+                                            otherButtonTitles:@"NO",nil];
+        [alert show];
+        
+        
+        
+    }
+    if (editingStyle == UITableViewCellEditingStyleInsert) {
+        NSLog(@"点击了Insert");
+    }
+}
+
+#pragma mark - AlertView
+-(void)alertView:(UIAlertView *)alertView  clickedButtonAtIndex:(int)index
+{
+    //显示提示，如果用户点击YES后，再在提示的回调函数里面执行现在的删除指令
+    if([alertView.title isEqualToString:@"Delete"] && index == 0) {
+        [self uploadServerToDeleteThermostat:_tIdToDelete index:_tIndexToDelete];
+    }
 }
 
 
@@ -445,7 +670,8 @@
 -(void) didKeypadSwitchChanged:(MyESettingsThermostatCell *)theCell
 {
     NSString *tId = theCell.thermostatLabel.text;
-    NSInteger keypad = theCell.keypadLockSwitch.on?1:0;
+    NSInteger keypad = theCell.keypadLockSwitch.on?0:1;// 0: 开， 1： 关
     [self uploadModelToServerWithTId:tId keypad:keypad];
+    
 }
 @end

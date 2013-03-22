@@ -10,6 +10,8 @@
 #import "MyEDataLoader.h"
 #import "MBProgressHUD.h"
 
+@class MyEHouseData;
+
 
 @interface MyEPasswordResetViewController : UITableViewController <UITextFieldDelegate, MyEDataLoaderDelegate,MBProgressHUDDelegate> {
     MBProgressHUD *HUD;

@@ -109,9 +109,11 @@
     
     if ([array isKindOfClass:[NSArray class]]){
         [self.houseList removeAllObjects];
-        for (NSDictionary *house in array) {
-            if([[[house objectForKey:@"mId"] stringValue] length] == 0)// 只统计有mId的房屋。去掉这句就会统计所有房屋
-                [self.houseList addObject:[[MyEHouseData alloc] initWithDictionary:house]];
+        for (NSDictionary *houseDict in array) {
+            MyEHouseData *houseData = (MyEHouseData *)[[MyEHouseData alloc] initWithDictionary:houseDict];
+//            NSString *mId = houseData.mId;
+//            if([mId length] == 0)// 只统计有mId的房屋。去掉这句就会统计所有房屋
+                [self.houseList addObject:houseData];
         }
         return YES;
     } else

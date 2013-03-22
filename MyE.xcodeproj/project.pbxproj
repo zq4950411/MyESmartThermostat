@@ -34,6 +34,8 @@
 		C30E01F814C7A69200011160 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30E01F714C7A69200011160 /* CoreGraphics.framework */; };
 		C30E020014C7A69200011160 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C30E01FF14C7A69200011160 /* main.m */; };
 		C31786A1150DAA1400A4E3B5 /* MyETodayPeriodEditingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C31786A0150DAA1400A4E3B5 /* MyETodayPeriodEditingView.m */; };
+		C31A070716FBFE5C0063490A /* button-enter.png in Resources */ = {isa = PBXBuildFile; fileRef = C31A070516FBFE5C0063490A /* button-enter.png */; };
+		C31A070816FBFE5C0063490A /* button-enter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C31A070616FBFE5C0063490A /* button-enter@2x.png */; };
 		C31B981A16F50B5E00E0A329 /* MyEStartupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C31B981916F50B5E00E0A329 /* MyEStartupViewController.m */; };
 		C326D81615F154FE00CB35EF /* cond000.png in Resources */ = {isa = PBXBuildFile; fileRef = C326D76515F154FE00CB35EF /* cond000.png */; };
 		C326D81715F154FE00CB35EF /* cond001.png in Resources */ = {isa = PBXBuildFile; fileRef = C326D76615F154FE00CB35EF /* cond001.png */; };
@@ -215,6 +217,10 @@
 		C32A09A815ACBFC500A7BF8A /* MyEScheduleNext24HrsData.m in Sources */ = {isa = PBXBuildFile; fileRef = C32A09A715ACBFC500A7BF8A /* MyEScheduleNext24HrsData.m */; };
 		C32A09AB15ACE46500A7BF8A /* MyENext24HrsScheduleSubviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32A09AA15ACE46500A7BF8A /* MyENext24HrsScheduleSubviewController.m */; };
 		C32A09AF15AD009700A7BF8A /* MyENext24HrsScheduleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C32A09AE15AD009700A7BF8A /* MyENext24HrsScheduleView.xib */; };
+		C331184816F6D69300A135B7 /* demo1-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C331184416F6D69300A135B7 /* demo1-568h@2x.png */; };
+		C331184C16F6D6CD00A135B7 /* demo0-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C331184B16F6D6CD00A135B7 /* demo0-568h@2x.png */; };
+		C331184F16F6D79C00A135B7 /* demo2-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C331184D16F6D79C00A135B7 /* demo2-568h@2x.png */; };
+		C331185016F6D79C00A135B7 /* demo3-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C331184E16F6D79C00A135B7 /* demo3-568h@2x.png */; };
 		C34B47BF155309FF00848DB7 /* nomark.png in Resources */ = {isa = PBXBuildFile; fileRef = C34B47BB155309FF00848DB7 /* nomark.png */; };
 		C34B47C0155309FF00848DB7 /* nomark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C34B47BC155309FF00848DB7 /* nomark@2x.png */; };
 		C34B47C1155309FF00848DB7 /* yesmark.png in Resources */ = {isa = PBXBuildFile; fileRef = C34B47BD155309FF00848DB7 /* yesmark.png */; };
@@ -311,9 +317,7 @@
 		C39058DC159A3A8B005041F6 /* MyETipDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C39058DB159A3A8B005041F6 /* MyETipDataModel.m */; };
 		C3927C661504A8BB00E00230 /* MyEThumbColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3927C651504A8BB00E00230 /* MyEThumbColorView.m */; };
 		C392B83416EBE38F00B0CEB5 /* MyEThermostatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C392B83116EBE38F00B0CEB5 /* MyEThermostatListViewController.m */; };
-		C392B83916EBE78400B0CEB5 /* MyEHouseListInvalidCell.h in Sources */ = {isa = PBXBuildFile; fileRef = C392B83516EBE6B200B0CEB5 /* MyEHouseListInvalidCell.h */; };
 		C392B83A16EBE78400B0CEB5 /* MyEHouseListInvalidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C392B83616EBE6B200B0CEB5 /* MyEHouseListInvalidCell.m */; };
-		C392B83B16EBE78400B0CEB5 /* MyEHouseListValidCell.h in Sources */ = {isa = PBXBuildFile; fileRef = C392B83716EBE6B200B0CEB5 /* MyEHouseListValidCell.h */; };
 		C392B83C16EBE78400B0CEB5 /* MyEHouseListValidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C392B83816EBE6B200B0CEB5 /* MyEHouseListValidCell.m */; };
 		C393B7781524D6BE00B72FAF /* MyEPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C393B7771524D6BE00B72FAF /* MyEPasswordResetViewController.m */; };
 		C393B77C1524F41C00B72FAF /* MyESettingsData.m in Sources */ = {isa = PBXBuildFile; fileRef = C393B77B1524F41C00B72FAF /* MyESettingsData.m */; };
@@ -331,6 +335,8 @@
 		C39761571547B1920085AE71 /* Vacation01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C397614D1547B1920085AE71 /* Vacation01@2x.png */; };
 		C39761581547B1920085AE71 /* Vacation02.png in Resources */ = {isa = PBXBuildFile; fileRef = C397614E1547B1920085AE71 /* Vacation02.png */; };
 		C39761591547B1920085AE71 /* Vacation02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C397614F1547B1920085AE71 /* Vacation02@2x.png */; };
+		C39A503416F9600D00C5957F /* tab-switch.png in Resources */ = {isa = PBXBuildFile; fileRef = C39A503216F9600C00C5957F /* tab-switch.png */; };
+		C39A503516F9600D00C5957F /* tab-switch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C39A503316F9600D00C5957F /* tab-switch@2x.png */; };
 		C39AA59A15A4B6950041D2F4 /* MyEBlockAlertViewWithCheckbox.m in Sources */ = {isa = PBXBuildFile; fileRef = C39AA59915A4B6950041D2F4 /* MyEBlockAlertViewWithCheckbox.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C39AD94B151C589C00ACAB52 /* ApplicationIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C39AD948151C589C00ACAB52 /* ApplicationIcon.png */; };
 		C39AD94C151C589C00ACAB52 /* ApplicationIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C39AD949151C589C00ACAB52 /* ApplicationIcon@2x.png */; };
@@ -366,9 +372,16 @@
 		C3B1D15515367F1D0058A7BF /* MyEWeekdayToolbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B1D15415367F1C0058A7BF /* MyEWeekdayToolbarController.m */; };
 		C3B1D15A15368C750058A7BF /* UISegmentedControl+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B1D15915368C750058A7BF /* UISegmentedControl+Extension.m */; };
 		C3B1D15C1536B61D0058A7BF /* bgpattern.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B1D15B1536B61D0058A7BF /* bgpattern.png */; };
-		C3B3690716F52037009E0B40 /* startup.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B3690516F52037009E0B40 /* startup.png */; };
-		C3B3690816F52037009E0B40 /* startup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B3690616F52037009E0B40 /* startup@2x.png */; };
 		C3B3690B16F5583B009E0B40 /* MyESettingsThermostatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B3690A16F5583B009E0B40 /* MyESettingsThermostatCell.m */; };
+		C3B3690E16F63F39009E0B40 /* MyELaunchIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B3690D16F63F39009E0B40 /* MyELaunchIntroViewController.m */; };
+		C3B3691716F65E00009E0B40 /* demo0.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B3690F16F65E00009E0B40 /* demo0.png */; };
+		C3B3691816F65E00009E0B40 /* demo0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B3691016F65E00009E0B40 /* demo0@2x.png */; };
+		C3B3691916F65E00009E0B40 /* demo1.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B3691116F65E00009E0B40 /* demo1.png */; };
+		C3B3691A16F65E00009E0B40 /* demo1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B3691216F65E00009E0B40 /* demo1@2x.png */; };
+		C3B3691B16F65E00009E0B40 /* demo2.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B3691316F65E00009E0B40 /* demo2.png */; };
+		C3B3691C16F65E00009E0B40 /* demo2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B3691416F65E00009E0B40 /* demo2@2x.png */; };
+		C3B3691D16F65E00009E0B40 /* demo3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3B3691516F65E00009E0B40 /* demo3.jpg */; };
+		C3B3691E16F65E00009E0B40 /* demo3@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3B3691616F65E00009E0B40 /* demo3@2x.jpg */; };
 		C3B97F9115119C8E00A69E05 /* MyEDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C39655481511933E00AFDEDE /* MyEDataLoader.m */; };
 		C3BB6FE0155B4FFB0056F004 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3BB6FDF155B4FFB0056F004 /* SystemConfiguration.framework */; };
 		C3C23F8116E8673F009A7C2A /* MyEThermostatData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C23F8016E8673F009A7C2A /* MyEThermostatData.m */; };
@@ -468,6 +481,8 @@
 		C30E020114C7A69200011160 /* MyE-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyE-Prefix.pch"; sourceTree = "<group>"; };
 		C317869F150DAA1300A4E3B5 /* MyETodayPeriodEditingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETodayPeriodEditingView.h; sourceTree = "<group>"; };
 		C31786A0150DAA1400A4E3B5 /* MyETodayPeriodEditingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETodayPeriodEditingView.m; sourceTree = "<group>"; };
+		C31A070516FBFE5C0063490A /* button-enter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-enter.png"; sourceTree = "<group>"; };
+		C31A070616FBFE5C0063490A /* button-enter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-enter@2x.png"; sourceTree = "<group>"; };
 		C31B981816F50B5E00E0A329 /* MyEStartupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEStartupViewController.h; sourceTree = "<group>"; };
 		C31B981916F50B5E00E0A329 /* MyEStartupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEStartupViewController.m; sourceTree = "<group>"; };
 		C326D76515F154FE00CB35EF /* cond000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cond000.png; sourceTree = "<group>"; };
@@ -652,6 +667,10 @@
 		C32A09A915ACE46500A7BF8A /* MyENext24HrsScheduleSubviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyENext24HrsScheduleSubviewController.h; sourceTree = "<group>"; };
 		C32A09AA15ACE46500A7BF8A /* MyENext24HrsScheduleSubviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyENext24HrsScheduleSubviewController.m; sourceTree = "<group>"; };
 		C32A09AE15AD009700A7BF8A /* MyENext24HrsScheduleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyENext24HrsScheduleView.xib; sourceTree = "<group>"; };
+		C331184416F6D69300A135B7 /* demo1-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "demo1-568h@2x.png"; sourceTree = "<group>"; };
+		C331184B16F6D6CD00A135B7 /* demo0-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "demo0-568h@2x.png"; sourceTree = "<group>"; };
+		C331184D16F6D79C00A135B7 /* demo2-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "demo2-568h@2x.png"; sourceTree = "<group>"; };
+		C331184E16F6D79C00A135B7 /* demo3-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "demo3-568h@2x.png"; sourceTree = "<group>"; };
 		C34B47BB155309FF00848DB7 /* nomark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nomark.png; sourceTree = "<group>"; };
 		C34B47BC155309FF00848DB7 /* nomark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nomark@2x.png"; sourceTree = "<group>"; };
 		C34B47BD155309FF00848DB7 /* yesmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yesmark.png; sourceTree = "<group>"; };
@@ -798,6 +817,8 @@
 		C397614D1547B1920085AE71 /* Vacation01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Vacation01@2x.png"; sourceTree = "<group>"; };
 		C397614E1547B1920085AE71 /* Vacation02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Vacation02.png; sourceTree = "<group>"; };
 		C397614F1547B1920085AE71 /* Vacation02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Vacation02@2x.png"; sourceTree = "<group>"; };
+		C39A503216F9600C00C5957F /* tab-switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-switch.png"; sourceTree = "<group>"; };
+		C39A503316F9600D00C5957F /* tab-switch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-switch@2x.png"; sourceTree = "<group>"; };
 		C39AA59815A4B6950041D2F4 /* MyEBlockAlertViewWithCheckbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyEBlockAlertViewWithCheckbox.h; path = CustomViews/MyEBlockAlertViewWithCheckbox.h; sourceTree = "<group>"; };
 		C39AA59915A4B6950041D2F4 /* MyEBlockAlertViewWithCheckbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyEBlockAlertViewWithCheckbox.m; path = CustomViews/MyEBlockAlertViewWithCheckbox.m; sourceTree = "<group>"; };
 		C39AD948151C589C00ACAB52 /* ApplicationIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ApplicationIcon.png; sourceTree = "<group>"; };
@@ -842,10 +863,18 @@
 		C3B1D15815368C750058A7BF /* UISegmentedControl+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISegmentedControl+Extension.h"; sourceTree = "<group>"; };
 		C3B1D15915368C750058A7BF /* UISegmentedControl+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISegmentedControl+Extension.m"; sourceTree = "<group>"; };
 		C3B1D15B1536B61D0058A7BF /* bgpattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgpattern.png; sourceTree = "<group>"; };
-		C3B3690516F52037009E0B40 /* startup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startup.png; sourceTree = "<group>"; };
-		C3B3690616F52037009E0B40 /* startup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "startup@2x.png"; sourceTree = "<group>"; };
 		C3B3690916F5583B009E0B40 /* MyESettingsThermostatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyESettingsThermostatCell.h; path = Settings/MyESettingsThermostatCell.h; sourceTree = "<group>"; };
 		C3B3690A16F5583B009E0B40 /* MyESettingsThermostatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyESettingsThermostatCell.m; path = Settings/MyESettingsThermostatCell.m; sourceTree = "<group>"; };
+		C3B3690C16F63F39009E0B40 /* MyELaunchIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyELaunchIntroViewController.h; sourceTree = "<group>"; };
+		C3B3690D16F63F39009E0B40 /* MyELaunchIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyELaunchIntroViewController.m; sourceTree = "<group>"; };
+		C3B3690F16F65E00009E0B40 /* demo0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = demo0.png; sourceTree = "<group>"; };
+		C3B3691016F65E00009E0B40 /* demo0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "demo0@2x.png"; sourceTree = "<group>"; };
+		C3B3691116F65E00009E0B40 /* demo1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = demo1.png; sourceTree = "<group>"; };
+		C3B3691216F65E00009E0B40 /* demo1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "demo1@2x.png"; sourceTree = "<group>"; };
+		C3B3691316F65E00009E0B40 /* demo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = demo2.png; sourceTree = "<group>"; };
+		C3B3691416F65E00009E0B40 /* demo2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "demo2@2x.png"; sourceTree = "<group>"; };
+		C3B3691516F65E00009E0B40 /* demo3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = demo3.jpg; sourceTree = "<group>"; };
+		C3B3691616F65E00009E0B40 /* demo3@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "demo3@2x.jpg"; sourceTree = "<group>"; };
 		C3BB6FDF155B4FFB0056F004 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C3C23F7F16E8673F009A7C2A /* MyEThermostatData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEThermostatData.h; sourceTree = "<group>"; };
 		C3C23F8016E8673F009A7C2A /* MyEThermostatData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEThermostatData.m; sourceTree = "<group>"; };
@@ -1068,6 +1097,8 @@
 		C34CF2C114FE265A00E88079 /* TabBarIcons */ = {
 			isa = PBXGroup;
 			children = (
+				C39A503216F9600C00C5957F /* tab-switch.png */,
+				C39A503316F9600D00C5957F /* tab-switch@2x.png */,
 				C34CF2C214FE265A00E88079 /* tab-doshboard.png */,
 				C34CF2C314FE265A00E88079 /* tab-doshboard@2x.png */,
 				C34CF2C414FE265A00E88079 /* tab-schedule.png */,
@@ -1247,8 +1278,20 @@
 		C3FAAF4F14F656560044CA03 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				C3B3690516F52037009E0B40 /* startup.png */,
-				C3B3690616F52037009E0B40 /* startup@2x.png */,
+				C31A070516FBFE5C0063490A /* button-enter.png */,
+				C31A070616FBFE5C0063490A /* button-enter@2x.png */,
+				C331184D16F6D79C00A135B7 /* demo2-568h@2x.png */,
+				C331184E16F6D79C00A135B7 /* demo3-568h@2x.png */,
+				C331184B16F6D6CD00A135B7 /* demo0-568h@2x.png */,
+				C331184416F6D69300A135B7 /* demo1-568h@2x.png */,
+				C3B3690F16F65E00009E0B40 /* demo0.png */,
+				C3B3691016F65E00009E0B40 /* demo0@2x.png */,
+				C3B3691116F65E00009E0B40 /* demo1.png */,
+				C3B3691216F65E00009E0B40 /* demo1@2x.png */,
+				C3B3691316F65E00009E0B40 /* demo2.png */,
+				C3B3691416F65E00009E0B40 /* demo2@2x.png */,
+				C3B3691516F65E00009E0B40 /* demo3.jpg */,
+				C3B3691616F65E00009E0B40 /* demo3@2x.jpg */,
 				C38A3D481598D5BF00575DA3 /* CustomCheckbox */,
 				C38A83D1159515E200B5C9BB /* BlockAlerts-images */,
 				C38654361566245500B85F66 /* loginbg.png */,
@@ -1552,6 +1595,8 @@
 				C3FAAFC114F656560044CA03 /* Subview-Controller */,
 				C3FAAFC514F656560044CA03 /* Vacation */,
 				C3A393E0152424D300E7827D /* Settings */,
+				C3B3690C16F63F39009E0B40 /* MyELaunchIntroViewController.h */,
+				C3B3690D16F63F39009E0B40 /* MyELaunchIntroViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -2007,8 +2052,22 @@
 				C3AA84DC15F9ABC900939B8E /* Tb_EmgHDisabled@2x.png in Resources */,
 				C3E81543160F7E1000F9D15F /* Default-568h@2x.png in Resources */,
 				C352EF8E16EC68E1003B0B20 /* MainStoryboard.storyboard in Resources */,
-				C3B3690716F52037009E0B40 /* startup.png in Resources */,
-				C3B3690816F52037009E0B40 /* startup@2x.png in Resources */,
+				C3B3691716F65E00009E0B40 /* demo0.png in Resources */,
+				C3B3691816F65E00009E0B40 /* demo0@2x.png in Resources */,
+				C3B3691916F65E00009E0B40 /* demo1.png in Resources */,
+				C3B3691A16F65E00009E0B40 /* demo1@2x.png in Resources */,
+				C3B3691B16F65E00009E0B40 /* demo2.png in Resources */,
+				C3B3691C16F65E00009E0B40 /* demo2@2x.png in Resources */,
+				C3B3691D16F65E00009E0B40 /* demo3.jpg in Resources */,
+				C3B3691E16F65E00009E0B40 /* demo3@2x.jpg in Resources */,
+				C331184816F6D69300A135B7 /* demo1-568h@2x.png in Resources */,
+				C331184C16F6D6CD00A135B7 /* demo0-568h@2x.png in Resources */,
+				C331184F16F6D79C00A135B7 /* demo2-568h@2x.png in Resources */,
+				C331185016F6D79C00A135B7 /* demo3-568h@2x.png in Resources */,
+				C39A503416F9600D00C5957F /* tab-switch.png in Resources */,
+				C39A503516F9600D00C5957F /* tab-switch@2x.png in Resources */,
+				C31A070716FBFE5C0063490A /* button-enter.png in Resources */,
+				C31A070816FBFE5C0063490A /* button-enter@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2019,9 +2078,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C392B83916EBE78400B0CEB5 /* MyEHouseListInvalidCell.h in Sources */,
 				C392B83A16EBE78400B0CEB5 /* MyEHouseListInvalidCell.m in Sources */,
-				C392B83B16EBE78400B0CEB5 /* MyEHouseListValidCell.h in Sources */,
 				C392B83C16EBE78400B0CEB5 /* MyEHouseListValidCell.m in Sources */,
 				C30E020014C7A69200011160 /* main.m in Sources */,
 				C3FAB00D14F656560044CA03 /* MyEDashboardViewController.m in Sources */,
@@ -2099,6 +2156,7 @@
 				C392B83416EBE38F00B0CEB5 /* MyEThermostatListViewController.m in Sources */,
 				C31B981A16F50B5E00E0A329 /* MyEStartupViewController.m in Sources */,
 				C3B3690B16F5583B009E0B40 /* MyESettingsThermostatCell.m in Sources */,
+				C3B3690E16F63F39009E0B40 /* MyELaunchIntroViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2188,7 +2246,8 @@
 				INFOPLIST_FILE = "MyE/MyE-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "555197F4-BD96-4E59-AF11-72BCDC14BCFC";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "555197F4-BD96-4E59-AF11-72BCDC14BCFC";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2204,6 +2263,7 @@
 				INFOPLIST_FILE = "MyE/MyE-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "555197F4-BD96-4E59-AF11-72BCDC14BCFC";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
