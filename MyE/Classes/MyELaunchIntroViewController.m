@@ -7,7 +7,7 @@
 //
 
 #import "MyELaunchIntroViewController.h"
-
+#define DEMO_PAGE_NUM 2
 @interface MyELaunchIntroViewController ()
 
 @end
@@ -28,7 +28,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * 4, self.scrollView.frame.size.height);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * DEMO_PAGE_NUM, self.scrollView.frame.size.height);
     self.pageControlBeingUsed = NO;
     
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
@@ -42,8 +42,7 @@
 
         self.imageView0.image = [UIImage imageNamed:@"demo0-568h.png"];
         self.imageView1.image = [UIImage imageNamed:@"demo1-568h.png"];
-        self.imageView2.image = [UIImage imageNamed:@"demo2-568h.png"];
-        self.imageView3.image = [UIImage imageNamed:@"demo3-568h.png"];
+
     } else {
         
     }
@@ -58,14 +57,12 @@
 - (void)viewDidUnload {
     [self setSubview0:nil];
     [self setSubview1:nil];
-    [self setSubview2:nil];
-    [self setSubview3:nil];
+
     [self setScrollView:nil];
     [self setPageControl:nil];
     [self setImageView0:nil];
     [self setImageView1:nil];
-    [self setImageView2:nil];
-    [self setImageView3:nil];
+
     [super viewDidUnload];
 }
 
@@ -86,11 +83,26 @@
     [self.scrollView scrollRectToVisible:frame animated:YES];
 }
 
-//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-//    pageControlBeingUsed = NO;
-//}
-//
-//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-//    pageControlBeingUsed = NO;
-//}
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    pageControlBeingUsed = NO;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    pageControlBeingUsed = NO;
+}
+// Implement prepareForSegue to do additional configuration, such as assigning data before transition to another view.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    NSString *ident = [segue identifier];
+    if ([ident isEqualToString:@"SegueLaunchIntroToMainTabView"]) {
+        UIStoryboard *storybord = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+
+        // 获取程序的主Navigation VC, 这里可以类似地从stroyboard获取任意的VC，然后设置它为rootViewController，这样就可以显示它
+        UINavigationController *controller = (UINavigationController*)[storybord
+                                                                   instantiateViewControllerWithIdentifier: @"MainNavViewController"];
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        window.rootViewController = controller;// 用主Navigation VC作为程序的rootViewController
+        [window makeKeyAndVisible];
+
+    }
+}
 @end

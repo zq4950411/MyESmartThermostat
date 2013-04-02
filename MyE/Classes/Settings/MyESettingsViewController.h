@@ -36,7 +36,8 @@
 @property (copy, nonatomic) NSString *userName;
 @property (nonatomic) NSInteger houseId;
 @property (nonatomic,copy) NSString *houseName;
-@property (nonatomic, copy) NSString *tId;// 表示当前选择的t
+@property (nonatomic, copy) NSString *tId;// 表示当前选择的t的id
+@property (nonatomic, copy) NSString *tName;// 当前选择的t的名字
 //@property (nonatomic) BOOL isRemoteControl;
 
 @property (retain, nonatomic) MyEHouseData *houseData;

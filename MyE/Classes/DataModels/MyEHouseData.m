@@ -71,7 +71,16 @@
     return [[MyEHouseData alloc] initWithDictionary:[self JSONDictionary]];
 }
 
-- (BOOL)isValid {
+// 判定房子是否有效，标准是房子的M状态必须为0表示M正常链接，T列表不能为空，这样的房子才算有效
+- (BOOL)isValid{
+    if([self.mId length] == 0 || [self.thermostats count] == 0)
+        return NO;
+
+    return YES;
+}
+
+//判定房子是否连接, 标准是房子是否有M，并且至少有一个T在连接工作，才能键入房子，因为我们的目标是点击进入一个房子后必须有一个T的信息。
+- (BOOL)isConnected{
     if([self.mId length] == 0 || self.connection == 1)
         return NO;
     for (MyEThermostatData *t  in self.thermostats) {
@@ -90,5 +99,15 @@
     }
 
     return nil;
+}
+
+- (NSInteger)countOfConnectedThermostat{// 房子有连接的T的数目。
+    NSInteger count =0;
+    for (MyEThermostatData *t  in self.thermostats) {
+        if (t.thermostat ==0 ) {
+            count ++;
+        }
+    }
+    return count;
 }
 @end

@@ -60,6 +60,7 @@
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
 @synthesize tId = _tId;
+@synthesize tName = _tName;
 @synthesize isRemoteControl = _isRemoteControl;
 
 
@@ -425,9 +426,11 @@
                 
                 _editingPendingMode = nil;
             }
-            //这里是编辑模式，不牵涉Schedule的修改，所以不应该由下面两个和Schedule相关标志位的变化，因此注释掉。 2012-06-27.
-            //_scheduleChangedByUserTouch = NO;
-            //self.applyButton.enabled = NO;
+            
+            self.currentSelectedModeId = -1;//设置当前默认没有选中任何模式。
+            //下面代码会使得mode picker里面的mode都没加亮选中
+            if(_modePickerView.currentSelectedThumbModeView != nil)
+                _modePickerView.currentSelectedThumbModeView = nil;
         }else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
                                                           message:string
@@ -510,9 +513,7 @@
             [alert show];
         }
     }
-    //下面代码会使得mode picker里面的mode都没加亮选中
-    if(_modePickerView.currentSelectedThumbModeView != nil)
-        _modePickerView.currentSelectedThumbModeView = nil;
+
     [HUD hide:YES];
     
     // 在从服务器获得数据后，如果哪个子面板还在显示，就隐藏它
@@ -654,6 +655,7 @@
         // 记录下这个操作待决的mode
         _editingPendingMode = mode;
         [self uploadToServerEditingMode:mode];
+
     }else if(editingType == ModeEditingViewTypeNew) {
         
         MyEScheduleModeData *mode = [[MyEScheduleModeData alloc] init];
@@ -665,15 +667,10 @@
         // 记录下这个操作待决的mode
         _editingPendingMode = mode;
         [self uploadToServerNewMode:mode];
+
     } else if(editingType == ModeEditingViewTypeCancel) {
         // do nothing
     }
-    
-    self.currentSelectedModeId = -1;//设置当前默认没有选中任何模式。
-    
-//    //下面代码会使得mode picker里面的mode都没加亮选中，下面代码其实不需要，因为双击弹出mode editing对话框，但不会修改选中mode的状态
-//    [_modePickerView highlightThumbModeViewWithModeId:self.currentSelectedModeId ];
-//    _modePickerView.currentSelectedThumbModeView = nil;
 }
 - (void) didFinishDeletingModeId:(NSInteger)modeId {
     [self _toggleModeEditingViewWithType:ModeEditingViewTypeEditing];

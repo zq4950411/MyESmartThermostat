@@ -15,13 +15,11 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *subview0;
 @property (weak, nonatomic) IBOutlet UIView *subview1;
-@property (weak, nonatomic) IBOutlet UIView *subview2;
-@property (weak, nonatomic) IBOutlet UIView *subview3;
+
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView0;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView1;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView2;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView3;
+
 
 - (IBAction)changePage:(id)sender;
 @end

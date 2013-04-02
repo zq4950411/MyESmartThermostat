@@ -25,6 +25,7 @@
 @synthesize houseId = _houseId;
 @synthesize houseName = _houseName;
 @synthesize tId = _tId;
+@synthesize tName = _tName;
 
 
 
@@ -209,26 +210,32 @@
     
     tabBarController.selectedTabIndex = selectdIndex;
     tabBarController.tId = thermostatData.tId;
+    tabBarController.tName = thermostatData.tName;
     
     MyEDashboardViewController *dashboardViewController = [[tabBarController childViewControllers] objectAtIndex:0];
     dashboardViewController.tId = thermostatData.tId;
+    dashboardViewController.tName = thermostatData.tName;
     dashboardViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
     
     MyEScheduleViewController *scheduleViewController = [[tabBarController childViewControllers] objectAtIndex:1];
     scheduleViewController.tId = thermostatData.tId;
+    scheduleViewController.tName = thermostatData.tName;
     scheduleViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
     
     MyEVacationMasterViewController *vacationViewController = [[tabBarController childViewControllers] objectAtIndex:2];
     vacationViewController.tId = thermostatData.tId;
+    vacationViewController.tName = thermostatData.tName;
     vacationViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
     
     MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
     settingsViewController.tId = thermostatData.tId;
+    settingsViewController.tName = thermostatData.tName;
 //    settingsViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
     
     _tId = thermostatData.tId;
     
     [tabBarController setSelectedIndex:0];
+    [[tabBarController.tabBar.items objectAtIndex:4] setTitle:thermostatData.tName];
     
     MyEHouseListViewController *hlvc = [vcs objectAtIndex:0];
     hlvc.selectedTabIndex = 0;

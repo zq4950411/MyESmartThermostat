@@ -24,6 +24,7 @@
 @property (nonatomic) NSInteger houseId;
 @property (nonatomic,copy) NSString *houseName;
 @property (nonatomic, copy) NSString *tId;
+@property (nonatomic, copy) NSString *tName;// 当前选择的t的名字
 @property (nonatomic) BOOL isRemoteControl;
 
 @property (weak, nonatomic) IBOutlet UIView *baseView;

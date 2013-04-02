@@ -1,14 +1,14 @@
 //
-//  MyEHouseListInvalidCell.m
+//  MyEHouseListDisconnectedCell.m
 //  MyE
 //
 //  Created by Ye Yuan on 5/3/12.
 //  Copyright (c) 2012 MyEnergy Domain. All rights reserved.
 //
 
-#import "MyEHouseListInvalidCell.h"
+#import "MyEHouseListDisconnectedCell.h"
 
-@implementation MyEHouseListInvalidCell
+@implementation MyEHouseListDisconnectedCell
 @synthesize  textLabel, detailTextLabel;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

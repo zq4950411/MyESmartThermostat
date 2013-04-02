@@ -27,7 +27,8 @@
 - (NSDictionary *)JSONDictionary;
 
 - (unsigned)countOfHouseList;
-- (MyEHouseData *)objectInHouseListAtIndex:(unsigned)theIndex;
+- (unsigned)countOfValidHouseList;//房子的M状态必须为0表示M正常链接，T列表不能为空，这样的房子才算有效
+- (MyEHouseData *)validHouseInListAtIndex:(unsigned)theIndex; // 把所有有效房子按照顺序取出来作为一个数组，取得该数组的位于theIndex处的house。
 - (MyEHouseData *)houseDataByHouseId:(NSInteger)houseId;
 
 /* 当用户在HouseList View面板手动刷新时，会从服务器传来houseList的JSON字符串，用这个函数进行更新House List。

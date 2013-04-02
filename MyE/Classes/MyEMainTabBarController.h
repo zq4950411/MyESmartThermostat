@@ -21,9 +21,11 @@ typedef enum {
 @property (copy, nonatomic) NSString *userId;// 当前选用户
 @property (nonatomic) NSInteger houseId;// 当前选择的房子id
 @property (nonatomic,copy) NSString *houseName;// 当前选择的房子名称
-@property (nonatomic, copy) NSString *tId;// 当前选择的tid
+@property (nonatomic, copy) NSString *tId;// 当前选择的T的id
+@property (nonatomic, copy) NSString *tName;// 当前选择的t的名字
 @property (nonatomic) NSInteger selectedTabIndex;
 @property (nonatomic, weak) id <SelectedTabBar> selectedTabIndexDelegate;
+@property (nonatomic) NSInteger tCount; // Thermostat 的数目.
 
 - (void)navigationBarDoubleTap:(UIGestureRecognizer*)recognizer;
 

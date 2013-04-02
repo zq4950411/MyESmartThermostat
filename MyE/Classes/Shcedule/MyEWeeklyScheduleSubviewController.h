@@ -60,6 +60,7 @@
 @property (copy, nonatomic) NSString *userId;
 @property (nonatomic) NSInteger houseId;
 @property (nonatomic, copy) NSString *tId;
+@property (nonatomic, copy) NSString *tName;// 当前选择的t的名字
 @property (nonatomic) BOOL isRemoteControl;
 
 @property (weak, nonatomic) IBOutlet UIView *centerContainerView;// 用于容纳Doughnut view的中间view，用于进行touch处理和动画处理而添加的

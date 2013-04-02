@@ -53,6 +53,7 @@
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
 @synthesize tId = _tId;
+@synthesize tName = _tName;
 @synthesize isRemoteControl = _isRemoteControl;
 
 - (id)init {

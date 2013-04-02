@@ -83,7 +83,30 @@
     return [self.houseList count];
 }
 
-- (MyEHouseData *)objectInHouseListAtIndex:(unsigned int)theIndex {
+//房子的M状态必须为0表示M正常链接，T列表不能为空，这样的房子才算有效
+- (unsigned)countOfValidHouseList {
+    NSInteger count =0;
+    for (MyEHouseData *h  in self.houseList) {
+        if ( [h isValid] ) {
+            count ++;
+        }
+    }
+    return count;
+}
+
+// 把所有有效房子按照顺序取出来作为一个数组，取得该数组的位于theIndex处的house。
+- (MyEHouseData *)validHouseInListAtIndex:(unsigned int)theIndex {
+    NSInteger validCount = 0; // 已经统计过的有效房子的数目。
+    NSInteger total= [self.houseList count];
+    for (NSInteger i = 0; i < total; i++) {
+        MyEHouseData *house = [self.houseList objectAtIndex:i];
+        if([house isValid]){
+            validCount ++;
+            if(theIndex == validCount - 1){
+                return house;
+            }
+        }
+    }
     return [self.houseList objectAtIndex:theIndex];
 }
 - (MyEHouseData *)houseDataByHouseId:(NSInteger)houseId {

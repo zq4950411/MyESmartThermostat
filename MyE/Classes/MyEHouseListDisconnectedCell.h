@@ -1,5 +1,5 @@
 //
-//  MyEHouseListInvalidCell.h
+//  MyEHouseListDisconnectedCell.h
 //  MyE
 //
 //  Created by Ye Yuan on 5/3/12.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyEHouseListInvalidCell : UITableViewCell
+@interface MyEHouseListDisconnectedCell : UITableViewCell
 @property (nonatomic, retain) IBOutlet UILabel *textLabel;  
 @property (nonatomic, retain) IBOutlet UILabel *detailTextLabel;  
 @end

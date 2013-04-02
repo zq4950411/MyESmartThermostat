@@ -36,8 +36,9 @@
 @synthesize vacationsModel = _vacationsModel;
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
-@synthesize tId = _tId;
 @synthesize houseName = _houseName;
+@synthesize tId = _tId;
+@synthesize tName = _tName;
 @synthesize isRemoteControl = _isRemoteControl;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

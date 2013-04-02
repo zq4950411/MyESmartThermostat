@@ -1,14 +1,14 @@
 //
-//  MyEHouseListValidCell.m
+//  MyEHouseListConnectedCell.m
 //  MyE
 //
 //  Created by Ye Yuan on 5/3/12.
 //  Copyright (c) 2012 MyEnergy Domain. All rights reserved.
 //
 
-#import "MyEHouseListValidCell.h"
+#import "MyEHouseListConnectedCell.h"
 
-@implementation MyEHouseListValidCell
+@implementation MyEHouseListConnectedCell
 @synthesize  textLabel, detailTextLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

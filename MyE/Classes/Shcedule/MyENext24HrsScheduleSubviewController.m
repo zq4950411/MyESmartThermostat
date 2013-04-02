@@ -55,6 +55,7 @@
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
 @synthesize tId = _tId;
+@synthesize tName = _tName;
 @synthesize isRemoteControl = _isRemoteControl;
 - (void)viewDidLoad {
     _periodEditingViewShowing = NO;

@@ -16,7 +16,7 @@
 #import "MyENext24HrsScheduleSubviewController.h"
 #import "MyEVacationMasterViewController.h"
 #import "MyESettingsViewController.h"
-#import "MyEStartupViewController.h"
+#import "MyELaunchIntroViewController.h"
 
 @implementation MyEAppDelegate
 
@@ -25,7 +25,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    sleep(0.01);//让程序休眠0.01秒，以使Launch image多停留一会。
+    sleep(1.01);//让程序休眠n秒，以使Launch image多停留一会。
     
     
     /**
@@ -37,7 +37,7 @@
      就用这个VC代替程序原来的self.window.rootViewController，这样程序就略过Startup Introduction ScrollView，
      而直接进入MainNavViewController.
      **/
-    /*
+    //*
     if ([[NSUserDefaults standardUserDefaults] boolForKey:KEY_FOR_APP_HAS_LAUNCHED_ONCE])
     {
         // app already launched
@@ -45,8 +45,8 @@
         UIStoryboard *storybord = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
 //        UIViewController *vc =[storybord instantiateInitialViewController];// 这个是默认的第一个viewController
         
-        // 获取程序的主Navigation VC
-        MyEStartupViewController *controller = (MyEStartupViewController*)[storybord
+        // 获取程序的主Navigation VC, 这里可以类似地从stroyboard获取任意的VC，然后设置它为rootViewController，这样就可以显示它
+        UINavigationController *controller = (UINavigationController*)[storybord
                                     instantiateViewControllerWithIdentifier: @"MainNavViewController"];
         self.window.rootViewController = controller;// 用主Navigation VC作为程序的rootViewController
         [self.window makeKeyAndVisible];
@@ -59,7 +59,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         
     }
-    */
+    //*/
     return YES;
 }
 							
@@ -128,7 +128,7 @@
             if([selectedVC isKindOfClass:[MyESettingsViewController class]]){
                 [(MyESettingsViewController *)selectedVC downloadModelFromServer];
             }
-        } else {//有可能是view堆栈的最顶上vc不是MyEMainTabBarController，
+        } else {//有可能是view堆栈的最顶上vc不是MyEMainTabBarController，有可能是HouseListViewController
             // 这种情况不应该发生，但有可能是程序设计时没有想到而导致的未处理的情况。所以这里进行调试检查一下。
             NSLog(@"This message indicates that the top vc in vc stack is no the  MyEMainTabBarController");
         }

@@ -15,6 +15,8 @@
 @synthesize houseId = _houseId;
 @synthesize houseName = _houseName;
 @synthesize tId = _tId;
+@synthesize tName = _tName;
+@synthesize tCount = _tCount;
 @synthesize selectedTabIndex = _selectedTabIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -55,7 +57,7 @@
     [self.navigationController.navigationBar addGestureRecognizer:tapRecon];
 
     
-    // 从navigation stack中移除第一个登录界面
+    // 从navigation stack中移除第一个登录界面的ViewController
     NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
     UIViewController *vc = [allViewControllers objectAtIndex:0];
     if ([vc isKindOfClass:[MyELoginViewController class]]) {
@@ -65,7 +67,21 @@
     }
     
     self.selectedIndex = self.selectedTabIndex;
-
+    
+    
+    // 把当前选择的t的名字缩短，并设置到Thermostat Switch TabItem的title
+    NSString *tName =[NSString stringWithFormat:@"%@", self.tName];
+    // define the range you're interested in
+    NSRange stringRange = {0, MIN([tName length], 10)};
+    
+    // adjust the range to include dependent chars
+    stringRange = [tName rangeOfComposedCharacterSequencesForRange:stringRange];
+    
+    // Now you can create the short string
+    NSString *shortString = [tName substringWithRange:stringRange];
+    
+    
+    [[self.tabBar.items objectAtIndex:4] setTitle:shortString];
 }
 //*/
 
@@ -82,6 +98,16 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+// 如果T的数目大于1，才设置Thermostat Switch Tab为enabled. 否则设置为Disabled，
+-(void) setTCount:(NSInteger)tCount
+{
+    _tCount = tCount;
+    if (tCount <= 1) {
+        [[self.tabBar.items objectAtIndex:4] setEnabled:NO];
+    } else {
+        [[self.tabBar.items objectAtIndex:4] setEnabled:YES];
+    }
+}
 #pragma mark UITabBarDelegate Methods
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item

@@ -13,8 +13,8 @@
 #import "MyEVacationMasterViewController.h"
 #import "MyESettingsViewController.h"
 #import "MyEThermostatListViewController.h"
-#import "MyEHouseListValidCell.h"
-#import "MyEHouseListInvalidCell.h"
+#import "MyEHouseListConnectedCell.h"
+#import "MyEHouseListDisconnectedCell.h"
 #import "MyEAccountData.h"
 #import "MyEHouseData.h"
 #import "MyEThermostatData.h"
@@ -26,7 +26,7 @@
 @interface MyEHouseListViewController() <SelectedTabBar>
 
 // selectedTabIndex变量原来是为SelectedTabBar protocol所定义的，定义在这里，但为了保证在ThermostatListViewController里面程序转移到新的tab后也能记住所进入的tab，就把此变量定义到类声明的地方，以便其他地方也可以访问。
-@property (nonatomic) NSInteger selectedHouseNo;
+@property (nonatomic) NSInteger selectedHouseId;
 
 @end
 
@@ -35,7 +35,7 @@
 @synthesize rememberHouseIdSwitch = _rememberHouseIdSwitch;
 
 @synthesize selectedTabIndex = _selectedTabIndex;
-@synthesize selectedHouseNo = _selectedHouseNo;
+@synthesize selectedHouseId = _selectedHouseId;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -169,19 +169,21 @@
 {
 
     // Return the number of rows in the section.
-    return [self.accountData countOfHouseList];
+//    return [self.accountData countOfHouseList];// 现在不显示没有硬件，或硬件没有连接的房子了
+    NSInteger count = [self.accountData countOfValidHouseList];
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Configure the cell...
-    MyEHouseData *houseDataAtIndex = [self.accountData objectInHouseListAtIndex:indexPath.row];
+    MyEHouseData *houseDataAtIndex = [self.accountData validHouseInListAtIndex:indexPath.row];
     
-    if([houseDataAtIndex isValid]) {// 如果房间有M并且至少有一个温控器正常连接
+    if([houseDataAtIndex isConnected]) {// 如果房间有M并且至少有一个温控器正常连接
 
-            MyEHouseListValidCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HouseListValidCell"];
+            MyEHouseListConnectedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HouseListConnectedCell"];
             if (cell == nil) {
-                cell = [[MyEHouseListValidCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HouseListValidCell"];
+                cell = [[MyEHouseListConnectedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HouseListConnectedCell"];
             }
             [[cell textLabel] setText:houseDataAtIndex.houseName];
 
@@ -189,14 +191,16 @@
 
             
         
-    } else {
-        MyEHouseListInvalidCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HouseListInvalidCell"];
+    }
+    // 现在不显示没有硬件，或硬件没有连接的房子了
+    else {
+        MyEHouseListDisconnectedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HouseListDisconnectedCell"];
         if (cell == nil) {
-            cell = [[MyEHouseListInvalidCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HouseListInvalidCell"];
+            cell = [[MyEHouseListDisconnectedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HouseListDisconnectedCell"];
         }
         [[cell textLabel] setText:houseDataAtIndex.houseName];
 
-        [[cell detailTextLabel] setText:@"No Connection"];
+//        [[cell detailTextLabel] setText:@"No Connection"];// 不需要程序设置，storyboard上已经有这个文字了
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         // Mac's native DigitalColor Meter reads exactly {R:143, G:143, B:143}.
         cell.textLabel.alpha = 0.439216f; // (1 - alpha) * 255 = 143
@@ -221,7 +225,7 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSInteger houseIdLastViewed = [prefs integerForKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
     
-    MyEHouseData *houseDataAtIndex = [self.accountData objectInHouseListAtIndex:indexPath.row];
+    MyEHouseData *houseDataAtIndex = [self.accountData validHouseInListAtIndex:indexPath.row];
     
     if (houseDataAtIndex.houseId == houseIdLastViewed) {
         [cell setBackgroundColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.8 alpha:0.9]];
@@ -287,7 +291,7 @@
     if ([[segue identifier] isEqualToString:@"ShowMainTabViewRemoteNo"] ||
         [[segue identifier] isEqualToString:@"ShowMainTabViewRemoteYes"]) {
 
-        houseData = [self.accountData objectInHouseListAtIndex:[self.tableView indexPathForSelectedRow].row];
+        houseData = [self.accountData validHouseInListAtIndex:[self.tableView indexPathForSelectedRow].row];
         [self saveSettings:houseData.houseId];
     }
     if([[segue identifier] isEqualToString:@"ShowMainTabViewByDefaultHouseId"] ) {
@@ -310,12 +314,10 @@
     //    [tabBarController setTitle:@"Dashboard"];
     [tabBarController setTitle:houseData.houseName];
     tabBarController.userId = self.accountData.userId;
-    tabBarController.houseId = houseData.houseId;
-    tabBarController.houseName = houseData.houseName;
     
-    if (self.selectedHouseNo != houseData.houseId) {
+    if (self.selectedHouseId != houseData.houseId) {
         self.selectedTabIndex = 0;
-        self.selectedHouseNo = houseData.houseId;
+        self.selectedHouseId = houseData.houseId;
     }
     
     tabBarController.selectedTabIndex = self.selectedTabIndex;
@@ -323,6 +325,10 @@
     tabBarController.houseId = houseData.houseId;
     tabBarController.houseName = houseData.houseName;
     tabBarController.tId = thermostatData.tId;
+    tabBarController.tName = thermostatData.tName;
+    
+//    tabBarController.tCount = [houseData countOfConnectedThermostat];// 此处仅设置这个房子的有连接的t的数量，但我们要显示所有t，所以改用下面的所有t的数目
+    tabBarController.tCount = [houseData.thermostats count];// 设置这个房子的t的数量
     
     //注意，在下面houseData.remote和后面每个面板的查看请求中的locWeb字段功能含义是相同的，
     // 只是houseData.remote是在HouseList面板时表示硬件是否可控，而locWeb是在每个面板单独查看硬件信息时，
@@ -334,6 +340,7 @@
     dashboardViewController.houseId = houseData.houseId;
     dashboardViewController.houseName = houseData.houseName;
     dashboardViewController.tId = thermostatData.tId;
+    dashboardViewController.tName = thermostatData.tName;
     dashboardViewController.isRemoteControl = isRC;     
     
     MyEScheduleViewController *scheduleViewController = [[tabBarController childViewControllers] objectAtIndex:1];
@@ -341,6 +348,7 @@
     scheduleViewController.houseId = houseData.houseId;
     scheduleViewController.houseName = houseData.houseName;
     scheduleViewController.tId = thermostatData.tId;
+    scheduleViewController.tName = thermostatData.tName;
     scheduleViewController.isRemoteControl = isRC;
     
     MyEVacationMasterViewController *vacationViewController = [[tabBarController childViewControllers] objectAtIndex:2];
@@ -348,6 +356,7 @@
     vacationViewController.houseId = houseData.houseId;
     vacationViewController.houseName = houseData.houseName;
     vacationViewController.tId = thermostatData.tId;
+    vacationViewController.tName = thermostatData.tName;
     vacationViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
     
     MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
@@ -356,6 +365,7 @@
     settingsViewController.houseId = houseData.houseId;
     settingsViewController.houseName = houseData.houseName;
     settingsViewController.tId = thermostatData.tId;
+    settingsViewController.tName = thermostatData.tName;
 //    settingsViewController.isRemoteControl = isRC;
     
     MyEThermostatListViewController *thermostatListViewController = [[tabBarController childViewControllers] objectAtIndex:4];

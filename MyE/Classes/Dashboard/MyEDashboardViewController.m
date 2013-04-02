@@ -60,6 +60,7 @@
 @synthesize houseId = _houseId;
 @synthesize houseName = _houseName;
 @synthesize tId = _tId;
+@synthesize tName = _tName;
 @synthesize isRemoteControl = _isRemoteControl;
 
 

@@ -226,6 +226,7 @@
         weeklyScheduleController.userId = self.userId;
         weeklyScheduleController.houseId = self.houseId;
         weeklyScheduleController.tId = self.tId;
+        weeklyScheduleController.tName = self.tName;
         weeklyScheduleController.isRemoteControl = self.isRemoteControl;
         weeklyScheduleController.navigationController = self.navigationController;
         weeklyScheduleController.delegate = self;
@@ -242,6 +243,7 @@
         self.next24HrsBaseViewController.userId = self.userId;
         self.next24HrsBaseViewController.houseId = self.houseId;
         self.next24HrsBaseViewController.tId = self.tId;
+        self.next24HrsBaseViewController.tName = self.tName;
         self.next24HrsBaseViewController.isRemoteControl = self.isRemoteControl;
         self.next24HrsBaseViewController.navigationController = self.navigationController;
         self.next24HrsBaseViewController.delegate = self;
@@ -258,6 +260,7 @@
         self.todayBaseViewController.userId = self.userId;
         self.todayBaseViewController.houseId = self.houseId;
         self.todayBaseViewController.tId = self.tId;
+        self.todayBaseViewController.tName = self.tName;
         self.todayBaseViewController.isRemoteControl = self.isRemoteControl;
         self.todayBaseViewController.navigationController = self.navigationController;
         self.todayBaseViewController.delegate = self;

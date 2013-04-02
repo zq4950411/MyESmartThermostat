@@ -36,6 +36,8 @@
 @synthesize userName = _userName;
 @synthesize houseId = _houseId;
 @synthesize houseName = _houseName;
+@synthesize tId = _tId;
+@synthesize tName = _tName;
 //@synthesize isRemoteControl = _isRemoteControl;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -428,7 +430,7 @@
             
             
             NSIndexPath *ip = [NSIndexPath indexPathForItem:tIndex inSection:2];
-            ((MyESettingsThermostatCell *)[self.tableView cellForRowAtIndexPath:ip]).keypadLockSwitch.on = ((MyEThermostatData *)[self.houseData.thermostats objectAtIndex:tIndex]).keypad == 1;
+            ((MyESettingsThermostatCell *)[self.tableView cellForRowAtIndexPath:ip]).keypadLockSwitch.on = ((MyEThermostatData *)[self.houseData.thermostats objectAtIndex:tIndex]).keypad == 1; //0为没锁灰色，1为锁定蓝色。
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:string  //@"Cannot change keypad lock."
                                                          delegate:self 
@@ -620,7 +622,7 @@
     }
     [[cell thermostatLabel] setText:thermostat.tId];
     [[cell nameLabel] setText:thermostat.tName];
-    [[cell keypadLockSwitch] setOn:thermostat.keypad==0?YES:NO];// 0: 开， 1： 关
+    [[cell keypadLockSwitch] setOn:thermostat.keypad==0?NO:YES];//0为没锁灰色，1为锁定蓝色。
     cell.delegate = self;
         
     return cell;       
@@ -670,7 +672,7 @@
 -(void) didKeypadSwitchChanged:(MyESettingsThermostatCell *)theCell
 {
     NSString *tId = theCell.thermostatLabel.text;
-    NSInteger keypad = theCell.keypadLockSwitch.on?0:1;// 0: 开， 1： 关
+    NSInteger keypad = theCell.keypadLockSwitch.on?1:0;//0为没锁灰色，1为锁定蓝色。
     [self uploadModelToServerWithTId:tId keypad:keypad];
     
 }
