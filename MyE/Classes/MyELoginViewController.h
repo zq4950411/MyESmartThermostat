@@ -34,4 +34,7 @@
 // 加载持久存储的一下设置
 -(void)loadSettings;
 -(void)saveSettings;
+
+-(IBAction) setIp:(UIButton *) sender;
+
 @end

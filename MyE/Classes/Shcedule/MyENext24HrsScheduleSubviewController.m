@@ -1,4 +1,4 @@
-//
+//aaaa
 //  MyENext24HrsScheduleSubviewController.m
 //  MyE
 //
@@ -12,7 +12,11 @@
 #import "MyEScheduleNext24HrsData.h"
 #import "MyEHouseListViewController.h"
 #import "MyEScheduleViewController.h"
+
 #import "MyEAccountData.h"
+#import "MyEHouseData.h"
+#import "MyEThermostatData.h"
+
 #import "MyENext24HrsDayItemData.h"
 #import "MyEScheduleNext24HrsData.h"
 #import "SBJson.h"
@@ -52,6 +56,7 @@
 @synthesize delegate = _delegate;
 @synthesize next24hrsModel = _next24hrsModel, next24hrsModelCache = _next24hrsModelCache;
 @synthesize currentSelectedModeId = _currentSelectedModeId;
+@synthesize currentSelectedPeriodIndex = _currentSelectedPeriodIndex;
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
 @synthesize tId = _tId;
@@ -63,7 +68,8 @@
     _periodInforViewShowing = NO;
     _periodInforDoughnutViewShowing = NO;
     
-    _doughnutView = [[MyEDoughnutView alloc] initWithFrame:CGRectMake(30, 15, NEXT24HRS_DOUGHNUT_VIEW_SIZE, NEXT24HRS_DOUGHNUT_VIEW_SIZE) delegate:self];
+//    _doughnutView = [[MyEDoughnutView alloc] initWithFrame:CGRectMake(30, 15, NEXT24HRS_DOUGHNUT_VIEW_SIZE, NEXT24HRS_DOUGHNUT_VIEW_SIZE) delegate:self]; // originally 2014-2-24
+    _doughnutView = [[MyEDoughnutView alloc] initWithFrame:CGRectMake(15, 0, NEXT24HRS_DOUGHNUT_VIEW_SIZE, NEXT24HRS_DOUGHNUT_VIEW_SIZE) delegate:self]; // changed @  2014-2-24
     _doughnutView.delegate = self;
     /*
      // 当前时刻运行在0:0~0:30的情况示例
@@ -94,6 +100,8 @@
     //对于today和weekly两种面板，都要准备好并传入模式数组modeIdArray，才能正确绘制。
     [_doughnutView createViewsWithModeArray:modeIdArray scheduleType:SCHEDULE_TYPE_NEXT24HRS];
     self.currentSelectedModeId = [[modeIdArray objectAtIndex:sectorIdSpaningCurrentTime] intValue];//用当前时刻所在的sector的modeId作为当前选择的modeId
+    NSMutableArray * periodIndexArray = [self.next24hrsModel periodIndexArray];
+    self.currentSelectedPeriodIndex = [[periodIndexArray objectAtIndex:sectorIdSpaningCurrentTime] intValue];//用当前时刻所在的sector的periodIndexArray作为当前选择的periodIndexArray
     
     [self.centerContainerView insertSubview:_doughnutView atIndex:0];
     
@@ -177,7 +185,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_NEXT24HRS_SCHEDULE_VIEW, self.userId, self.houseId, self.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_NEXT24HRS_SCHEDULE_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"Next24HrsDownloader" userDataDictionary:nil];
     NSLog(@"Next24HrsDownloader.name = %@",downloader.name);
 }
@@ -201,7 +209,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_NEXT24HRS_DEFAULT_SCHEDULE_VIEW, self.userId, self.houseId, self.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_NEXT24HRS_DEFAULT_SCHEDULE_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"Next24HrsUseWeeklyDownloader" userDataDictionary:nil];
     NSLog(@"Next24HrsUseWeeklyDownloader : %@",downloader.name);
 }
@@ -232,7 +240,7 @@
     NSLog(@"Today ScheduleUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_NEXT24HRS_SCHEDULE_SAVE, self.userId, self.houseId, self.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_NEXT24HRS_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
     
     MyEDataLoader *uploader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"Next24HrsScheduleUploader" userDataDictionary:nil];
     NSLog(@"Next24HrsScheduleUploader is %@",uploader.name);
@@ -259,7 +267,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&setpoint=%i&hold=%i",URL_FOR_NEXT24HRS_HOLD_SAVE, self.userId, self.houseId, self.tId, setpoint, hold];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&setpoint=%i&hold=%i",GetRequst(URL_FOR_NEXT24HRS_HOLD_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId, setpoint, hold];
     
     MyEDataLoader *uploader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"Next24HrsHoldUploader" userDataDictionary:nil];
     NSLog(@"Next24HrsHoldUploader is %@",uploader.name);
@@ -540,7 +548,9 @@
 - (void)didDoubleTapSectorIndex:(NSUInteger)sectorInedx {
     NSMutableArray * modeIdArray = [self.next24hrsModel modeIdArray];
     self.currentSelectedModeId = [[modeIdArray objectAtIndex:sectorInedx] intValue];
-    MyETodayPeriodData *period = [self.next24hrsModel.periods objectAtIndex:self.currentSelectedModeId];
+    NSMutableArray * periodIndexArray = [self.next24hrsModel periodIndexArray];
+    self.currentSelectedPeriodIndex = [[periodIndexArray objectAtIndex:sectorInedx] intValue];
+    MyETodayPeriodData *period = [self.next24hrsModel.periods objectAtIndex:self.currentSelectedPeriodIndex];
     NSInteger lastSectorIdOfPeriodSpaningCurrentTime = [self _lastSectorIdOfPeriodSpaningCurrentTime];
 
     NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
@@ -675,9 +685,9 @@
         if (self.delegate)
             self.delegate.todayWeeklySwitchButton.enabled = NO;
         
-        _periodEditingView.periodIndex = self.currentSelectedModeId;
+        _periodEditingView.periodIndex = self.currentSelectedPeriodIndex;
         
-        MyETodayPeriodData *period = [self.next24hrsModel.periods objectAtIndex:self.currentSelectedModeId];
+        MyETodayPeriodData *period = [self.next24hrsModel.periods objectAtIndex:self.currentSelectedPeriodIndex];
         NSAssert((period != nil),@"error in [MyENext24HrsScheduleController _togglePeriodEditingViewWithType]: period is nil! ");
         
         NSLog(@"period = %@", [period description]);
@@ -723,7 +733,7 @@
         if (self.delegate)
             self.delegate.todayWeeklySwitchButton.enabled = NO;
         
-        _periodEditingView.periodIndex = self.currentSelectedModeId;
+        _periodEditingView.periodIndex = self.currentSelectedPeriodIndex;
         
         _holdEditingView.setpoint = self.next24hrsModel.setpoint;
     }
@@ -767,7 +777,7 @@
         if (self.delegate)
             self.delegate.todayWeeklySwitchButton.enabled = NO;
         
-        MyETodayPeriodData *period = [self.next24hrsModel.periods objectAtIndex:self.currentSelectedModeId];
+        MyETodayPeriodData *period = [self.next24hrsModel.periods objectAtIndex:self.currentSelectedPeriodIndex];
         if(period == nil)
             NSLog(@"error in [MyETodayScheduleController _togglePeriodEditingViewWithType]: period is nil! ");
         
@@ -794,7 +804,8 @@
         CGRect bounds = [baseView bounds];
         // 为了Retina4屏幕而修改的Doughnut圈高度固定
 //        CGRect frame = CGRectMake(CGRectGetMinX(bounds)-5, CGRectGetMinY(bounds), bounds.size.width, bounds.size.height);// x方向向做微调了5
-        CGRect frame = CGRectMake(CGRectGetMinX(bounds)-5, CGRectGetMinY(bounds), bounds.size.width, 367);// x方向向做微调了5
+        // CGRect frame = CGRectMake(CGRectGetMinX(bounds)-5, CGRectGetMinY(bounds), bounds.size.width, 367);// x方向向做微调了5 originally 2014-2-24
+        CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, 307);// x方向向做微调了5  changed @ : 2014-2-24
         _periodInforDoughnutView = [[MyEPeriodInforDoughnutView alloc] initWithFrame:frame];
         _periodInforDoughnutView.doughnutViewRadius = TODAY_DOUGHNUT_VIEW_SIZE / 2;
         [_periodInforDoughnutView setDelegate:self];

@@ -11,7 +11,7 @@
 
 @implementation MyEDashboardData
 @synthesize locWeb = _locWeb, isheatcool = _isheatcool, setpoint = _setpoint, stageLevel = _stageLevel, controlMode = _controlMode, realControlMode = _realControlMode, temperature = _temperature, isOvrried = _isOvrried, fan_control = _fan_control, fan_status = _fan_status, currentProgram = _currentProgram, weather = _weather, weatherTemp = _weatherTemp, highTemp = _highTemp, lowTemp = _lowTemp, humidity = _humidity, con_hp = _con_hp;
-
+@synthesize aux = _aux;
 //测试用，用默认值构造一个MyEDashboardData对象
 - (id)init {
     if (self = [super init]) {
@@ -32,6 +32,7 @@
         _lowTemp = 55.55;
         _humidity = 70;
         _con_hp = 0;
+        _aux = 0;
         return self;
     }
     return nil;
@@ -56,6 +57,7 @@
         self.lowTemp = [[dictionary objectForKey:@"lowTemp"] floatValue];
         self.humidity = [[dictionary objectForKey:@"humidity"] intValue];
         self.con_hp = [[dictionary objectForKey:@"con_hp"] intValue];
+        self.aux = [[dictionary objectForKey:@"aux"] intValue];
         return self;
     }
     return nil;
@@ -93,6 +95,7 @@
                           [NSNumber numberWithFloat:self.lowTemp], @"lowTemp",
                           [NSNumber numberWithInt:self.humidity], @"humidity",
                           [NSNumber numberWithInt:self.con_hp], @"con_hp",
+                          [NSNumber numberWithInt:self.aux], @"aux",
                           nil ];
     return dict;
 }

@@ -239,9 +239,180 @@ NSInteger getDaysBetweenDates(NSDate *startDate, NSDate *endDate) {
         return 13;
     if (hex == MODE_COLOR14) 
         return 14;
-    if (hex == MODE_COLOR15) 
+    if (hex == MODE_COLOR15)
         return 15;
     return -1;
+}
+
+// w我们的每个ajax请求都会有一个result字段，标志返回结果是否成功，或其他各种类型，下面还是就是从ajax返回的json字符串中提取此result结果的
++ (NSInteger)getResultFromAjaxString:(NSString *)jsonString{
+    // Create new SBJSON parser object
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    // 把JSON转为字典
+    NSDictionary *dict = [parser objectWithString:jsonString];
+    return [[dict objectForKey:@"result"] intValue];
+}
+
+//@see http://stackoverflow.com/questions/18680891/displaying-a-message-in-ios-which-have-the-same-functionality-as-toast-in-androi
++ (void)showToastOn:(UIView *)view withMessage:(NSString *)message{
+    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    //初始化label
+	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,0,300,50)];
+	//设置自动行数与字符换行
+	[label setNumberOfLines:0];
+	label.lineBreakMode = NSLineBreakByWordWrapping;
+	UIFont *font = [UIFont fontWithName:@"Arial" size:12];
+	label.text = message;
+	//设置一个行高上限
+	CGSize size = CGSizeMake(320,2000);
+	//计算实际frame大小，并将label的frame变成实际大小
+	CGSize labelsize = [message sizeWithFont:font constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
+	CGRect newFrame = label.frame;
+	newFrame.size.height = labelsize.height;
+	label.frame = newFrame;
+	[label sizeToFit];
+	label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor whiteColor];
+	label.textAlignment = NSTextAlignmentCenter;
+	HUD.customView = label;
+    //	HUD.color = [UIColor whiteColor];
+	HUD.mode = MBProgressHUDModeCustomView;
+    //	HUD.delegate = self;
+	
+    HUD.removeFromSuperViewOnHide = YES;
+    HUD.userInteractionEnabled = NO;
+    
+    [HUD hide:YES afterDelay:2];
+    
+}
++ (void)showToastOn:(UIView *)view withMessage:(NSString *)message backgroundColor:(UIColor *)bgColor
+{
+    MyEAppDelegate *app = (MyEAppDelegate *)[UIApplication sharedApplication].delegate;
+    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:app.window animated:YES];
+    
+    //    // Configure for text only and offset down
+    //    hud.mode = MBProgressHUDModeText;
+    //    hud.labelText = message;
+    if (bgColor) {
+        HUD.color = bgColor;
+    }
+    HUD.cornerRadius = 5;
+    HUD.margin = 10.f;
+    HUD.yOffset = 150.f;
+    //初始化label
+	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,0,300,50)];
+	//设置自动行数与字符换行
+	[label setNumberOfLines:0];
+	label.lineBreakMode = NSLineBreakByWordWrapping;
+	// 测试字串
+	UIFont *font = [UIFont fontWithName:@"Arial" size:12];
+	label.text = message;
+    label.textColor = [UIColor whiteColor];
+	//设置一个行高上限
+	CGSize size = CGSizeMake(320,2000);
+	//计算实际frame大小，并将label的frame变成实际大小
+	CGSize labelsize = [message sizeWithFont:font constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
+	CGRect newFrame = label.frame;
+	newFrame.size.height = labelsize.height;
+	label.frame = newFrame;
+	[label sizeToFit];
+	label.backgroundColor = [UIColor clearColor];
+    //	label.textColor = [UIColor redColor];
+	label.textAlignment = NSTextAlignmentCenter;
+	HUD.customView = label;
+    //	HUD.color = [UIColor whiteColor];
+	HUD.mode = MBProgressHUDModeCustomView;
+    //	HUD.delegate = self;
+	
+    HUD.removeFromSuperViewOnHide = YES;
+    HUD.userInteractionEnabled = NO;
+    
+    [HUD hide:YES afterDelay:2.5];
+    
+}
++(void)showTextOnlyToastOn:(UIView *)view withMessage:(NSString *)message backgroundColor:(UIColor *)bgcolor{
+    //如果要做的更好些的话，这里应该加入一个定时器，当用户一直点击btn时，HUD会一直显示，当用户不再点击时，HUD在2s之后消失
+    //我真是太聪明了，这里对于HUD进行了重复性判断，如果此时已经有了HUD，那么就不再创建HUD。这里也算是解决了很久以来的一个心愿
+    BOOL hasHUD = NO;
+    MyEAppDelegate *app = (MyEAppDelegate *)[UIApplication sharedApplication].delegate;
+    for (UIView *v in app.window.subviews) {
+        if ([v isKindOfClass:[MBProgressHUD class]]) {
+            hasHUD = YES;
+        }
+    }
+    if (!hasHUD) {
+        MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:app.window animated:YES];
+        HUD.mode = MBProgressHUDModeText;
+        HUD.labelText = message;
+        HUD.margin = 10.f;
+        HUD.yOffset = 150.f;
+        HUD.color = bgcolor;
+        HUD.cornerRadius = 2;
+        HUD.removeFromSuperViewOnHide = YES;
+        HUD.userInteractionEnabled = NO;
+        //        NSLog(@"%@",app.window.subviews);
+        [HUD hide:YES afterDelay:2];
+        //        NSLog(@"%@",app.window.subviews);
+    }
+}
+#pragma methods for Toast
++ (void)showErrorOn:(UIView *)view withMessage:(NSString *)message
+{
+    [MyEUtil showTextOnlyToastOn:view withMessage:message backgroundColor:[UIColor colorWithRed:0.92 green:0.17 blue:0.16 alpha:1.0]];
+}
++ (void)showSuccessOn:(UIView *)view withMessage:(NSString *)message
+{
+    [MyEUtil showTextOnlyToastOn:view withMessage:message backgroundColor:[UIColor colorWithRed:0.07 green:0.72 blue:0.03 alpha:1.0]];
+}
++(void)showInstructionStatusWithYes:(BOOL)yes andView:(UIView *)view andMessage:(NSString *)message{
+    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    HUD.mode = MBProgressHUDModeText;
+    HUD.labelText = message;
+	HUD.margin = 10.f;
+    //	HUD.yOffset = 150.f;
+    if (yes) {
+        HUD.color = [UIColor greenColor];
+    }else{
+        HUD.color = [UIColor redColor];
+    }
+    HUD.cornerRadius = 2;
+	HUD.removeFromSuperViewOnHide = YES;
+    HUD.userInteractionEnabled = NO;
+    [HUD hide:YES afterDelay:2];
+}
++ (void)showMessageOn:(UIView *)view withMessage:(NSString *)message
+{
+    [MyEUtil showTextOnlyToastOn:view withMessage:message backgroundColor:nil];
+}
++(void)showThingsSuccessOn:(UIView *)view WithMessage:(NSString *)message{
+    //MyEAppDelegate *app = (MyEAppDelegate *)[UIApplication sharedApplication].delegate;
+    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    HUD.mode = MBProgressHUDModeCustomView;
+    UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mark.png"]];
+    HUD.customView = image;
+    HUD.labelText = message;
+	//HUD.margin = 30.f;
+    HUD.square = YES;
+    HUD.cornerRadius = 5;
+	HUD.removeFromSuperViewOnHide = YES;
+    //[HUD hide:YES afterDelay:1];
+}
+#pragma other methods
++ (NSString *)timeStringForHhid:(NSInteger)hhid
+{
+    if (hhid < 20) {
+        return [NSString stringWithFormat:@"0%ld:%@",(long)(hhid/2),(hhid%2 == 0?@"00":@"30")];
+    }else
+        return [NSString stringWithFormat:@"%ld:%@", (long)(hhid/2), (hhid%2 == 0?@"00":@"30") ];
+}
++ (NSInteger)hhidForTimeString:(NSString *)string{
+    NSInteger i;
+    if ([string length] == 4) {
+        i = [[string substringToIndex:1] intValue]*2 + [[string substringFromIndex:2] intValue]/30;
+    } else {
+        i = [[string substringToIndex:2] intValue]*2 + [[string substringFromIndex:3] intValue]/30;
+    }
+    return i;
 }
 @end
 

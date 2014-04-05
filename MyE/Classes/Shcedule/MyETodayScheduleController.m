@@ -12,7 +12,11 @@
 #import "MyEScheduleTodayData.h"
 #import "MyEHouseListViewController.h"
 #import "MyEScheduleViewController.h"
+
 #import "MyEAccountData.h"
+#import "MyEHouseData.h"
+#import "MyEThermostatData.h"
+
 #import "SBJson.h"
 #import "MyEUtil.h"
 
@@ -166,7 +170,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_TODAY_SCHEDULE_VIEW, self.userId, self.houseId, self.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_TODAY_SCHEDULE_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"TodayDownloader" userDataDictionary:nil];
     NSLog(@"%@",downloader.name);
 }
@@ -190,7 +194,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_TODAY_DEFAULT_SCHEDULE_VIEW, self.userId, self.houseId, self.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_TODAY_DEFAULT_SCHEDULE_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"TodayUseWeeklyModelDownloader" userDataDictionary:nil];
     NSLog(@"downloader.name = %@",downloader.name);
 }
@@ -220,7 +224,7 @@
     NSLog(@"Today ScheduleUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_TODAY_SCHEDULE_SAVE, self.userId, self.houseId, self.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_TODAY_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
     
     MyEDataLoader *uploader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"TodayScheduleUploader" userDataDictionary:nil];
     NSLog(@"TodayScheduleUploader is %@",uploader.name);
@@ -248,7 +252,7 @@
         [HUD show:YES];
     
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&setpoint=%i&hold=%i",URL_FOR_TODAY_HOLD_SAVE, self.userId, self.houseId, self.tId, setpoint, hold];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&setpoint=%i&hold=%i",GetRequst(URL_FOR_TODAY_HOLD_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId, setpoint, hold];
     
     MyEDataLoader *uploader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"TodayHoldUploader" userDataDictionary:nil];
     NSLog(@"TodayHoldUploader.name is %@",uploader.name);

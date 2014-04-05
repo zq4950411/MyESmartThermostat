@@ -12,7 +12,8 @@
 #import <Foundation/Foundation.h>
 @class MyEHouseData;
 
-@interface MyEAccountData : NSObject <NSCopying> 
+@interface MyEAccountData : NSObject <NSCopying>
+
 @property (nonatomic, copy) NSString *userName;
 @property (nonatomic, copy) NSString *userId;
 @property (nonatomic) BOOL rememberMe;

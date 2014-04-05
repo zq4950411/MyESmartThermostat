@@ -17,6 +17,11 @@
 #import "MyEUtil.h"
 #import "SBJson.h"
 
+#import "KxMenu.h"
+#import "UIColor+FlatUI.h"
+
+#import "MyEThermostatData.h"
+#import "MyEHouseData.h"
 
 @interface MyEDashboardViewController ()
 - (void)configureView;
@@ -64,10 +69,12 @@
 @synthesize isRemoteControl = _isRemoteControl;
 
 
-
-
-
 @synthesize dashboardData = _dashboardData;
+
+
+@synthesize fUIButton;
+@synthesize fUISwitch;
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -75,17 +82,51 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+-(void) go:(UIButton *) sender
+{
+    [self performSegueWithIdentifier:@"ShowSchedule" sender:self];
+}
+
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.fUISwitch.offColor = [UIColor whiteColor];
+    self.fUISwitch.onColor = [UIColor whiteColor];
+    
+    self.fUISwitch.offBackgroundColor = [UIColor grayColor];
+    self.fUISwitch.onBackgroundColor = [UIColor grayColor];
+    
+    self.fUISwitch.onLabel.text = @"";
+    self.fUISwitch.offLabel.text = @"";
+    
+    [fUIButton setStyleType:ACPButtonOK];
+    
+    [self.fUIButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
+    [self.fUIButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
+    [self.fUIButton addTarget:self action:@selector(go:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if (IS_IPHONE_5)
+    {
+        self.fUIButton.frame = CGRectMake(20, 400, 278, 44);
+    }
+    else
+    {
+        self.fUIButton.frame = CGRectMake(20, 311, 278, 44);
+    }
+    
+    [self.view bringSubviewToFront:self.fanControlToolbarView];
+    [self.view bringSubviewToFront:self.systemControlToolbarView];
+    
     // Do any additional setup after loading the view, typically from a nib.
     //这里设置了就可以自定义高度了，一般默认是无法修改其216像素的高度
     //There are 3 valid heights for UIDatePicker (and UIPickerView) 162.0, 180.0, and 216.0. 
     //If you set a UIPickerView height to anything else you will see the following in the console when debugging on an iOS device.
     // -[UIPickerView setFrame:]: invalid height value ... pinned to 162.0 
-    self.setpointPickerView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;     self.setpointPickerView.frame = CGRectMake(170, 110, 120, 162);
+    self.setpointPickerView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;     self.setpointPickerView.frame = CGRectMake(195, 105, 120, 162.0);
     
     // 设置面板背景为一个图片模式
     UIColor *bgcolor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgpattern.png"]];
@@ -152,16 +193,70 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)chooseHouse:(KxMenuItem *) sender
+{
+    MyEThermostatData *the = [MainDelegate.houseData.thermostats objectAtIndex:sender.tag];
+    if (![the.tId isEqualToString:MainDelegate.thermostatData.tId])
+    {
+        MainDelegate.thermostatData = the;
+        if (MainDelegate.isRemember)
+        {
+            [MainDelegate setValue:the.tId withKey:KEY_FOR_TID_LAST_VIEWED];
+        }
+        [self refreshAction];
+    }
+}
+
+-(void) switchThermostat:(UIBarButtonItem *) sender
+{
+    NSMutableArray *items = [NSMutableArray array];
+    for (int i = 0; i < [MainDelegate.houseData.thermostats count]; i++)
+    {
+        MyEThermostatData *t = [MainDelegate.houseData.thermostats objectAtIndex:i];
+        if (t.tName && t.deviceType == 0)
+        {
+            KxMenuItem *item = [KxMenuItem menuItem:t.tName
+                                              image:nil
+                                             target:self
+                                             action:@selector(chooseHouse:)];
+            
+            if ([t.tId isEqualToString:MainDelegate.thermostatData.tId])
+            {
+                item.foreColor = [UIColor redColor];
+            }
+            else
+            {
+                item.foreColor = [UIColor whiteColor];
+            }
+            
+            item.tag = i;
+            [items addObject:item];
+        }
+    }
+    if (items.count > 0)
+    {
+        CGRect rect = CGRectMake(233, 4 - 30, 10, 35);
+        [KxMenu showMenuInView:self.view
+                      fromRect:rect
+                     menuItems:items];
+    }
+}
+
+- (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
+    self.parentViewController.navigationItem.title = @"Thermostat";
     self.parentViewController.navigationItem.rightBarButtonItems = nil;
+    
+//    UIBarButtonItem *tButton = [[UIBarButtonItem alloc] initWithTitle:@"T" style:UIBarButtonItemStyleBordered target:self action:@selector(switchThermostat:)];
+    UIBarButtonItem *tButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"T-switch.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(switchThermostat:)];
+    
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] 
                                   initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh 
                                   target:self 
                                   action:@selector(refreshAction)];
-    self.parentViewController.navigationItem.rightBarButtonItem = refreshButton;
+    self.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton,tButton, nil];
     
     [self downloadModelFromServer];
 
@@ -169,7 +264,7 @@
     
     // 显示提示信息,下面函数仅用于测试自定义UIAlertView，这里不再用了
     // [self showAlertWithMessage:@"Click on the icons to bring up the system and fan mode menu.\n\n" messageId:@"dashobard1" ];    
-    }
+}
 // 显示提示信息,下面函数仅用于测试自定义UIAlertView，这里不再用了
 - (void)showAlertWithMessage:(NSString *)message messageId:(NSString *)mid {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tips" 
@@ -244,7 +339,7 @@
         HUD.delegate = self;
     } else
         [HUD show:YES];
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_DASHBOARD_VIEW, self.userId, self.houseId, self.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_DASHBOARD_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"DashboardDownloader"  userDataDictionary:nil];
     NSLog(@"DashboardDownloader is %@, url is %@",downloader.name, urlStr);
 }
@@ -268,7 +363,7 @@
     NSString *body = [NSString stringWithFormat:@"datamodel=%@", [[self.dashboardData JSONDictionary] JSONRepresentation]];
     NSLog(@"upload dashboar body is \n%@",body);
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_DASHBOARD_SAVE, self.userId, self.houseId, self.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_DASHBOARD_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"DashboardUploader" userDataDictionary:nil];
     NSLog(@"DashboardUploader is %@",[loader description]);
     [loadTimer invalidate];
@@ -410,7 +505,7 @@
     return 90;
 }
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
-    return 50;
+    return 40;
 }
 
 /* 用于为选中的行添加加亮黄色，但问题是黄色label没能对齐，也没办法在一开始时就能显示，所以暂时注释了
@@ -469,6 +564,8 @@
     
     // Update the view.
     self.holdButton.enabled = isRemoteControl;
+    self.fUISwitch.enabled = isRemoteControl;
+    
     self.setpointPickerView.alpha = isRemoteControl ? 1.0 : 0.77;
     self.controlModeImageView.alpha = isRemoteControl ? 1.0 : 0.77;
     self.fanImageView.alpha = isRemoteControl ? 1.0 : 0.77;
@@ -653,7 +750,9 @@
         if ([theDashboardData.realControlMode caseInsensitiveCompare:@"Off"] == NSOrderedSame) 
         {
             levelString = @"";
-        } else {
+        }
+        else
+        {
             switch (theDashboardData.stageLevel) {
                 case 0:
                     levelString = @"";
@@ -662,19 +761,28 @@
                     levelString = @"stage 1";
                     break;
                 case 2:
-                    levelString = @"stage 1+2";
+                    levelString = @"stage 1+2 ";
                     break;
                 case 3:
-                    if([theDashboardData.realControlMode caseInsensitiveCompare:@"Heating"] == NSOrderedSame)       
-                        levelString = @"stage 1+2 AUX";
-                    else
-                        levelString = @"";
+                    levelString = @"stage 1+2 ";
+                    break;
+                case 4:
+                    levelString = @"stage 1";
+                    break;
+                case 5:
+                    levelString = @"stage 1+2 ";
                     break;
                     
                 default:
                     break;
             }
         }
+        
+        if (theDashboardData.aux == 1)
+        {
+            levelString = [NSString stringWithFormat:@"%@%@",levelString,@"Aux"];
+        }
+        
         self.stageLevelLabel.text = levelString;
         
         if (theDashboardData.fan_control == 0) {//auto
@@ -717,13 +825,19 @@
         if (theDashboardData.controlMode ==5)
         {
             self.setpointPickerView.userInteractionEnabled = NO;
+            
             self.holdButton.hidden = YES;
+            self.fUISwitch.hidden = YES;
+            
             self.activeProgramLabel.text = @"None";
         }
         else {
             self.setpointPickerView.userInteractionEnabled = YES;
             [self.setpointPickerView selectRow:theDashboardData.setpoint-55 inComponent:0 animated:YES];
+            
             self.holdButton.hidden = NO;
+            self.fUISwitch.hidden = NO;
+            
             self.activeProgramLabel.text = theDashboardData.currentProgram;
         }
 
@@ -739,10 +853,15 @@
         self.oldLabelView = self.selectedLabelView;
         //*/
         
-        if(theDashboardData.isOvrried == 0) {
-            [self.holdButton setTitle:@"Hold" forState:UIControlStateNormal];
-        } else {
+        if(theDashboardData.isOvrried == 0)
+        {
             [self.holdButton setTitle:@"Run" forState:UIControlStateNormal];
+            [self.fUISwitch setOn:NO animated:YES];
+        }
+        else
+        {
+            [self.holdButton setTitle:@"Hold" forState:UIControlStateNormal];
+            [self.fUISwitch setOn:YES animated:YES];
         }
         
         
@@ -753,42 +872,85 @@
     }
 }
 
+- (NSInteger)_getToolbarOffset
+{
+    NSInteger offset = 200;
+    if (IS_IPHONE_5) // for 4 inch screen
+    {
+        if(IS_IOS6)
+            offset = 210;
+        else // iOS 7 and above
+            offset = 95;
+    }
+    else // for 3.5 inch screen
+    {
+        if(IS_IOS6)
+            offset = 300;
+        else // iOS 7 and above
+            offset = 185;
+    }
+
+    return offset;
+}
 - (void)_toggleSystemControlToolbarView
 {
+    if (_isFanControlToolbarViewShowing) {
+        [self _toggleFanControlToolbarView];
+    }
     if (self.dashboardData.con_hp == 1) {
         self.systemControlEmgHeatingButton.enabled = YES;
     } else {
         self.systemControlEmgHeatingButton.enabled = NO;
     }
     
-    
-    
-    CGRect frame = [self.systemControlToolbarView frame]; 
+    NSInteger offset = [self _getToolbarOffset];
+    CGRect frame = [self.systemControlToolbarView frame];
+    NSLog(@"%f  %f  %f  %f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
+
+    frame.origin.x = 0;//不知为何toolbar被右移了一个点, 这里校正一下
     if (_isSystemControlToolbarViewShowing) {
-        frame.origin.y += frame.size.height;
+        frame.origin.y = frame.origin.y+offset;
     } else {
-        frame.origin.y -= frame.size.height;
+        frame.origin.y = frame.origin.y-offset;
+//        frame.origin.y -= frame.size.height;
     }
-    
+    NSLog(@"%f  %f  %f  %f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
+
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.3];
     [self.systemControlToolbarView setFrame:frame];
+//    [self.view bringSubviewToFront:self.systemControlToolbarView];
     [UIView commitAnimations];
     
     _isSystemControlToolbarViewShowing = !_isSystemControlToolbarViewShowing;
 }
 - (void)_toggleFanControlToolbarView
 {
-    CGRect frame = [self.fanControlToolbarView frame]; 
-    if (_isFanControlToolbarViewShowing) {
-        frame.origin.y += frame.size.height;
-    } else {
-        frame.origin.y -= frame.size.height;
+    NSInteger offset = [self _getToolbarOffset];
+    if (_isSystemControlToolbarViewShowing) {
+        [self _toggleSystemControlToolbarView];
     }
+    
+    CGRect frame = [self.fanControlToolbarView frame];
+    NSLog(@"%f  %f  %f  %f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
+
+    frame.origin.x = 0;//不知为何toolbar被右移了一个点, 这里校正一下
+    if (_isFanControlToolbarViewShowing) {
+        frame.origin.y = frame.origin.y+offset;
+    } else {
+        frame.origin.y = frame.origin.y-offset;
+    }
+    NSLog(@"%f  %f  %f  %f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
+//    if (_isFanControlToolbarViewShowing) {
+//        frame.origin.y += frame.size.height;
+//    } else {
+//        frame.origin.y -= frame.size.height;
+//    }
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.3];
     [self.fanControlToolbarView setFrame:frame];
+//  [self.view bringSubviewToFront:self.fanControlToolbarView];
     [UIView commitAnimations];
     
     _isFanControlToolbarViewShowing = !_isFanControlToolbarViewShowing;

@@ -13,11 +13,14 @@
 #import "MyEWeekDayItemData.h"
 #import "MyEHouseListViewController.h"
 #import "MyEScheduleViewController.h"
-#import "MyEAccountData.h"
+
 #import "MyESectorView.h"
 #import "MyEUtil.h"
 #import "SBJson.h"
 
+#import "MyEAccountData.h"
+#import "MyEHouseData.h"
+#import "MyEThermostatData.h"
 
 #define TOOBAR_ANIMATION_DURATION 0.5f
 
@@ -76,7 +79,7 @@
     
     _modePickerView = [[MyEModePickerView alloc]
                            initWithFrame:CGRectMake((self.view.bounds.size.width - MODE_PICKER_VIEW_WIDTH)*.5, 
-                                                    self.view.bounds.size.height - MODE_PICKER_VIEW_HEIGHT - 18, 
+                                                    self.view.bounds.size.height - MODE_PICKER_VIEW_HEIGHT, // -18, changed @2014-2-25
                                                     MODE_PICKER_VIEW_WIDTH, 
                                                     MODE_PICKER_VIEW_HEIGHT) 
                            delegate:self];
@@ -207,7 +210,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_WEEKLY_SCHEDULE_VIEW, self.userId, self.houseId, self.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_WEEKLY_SCHEDULE_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"WeeklyScheduleDownloader" userDataDictionary:nil];
     NSLog(@"%@",downloader.name);
 }
@@ -234,7 +237,7 @@
     NSLog(@"WeeklyScheduleUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
 
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=saveschedule",URL_FOR_WEEKLY_SCHEDULE_SAVE, self.userId, self.houseId, self.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=saveschedule",GetRequst(URL_FOR_WEEKLY_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
     
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"WeeklyScheduleUploader" userDataDictionary:nil];
     NSLog(@"WeeklyScheduleUploader is %@",[loader description]);
@@ -262,7 +265,7 @@
     NSLog(@"WeeklyScheduleEditingModeUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=editmode",URL_FOR_WEEKLY_SCHEDULE_SAVE, self.userId, self.houseId, self.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=editmode",GetRequst(URL_FOR_WEEKLY_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
     
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"WeeklyScheduleEditingModeUploader" userDataDictionary:nil];
     NSLog(@"WeeklyScheduleEditingModeUploader is %@",[loader description]);
@@ -291,7 +294,7 @@
     NSLog(@"WeeklyScheduleDeletingModeUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=deletemode",URL_FOR_WEEKLY_SCHEDULE_SAVE, self.userId, self.houseId, self.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=deletemode",GetRequst(URL_FOR_WEEKLY_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
     
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"WeeklyScheduleDeletingModeUploader" userDataDictionary:nil];
     NSLog(@"WeeklyScheduleEditingModeUploader is %@",[loader description]);
@@ -320,7 +323,7 @@
         NSLog(@"WeeklyScheduleNewModeUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
 
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=newmode",URL_FOR_WEEKLY_SCHEDULE_SAVE, self.userId, self.houseId, self.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=newmode",GetRequst(URL_FOR_WEEKLY_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
 
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"WeeklyScheduleNewModeUploader" userDataDictionary:nil];
     NSLog(@"WeeklyScheduleNewModeUploader is %@",[loader description]);
@@ -932,7 +935,8 @@
         
         // 为了Retina4屏幕而修改的Doughnut圈高度固定
         //CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, bounds.size.height);
-        CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, 367);
+//        CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, 367);
+        CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, 327);
 
         _periodInforDoughnutView = [[MyEPeriodInforDoughnutView alloc] initWithFrame:frame];
         _periodInforDoughnutView.doughnutViewRadius = WEEKLY_DOUGHNUT_VIEW_SIZE / 2;

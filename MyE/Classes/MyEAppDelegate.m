@@ -7,6 +7,8 @@
 //
 
 #import "MyEAppDelegate.h"
+
+
 #import "MyEHouseListViewController.h"
 #import "MyEMainTabBarController.h"
 #import "MyEDashboardViewController.h"
@@ -18,14 +20,65 @@
 #import "MyESettingsViewController.h"
 #import "MyELaunchIntroViewController.h"
 
+#import "MyEAccountData.h"
+#import "MyEThermostatData.h"
+#import "MyEHouseData.h"
+
 @implementation MyEAppDelegate
 
 @synthesize window = _window;
+@synthesize accountData = _accountData;
+@synthesize thermostatData = _thermostatData;
+@synthesize houseData = _houseData;
+
+-(BOOL) isRemember
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    return [prefs boolForKey:@"rememberme"];
+}
+
+-(void) setRemember:(BOOL) b
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setBool:YES forKey:@"rememberme"];
+}
+
+-(void) setValue:(NSString *) v withKey:(NSString *) key
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:v forKey:key];
+}
+
+-(void) getLoginView
+{
+    UIStoryboard *storybord = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    //        UIViewController *vc =[storybord instantiateInitialViewController];// 这个是默认的第一个viewController
+    
+    // 获取程序的主Navigation VC, 这里可以类似地从stroyboard获取任意的VC，然后设置它为rootViewController，这样就可以显示它
+    UINavigationController *controller = (UINavigationController*)[storybord
+                                                                   instantiateViewControllerWithIdentifier: @"MainNavViewController"];
+    self.window.rootViewController = controller;// 用主Navigation VC作为程序的rootViewController
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    if (!IS_IOS6) {
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"barImage.png"]  forBarMetrics:UIBarMetricsDefault];   //这个貌似跟位置有关系，之前放在方法最后面竟然没有执行成功，放在这里才算成功了
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+        //这种给导航栏修改title颜色的方法简直太赞了，特别值得注意
+        //首先获得这个dictionary，然后对相应的键值进行赋值，特别注意只有可变的dictionary才能进行赋值，然后把修改好的dic赋值给navbar
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[UINavigationBar appearance].titleTextAttributes];
+        [dic setValue:[UIColor whiteColor] forKey:UITextAttributeTextColor];
+        [[UINavigationBar appearance] setTitleTextAttributes:dic];
+        
+        [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+        [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
+        [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
+        [[UIToolbar appearance] setBarStyle:UIBarStyleBlack];
+    }
+
     // Override point for customization after application launch.
-    sleep(1.01);//让程序休眠n秒，以使Launch image多停留一会。
+    sleep(0.01);//让程序休眠n秒，以使Launch image多停留一会。
     
     
     /**

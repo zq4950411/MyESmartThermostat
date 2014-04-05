@@ -11,6 +11,8 @@
 #import "MyENext24HrsScheduleSubviewController.h"
 #import "MyEScheduleViewController.h"
 #import "MyEMainTabBarController.h"
+#import "MyEVacationMasterViewController.h"
+
 #import "MyETipViewController.h"
 #import "MyETipDataModel.h"
 #import "MyEAccountData.h"
@@ -18,7 +20,8 @@
 #import "MyEUtil.h"
 #import "SBJson.h"
 
-
+#import "MyEThermostatData.h"
+#import "MyEHouseData.h"
 
 @interface MyEScheduleViewController (PrivateMethods) 
 - (void) _createTodayViewControllerIfNescessary;
@@ -30,7 +33,10 @@
 @synthesize currentPanelType = _currentPanelType;
 @synthesize baseView = _baseView;
 @synthesize todayWeeklySwitchButton = _todayWeeklySwitchButton;
+
 @synthesize todayBaseViewController = _todayBaseViewController, weeklyBaseViewController = _weeklyBaseViewController, next24HrsBaseViewController = _next24HrsBaseViewController;
+@synthesize vacationViewController = _vacationViewController;
+
 @synthesize userId = _userId;
 @synthesize houseId = _houseId;
 @synthesize houseName = _houseName;
@@ -80,6 +86,7 @@
                                   nil];
     _tipViewControllerForWeeklyPanel = [MyETipViewController tipViewControllerWithTipDataArray:tipDataArrayWeekly];
     
+    self.title = @"Next24Hrs";
 }
 
 - (void)viewDidUnload
@@ -145,9 +152,85 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (IBAction)switchSubPanel:(id)sender {
+-(IBAction) toolBarClick:(UIBarButtonItem *) sender
+{
+    int tag = sender.tag;
+    
+    if (tag == 0)
+    {
+        UIToolbar *toolBar = (UIToolbar *)[self.view viewWithTag:10];
+        for (UIBarButtonItem *temp in toolBar.items)
+        {
+            temp.tintColor = nil;
+        }
+        
+        if (sender.tag != 2)
+        {
+            sender.tintColor = [UIColor blueColor];
+        }
+        
+        [self _createNext24HrsViewControllerIfNescessary];
+        [UIView transitionWithView:self.baseView
+                          duration:1.0
+                           options:UIViewAnimationOptionTransitionFlipFromLeft
+                        animations:^{
+                            self.todayBaseViewController.view.hidden = YES;
+                            self.weeklyBaseViewController.view.hidden = YES;
+                            self.next24HrsBaseViewController.view.hidden = NO;
+                        }
+                        completion:^(BOOL finished){
+                            // Save the old data and then swap the views.
+                            NSLog(@"switch to Next24Hrs panel");
+                            [_tipViewControllerForNext24HrsPanel showTips];
+                        }];
+        
+        [self.next24HrsBaseViewController downloadModelFromServer];
+        _currentPanelType = SCHEDULE_TYPE_NEXT24HRS;
+        self.title = @"Next24Hrs";
+    }
+    else if (tag == 1)
+    {
+        UIToolbar *toolBar = (UIToolbar *)[self.view viewWithTag:10];
+        for (UIBarButtonItem *temp in toolBar.items)
+        {
+            temp.tintColor = nil;
+        }
+        
+        if (sender.tag != 2)
+        {
+            sender.tintColor = [UIColor blueColor];
+        }
+        
+        [self _createWeeklyViewControllerIfNescessary ];
+        [UIView transitionWithView:self.baseView
+                          duration:1.0
+                           options:UIViewAnimationOptionTransitionFlipFromLeft
+                        animations:^{
+                            self.todayBaseViewController.view.hidden = YES;
+                            self.weeklyBaseViewController.view.hidden = NO;
+                            self.next24HrsBaseViewController.view.hidden = YES;
+                        }
+                        completion:^(BOOL finished){
+                            // Save the old data and then swap the views.
+                            NSLog(@"switch to Weekly panel");
+                            [_tipViewControllerForWeeklyPanel showTips];
+                        }];
+        
+        [self.weeklyBaseViewController downloadModelFromServer];
+        _currentPanelType = SCHEDULE_TYPE_WEEKLY;
+        self.title = @"Weekly";
+    }
+    else if (tag == 2)
+    {
+        [self performSegueWithIdentifier:@"ShowVacation" sender:self];
+    }
+}
+
+- (IBAction)switchSubPanel:(id)sender
+{
     UISegmentedControl *sc = sender;
-    if ([sc selectedSegmentIndex] == 0) {
+    if ([sc selectedSegmentIndex] == 0)
+    {
         [self _createNext24HrsViewControllerIfNescessary];
         [UIView transitionWithView:self.baseView
                           duration:1.0
@@ -165,7 +248,8 @@
         
         [self.next24HrsBaseViewController downloadModelFromServer];
         _currentPanelType = SCHEDULE_TYPE_NEXT24HRS;
-    }else if ([sc selectedSegmentIndex] == 1)
+    }
+    else if ([sc selectedSegmentIndex] == 1)
     {
         [self _createWeeklyViewControllerIfNescessary ];
         [UIView transitionWithView:self.baseView
@@ -184,24 +268,10 @@
         
         [self.weeklyBaseViewController downloadModelFromServer];
         _currentPanelType = SCHEDULE_TYPE_WEEKLY;
-    } else if ([sc selectedSegmentIndex] == 2) {
-        [self _createTodayViewControllerIfNescessary ];
-        [UIView transitionWithView:self.baseView
-                          duration:1.0
-                           options:UIViewAnimationOptionTransitionFlipFromRight
-                        animations:^{
-                            self.todayBaseViewController.view.hidden = NO;
-                            self.weeklyBaseViewController.view.hidden = YES;
-                            self.next24HrsBaseViewController.view.hidden = YES;
-                        }
-                        completion:^(BOOL finished){
-                            // Save the old data and then swap the views.
-                            NSLog(@"switch to Today panel");
-                            [_tipViewControllerForTodayPanel showTips];
-                        }];
-        
-        [self.todayBaseViewController downloadModelFromServer];
-        _currentPanelType = SCHEDULE_TYPE_TODAY;
+    }
+    else if ([sc selectedSegmentIndex] == 2)
+    {
+        [self performSegueWithIdentifier:@"ShowVacation" sender:self];
     }
 }
 
@@ -223,11 +293,11 @@
     if(!self.weeklyBaseViewController)
     {
         MyEWeeklyScheduleSubviewController *weeklyScheduleController = [[MyEWeeklyScheduleSubviewController alloc] initWithNibName:@"MyEWeekLyScheduleView" bundle:[NSBundle mainBundle] viewController:self parentController:self];
-        weeklyScheduleController.userId = self.userId;
-        weeklyScheduleController.houseId = self.houseId;
-        weeklyScheduleController.tId = self.tId;
-        weeklyScheduleController.tName = self.tName;
-        weeklyScheduleController.isRemoteControl = self.isRemoteControl;
+        weeklyScheduleController.userId = MainDelegate.accountData.userId;
+        weeklyScheduleController.houseId = MainDelegate.houseData.houseId;
+        weeklyScheduleController.tId = MainDelegate.thermostatData.tId;
+        weeklyScheduleController.tName = MainDelegate.thermostatData.tName;
+        weeklyScheduleController.isRemoteControl = MainDelegate.thermostatData.remote;
         weeklyScheduleController.navigationController = self.navigationController;
         weeklyScheduleController.delegate = self;
         
@@ -240,11 +310,11 @@
     if(!self.next24HrsBaseViewController)
     {
         self.next24HrsBaseViewController = [[MyENext24HrsScheduleSubviewController alloc] initWithNibName:@"MyENext24HrsScheduleView" bundle:[NSBundle mainBundle] viewController:self parentController:self];
-        self.next24HrsBaseViewController.userId = self.userId;
-        self.next24HrsBaseViewController.houseId = self.houseId;
-        self.next24HrsBaseViewController.tId = self.tId;
-        self.next24HrsBaseViewController.tName = self.tName;
-        self.next24HrsBaseViewController.isRemoteControl = self.isRemoteControl;
+        self.next24HrsBaseViewController.userId = MainDelegate.accountData.userId;
+        self.next24HrsBaseViewController.houseId = MainDelegate.houseData.houseId;
+        self.next24HrsBaseViewController.tId = MainDelegate.thermostatData.tId;
+        self.next24HrsBaseViewController.tName = MainDelegate.thermostatData.tName;
+        self.next24HrsBaseViewController.isRemoteControl = MainDelegate.thermostatData.remote;
         self.next24HrsBaseViewController.navigationController = self.navigationController;
         self.next24HrsBaseViewController.delegate = self;
         
@@ -253,14 +323,15 @@
     }
 }
 
-- (void) _createTodayViewControllerIfNescessary{
+- (void) _createTodayViewControllerIfNescessary
+{
     if(!self.todayBaseViewController)
     {
-        self.todayBaseViewController = [[MyETodayScheduleController alloc]init];
-        self.todayBaseViewController.userId = self.userId;
-        self.todayBaseViewController.houseId = self.houseId;
-        self.todayBaseViewController.tId = self.tId;
-        self.todayBaseViewController.tName = self.tName;
+        self.todayBaseViewController = [[MyETodayScheduleController alloc] init];
+        self.todayBaseViewController.userId = MainDelegate.accountData.userId;
+        self.todayBaseViewController.houseId = MainDelegate.houseData.houseId;
+        self.todayBaseViewController.tId = MainDelegate.thermostatData.tId;
+        self.todayBaseViewController.tName = MainDelegate.thermostatData.tName;
         self.todayBaseViewController.isRemoteControl = self.isRemoteControl;
         self.todayBaseViewController.navigationController = self.navigationController;
         self.todayBaseViewController.delegate = self;
@@ -270,4 +341,32 @@
         self.todayBaseViewController.view.hidden = YES;
     }
 }
+
+- (void) _createVactionyViewControllerIfNescessary
+{
+    if(!self.todayBaseViewController)
+    {
+        self.vacationViewController = [[MyEVacationMasterViewController alloc] initWithNibName:@"MyVacationMasterViewController" bundle:nil];
+        
+        _vacationViewController.userId = MainDelegate.accountData.userId;
+        _vacationViewController.houseId = MainDelegate.houseData.houseId;
+        
+        _vacationViewController.houseName = MainDelegate.thermostatData.tName;
+        _vacationViewController.tId = MainDelegate.thermostatData.tId;
+        
+        _vacationViewController.tName = MainDelegate.thermostatData.tName;
+        _vacationViewController.isRemoteControl = MainDelegate.thermostatData.remote;
+        
+        //在设置上面两个参数之前，不要在MyETodayScheduleController的init里面调用它的downloadModelFromServer方法
+        [self.view insertSubview:self.vacationViewController.view atIndex:0];
+        self.todayBaseViewController.view.hidden = YES;
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+}
+
+
 @end

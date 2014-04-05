@@ -66,7 +66,7 @@ metaModeArray = _metaModeArray;
     for (int i = 0; i < count; i++) 
     {
         MyETodayPeriodData *period = [self.periods objectAtIndex:i];
-        MyEScheduleModeData *metaMode = [period scheduleModeDataWithModeId:i];
+        MyEScheduleModeData *metaMode = [period scheduleModeDataWithPeriodIndex:i];
         [self.metaModeArray addObject:metaMode];
     }
 }

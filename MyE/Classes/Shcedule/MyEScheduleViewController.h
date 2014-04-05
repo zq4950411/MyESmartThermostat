@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "MyEUtil.h"
+
 @class MyETodayScheduleController;
 @class MyEWeeklyScheduleSubviewController;
 @class MyENext24HrsScheduleSubviewController;
 @class MyETipViewController;
+@class MyEVacationMasterViewController;
 
-@interface MyEScheduleViewController : UIViewController {
+@interface MyEScheduleViewController : UIViewController
+{
     ScheduleType _currentPanelType;
     MyETipViewController *_tipViewControllerForTodayPanel;
     MyETipViewController *_tipViewControllerForWeeklyPanel;
@@ -34,7 +37,11 @@
 @property (strong, nonatomic) MyETodayScheduleController *todayBaseViewController;
 @property (strong, nonatomic) MyEWeeklyScheduleSubviewController *weeklyBaseViewController;
 @property (strong, nonatomic) MyENext24HrsScheduleSubviewController *next24HrsBaseViewController;
+@property (strong, nonatomic) MyEVacationMasterViewController *vacationViewController;
 
 - (IBAction)switchSubPanel:(id)sender;
 - (void)refreshAction;
+
+-(IBAction) toolBarClick:(UIBarButtonItem *) sender;
+
 @end

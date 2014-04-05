@@ -1,4 +1,4 @@
-//
+//aaaa
 //  MyEScheduleNext24HrsData.h
 //  MyE
 //
@@ -29,6 +29,8 @@
 // 因为today的时段数据和Weekly的数据情况不同。Today的时段数据没有mode的概念，而MyEDoughnutView类需要用到mode数组和mode到颜色的映射词典。
 // 下面两个函数的功能就是从today的periods数据中计算取得需要的mode数组和mode到颜色的映射词典
 - (NSMutableArray *) modeIdArray;
+- (NSMutableArray *) periodIndexArray;
+
 // 根据metaModeArray取得每个mode到颜色的映射词典。创建这个词典的目的是只把modeId及其对应的UIColor对象传递到MyEDoughnutView对象，而不直接把MyEScheduleModeData对象传入，从而保持model和view的尽量分离
 - (NSMutableDictionary *)modeIdColorDictionary;
 - (NSMutableArray *) holdArray;

@@ -76,7 +76,7 @@
         [HUD show:YES];
 
 //    NSString *urlStr = [NSString stringWithFormat:@"%@&currentPassword=%@&newPassword=%@&keyPad=null",URL_FOR_SETTINGS_SAVE, currentPassword, newPassword];
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&currentPassword=%@&newPassword=%@&keyPad=null",URL_FOR_SETTINGS_SAVE, self.userId, self.houseId, currentPassword, newPassword];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&currentPassword=%@&newPassword=%@&keyPad=null",GetRequst(URL_FOR_SETTINGS_SAVE), self.userId, self.houseId, currentPassword, newPassword];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:@"" delegate:self loaderName:@"SettingsPasswordUploader" userDataDictionary:nil];
     NSLog(@"SettingsUploader is %@",loader.name);
 }

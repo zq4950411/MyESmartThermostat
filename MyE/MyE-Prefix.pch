@@ -4,6 +4,7 @@
 
 #import <Availability.h>
 
+
 #ifndef __IPHONE_5_0
 #warning "This project uses features only available in iOS SDK 5.0 and later."
 #endif
@@ -11,4 +12,42 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import "MyEAppDelegate.h"
+    #import "UIView+Frame.h"
+    #import "SVProgressHUD.h"
+    #import "MyEUtil.h"
+    #import "NSMutableDictionary+Safe.h"
+    #import "NSString+Common.h"
+    #import "SBJson.h"
+    #import "ServerUtils.h"
+    #import "MyEDataLoader.h"
+    #import "MBProgressHUD.h"
+    #import "MyEUtil.h"
+    #import "MyEUniversal.h"
+#import "MyEHouseData.h"
+#import "SmartUp.h"
+#import "MyESwitchManualControl.h"
+#import "MyESwitchAutoControl.h"
+#import "MyESwitchElec.h"
+
+#import "MZFormSheetController.h"
+#import "DXAlertView.h"
+#import "MZTimerLabel.h"
+#import "MultiSelectSegmentedControl.h"
+#import "IQActionSheetPickerView.h"
 #endif
+
+
+#define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double )568) < DBL_EPSILON )
+#define IS_IOS6 (([[UIDevice currentDevice].systemVersion intValue]-6)?NO:YES)
+#define MainDelegate ((MyEAppDelegate *)[[UIApplication sharedApplication] delegate])
+
+//#define NSLog
+
+#ifdef DEBUG
+#define CLog(format, ...) NSLog(format, ## __VA_ARGS__)
+#else
+#define CLog(format, ...)
+#endif
+
+#define RGB(r,g,b) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]

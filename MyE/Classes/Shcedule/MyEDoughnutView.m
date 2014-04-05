@@ -296,7 +296,7 @@ typedef enum {
         NSLog(@"没有触摸在sector上，退出");
         return NO;
     }
-
+    
     ///today\next24hrs模块中，如果当前触摸到的sector的id小于当前时刻所在sector的下一个sector，就退出
     if (_scheduleType == SCHEDULE_TYPE_TODAY || _scheduleType == SCHEDULE_TYPE_NEXT24HRS) {
         if (csid == 0) {
@@ -1073,7 +1073,7 @@ typedef enum {
 {    
     if([modeIdArray count] != NUM_SECTOR)
     {
-        [NSException raise:@"Error in number of element" format:@"Number of color is not 48 in modes"];
+        //[NSException raise:@"Error in number of element" format:@"Number of color is not 48 in modes"];
         return;
     }
     

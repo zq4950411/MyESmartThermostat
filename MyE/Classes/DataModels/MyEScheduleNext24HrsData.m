@@ -1,4 +1,4 @@
-//
+// aaaa
 //  MyEScheduleNext24HrsData.m
 //  MyE
 //
@@ -316,7 +316,8 @@ metaModeArray = _metaModeArray;
     for (int i = 0; i < count; i++) 
     {
         MyETodayPeriodData *period = [self.periods objectAtIndex:i];
-        MyEScheduleModeData *metaMode = [period scheduleModeDataWithModeId:i];
+        MyEScheduleModeData *metaMode = [period scheduleModeDataWithPeriodIndex:i];
+        metaMode.modeId = period.modeId;
         [self.metaModeArray addObject:metaMode];
     }
 }
@@ -415,6 +416,21 @@ metaModeArray = _metaModeArray;
     
     return  modeIdArray;
 }
+// 2013-11-27 由于上面函数的modeId在原来就是时段序号构成的48个元素数组，现在上面编程了用真正的modeId构成的48个元素数组，此函数就用于代替上面的函数
+- (NSMutableArray *) periodIndexArray {
+    NSMutableArray *periodIndexArray = [[NSMutableArray alloc] init];
+    
+    int count = [self.periods count];
+    for (int i = 0; i < count; i++) {
+        MyETodayPeriodData *period = [self.periods objectAtIndex:i];
+        //注意，在next24Hrs模块里，每个period对应一个mode。
+        for (int j = period.stid; j < period.etid; j++) {
+            [periodIndexArray addObject:[NSNumber numberWithInt:i]];
+        }
+    }
+    
+    return  periodIndexArray;
+}
 // 因为next24Hrs的时段数据和Weekly的数据情况不同。next24Hrs的时段数据可以进行hold设置。
 // 取得每个半小时对应的hold字符串，数组元素是48个
 - (NSMutableArray *) holdArray
@@ -462,6 +478,7 @@ metaModeArray = _metaModeArray;
     period.cooling = currentModeInMetaModeArray.cooling;
     period.title = currentModeInMetaModeArray.modeName;
     period.hold = currentModeInMetaModeArray.hold;
+    period.modeId = currentModeInMetaModeArray.modeId;
     
     
     
@@ -493,6 +510,7 @@ metaModeArray = _metaModeArray;
             period.cooling = currentModeInMetaModeArray.cooling;
             period.title = currentModeInMetaModeArray.modeName;
             period.hold = currentModeInMetaModeArray.hold;
+            period.modeId = currentModeInMetaModeArray.modeId;
         }
     }
     // 处理最后一个时段

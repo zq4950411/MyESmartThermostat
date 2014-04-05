@@ -5,6 +5,7 @@
 //  Created by Ye Yuan on 2/23/12.
 //  Copyright (c) 2012 MyEnergy Domain. All rights reserved.
 //
+#import <QuartzCore/QuartzCore.h>
 
 #import "MyEVacationMasterViewController.h"
 #import "MyEVacationListData.h"
@@ -20,7 +21,10 @@
 #import "MyETipDataModel.h"
 #import "MyEUtil.h"
 #import "SBJson.h"
-#import <QuartzCore/QuartzCore.h>
+
+#import "MyEThermostatData.h"
+#import "MyEHouseData.h"
+
 
 #define VACATION_DOWNLOADER_NMAE @"VacationsDownloader"
 #define VACATION_UPLOADER_NMAE @"VacationsUploader"
@@ -85,19 +89,25 @@
                              [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_VACATION title:@"Tip" message:@"Click the icon with “+” to add new vacation/ staycation. Swipe to delete."],
                              nil];
     _tipViewController = [MyETipViewController tipViewControllerWithTipDataArray:tipDataArray];
+    
+    self.isRemoteControl = MainDelegate.thermostatData.remote;
+    self.title = MainDelegate.houseData.houseName;
 
 }
--(void)viewWillAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     
     [self downloadModelFromServer];
     [_tipViewController showTips];
 }
 
-- (void) addRightButtonsWithNewButton:(BOOL)shouldGenerateNewButton {
+- (void) addRightButtonsWithNewButton:(BOOL)shouldGenerateNewButton
+{
     //可以用下面语句生成2个新button，并替换掉父容器TabBarController的navigationItem的右边按钮
     UIBarButtonItem *addButton = nil;
-    if (shouldGenerateNewButton) {
+    if (shouldGenerateNewButton)
+    {
         addButton = [[UIBarButtonItem alloc] 
                                   initWithBarButtonSystemItem:UIBarButtonSystemItemAdd 
                                   target:self 
@@ -108,7 +118,13 @@
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh 
                                       target:self 
                                       action:@selector(refreshList:)];
-    self.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, addButton, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, addButton, nil];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(back:)];
+}
+
+-(void) back:(UIBarButtonItem *) sender
+{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)viewDidUnload
@@ -185,14 +201,14 @@
     
 
     if(HUD == nil) {
-        HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 //        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];
     
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_VACATION_VIEW, self.userId, self.houseId, self.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_VACATION_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:VACATION_DOWNLOADER_NMAE  userDataDictionary:nil];
     NSLog(@"%@",downloader.name);
 }
@@ -314,7 +330,7 @@
         [HUD show:YES];
     
     NSLog(@"上传给服务器的vacations字符串是：\n%@", string);
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=%@",URL_FOR_VACATION_SAVE, self.userId,self.houseId,  self.tId, action];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=%@",GetRequst(URL_FOR_VACATION_SAVE), MainDelegate.accountData.userId,MainDelegate.houseData.houseId,MainDelegate.thermostatData.tId, action];
     
     MyEDataLoader *uploader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:string delegate:self loaderName:VACATION_UPLOADER_NMAE userDataDictionary:dict];
     NSLog(@"uploader is %@",uploader.name);
@@ -515,7 +531,7 @@
         [hlvc downloadModelFromServer ];
         
         //获取当前正在操作的house的name
-        NSString *currentHouseName = [hlvc.accountData getHouseNameByHouseId:self.houseId];
+        NSString *currentHouseName = [hlvc.accountData getHouseNameByHouseId:MainDelegate.houseData.houseId];
         NSString *message;
         
         if (respondInt == -999) {

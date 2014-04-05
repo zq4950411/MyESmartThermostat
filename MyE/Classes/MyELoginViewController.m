@@ -20,6 +20,7 @@
 #import "MyEUtil.h"
 #import "SBJson.h"
 
+#import "ServerViewController.h"
 
 @implementation MyELoginViewController
 
@@ -29,6 +30,12 @@
 @synthesize loginButton = _loginButton;
 
 @synthesize accountData = _accountData;
+
+-(IBAction) setIp:(UIButton *) sender
+{
+    ServerViewController *sc = [[ServerViewController alloc] init];
+    [self presentModalViewController:sc animated:YES];
+}
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -110,23 +117,29 @@
 
 //*
  // Implement prepareForSegue to do additional configuration, such as assigning data before transition to another view.
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([[segue identifier] isEqualToString:@"ShowMainTabViewDirectly"]) {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    MainDelegate.accountData = self.accountData;
+    
+    if ([[segue identifier] isEqualToString:@"ShowMainTabViewDirectly"])
+    {
         MyEMainTabBarController *tabBarController = [segue destinationViewController];
         //在这里为每个tab view设置houseId和userId, 同时要为每个tab viewController中定义这两个变量，并实现一个统一的签名方法，以保存这个变量。
         MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:0];
+        MainDelegate.houseData = houseData;
         
         //在NSDefaults里面记录这次要进入的房屋
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
+        
         MyEThermostatData *thermostatData = [houseData.thermostats objectAtIndex:0];// 用该房子的第一个T
+        MainDelegate.thermostatData = thermostatData;
+        
         [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
         [prefs synchronize];
         
         
-        
         BOOL isRC = (thermostatData.remote == 0? NO:YES);
-        
         
         
         //        [tabBarController setTitle:@"Dashboard"];
@@ -148,42 +161,43 @@
         dashboardViewController.isRemoteControl = isRC;
         
         
-        MyEScheduleViewController *scheduleViewController = [[tabBarController childViewControllers] objectAtIndex:1];
-        scheduleViewController.userId = self.accountData.userId;
-        scheduleViewController.houseId = houseData.houseId;
-        scheduleViewController.houseName = houseData.houseName;
-        scheduleViewController.tId = thermostatData.tId;
-        scheduleViewController.tName = thermostatData.tName;
-        scheduleViewController.isRemoteControl = isRC;
+//        MyEScheduleViewController *scheduleViewController = [[tabBarController childViewControllers] objectAtIndex:1];
+//        scheduleViewController.userId = self.accountData.userId;
+//        scheduleViewController.houseId = houseData.houseId;
+//        scheduleViewController.houseName = houseData.houseName;
+//        scheduleViewController.tId = thermostatData.tId;
+//        scheduleViewController.tName = thermostatData.tName;
+//        scheduleViewController.isRemoteControl = isRC;
         
-        MyEVacationMasterViewController *vacationViewController = [[tabBarController childViewControllers] objectAtIndex:2];
-        vacationViewController.userId = self.accountData.userId;
-        vacationViewController.houseId = houseData.houseId;
-        vacationViewController.houseName = houseData.houseName;
-        vacationViewController.tId = thermostatData.tId;
-        vacationViewController.tName = thermostatData.tName;
-        vacationViewController.isRemoteControl = isRC;
+//        MyEVacationMasterViewController *vacationViewController = [[tabBarController childViewControllers] objectAtIndex:2];
+//        vacationViewController.userId = self.accountData.userId;
+//        vacationViewController.houseId = houseData.houseId;
+//        vacationViewController.houseName = houseData.houseName;
+//        vacationViewController.tId = thermostatData.tId;
+//        vacationViewController.tName = thermostatData.tName;
+//        vacationViewController.isRemoteControl = isRC;
         
-        MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
-        settingsViewController.userId = self.accountData.userId;
-        settingsViewController.userName = self.accountData.userName;
-        settingsViewController.houseId = houseData.houseId;
-        settingsViewController.houseName = houseData.houseName;
-        settingsViewController.tId = thermostatData.tId;
-        settingsViewController.tName = thermostatData.tName;
-//        settingsViewController.isRemoteControl = isRC;
+//        MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
+//        settingsViewController.userId = self.accountData.userId;
+//        settingsViewController.userName = self.accountData.userName;
+//        settingsViewController.houseId = houseData.houseId;
+//        settingsViewController.houseName = houseData.houseName;
+//        settingsViewController.tId = thermostatData.tId;
+//        settingsViewController.tName = thermostatData.tName;
+//      settingsViewController.isRemoteControl = isRC;
         
         
-        MyEThermostatListViewController *thermostatListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
-        thermostatListViewController.userId = self.accountData.userId;
-        thermostatListViewController.houseId = houseData.houseId;
-        thermostatListViewController.houseName = houseData.houseName;
-        thermostatListViewController.thermostats = houseData.thermostats;
-        thermostatListViewController.tId = thermostatData.tId;
-        thermostatListViewController.tName = thermostatData.tName;
+//        MyEThermostatListViewController *thermostatListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
+//        thermostatListViewController.userId = self.accountData.userId;
+//        thermostatListViewController.houseId = houseData.houseId;
+//        thermostatListViewController.houseName = houseData.houseName;
+//        thermostatListViewController.thermostats = houseData.thermostats;
+//        thermostatListViewController.tId = thermostatData.tId;
+//        thermostatListViewController.tName = thermostatData.tName;
 
     }
-    if ([[segue identifier] isEqualToString:@"ShowHouseList"]) {
+    if ([[segue identifier] isEqualToString:@"ShowHouseList"])
+    {
         MyEHouseListViewController *hlvc = [segue destinationViewController];
         hlvc.accountData = self.accountData;
     }
@@ -297,20 +311,48 @@
         // for test
         //string = @"{\"houses\":[{\"mId\":\"05-00-00-00-00-00-02-0E\",\"connection\":0,\"houseName\":\"House5604\",\"thermostats\":[{\"thermostat\":0,\"tName\":\"T_50\",\"deviceType\":0,\"tId\":\"00-00-00-00-00-00-02-50\",\"keypad\":0,\"remote\":1},{\"thermostat\":0,\"tName\":\"T_74\",\"deviceType\":0,\"tId\":\"00-00-00-00-00-00-01-74\",\"keypad\":0,\"remote\":1}],\"houseId\":3374},{\"mId\":\"\",\"connection\":1,\"houseName\":\"House623\",\"thermostats\":[],\"houseId\":7032}],\"success\":\"true\",\"userId\":\"1000100000000000578\",\"userName\":\"xyk2\"}";
         MyEAccountData *anAccountData = [[MyEAccountData alloc] initWithJSONString:string];
-        if(anAccountData && anAccountData.loginSuccess) {
+        if(anAccountData && anAccountData.loginSuccess)
+        {
             self.accountData = anAccountData;
+            MainDelegate.accountData = self.accountData;
+            
             if (anAccountData.houseList.count < 1 ){
                 UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Information" 
-                                                              message:@"This application must work with MyE Smart Thermostat. If you have already purchased one, please register it through the website first."
+                                                              message:@"This app is for Smart Home control associated with a property. Please visit our website and add a property to your account before using this app."
                                                              delegate:self 
                                                     cancelButtonTitle:@"Ok"
                                                     otherButtonTitles:@"Cancel",nil];
                 [alert show];
-            } else if (anAccountData.houseList.count == 1 &&
-                       ([(MyEHouseData *)[anAccountData.houseList objectAtIndex:0] isConnected])){
-                // 如果只有一个带硬件的房子，且硬件在线，则不用在House List停留，直接将该房子选中而进入Dashboard。
-                [self performSegueWithIdentifier:@"ShowMainTabViewDirectly" sender:self];
-            } else if (anAccountData.houseList.count >= 1) {
+            }
+            else if (anAccountData.houseList.count == 1 &&
+                       ([(MyEHouseData *)[anAccountData.houseList objectAtIndex:0] isConnected]))
+            {
+                MainDelegate.houseData = [anAccountData.houseList objectAtIndex:0];
+                //在NSDefaults里面记录这次要进入的房屋
+                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                
+                NSString *tid = [prefs objectForKey:KEY_FOR_TID_LAST_VIEWED];
+                for (MyEThermostatData *temp in MainDelegate.houseData.thermostats)
+                {
+                    if ([tid isEqualToString:temp.tId])
+                    {
+                        MainDelegate.thermostatData = temp;
+                        break;
+                    }
+                }
+                if (MainDelegate.thermostatData == nil)
+                {
+                    MainDelegate.thermostatData = [MainDelegate.houseData firstConnectedThermostat];
+                }
+                
+                if (MainDelegate.thermostatData.deviceType == 0 || MainDelegate.thermostatData.deviceType == 1 || MainDelegate.thermostatData.deviceType == 2 || MainDelegate.thermostatData.deviceType == 3)
+                {
+                    // 如果只有一个带硬件的房子，且硬件在线，则不用在House List停留，直接将该房子选中而进入Dashboard。
+                    [self performSegueWithIdentifier:@"ShowMainTabViewDirectly" sender:self];
+                }
+            }
+            else if (anAccountData.houseList.count >= 1)
+            {
                 [self performSegueWithIdentifier:@"ShowHouseList" sender:self];
                 /* 原来在这里直接对后面转入的VC设置变量，但发现我们需要在HouseList VC里面的viewDidLoad里面就需要执行读取用户默认houseId的工作，但此时需要accountData数据，此数据在下面才能传入，所以导致读取用户默认houseId的工作出错
                 UINavigationController *navigationController = (UINavigationController *)self.navigationController;
@@ -319,7 +361,9 @@
                 hlvc.accountData = anAccountData;
                  */
             }           
-        } else {
+        }
+        else
+        {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Login error" 
                                                           message:@"Please check your user name and password and try again."
                                                          delegate:nil 
@@ -382,6 +426,9 @@
     }
     return  YES;
 }
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
 
 #pragma mark -
 #pragma mark private methods
@@ -442,7 +489,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?username=%@&password=%@&type=1", URL_FOR_LOGIN, self.usernameInput.text, self.passwordInput.text] ;
+    NSString *urlStr = [NSString stringWithFormat:@"%@?username=%@&password=%@&type=1",GetRequst(URL_FOR_LOGIN), self.usernameInput.text, self.passwordInput.text] ;
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"LoginDownloader" userDataDictionary:nil];
     NSLog(@"downloader.name is  %@ urlStr =  %@",downloader.name, urlStr);
 }

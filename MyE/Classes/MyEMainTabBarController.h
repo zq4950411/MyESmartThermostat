@@ -14,7 +14,8 @@ typedef enum {
     MYE_TAB_DASHBOARD,
     MYE_TAB_SHCHEDULE,
     MYE_TAB_VACATION,
-    MYE_TAB_SETTING
+    MYE_TAB_SETTING,
+    MYE_TAB_MORE
 } MyETabBarItemType;
 
 @interface MyEMainTabBarController : UITabBarController

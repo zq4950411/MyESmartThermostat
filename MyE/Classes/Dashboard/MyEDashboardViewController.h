@@ -11,6 +11,11 @@
 #import <UIKit/UIKit.h>
 #import "MyEDataLoader.h"
 #import "MBProgressHUD.h"
+
+
+#import "ACPButton.h"
+#import "FUISwitch.h"
+
 @class MyEAccountData;
 @class MyEDashboardData;
 @class MyEHouseData;
@@ -73,6 +78,9 @@
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fanControlToolbarViewTapRecognizer;
 @property (weak, nonatomic) IBOutlet UIButton *fanControlAutoButton;
 @property (weak, nonatomic) IBOutlet UIButton *fanControlOnButton;
+
+@property (weak, nonatomic) IBOutlet ACPButton *fUIButton;
+@property (weak, nonatomic) IBOutlet FUISwitch *fUISwitch;
 
 // 显示提示信息
 - (void)showAlertWithMessage:(NSString *)message messageId:(NSString *)mid;

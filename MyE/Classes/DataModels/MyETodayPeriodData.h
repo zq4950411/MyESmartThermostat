@@ -17,7 +17,8 @@
 @property (nonatomic) NSInteger cooling;
 @property (nonatomic) NSInteger heating;
 @property (copy, nonatomic) NSString *hold; 
-@property (copy, nonatomic) NSString *title; 
+@property (copy, nonatomic) NSString *title;
+@property (nonatomic) NSInteger modeId;
 
 ///* 下面几个变量，仅用于在Next24Hrs面板的MyEScheduleNext24HrsData数据类，在生成模拟24小时的periods时，
 // * 在每个perid里面记录此时段是属于哪一天一个时段的，在目前不允许改过时段数目的操作方式下，
@@ -35,5 +36,5 @@
 - (NSDictionary *)JSONDictionary;
 
 //从period数据获取由MyEScheduleModeData类对象，它是元模式数据.传入的参数modeId其实是时段的在today数据中的编号，
-- (MyEScheduleModeData *)scheduleModeDataWithModeId:(NSInteger)modeId;
+- (MyEScheduleModeData *)scheduleModeDataWithPeriodIndex:(NSInteger)periodIndex;
 @end

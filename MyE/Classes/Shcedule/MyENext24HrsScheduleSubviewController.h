@@ -1,4 +1,4 @@
-//
+//aaaaaa
 //  MyENext24HrsScheduleSubviewController.h
 //  MyE
 //
@@ -79,6 +79,7 @@ MyEPeriodInforDoughnutViewDelegate> {
 @property (strong, nonatomic) MyEScheduleNext24HrsData *next24hrsModelCache;//缓冲数据，用于恢复用户修改Schedule操作的
 
 @property (nonatomic) NSInteger currentSelectedModeId;
+@property (nonatomic) NSInteger currentSelectedPeriodIndex;
 
 
 @property (weak, nonatomic) IBOutlet UIView *centerContainerView;

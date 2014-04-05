@@ -244,7 +244,7 @@
 - (void)_refreshSelectionRowByTid{
     for (NSInteger i=0; i < [self.thermostats count]; i++) {
         MyEThermostatData *t = [self.thermostats objectAtIndex:i];
-        if([t.tId isEqualToString:self.tId]){
+        if([t.tId isEqualToString:MainDelegate.thermostatData.tId]){
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             [self.tableView selectRowAtIndexPath:indexPath
                                         animated:NO

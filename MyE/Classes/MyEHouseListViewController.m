@@ -23,6 +23,10 @@
 #import "SBJson.h"
 #import "SelectedTabBar.h"
 
+#import "RegistGatewayViewController.h"
+#import "ASDepthModalViewController.h"
+#import "HouseBlankView.h"
+
 @interface MyEHouseListViewController() <SelectedTabBar>
 
 // selectedTabIndex变量原来是为SelectedTabBar protocol所定义的，定义在这里，但为了保证在ThermostatListViewController里面程序转移到新的tab后也能记住所进入的tab，就把此变量定义到类声明的地方，以便其他地方也可以访问。
@@ -36,6 +40,20 @@
 
 @synthesize selectedTabIndex = _selectedTabIndex;
 @synthesize selectedHouseId = _selectedHouseId;
+
+@synthesize registerButton = _registerButton;
+
+
+-(void) registeGateway:(UIButton *) sender
+{
+    RegistGatewayViewController *reg = [[RegistGatewayViewController alloc] init];
+    [self.navigationController pushViewController:reg animated:YES];
+}
+
+
+
+
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -74,6 +92,39 @@
 //    [self.tableView setBackgroundColor:bgcolor];
     
     _hasLoadedDefaultHouseId = NO;
+    
+    [self.registerButton setStyleType:ACPButtonOK];
+    [self.registerButton addTarget:self action:@selector(registeGateway:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if (self.accountData.houseList.count == 0)
+    {
+        HouseBlankView *houseBlankView = [[[NSBundle mainBundle] loadNibNamed:@"HouseBlankView" owner:self options:nil] objectAtIndex:0];
+        [ASDepthModalViewController presentView:houseBlankView backgroundColor:nil options:ASDepthModalOptionBlur completionHandler:nil];
+    }
+    else
+    {
+        BOOL b = NO;
+        for (MyEHouseData *house in self.accountData.houseList)
+        {
+            b = [house isValid];
+            if (b)
+            {
+                break;
+            }
+        }
+        
+        if (!b)
+        {
+            [self performSelector:@selector(goToRegister) withObject:nil afterDelay:0.5f];
+        }
+    }
+}
+
+
+-(void) goToRegister
+{
+    RegistGatewayViewController *reg = [[RegistGatewayViewController alloc] init];
+    [self.navigationController pushViewController:reg animated:YES];
 }
 
 - (void)viewDidUnload
@@ -94,6 +145,15 @@
                                       action:@selector(refreshAction)];
     self.navigationItem.rightBarButtonItem = refreshButton;
     [self.tableView reloadData];//重新加载数据,这一步骤是重要的，用来现实更新后的数据。
+    
+    NSArray *gestures = self.navigationController.navigationBar.gestureRecognizers;
+    for (UIGestureRecognizer *gesture in gestures)
+    {
+        if ([gesture isKindOfClass:[UITapGestureRecognizer class]])
+        {
+            [self.navigationController.navigationBar removeGestureRecognizer:gesture];
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -121,7 +181,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
--(void)loadSettings{
+-(void)loadSettings
+{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     _defaultHouseId = [prefs integerForKey:@"defaulthouseid"];
     /*
@@ -138,22 +199,19 @@
         
     }
      */
-    
-     NSInteger count = [self.accountData.houseList count];
-     MyEHouseData *defaultHouseData;
-     for (NSInteger i = 0; i < count; i++ ) {
-         defaultHouseData = [self.accountData.houseList objectAtIndex:i];
-         if( defaultHouseData.houseId == _defaultHouseId )
-             break;
-     }
-     if ( _defaultHouseId > 0 && [defaultHouseData.mId length]>0 ) {
-         [self performSegueWithIdentifier:@"ShowMainTabViewByDefaultHouseId" sender:self];
-     
-     }
-     
+    MyEHouseData *defaultHouseData = [self.accountData houseDataByHouseId:_defaultHouseId];
+    if (defaultHouseData.connection == 0 && defaultHouseData.mId != nil && ![defaultHouseData.mId isEqualToString:@""])
+    {
+        if ( defaultHouseData.thermostats.count > 0 && [defaultHouseData.mId length] > 0 )
+        {
+            [self performSegueWithIdentifier:@"ShowMainTabViewByDefaultHouseId" sender:self];
+            
+        }
+    }
 }
 
--(void)saveSettings:(NSInteger)defaultHouseId{   
+-(void)saveSettings:(NSInteger)defaultHouseId
+{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     if (self.rememberHouseIdSwitch.isOn) {
         [prefs setInteger:defaultHouseId  forKey:@"defaulthouseid"];
@@ -179,21 +237,34 @@
     // Configure the cell...
     MyEHouseData *houseDataAtIndex = [self.accountData validHouseInListAtIndex:indexPath.row];
     
-    if([houseDataAtIndex isConnected]) {// 如果房间有M并且至少有一个温控器正常连接
-
+    if(houseDataAtIndex.mId.length != 0 && houseDataAtIndex.connection == 0)
+    {// 如果房间有M并且至少有一个温控器正常连接
+        if (houseDataAtIndex.thermostats.count == 0)
+        {
+            MyEHouseListConnectedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Connected"];
+            if (cell == nil)
+            {
+                cell = [[MyEHouseListConnectedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Connected"];
+            }
+            [[cell textLabel] setText:houseDataAtIndex.houseName];
+            
+            return cell;
+        }
+        else
+        {
             MyEHouseListConnectedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HouseListConnectedCell"];
-            if (cell == nil) {
+            if (cell == nil)
+            {
                 cell = [[MyEHouseListConnectedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HouseListConnectedCell"];
             }
             [[cell textLabel] setText:houseDataAtIndex.houseName];
-
-            return cell;
-
             
-        
+            return cell;
+        }
     }
     // 现在不显示没有硬件，或硬件没有连接的房子了
-    else {
+    else
+    {
         MyEHouseListDisconnectedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HouseListDisconnectedCell"];
         if (cell == nil) {
             cell = [[MyEHouseListDisconnectedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HouseListDisconnectedCell"];
@@ -219,7 +290,8 @@
  * excerpt from the UITableViewCell class reference below:
  * Note: If you want to change the background color of a cell (by setting the background color of a cell via the backgroundColor property declared by UIView) you must do it in the tableView:willDisplayCell:forRowAtIndexPath: method of the delegate and not in tableView:cellForRowAtIndexPath: of the data source. Changes to the background colors of cells in a group-style table view has an effect in iOS 3.0 that is different than previous versions of the operating system. It now affects the area inside the rounded rectangle instead of the area outside of it.
  */
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     //设置单元格的背景
     //从NSDefaults里面取得上次进入过的房屋
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -227,9 +299,12 @@
     
     MyEHouseData *houseDataAtIndex = [self.accountData validHouseInListAtIndex:indexPath.row];
     
-    if (houseDataAtIndex.houseId == houseIdLastViewed) {
+    if (houseDataAtIndex.houseId == houseIdLastViewed)
+    {
         [cell setBackgroundColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.8 alpha:0.9]];
-    }else {
+    }
+    else
+    {
         [cell setBackgroundColor:[UIColor whiteColor]];
     }
 }
@@ -285,22 +360,44 @@
      */
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     MyEHouseData *houseData;
     MyEThermostatData *thermostatData;
     if ([[segue identifier] isEqualToString:@"ShowMainTabViewRemoteNo"] ||
-        [[segue identifier] isEqualToString:@"ShowMainTabViewRemoteYes"]) {
+        [[segue identifier] isEqualToString:@"ShowMainTabViewRemoteYes"])
+    {
 
         houseData = [self.accountData validHouseInListAtIndex:[self.tableView indexPathForSelectedRow].row];
         [self saveSettings:houseData.houseId];
     }
-    if([[segue identifier] isEqualToString:@"ShowMainTabViewByDefaultHouseId"] ) {
+    if([[segue identifier] isEqualToString:@"ShowMainTabViewByDefaultHouseId"] )
+    {
         houseData = [self.accountData houseDataByHouseId:_defaultHouseId];
     }
     
+    MainDelegate.houseData = houseData;
+    
     thermostatData = [houseData firstConnectedThermostat];
+    MainDelegate.thermostatData = thermostatData;
+    
     //在NSDefaults里面记录这次要进入的房屋
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *tid = [prefs objectForKey:KEY_FOR_TID_LAST_VIEWED];
+    for (MyEThermostatData *temp in MainDelegate.houseData.thermostats)
+    {
+        if ([tid isEqualToString:temp.tId])
+        {
+            MainDelegate.thermostatData = temp;
+            break;
+        }
+    }
+    if (MainDelegate.thermostatData == nil)
+    {
+        MainDelegate.thermostatData = [MainDelegate.houseData firstConnectedThermostat];
+    }
+    
+    //在NSDefaults里面记录这次要进入的房屋
     [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
     [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
     [prefs synchronize];
@@ -343,37 +440,37 @@
     dashboardViewController.tName = thermostatData.tName;
     dashboardViewController.isRemoteControl = isRC;     
     
-    MyEScheduleViewController *scheduleViewController = [[tabBarController childViewControllers] objectAtIndex:1];
-    scheduleViewController.userId = self.accountData.userId;
-    scheduleViewController.houseId = houseData.houseId;
-    scheduleViewController.houseName = houseData.houseName;
-    scheduleViewController.tId = thermostatData.tId;
-    scheduleViewController.tName = thermostatData.tName;
-    scheduleViewController.isRemoteControl = isRC;
+//    MyEScheduleViewController *scheduleViewController = [[tabBarController childViewControllers] objectAtIndex:1];
+//    scheduleViewController.userId = self.accountData.userId;
+//    scheduleViewController.houseId = houseData.houseId;
+//    scheduleViewController.houseName = houseData.houseName;
+//    scheduleViewController.tId = thermostatData.tId;
+//    scheduleViewController.tName = thermostatData.tName;
+//    scheduleViewController.isRemoteControl = isRC;
     
-    MyEVacationMasterViewController *vacationViewController = [[tabBarController childViewControllers] objectAtIndex:2];
-    vacationViewController.userId = self.accountData.userId;
-    vacationViewController.houseId = houseData.houseId;
-    vacationViewController.houseName = houseData.houseName;
-    vacationViewController.tId = thermostatData.tId;
-    vacationViewController.tName = thermostatData.tName;
-    vacationViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
+//    MyEVacationMasterViewController *vacationViewController = [[tabBarController childViewControllers] objectAtIndex:2];
+//    vacationViewController.userId = self.accountData.userId;
+//    vacationViewController.houseId = houseData.houseId;
+//    vacationViewController.houseName = houseData.houseName;
+//    vacationViewController.tId = thermostatData.tId;
+//    vacationViewController.tName = thermostatData.tName;
+//    vacationViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
     
-    MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
-    settingsViewController.userId = self.accountData.userId;
-    settingsViewController.userName = self.accountData.userName;
-    settingsViewController.houseId = houseData.houseId;
-    settingsViewController.houseName = houseData.houseName;
-    settingsViewController.tId = thermostatData.tId;
-    settingsViewController.tName = thermostatData.tName;
-//    settingsViewController.isRemoteControl = isRC;
+//    MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
+//    settingsViewController.userId = self.accountData.userId;
+//    settingsViewController.userName = self.accountData.userName;
+//    settingsViewController.houseId = houseData.houseId;
+//    settingsViewController.houseName = houseData.houseName;
+//    settingsViewController.tId = thermostatData.tId;
+//    settingsViewController.tName = thermostatData.tName;
+    //settingsViewController.isRemoteControl = isRC;
     
-    MyEThermostatListViewController *thermostatListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
-    thermostatListViewController.userId = self.accountData.userId;
-    thermostatListViewController.houseId = houseData.houseId;
-    thermostatListViewController.houseName = houseData.houseName;
-    thermostatListViewController.thermostats = houseData.thermostats;
-    thermostatListViewController.tId = thermostatData.tId;
+//    MyEThermostatListViewController *thermostatListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
+//    thermostatListViewController.userId = self.accountData.userId;
+//    thermostatListViewController.houseId = houseData.houseId;
+//    thermostatListViewController.houseName = houseData.houseName;
+//    thermostatListViewController.thermostats = houseData.thermostats;
+//    thermostatListViewController.tId = thermostatData.tId;
 }
 
 
@@ -397,7 +494,7 @@
         HUD.delegate = self;
     } else
         [HUD show:YES];
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@",URL_FOR_HOUSELIST_VIEW, self.accountData.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@",GetRequst(URL_FOR_HOUSELIST_VIEW), self.accountData.userId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"HouseListDownloader"  userDataDictionary:nil];
     NSLog(@"HouseListDownloader is %@",downloader.name);
 }

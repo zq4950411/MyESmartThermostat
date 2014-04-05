@@ -73,7 +73,7 @@
 
 // 判定房子是否有效，标准是房子的M状态必须为0表示M正常链接，T列表不能为空，这样的房子才算有效
 - (BOOL)isValid{
-    if([self.mId length] == 0 || [self.thermostats count] == 0)
+    if([self.mId length] == 0) //|| [self.thermostats count] == 0)
         return NO;
 
     return YES;
@@ -91,9 +91,12 @@
     return NO;
 }
 
-- (MyEThermostatData *)firstConnectedThermostat{
-    for (MyEThermostatData *t  in self.thermostats) {
-        if (t.thermostat ==0 ) {
+- (MyEThermostatData *)firstConnectedThermostat
+{
+    for (MyEThermostatData *t  in self.thermostats)
+    {
+        if (t.thermostat == 0 && t.deviceType == 0)
+        {
             return t;
         }
     }

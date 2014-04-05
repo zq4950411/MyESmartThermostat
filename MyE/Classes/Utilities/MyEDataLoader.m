@@ -67,8 +67,13 @@
         
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];   
-        [request setURL:[NSURL URLWithString:urlString]];   
-        [request setHTTPMethod:@"POST"]; 
+//        [request setURL:[NSURL URLWithString:urlString]];
+        [request setURL:[NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:
+                                              NSUTF8StringEncoding]]];
+        NSLog(@"%@",[urlString stringByAddingPercentEscapesUsingEncoding:
+                     NSUTF8StringEncoding]);
+
+        [request setHTTPMethod:@"POST"];
         [request setTimeoutInterval: 60];//setting timeout  
         [request setValue:postLength forHTTPHeaderField:@"Content-Length"];   
         [request setValue:@"application/x-www-form-urlencoded"  forHTTPHeaderField:@"Content-Type"];   
@@ -113,7 +118,8 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     // inform the user
-    NSLog(@"Connection failed! Error - %@ %@",
+    NSLog(@"Connection failed for %@! Error - %@ %@",
+          self.name,
           [error localizedDescription],
           [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
     if ([self.delegate respondsToSelector:@selector(connection:didFailWithError:loaderName:)]) {
@@ -126,9 +132,12 @@
     // do something with the data
     // receivedData is declared as a method instance elsewhere
     NSLog(@"Succeeded! Received %d bytes of data",[_receivedData length]);
-
+    if ([_receivedData length] == 0) {
+        NSLog(@"数据请求为0");
+        return;
+    }
     NSString *string = [[NSString alloc] initWithData:_receivedData encoding:NSUTF8StringEncoding];
-    
+
     // 如果uploader里面带了用户数据，就调用下面函数把用户数据词典传回去
     if ([self.delegate respondsToSelector:@selector(didReceiveString:loaderName:userDataDictionary:)]) {
         [self.delegate didReceiveString:string loaderName:self.name userDataDictionary:self.userDataDictionary];

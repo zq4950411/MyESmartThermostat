@@ -255,7 +255,7 @@
         [HUD show:YES];
 
 //    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@",URL_FOR_SETTINGS_VIEW, self.userId, self.houseId];
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@",URL_FOR_HOUSELIST_VIEW, self.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@",GetRequst(URL_FOR_HOUSELIST_VIEW), self.userId];
     NSLog(@"%@", urlStr);
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"SettingsDownloader"  userDataDictionary:nil];
     NSLog(@"SettingsDownloader is %@",loader.name);
@@ -281,7 +281,7 @@
 
 //    NSString *urlStr = [NSString stringWithFormat:@"%@&currentPassowrd=null&newPassword=null&keyPad=%i",URL_FOR_SETTINGS_SAVE, keypad];  // 现在这个接口没用了
     // 这里借用HouseList View的接口，但不过还是要编程从houseList里面取得当前房子，因为用户可以在settings面板刷新，取得全部新的houseList，然后需要从里面取得当前房子的house数据
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&currentPassowrd=null&newPassword=null&keyPad=%i",URL_FOR_SETTINGS_SAVE, self.userId, self.houseId, tId, keypad];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&currentPassowrd=null&newPassword=null&keyPad=%i",GetRequst(URL_FOR_SETTINGS_SAVE), self.userId, self.houseId, tId, keypad];
     
     // 记录下这次修改的t的id
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -334,7 +334,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_SETTINGS_DELETE_THERMOSTAT, self.userId, self.houseId, tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_SETTINGS_DELETE_THERMOSTAT), self.userId, self.houseId, tId];
     
     // 记录下这次修改的t的id
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -368,7 +368,7 @@
     NSDictionary *info = [timer userInfo];
     NSString *tId = [info objectForKey:@"tId"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",URL_FOR_SETTINGS_DELETE_THERMOSTAT_QUERY_STATUS, self.userId, self.houseId, tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_SETTINGS_DELETE_THERMOSTAT), self.userId, self.houseId, tId];
     
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:@"" delegate:self loaderName:@"SettingsDeleteThermostatQueryStatusUploader" userDataDictionary:info];
     NSLog(@"SettingsDeleteThermostatQueryStatusUploader is %@, urlstr is %@",loader.name, urlStr);
@@ -395,7 +395,7 @@
         //string = @"{\"mId\":\"05-00-00-00-00-00-02-0E\",\"connection\":0,\"houseName\":\"House5604\",\"thermostats\":[{\"thermostat\":0,\"tName\":\"T-50\",\"deviceType\":0,\"tId\":\"00-00-00-00-00-00-02-50\",\"keypad\":0,\"remote\":1},{\"thermostat\":0,\"tName\":\"T-74\",\"deviceType\":0,\"tId\":\"00-00-00-00-00-00-01-74\",\"keypad\":0,\"remote\":1}],\"houseId\":3374}";
         MyEHouseData *houseData = [self getHouseFromJSONString:string byHouseId:self.houseId];
         if (houseData) {
-            NSLog(@"settings data is \n %@", [[houseData JSONDictionary] JSONRepresentation]);
+            //NSLog(@"settings data is \n %@", [[houseData JSONDictionary] JSONRepresentation]);
             [self setHouseData:houseData];
         }else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
