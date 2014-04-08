@@ -89,7 +89,7 @@
 -(void)doThisToChangeChart{
     [_eColumnChart removeFromSuperview];
     _eColumnChart = nil;
-    _eColumnChart = [[EColumnChart alloc] initWithFrame:CGRectMake(40, 140, 270, 200)];
+    _eColumnChart = [[EColumnChart alloc] initWithFrame:CGRectMake(40, 78, 270, 200)];
     [self defineGestureWith:_eColumnChart];
     [_eColumnChart setColumnsIndexStartFromLeft:YES];
     [_eColumnChart setDataSource:self];

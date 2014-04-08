@@ -4,16 +4,19 @@
 //
 //  Created by Ye Yuan on 3/17/13.
 //  Copyright (c) 2013 MyEnergy Domain. All rights reserved.
-//
+
 
 #import "MyELaunchIntroViewController.h"
-#define DEMO_PAGE_NUM 2
+
+#define DEMO_PAGE_NUM 4
+#define IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height-568)?NO:YES)
+
 @interface MyELaunchIntroViewController ()
 
 @end
 
 @implementation MyELaunchIntroViewController
-@synthesize pageControlBeingUsed;
+@synthesize scrollView,pageControl;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -24,85 +27,86 @@
     return self;
 }
 
+#pragma mark - life Circle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * DEMO_PAGE_NUM, self.scrollView.frame.size.height);
-    self.pageControlBeingUsed = NO;
     
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    if ([UIScreen mainScreen].scale == 2.f && screenHeight == 568.0f) {
-        CGRect frame = [self.scrollView frame];
-
-        CGRect newFrame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, 548.0f);
-
-        [self.scrollView setFrame:newFrame];
-
-
-        self.imageView0.image = [UIImage imageNamed:@"demo0-568h.png"];
-        self.imageView1.image = [UIImage imageNamed:@"demo1-568h.png"];
-
-    } else {
-        
-    }
+    scrollView.alignment = SwipeViewAlignmentCenter;
+    scrollView.pagingEnabled = YES;
+    scrollView.wrapEnabled = NO;
+    scrollView.itemsPerPage = 1;
+    scrollView.truncateFinalPage = YES;
+    
+    //configure page control
+    pageControl.numberOfPages = scrollView.numberOfPages;
+    pageControl.defersCurrentPageDisplay = YES;
 }
-
-- (void)didReceiveMemoryWarning
+#pragma mark - scroll dataSource
+- (NSInteger)numberOfItemsInSwipeView:(SwipeView *)swipeView
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    return 4;
 }
 
-- (void)viewDidUnload {
-    [self setSubview0:nil];
-    [self setSubview1:nil];
-
-    [self setScrollView:nil];
-    [self setPageControl:nil];
-    [self setImageView0:nil];
-    [self setImageView1:nil];
-
-    [super viewDidUnload];
-}
-
-#pragma mark
-#pragma mark ScrollView Delegate methods
-- (void)scrollViewDidScroll:(UIScrollView *)sender {
-    // Update the page when more than 50% of the previous/next page is visible
-    CGFloat pageWidth = self.scrollView.frame.size.width;
-    int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    self.pageControl.currentPage = page;
-}
-- (IBAction)changePage:(id)sender {
-    // update the scroll view to the appropriate page
-    CGRect frame;
-    frame.origin.x = self.scrollView.frame.size.width * self.pageControl.currentPage;
-    frame.origin.y = 0;
-    frame.size = self.scrollView.frame.size;
-    [self.scrollView scrollRectToVisible:frame animated:YES];
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    pageControlBeingUsed = NO;
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    pageControlBeingUsed = NO;
-}
-// Implement prepareForSegue to do additional configuration, such as assigning data before transition to another view.
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    NSString *ident = [segue identifier];
-    if ([ident isEqualToString:@"SegueLaunchIntroToMainTabView"]) {
-        UIStoryboard *storybord = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-
-        // 获取程序的主Navigation VC, 这里可以类似地从stroyboard获取任意的VC，然后设置它为rootViewController，这样就可以显示它
-        UINavigationController *controller = (UINavigationController*)[storybord
-                                                                   instantiateViewControllerWithIdentifier: @"MainNavViewController"];
-        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        window.rootViewController = controller;// 用主Navigation VC作为程序的rootViewController
-        [window makeKeyAndVisible];
-
+- (UIView *)swipeView:(SwipeView *)swipeView viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
+{
+    UIImageView *img = [[UIImageView alloc] initWithFrame:self.view.frame];
+    if (IS_IPHONE5) {
+        switch (index) {
+            case 0:
+                [img setImage:[UIImage imageNamed:@"demo1-568h@2x"]];
+                break;
+            case 1:
+                [img setImage:[UIImage imageNamed:@"demo2-568h@2x"]];
+                break;
+            case 2:
+                [img setImage:[UIImage imageNamed:@"demo3-568h@2x"]];
+                break;
+            default:
+                [img setImage:[UIImage imageNamed:@"demo4-568h@2x"]];
+                break;
+        }
+    }else{
+        switch (index) {
+            case 0:
+                [img setImage:[UIImage imageNamed:@"demo1"]];
+                break;
+            case 1:
+                [img setImage:[UIImage imageNamed:@"demo2"]];
+                break;
+            case 2:
+                [img setImage:[UIImage imageNamed:@"demo3"]];
+                break;
+            default:
+                [img setImage:[UIImage imageNamed:@"demo4"]];
+                break;
+        }
     }
+    return img;
+}
+
+#pragma mark - scroll delegate
+- (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView
+{
+    //update page control page
+    pageControl.currentPage = swipeView.currentPage;
+    //这里算是取巧了。真正的做法应该是动态创建btn，这样就显得btn是从画面外滚动进来的，使得界面更为好看。说到底还是对于scrollView的理解还是不够
+    if (pageControl.currentPage == 3) {
+        self.enterBtn.hidden = NO;
+    }else{
+        self.enterBtn.hidden = YES;
+    }
+}
+
+- (void)swipeView:(SwipeView *)swipeView didSelectItemAtIndex:(NSInteger)index
+{
+    NSLog(@"Selected item at index %li", (long)index);
+}
+#pragma mark - IBAction methods
+- (IBAction)pageControlTapped
+{
+    //update swipe view page
+    [scrollView scrollToPage:pageControl.currentPage duration:0.4];
 }
 @end

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="V2w-Kw-j0N">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="hpH-E2-uCn">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -362,7 +362,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2303" y="-915"/>
+            <point key="canvasLocation" x="-569" y="-1259"/>
         </scene>
         <!--More View Controller - Account-->
         <scene sceneID="Equ-Rj-0ZF">
@@ -392,7 +392,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SmN-L8-DcJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1693" y="-659"/>
+            <point key="canvasLocation" x="-1179" y="-1003"/>
         </scene>
         <!--Setting View Controller - Setting-->
         <scene sceneID="hgc-8j-eax">
@@ -415,7 +415,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="3" title="Setting" image="tab-settings.png" id="aeF-jz-BQU"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="Settings" image="tab-settings.png" id="aeF-jz-BQU"/>
                     <navigationItem key="navigationItem" id="wSs-Eb-9qd"/>
                     <connections>
                         <outlet property="tableView" destination="vp1-Tm-llg" id="MuS-Kn-EmG"/>
@@ -423,7 +423,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Bb-xe-8SG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1936" y="735"/>
+            <point key="canvasLocation" x="-936" y="391"/>
         </scene>
         <!--MyE Settings View Controller - Settings-->
         <scene sceneID="3Br-sT-LRY">
@@ -569,7 +569,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="duE-f4-sem" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2290" y="1129"/>
+            <point key="canvasLocation" x="-582" y="785"/>
         </scene>
         <!--MyE Password Reset View Controller-->
         <scene sceneID="V1V-Bm-QMW">
@@ -698,7 +698,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n0A-Qu-lGP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1235" y="-1065"/>
+            <point key="canvasLocation" x="-1637" y="-1409"/>
         </scene>
         <!--MyE Staycation Detail View Controller - Staycation Detail-->
         <scene sceneID="sB1-v7-bP5">
@@ -981,7 +981,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ctv-qk-OOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4003" y="-240"/>
+            <point key="canvasLocation" x="1131" y="-584"/>
         </scene>
         <!--MyE Vacation Master View Controller - Vacation-->
         <scene sceneID="b1r-aY-SzU">
@@ -1069,7 +1069,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OMO-4F-zPp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3404" y="-636"/>
+            <point key="canvasLocation" x="532" y="-980"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sg4-uA-4c6">
@@ -1084,7 +1084,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w4p-8w-tDL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3054" y="-29"/>
+            <point key="canvasLocation" x="182" y="-373"/>
         </scene>
         <!--MyE Vacation Detail View Controller - Vacation Detail-->
         <scene sceneID="9V3-zL-wVN">
@@ -1314,7 +1314,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qbj-Si-1sz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4003" y="-810"/>
+            <point key="canvasLocation" x="1131" y="-1154"/>
         </scene>
         <!--MyE Schedule View Controller - Program Today-->
         <scene sceneID="13">
@@ -1384,7 +1384,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2805" y="-636"/>
+            <point key="canvasLocation" x="-67" y="-980"/>
         </scene>
         <!--Smart Up View Controller - Smart-Up-->
         <scene sceneID="ocy-QK-5sL">
@@ -1413,7 +1413,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="whu-Ub-xlJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2295" y="-135"/>
+            <point key="canvasLocation" x="-577" y="-479"/>
         </scene>
         <!--MyE Login View Controller - MyE-->
         <scene sceneID="jBU-9u-TJS">
@@ -1505,7 +1505,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="58G-Rq-sBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2" y="136"/>
+            <point key="canvasLocation" x="-2874" y="-208"/>
         </scene>
         <!--MyE House List View Controller - House List-->
         <scene sceneID="LlY-EV-lpB">
@@ -1655,7 +1655,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yZj-8a-4ci" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="697" y="494"/>
+            <point key="canvasLocation" x="-2175" y="150"/>
         </scene>
         <!--MyE Main Tab Bar Controller - MyE-->
         <scene sceneID="15">
@@ -1681,7 +1681,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="14" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1497" y="95"/>
+            <point key="canvasLocation" x="-1375" y="-249"/>
         </scene>
         <!--Scene View Controller - Scene-->
         <scene sceneID="85e-LZ-WLU">
@@ -1703,14 +1703,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="2" title="Scene" image="tab-Scene.png" id="NTP-Z9-BwL"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Events" image="tab-Scene.png" id="NTP-Z9-BwL"/>
                     <connections>
                         <outlet property="tableView" destination="dOd-XA-gTa" id="oYL-4o-aio"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Okc-AK-cWL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1561" y="735"/>
+            <point key="canvasLocation" x="-1311" y="391"/>
         </scene>
         <!--MyE Thermostat List View Controller - Switch-->
         <scene sceneID="3fO-Vf-yTc">
@@ -1824,89 +1824,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hiy-h4-WwN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2295" y="471"/>
-        </scene>
-        <!--MyE Launch Intro View Controller-->
-        <scene sceneID="yef-0V-Rf4">
-            <objects>
-                <viewController id="V2w-Kw-j0N" customClass="MyELaunchIntroViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="SWk-ux-ocT"/>
-                        <viewControllerLayoutGuide type="bottom" id="IbK-ui-gEY"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="wYn-xr-ukg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mp9-NV-TF1">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y9E-hD-okx">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="demo0.png" translatesAutoresizingMaskIntoConstraints="NO" id="5Ve-Lj-QcD">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </imageView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ii3-3o-ciR">
-                                        <rect key="frame" x="320" y="0.0" width="320" height="460"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="demo1.png" translatesAutoresizingMaskIntoConstraints="NO" id="SUW-p2-qzW">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </imageView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <connections>
-                                    <outlet property="delegate" destination="V2w-Kw-j0N" id="d2q-3m-d2T"/>
-                                </connections>
-                            </scrollView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="DLA-XI-yRG">
-                                <rect key="frame" x="0.0" y="538" width="320" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="pageIndicatorTintColor" red="0.50196081399917603" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="changePage:" destination="V2w-Kw-j0N" eventType="valueChanged" id="t5W-gl-nO0"/>
-                                </connections>
-                            </pageControl>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8K0-B6-dwv">
-                                <rect key="frame" x="244" y="308" width="63" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Enter" image="button-enter.png">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="7cr-m5-iJW" kind="modal" identifier="SegueLaunchIntroToMainTabView" modalTransitionStyle="crossDissolve" id="5Xj-gn-KHG"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="imageView0" destination="5Ve-Lj-QcD" id="HoC-cv-ltG"/>
-                        <outlet property="imageView1" destination="SUW-p2-qzW" id="ZD3-FG-jsZ"/>
-                        <outlet property="pageControl" destination="DLA-XI-yRG" id="nom-wy-3qY"/>
-                        <outlet property="scrollView" destination="mp9-NV-TF1" id="ERM-ni-xp3"/>
-                        <outlet property="subview0" destination="y9E-hD-okx" id="kXi-2b-PYx"/>
-                        <outlet property="subview1" destination="Ii3-3o-ciR" id="Woj-zi-9cc"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dhg-en-2UR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-904" y="86"/>
+            <point key="canvasLocation" x="-577" y="127"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0Vu-02-7ne">
@@ -1925,7 +1843,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C4S-zW-Ut4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-495" y="95"/>
+            <point key="canvasLocation" x="-3263" y="-201"/>
         </scene>
         <!--MyE Vacation Edit From Staycation View Controller - Vacation Detail-->
         <scene sceneID="Yvb-c8-SAP">
@@ -2153,7 +2071,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0eg-d7-M7E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4590" y="-240"/>
+            <point key="canvasLocation" x="1718" y="-584"/>
         </scene>
         <!--MyE Staycation Edit From Vacation View Controller - Staycation Detail-->
         <scene sceneID="9AQ-ES-6Z5">
@@ -2434,7 +2352,78 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OMf-Um-GK3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4581" y="-810"/>
+            <point key="canvasLocation" x="1709" y="-1154"/>
+        </scene>
+        <!--MyE Launch Intro View Controller-->
+        <scene sceneID="uP8-L7-dKe">
+            <objects>
+                <viewController id="hpH-E2-uCn" customClass="MyELaunchIntroViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6cu-Rh-h5P"/>
+                        <viewControllerLayoutGuide type="bottom" id="oZe-rT-aCd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IGS-1B-dg6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kMp-5i-XzN" customClass="SwipeView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="hpH-E2-uCn" id="abk-9W-qru"/>
+                                    <outlet property="delegate" destination="hpH-E2-uCn" id="A9W-9x-K7w"/>
+                                </connections>
+                            </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjh-M7-pLa">
+                                <rect key="frame" x="58" y="438" width="205" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="zlE-za-P79"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Hit Me To Enter!"/>
+                                <connections>
+                                    <segue destination="7cr-m5-iJW" kind="modal" identifier="SegueLaunchIntroToMainTabView" id="HRC-IB-PqC"/>
+                                </connections>
+                            </button>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="8M5-67-XrZ">
+                                <rect key="frame" x="0.0" y="488" width="320" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="xDS-bc-bD6"/>
+                                </constraints>
+                                <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="currentPageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="pageControlTapped" destination="hpH-E2-uCn" eventType="valueChanged" id="ISk-2C-w4V"/>
+                                </connections>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="oZe-rT-aCd" firstAttribute="top" secondItem="kMp-5i-XzN" secondAttribute="bottom" id="HLr-Uw-SpF"/>
+                            <constraint firstItem="oZe-rT-aCd" firstAttribute="top" secondItem="8M5-67-XrZ" secondAttribute="bottom" constant="43" id="O5j-bD-ORU"/>
+                            <constraint firstItem="gjh-M7-pLa" firstAttribute="leading" secondItem="IGS-1B-dg6" secondAttribute="leading" constant="58" id="Pyj-8U-AMP"/>
+                            <constraint firstItem="kMp-5i-XzN" firstAttribute="leading" secondItem="IGS-1B-dg6" secondAttribute="leading" id="QKD-hY-nW7"/>
+                            <constraint firstAttribute="trailing" secondItem="8M5-67-XrZ" secondAttribute="trailing" id="Qwr-kY-TFK"/>
+                            <constraint firstItem="8M5-67-XrZ" firstAttribute="leading" secondItem="IGS-1B-dg6" secondAttribute="leading" id="WeV-Ub-o5m"/>
+                            <constraint firstItem="kMp-5i-XzN" firstAttribute="top" secondItem="IGS-1B-dg6" secondAttribute="top" id="Y8v-DJ-AnK"/>
+                            <constraint firstAttribute="trailing" secondItem="gjh-M7-pLa" secondAttribute="trailing" constant="57" id="gmG-LH-Ikz"/>
+                            <constraint firstItem="8M5-67-XrZ" firstAttribute="top" secondItem="gjh-M7-pLa" secondAttribute="bottom" constant="10" id="gup-nG-YsL"/>
+                            <constraint firstAttribute="trailing" secondItem="kMp-5i-XzN" secondAttribute="trailing" id="hLx-zb-yRh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="enterBtn" destination="gjh-M7-pLa" id="7mG-7D-6Fz"/>
+                        <outlet property="pageControl" destination="8M5-67-XrZ" id="fn2-IX-sLB"/>
+                        <outlet property="scrollView" destination="kMp-5i-XzN" id="HNi-Ry-8RK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wd3-KX-z17" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3684" y="-196"/>
         </scene>
     </scenes>
     <resources>
@@ -2449,11 +2438,8 @@
         <image name="Tb_Off.png" width="40" height="40"/>
         <image name="Vacation01.png" width="45" height="45"/>
         <image name="Vacation02.png" width="45" height="45"/>
-        <image name="button-enter.png" width="69" height="34"/>
         <image name="buttonbg.png" width="100" height="37"/>
         <image name="cond000.png" width="125" height="105"/>
-        <image name="demo0.png" width="320" height="460"/>
-        <image name="demo1.png" width="320" height="460"/>
         <image name="house.png" width="90" height="90"/>
         <image name="loginbg.png" width="320" height="512"/>
         <image name="nomark.png" width="30" height="30"/>

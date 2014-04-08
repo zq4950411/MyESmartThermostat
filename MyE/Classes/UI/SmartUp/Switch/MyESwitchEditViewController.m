@@ -170,7 +170,7 @@
 -(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didDismissWithButtonIndex:(NSInteger)index{
     if (_reportTime == 0) {
         _reportTime = 10;
-        self.tableLabel.text = [NSString stringWithFormat:@"Report timely(%li Minute(s))",(long)_reportTime];
+        self.tableLabel.text = [NSString stringWithFormat:@"Report timely(%li Minutes)",(long)_reportTime];
     }
     [self checkIfChange];
 }

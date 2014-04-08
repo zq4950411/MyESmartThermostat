@@ -283,7 +283,7 @@
     
     UIButton *penButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [penButton addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
-    [penButton setImage:[UIImage imageNamed:@"pen.png"] forState:UIControlStateNormal];
+    [penButton setImage:[UIImage imageNamed:@"editBtn.png"] forState:UIControlStateNormal];
     penButton.frame = CGRectMake(0, 0, 30, 30);
     penButton.tag = indexPath.row;
     cell.accessoryView = penButton;

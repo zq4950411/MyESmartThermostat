@@ -565,6 +565,7 @@
 		C3A292BD15171DBF00FB6E92 /* Ctrl_Auto-Cooling02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A292B915171DBE00FB6E92 /* Ctrl_Auto-Cooling02@2x.png */; };
 		C3A292BE15171DBF00FB6E92 /* Ctrl_Auto-Heating01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A292BA15171DBF00FB6E92 /* Ctrl_Auto-Heating01@2x.png */; };
 		C3A292BF15171DBF00FB6E92 /* Ctrl_Auto-Heating02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A292BB15171DBF00FB6E92 /* Ctrl_Auto-Heating02@2x.png */; };
+		C3A2C09818F39DE500A08D2C /* SwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A2C09718F39DE500A08D2C /* SwipeView.m */; };
 		C3A2E0DE1504468B00CB0444 /* MyEWeeklyModeEditingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A2E0DD1504468B00CB0444 /* MyEWeeklyModeEditingView.m */; };
 		C3A393D51523E11300E7827D /* backbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A393D31523E11300E7827D /* backbutton@2x.png */; };
 		C3A393D71523E1A700E7827D /* backbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A393D61523E1A700E7827D /* backbutton.png */; };
@@ -1444,6 +1445,8 @@
 		C3A292B915171DBE00FB6E92 /* Ctrl_Auto-Cooling02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ctrl_Auto-Cooling02@2x.png"; sourceTree = "<group>"; };
 		C3A292BA15171DBF00FB6E92 /* Ctrl_Auto-Heating01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ctrl_Auto-Heating01@2x.png"; sourceTree = "<group>"; };
 		C3A292BB15171DBF00FB6E92 /* Ctrl_Auto-Heating02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ctrl_Auto-Heating02@2x.png"; sourceTree = "<group>"; };
+		C3A2C09618F39DE500A08D2C /* SwipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeView.h; sourceTree = "<group>"; };
+		C3A2C09718F39DE500A08D2C /* SwipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeView.m; sourceTree = "<group>"; };
 		C3A2E0DC1504468B00CB0444 /* MyEWeeklyModeEditingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEWeeklyModeEditingView.h; sourceTree = "<group>"; };
 		C3A2E0DD1504468B00CB0444 /* MyEWeeklyModeEditingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEWeeklyModeEditingView.m; sourceTree = "<group>"; };
 		C3A393D31523E11300E7827D /* backbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backbutton@2x.png"; sourceTree = "<group>"; };
@@ -1817,6 +1820,7 @@
 		B2588C2D17B09B9C007ED13C /* LIB */ = {
 			isa = PBXGroup;
 			children = (
+				C3A2C09518F39DE500A08D2C /* SwipeView */,
 				C3194BA118E29C5D006E3ABE /* MultiSegment */,
 				C3194B7C18E299EA006E3ABE /* EChart */,
 				C3AE7F5318E14FF3000AA5FC /* MZTimerLabel */,
@@ -2587,6 +2591,15 @@
 				C3974C2F1505F51B004BB659 /* MyEUtil.m */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		C3A2C09518F39DE500A08D2C /* SwipeView */ = {
+			isa = PBXGroup;
+			children = (
+				C3A2C09618F39DE500A08D2C /* SwipeView.h */,
+				C3A2C09718F39DE500A08D2C /* SwipeView.m */,
+			);
+			path = SwipeView;
 			sourceTree = "<group>";
 		};
 		C3A393E0152424D300E7827D /* Settings */ = {
@@ -3726,6 +3739,7 @@
 				C398962B1709276E00C2D0E7 /* MyEHouseListDisconnectedCell.m in Sources */,
 				C3F61B0218E1154200DEE477 /* SBJsonStreamWriter.m in Sources */,
 				C30E020014C7A69200011160 /* main.m in Sources */,
+				C3A2C09818F39DE500A08D2C /* SwipeView.m in Sources */,
 				C3194B9B18E299EA006E3ABE /* ELine.m in Sources */,
 				C3FAB00D14F656560044CA03 /* MyEDashboardViewController.m in Sources */,
 				C3AE7F2B18E14A2F000AA5FC /* MyEDelayTimeSetViewController.m in Sources */,
@@ -4057,7 +4071,7 @@
 		C30E021914C7A69200011160 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ye Yuan (TE2A8WSXFT)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MyE/MyE-Prefix.pch";
@@ -4071,7 +4085,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F897E7C4-20F7-4E7D-BD51-348D77B613FE";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -4080,7 +4094,7 @@
 		C30E021A14C7A69200011160 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ye Yuan (TE2A8WSXFT)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MyE/MyE-Prefix.pch";
@@ -4094,8 +4108,8 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F897E7C4-20F7-4E7D-BD51-348D77B613FE";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F897E7C4-20F7-4E7D-BD51-348D77B613FE";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

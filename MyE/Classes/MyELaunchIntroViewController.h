@@ -7,19 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeView.h"
 
-@interface MyELaunchIntroViewController : UIViewController
-@property(nonatomic)BOOL pageControlBeingUsed;
+@interface MyELaunchIntroViewController : UIViewController<SwipeViewDataSource,SwipeViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIView *subview0;
-@property (weak, nonatomic) IBOutlet UIView *subview1;
+@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) IBOutlet SwipeView *scrollView;
+@property (strong, nonatomic) IBOutlet UIButton *enterBtn;
 
-
-@property (weak, nonatomic) IBOutlet UIImageView *imageView0;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView1;
-
-
-- (IBAction)changePage:(id)sender;
 @end
