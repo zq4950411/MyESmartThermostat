@@ -34,7 +34,7 @@
 -(IBAction) setIp:(UIButton *) sender
 {
     ServerViewController *sc = [[ServerViewController alloc] init];
-    [self presentModalViewController:sc animated:YES];
+    [self presentViewController:sc animated:YES completion:nil];
 }
 
 
@@ -78,18 +78,18 @@
     [self loadSettings];
     
     // Observe keyboard hide and show notifications to resize the text view appropriately.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(hideKeyboardBeforeResignActive:)
-                                                 name:UIApplicationWillResignActiveNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillShow:)
+//                                                 name:UIKeyboardWillShowNotification
+//                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillHide:)
+//                                                 name:UIKeyboardWillHideNotification
+//                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(hideKeyboardBeforeResignActive:)
+//                                                 name:UIApplicationWillResignActiveNotification
+//                                               object:nil];
 }
 
 

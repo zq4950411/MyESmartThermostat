@@ -58,8 +58,7 @@
             for (MyERoom *r in self.switchInfo.rooms) {
                 [array addObject:r.roomName];
             }
-            NSLog(@"%@   %@",[array componentsJoinedByString:@","],self.roomLabel.text);
-            [MyEUniversal doThisWhenNeedPickerWithTitle:@"Select Room" andDelegate:self andTag:1 andArray:array andSelectRow:[array indexOfObject:self.roomLabel.text] andViewController:self];
+            [MyEUniversal doThisWhenNeedPickerWithTitle:@"Select Room" andDelegate:self andTag:1 andArray:@[array] andSelectRow:[self.roomLabel.text length]!=0?@[@([array indexOfObject:self.roomLabel.text])]:@[@0] andViewController:self];
         }
     }
     if (indexPath.section == 1) {
@@ -75,7 +74,7 @@
             for (int i = 1; i < 7; i++) {
                 [array addObject:[NSString stringWithFormat:@"%i Minute(s)",i*10]];
             }
-            [MyEUniversal doThisWhenNeedPickerWithTitle:@"Please select report time" andDelegate:self andTag:2 andArray:array andSelectRow:_reportTime/10-1 andViewController:self];
+            [MyEUniversal doThisWhenNeedPickerWithTitle:@"Please select report time" andDelegate:self andTag:2 andArray:array andSelectRow:@[@(_reportTime/10-1)] andViewController:self];
         }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -85,7 +84,15 @@
         [MyEUtil showMessageOn:nil withMessage:@"Make sure name length between 1 and 10"];
         return;
     }
-    [self urlLoaderWithUrlString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&name=%@&roomId=%i&powerType=%li&reporteTime=%li",GetRequst(URL_FOR_SWITCH_SAVE),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId,self.nameTextField.text,_room.roomId,(long)_selectedIndex,(long)_reportTime] loaderName:@"uploadSwitchInfo"];
+    [self urlLoaderWithUrlString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&name=%@&roomId=%i&powerType=%li&reporteTime=%li",
+                                  GetRequst(URL_FOR_SWITCH_SAVE),
+                                  MainDelegate.houseData.houseId,
+                                  self.device.tid,
+                                  self.device.deviceId,
+                                  self.nameTextField.text,
+                                  _room.roomId,
+                                  (long)_selectedIndex,
+                                  (long)_reportTime] loaderName:@"uploadSwitchInfo"];
 }
 
 #pragma mark - private methods

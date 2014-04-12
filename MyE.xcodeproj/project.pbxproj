@@ -457,6 +457,7 @@
 		C34CF2CF14FE265A00E88079 /* tab-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C34CF2C714FE265A00E88079 /* tab-settings@2x.png */; };
 		C34CF2D014FE265A00E88079 /* tab-vacation.png in Resources */ = {isa = PBXBuildFile; fileRef = C34CF2C814FE265A00E88079 /* tab-vacation.png */; };
 		C34CF2D114FE265A00E88079 /* tab-vacation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C34CF2C914FE265A00E88079 /* tab-vacation@2x.png */; };
+		C36EDAA018F79DC300654B56 /* ApplicationIcon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C36EDA9F18F79DC300654B56 /* ApplicationIcon-72@2x.png */; };
 		C37EC7381511D57D00C23210 /* MyEStaycationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37EC7371511D57D00C23210 /* MyEStaycationDetailViewController.m */; };
 		C38654281565710500B85F66 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = C386541A1565710500B85F66 /* add.png */; };
 		C38654291565710500B85F66 /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C386541B1565710500B85F66 /* add@2x.png */; };
@@ -1306,6 +1307,7 @@
 		C34CF2C714FE265A00E88079 /* tab-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-settings@2x.png"; sourceTree = "<group>"; };
 		C34CF2C814FE265A00E88079 /* tab-vacation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-vacation.png"; sourceTree = "<group>"; };
 		C34CF2C914FE265A00E88079 /* tab-vacation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-vacation@2x.png"; sourceTree = "<group>"; };
+		C36EDA9F18F79DC300654B56 /* ApplicationIcon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ApplicationIcon-72@2x.png"; sourceTree = "<group>"; };
 		C37EC7361511D57D00C23210 /* MyEStaycationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEStaycationDetailViewController.h; sourceTree = "<group>"; };
 		C37EC7371511D57D00C23210 /* MyEStaycationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEStaycationDetailViewController.m; sourceTree = "<group>"; };
 		C386541A1565710500B85F66 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
@@ -2287,6 +2289,7 @@
 				C3A292AE151716AC00FB6E92 /* Default@2x.png */,
 				C39AD948151C589C00ACAB52 /* ApplicationIcon.png */,
 				C39AD949151C589C00ACAB52 /* ApplicationIcon@2x.png */,
+				C36EDA9F18F79DC300654B56 /* ApplicationIcon-72@2x.png */,
 				B2588BEB17B09B9C007ED13C /* Framework */,
 				C30E01F914C7A69200011160 /* MyE */,
 				C30E01FA14C7A69200011160 /* Supporting Files */,
@@ -3412,6 +3415,7 @@
 				C38A83FC159515E200B5C9BB /* action-sheet-panel.png in Resources */,
 				C38A83FD159515E200B5C9BB /* action-sheet-panel@2x.png in Resources */,
 				C38A83FE159515E200B5C9BB /* alert-black-button.png in Resources */,
+				C36EDAA018F79DC300654B56 /* ApplicationIcon-72@2x.png in Resources */,
 				C38A83FF159515E200B5C9BB /* alert-black-button@2x.png in Resources */,
 				C38A8400159515E200B5C9BB /* alert-gray-button.png in Resources */,
 				C38A8401159515E200B5C9BB /* alert-gray-button@2x.png in Resources */,
@@ -4071,7 +4075,7 @@
 		C30E021914C7A69200011160 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Yichun MyEnergy Domain Inc (4J69VHKV9T)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MyE/MyE-Prefix.pch";
@@ -4094,7 +4098,7 @@
 		C30E021A14C7A69200011160 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Yichun MyEnergy Domain Inc (4J69VHKV9T)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MyE/MyE-Prefix.pch";

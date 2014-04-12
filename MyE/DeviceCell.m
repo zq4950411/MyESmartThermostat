@@ -57,10 +57,10 @@
             self.headImageView.hidden = YES;
             self.dateLabel.text = device.instructionName;
         }
-        else if(device.terminalType.intValue == 3)
+        else if(device.terminalType.intValue == 3 || device.terminalType.intValue == 6)
         {
             self.headImageView.hidden = YES;
-            self.dateLabel.text = nil;
+            self.dateLabel.text = device.instructionName;;
         }
     }
 }

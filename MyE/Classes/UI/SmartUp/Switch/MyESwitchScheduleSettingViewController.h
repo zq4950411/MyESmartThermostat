@@ -10,8 +10,8 @@
 #import "MyESwitchManualControlViewController.h"
 #import "MBProgressHUD.h"
 @interface MyESwitchScheduleSettingViewController : UIViewController<MultiSelectSegmentedControlDelegate,IQActionSheetPickerView,MyEDataLoaderDelegate>{
-    NSArray *_startTimeArray;
-    NSArray *_endTimeArray;
+    NSArray *_headTimeArray;
+    NSArray *_tailTimeArray;
     MBProgressHUD *HUD;
     MyESwitchSchedule *_scheduleNew;
     NSArray *_initArray;  //初始化array，用于表示编辑时刚进入此面板时的内容

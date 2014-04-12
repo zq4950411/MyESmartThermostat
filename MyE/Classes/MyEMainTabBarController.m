@@ -82,7 +82,7 @@
         {
             hasT = YES;
         }
-        else if((t.deviceType == 1 || t.deviceType == 2 || t.deviceType == 3) && t.thermostat == 0)
+        else if((t.deviceType == 1 || t.deviceType == 2 || t.deviceType == 3 || t.deviceType == 6) && t.thermostat == 0 )
         {
             hasS = YES;
         }
@@ -184,7 +184,7 @@
             self.selectedTabIndex = 1;
             break;
         case MYE_TAB_VACATION:
-            item.title = @"Scene";
+            item.title = @"Events";
             //            self.title = @"Vacation";
             self.selectedTabIndex = 2;
             break;

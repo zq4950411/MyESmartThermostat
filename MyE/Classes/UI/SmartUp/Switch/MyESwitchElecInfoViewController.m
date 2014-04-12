@@ -42,8 +42,9 @@
         [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
         btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn setTitle:@"Back" forState:UIControlStateNormal];
     }
-    [btn setTitle:@"Back" forState:UIControlStateNormal];
+    
     [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 

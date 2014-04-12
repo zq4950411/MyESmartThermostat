@@ -70,9 +70,8 @@
         if (![string isEqualToString:@"fail"]) {
             SBJsonParser *parser = [[SBJsonParser alloc] init];
             NSDictionary *dict = [parser objectWithString:string];
-            int isMutex = [[dict objectForKey:@"temperature"] intValue];
-            if(isMutex == 1){
-                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"There are conflict in Delay setting and timing setting of current channels, are you sure to continue to save?" leftButtonTitle:@"Cancel" rightButtonTitle:@"OK"];
+            if([[dict objectForKey:@"isMutex"] intValue] == 1){
+                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"There are conflict in Delay setting and timing setting of current lights, sure to continue?" leftButtonTitle:@"Cancel" rightButtonTitle:@"OK"];
                 alert.rightBlock = ^{
                     [self doThisToChangeStatus];
                 };

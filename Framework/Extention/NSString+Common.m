@@ -144,6 +144,23 @@
     
     return YES;
 }
+-(BOOL) isSwitchChannel
+{
+    if (self.length <3) // 开关的通道数目可以是3或6
+    {
+        return NO;
+    }
+    for (int i = 0; i < self.length; i++)
+    {
+        char c = [self characterAtIndex:i];
+        if (c != '0' && c!= '1')
+        {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
 
 -(NSString *) safeReplaceString:(NSString *) s1 atIndex:(int) i
 {

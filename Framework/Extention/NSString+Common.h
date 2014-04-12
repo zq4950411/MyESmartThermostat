@@ -20,6 +20,7 @@
 -(int) stringToCondition:(NSString *) string;
 +(NSString *) errorInfo:(NSString *) error;
 -(BOOL) isChannel;
+-(BOOL) isSwitchChannel;
 -(NSString *) safeReplaceString:(NSString *) s1 atIndex:(int) i;
 
 @end

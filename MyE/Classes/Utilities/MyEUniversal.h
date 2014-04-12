@@ -12,7 +12,7 @@
 @interface MyEUniversal : NSObject<UIAlertViewDelegate>
 
 
-+(void)doThisWhenNeedPickerWithTitle:(NSString *)title andDelegate:(id<UIActionSheetDelegate>)delegate andTag:(NSInteger)tag andArray:(NSArray*)array andSelectRow:(NSInteger)row andViewController:(UIViewController *)vc;
++(void)doThisWhenNeedPickerWithTitle:(NSString *)title andDelegate:(id<UIActionSheetDelegate>)delegate andTag:(NSInteger)tag andArray:(NSArray*)array andSelectRow:(NSArray *)row andViewController:(UIViewController *)vc;
 
 +(void)doThisWhenUserLogOutWithVC:(UIViewController*)vc;
 

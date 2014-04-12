@@ -224,9 +224,11 @@
 -(void) edit:(UIButton *) sender
 {
      //2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器
-    
-    currentSelectedIndex = sender.tag;
-    SmartUp *smart = [self.datas objectAtIndex:sender.tag];
+    CGPoint hit = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:hit];
+    currentTapIndex = indexPath.row;
+//    currentSelectedIndex = sender.tag;
+    SmartUp *smart = [self.datas objectAtIndex:indexPath.row];
     if (smart.typeId.intValue == 6)
     {
         PlugControlViewController *plug = [[PlugControlViewController alloc] initWithEditType];
@@ -280,14 +282,15 @@
     }
         
     SmartUp *smart = [self.datas objectAtIndex:indexPath.row];
-    
-    UIButton *penButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [penButton addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
-    [penButton setImage:[UIImage imageNamed:@"editBtn.png"] forState:UIControlStateNormal];
-    penButton.frame = CGRectMake(0, 0, 30, 30);
-    penButton.tag = indexPath.row;
-    cell.accessoryView = penButton;
-    
+    UIButton *btn = (UIButton*)[cell.contentView viewWithTag:998];
+    [btn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
+//    UIButton *penButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [penButton addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
+//    [penButton setImage:[UIImage imageNamed:@"editBtn.png"] forState:UIControlStateNormal];
+//    penButton.frame = CGRectMake(0, 0, 60, 60);
+//    penButton.tag = indexPath.row;
+//    cell.accessoryView = penButton;
+
     if ([smart.typeId isEqualToString:@"6"])
     {
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(plug:)];

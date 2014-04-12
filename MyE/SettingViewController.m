@@ -400,6 +400,7 @@
             [self.navigationController pushViewController:tempVc animated:YES];
         }
     }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
@@ -426,9 +427,6 @@
     alertView.tag = indexPath.row;
     [alertView show];
 }
-
-
-
 
 -(CGFloat) tableView:(UITableView *) tableView heightForHeaderInSection:(NSInteger) section
 {
@@ -618,13 +616,14 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     isNeedRefresh = YES;
+    NSLog(@"%f    %f",self.tableView.frame.size.height,self.tableView.frame.origin.y);
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.parentViewController.navigationItem.rightBarButtonItems = nil;
-    self.parentViewController.navigationItem.title = @"Setting";
+    self.parentViewController.navigationItem.title = @"Settings";
     
     if (isNeedRefresh)
     {

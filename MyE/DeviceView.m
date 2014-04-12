@@ -119,7 +119,7 @@
         }
         [params safeSetObject:@"2" forKey:@"type"];
     }
-    else if(type == 3)
+    else if(type == 3 || type == 6)
     {
         NSString *channel = [value objectForKey:@"channel"];
         
@@ -204,6 +204,26 @@
                 }
             }
         }
+        else if(type == 6)
+        {
+            NSString *channel = [value valueToStringForKey:@"channel"];
+            if (![channel isSwitchChannel])
+            {
+                [value safeSetObject:@"000" forKey:@"channel"];
+            }
+            for (int i = 0; i < channel.length; i++)
+            {
+                NSString *temp = [NSString stringWithFormat:@"%c",[channel characterAtIndex:i]];
+                if (temp.intValue == 1)
+                {
+                    [self.pickView selectRow:1 inComponent:i animated:YES];
+                }
+                else
+                {
+                    [self.pickView selectRow:0 inComponent:i animated:YES];
+                }
+            }
+        }
     }
     else
     {
@@ -244,6 +264,11 @@
     if (type == 0 || type == 3)
     {
         return 2;
+    }
+    if (type == 6)
+    {
+        NSString *channel = [value valueToStringForKey:@"channel"];
+        return channel.length;
     }
     else
     {
@@ -294,6 +319,10 @@
         {
             return 2;
         }
+    }
+    else if(type == 6)
+    {
+        return 2;
     }
     else
     {
@@ -346,6 +375,21 @@
             
             [value safeSetObject:channel forKey:@"channel"];
         }
+    }
+    else if(type == 6)
+    {
+        NSString *channel = [self.value objectForKey:@"channel"];
+        
+        if (row == 0)
+        {
+            channel = [channel safeReplaceString:@"0" atIndex:component];
+        }
+        else
+        {
+            channel = [channel safeReplaceString:@"1" atIndex:component];
+        }
+        
+        [value safeSetObject:channel forKey:@"channel"];
     }
 }
 
@@ -424,6 +468,17 @@
                 {
                     label.text = @"ON";
                 }
+            }
+        }
+        else if(type == 6)
+        {
+            if (row == 0)
+            {
+                label.text = @"OFF";
+            }
+            else
+            {
+                label.text = @"ON";
             }
         }
         

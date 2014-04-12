@@ -348,10 +348,11 @@ NSInteger getDaysBetweenDates(NSDate *startDate, NSDate *endDate) {
         HUD.yOffset = 150.f;
         HUD.color = bgcolor;
         HUD.cornerRadius = 2;
+        HUD.labelFont = [UIFont systemFontOfSize:13];
         HUD.removeFromSuperViewOnHide = YES;
         HUD.userInteractionEnabled = NO;
         //        NSLog(@"%@",app.window.subviews);
-        [HUD hide:YES afterDelay:2];
+        [HUD hide:YES afterDelay:3];
         //        NSLog(@"%@",app.window.subviews);
     }
 }

@@ -386,7 +386,7 @@
 {
     [super viewWillAppear:animated];
     
-    self.parentViewController.navigationItem.title = @"Scene";
+    self.parentViewController.navigationItem.title = @"Events";
     self.parentViewController.navigationItem.rightBarButtonItems = nil;
     
     [self sendGetDatas];

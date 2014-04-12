@@ -21,6 +21,7 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
+				<string>ApplicationIcon-72</string>
 				<string>Default@2x.png</string>
 				<string>ApplicationIcon.png</string>
 				<string>Default.png</string>

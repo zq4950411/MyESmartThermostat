@@ -362,7 +362,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-569" y="-1259"/>
+            <point key="canvasLocation" x="-369" y="-3675"/>
         </scene>
         <!--More View Controller - Account-->
         <scene sceneID="Equ-Rj-0ZF">
@@ -392,7 +392,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SmN-L8-DcJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1179" y="-1003"/>
+            <point key="canvasLocation" x="-451" y="-411"/>
         </scene>
         <!--Setting View Controller - Setting-->
         <scene sceneID="hgc-8j-eax">
@@ -406,7 +406,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="vp1-Tm-llg" customClass="TPKeyboardAvoidingTableView">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="vp1-Tm-llg" customClass="TPKeyboardAvoidingTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -414,7 +414,14 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Wtu-do-tmw" firstAttribute="top" secondItem="vp1-Tm-llg" secondAttribute="bottom" id="1vo-7b-Pkr"/>
+                            <constraint firstItem="vp1-Tm-llg" firstAttribute="leading" secondItem="h6k-Lu-GMd" secondAttribute="leading" id="PKz-Pn-xWl"/>
+                            <constraint firstItem="vp1-Tm-llg" firstAttribute="top" secondItem="PjB-fp-CTg" secondAttribute="bottom" id="aBd-cn-Fh0"/>
+                            <constraint firstAttribute="trailing" secondItem="vp1-Tm-llg" secondAttribute="trailing" id="vOR-mA-4zO"/>
+                        </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" tag="3" title="Settings" image="tab-settings.png" id="aeF-jz-BQU"/>
                     <navigationItem key="navigationItem" id="wSs-Eb-9qd"/>
                     <connections>
@@ -423,7 +430,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Bb-xe-8SG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-936" y="391"/>
+            <point key="canvasLocation" x="-408" y="-1289"/>
         </scene>
         <!--MyE Settings View Controller - Settings-->
         <scene sceneID="3Br-sT-LRY">
@@ -569,7 +576,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="duE-f4-sem" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-582" y="785"/>
+            <point key="canvasLocation" x="50" y="-1271"/>
         </scene>
         <!--MyE Password Reset View Controller-->
         <scene sceneID="V1V-Bm-QMW">
@@ -698,7 +705,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n0A-Qu-lGP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1637" y="-1409"/>
+            <point key="canvasLocation" x="35" y="-401"/>
         </scene>
         <!--MyE Staycation Detail View Controller - Staycation Detail-->
         <scene sceneID="sB1-v7-bP5">
@@ -981,7 +988,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ctv-qk-OOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1131" y="-584"/>
+            <point key="canvasLocation" x="1643" y="-3304"/>
         </scene>
         <!--MyE Vacation Master View Controller - Vacation-->
         <scene sceneID="b1r-aY-SzU">
@@ -1069,7 +1076,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OMO-4F-zPp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="532" y="-980"/>
+            <point key="canvasLocation" x="1044" y="-3700"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sg4-uA-4c6">
@@ -1084,7 +1091,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w4p-8w-tDL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="182" y="-373"/>
+            <point key="canvasLocation" x="654" y="-3700"/>
         </scene>
         <!--MyE Vacation Detail View Controller - Vacation Detail-->
         <scene sceneID="9V3-zL-wVN">
@@ -1314,7 +1321,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qbj-Si-1sz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1131" y="-1154"/>
+            <point key="canvasLocation" x="1643" y="-3874"/>
         </scene>
         <!--MyE Schedule View Controller - Program Today-->
         <scene sceneID="13">
@@ -1384,7 +1391,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-67" y="-980"/>
+            <point key="canvasLocation" x="197" y="-3692"/>
         </scene>
         <!--Smart Up View Controller - Smart-Up-->
         <scene sceneID="ocy-QK-5sL">
@@ -1413,7 +1420,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="whu-Ub-xlJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-577" y="-479"/>
+            <point key="canvasLocation" x="-377" y="-2895"/>
         </scene>
         <!--MyE Login View Controller - MyE-->
         <scene sceneID="jBU-9u-TJS">
@@ -1505,7 +1512,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="58G-Rq-sBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2874" y="-208"/>
+            <point key="canvasLocation" x="-2682" y="-2696"/>
         </scene>
         <!--MyE House List View Controller - House List-->
         <scene sceneID="LlY-EV-lpB">
@@ -1655,7 +1662,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yZj-8a-4ci" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2175" y="150"/>
+            <point key="canvasLocation" x="-2023" y="-2282"/>
         </scene>
         <!--MyE Main Tab Bar Controller - MyE-->
         <scene sceneID="15">
@@ -1681,7 +1688,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="14" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1375" y="-249"/>
+            <point key="canvasLocation" x="-1175" y="-2665"/>
         </scene>
         <!--Scene View Controller - Scene-->
         <scene sceneID="85e-LZ-WLU">
@@ -1710,7 +1717,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Okc-AK-cWL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1311" y="391"/>
+            <point key="canvasLocation" x="-399" y="-2113"/>
         </scene>
         <!--MyE Thermostat List View Controller - Switch-->
         <scene sceneID="3fO-Vf-yTc">
@@ -1824,7 +1831,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hiy-h4-WwN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-577" y="127"/>
+            <point key="canvasLocation" x="511" y="-1249"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0Vu-02-7ne">
@@ -1843,7 +1850,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C4S-zW-Ut4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3263" y="-201"/>
+            <point key="canvasLocation" x="-3071" y="-2689"/>
         </scene>
         <!--MyE Vacation Edit From Staycation View Controller - Vacation Detail-->
         <scene sceneID="Yvb-c8-SAP">
@@ -2071,7 +2078,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0eg-d7-M7E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1718" y="-584"/>
+            <point key="canvasLocation" x="2230" y="-3304"/>
         </scene>
         <!--MyE Staycation Edit From Vacation View Controller - Staycation Detail-->
         <scene sceneID="9AQ-ES-6Z5">
@@ -2352,7 +2359,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OMf-Um-GK3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1709" y="-1154"/>
+            <point key="canvasLocation" x="2221" y="-3874"/>
         </scene>
         <!--MyE Launch Intro View Controller-->
         <scene sceneID="uP8-L7-dKe">
@@ -2423,7 +2430,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wd3-KX-z17" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3684" y="-196"/>
+            <point key="canvasLocation" x="-3524" y="-2700"/>
         </scene>
     </scenes>
     <resources>
@@ -2459,6 +2466,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="vzP-J1-8jf"/>
+        <segue reference="ibK-CW-h5z"/>
     </inferredMetricsTieBreakers>
 </document>

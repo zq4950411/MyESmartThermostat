@@ -179,13 +179,14 @@
         RepwdViewController *vc = [[RepwdViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
+    self.tableView.tableFooterView = [[UIView alloc] init];
     self.navigationItem.title = @"Account";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -196,7 +197,7 @@
     [super viewWillAppear:animated];
     
     self.parentViewController.navigationItem.rightBarButtonItems = nil;
-    self.parentViewController.navigationItem.title = @"More";
+    self.parentViewController.navigationItem.title = @"Account";
     
     [self sendGetDatas];
 }

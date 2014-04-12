@@ -12,10 +12,10 @@
 
 @implementation MyEUniversal
 
-+(void)doThisWhenNeedPickerWithTitle:(NSString *)title andDelegate:(id<UIActionSheetDelegate>)delegate andTag:(NSInteger)tag andArray:(NSArray*)array andSelectRow:(NSInteger)row andViewController:(UIViewController *)vc{
++(void)doThisWhenNeedPickerWithTitle:(NSString *)title andDelegate:(id<UIActionSheetDelegate>)delegate andTag:(NSInteger)tag andArray:(NSArray*)array andSelectRow:(NSArray *)row andViewController:(UIViewController *)vc{
     IQActionSheetPickerView *picker = [[IQActionSheetPickerView alloc] initWithTitle:nil delegate:delegate cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
     [picker setTag:tag];
-    [picker setTitlesForComponenets:@[array]];
+    [picker setTitlesForComponenets:array];
     /*--------这里定制titleLbel来显示当前picker的title---------*/
     UILabel *titleLable = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, 200, 44)];
     titleLable.text = title;
@@ -24,7 +24,22 @@
     titleLable.textAlignment = NSTextAlignmentCenter;
     [picker.actionToolbar addSubview:titleLable];
     /*------------------------------------------------------*/
-    [picker.pickerView selectRow:row inComponent:0 animated:YES];
+    if ([array count] >1) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 5, 40)];
+        label.center = CGPointMake(picker.pickerView.center.x, picker.pickerView.center.y-44);
+        label.text = @":";
+        label.font = [UIFont boldSystemFontOfSize:20];
+        label.textAlignment = NSTextAlignmentCenter;
+        //    NSLog(@"%f%f%f%f",label.frame.origin.x,label.frame.origin.y,label.frame.size.width,label.frame.size.height);
+        //    NSLog(@"%f%f%f%f",picker.pickerView.frame.origin.x,picker.pickerView.frame.origin.y,picker.pickerView.frame.size.width,picker.pickerView.frame.size.height);
+        [picker.pickerView addSubview:label];
+    }
+    [picker.pickerView selectRow:[row[0] intValue] inComponent:0 animated:YES];
+    
+    if ([row count] > 1) {
+        [picker.pickerView selectRow:[row[1] intValue] inComponent:1 animated:YES];
+    }
+    
     [picker showInView:vc.view];
 }
 +(void)doThisWhenUserLogOutWithVC:(UIViewController*)vc{

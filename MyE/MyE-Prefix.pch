@@ -42,7 +42,7 @@
 #define IS_IOS6 (([[UIDevice currentDevice].systemVersion intValue]-6)?NO:YES)
 #define MainDelegate ((MyEAppDelegate *)[[UIApplication sharedApplication] delegate])
 
-//#define NSLog
+#define NSLog
 
 #ifdef DEBUG
 #define CLog(format, ...) NSLog(format, ## __VA_ARGS__)

@@ -60,20 +60,13 @@
                 self.statusView = [[[NSBundle mainBundle] loadNibNamed:@"DeviceView" owner:self options:nil] objectAtIndex:1];
                 self.statusView.type = 0;
             }
-            else if (terminalType.intValue == 1)
+            else if (terminalType.intValue == 1 ||
+                     terminalType.intValue == 2 ||
+                     terminalType.intValue == 3 ||
+                     terminalType.intValue == 6)
             {
                 self.statusView = [[[NSBundle mainBundle] loadNibNamed:@"DeviceView" owner:self options:nil] objectAtIndex:2];
-                self.statusView.type = 1;
-            }
-            else if (terminalType.intValue == 2)
-            {
-                self.statusView = [[[NSBundle mainBundle] loadNibNamed:@"DeviceView" owner:self options:nil] objectAtIndex:2];
-                self.statusView.type = 2;
-            }
-            else if (terminalType.intValue == 3)
-            {
-                self.statusView = [[[NSBundle mainBundle] loadNibNamed:@"DeviceView" owner:self options:nil] objectAtIndex:2];
-                self.statusView.type = 3;
+                self.statusView.type = terminalType.intValue;
             }
             
             if (self.statusView.superview == nil)
@@ -190,7 +183,7 @@
     
     
     int type = 2;
-    //0  表示美国温度控制器，1  红外转发器，2 智能插座，3  通用控制器，4 安防设备。
+    //0  表示美国温度控制器，1  红外转发器，2 智能插座，3  通用控制器，4 安防设备, 6智能开关。
     if (d.terminalType.intValue == 0)
     {
         self.statusView = [[[NSBundle mainBundle] loadNibNamed:@"DeviceView" owner:self options:nil] objectAtIndex:1];
@@ -198,22 +191,13 @@
         
         type = 1;
     }
-    else if (d.terminalType.intValue == 1)
+    else if (d.terminalType.intValue == 1 || d.terminalType.intValue == 2 ||
+             d.terminalType.intValue == 3 || d.terminalType.intValue == 6)
     {
         self.statusView = [[[NSBundle mainBundle] loadNibNamed:@"DeviceView" owner:self options:nil] objectAtIndex:2];
-        self.statusView.type = 1;
+        self.statusView.type = d.terminalType.intValue;
     }
-    else if (d.terminalType.intValue == 2)
-    {
-        self.statusView = [[[NSBundle mainBundle] loadNibNamed:@"DeviceView" owner:self options:nil] objectAtIndex:2];
-        self.statusView.type = 2;
-    }
-    else if (d.terminalType.intValue == 3)
-    {
-        self.statusView = [[[NSBundle mainBundle] loadNibNamed:@"DeviceView" owner:self options:nil] objectAtIndex:2];
-        self.statusView.type = 3;
-    }
-    
+        
     self.isShowLoading = YES;
     
     

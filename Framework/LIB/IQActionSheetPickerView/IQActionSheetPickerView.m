@@ -165,21 +165,16 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
     NSArray *array = _titlesForComponenets[component];
+    
     return [array count];
 //    return [[_titlesForComponenets objectAtIndex:component] count];
 }
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, [pickerView rowSizeForComponent:0].width, [pickerView rowSizeForComponent:0].height)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, [pickerView rowSizeForComponent:component].width, [pickerView rowSizeForComponent:component].height)];
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 0;
     label.backgroundColor = [UIColor clearColor];
-    NSInteger i = [_titlesForComponenets[component][row] length];
-    if (i > 80) {
-        label.font = [UIFont systemFontOfSize:11];
-    }else if(i > 25){
-        label.font = [UIFont systemFontOfSize:13];
-    }else
-        label.font = [UIFont boldSystemFontOfSize:20];
+    label.font = [UIFont boldSystemFontOfSize:19];
     //这句代码添加之后，整个视图看上去好看多了，主要是label本身是白色的背景
     label.text = _titlesForComponenets[component][row];
     return label;

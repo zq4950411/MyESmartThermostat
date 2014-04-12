@@ -46,14 +46,20 @@
     self.weekSeg.mydelegate = self;
     NSMutableArray *array1 = [NSMutableArray array];
     NSMutableArray *array2 = [NSMutableArray array];
-    for (int i = 0; i < 48; i++) {
-        [array1 addObject:[MyEUtil timeStringForHhid:i]];
+    for (int i = 0; i < 24; i++) {
+        if (i < 10) {
+            [array1 addObject:[NSString stringWithFormat:@"0%i",i]];
+        }else
+            [array1 addObject:[NSString stringWithFormat:@"%i",i]];
     }
-    for (int i = 1; i< 49; i++) {
-        [array2 addObject:[MyEUtil timeStringForHhid:i]];
+    for (int i = 0; i< 6; i++) {
+        if (i == 0) {
+            [array2 addObject:@"00"];
+        }else
+            [array2 addObject:[NSString stringWithFormat:@"%i",i*10]];
     }
-    _startTimeArray = array1;
-    _endTimeArray = array2;
+    _headTimeArray = array1;
+    _tailTimeArray = array2;
     
     _scheduleNew = [[MyESwitchSchedule alloc] init];
     if (self.actionType == 1) {  //新增时段
@@ -68,7 +74,7 @@
         [self refreshSegment];
         _initArray = @[self.startBtn.currentTitle,self.endBtn.currentTitle,[self changeIndexSetToArrayWithIndexSet:self.channelSeg.selectedSegmentIndexes],[self changeIndexSetToArrayWithIndexSet:self.weekSeg.selectedSegmentIndexes]];   //这里进行初始化，作为比较的基准
     }
- }
+}
 -(void)viewWillDisappear:(BOOL)animated{
     MyESwitchAutoViewController *vc = self.navigationController.childViewControllers[0];
     vc.jumpFromSubView = YES;
@@ -133,25 +139,22 @@
     }
     return YES;
 }
+-(BOOL)isTimeUsefull{
+    NSMutableString *startString = [NSMutableString stringWithString:self.startBtn.currentTitle];
+    NSMutableString *endString = [NSMutableString stringWithString:self.endBtn.currentTitle];
+    NSInteger startTime = [[startString stringByReplacingCharactersInRange:NSMakeRange(2, 1) withString:@"0"] intValue];
+    NSInteger endTime = [[endString stringByReplacingCharactersInRange:NSMakeRange(2, 1) withString:@"0"] intValue];
+    if (startTime >= endTime) {
+        return NO;
+    }
+    return YES;
+}
 -(void)changeBarBtnEnable{
     NSArray *array = @[self.startBtn.currentTitle,self.endBtn.currentTitle,[self changeIndexSetToArrayWithIndexSet:self.channelSeg.selectedSegmentIndexes],[self changeIndexSetToArrayWithIndexSet:self.weekSeg.selectedSegmentIndexes]];
     if (![array isEqualToArray:_initArray]) {
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }else
         self.navigationItem.rightBarButtonItem.enabled = NO;
-}
--(void)changeBtnTitleWithIndex:(NSInteger)tag{
-    NSInteger onTime = [MyEUtil hhidForTimeString:self.startBtn.currentTitle];
-    NSInteger offTime = [MyEUtil hhidForTimeString:self.endBtn.currentTitle];
-    if ((offTime - onTime) <= 0) {
-        if (tag == 1) {
-            [self.endBtn setTitle:[MyEUtil timeStringForHhid:onTime+1] forState:UIControlStateNormal];
-        }else
-            [self.startBtn setTitle:[MyEUtil timeStringForHhid:offTime-1] forState:UIControlStateNormal];
-    }
-    if (self.actionType == 2) {
-        [self changeBarBtnEnable];
-    }
 }
 -(void)refreshSegment{
     NSMutableIndexSet *channelIndex = [NSMutableIndexSet indexSet];
@@ -165,14 +168,31 @@
     [self.channelSeg setSelectedSegmentIndexes:channelIndex];
     [self.weekSeg setSelectedSegmentIndexes:weekIndex];
 }
+-(NSArray *)changeStringToInt:(NSString *)title{
+    NSArray *array = [NSArray array];
+    if (title.length !=5) {
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Warning" contentText:@"time is off" leftButtonTitle:nil rightButtonTitle:@"OK"];
+        [alert show];
+        array = @[@1,@1];
+    }else{
+        NSInteger i = [_headTimeArray indexOfObject:[title substringToIndex:2]];
+        NSInteger j = [_tailTimeArray indexOfObject:[title substringFromIndex:3]];
+        array = @[@(i),@(j)];
+    }
+    return array;
+}
 #pragma mark - IBAction methods
 - (IBAction)startBtnPressed:(UIButton *)sender{
-    [MyEUniversal doThisWhenNeedPickerWithTitle:@"Start time" andDelegate:self andTag:1 andArray:_startTimeArray andSelectRow:[_startTimeArray indexOfObject:sender.currentTitle] andViewController:self];
+    [MyEUniversal doThisWhenNeedPickerWithTitle:@"Start time" andDelegate:self andTag:1 andArray:@[_headTimeArray,_tailTimeArray] andSelectRow:[self changeStringToInt:sender.currentTitle] andViewController:self];
 }
 - (IBAction)endBtnPressed:(UIButton *)sender {
-    [MyEUniversal doThisWhenNeedPickerWithTitle:@"End time" andDelegate:self andTag:2 andArray:_endTimeArray andSelectRow:[_endTimeArray indexOfObject:sender.currentTitle] andViewController:self];
+    [MyEUniversal doThisWhenNeedPickerWithTitle:@"End time" andDelegate:self andTag:2 andArray:@[_headTimeArray,_tailTimeArray] andSelectRow:[self changeStringToInt:sender.currentTitle] andViewController:self];
 }
 - (IBAction)saveEditor:(UIBarButtonItem *)sender {
+    if (![self isTimeUsefull]) {
+        [MyEUtil showMessageOn:nil withMessage:@"Start time must be less than the end time"];
+        return;
+    }
     _scheduleNew.onTime = self.startBtn.currentTitle;
     _scheduleNew.offTime = self.endBtn.currentTitle;
     _scheduleNew.channels = [self changeIndexSetToArrayWithIndexSet:self.channelSeg.selectedSegmentIndexes];
@@ -213,13 +233,13 @@
 }
 #pragma mark - IQActionSheetPickerView delegate methods
 -(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles{
-    //这里本来应该添加内容，当一个btn的title选定时，另外一个btn的title自动增加，出于程序简单的目的，这里就不做了，只是在用户点击保存的时候进行了判断，
     if (pickerView.tag == 1) {
-        [self.startBtn setTitle:titles[0] forState:UIControlStateNormal];
-        [self changeBtnTitleWithIndex:1];
+        [self.startBtn setTitle:[titles componentsJoinedByString:@":"] forState:UIControlStateNormal];
     }else{
-        [self.endBtn setTitle:titles[0] forState:UIControlStateNormal];
-        [self changeBtnTitleWithIndex:2];
+        [self.endBtn setTitle:[titles componentsJoinedByString:@":"] forState:UIControlStateNormal];
+    }
+    if (self.actionType == 2) {
+        [self changeBarBtnEnable];
     }
 }
 #pragma mark - url delegate methods
@@ -233,7 +253,7 @@
             int isMutex = [[dict objectForKey:@"isMutex"] intValue];
             
             if(isMutex == 1){
-                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"The channel has been set dalay control, are you sure to save it?" leftButtonTitle:@"Cancel" rightButtonTitle:@"OK"];
+                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"The light has been set dalay control, are you sure to save it?" leftButtonTitle:@"Cancel" rightButtonTitle:@"OK"];
                 alert.rightBlock = ^{
                     //这里也要进行手动控制面板的刷新
                     UINavigationController *nav = self.tabBarController.childViewControllers[0];
