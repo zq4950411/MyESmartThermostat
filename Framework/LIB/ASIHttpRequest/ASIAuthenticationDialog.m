@@ -37,7 +37,11 @@ static const NSUInteger kDomainSection = 1;
 - (void)show;
 - (NSArray *)requestsRequiringTheseCredentials;
 - (void)presentNextDialog;
-@property (retain) UITableView *tableView;
+- (void)keyboardWillShow:(NSNotification *)notification;
+- (void)orientationChanged:(NSNotification *)notification;
+- (void)cancelAuthenticationFromDialog:(id)sender;
+- (void)loginWithCredentialsFromDialog:(id)sender;
+@property (atomic, retain) UITableView *tableView;
 @end
 
 @implementation ASIAuthenticationDialog
@@ -51,20 +55,20 @@ static const NSUInteger kDomainSection = 1;
 	}
 }
 
-+ (void)presentAuthenticationDialogForRequest:(ASIHTTPRequest *)request
++ (void)presentAuthenticationDialogForRequest:(ASIHTTPRequest *)theRequest
 {
 	// No need for a lock here, this will always be called on the main thread
 	if (!sharedDialog) {
 		sharedDialog = [[self alloc] init];
-		[sharedDialog setRequest:request];
-		if ([request authenticationNeeded] == ASIProxyAuthenticationNeeded) {
+		[sharedDialog setRequest:theRequest];
+		if ([theRequest authenticationNeeded] == ASIProxyAuthenticationNeeded) {
 			[sharedDialog setType:ASIProxyAuthenticationType];
 		} else {
 			[sharedDialog setType:ASIStandardAuthenticationType];
 		}
 		[sharedDialog show];
 	} else {
-		[requestsNeedingAuthentication addObject:request];
+		[requestsNeedingAuthentication addObject:theRequest];
 	}
 }
 
@@ -129,7 +133,7 @@ static const NSUInteger kDomainSection = 1;
 {
 	[self showTitle];
 	
-	UIDeviceOrientation o = [[UIApplication sharedApplication] statusBarOrientation];
+	UIInterfaceOrientation o = (UIInterfaceOrientation)[[UIApplication sharedApplication] statusBarOrientation];
 	CGFloat angle = 0;
 	switch (o) {
 		case UIDeviceOrientationLandscapeLeft: angle = 90; break;
@@ -149,7 +153,7 @@ static const NSUInteger kDomainSection = 1;
 	}
 
 	CGAffineTransform previousTransform = self.view.layer.affineTransform;
-	CGAffineTransform newTransform = CGAffineTransformMakeRotation(angle * M_PI / 180.0);
+	CGAffineTransform newTransform = CGAffineTransformMakeRotation((CGFloat)(angle * M_PI / 180.0));
 
 	// Reset the transform so we can set the size
 	self.view.layer.affineTransform = CGAffineTransformIdentity;
@@ -189,7 +193,7 @@ static const NSUInteger kDomainSection = 1;
 - (UITextField *)textFieldInRow:(NSUInteger)row section:(NSUInteger)section
 {
 	return [[[[[self tableView] cellForRowAtIndexPath:
-			   [NSIndexPath indexPathForRow:row inSection:section]]
+			   [NSIndexPath indexPathForRow:(NSInteger)row inSection:(NSInteger)section]]
 			  contentView] subviews] objectAtIndex:0];
 }
 
@@ -212,7 +216,20 @@ static const NSUInteger kDomainSection = 1;
 
 + (void)dismiss
 {
-	[[sharedDialog parentViewController] dismissModalViewControllerAnimated:YES];
+    UIViewController* dismisser = nil;
+    if ([sharedDialog respondsToSelector:@selector(presentingViewController)]){
+        dismisser = [sharedDialog presentingViewController];
+    }else{
+        dismisser = [sharedDialog parentViewController];
+    }
+    if([dismisser respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]){
+        [dismisser dismissViewControllerAnimated:YES completion:nil];
+    }else{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        [dismisser dismissModalViewControllerAnimated:YES];
+#pragma clang diagnostic pop
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -220,7 +237,7 @@ static const NSUInteger kDomainSection = 1;
 	[self retain];
 	[sharedDialog release];
 	sharedDialog = nil;
-	[self presentNextDialog];
+	[self performSelector:@selector(presentNextDialog) withObject:nil afterDelay:0];
 	[self release];
 }
 
@@ -229,7 +246,20 @@ static const NSUInteger kDomainSection = 1;
 	if (self == sharedDialog) {
 		[[self class] dismiss];
 	} else {
-		[[self parentViewController] dismissModalViewControllerAnimated:YES];
+        UIViewController* dismisser = nil;
+		if ([self respondsToSelector:@selector(presentingViewController)]){
+            dismisser = [self presentingViewController];
+        }else{
+            dismisser = [self parentViewController];
+        }
+        if([dismisser respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]){
+            [dismisser dismissViewControllerAnimated:YES completion:nil];
+        }else{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            [dismisser dismissModalViewControllerAnimated:YES];
+#pragma clang diagnostic pop
+        }
 	}
 }
 
@@ -305,7 +335,14 @@ static const NSUInteger kDomainSection = 1;
 	}
 #endif
 
-	[[self presentingController] presentModalViewController:self animated:YES];
+    if([[self presentingController] respondsToSelector:@selector(presentViewController:animated:completion:)]){
+        [[self presentingController] presentViewController:self animated:YES completion:nil];
+    }else{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        [[self presentingController] presentModalViewController:self animated:YES];
+#pragma clang diagnostic pop
+    }
 }
 
 #pragma mark button callbacks
@@ -434,8 +471,8 @@ static const NSUInteger kDomainSection = 1;
 	[textField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
 	[textField setAutocorrectionType:UITextAutocorrectionTypeNo];
 
-	NSUInteger s = [indexPath section];
-	NSUInteger r = [indexPath row];
+	NSInteger s = [indexPath section];
+	NSInteger r = [indexPath row];
 
 	if (s == kUsernameSection && r == kUsernameRow) {
 		[textField setPlaceholder:@"User"];
@@ -450,7 +487,7 @@ static const NSUInteger kDomainSection = 1;
 	return cell;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
 	if (section == 0) {
 		return 2;

@@ -45,6 +45,7 @@ const CGFloat kArrowSize = 12.f;
 ////////////////////////////////////////////////////////////////////////////////
 
 @interface KxMenuView : UIView
+- (void)dismissMenu:(BOOL) animated;
 @end
 
 @interface KxMenuOverlay : UIView

@@ -24,6 +24,11 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+BOOL jbb_strStartsWith(const char *aString, const char *aPrefix);
+BOOL jbb_strCaseStartsWith(const char *aString, const char *aPrefix);
+const char* jbb_removeObjCTypeQualifiers(const char *aType);
+BOOL jbb_ObjCTypeStartsWith(const char *objCType, const char *targetChar);
+BOOL jbb_areObjCTypesEqual(const char *lhs, const char *rhs);
 
 @interface NSInvocation (Copy)
 

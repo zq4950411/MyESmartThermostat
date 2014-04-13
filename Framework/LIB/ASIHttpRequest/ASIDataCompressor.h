@@ -22,7 +22,8 @@
 + (id)compressor;
 
 // Compress the passed chunk of data
-- (NSData *)compressBytes:(Bytef *)bytes length:(NSUInteger)length error:(NSError **)err;
+// Passing YES for shouldFinish will finalize the deflated data - you must pass YES when you are on the last chunk of data
+- (NSData *)compressBytes:(Bytef *)bytes length:(NSUInteger)length error:(NSError **)err shouldFinish:(BOOL)shouldFinish;
 
 // Convenience method - pass it some data, and you'll get deflated data back
 + (NSData *)compressData:(NSData*)uncompressedData error:(NSError **)err;
@@ -37,5 +38,5 @@
 // If deflating finishes or fails, this method will be called automatically
 - (NSError *)closeStream;
 
-@property (assign, readonly) BOOL streamReady;
+@property (atomic, assign, readonly) BOOL streamReady;
 @end

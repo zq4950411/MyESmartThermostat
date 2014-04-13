@@ -106,7 +106,7 @@
 //            NSInteger totalColumnsRequired = 0;
             NSInteger totalColumnsRequired = [_dataSource numberOfColumnsPresentedEveryTime:self];
 //            NSInteger totalColumns = 0;
-            NSInteger totalColumns = [_dataSource numberOfColumnsInEColumnChart:self];
+//            NSInteger totalColumns = [_dataSource numberOfColumnsInEColumnChart:self];
             /** Currently only support columns layout from right to left, WILL ADD OPTIONS LATER*/
             if (_columnsIndexStartFromLeft)
             {

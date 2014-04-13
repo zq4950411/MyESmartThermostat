@@ -10,9 +10,9 @@
 
 @interface FUIButton : UIButton
 
-@property(strong) UIColor *buttonColor;
-@property(strong) UIColor *shadowColor;
-@property CGFloat shadowHeight;
-@property CGFloat cornerRadius;
+@property(nonatomic, strong) UIColor *buttonColor;
+@property(nonatomic, strong) UIColor *shadowColor;
+@property (nonatomic) CGFloat shadowHeight;
+@property (nonatomic) CGFloat cornerRadius;
 
 @end

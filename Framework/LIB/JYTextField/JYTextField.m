@@ -112,7 +112,8 @@
     isediting = YES;
 }
 
-- (void)endEditing:(NSNotification*) notification
+//- (void)endEditing:(NSNotification*) notification
+- (BOOL)endEditing:(BOOL)force
 {
 	[[self layer] setShadowOffset:CGSizeZero];
     [[self layer] setShadowRadius:0];
@@ -122,6 +123,7 @@
     [self.layer setBorderWidth:0.0f];
     isediting = YES;
     isediting = NO;
+    return force;
 }
 
 - (void)dealloc

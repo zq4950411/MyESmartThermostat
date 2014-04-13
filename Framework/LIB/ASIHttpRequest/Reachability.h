@@ -4,6 +4,7 @@
  Abstract: Basic demonstration of how to use the SystemConfiguration Reachablity APIs.
  
  Version: 2.0.4ddg
+ https://developer.apple.com/library/ios/samplecode/Reachability/Listings/ReadMe_txt.html
  */
 
 /*
@@ -105,6 +106,7 @@
 
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+#import <netinet/in.h>
 
 #define USE_DDG_EXTENSIONS 1 // Use DDG's Extensions to test network criteria.
 // Since NSAssert and NSCAssert are used in this code, 
@@ -150,6 +152,8 @@ extern NSString *const kReachabilityChangedNotification;
 // Use to check the reachability of a particular host name. 
 + (Reachability *) reachabilityWithHostName: (NSString*) hostName;
 
+
+// https://stackoverflow.com/questions/7765484/xcode-4-2-declaration-of-will-not-be-visible-outside-of-this-function-wa
 // Use to check the reachability of a particular IP address. 
 + (Reachability *) reachabilityWithAddress: (const struct sockaddr_in*) hostAddress;
 

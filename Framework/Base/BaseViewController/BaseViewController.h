@@ -80,9 +80,9 @@ typedef enum
 -(void) executeTaskInBackground;
 
 //开始执行任务 重写
-//-(void) executeTask;
+-(void) executeTask;
 
 //任务执行  重写
-//-(void) executeEndTask;
+-(void) executeEndTask:(id) object;
 
 @end

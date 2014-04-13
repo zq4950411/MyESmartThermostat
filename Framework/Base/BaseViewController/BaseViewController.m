@@ -83,6 +83,15 @@
 }
 
 
+//开始执行任务 重写
+-(void) executeTask
+{
+}
+//任务执行  重写
+-(void) executeEndTask:(id) object
+{
+}
+
 //不在前端显示 子类重写
 -(void) enterBackgroundAction
 {
