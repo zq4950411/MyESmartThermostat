@@ -20,6 +20,7 @@
 
 #import "SmartUp.h"
 #import "SmartupCell.h"
+#import "SWRevealViewController.h"
 
 
 @implementation SmartUpViewController
@@ -433,6 +434,17 @@
                                                                           action:@selector(tap:)];
     [self.tableView addGestureRecognizer:tap];
     [self initHeaderView:self];
+    
+    
+    // Change button color
+    _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
+    
+    // Set the side bar button action. When it's tapped, it'll show up the sidebar.
+    _sidebarButton.target = self.revealViewController;
+    _sidebarButton.action = @selector(revealToggle:);
+    
+    // Set the gesture
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
 
 }
 

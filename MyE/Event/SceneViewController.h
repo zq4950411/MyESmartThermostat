@@ -19,5 +19,6 @@
 
 -(void) addSceneWithName:(NSString *) name andMode:(NSString *) mode;
 -(void) dimissView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
 @end

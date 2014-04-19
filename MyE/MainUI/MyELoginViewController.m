@@ -20,6 +20,7 @@
 #import "SBJson.h"
 
 #import "ServerViewController.h"
+#import "SWRevealViewController.h"
 
 @implementation MyELoginViewController
 
@@ -120,9 +121,9 @@
 {
     MainDelegate.accountData = self.accountData;
     
-    if ([[segue identifier] isEqualToString:@"ShowMainTabViewDirectly"])
+    if ([[segue identifier] isEqualToString:@"go_main_menu"])
     {
-        MyEMainTabBarController *tabBarController = [segue destinationViewController];
+//        MyEMainTabBarController *tabBarController = [segue destinationViewController];
         //在这里为每个tab view设置houseId和userId, 同时要为每个tab viewController中定义这两个变量，并实现一个统一的签名方法，以保存这个变量。
         MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:0];
         MainDelegate.houseData = houseData;
@@ -138,26 +139,26 @@
         [prefs synchronize];
         
         
-        BOOL isRC = (thermostatData.remote == 0? NO:YES);
-        
-        
-        //        [tabBarController setTitle:@"Dashboard"];
-        [tabBarController setTitle:houseData.houseName];
-        tabBarController.userId = self.accountData.userId;
-        tabBarController.houseId = houseData.houseId;
-        tabBarController.tId = thermostatData.tId;
-        tabBarController.tName = thermostatData.tName;
-        tabBarController.houseName = houseData.houseName;
-//        tabBarController.tCount = [houseData countOfConnectedThermostat];// 此处仅设置这个房子的有连接的t的数量，但我们要显示所有t，所以改用用下面的所有t的数目
-        tabBarController.tCount = [houseData.thermostats count];// 设置这个房子的t的数量
-
-        MyEDashboardViewController *dashboardViewController = [[tabBarController childViewControllers] objectAtIndex:0];
-        dashboardViewController.userId = self.accountData.userId;
-        dashboardViewController.houseId = houseData.houseId;
-        dashboardViewController.houseName = houseData.houseName;
-        dashboardViewController.tId = thermostatData.tId;
-        dashboardViewController.tName = thermostatData.tName;
-        dashboardViewController.isRemoteControl = isRC;
+//        BOOL isRC = (thermostatData.remote == 0? NO:YES);
+//        
+//        
+//        //        [tabBarController setTitle:@"Dashboard"];
+//        [tabBarController setTitle:houseData.houseName];
+//        tabBarController.userId = self.accountData.userId;
+//        tabBarController.houseId = houseData.houseId;
+//        tabBarController.tId = thermostatData.tId;
+//        tabBarController.tName = thermostatData.tName;
+//        tabBarController.houseName = houseData.houseName;
+////        tabBarController.tCount = [houseData countOfConnectedThermostat];// 此处仅设置这个房子的有连接的t的数量，但我们要显示所有t，所以改用用下面的所有t的数目
+//        tabBarController.tCount = [houseData.thermostats count];// 设置这个房子的t的数量
+//
+//        MyEDashboardViewController *dashboardViewController = [[tabBarController childViewControllers] objectAtIndex:0];
+//        dashboardViewController.userId = self.accountData.userId;
+//        dashboardViewController.houseId = houseData.houseId;
+//        dashboardViewController.houseName = houseData.houseName;
+//        dashboardViewController.tId = thermostatData.tId;
+//        dashboardViewController.tName = thermostatData.tName;
+//        dashboardViewController.isRemoteControl = isRC;
         
         
 //        MyEScheduleViewController *scheduleViewController = [[tabBarController childViewControllers] objectAtIndex:1];
@@ -197,7 +198,7 @@
     }
     if ([[segue identifier] isEqualToString:@"ShowHouseList"])
     {
-        MyEHouseListViewController *hlvc = [segue destinationViewController];
+        MyEHouseListViewController *hlvc = [[segue destinationViewController] childViewControllers][0];
         hlvc.accountData = self.accountData;
     }
 }
@@ -343,22 +344,31 @@
                 {
                     MainDelegate.thermostatData = [MainDelegate.houseData firstConnectedThermostat];
                 }
+                // 如果只有一个带硬件的房子，且硬件在线，则不用在House List停留，直接将该房子选中而进入Dashboard。
+                MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:0];
+                MainDelegate.houseData = houseData;
                 
-                if (MainDelegate.thermostatData.deviceType == 0 || MainDelegate.thermostatData.deviceType == 1 || MainDelegate.thermostatData.deviceType == 2 || MainDelegate.thermostatData.deviceType == 3)
-                {
-                    // 如果只有一个带硬件的房子，且硬件在线，则不用在House List停留，直接将该房子选中而进入Dashboard。
-                    [self performSegueWithIdentifier:@"ShowMainTabViewDirectly" sender:self];
-                }
+                //在NSDefaults里面记录这次要进入的房屋
+                [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
+                
+                MyEThermostatData *thermostatData = [houseData.thermostats objectAtIndex:0];// 用该房子的第一个T
+                MainDelegate.thermostatData = thermostatData;
+                
+                [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
+                [prefs synchronize];
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+                SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
+//                [self presentViewController:vc animated:YES completion:nil];
+                [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+                MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
             }
             else if (anAccountData.houseList.count >= 1)
             {
-                [self performSegueWithIdentifier:@"ShowHouseList" sender:self];
-                /* 原来在这里直接对后面转入的VC设置变量，但发现我们需要在HouseList VC里面的viewDidLoad里面就需要执行读取用户默认houseId的工作，但此时需要accountData数据，此数据在下面才能传入，所以导致读取用户默认houseId的工作出错
-                UINavigationController *navigationController = (UINavigationController *)self.navigationController;
-                MyEHouseListViewController *hlvc = (MyEHouseListViewController *)[[navigationController viewControllers] objectAtIndex:1];
-                
-                hlvc.accountData = anAccountData;
-                 */
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+                MyEHouseListViewController *hlvc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
+                hlvc.accountData = self.accountData;
+                [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+                MainDelegate.window.rootViewController = hlvc;// 用主Navigation VC作为程序的rootViewController
             }           
         }
         else
@@ -482,7 +492,7 @@
     }
     
     if(HUD == nil) {
-        HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         //        HUD.dimBackground = YES; //容易产生灰条
         HUD.delegate = self;
     } else

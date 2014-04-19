@@ -99,8 +99,8 @@
 //        UIViewController *vc =[storybord instantiateInitialViewController];// 这个是默认的第一个viewController
         
         // 获取程序的主Navigation VC, 这里可以类似地从stroyboard获取任意的VC，然后设置它为rootViewController，这样就可以显示它
-        UINavigationController *controller = (UINavigationController*)[storybord
-                                    instantiateViewControllerWithIdentifier: @"MainNavViewController"];
+        UIViewController *controller = (UIViewController*)[storybord
+                                    instantiateViewControllerWithIdentifier: @"MainViewController"];
         self.window.rootViewController = controller;// 用主Navigation VC作为程序的rootViewController
         [self.window makeKeyAndVisible];
         return YES;

@@ -21,5 +21,6 @@
 }
 
 @property (nonatomic,strong) GatewayEntity *gateway;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
 @end

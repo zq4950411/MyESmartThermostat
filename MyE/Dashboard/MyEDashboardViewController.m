@@ -22,6 +22,7 @@
 
 #import "MyEThermostatData.h"
 #import "MyEHouseData.h"
+#import "SWRevealViewController.h"
 
 @interface MyEDashboardViewController ()
 - (void)configureView;
@@ -50,7 +51,6 @@
 @synthesize systemControlToolbarView = _systemControlToolbarView;
 @synthesize fanControlToolbarView = _fanControlToolbarView;
 @synthesize setpointPickerView = _setpointPickerView;
-@synthesize holdButton = _holdButton;
 @synthesize systemControlToolbarViewTapRecognizer = _systemControlToolbarViewTapRecognizer;
 @synthesize systemControlHeatingButton = _systemControlHeatingButton;
 @synthesize systemControlCoolingButton = _systemControlCoolingButton;
@@ -94,6 +94,27 @@
 {
     [super viewDidLoad];
     
+    BOOL isRC = (MainDelegate.thermostatData.remote == 0? NO:YES);
+    self.userId = MainDelegate.accountData.userId;
+    self.houseId = MainDelegate.houseData.houseId;
+    self.houseName = MainDelegate.houseData.houseName;
+    self.tId = MainDelegate.thermostatData.tId;
+    self.tName = MainDelegate.thermostatData.tName;
+    self.isRemoteControl = isRC;
+    
+    
+    // Change button color
+    _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
+    
+    // Set the side bar button action. When it's tapped, it'll show up the sidebar.
+    _sidebarButton.target = self.revealViewController;
+    _sidebarButton.action = @selector(revealToggle:);
+    
+    // Set the gesture
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
+    
+    
     self.fUISwitch.offColor = [UIColor whiteColor];
     self.fUISwitch.onColor = [UIColor whiteColor];
     
@@ -132,15 +153,7 @@
     UIColor *bgcolor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgpattern.png"]];
     [self.view setBackgroundColor:bgcolor];
     
-    // 下面使用9宫格可缩放图片作为按钮背景
-    UIImage *buttonBackImage = [UIImage imageNamed:@"buttonbg.png" ];
-    buttonBackImage = [buttonBackImage stretchableImageWithLeftCapWidth:10 topCapHeight:10];
-    [self.holdButton setBackgroundImage:buttonBackImage forState:UIControlStateNormal];
-    UIImage *buttonDisabledBackImage = [UIImage imageNamed:@"buttonbgdisabled.png" ];
-    buttonDisabledBackImage = [buttonDisabledBackImage stretchableImageWithLeftCapWidth:10 topCapHeight:10];
-    [self.holdButton setBackgroundImage:buttonDisabledBackImage forState:UIControlStateDisabled];
-    [self.holdButton setTitleColor:[UIColor colorWithWhite:0.77 alpha:1.0] forState:UIControlStateDisabled];
-    
+   
     _isSetpointChanged = NO;
     _isSystemControlToolbarViewShowing = NO;
     _isFanControlToolbarViewShowing = NO;
@@ -174,8 +187,7 @@
     [self setSelectedLabelView:nil];
     [self setOldLabelView:nil];
     
-        
-    [self setHoldButton:nil];
+
     [self setHumidityLabel:nil];
     [self setSystemControlToolbarView:nil];
     [self setFanControlToolbarView:nil];
@@ -563,7 +575,6 @@
     _isRemoteControl = isRemoteControl;
     
     // Update the view.
-    self.holdButton.enabled = isRemoteControl;
     self.fUISwitch.enabled = isRemoteControl;
     
     self.setpointPickerView.alpha = isRemoteControl ? 1.0 : 0.77;
@@ -825,8 +836,7 @@
         if (theDashboardData.controlMode ==5)
         {
             self.setpointPickerView.userInteractionEnabled = NO;
-            
-            self.holdButton.hidden = YES;
+
             self.fUISwitch.hidden = YES;
             
             self.activeProgramLabel.text = @"None";
@@ -834,8 +844,7 @@
         else {
             self.setpointPickerView.userInteractionEnabled = YES;
             [self.setpointPickerView selectRow:theDashboardData.setpoint-55 inComponent:0 animated:YES];
-            
-            self.holdButton.hidden = NO;
+
             self.fUISwitch.hidden = NO;
             
             self.activeProgramLabel.text = theDashboardData.currentProgram;
@@ -855,12 +864,11 @@
         
         if(theDashboardData.isOvrried == 0)
         {
-            [self.holdButton setTitle:@"Run" forState:UIControlStateNormal];
+
             [self.fUISwitch setOn:NO animated:YES];
         }
         else
         {
-            [self.holdButton setTitle:@"Hold" forState:UIControlStateNormal];
             [self.fUISwitch setOn:YES animated:YES];
         }
         

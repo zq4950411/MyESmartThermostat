@@ -17,5 +17,6 @@
 }
 
 @property (nonatomic,strong) CommonCell *typeCell;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
 @end

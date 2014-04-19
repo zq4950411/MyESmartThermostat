@@ -25,6 +25,7 @@
     CALayer *_maskLayer;
     NSTimer *loadTimer;  // Timer used for uploading delay.
 
+
     MBProgressHUD *HUD;
     MyETipViewController *_tipViewController;
     
@@ -62,7 +63,8 @@
 @property (weak, nonatomic) IBOutlet UIView *systemControlToolbarView;
 @property (weak, nonatomic) IBOutlet UIView *fanControlToolbarView;
 @property (weak, nonatomic) IBOutlet UIPickerView *setpointPickerView;
-@property (weak, nonatomic) IBOutlet UIButton *holdButton;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
 
 

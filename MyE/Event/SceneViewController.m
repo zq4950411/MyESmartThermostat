@@ -15,6 +15,7 @@
 #import "SceneEntity.h"
 #import "SceneCell.h"
 #import "ACPButton.h"
+#import "SWRevealViewController.h"
 
 
 @implementation SceneViewController
@@ -380,6 +381,15 @@
     [self initHeaderView:self];
     
     //NSLog(NSStringFromCGRect(self.view.frame));
+    // Change button color
+    _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
+    
+    // Set the side bar button action. When it's tapped, it'll show up the sidebar.
+    _sidebarButton.target = self.revealViewController;
+    _sidebarButton.action = @selector(revealToggle:);
+    
+    // Set the gesture
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
 }
 
 -(void) viewWillAppear:(BOOL)animated
