@@ -6,7 +6,7 @@
 //  Copyright (c) 2013年 MyEnergy Domain. All rights reserved.
 //
 
-#import "AddSmartUpTableViewView.h"
+#import "AddDeviceTableViewView.h"
 #import "DictionaryTableViewViewController.h"
 
 #import "CommonCell.h"
@@ -17,7 +17,7 @@
 
 #import "Utils.h"
 
-@implementation AddSmartUpTableViewView
+@implementation AddDeviceTableViewView
 
 @synthesize typeDic;
 @synthesize locationDic;

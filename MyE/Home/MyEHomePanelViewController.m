@@ -37,6 +37,9 @@
     
     // Set the gesture
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
+    
+    [self.weatherTile setFlatStyleType:ACPButtonOK];
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,4 +59,10 @@
 }
 */
 
+- (IBAction)TestAction:(id)sender {
+    if([self.inflLabel.text isEqualToString:@"1111"])
+        self.inflLabel.text = @"2222";
+    else
+        self.inflLabel.text = @"1111";
+}
 @end

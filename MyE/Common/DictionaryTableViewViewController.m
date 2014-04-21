@@ -7,7 +7,7 @@
 //
 
 #import "DictionaryTableViewViewController.h"
-#import "AddSmartUpTableViewView.h"
+#import "AddDeviceTableViewView.h"
 
 #import "MyEHouseData.h"
 

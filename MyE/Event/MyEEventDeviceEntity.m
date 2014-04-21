@@ -6,10 +6,10 @@
 //  Copyright (c) 2013年 MyEnergy Domain. All rights reserved.
 //
 
-#import "DeviceEntity.h"
+#import "MyEEventDeviceEntity.h"
 #import "NSDictionary+Convert.h"
 
-@implementation DeviceEntity
+@implementation MyEEventDeviceEntity
 
 @synthesize point;
 @synthesize deviceName;
@@ -28,7 +28,7 @@
     {
         NSDictionary *tempDic = [array objectAtIndex:i];
         
-        DeviceEntity *device = [[DeviceEntity alloc] init];
+        MyEEventDeviceEntity *device = [[MyEEventDeviceEntity alloc] init];
         
         device.point = [tempDic valueToStringForKey:@"point"];
         device.deviceName = [tempDic valueToStringForKey:@"deviceName"];

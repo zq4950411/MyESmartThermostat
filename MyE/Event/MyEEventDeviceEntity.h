@@ -8,7 +8,7 @@
 
 #import "BaseObject.h"
     
-@interface DeviceEntity : BaseObject
+@interface MyEEventDeviceEntity : BaseObject
 {
     NSString *point;
     NSString *deviceName;

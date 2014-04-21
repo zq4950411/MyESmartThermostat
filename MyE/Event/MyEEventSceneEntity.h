@@ -8,7 +8,7 @@
 
 #import "BaseObject.h"
 
-@interface SceneEntity : BaseObject
+@interface MyEEventSceneEntity : BaseObject
 {
     NSString *sceneName;
     NSString *sceneId;

@@ -9,9 +9,9 @@
 #import "AddSceneDeviceViewControlerViewController.h"
 #import "SceneDeviceViewController.h"
 
-#import "DeviceEntity.h"
+#import "MyEEventDeviceEntity.h"
 #import "MyEHouseData.h"
-#import "SceneEntity.h"
+#import "MyEEventSceneEntity.h"
 
 @implementation AddSceneDeviceViewControlerViewController
 
@@ -35,7 +35,7 @@
     return self;
 }
 
--(id) initWithDevice:(DeviceEntity *)d
+-(id) initWithDevice:(MyEEventDeviceEntity *)d
 {
     if (self = [super init])
     {
@@ -90,7 +90,7 @@
             }
             else
             {
-                DeviceEntity *d = [self.deviceView getSeletedDevice];
+                MyEEventDeviceEntity *d = [self.deviceView getSeletedDevice];
                 [tempVc dimissWithDeviceId:d.deviceId];
             }
         }
@@ -146,7 +146,7 @@
     [params safeSetObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
     if (selectedDevice == nil)
     {
-        DeviceEntity *d = [self.deviceView getSeletedDevice];
+        MyEEventDeviceEntity *d = [self.deviceView getSeletedDevice];
         
         [params safeSetObject:@"-1" forKey:@"sceneSubId"];
         [params safeSetObject:d.deviceId forKey:@"deviceId"];
@@ -168,9 +168,9 @@
                                   withUserInfo:dic];
 }
 
--(void) showDeviceInfo:(DeviceEntity *) device
+-(void) showDeviceInfo:(MyEEventDeviceEntity *) device
 {
-    DeviceEntity *d = nil;
+    MyEEventDeviceEntity *d = nil;
     
     if (device == nil)
     {

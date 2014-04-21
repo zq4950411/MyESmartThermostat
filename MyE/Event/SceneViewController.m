@@ -12,8 +12,8 @@
 #import "SceneDeviceViewController.h"
 
 #import "MyEHouseData.h"
-#import "SceneEntity.h"
-#import "SceneCell.h"
+#import "MyEEventSceneEntity.h"
+#import "MyEEventSceneCell.h"
 #import "ACPButton.h"
 #import "SWRevealViewController.h"
 
@@ -28,7 +28,7 @@
     {
         if ([jsonString JSONValue] != nil)
         {
-            self.datas = [SceneEntity scenes:jsonString];
+            self.datas = [MyEEventSceneEntity scenes:jsonString];
             [self.tableView reloadData];
         }
     }
@@ -60,7 +60,7 @@
             {
                 [SVProgressHUD showSuccessWithStatus:@"Success"];
                 
-                SceneEntity *scene = [[SceneEntity alloc] init];
+                MyEEventSceneEntity *scene = [[MyEEventSceneEntity alloc] init];
                 
                 scene.sceneId = [[jsonString JSONValue] objectForKey:@"sceneId"];
                 scene.sceneName = [[userInfo objectForKey:REQUET_PARAMS] objectForKey:@"sceneName"];
@@ -93,7 +93,7 @@
         {
             [SVProgressHUD showSuccessWithStatus:@"Success"];
             
-            SceneEntity *scene = [self.datas safeObjectAtIndex:applyIndex];
+            MyEEventSceneEntity *scene = [self.datas safeObjectAtIndex:applyIndex];
             
             scene.type = @"1";
             [self.tableView reloadData];
@@ -127,7 +127,7 @@
     self.isShowLoading = YES;
     applyIndex = sender.tag;
     
-    SceneEntity *scene = (SceneEntity *)[self.datas safeObjectAtIndex:applyIndex];
+    MyEEventSceneEntity *scene = (MyEEventSceneEntity *)[self.datas safeObjectAtIndex:applyIndex];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -169,7 +169,7 @@
 {
     self.isShowLoading = YES;
     
-    SceneEntity *scene = (SceneEntity *)[self.datas safeObjectAtIndex:currentDeleteIndex];
+    MyEEventSceneEntity *scene = (MyEEventSceneEntity *)[self.datas safeObjectAtIndex:currentDeleteIndex];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -264,7 +264,7 @@
 {
     if (indexPath.section == 0)
     {
-        SceneEntity *scene = (SceneEntity *)[self.datas safeObjectAtIndex:indexPath.row];
+        MyEEventSceneEntity *scene = (MyEEventSceneEntity *)[self.datas safeObjectAtIndex:indexPath.row];
         SceneDeviceViewController *device = [[SceneDeviceViewController alloc] initWithScene:scene];
         device.scene = scene;
         
@@ -308,7 +308,7 @@
     if (indexPath.section == 0)
     {
         static NSString *identifier = @"Cell";
-        SceneCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
+        MyEEventSceneCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
       
         if (cell == nil)
         {

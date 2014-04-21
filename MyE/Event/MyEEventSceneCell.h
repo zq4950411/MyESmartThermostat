@@ -8,7 +8,7 @@
 
 #import "BaseCustomCell.h"
 
-@interface SceneCell : BaseCustomCell
+@interface MyEEventSceneCell : BaseCustomCell
 {
     CGFloat editButtonX;
     CGFloat deleteButtonX;

@@ -8,8 +8,8 @@
 
 #import "BaseView.h"
 
-@class DeviceEntity;
-@interface DeviceView : BaseView
+@class MyEEventDeviceEntity;
+@interface MyEEventDeviceView : BaseView
 {
     UIButton *nextButton;
     UIButton *cancelButton;
@@ -24,7 +24,7 @@
 
 @property (nonatomic,strong) NSMutableArray *datas;
 
--(DeviceEntity *) getSeletedDevice;
+-(MyEEventDeviceEntity *) getSeletedDevice;
 
 @end
 

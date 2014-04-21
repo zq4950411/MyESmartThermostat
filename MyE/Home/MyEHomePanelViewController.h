@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ACPbutton.h"
 
 @interface MyEHomePanelViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
+@property (weak, nonatomic) IBOutlet ACPButton *weatherTile;
+@property (weak, nonatomic) IBOutlet UILabel *inflLabel;
+- (IBAction)TestAction:(id)sender;
 @end

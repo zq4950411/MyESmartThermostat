@@ -6,17 +6,17 @@
 //  Copyright (c) 2013年 MyEnergy Domain. All rights reserved.
 //
 
-#import "DeviceCell.h"
-#import "DeviceEntity.h"
+#import "MyEEventDeviceCell.h"
+#import "MyEEventDeviceEntity.h"
 
-@implementation DeviceCell
+@implementation MyEEventDeviceCell
 
 -(void) layoutSubviews
 {
     [super layoutSubviews];
-    if ([object isKindOfClass:[DeviceEntity class]])
+    if ([object isKindOfClass:[MyEEventDeviceEntity class]])
     {
-        DeviceEntity *device = (DeviceEntity *)object;
+        MyEEventDeviceEntity *device = (MyEEventDeviceEntity *)object;
         self.userLabel.text = device.deviceName;
         
         if (device.terminalType.intValue == 0)

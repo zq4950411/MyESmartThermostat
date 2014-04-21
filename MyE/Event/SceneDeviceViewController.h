@@ -8,13 +8,13 @@
 
 #import "BaseTableViewController.h"
 
-@class SceneEntity;
+@class MyEEventSceneEntity;
 @class AddSceneDeviceViewControlerViewController;
 @class PopEditSceneViewController;
 
 @interface SceneDeviceViewController : BaseTableViewController<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 {
-    __weak  SceneEntity *scene;
+    __weak  MyEEventSceneEntity *scene;
     
     NSMutableArray *addDeviceList;
     NSMutableArray *deviceList;
@@ -23,12 +23,12 @@
     PopEditSceneViewController *popEdithSceneName;
 }
 
-@property (nonatomic,weak) SceneEntity *scene;
+@property (nonatomic,weak) MyEEventSceneEntity *scene;
 
 @property (nonatomic,strong) NSMutableArray *addDeviceList;
 @property (nonatomic,strong) NSMutableArray *deviceList;
 
--(id) initWithScene:(SceneEntity *) scene;
+-(id) initWithScene:(MyEEventSceneEntity *) scene;
 -(void) dimiss;
 -(void) dimissWithDeviceId:(NSString *) deviceId;
 -(void) editSceneName:(NSString *) sceneName;

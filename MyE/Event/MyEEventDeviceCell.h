@@ -8,6 +8,6 @@
 
 #import "BaseCustomCell.h"
 
-@interface DeviceCell : BaseCustomCell
+@interface MyEEventDeviceCell : BaseCustomCell
 
 @end

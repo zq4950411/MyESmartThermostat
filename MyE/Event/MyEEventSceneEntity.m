@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 MyEnergy Domain. All rights reserved.
 //
 
-#import "SceneEntity.h"
+#import "MyEEventSceneEntity.h"
 
-@implementation SceneEntity
+@implementation MyEEventSceneEntity
 
 @synthesize sceneId;
 @synthesize sceneName;
@@ -22,7 +22,7 @@
     for (int i = 0; i < tempArray.count; i++)
     {
         NSDictionary *tempDic2 = [tempArray objectAtIndex:i];
-        SceneEntity *temp = [[SceneEntity alloc] init];
+        MyEEventSceneEntity *temp = [[MyEEventSceneEntity alloc] init];
         
         temp.sceneId = [tempDic2 objectForKey:@"sceneId"];
         temp.sceneName = [tempDic2 objectForKey:@"sceneName"];

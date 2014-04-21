@@ -12,11 +12,11 @@
 
 #import "PopEditSceneViewController.h"
 
-#import "DeviceCell.h"
+#import "MyEEventDeviceCell.h"
 #import "MyEHouseData.h"
-#import "SceneEntity.h"
+#import "MyEEventSceneEntity.h"
 #import "ACPButton.h"
-#import "DeviceEntity.h"
+#import "MyEEventDeviceEntity.h"
 
 @implementation SceneDeviceViewController
 
@@ -29,7 +29,7 @@
     [self dimiss];
     for (int i = 0; i < addDeviceList.count; i++)
     {
-        DeviceEntity *d = [addDeviceList objectAtIndex:i];
+        MyEEventDeviceEntity *d = [addDeviceList objectAtIndex:i];
         if ([d.deviceId isEqualToString:deviceId])
         {
             [addDeviceList removeObject:d];
@@ -44,7 +44,7 @@
     [self dismissSemiModalView];
 }
 
--(id) initWithScene:(SceneEntity *) s
+-(id) initWithScene:(MyEEventSceneEntity *) s
 {
     if (self = [super init])
     {
@@ -61,8 +61,8 @@
     [self headerFinish];
     if ([u rangeOfString:URL_FOR_SCENES_FIND_SCENE_DEVICE].location != NSNotFound)
     {
-        self.addDeviceList = [DeviceEntity getDevicesByKey:@"addDeviceList" jsonString:jsonString];
-        self.deviceList = [DeviceEntity getDevicesByKey:@"deviceList" jsonString:jsonString];
+        self.addDeviceList = [MyEEventDeviceEntity getDevicesByKey:@"addDeviceList" jsonString:jsonString];
+        self.deviceList = [MyEEventDeviceEntity getDevicesByKey:@"deviceList" jsonString:jsonString];
         [self.tableView reloadData];
     }
     else if ([u rangeOfString:URL_FOR_SCENES_DELETE_SCENE_DEVICE].location != NSNotFound)
@@ -191,7 +191,7 @@
 {
     self.isShowLoading = YES;
     
-    DeviceEntity *d = [deviceList safeObjectAtIndex:index];
+    MyEEventDeviceEntity *d = [deviceList safeObjectAtIndex:index];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -227,7 +227,7 @@
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DeviceEntity *d = [deviceList safeObjectAtIndex:indexPath.row];
+    MyEEventDeviceEntity *d = [deviceList safeObjectAtIndex:indexPath.row];
     
     addSceneVc = [[AddSceneDeviceViewControlerViewController alloc] initWithDevice:d];
     addSceneVc.parentVC = self;
@@ -287,7 +287,7 @@
     static NSString *identifier2 = @"cell2";
     static NSString *identifier3 = @"cell3";
     
-    DeviceCell *cell = nil;
+    MyEEventDeviceCell *cell = nil;
     if (indexPath.section == 0)
     {
         cell = [self.tableView dequeueReusableCellWithIdentifier:identifier1];
@@ -305,7 +305,7 @@
         cell = [self.tableView dequeueReusableCellWithIdentifier:identifier2];
         if (cell == nil)
         {
-            cell = [[DeviceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier2];
+            cell = [[MyEEventDeviceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier2];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, cell.height)];
             
@@ -324,7 +324,7 @@
         cell = [self.tableView dequeueReusableCellWithIdentifier:identifier3];
         if (cell == nil)
         {
-            cell = [[DeviceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier3];
+            cell = [[MyEEventDeviceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier3];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, cell.height)];
             

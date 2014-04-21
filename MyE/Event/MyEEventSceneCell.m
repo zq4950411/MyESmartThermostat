@@ -6,11 +6,11 @@
 //  Copyright (c) 2013年 MyEnergy Domain. All rights reserved.
 //
 
-#import "SceneCell.h"
-#import "SceneEntity.h"
+#import "MyEEventSceneCell.h"
+#import "MyEEventSceneEntity.h"
 #import "ACPButton.h"
 
-@implementation SceneCell
+@implementation MyEEventSceneCell
 
 -(void) awakeFromNib
 {
@@ -21,7 +21,7 @@
 -(void) layoutSubviews
 {
     [super layoutSubviews];
-    if ([object isKindOfClass:[SceneEntity class]])
+    if ([object isKindOfClass:[MyEEventSceneEntity class]])
     {
         if (self.editingStyle == UITableViewCellEditingStyleDelete)
         {
@@ -31,7 +31,7 @@
         }
         else
         {
-            SceneEntity *scene = (SceneEntity *)object;
+            MyEEventSceneEntity *scene = (MyEEventSceneEntity *)object;
             
             self.userLabel.text = scene.sceneName;
             if (editButtonX != self.headButton.left)

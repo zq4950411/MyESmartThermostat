@@ -7,7 +7,7 @@
 //
 
 #import "SmartUpViewController.h"
-#import "AddSmartUpTableViewView.h"
+#import "AddDeviceTableViewView.h"
 #import "OperationViewController.h"
 #import "PlugControlViewController.h"
 #import "ControlViewController.h"
@@ -251,7 +251,7 @@
     }
     else
     {
-        AddSmartUpTableViewView *vc = [[AddSmartUpTableViewView alloc] init];
+        AddDeviceTableViewView *vc = [[AddDeviceTableViewView alloc] init];
         vc.smartup = smart;
         
         [self.navigationController pushViewController:vc animated:YES];
@@ -459,7 +459,7 @@
 
 -(void) addAction:(id) sender
 {
-    AddSmartUpTableViewView *add = [[AddSmartUpTableViewView alloc] init];
+    AddDeviceTableViewView *add = [[AddDeviceTableViewView alloc] init];
     [self.navigationController pushViewController:add animated:YES];
 }
 

@@ -13,7 +13,7 @@
 @class CommonCell;
 @class SmartUp;
 
-@interface AddSmartUpTableViewView : BaseTableViewController <UITableViewDataSource,UITableViewDelegate,DictionaryDelegate,LocationDelegate>
+@interface AddDeviceTableViewView : BaseTableViewController <UITableViewDataSource,UITableViewDelegate,DictionaryDelegate,LocationDelegate>
 {
     NSDictionary *typeDic;
     NSDictionary *locationDic;

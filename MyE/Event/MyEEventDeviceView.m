@@ -6,11 +6,11 @@
 //  Copyright (c) 2013年 MyEnergy Domain. All rights reserved.
 //
 
-#import "DeviceView.h"
-#import "DeviceEntity.h"
+#import "MyEEventDeviceView.h"
+#import "MyEEventDeviceEntity.h"
 #import "NSMutableArray+Safe.h"
 
-@implementation DeviceView
+@implementation MyEEventDeviceView
 
 @synthesize nextButton;
 @synthesize cancelButton;
@@ -18,7 +18,7 @@
 @synthesize datas;
 
 //获取要添加的设备类型
--(DeviceEntity *) getSeletedDevice
+-(MyEEventDeviceEntity *) getSeletedDevice
 {
     return [self.datas safeObjectAtIndex:[self.pickView selectedRowInComponent:0]];
 }
@@ -50,7 +50,7 @@
     
     label.backgroundColor = [UIColor clearColor];
     
-    DeviceEntity *device = (DeviceEntity *)[self.datas safeObjectAtIndex:row];
+    MyEEventDeviceEntity *device = (MyEEventDeviceEntity *)[self.datas safeObjectAtIndex:row];
     
     label.textAlignment = NSTextAlignmentCenter;
     label.text = device.deviceName;
