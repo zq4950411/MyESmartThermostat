@@ -7,13 +7,13 @@
 //
 
 #import "ScheduleViewController.h"
-#import "SmartUpViewController.h"
+#import "MyEDevicesViewController.h"
 #import "PlugControlViewController.h"
 
 #import "CommonCell.h"
 #import "WeekCell.h"
 
-#import "SmartUp.h"
+#import "MyEDevice.h"
 #import "UIUtils.h"
 #import "MyEHouseData.h"
 #import "ScheduleEntity.h"
@@ -310,8 +310,8 @@
     
     NSLog(@"%@",sb);
 
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     

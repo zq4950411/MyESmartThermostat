@@ -16,7 +16,7 @@
 }
 @property (nonatomic) NSIndexPath *index;
 @property (weak, nonatomic) MyESwitchChannelStatus *status;
-@property (nonatomic, strong) SmartUp *device;
+@property (nonatomic, strong) MyEDevice *device;
 @property (nonatomic, strong) MyESwitchManualControl *control;
 @property (nonatomic) NSInteger selectedBtnIndex;
 @end

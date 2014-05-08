@@ -96,4 +96,12 @@
     alert.leftBlock = lAction;
     [alert show];
 }
++(void)doThisWhenNeedUploadOrDownloadDataFromServerWithURL:(NSString *)url andUIViewController:(id<NetManagerDelegate>)delegate andDictionary:(NSDictionary *)dic{
+    [[NetManager sharedManager] requestWithURL:GetRequst(url)
+                                      delegate:delegate
+                                  withUserInfo:@{@"requestParams": dic}];
+}
++(BOOL)requstString:(NSString *)mainString hasURLString:(NSString *)url{
+    return [mainString rangeOfString:url].location != NSNotFound;
+}
 @end

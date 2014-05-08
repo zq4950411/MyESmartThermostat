@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="3RW-rZ-XcX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="3RW-rZ-XcX">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -9,7 +9,7 @@
         <scene sceneID="hFG-qq-nHc">
             <objects>
                 <tableViewController storyboardIdentifier="switchEdit" hidesBottomBarWhenPushed="YES" id="M5M-gE-Khe" customClass="MyESwitchEditViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="1" id="jVq-sZ-Fcl">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="5" sectionFooterHeight="5" id="jVq-sZ-Fcl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -331,10 +331,10 @@
                                         <button opaque="NO" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s24-cP-iDJ">
                                             <rect key="frame" x="40" y="32" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" image="switch1-on">
+                                            <state key="normal" image="switch-on">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
-                                            <state key="selected" image="switch1-off"/>
+                                            <state key="selected" image="switch-off"/>
                                             <connections>
                                                 <action selector="switchControl:" destination="ERS-yz-baA" eventType="touchUpInside" id="FCG-eI-sXp"/>
                                             </connections>
@@ -648,9 +648,9 @@
     <resources>
         <image name="clock-off" width="30" height="30"/>
         <image name="clock-on" width="30" height="30"/>
-        <image name="switch-off" width="45" height="45"/>
+        <image name="switch-off" width="64" height="64"/>
+        <image name="switch-on" width="64" height="64"/>
         <image name="switch1-off" width="80" height="80"/>
-        <image name="switch1-on" width="80" height="80"/>
         <image name="tab-acComfort" width="30" height="30"/>
         <image name="tab-socketAutoContro" width="30" height="30"/>
         <image name="tab-socketManualControl" width="30" height="30"/>

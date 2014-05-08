@@ -152,20 +152,8 @@
 #pragma mark URL Loading System methods
 - (void) downloadModelFromServer
 {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
-    
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];
@@ -176,20 +164,8 @@
 }
 - (void) downloadWeeklyModelFromServer  
 {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
-
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];
@@ -202,20 +178,9 @@
 
 - (void) uploadModelToServer
 {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
     
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        //        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];
@@ -233,20 +198,8 @@
 
 - (void) uploadHoldModelToServerWithSetpoint:(NSInteger)setpoint hold:(NSInteger)hold
 {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
-    
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        //        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];

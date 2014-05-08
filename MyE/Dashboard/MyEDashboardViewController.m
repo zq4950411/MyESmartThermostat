@@ -7,6 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <AudioToolbox/AudioServices.h>
 #import "MyEDashboardViewController.h"
 #import "MyELoginViewController.h"
 #import "MyEDashboardData.h"
@@ -24,6 +25,9 @@
 #import "MyEHouseData.h"
 #import "SWRevealViewController.h"
 
+
+#import "CDCircleOverlayView.h"
+
 @interface MyEDashboardViewController ()
 - (void)configureView;
 - (void)_toggleFanControlToolbarView;
@@ -33,49 +37,17 @@
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
 - (BOOL)_processHttpRespondForString:(NSString *)respondText;
+
+
+#pragma mark 触摸圆环使用的变量
+@property (nonatomic, assign) NSInteger totalDegree; // 触摸开始的度数设置为零, 此变量记录了一个触摸周期中累计触摸旋转的度数
+@property (nonatomic, assign) NSInteger minVal;
+@property (nonatomic, assign) NSInteger maxVal;
+@property (nonatomic, assign) NSInteger currentVal;// 用于在某次触摸过程中,  记录最新的值.
+@property (nonatomic, retain) CDCircle *circle;
 @end
 
 @implementation MyEDashboardViewController
-//下面两个变量用于在 UIPickerView 中对选定行进行加亮颜色
-@synthesize oldLabelView = _oldLabelView, selectedLabelView = _selectedLabelView;
-
-@synthesize weatherImageView = _weatherImageView;
-@synthesize weatherTemperatureLabel = _weatherTemperatureLabel;
-@synthesize weatherTemperatureRangeLabel = _weatherTemperatureRangeLabel;
-@synthesize humidityLabel = _humidityLabel;
-@synthesize indoorTemperatureLabel = _indoorTemperatureLabel;
-@synthesize controlModeImageView = _controlModeImageView;
-@synthesize fanImageView = _fanImageView;
-@synthesize activeProgramLabel = _activeProgramLabel;
-@synthesize stageLevelLabel = _stageLevelLabel;
-@synthesize systemControlToolbarView = _systemControlToolbarView;
-@synthesize fanControlToolbarView = _fanControlToolbarView;
-@synthesize setpointPickerView = _setpointPickerView;
-@synthesize systemControlToolbarViewTapRecognizer = _systemControlToolbarViewTapRecognizer;
-@synthesize systemControlHeatingButton = _systemControlHeatingButton;
-@synthesize systemControlCoolingButton = _systemControlCoolingButton;
-@synthesize systemControlAutoButton = _systemControlAutoButton;
-@synthesize systemControlEmgHeatingButton = _systemControlEmgHeatingButton;
-@synthesize systemControlOffButton = _systemControlOffButton;
-@synthesize fanControlToolbarViewTapRecognizer = _fanControlToolbarViewTapRecognizer;
-@synthesize fanControlAutoButton = _fanControlAutoButton;
-@synthesize fanControlOnButton = _fanControlOnButton;
-
-@synthesize userId = _userId;
-@synthesize houseId = _houseId;
-@synthesize houseName = _houseName;
-@synthesize tId = _tId;
-@synthesize tName = _tName;
-@synthesize isRemoteControl = _isRemoteControl;
-
-
-@synthesize dashboardData = _dashboardData;
-
-
-@synthesize fUIButton;
-@synthesize fUISwitch;
-
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -101,19 +73,7 @@
     self.tId = MainDelegate.thermostatData.tId;
     self.tName = MainDelegate.thermostatData.tName;
     self.isRemoteControl = isRC;
-    
-    
-    // Change button color
-    _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
-    
-    // Set the side bar button action. When it's tapped, it'll show up the sidebar.
-    _sidebarButton.target = self.revealViewController;
-    _sidebarButton.action = @selector(revealToggle:);
-    
-    // Set the gesture
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-    
-    
+
     
     self.fUISwitch.offColor = [UIColor whiteColor];
     self.fUISwitch.onColor = [UIColor whiteColor];
@@ -124,7 +84,7 @@
     self.fUISwitch.onLabel.text = @"";
     self.fUISwitch.offLabel.text = @"";
     
-    [fUIButton setStyleType:ACPButtonOK];
+    [self.fUIButton setStyleType:ACPButtonOK];
     
     [self.fUIButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
     [self.fUIButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
@@ -142,12 +102,6 @@
     [self.view bringSubviewToFront:self.fanControlToolbarView];
     [self.view bringSubviewToFront:self.systemControlToolbarView];
     
-    // Do any additional setup after loading the view, typically from a nib.
-    //这里设置了就可以自定义高度了，一般默认是无法修改其216像素的高度
-    //There are 3 valid heights for UIDatePicker (and UIPickerView) 162.0, 180.0, and 216.0. 
-    //If you set a UIPickerView height to anything else you will see the following in the console when debugging on an iOS device.
-    // -[UIPickerView setFrame:]: invalid height value ... pinned to 162.0 
-    self.setpointPickerView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;     self.setpointPickerView.frame = CGRectMake(195, 105, 120, 162.0);
     
     // 设置面板背景为一个图片模式
     UIColor *bgcolor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgpattern.png"]];
@@ -166,15 +120,38 @@
                              [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_DASHBOARD2 title:@"Tip" message:@"You can check which thermostat you are currently viewing by double-tapping the navigation bar."],
                              nil];
     _tipViewController = [MyETipViewController tipViewControllerWithTipDataArray:tipDataArray];
+    
+    
+    
+    // 下面是触摸圆环Circle
+    _minVal = 55;
+    _maxVal = 90;
+    self.selectedSegment = 80;
+    
+    self.circle = [[CDCircle alloc] initWithFrame:CGRectMake(30 , 90, 260, 260) numberOfSegments:(360 / STEP_DEGREE) ringWidth:50.f];
+    self.circle.dataSource = self;
+    self.circle.delegate = self;
+    CDCircleOverlayView *overlay = [[CDCircleOverlayView alloc] initWithCircle:self.circle];
+    
+    for (CDCircleThumb *thumb in self.circle.thumbs) {
+        [thumb.iconView setHighlitedIconColor:[UIColor blueColor]];
+        thumb.separatorColor = [UIColor colorWithRed:0.08 green:0.695 blue:1.0 alpha:1];
+        thumb.separatorStyle = CDCircleThumbsSeparatorBasic;
+        thumb.gradientFill = NO;
+        thumb.arcColor = [UIColor colorWithRed:0.08 green:0.8 blue:0.8 alpha:1];
+        thumb.gradientColors = [NSArray arrayWithObjects:(id) [UIColor blackColor].CGColor, (id) [UIColor yellowColor].CGColor, (id) [UIColor blueColor].CGColor, nil];
+        thumb.colorsLocations = [NSMutableArray arrayWithObjects:[NSNumber numberWithFloat:0.00f], [NSNumber numberWithFloat:0.30f], [NSNumber numberWithFloat:1.00f], nil];
+        
+    }
+    
+    [self.view addSubview:self.circle];
+    [self.view addSubview:overlay];
+    self.setpointLabel.text = [NSString stringWithFormat:@"%i", self.selectedSegment];
 }
 
 - (void)viewDidUnload
 {
-    [self setWeatherImageView:nil];
     [self setActiveProgramLabel:nil];
-    [self setWeatherTemperatureLabel:nil];
-    [self setWeatherTemperatureRangeLabel:nil];
-    [self setIndoorTemperatureLabel:nil];
     [self setStageLevelLabel:nil];
     [self setControlModeImageView:nil];
     [self setFanImageView:nil];
@@ -182,13 +159,11 @@
 
     
     [self setFanImageView:nil];
-    [self setSetpointPickerView:nil];
     
     [self setSelectedLabelView:nil];
     [self setOldLabelView:nil];
     
 
-    [self setHumidityLabel:nil];
     [self setSystemControlToolbarView:nil];
     [self setFanControlToolbarView:nil];
     [self setSystemControlToolbarViewTapRecognizer:nil];
@@ -335,19 +310,9 @@
 
 - (void) downloadModelFromServer
 {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        HUD.dimBackground = YES;//容易产生灰条
+
         HUD.delegate = self;
     } else
         [HUD show:YES];
@@ -356,19 +321,8 @@
     NSLog(@"DashboardDownloader is %@, url is %@",downloader.name, urlStr);
 }
 - (void)uploadModelToServer {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];
@@ -446,116 +400,6 @@
 }
 
 
-#pragma mark -
-#pragma mark Picker Data Source Methodes 数据源方法
-
-//选取器如果有多个滚轮，就返回滚轮的数量，我们这里有两个，就返回2
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-	return 1;
-}
-//返回给定的组件有多少行数据
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    if(self.dashboardData.controlMode == 5)//如果控制模式是off，就不允许使用这个picker，picker也只显示一个off
-        return 1;
-    else
-        return 36;
-}
-
-#pragma mark -
-#pragma mark Picker Delegate Methods 委托方法
-
-//官方的意思是，指定组件中的指定数据，就是每一行所对应的显示字符是什么。
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-	if (self.dashboardData.controlMode == 5) {//如果控制模式是off，就不允许使用这个picker，picker也只显示一个off
-        return @"    Off";
-    }
-	else 
-        return [NSString stringWithFormat:@"    %i", row+55];
-}
-
-//当选取器的行发生改变的时候调用这个方法
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    if (self.dashboardData.controlMode == 5) //如果控制模式是off，就不允许使用这个picker，picker也只显示一个off
-        return;
-
-    if (self.dashboardData.setpoint != row + 55) {
-        self.dashboardData.setpoint = row + 55;
-        if ([loadTimer isValid]) {
-            [loadTimer invalidate];
-            loadTimer = nil;
-        }
-        //如果当前这个值是1、2，按钮显示Run，此时如果用户修改了setpoint，此时仍然维持temporary/permanent hold的状态，并上传服务器，override状态保持不变直到用户点击Run取消hold；
-        if (self.dashboardData.isOvrried == 0)
-            self.dashboardData.isOvrried = 2;
-        _isSetpointChanged = YES;
-        loadTimer = [NSTimer scheduledTimerWithTimeInterval:LOAD_DELAY
-                                                       target:self 
-                                                     selector:@selector(uploadModelToServer) 
-                                                     userInfo:nil 
-                                                  repeats:NO]; 
-    }
-    
-    /*
-    //更改在 UIPickerView 中的选定行的颜色
-    if (self.oldLabelView != nil)
-        self.oldLabelView.backgroundColor = [UIColor clearColor];
-    
-    self.selectedLabelView = (UILabel *)[self.setpointPickerView viewForRow:row forComponent:0];
-    self.selectedLabelView.backgroundColor = [UIColor yellowColor];
-    [self.selectedLabelView setNeedsDisplay];
-    self.oldLabelView = self.selectedLabelView;
-    //*/
-    
-}
-
-// returns width of column and height of row for each component. 
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
-    return 90;
-}
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
-    return 40;
-}
-
-/* 用于为选中的行添加加亮黄色，但问题是黄色label没能对齐，也没办法在一开始时就能显示，所以暂时注释了
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    
-    UILabel *label = (UILabel*) view;
-    if (label == nil)
-    {
-        label = [[UILabel alloc] init];
-    }
-    
-    if (self.dashboardData.controlMode == 5) {
-        [label setText:@"Off"];
-    }
-	else 
-        [label setText:[NSString stringWithFormat:@"%i", row+55]];
-    
-    UIFont *myFont=[UIFont  fontWithName:@"Helvetica-Bold"  size:24];
-    label.font = myFont;//用label来设置字体大小
-
-    label.textAlignment = NSTextAlignmentCenter;
-    
-    // This part just colorizes everything
-    [label setTextColor:[UIColor blackColor]];
-    [label setBackgroundColor:[UIColor clearColor]];
-    [label setTextAlignment:NSTextAlignmentCenter];
-    
-    CGSize rowSize = [pickerView rowSizeForComponent:component];
-    CGRect labelRect = CGRectMake (0, 0, rowSize.width, rowSize.height);
-    [label setFrame:labelRect];
-    
-    
-        
-    return label;
-}
-*/
-
-
 
 
 #pragma mark -
@@ -577,7 +421,7 @@
     // Update the view.
     self.fUISwitch.enabled = isRemoteControl;
     
-    self.setpointPickerView.alpha = isRemoteControl ? 1.0 : 0.77;
+//    self.setpointPickerView.alpha = isRemoteControl ? 1.0 : 0.77;
     self.controlModeImageView.alpha = isRemoteControl ? 1.0 : 0.77;
     self.fanImageView.alpha = isRemoteControl ? 1.0 : 0.77;
     if(!isRemoteControl) {
@@ -656,15 +500,6 @@
     self.isRemoteControl = [theDashboardData.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame;
         
     if (theDashboardData) {
-        NSString *imgFileName = [NSString stringWithFormat:@"%@.png",theDashboardData.weather];
-        UIImage *image = [UIImage imageNamed: imgFileName];
-        self.weatherImageView.image = image;
-        
-        self.weatherTemperatureLabel.text = [NSString stringWithFormat:@"%.0f", theDashboardData.weatherTemp];
-        self.weatherTemperatureRangeLabel.text = [NSString stringWithFormat:@"%.0f~%.0f", theDashboardData.lowTemp, theDashboardData.highTemp];
-        self.humidityLabel.text = [NSString stringWithFormat:@"Humidity %i%%",theDashboardData.humidity];
-        self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f", theDashboardData.temperature];
-        
         switch (theDashboardData.controlMode) {
             case 1://Heat
                 if ([theDashboardData.realControlMode caseInsensitiveCompare:@"Heating"] == NSOrderedSame) {
@@ -832,35 +667,23 @@
         }
         
         // 如果是在关闭状态，setpoint就设置为不可访问
-        [self.setpointPickerView setNeedsLayout];
+        [self.circle setNeedsLayout];
         if (theDashboardData.controlMode ==5)
         {
-            self.setpointPickerView.userInteractionEnabled = NO;
+            self.circle.userInteractionEnabled = NO;
 
             self.fUISwitch.hidden = YES;
             
             self.activeProgramLabel.text = @"None";
         }
         else {
-            self.setpointPickerView.userInteractionEnabled = YES;
-            [self.setpointPickerView selectRow:theDashboardData.setpoint-55 inComponent:0 animated:YES];
+            self.circle.userInteractionEnabled = YES;
+            self.setpointLabel.text = [NSString stringWithFormat:@"%d", theDashboardData.setpoint];
 
             self.fUISwitch.hidden = NO;
             
             self.activeProgramLabel.text = theDashboardData.currentProgram;
         }
-
-        /*
-        //更改在 UIPickerView 中的选定行的颜色
-        if (self.oldLabelView != nil)
-            self.oldLabelView.backgroundColor = [UIColor clearColor];
-        
-        self.selectedLabelView = (UILabel *)[self.setpointPickerView viewForRow:(theDashboardData.setpoint-55) forComponent:0];
-
-        self.selectedLabelView.backgroundColor = [UIColor yellowColor];
-        [self.selectedLabelView setNeedsDisplay];
-        self.oldLabelView = self.selectedLabelView;
-        //*/
         
         if(theDashboardData.isOvrried == 0)
         {
@@ -997,6 +820,77 @@
     return YES;
 
 }
+#pragma mark
+#pragma mark 触摸圆环 CDCircleDelegate delegate & data source
+-(void) circleToucheBegan: (CDCircle *) circle // 发送一个信号表示触摸开始
+{
+    _totalDegree = 0;
+    NSLog(@"begin代理");
+}
+-(void) circle:(CDCircle *)circle didMoveToSegment:(NSInteger)segment thumb:(CDCircleThumb *)thumb {
+    NSInteger steps = (NSInteger)(_totalDegree/STEP_DEGREE);
+    NSLog(@"end代理   累计度数 %d, 累计步: %d", _totalDegree, steps);
+    NSInteger newValue = steps+self.selectedSegment;
+    if (newValue > _maxVal) {
+        newValue = _maxVal;
+    }
+    if (newValue < _minVal) {
+        newValue = _minVal;
+    }
+    self.selectedSegment = newValue;
+    // 旋转结束要进行设置清空
+    _totalDegree = 0;
+    
+    if (self.dashboardData.controlMode == 5) //如果控制模式是off，就不允许使用这个picker，picker也只显示一个off
+        return;
+    
+    if (self.dashboardData.setpoint != self.selectedSegment) {
+        self.dashboardData.setpoint = self.selectedSegment;
+        if ([loadTimer isValid]) {
+            [loadTimer invalidate];
+            loadTimer = nil;
+        }
+        //如果当前这个值是1、2，按钮显示Run，此时如果用户修改了setpoint，此时仍然维持temporary/permanent hold的状态，并上传服务器，override状态保持不变直到用户点击Run取消hold；
+        if (self.dashboardData.isOvrried == 0)
+            self.dashboardData.isOvrried = 2;
+        _isSetpointChanged = YES;
+        loadTimer = [NSTimer scheduledTimerWithTimeInterval:LOAD_DELAY
+                                                     target:self
+                                                   selector:@selector(uploadModelToServer)
+                                                   userInfo:nil
+                                                    repeats:NO];
+    }
+
+}
+-(void) circle: (CDCircle *) circle didMoveDegree:(NSInteger) degree {
+    _totalDegree += degree;
+    NSInteger steps = (NSInteger)(_totalDegree/STEP_DEGREE);
+    NSInteger newValue = steps+self.selectedSegment;
+    
+    NSLog(@"move代理 累计度数 %d, 累计步: %d, 原来块=%d, newValue=%d", _totalDegree, steps, self.selectedSegment, newValue);
+    if (newValue > _maxVal) {
+        newValue = _maxVal;
+    }
+    if (newValue < _minVal) {
+        newValue = _minVal;
+    }
+    if(newValue != self.currentVal){
+        self.currentVal = newValue;
+        SystemSoundID soundID;
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"iPod Click" ofType:@"aiff"];
+        NSURL *fileUrl = [NSURL fileURLWithPath:filePath];
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)fileUrl, &soundID);
+        AudioServicesPlaySystemSound(soundID);
+    }
+    self.setpointLabel.text = [NSString stringWithFormat:@"%i", newValue];
+}
+-(UIImage *) circle:(CDCircle *)circle iconForThumbAtRow:(NSInteger)row {
+//    NSString *fileString = [[[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:nil] lastObject];
+//    return [UIImage imageWithContentsOfFile:fileString];
+
+    return [UIImage imageNamed:@"icon_arrow_up.png"];
+}
+
 
 
 #pragma mark -

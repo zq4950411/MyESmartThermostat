@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "MyELoginViewController.h"
+#import "NetManager.h"
 
-@interface MyEUniversal : NSObject<UIAlertViewDelegate>
-
+@interface MyEUniversal : NSObject<NetManagerDelegate,UIActionSheetDelegate>
 
 +(void)doThisWhenNeedPickerWithTitle:(NSString *)title andDelegate:(id<UIActionSheetDelegate>)delegate andTag:(NSInteger)tag andArray:(NSArray*)array andSelectRow:(NSArray *)row andViewController:(UIViewController *)vc;
 
@@ -20,4 +20,9 @@
 
 +(void)dothisWhenTableViewIsEmptyWithMessage:(NSString *)message andFrame:(CGRect)frame andVC:(UIViewController *)vc;
 +(void)doThisWhenNeedTellUserToSaveWhenExitWithLeftBtnAction:(void (^)(void))lAction andRightBtnAction:(void (^)(void))rAction;
+
++(void)doThisWhenNeedUploadOrDownloadDataFromServerWithURL:(NSString *)url andUIViewController:(id<NetManagerDelegate>)delegate andDictionary:(NSDictionary *)dic;
+
++(BOOL)requstString:(NSString *)mainString hasURLString:(NSString *)url;
+
 @end

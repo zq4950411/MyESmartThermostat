@@ -10,31 +10,35 @@
 #endif
 
 #ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import "MyEAppDelegate.h"
-    #import "UIView+Frame.h"
-    #import "SVProgressHUD.h"
-    #import "MyEUtil.h"
-    #import "NSMutableDictionary+Safe.h"
-    #import "NSString+Common.h"
-    #import "SBJson.h"
-    #import "ServerUtils.h"
-    #import "MyEDataLoader.h"
-    #import "MBProgressHUD.h"
-    #import "MyEUtil.h"
-    #import "MyEUniversal.h"
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "MyEAppDelegate.h"
+#import "UIView+Frame.h"
+#import "SVProgressHUD.h"
+#import "MyEUtil.h"
+#import "NSMutableDictionary+Safe.h"
+#import "NSString+Common.h"
+#import "SBJson.h"
+#import "ServerUtils.h"
+#import "MyEDataLoader.h"
+#import "MBProgressHUD.h"
+#import "MyEUtil.h"
+#import "MyEUniversal.h"
+#import "NetManager.h"
 #import "MyEHouseData.h"
-#import "SmartUp.h"
+#import "MyEDevice.h"
+#import "MyEInstructions.h"
 #import "MyESwitchManualControl.h"
 #import "MyESwitchAutoControl.h"
 #import "MyESwitchElec.h"
-
+#import "MyEDeviceEdit.h"
 #import "MZFormSheetController.h"
 #import "DXAlertView.h"
 #import "MZTimerLabel.h"
 #import "MultiSelectSegmentedControl.h"
 #import "IQActionSheetPickerView.h"
+#import "MyEControlBtn.h"
+#import "MyESocketInfo.h"
 #endif
 
 

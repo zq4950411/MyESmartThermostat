@@ -34,14 +34,6 @@
         [_pickerView setDataSource:self];
         _pickerView.backgroundColor = [UIColor whiteColor]; //加了这句代码之后两边就没有view的背景色了，这样显得好看些
         [self addSubview:_pickerView];
-        
-        _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_actionToolbar.frame), 320, 0)];
-        [_datePicker sizeToFit];
-        [_datePicker setDatePickerMode:UIDatePickerModeDate];
-        [self addSubview:_datePicker];
-        [self setDateStyle:NSDateFormatterMediumStyle];
-        
-        [self setActionSheetPickerStyle:IQActionSheetPickerStyleTextPicker];
     }
     return self;
 }

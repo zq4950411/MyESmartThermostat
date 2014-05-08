@@ -9,10 +9,10 @@
 #import "OperationViewController.h"
 #import "EditOperationViewController.h"
 
-#import "SmartUpViewController.h"
+#import "MyEDevicesViewController.h"
 
 #import "MyEHouseData.h"
-#import "SmartUp.h"
+#import "MyEDevice.h"
 
 #import "NSMutableArray+Safe.h"
 #import "NSMutableDictionary+Safe.h"
@@ -154,8 +154,8 @@
 {
     self.isShowLoading = YES;
     
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -177,8 +177,8 @@
 {
     InstructionEntity *instruction = [self getNewButtonInstruction2];
     
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     self.isShowLoading = YES;
     
@@ -438,8 +438,8 @@
 {
     [super viewDidLoad];
     
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     self.title = smartUp.deviceName;
     
     canAddNew = NO;

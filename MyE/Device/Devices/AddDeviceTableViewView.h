@@ -11,7 +11,7 @@
 #import "LocationViewController.h"
 
 @class CommonCell;
-@class SmartUp;
+@class MyEDevice;
 
 @interface AddDeviceTableViewView : BaseTableViewController <UITableViewDataSource,UITableViewDelegate,DictionaryDelegate,LocationDelegate>
 {
@@ -19,7 +19,7 @@
     NSDictionary *locationDic;
     NSDictionary *tDic;
     
-    SmartUp *smartup;
+    MyEDevice *smartup;
     
     CommonCell *typeCell;
     
@@ -28,7 +28,7 @@
     NSMutableDictionary *dataDic;
 }
 
-@property (nonatomic,strong) SmartUp *smartup;
+@property (nonatomic,strong) MyEDevice *smartup;
 
 @property (nonatomic,strong) NSDictionary *typeDic;
 @property (nonatomic,strong) NSDictionary *locationDic;

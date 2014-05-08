@@ -13,7 +13,7 @@
 
 #import "ACPButton.h"
 #import "MyEHouseData.h"
-#import "SmartUp.h"
+#import "MyEDevice.h"
 #import "SWRevealViewController.h"
 
 @implementation SettingViewController
@@ -56,7 +56,7 @@
             NSString *controlStat = [[userInfo objectForKey:REQUET_PARAMS] objectForKey:@"controlState"];
             NSString *aliasName = [[userInfo objectForKey:REQUET_PARAMS] objectForKey:@"aliasName"];
             
-            SmartUp *smart = [self.gateway.smartDevices safeObjectAtIndex:currentSelectedIndex];
+            MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:currentSelectedIndex];
             smart.deviceName = aliasName;
             smart.switchStatus = controlStat;
             
@@ -182,7 +182,7 @@
     NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:0];
     for (int i = 0; i < self.gateway.smartDevices.count; i++)
     {
-        SmartUp *smart = [self.gateway.smartDevices safeObjectAtIndex:i];
+        MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:i];
         
         if (smart.isExpand)
         {
@@ -191,7 +191,7 @@
         }
     }
     
-    SmartUp *smart = [self.gateway.smartDevices safeObjectAtIndex:cell.tag];
+    MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:cell.tag];
     smart.isExpand = YES;
     
     [indexPaths addObject:[NSIndexPath indexPathForRow:cell.tag inSection:2]];
@@ -201,7 +201,7 @@
 
 -(void) unexpand:(GatewayDeviceCell *) cell
 {    
-    SmartUp *smart = [self.gateway.smartDevices safeObjectAtIndex:cell.tag];
+    MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:cell.tag];
     smart.isExpand = NO;
     
     NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:0];
@@ -213,7 +213,7 @@
 
 -(void) editWithString:(NSMutableDictionary *) params
 {
-    SmartUp *smart = [self.gateway.smartDevices safeObjectAtIndex:currentSelectedIndex];
+    MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:currentSelectedIndex];
 
     [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
     [params setObject:smart.tid forKey:@"tId"];
@@ -240,7 +240,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
-    SmartUp *smart = [self.gateway.smartDevices safeObjectAtIndex:currentDeleteIndex];
+    MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:currentDeleteIndex];
     
     [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
     [params setObject:smart.tid forKey:@"tId"];
@@ -257,7 +257,7 @@
 {
     self.currentSelectedIndex = s.tag;
     
-    SmartUp *smart = [self.gateway.smartDevices safeObjectAtIndex:currentSelectedIndex];
+    MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:currentSelectedIndex];
     if (smart.rfStatus.intValue == -1)
     {
         return;
@@ -321,7 +321,7 @@
         return;
     }
     
-    SmartUp *smart = [self.gateway.smartDevices safeObjectAtIndex:textField.tag];
+    MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:textField.tag];
     if (![smart.deviceName isEqualToString:textField.text])
     {
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:0];
@@ -372,7 +372,7 @@
             NSMutableDictionary *params = [NSMutableDictionary dictionary];
             [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
             
-            SmartUp *smart = [self.gateway.smartDevices safeObjectAtIndex:alertView.tag];
+            MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:alertView.tag];
             [params setObject:smart.tid forKey:@"tId"];
             
             NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
@@ -487,7 +487,7 @@
 {
     if (indexPath.section == 2)
     {
-        SmartUp *smart = [self.gateway.smartDevices safeObjectAtIndex:indexPath.row];
+        MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:indexPath.row];
         if (smart.isExpand)
         {
             if (smart.typeId.intValue == 2 || smart.typeId.intValue == 3)

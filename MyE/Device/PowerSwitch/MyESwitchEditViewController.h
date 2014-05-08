@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MyESwitchInfo.h"
-#import "SmartUp.h"
+#import "MyEDevice.h"
 @interface MyESwitchEditViewController : UITableViewController<MyEDataLoaderDelegate,IQActionSheetPickerView>{
     MBProgressHUD *HUD;
     NSInteger _selectedIndex;
@@ -17,7 +17,7 @@
     NSArray *_initArray;  //这里采用数组来记录初始值，以前都是使用的字典
 }
 
-@property(nonatomic,weak) SmartUp *device;
+@property(nonatomic,weak) MyEDevice *device;
 
 @property(nonatomic,strong) MyESwitchInfo *switchInfo;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;

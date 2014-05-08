@@ -7,9 +7,6 @@
 //
 
 #import "BaseObject.h"
-
-
-
 @implementation BaseObject
 
 @end

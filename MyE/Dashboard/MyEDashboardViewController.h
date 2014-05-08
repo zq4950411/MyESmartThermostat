@@ -15,13 +15,19 @@
 
 #import "ACPButton.h"
 #import "FUISwitch.h"
+#import "CDCircle.h"
 
 @class MyEAccountData;
 @class MyEDashboardData;
 @class MyEHouseData;
 @class MyETipViewController;
 
-@interface MyEDashboardViewController : UIViewController <MyEDataLoaderDelegate,UIPickerViewDelegate,UIPickerViewDataSource,MBProgressHUDDelegate> {
+// 定义转多少度算是一步
+#define STEP_DEGREE 30
+
+@interface MyEDashboardViewController : UIViewController
+<MyEDataLoaderDelegate,MBProgressHUDDelegate,
+CDCircleDelegate, CDCircleDataSource> {
     CALayer *_maskLayer;
     NSTimer *loadTimer;  // Timer used for uploading delay.
 
@@ -50,21 +56,14 @@
 
 
 
-
-@property (weak, nonatomic) IBOutlet UIImageView *weatherImageView;
-@property (weak, nonatomic) IBOutlet UILabel *weatherTemperatureLabel;
-@property (weak, nonatomic) IBOutlet UILabel *weatherTemperatureRangeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *humidityLabel;
-@property (weak, nonatomic) IBOutlet UILabel *indoorTemperatureLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *controlModeImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *fanImageView;
 @property (weak, nonatomic) IBOutlet UILabel *activeProgramLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stageLevelLabel;
 @property (weak, nonatomic) IBOutlet UIView *systemControlToolbarView;
 @property (weak, nonatomic) IBOutlet UIView *fanControlToolbarView;
-@property (weak, nonatomic) IBOutlet UIPickerView *setpointPickerView;
+@property (weak, nonatomic) IBOutlet UILabel *setpointLabel;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
 
 
@@ -103,5 +102,9 @@
 - (void)refreshAction;
 - (void)downloadModelFromServer;
 - (void)uploadModelToServer;
+
+#pragma mark
+#pragma CDCircleDelegate 属性
+@property (nonatomic, assign) NSInteger selectedSegment;
 
 @end

@@ -312,7 +312,8 @@
       
         if (cell == nil)
         {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"SceneCell" owner:self options:nil] objectAtIndex:0];
+//            cell = [[[NSBundle mainBundle] loadNibNamed:@"SceneCell" owner:self options:nil] objectAtIndex:0];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"MyEEventSceneCell" owner:self options:nil] objectAtIndex:0];
         }
         
         cell.object = [self.datas safeObjectAtIndex:indexPath.row];

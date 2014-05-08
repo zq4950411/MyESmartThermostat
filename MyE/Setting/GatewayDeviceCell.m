@@ -7,7 +7,7 @@
 //
 
 #import "GatewayDeviceCell.h"
-#import "SmartUp.h"
+#import "MyEDevice.h"
 
 @implementation GatewayDeviceCell
 
@@ -32,9 +32,9 @@
 
 -(void) click:(UIButton *) sender
 {
-    if ([object isKindOfClass:[SmartUp class]])
+    if ([object isKindOfClass:[MyEDevice class]])
     {
-        SmartUp *smart = (SmartUp *)object;
+        MyEDevice *smart = (MyEDevice *)object;
         if (smart.isExpand)
         {
             self.arrowImageView.image = [UIImage imageNamed:@"DownAccessory.png"];
@@ -58,9 +58,9 @@
 {
     [super layoutSubviews];
     
-    if ([object isKindOfClass:[SmartUp class]])
+    if ([object isKindOfClass:[MyEDevice class]])
     {
-        SmartUp *smart = (SmartUp *)object;
+        MyEDevice *smart = (MyEDevice *)object;
         
         if (smart.rfStatus.intValue == -1)
         {

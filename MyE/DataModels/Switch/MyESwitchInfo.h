@@ -21,11 +21,11 @@
 
 @end
 
-
 @interface MyERoom : NSObject
 
 @property (nonatomic) NSInteger roomId;
 @property (nonatomic, strong) NSString *roomName;
 
+-(MyERoom *)initWithJSONString:(NSString *)string;
 -(MyERoom *)initWithDic:(NSDictionary *)dic;
 @end

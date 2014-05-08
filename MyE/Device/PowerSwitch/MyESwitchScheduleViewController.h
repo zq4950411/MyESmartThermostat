@@ -13,6 +13,6 @@
     NSIndexPath *_index;
 }
 
-@property(nonatomic,strong) SmartUp *device;
+@property(nonatomic,strong) MyEDevice *device;
 @property(nonatomic,strong) MyESwitchAutoControl *control;
 @end

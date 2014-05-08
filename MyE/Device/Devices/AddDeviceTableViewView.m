@@ -45,11 +45,9 @@
     if (t == 0)
     {
         smartup.typeId = [dic valueToStringForKey:@"typeId"];
-        smartup.typeName = [dic valueToStringForKey:@"typeName"];
     }
     else if (t == 1)
     {
-        smartup.tidName = [dic valueToStringForKey:@"aliasName"];
         smartup.tid = [dic valueToStringForKey:@"tid"];
     }
     else if (t == 2)
@@ -112,7 +110,6 @@
                 {
                     typeName = @"";
                 }
-                smartup.typeName = typeName;
             }
             
             if (self.smartup.tid != nil)
@@ -128,7 +125,6 @@
                 {
                     name = @"";
                 }
-                smartup.tidName = name;
             }
             
             if (self.smartup.locationName != nil)
@@ -317,8 +313,7 @@
         if (indexPath.row == 0)
         {
             cell.textLabel.text = @"Type";
-            cell.detailTextLabel.text = smartup.typeName;
-            
+         
             if (smartup.deviceId != nil)
             {
                 cell.accessoryType = UITableViewCellAccessoryNone;
@@ -333,7 +328,6 @@
         else if (indexPath.row == 1)
         {
             cell.textLabel.text = @"Smart Remote Used";
-            cell.detailTextLabel.text = smartup.tidName;
         }
         else if (indexPath.row == 2)
         {
@@ -415,7 +409,7 @@
         
     if (self.smartup == nil)
     {
-        self.smartup = [[SmartUp alloc] init];
+        self.smartup = [[MyEDevice alloc] init];
         self.title = @"New";
     }
     else

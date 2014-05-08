@@ -8,11 +8,33 @@
 
 #import <UIKit/UIKit.h>
 #import "ACPbutton.h"
+@class MyEDashboardData;
 
-@interface MyEHomePanelViewController : UIViewController
+@interface MyEHomePanelViewController : UIViewController<MyEDataLoaderDelegate,MBProgressHUDDelegate> {
+
+    MBProgressHUD *HUD;
+}
+@property (strong, nonatomic) MyEDashboardData *dashboardData;
+@property (weak, nonatomic) IBOutlet UIImageView *weatherImageView;
+@property (weak, nonatomic) IBOutlet UILabel *weatherTemperatureLabel;
+@property (weak, nonatomic) IBOutlet UILabel *weatherTemperatureRangeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *indoorTemperatureLabel;
+@property (weak, nonatomic) IBOutlet UILabel *humidityLabel;
+
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
-@property (weak, nonatomic) IBOutlet ACPButton *weatherTile;
-@property (weak, nonatomic) IBOutlet UILabel *inflLabel;
-- (IBAction)TestAction:(id)sender;
+
+
+@property (weak, nonatomic) IBOutlet ACPButton *elecUsageTile;
+@property (weak, nonatomic) IBOutlet ACPButton *thermostatTile;
+@property (weak, nonatomic) IBOutlet ACPButton *faultInfoTile;
+
+
+
+- (IBAction)goElecUsage:(id)sender;
+//- (IBAction)goThermostat:(id)sender;
+//- (IBAction)goFaultInfo:(id)sender;
+- (IBAction)goThermostat:(id)sender;
+- (IBAction)goFaultInfo:(id)sender;
 @end

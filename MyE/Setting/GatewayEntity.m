@@ -7,7 +7,7 @@
 //
 
 #import "GatewayEntity.h"
-#import "SmartUp.h"
+#import "MyEDevice.h"
 
 @implementation GatewayEntity
 
@@ -35,7 +35,7 @@
     {
         NSDictionary *tempDic = [tempArray objectAtIndex:i];
         
-        SmartUp *smart = [[SmartUp alloc] init];
+        MyEDevice *smart = [[MyEDevice alloc] init];
         
         smart.tid = [tempDic valueToStringForKey:@"tid"];
         smart.deviceName = [tempDic valueToStringForKey:@"aliasName"];

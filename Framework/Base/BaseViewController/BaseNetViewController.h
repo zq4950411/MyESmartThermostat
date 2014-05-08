@@ -33,8 +33,6 @@
 
 @property BOOL isNeedCacheData;
 
-
-
 -(void) netFinish:(id) jsonString withUserInfo:(NSDictionary *) userInfo;
 -(void) netFinish:(id) jsonString withUserInfo:(NSDictionary *) userInfo andURL:(NSString *) url;
 

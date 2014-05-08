@@ -12,7 +12,7 @@
 @interface MyESwitchAutoViewController : UIViewController<MyEDataLoaderDelegate>{
     MBProgressHUD *HUD;
 }
-@property(strong, nonatomic) SmartUp *device;
+@property(strong, nonatomic) MyEDevice *device;
 @property(strong, nonatomic) MyESwitchAutoControl *control;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *enableSeg;
 @property(nonatomic) BOOL jumpFromSubView;

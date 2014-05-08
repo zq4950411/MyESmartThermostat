@@ -17,7 +17,7 @@
     NSArray *_initArray;  //初始化array，用于表示编辑时刚进入此面板时的内容
 }
 
-@property (weak, nonatomic) SmartUp *device;
+@property (weak, nonatomic) MyEDevice *device;
 @property (strong, nonatomic) MyESwitchSchedule *schedule;
 @property (strong, nonatomic) MyESwitchAutoControl *control;
 @property (nonatomic) NSInteger actionType;  //1表示新增，2表示编辑

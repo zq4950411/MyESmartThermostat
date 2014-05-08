@@ -33,7 +33,7 @@
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.2f alpha:1.0f];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.15f alpha:0.2f];
     
-    _menuItems = @[@"title", @"home", @"dashboard", @"devices", @"event", @"settings", @"account"];
+    _menuItems = @[@"title", @"home", @"devices", @"event", @"settings", @"account"];
 
     self.houseName.text = MainDelegate.houseData.houseName;
 }

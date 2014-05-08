@@ -36,7 +36,7 @@
 
 -(void) netFinish:(id) jsonString withUserInfo:(NSDictionary *) userInfo andURL:(NSString *) u
 {
-    if ([u rangeOfString:URL_FRO_LOCATION_EDIT].location != NSNotFound)
+    if ([u rangeOfString:URL_FOR_LOCATION_EDIT].location != NSNotFound)
     {
         NSString *action = [[userInfo objectForKey:REQUET_PARAMS] objectForKey:@"action"];
         //删除动作
@@ -113,7 +113,7 @@
 
 -(void) netError:(id)errorMsg withUserInfo:(NSDictionary *)userInfo andURL:(NSString *) u
 {
-    if ([u rangeOfString:URL_FRO_LOCATION_EDIT].location != NSNotFound)
+    if ([u rangeOfString:URL_FOR_LOCATION_EDIT].location != NSNotFound)
     {
 
     }
@@ -150,7 +150,7 @@
     
     NSDictionary *temp = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
     
-    [[NetManager sharedManager] requestWithURL:GetRequst(URL_FRO_LOCATION_EDIT)
+    [[NetManager sharedManager] requestWithURL:GetRequst(URL_FOR_LOCATION_EDIT)
                                       delegate:self
                                   withUserInfo:temp];
     actionType = 2;
@@ -184,22 +184,11 @@
     
     NSDictionary *temp = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
     
-    [[NetManager sharedManager] requestWithURL:GetRequst(URL_FRO_LOCATION_EDIT)
+    [[NetManager sharedManager] requestWithURL:GetRequst(URL_FOR_LOCATION_EDIT)
                                       delegate:self
                                   withUserInfo:temp];
     actionType = 1;
 }
-
-
-
-
-
-
-
-
-
-
-
 -(void) rename:(UIButton *) sender
 {
     UITextField *tf = nil;

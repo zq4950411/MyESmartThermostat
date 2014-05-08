@@ -35,10 +35,19 @@
 
 @implementation MyERoom
 
+-(MyERoom *)initWithJSONString:(NSString *)string{
+    NSDictionary *dic = [string JSONValue];
+    MyERoom *room = [[MyERoom alloc] initWithDic:dic];
+    return room;
+}
 -(MyERoom *)initWithDic:(NSDictionary *)dic{
     if (self = [super init]) {
-        self.roomId = [dic[@"locationId"] integerValue];
-        self.roomName = dic[@"locationName"];
+        if (dic[@"locationId"]) {
+            self.roomId = [dic[@"locationId"] integerValue];
+        }
+        if (dic[@"locationName"]) {
+            self.roomName = dic[@"locationName"];
+        }
     }
     return self;
 }

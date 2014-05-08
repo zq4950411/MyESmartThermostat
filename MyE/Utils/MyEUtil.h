@@ -59,6 +59,7 @@
 
 
 #define URL_FOR_SMARTUP_LIST  @"/smartUp_view.do"
+#define URL_FOR_SMARTUP_LIST2 @"/smartUp_findDeviceList.do"
 #define URL_FOR_SAVE_SORT @"/smartUp_saveSort.do"
 #define URL_FOR_SMARTUP_PlUG_CONTROL @"/socket_plugContro.do"
 #define URL_FOR_FIND_DEVICE @"/smartUp_findDevice.do"
@@ -69,7 +70,7 @@
 #define URL_FOR_INSTRUCTION_FIND_RECORD @"/smartUp_findRecord.do"
 #define URL_FOR_INSTRUCTION_TIME_OUT @"/smartUp_recordTimeOut.do"
 
-
+#define URL_FOR_ROOMLIST_VIEW @"/smartUp_findRoom.do"
 #define URL_FOR_SOCKET_PlUG_CONTROL @"/socket_findPlug.do"
 #define URL_FOR_FIND_SOCKET_AUTO @"/socket_findSocketAuto.do"
 #define URL_FOR_SAVE_SOCKET_AUTO @"/socket_saveAutoMode.do"
@@ -78,7 +79,11 @@
 #define URL_FOR_SOCKET_SAVE_PLUG_SCHEDULE @"/socket_savePlugSchedule.do"
 #define URL_FOR_SOCKET_SAVEPLUG @"/socket_savePlug.do"
 #define URL_FOR_SOCKET_Reset @"/socket_resetPlug.do"
+#define URL_FOR_SOCKET_MUTEX_DELAY @"/socket_mutex_delay_timing.do"
+#define URL_FOR_SOCKET_DELAY_SAVE @"/socket_timing_save.do"
 
+#define URL_FOR_IRDEVICE_CONTROL @"/smartUp_irControl.do"
+#define URL_FOR_UNIVERSAL_CONTROL_MANUEL_CONTROL @"/universalcontroller_ucControl.do"
 #define URL_FOR_UNIVERSAL_CONTROL_MANUAL_VIEW @"/universalcontroller_manual_view.do"
 #define URL_FOR_UNIVERSAL_CONTROLLER_MANUAL_SAVE @"/universalcontroller_manual_save.do"
 #define URL_FOR_UNIVERSAL_CONTROLLER_AUTO_VIEW @"/universalcontroller_auto_view.do"
@@ -115,8 +120,9 @@
 
 #define MORE_REPWD @"/account_save.do"
 
-#define URL_FRO_LOCATION_EDIT @"/smartUp_saveLaction.do"
-
+#define URL_FOR_LOCATION_EDIT @"/smartUp_saveLaction.do"
+#define URL_FOR_INSTRUCTIONLIST_VIEW @"/smartUp_findInstructionList.do"
+#define URL_FOR_INSTRUCTION_STUDY @"/smartUp_instructionStudy.do"
 
 /*--------------------------smart switch-----------------------------------*/
 
@@ -279,5 +285,6 @@ NSInteger getDaysBetweenDates(NSDate *startDate, NSDate *endDate);
 + (NSString *)timeStringForHhid:(NSInteger)hhid;
 //将传入的字符串改变成数字，从而利于比较
 + (NSInteger)hhidForTimeString:(NSString *)string;
+
 @end
 

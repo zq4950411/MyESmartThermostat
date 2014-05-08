@@ -15,8 +15,8 @@
 
 #import "MyEHouseData.h"
 
-#import "SmartUpViewController.h"
-#import "SmartUp.h"
+#import "MyEDevicesViewController.h"
+#import "MyEDevice.h"
 
 #import "UIUtils.h"
 #import "CommonCell.h"
@@ -48,8 +48,8 @@
 -(void) reset:(UIButton *) sender
 {
     self.isShowLoading = YES;
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -283,8 +283,8 @@
 
 -(void) deleteScheduleWithString:(NSString *) string
 {
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -312,8 +312,8 @@
         return;
     }
     
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -340,8 +340,8 @@
 //插座开关
 -(void) switchChange:(UISwitch *) sender
 {
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -363,8 +363,8 @@
     }
     self.isShowLoading = YES;
     
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -384,8 +384,8 @@
     {
         self.isShowLoading = YES;
         
-        SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-        SmartUp *smartUp = [vc getCurrentSmartup];
+        MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+        MyEDevice *smartUp = [vc getCurrentSmartup];
         
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         
@@ -402,8 +402,8 @@
     {
         self.isShowLoading = YES;
         
-        SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-        SmartUp *smartUp = [vc getCurrentSmartup];
+        MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+        MyEDevice *smartUp = [vc getCurrentSmartup];
         
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         
@@ -429,8 +429,8 @@
     self.isShowLoading = YES;
     [self.tableView reloadData];
     
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -492,8 +492,8 @@
 {
     self.isShowLoading = YES;
     
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -514,8 +514,8 @@
 {
     self.isShowLoading = YES;
     
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -539,8 +539,8 @@
 {
     self.isShowLoading = YES;
     
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -563,8 +563,8 @@
 
 -(BOOL) isJingZhuang
 {
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     //精装插座
     if ([smartUp.tid hasPrefix:@"02-00-"])
@@ -785,8 +785,8 @@
     {
         if(indexPath.section == 1 && indexPath.row == 1)
         {
-            SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-            SmartUp *smartUp = [vc getCurrentSmartup];
+            MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+            MyEDevice *smartUp = [vc getCurrentSmartup];
             if (smartUp.rfStatus.intValue == -1)
             {
                 return;
@@ -1383,8 +1383,8 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     if (smartUp.rfStatus.intValue == -1)
     {
         UIToolbar *toolBar = (UIToolbar *)[self.view viewWithTag:110];

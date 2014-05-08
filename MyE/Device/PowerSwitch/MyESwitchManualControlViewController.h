@@ -16,7 +16,7 @@
     NSTimer *_timer;
 }
 @property (strong, nonatomic) MyESwitchManualControl *control;
-@property (strong, nonatomic) SmartUp *device;
+@property (strong, nonatomic) MyEDevice *device;
 //@property (strong, nonatomic) NSMutableArray *switchStatusArray;
 @property (nonatomic) BOOL needRefresh;
 @end

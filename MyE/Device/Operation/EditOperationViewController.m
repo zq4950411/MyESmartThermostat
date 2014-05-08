@@ -8,13 +8,13 @@
 
 #import "EditOperationViewController.h"
 #import "OperationViewController.h"
-#import "SmartUpViewController.h"
+#import "MyEDevicesViewController.h"
 #import "NSMutableDictionary+Safe.h"
 
 #import "UIUtils.h"
 
 #import "InstructionEntity.h"
-#import "SmartUp.h"
+#import "MyEDevice.h"
 #import "MyEHouseData.h"
 
 #import "CommonCell.h"
@@ -137,8 +137,8 @@
 
 -(void) sendTimeOut
 {
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -158,8 +158,8 @@
     self.isShowLoading = NO;
     requestCount ++;
     
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
@@ -190,8 +190,8 @@
         return;
     }
     
-    SmartUpViewController *vc = (SmartUpViewController *)[UIUtils getControllerFromNavViewController:self andClass:[SmartUpViewController class]];
-    SmartUp *smartUp = [vc getCurrentSmartup];
+    MyEDevicesViewController *vc = (MyEDevicesViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEDevicesViewController class]];
+    MyEDevice *smartUp = [vc getCurrentSmartup];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     

@@ -8,7 +8,7 @@
 
 #import "BaseTableViewController.h"
 
-#import "SmartUp.h"
+#import "MyEDevice.h"
 
 @protocol DictionaryDelegate <NSObject>
 
@@ -21,12 +21,12 @@
 @interface DictionaryTableViewViewController : BaseTableViewController <UITableViewDataSource,UITableViewDelegate>
 {
     int type;
-    __weak SmartUp *smartup;
+    __weak MyEDevice *smartup;
     __weak id<DictionaryDelegate> delegate;
 }
 
 @property int type;
-@property (nonatomic,weak) SmartUp *smartup;
+@property (nonatomic,weak) MyEDevice *smartup;
 @property (nonatomic,weak) id<DictionaryDelegate> delegate;
 
 

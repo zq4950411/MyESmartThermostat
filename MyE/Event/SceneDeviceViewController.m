@@ -293,7 +293,7 @@
         cell = [self.tableView dequeueReusableCellWithIdentifier:identifier1];
         if (cell == nil)
         {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"DeviceCell" owner:self options:nil] objectAtIndex:0];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"MyEEventDeviceCell" owner:self options:nil] objectAtIndex:0];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         

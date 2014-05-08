@@ -55,20 +55,9 @@ static NetManager *instance;
     return self;
 }
 
-- (void)dealloc
-{
-    [requests release];
-    [requestDelegates release];
-    [contexts release];
-    [requstForURL release];
-    [failedURLs release];
-    
-    [super dealloc];
-}
-
-
 - (void) requestWithURL:(NSString *) url delegate:(id<NetManagerDelegate>) delegate withUserInfo:(NSDictionary *) userInfo
 {
+    NSLog(@"%@  %@",url,userInfo);
     WSNet *request = [[WSNet alloc] initWithDelegate:self];
     
     request.userInfo = userInfo;
@@ -76,8 +65,6 @@ static NetManager *instance;
     
     [requestDelegates addObject:delegate];
     [requests addObject:request];
-    
-    [request release];
 }
 
 - (void) requestWithURL:(NSString *) url delegate:(id<NetManagerDelegate>) delegate
@@ -101,7 +88,7 @@ static NetManager *instance;
     
     while ((idx = [requestDelegates indexOfObjectIdenticalTo:delegate]) != NSNotFound)
     {
-        WSNet *requestNet = [[requests objectAtIndex:idx] retain];
+        WSNet *requestNet = [requests objectAtIndex:idx];
         
 //        if (![requests containsObject:requestNet])
 //        {
@@ -113,8 +100,6 @@ static NetManager *instance;
         
         [requestDelegates removeObjectAtIndex:idx];
         [requests removeObjectAtIndex:idx];
-        
-        [requestNet release];
     }
 }
 
@@ -122,8 +107,6 @@ static NetManager *instance;
 //请求开始
 -(void) wsNetRequestStart:(WSNet *) wsRequest
 {
-    [wsRequest retain];
-    
     for (NSInteger idx = (NSInteger)[requests count] - 1; idx >= 0; idx--)
     {
         NSUInteger uidx = (NSUInteger)idx;
@@ -132,8 +115,7 @@ static NetManager *instance;
         if (wsRequest == wsRequest1)
         {
             id<NetManagerDelegate> delegate = [requestDelegates objectAtIndex:uidx];
-            [[delegate retain] autorelease];
-            
+          
             if ([delegate respondsToSelector:@selector(requestStartforUrl:)]) 
             {
                 [delegate requestStartforUrl:wsRequest.requestURLString];
@@ -142,8 +124,6 @@ static NetManager *instance;
             break;
         }
     }
-    
-    [wsRequest release];
 }
 
 
@@ -151,8 +131,6 @@ static NetManager *instance;
 //请求取消
 -(void) wsNetRequestCancel:(WSNet *) wsRequest
 {
-    [wsRequest retain];
-    
     for (NSInteger idx = (NSInteger)[requests count] - 1; idx >= 0; idx--)
     {
         NSUInteger uidx = (NSUInteger)idx;
@@ -161,9 +139,7 @@ static NetManager *instance;
         if (wsRequest == wsRequest1)
         {
             id<NetManagerDelegate> delegate = [requestDelegates objectAtIndex:uidx];
-            [[delegate retain] autorelease];
-            
-            if ([delegate respondsToSelector:@selector(requestCancelForUrl:)]) 
+            if ([delegate respondsToSelector:@selector(requestCancelForUrl:)])
             {
                 [delegate requestCancelForUrl:wsRequest.requestURLString];
             }
@@ -171,16 +147,12 @@ static NetManager *instance;
             break;
         }
     }
-    
-    [wsRequest release];
 }
 
 
 //请求完成
 - (void) wsNetRequest:(WSNet *) wsRequest didFinishedWithData:(id) retData
 {
-    [wsRequest retain];
-    
     // Notify all the downloadDelegates with this downloader
     for (NSInteger idx = (NSInteger)[requests count] - 1; idx >= 0; idx--)
     {
@@ -190,8 +162,6 @@ static NetManager *instance;
         if (wsRequest == wsRequest1)
         {
             id<NetManagerDelegate> delegate = [requestDelegates objectAtIndex:uidx];
-            [[delegate retain] autorelease];
-            
 //            if (retData)
 //            {
 ////                if ([delegate respondsToSelector:@selector(requestDidFinishWithData:userInfo:)])
@@ -226,8 +196,6 @@ static NetManager *instance;
             break;
         }
     }
-    
-    [wsRequest release];
 }
 
 
@@ -235,8 +203,6 @@ static NetManager *instance;
 //请求失败
 - (void) wsNetRequest:(WSNet *) wsRequest error:(NSError *) error
 {
-    [wsRequest retain];
-    
     // Notify all the downloadDelegates with this downloader
     for (NSInteger idx = (NSInteger)[requests count] - 1; idx >= 0; idx--)
     {
@@ -246,7 +212,6 @@ static NetManager *instance;
         if (wsRequest == wsRequest1)
         {
             id<NetManagerDelegate> delegate = [requestDelegates objectAtIndex:uidx];
-            [[delegate retain] autorelease];
             
 //            if ([delegate respondsToSelector:@selector(requestFailWithError:userInfo:)])
 //            {
@@ -266,8 +231,6 @@ static NetManager *instance;
             break;
         }
     }
-    
-    [wsRequest release];
 }
 
 
