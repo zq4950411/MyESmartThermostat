@@ -123,8 +123,8 @@
 {
     self.isShowLoading = YES;
     
-    [MyEUniversal doThisWhenNeedUploadOrDownloadDataFromServerWithURL:URL_FOR_ROOMLIST_VIEW andUIViewController:self andDictionary:@{@"houseId": @(MainDelegate.houseData.houseId)}];
-    [MyEUniversal doThisWhenNeedUploadOrDownloadDataFromServerWithURL:URL_FOR_SMARTUP_LIST andUIViewController:self andDictionary:@{@"houseId": @(MainDelegate.houseData.houseId)}];
+//    [MyEUniversal doThisWhenNeedUploadOrDownloadDataFromServerWithURL:URL_FOR_ROOMLIST_VIEW andUIViewController:self andDictionary:@{@"houseId": @(MainDelegate.houseData.houseId)}];
+    [MyEUniversal doThisWhenNeedUploadOrDownloadDataFromServerWithURL:URL_FOR_SMARTUP_LIST2 andUIViewController:self andDictionary:@{@"houseId": @(MainDelegate.houseData.houseId)}];
     
 }
 
@@ -577,16 +577,10 @@
 {
     [self headerFinish];
     NSLog(@"%@\n%@\n%@",jsonString,u,userInfo);
-    if ([u rangeOfString:URL_FOR_ROOMLIST_VIEW].location != NSNotFound) {
-        MyEMainDevice *main = [[MyEMainDevice alloc] initWithJSONString:jsonString andTag:2];
-        self.mainDevice.rooms = main.rooms;
-        NSLog(@"%@",self.mainDevice.rooms);
-    }
-    if ([u rangeOfString:URL_FOR_SMARTUP_LIST].location != NSNotFound)
+    if ([u rangeOfString:URL_FOR_SMARTUP_LIST2].location != NSNotFound)
     {
-//        self.datas = [MyEDevice devices:jsonString];
-        MyEMainDevice *main = [[MyEMainDevice alloc] initWithJSONString:jsonString andTag:1];
-        self.mainDevice.devices = main.devices;
+        MyEMainDevice *main = [[MyEMainDevice alloc] initWithJSONString:jsonString];
+        self.mainDevice = main;
         self.datas = self.mainDevice.devices;
         [self.tableView reloadData];
     }

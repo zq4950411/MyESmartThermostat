@@ -32,6 +32,8 @@
 @property (nonatomic,strong) NSString *sortId;
 @property (nonatomic,strong) NSString *locationId;
 @property (nonatomic,strong) NSString *locationName;
+@property (nonatomic) NSInteger point; //温控器设置的温度，温控器可用
+@property (nonatomic,strong) NSString *instructionName;
 
 @property (nonatomic,assign) BOOL isExpand;
 
@@ -39,13 +41,6 @@
 -(MyEDevice *)initWithDic:(NSDictionary *)dic;
 -(NSDictionary *)jsonDevice:(MyEDevice *)device;
 @end
-
-//@interface MyERoom : NSObject
-//@property (nonatomic,readonly) NSInteger roomId;
-//@property (nonatomic, strong) NSString *name;
-//-(MyERoom *)initWithJSONString:(NSString *)string;
-//-(MyERoom *)initWithDic:(NSDictionary *)dic;
-//@end
 
 
 @interface MyEMainDevice : NSObject

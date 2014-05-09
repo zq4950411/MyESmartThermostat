@@ -31,6 +31,11 @@
         self.locationName = @"";
         self.typeId = 0;
         self.tid = @"";
+        self.point = 0;
+        self.instructionName = @"";
+        self.switchStatus = @"";
+        self.sortId = @"";
+        self.rfStatus = 0;
         return self;
     }
     return nil;
@@ -89,6 +94,8 @@
         if (dic[@"locationId"]) {
             self.locationId = dic[@"locationId"];
         }
+        self.point = dic[@"point"]?[dic[@"point"] intValue]:0;
+        self.instructionName = dic[@"instructionName"]?dic[@"instructionName"]:@"";
         return self;
     }
     return nil;
