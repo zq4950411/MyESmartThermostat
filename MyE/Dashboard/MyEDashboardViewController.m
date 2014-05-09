@@ -38,6 +38,7 @@
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
 - (BOOL)_processHttpRespondForString:(NSString *)respondText;
 - (void)_holdRunButtionAction;
+- (void)_addHoldRunButtonForType:(NSInteger)type;
 
 
 #pragma mark 触摸圆环使用的变量
@@ -48,6 +49,7 @@
 @property (nonatomic, retain) CDCircle *circle;
 
 @property (nonatomic, weak) UIButton *holdRunButton;
+@property (nonatomic, assign) BOOL inHoldAnimation;// YES: 在动画中, NO: 不在动画中, // for test, 将来用hold信息来控制
 @end
 
 @implementation MyEDashboardViewController
@@ -138,13 +140,13 @@
     CDCircleOverlayView *overlay = [[CDCircleOverlayView alloc] initWithCircle:self.circle];
     
     for (CDCircleThumb *thumb in self.circle.thumbs) {
-        [thumb.iconView setHighlitedIconColor:[UIColor blueColor]];
-        thumb.separatorColor = [UIColor colorWithRed:0.08 green:0.695 blue:1.0 alpha:1];
+        [thumb.iconView setHighlitedIconColor:[UIColor whiteColor]];
+        thumb.separatorColor = [UIColor colorWithRed:0.08 green:0.8 blue:0.8 alpha:1];
         thumb.separatorStyle = CDCircleThumbsSeparatorBasic;
         thumb.gradientFill = NO;
         thumb.arcColor = [UIColor colorWithRed:0.08 green:0.8 blue:0.8 alpha:1];
-        thumb.gradientColors = [NSArray arrayWithObjects:(id) [UIColor blackColor].CGColor, (id) [UIColor yellowColor].CGColor, (id) [UIColor blueColor].CGColor, nil];
-        thumb.colorsLocations = [NSMutableArray arrayWithObjects:[NSNumber numberWithFloat:0.00f], [NSNumber numberWithFloat:0.30f], [NSNumber numberWithFloat:1.00f], nil];
+//        thumb.gradientColors = [NSArray arrayWithObjects:(id) [UIColor blackColor].CGColor, (id) [UIColor yellowColor].CGColor, (id) [UIColor blueColor].CGColor, nil];
+//        thumb.colorsLocations = [NSMutableArray arrayWithObjects:[NSNumber numberWithFloat:0.00f], [NSNumber numberWithFloat:0.30f], [NSNumber numberWithFloat:1.00f], nil];
         
     }
     
@@ -153,39 +155,12 @@
     
     
     
-    
-    self.holdRunButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    [self.holdRunButton setImage:[UIImage imageNamed:@"Micky.png"] forState:UIControlStateNormal];
-    [self.holdRunButton addTarget:self action:@selector(_holdRunButtionAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i", self.selectedSegment] forState:UIControlStateNormal];
-    self.holdRunButton.frame = CGRectMake(100.0, 160.0, 120.0, 120.0);//width and height should be same value
-    self.holdRunButton.clipsToBounds = YES;
-    [self.holdRunButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [self.holdRunButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-    
-    self.holdRunButton.layer.cornerRadius = 60;//half of the width
-    self.holdRunButton.layer.borderColor=[UIColor redColor].CGColor;
-    self.holdRunButton.layer.borderWidth=2.0f;
-    self.holdRunButton.layer.backgroundColor=[UIColor greenColor].CGColor;
-    
-    
-    UIGraphicsBeginImageContext(self.holdRunButton.bounds.size);
-    [self.holdRunButton.layer renderInContext:UIGraphicsGetCurrentContext()];
-    [[UIColor yellowColor] setFill];
-    UIBezierPath* bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height startAngle:0 endAngle:2*M_PI clockwise:YES];
-    [bPath fill];
-    UIImage *colorImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    [self.holdRunButton setBackgroundImage:colorImage forState:UIControlStateHighlighted];
-    
-    
-    
-    
-    [self.view addSubview:self.holdRunButton];
-    self.holdRunButton.alpha = 0.5;
+    [self _addHoldRunButtonForType:0];
+    self.inHoldAnimation = NO;
     
 
-    [self.view bringSubviewToFront:self.holdRunLabel];
+    
+    
     
 
 }
@@ -709,6 +684,7 @@
         
         // 如果是在关闭状态，setpoint就设置为不可访问
         [self.circle setNeedsLayout];
+        self.selectedSegment = theDashboardData.setpoint;
         if (theDashboardData.controlMode ==5)
         {
             self.circle.userInteractionEnabled = NO;
@@ -721,7 +697,7 @@
         }
         else {
             self.circle.userInteractionEnabled = YES;
-            [self.holdRunButton setTitle:[NSString stringWithFormat:@"%d", theDashboardData.setpoint] forState:UIControlStateNormal];
+            [self.holdRunButton setTitle:[NSString stringWithFormat:@"%d\u00B0F", theDashboardData.setpoint] forState:UIControlStateNormal];
 
             self.fUISwitch.hidden = NO;
             self.holdRunLabel.hidden = NO;
@@ -734,12 +710,12 @@
         {
 
             [self.fUISwitch setOn:NO animated:YES];
-            self.holdRunLabel.text = @"Press to Run";
+            self.holdRunLabel.text = @"Press to Hold";
         }
         else
         {
             [self.fUISwitch setOn:YES animated:YES];
-            self.holdRunLabel.text = @"Press to Hold";
+            self.holdRunLabel.text = @"Press to Run";
         }
         
         
@@ -869,7 +845,95 @@
 }
 - (void)_holdRunButtionAction
 {
-    NSLog(@"_holdRunButtionAction, 参考holdAction");
+    [self _addHoldRunButtonForType:1];
+    CALayer *myLayer = self.holdRunButton.layer;
+    if(!self.inHoldAnimation){
+        CABasicAnimation *theAnimation;
+        theAnimation=[CABasicAnimation animationWithKeyPath:@"shadowOpacity"];
+        theAnimation.duration=0.5;
+        theAnimation.repeatCount=HUGE_VALF;
+        theAnimation.autoreverses=YES;
+        theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
+        theAnimation.toValue=[NSNumber numberWithFloat:0.2];
+        [myLayer addAnimation:theAnimation forKey:@"animateOpacity"]; // here key is defined by developer
+        self.inHoldAnimation = YES;
+    } else{
+        [myLayer removeAnimationForKey:@"animateOpacity" ];
+        self.inHoldAnimation = NO;
+        [self _addHoldRunButtonForType:2];
+    }
+}
+
+// type: 0 -> green, 1 -> blue, 2 -> red
+-(void)_addHoldRunButtonForType:(NSInteger)type
+{
+    if (self.holdRunButton) {
+        [self.holdRunButton removeFromSuperview];
+        self.holdRunButton = Nil;
+    }
+    self.holdRunButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    [self.holdRunButton setImage:[UIImage imageNamed:@"Micky.png"] forState:UIControlStateNormal];
+    [self.holdRunButton addTarget:self action:@selector(_holdRunButtionAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i\u00B0F", self.selectedSegment] forState:UIControlStateNormal];
+    self.holdRunButton.frame = CGRectMake(100.0, 160.0, 120.0, 120.0);//width and height should be same value
+    self.holdRunButton.clipsToBounds = YES;
+    [self.holdRunButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.holdRunButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [self.holdRunButton.titleLabel setFont:[UIFont boldSystemFontOfSize:35]];
+    
+    self.holdRunButton.layer.cornerRadius = 60;//half of the width
+//    self.holdRunButton.layer.borderColor=[UIColor redColor].CGColor;
+//    self.holdRunButton.layer.borderWidth=2.0f;
+    //    self.holdRunButton.layer.backgroundColor=[UIColor greenColor].CGColor; // 此句会遮住或阻止阴影, 所以注释
+    
+    if (type > 0){
+        self.holdRunButton.layer.shadowColor = [UIColor blackColor].CGColor;
+    } else
+        self.holdRunButton.layer.shadowColor = [UIColor clearColor].CGColor;
+    //    self.holdRunButton.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
+    self.holdRunButton.layer.shadowRadius = 15.0f;
+    self.holdRunButton.layer.shadowOpacity = 0.999f;
+    self.holdRunButton.layer.shadowPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height/2.0f startAngle:0 endAngle:2*M_PI clockwise:YES].CGPath;
+    
+    //@see http://stackoverflow.com/questions/10133109/fastest-way-to-do-shadows-on-ios
+    self.holdRunButton.layer.shouldRasterize = YES;
+    // Don't forget the rasterization scale
+    // I spent days trying to figure out why retina display assets weren't working as expected
+    self.holdRunButton.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    
+    
+    // 用一个image做Highlighted背景
+    UIGraphicsBeginImageContext(self.holdRunButton.bounds.size);
+    [self.holdRunButton.layer renderInContext:UIGraphicsGetCurrentContext()];
+    [[UIColor yellowColor] setFill];
+    UIBezierPath* bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height/2.0f -5 startAngle:0 endAngle:2*M_PI clockwise:YES];
+    [bPath fill];
+    UIImage *colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.holdRunButton setBackgroundImage:colorImage forState:UIControlStateHighlighted];
+    
+    // 用一个image做Normal背景
+    UIGraphicsBeginImageContext(self.holdRunButton.bounds.size);
+    [self.holdRunButton.layer renderInContext:UIGraphicsGetCurrentContext()];
+    if (type == 0) {
+        [[UIColor greenColor] setFill];
+    }else if( type == 1) {
+        [[UIColor blueColor] setFill];
+    }else if( type == 2) {
+        [[UIColor redColor] setFill];
+    }
+    
+    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height/2.0f -5 startAngle:0 endAngle:2*M_PI clockwise:YES];
+    [bPath fill];
+    colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.holdRunButton setBackgroundImage:colorImage forState:UIControlStateNormal];
+    
+    
+    [self.view addSubview:self.holdRunButton];
+    //    self.holdRunButton.alpha = 0.5;
+    
+    [self.view bringSubviewToFront:self.holdRunLabel];
 }
 #pragma mark
 #pragma mark 触摸圆环 CDCircleDelegate delegate & data source
@@ -933,7 +997,7 @@
         AudioServicesCreateSystemSoundID((__bridge CFURLRef)fileUrl, &soundID);
         AudioServicesPlaySystemSound(soundID);
     }
-    [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i", newValue] forState:UIControlStateNormal];
+    [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i\u00B0F", newValue] forState:UIControlStateNormal];
 }
 -(UIImage *) circle:(CDCircle *)circle iconForThumbAtRow:(NSInteger)row {
 //    NSString *fileString = [[[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:nil] lastObject];

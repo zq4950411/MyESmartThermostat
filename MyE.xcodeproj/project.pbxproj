@@ -388,6 +388,7 @@
 		C386D6EA159BAF8F00B640D7 /* reset_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C386D6E6159BAF8F00B640D7 /* reset_disabled@2x.png */; };
 		C386D6EB159BAF8F00B640D7 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = C386D6E7159BAF8F00B640D7 /* reset.png */; };
 		C386D6EC159BAF8F00B640D7 /* reset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C386D6E8159BAF8F00B640D7 /* reset@2x.png */; };
+		C386E006191C8A4600F654EB /* MyEMainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C386E005191C8A4600F654EB /* MyEMainTabBarController.m */; };
 		C38A83F0159515E200B5C9BB /* action-black-button-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C38A83D3159515E200B5C9BB /* action-black-button-selected.png */; };
 		C38A83F1159515E200B5C9BB /* action-black-button-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C38A83D4159515E200B5C9BB /* action-black-button-selected@2x.png */; };
 		C38A83F2159515E200B5C9BB /* action-black-button.png in Resources */ = {isa = PBXBuildFile; fileRef = C38A83D5159515E200B5C9BB /* action-black-button.png */; };
@@ -574,7 +575,6 @@
 		C3FDB4E918FA6044009B423D /* MyEHouseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB4DE18FA6044009B423D /* MyEHouseListViewController.m */; };
 		C3FDB4EA18FA6044009B423D /* MyELaunchIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB4E018FA6044009B423D /* MyELaunchIntroViewController.m */; };
 		C3FDB4EB18FA6044009B423D /* MyELoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB4E218FA6044009B423D /* MyELoginViewController.m */; };
-		C3FDB4EC18FA6044009B423D /* MyEMainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB4E418FA6044009B423D /* MyEMainTabBarController.m */; };
 		C3FDB50C18FA62A0009B423D /* MyEDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB50518FA62A0009B423D /* MyEDataLoader.m */; };
 		C3FDB50D18FA62A0009B423D /* MyEUniversal.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB50718FA62A0009B423D /* MyEUniversal.m */; };
 		C3FDB50E18FA62A0009B423D /* MyEUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB50918FA62A0009B423D /* MyEUtil.m */; };
@@ -1214,6 +1214,8 @@
 		C386D6E6159BAF8F00B640D7 /* reset_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reset_disabled@2x.png"; sourceTree = "<group>"; };
 		C386D6E7159BAF8F00B640D7 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
 		C386D6E8159BAF8F00B640D7 /* reset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reset@2x.png"; sourceTree = "<group>"; };
+		C386E004191C8A4600F654EB /* MyEMainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEMainTabBarController.h; sourceTree = "<group>"; };
+		C386E005191C8A4600F654EB /* MyEMainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEMainTabBarController.m; sourceTree = "<group>"; };
 		C38A83D3159515E200B5C9BB /* action-black-button-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-black-button-selected.png"; sourceTree = "<group>"; };
 		C38A83D4159515E200B5C9BB /* action-black-button-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-black-button-selected@2x.png"; sourceTree = "<group>"; };
 		C38A83D5159515E200B5C9BB /* action-black-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-black-button.png"; sourceTree = "<group>"; };
@@ -1486,8 +1488,6 @@
 		C3FDB4E018FA6044009B423D /* MyELaunchIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyELaunchIntroViewController.m; sourceTree = "<group>"; };
 		C3FDB4E118FA6044009B423D /* MyELoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyELoginViewController.h; sourceTree = "<group>"; };
 		C3FDB4E218FA6044009B423D /* MyELoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyELoginViewController.m; sourceTree = "<group>"; };
-		C3FDB4E318FA6044009B423D /* MyEMainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEMainTabBarController.h; sourceTree = "<group>"; };
-		C3FDB4E418FA6044009B423D /* MyEMainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEMainTabBarController.m; sourceTree = "<group>"; };
 		C3FDB50418FA62A0009B423D /* MyEDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEDataLoader.h; sourceTree = "<group>"; };
 		C3FDB50518FA62A0009B423D /* MyEDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEDataLoader.m; sourceTree = "<group>"; };
 		C3FDB50618FA62A0009B423D /* MyEUniversal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUniversal.h; sourceTree = "<group>"; };
@@ -3106,6 +3106,8 @@
 		C3FDB4D518FA6044009B423D /* MainUI */ = {
 			isa = PBXGroup;
 			children = (
+				C386E004191C8A4600F654EB /* MyEMainTabBarController.h */,
+				C386E005191C8A4600F654EB /* MyEMainTabBarController.m */,
 				C3FDB4D618FA6044009B423D /* HouseBlankView.h */,
 				C3FDB4D718FA6044009B423D /* HouseBlankView.m */,
 				C3FDB4D818FA6044009B423D /* HouseBlankView.xib */,
@@ -3119,8 +3121,6 @@
 				C3FDB4E018FA6044009B423D /* MyELaunchIntroViewController.m */,
 				C3FDB4E118FA6044009B423D /* MyELoginViewController.h */,
 				C3FDB4E218FA6044009B423D /* MyELoginViewController.m */,
-				C3FDB4E318FA6044009B423D /* MyEMainTabBarController.h */,
-				C3FDB4E418FA6044009B423D /* MyEMainTabBarController.m */,
 				C3FDB7D318FA7F65009B423D /* ServerViewController.h */,
 				C3FDB7D418FA7F65009B423D /* ServerViewController.m */,
 				C3FDB7D518FA7F65009B423D /* ServerViewController.xib */,
@@ -4212,6 +4212,7 @@
 				C3FDB86918FA83A9009B423D /* MyEScheduleViewController.m in Sources */,
 				C3FDB87D18FA83A9009B423D /* MyEStaycationEditFromVacationViewController.m in Sources */,
 				C3FDB80F18FA82AE009B423D /* MyEThermostatData.m in Sources */,
+				C386E006191C8A4600F654EB /* MyEMainTabBarController.m in Sources */,
 				C3FDB87318FA83A9009B423D /* MyEWeeklyModeEditingView.m in Sources */,
 				C3194B9518E299EA006E3ABE /* EColor.m in Sources */,
 				C3FDB81618FA82AE009B423D /* MyESwitchElec.m in Sources */,
@@ -4253,7 +4254,6 @@
 				C3FDB6C618FA640B009B423D /* SceneViewController.m in Sources */,
 				C3AE7F4F18E14F0C000AA5FC /* MZAppearance.m in Sources */,
 				C3FDB4AE18FA403E009B423D /* ASIDataCompressor.m in Sources */,
-				C3FDB4EC18FA6044009B423D /* MyEMainTabBarController.m in Sources */,
 				C3F61B1E18E11DAE00DEE477 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				C3FDB4EB18FA6044009B423D /* MyELoginViewController.m in Sources */,
 				B2FC107F17C4FF7100FD5054 /* UIViewController+KNSemiModal.m in Sources */,
