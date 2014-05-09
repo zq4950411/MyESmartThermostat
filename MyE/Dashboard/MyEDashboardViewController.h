@@ -62,7 +62,10 @@ CDCircleDelegate, CDCircleDataSource> {
 @property (weak, nonatomic) IBOutlet UILabel *stageLevelLabel;
 @property (weak, nonatomic) IBOutlet UIView *systemControlToolbarView;
 @property (weak, nonatomic) IBOutlet UIView *fanControlToolbarView;
-@property (weak, nonatomic) IBOutlet UILabel *setpointLabel;
+@property (weak, nonatomic) IBOutlet UILabel *holdRunLabel;
+
+
+
 
 
 

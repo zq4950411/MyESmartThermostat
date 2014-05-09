@@ -37,6 +37,7 @@
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
 - (BOOL)_processHttpRespondForString:(NSString *)respondText;
+- (void)_holdRunButtionAction;
 
 
 #pragma mark 触摸圆环使用的变量
@@ -45,6 +46,8 @@
 @property (nonatomic, assign) NSInteger maxVal;
 @property (nonatomic, assign) NSInteger currentVal;// 用于在某次触摸过程中,  记录最新的值.
 @property (nonatomic, retain) CDCircle *circle;
+
+@property (nonatomic, weak) UIButton *holdRunButton;
 @end
 
 @implementation MyEDashboardViewController
@@ -83,6 +86,7 @@
     
     self.fUISwitch.onLabel.text = @"";
     self.fUISwitch.offLabel.text = @"";
+    
     
     [self.fUIButton setStyleType:ACPButtonOK];
     
@@ -146,7 +150,44 @@
     
     [self.view addSubview:self.circle];
     [self.view addSubview:overlay];
-    self.setpointLabel.text = [NSString stringWithFormat:@"%i", self.selectedSegment];
+    
+    
+    
+    
+    self.holdRunButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    [self.holdRunButton setImage:[UIImage imageNamed:@"Micky.png"] forState:UIControlStateNormal];
+    [self.holdRunButton addTarget:self action:@selector(_holdRunButtionAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i", self.selectedSegment] forState:UIControlStateNormal];
+    self.holdRunButton.frame = CGRectMake(100.0, 160.0, 120.0, 120.0);//width and height should be same value
+    self.holdRunButton.clipsToBounds = YES;
+    [self.holdRunButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [self.holdRunButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    
+    self.holdRunButton.layer.cornerRadius = 60;//half of the width
+    self.holdRunButton.layer.borderColor=[UIColor redColor].CGColor;
+    self.holdRunButton.layer.borderWidth=2.0f;
+    self.holdRunButton.layer.backgroundColor=[UIColor greenColor].CGColor;
+    
+    
+    UIGraphicsBeginImageContext(self.holdRunButton.bounds.size);
+    [self.holdRunButton.layer renderInContext:UIGraphicsGetCurrentContext()];
+    [[UIColor yellowColor] setFill];
+    UIBezierPath* bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height startAngle:0 endAngle:2*M_PI clockwise:YES];
+    [bPath fill];
+    UIImage *colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.holdRunButton setBackgroundImage:colorImage forState:UIControlStateHighlighted];
+    
+    
+    
+    
+    [self.view addSubview:self.holdRunButton];
+    self.holdRunButton.alpha = 0.5;
+    
+
+    [self.view bringSubviewToFront:self.holdRunLabel];
+    
+
 }
 
 - (void)viewDidUnload
@@ -673,14 +714,18 @@
             self.circle.userInteractionEnabled = NO;
 
             self.fUISwitch.hidden = YES;
+            self.holdRunLabel.hidden = YES;
+            self.holdRunButton.userInteractionEnabled = NO;
             
             self.activeProgramLabel.text = @"None";
         }
         else {
             self.circle.userInteractionEnabled = YES;
-            self.setpointLabel.text = [NSString stringWithFormat:@"%d", theDashboardData.setpoint];
+            [self.holdRunButton setTitle:[NSString stringWithFormat:@"%d", theDashboardData.setpoint] forState:UIControlStateNormal];
 
             self.fUISwitch.hidden = NO;
+            self.holdRunLabel.hidden = NO;
+            self.holdRunButton.userInteractionEnabled = YES;
             
             self.activeProgramLabel.text = theDashboardData.currentProgram;
         }
@@ -689,10 +734,12 @@
         {
 
             [self.fUISwitch setOn:NO animated:YES];
+            self.holdRunLabel.text = @"Press to Run";
         }
         else
         {
             [self.fUISwitch setOn:YES animated:YES];
+            self.holdRunLabel.text = @"Press to Hold";
         }
         
         
@@ -820,6 +867,10 @@
     return YES;
 
 }
+- (void)_holdRunButtionAction
+{
+    NSLog(@"_holdRunButtionAction, 参考holdAction");
+}
 #pragma mark
 #pragma mark 触摸圆环 CDCircleDelegate delegate & data source
 -(void) circleToucheBegan: (CDCircle *) circle // 发送一个信号表示触摸开始
@@ -882,7 +933,7 @@
         AudioServicesCreateSystemSoundID((__bridge CFURLRef)fileUrl, &soundID);
         AudioServicesPlaySystemSound(soundID);
     }
-    self.setpointLabel.text = [NSString stringWithFormat:@"%i", newValue];
+    [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i", newValue] forState:UIControlStateNormal];
 }
 -(UIImage *) circle:(CDCircle *)circle iconForThumbAtRow:(NSInteger)row {
 //    NSString *fileString = [[[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:nil] lastObject];
@@ -994,9 +1045,6 @@
                                                  userInfo:nil 
                                                   repeats:NO]; 
 }
-
-
-
 - (void)refreshAction
 {
     [self downloadModelFromServer];
