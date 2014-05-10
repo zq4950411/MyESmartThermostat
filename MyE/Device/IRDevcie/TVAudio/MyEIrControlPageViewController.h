@@ -14,14 +14,12 @@
 
 @interface MyEIrControlPageViewController : UIViewController<SUNSlideSwitchViewDelegate>
 
-@property (weak, nonatomic) IBOutlet SUNSlideSwitchView *slideSwitchView;
+@property (nonatomic, strong) SUNSlideSwitchView *slideSwitchView;
 
 @property (nonatomic, strong) MyETVDefaultViewController *tvDefaultViewController;
 @property (nonatomic, strong) MyEAudioDefaultViewController *audioDefaultViewController;
 
 @property (nonatomic, strong) MyEIrUserKeyViewController *irUserKeyViewController;
-@property (nonatomic, strong) MyEIrDefaultViewController *irDefaultViewController;
-
 @property (nonatomic, weak) MyEDevice *device;
 
 @end

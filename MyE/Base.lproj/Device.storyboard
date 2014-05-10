@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Zpl-XJ-WfW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Zpl-XJ-WfW">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -285,7 +285,7 @@
         <!--MyE Audio Default View Controller - Audio-->
         <scene sceneID="abw-sR-zLY">
             <objects>
-                <viewController id="Tac-FH-Pad" customClass="MyEAudioDefaultViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AudioDefaultVC" id="Tac-FH-Pad" customClass="MyEAudioDefaultViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HNg-tL-oKU"/>
                         <viewControllerLayoutGuide type="bottom" id="Epv-PY-clI"/>
@@ -413,7 +413,7 @@
         <!--MyETV Default View Controller-->
         <scene sceneID="7RX-LH-VGC">
             <objects>
-                <viewController id="V2h-Go-fmS" customClass="MyETVDefaultViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TvDefaultVC" id="V2h-Go-fmS" customClass="MyETVDefaultViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cTb-BA-GhP"/>
                         <viewControllerLayoutGuide type="bottom" id="3Pe-jr-fBO"/>
@@ -821,28 +821,29 @@
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="addNewKey:" destination="8dW-IC-Ypb" eventType="touchUpInside" id="k0k-4y-ZXq"/>
+                                        <action selector="addNewKey:" destination="8dW-IC-Ypb" eventType="touchUpInside" id="nqD-tp-1rG"/>
                                     </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellTvKey" id="S4K-4t-hgz">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="S4K-4t-hgz">
                                 <rect key="frame" x="0.0" y="146" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="S4K-4t-hgz" id="ntU-lh-mdw">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUP-2A-SPb">
-                                            <rect key="frame" x="74" y="0.0" width="173" height="30"/>
+                                        <button opaque="NO" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUP-2A-SPb" customClass="MyEControlBtn">
+                                            <rect key="frame" x="74" y="0.0" width="173" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
                                                 <action selector="btnPressed:" destination="8dW-IC-Ypb" eventType="touchUpInside" id="MTe-pU-Irg"/>
+                                                <action selector="controlKey:" destination="8dW-IC-Ypb" eventType="touchUpInside" id="k7e-vI-ZQ6"/>
                                             </connections>
                                         </button>
                                     </subviews>
