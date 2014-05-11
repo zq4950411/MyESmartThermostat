@@ -164,10 +164,10 @@
         UIImage *image = [UIImage imageNamed: imgFileName];
         self.weatherImageView.image = image;
         
-        self.weatherTemperatureLabel.text = [NSString stringWithFormat:@"%.0f", self.dashboardData.weatherTemp];
-        self.weatherTemperatureRangeLabel.text = [NSString stringWithFormat:@"%.0f~%.0f", self.dashboardData.lowTemp, self.dashboardData.highTemp];
-        self.humidityLabel.text = [NSString stringWithFormat:@"%i%%",self.dashboardData.humidity];
-        self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f", self.dashboardData.temperature];
+        self.weatherTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.dashboardData.weatherTemp];
+        self.weatherTemperatureRangeLabel.text = [NSString stringWithFormat:@"%.0f~%.0f\u00B0F", self.dashboardData.lowTemp, self.dashboardData.highTemp];
+        self.humidityLabel.text = [NSString stringWithFormat:@"%i%%RH",self.dashboardData.humidity];
+        self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.dashboardData.temperature];
     }
 }
 // 判定是否服务器相应正常，如果正常返回一些字符串，如果服务器相应为-999/-998，

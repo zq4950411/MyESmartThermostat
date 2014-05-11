@@ -144,7 +144,7 @@
         thumb.separatorColor = [UIColor colorWithRed:0.08 green:0.8 blue:0.8 alpha:1];
         thumb.separatorStyle = CDCircleThumbsSeparatorBasic;
         thumb.gradientFill = NO;
-        thumb.arcColor = [UIColor colorWithRed:0.08 green:0.8 blue:0.8 alpha:1];
+        thumb.arcColor = [UIColor colorWithRed:75.0/256.0 green:180.0/256.0 blue:200.0/256.0 alpha:1.0];
 //        thumb.gradientColors = [NSArray arrayWithObjects:(id) [UIColor blackColor].CGColor, (id) [UIColor yellowColor].CGColor, (id) [UIColor blueColor].CGColor, nil];
 //        thumb.colorsLocations = [NSMutableArray arrayWithObjects:[NSNumber numberWithFloat:0.00f], [NSNumber numberWithFloat:0.30f], [NSNumber numberWithFloat:1.00f], nil];
         
@@ -864,7 +864,7 @@
     }
 }
 
-// type: 0 -> green, 1 -> blue, 2 -> red
+// type: 0 -> red, 1 -> green, 2 -> blue
 -(void)_addHoldRunButtonForType:(NSInteger)type
 {
     if (self.holdRunButton) {
@@ -886,10 +886,12 @@
 //    self.holdRunButton.layer.borderWidth=2.0f;
     //    self.holdRunButton.layer.backgroundColor=[UIColor greenColor].CGColor; // 此句会遮住或阻止阴影, 所以注释
     
-    if (type > 0){
-        self.holdRunButton.layer.shadowColor = [UIColor blackColor].CGColor;
-    } else
-        self.holdRunButton.layer.shadowColor = [UIColor clearColor].CGColor;
+    if (type == 0){
+        self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:60.0/256.0 green:30.0/256.0 blue:15.0/256.0 alpha:0.75].CGColor;
+    } else if(type == 1){
+        self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:20.0/256.0 green:25.0/256.0 blue:5.0/256.0 alpha:0.75].CGColor;
+    }else
+        self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:10.0/256.0 green:40.0/256.0 blue:45.0/256.0 alpha:0.75].CGColor;
     //    self.holdRunButton.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
     self.holdRunButton.layer.shadowRadius = 15.0f;
     self.holdRunButton.layer.shadowOpacity = 0.999f;
@@ -916,11 +918,11 @@
     UIGraphicsBeginImageContext(self.holdRunButton.bounds.size);
     [self.holdRunButton.layer renderInContext:UIGraphicsGetCurrentContext()];
     if (type == 0) {
-        [[UIColor greenColor] setFill];
+        [[UIColor colorWithRed:230.0/256.0 green:125.0/256.0 blue:30.0/256.0 alpha:1.0] setFill];
     }else if( type == 1) {
-        [[UIColor blueColor] setFill];
+        [[UIColor colorWithRed:130.0/256.0 green:190.0/256 blue:60.0/256.0 alpha:1.0] setFill];
     }else if( type == 2) {
-        [[UIColor redColor] setFill];
+        [[UIColor colorWithRed:75.0/256.0 green:190.0/256.0 blue:215.0/256.0 alpha:1.0] setFill];
     }
     
     bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height/2.0f -5 startAngle:0 endAngle:2*M_PI clockwise:YES];
