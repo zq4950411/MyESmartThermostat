@@ -51,9 +51,7 @@
         if (dic[@"sortId"]) {
             self.sortId = [dic[@"sortId"] intValue];
         }
-        if (dic[@"status"]) {
-            self.status = [dic[@"status"] intValue];
-        }
+        self.status = dic[@"status"] == [NSNull null]?0:[dic[@"status"] intValue];
         return self;
     }
     return nil;

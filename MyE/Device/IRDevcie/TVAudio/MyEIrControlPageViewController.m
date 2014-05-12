@@ -33,7 +33,7 @@
     self.slideSwitchView.tabItemSelectedColor = [SUNSlideSwitchView colorFromHexRGB:@"bb0b15"];
     self.slideSwitchView.shadowImage = [UIImage imageNamed:@"red_line_btn.png"];//这里可以认为是九宫格的样式
     self.irUserKeyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"IrUserKeyVC"];
-//    self.irUserKeyViewController.device = self.device;
+    self.irUserKeyViewController.device = self.device;
 
     if (self.device.typeId.intValue == 2) {
         self.navigationItem.title = @"电视控制";
@@ -50,8 +50,8 @@
 }
 
 - (IBAction)changMode:(UIBarButtonItem *)sender {
-    if ([sender.title isEqualToString:@"学习模式"]) {
-        sender.title = @"退出学习";
+    if ([sender.title isEqualToString:@"Edit"]) {
+        sender.title = @"Done";
         if (self.device.typeId.intValue == 2) {
             self.tvDefaultViewController.isControlMode = NO;
             self.tvDefaultViewController.view.backgroundColor = [UIColor colorWithRed:0.84 green:0.93 blue:0.95 alpha:1];
@@ -62,7 +62,7 @@
         self.irUserKeyViewController.isControlMode = NO;
         self.irUserKeyViewController.view.backgroundColor = [UIColor colorWithRed:0.84 green:0.93 blue:0.95 alpha:1];
     }else{
-        sender.title = @"学习模式";
+        sender.title = @"Edit";
         if (self.device.typeId.intValue == 2) {
             self.tvDefaultViewController.isControlMode = YES;
             self.tvDefaultViewController.view.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];

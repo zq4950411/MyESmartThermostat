@@ -8,33 +8,23 @@
 
 #import "MyEIrStudyEditKeyModalViewController.h"
 
-#define IR_DEVICE_DELETE_KEY_UPLOADER_NMAE @"IRDeviceDeleteKeyUploader"
-#define IR_DEVICE_STUDY_KEY_LOADER_NMAE @"IRDeviceStudyKeyUploader"
 #define IR_DEVICE_QUERY_STUDY_KEY_LOADER_NMAE @"IRDeviceQueryStudyKeyLoader"
-#define IR_DEVICE_GET_STATUS_LOADER_NMAE @"IRDeviceStatusoader"
 #define IR_DEVICE_SEND_KEY_STUDY_TIMEOUT_LOADER_NMAE @"IRDeviceSendKeyStudyTimeoutLoader"
-#define IR_DEVICE_VALIDATE_KEY_LOADER_NMAE @"IRDeviceValidateKeyLoader"
 
 
-@interface MyEIrStudyEditKeyModalViewController ()
+@interface MyEIrStudyEditKeyModalViewController (){
+    NSTimer *_timer;
+}
 
 @end
 
 @implementation MyEIrStudyEditKeyModalViewController
-@synthesize device = _device;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+
 #pragma mark - life circle methods
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     if (!IS_IOS6) {
         for (UIButton *btn in self.view.subviews) {
             if ([btn isKindOfClass:[UIButton class]] && btn.tag != 100) {
@@ -45,7 +35,7 @@
             }
         }
     }
-    [self defineTapGestureRecognizer];
+    self.keyNameTextfield.text = self.instruction.name;  //这里更改名称
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,11 +50,14 @@
     [self uploadInfoToServerWithAction:@"record"];
 }
 - (IBAction)validateKey:(id)sender {
+    [self uploadInfoToServerWithAction:@"verify"];
 }
 - (IBAction)deleteKey:(id)sender {
+    [self uploadInfoToServerWithAction:@"delete"];
 }
 
 - (IBAction)closeModal:(id)sender {
+    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
 }
 
 #pragma mark -
@@ -73,20 +66,13 @@
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.keyNameTextfield ) {
         [textField resignFirstResponder];
-        //        [keyNameTextfield becomeFirstResponder];
     }
     
     return  YES;
 }
 #pragma mark -
 #pragma mark private methods
--(void)defineTapGestureRecognizer{
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
-    tapGesture.cancelsTouchesInView = NO;
-    [self.view addGestureRecognizer:tapGesture];
-}
-
--(void)hideKeyboard{
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
 -(void)customizedHUD{
@@ -117,6 +103,8 @@
     HUD.customView = label;
     HUD.mode = MBProgressHUDModeCustomView;
 }
+
+#pragma mark - URL private methods
 -(void)uploadInfoToServerWithAction:(NSString *)action{
     if (![action isEqualToString:@"record"]) {
         if(HUD == nil) {
@@ -132,33 +120,23 @@
                                  userDataDictionary:nil];
     NSLog(@"%@",downloader.name);
 }
-- (void) queryStudayProgressTimerFired:(NSTimer *)aTimer
-{
-    [self queryStudayProgress];
-}
-#pragma mark - URL private methods
--(void)queryStudayProgress
-{
-        studyQueryTimes ++;
-        
-        NSString * urlStr= [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&instructionId=%i",GetRequst(URL_FOR_INSTRUCTION_FIND_RECORD),MainDelegate.houseData.houseId,self.device.tid,self.instruction.instructionId];
-        MyEDataLoader *downloader = [[MyEDataLoader alloc]
-                                     initLoadingWithURLString:urlStr
-                                     postData:nil
-                                     delegate:self
-                                     loaderName:IR_DEVICE_QUERY_STUDY_KEY_LOADER_NMAE
-                                     userDataDictionary:nil];
-        NSLog(@"%@",downloader.name);
 
-}
--(void) sendInstructionStudyTimeout
+-(void)queryStudayProgress  //进度查询
 {
-    if(HUD == nil) {
-        HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        HUD.delegate = self;
-    } else
-        [HUD show:YES];
+    studyQueryTimes ++;
     
+    NSString * urlStr= [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&instructionId=%i",GetRequst(URL_FOR_INSTRUCTION_FIND_RECORD),MainDelegate.houseData.houseId,self.device.tid,self.instruction.instructionId];
+    MyEDataLoader *downloader = [[MyEDataLoader alloc]
+                                 initLoadingWithURLString:urlStr
+                                 postData:nil
+                                 delegate:self
+                                 loaderName:IR_DEVICE_QUERY_STUDY_KEY_LOADER_NMAE
+                                 userDataDictionary:nil];
+    NSLog(@"%@",downloader.name);
+    
+}
+-(void) sendInstructionStudyTimeout //学习超时
+{
     NSString * urlStr= [NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_INSTRUCTION_TIME_OUT),MainDelegate.houseData.houseId,self.device.tid];
     MyEDataLoader *downloader = [[MyEDataLoader alloc]
                                  initLoadingWithURLString:urlStr
@@ -173,69 +151,47 @@
 // 响应下载上传
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"receive string is %@",string);
-    if ([MyEUtil getResultFromAjaxString:string] == -3) {
-        [HUD hide:YES];
-        [MyEUniversal doThisWhenUserLogOutWithVC:self];
-        return;
-    }
-    
-    if([name isEqualToString:IR_DEVICE_DELETE_KEY_UPLOADER_NMAE]) {
-        [HUD hide:YES];
-        NSLog(@"ajax json = %@", string);
-        if ([MyEUtil getResultFromAjaxString:string] == -1) {
-            [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"删除按键时发生错误！"];
-        } else if ([MyEUtil getResultFromAjaxString:string] == 1){
-            [self mz_dismissFormSheetControllerAnimated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-            }];
-        }
-    }
-    if([name isEqualToString:IR_DEVICE_STUDY_KEY_LOADER_NMAE]) {
-        if ([MyEUtil getResultFromAjaxString:string] == -1) {
-            [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"发送按键学习请求时发生错误！"];
-            [HUD hide:YES];
-        } else if ([MyEUtil getResultFromAjaxString:string] == 1){
-            self.instruction.name = self.keyNameTextfield.text;
-            SBJsonParser *parser = [[SBJsonParser alloc] init];
-            // 把JSON转为字典
-            NSDictionary *result_dict = [parser objectWithString:string];
-            id keyId = [result_dict objectForKey:@"id"];
-            if (keyId) { // 设置此按键的id
-                self.instruction.instructionId = [keyId intValue];
-            }
-            studyQueryTimes = 0;
+    if ([name isEqualToString:@"record"]) {
+        if (![string isEqualToString:@"fail"]) {
             [self queryStudayProgress];
         }
     }
-    if([name isEqualToString:IR_DEVICE_VALIDATE_KEY_LOADER_NMAE]) {
-        [HUD hide:YES];
-        if ([MyEUtil getResultFromAjaxString:string] == 1){
-            [MyEUtil showInstructionStatusWithYes:YES andView:self.navigationController.navigationBar andMessage:@"校验指令发送成功！"];
-        } else if ([MyEUtil getResultFromAjaxString:string] == -1){
-            [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"校验指令发送失败！"];
-        }
+    if ([name isEqualToString:@"verify"]) {
+        if ([string isEqualToString:@"OK"]) {
+            [MyEUtil showInstructionStatusWithYes:YES andView:self.navigationController.navigationBar andMessage:@"success"];
+        }else
+            [MyEUtil showInstructionStatusWithYes:YES andView:self.navigationController.navigationBar andMessage:@"fail"];
     }
-
+    if ([name isEqualToString:@"delete"]) {
+        if ([string isEqualToString:@"OK"]) {
+            [SVProgressHUD showSuccessWithStatus:@"sucess"];
+            [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
+    }
     if([name isEqualToString:IR_DEVICE_QUERY_STUDY_KEY_LOADER_NMAE]) {
         NSLog(@"ajax json = %@", string);
-        if ([MyEUtil getResultFromAjaxString:string] == 1){
+        if ([string isEqualToString:@"fail"]) {
             [HUD hide:YES];
-            [MyEUtil showInstructionStatusWithYes:YES andView:self.navigationController.navigationBar andMessage:@"指令学习成功"];
+            [SVProgressHUD showErrorWithStatus:@"Error!"];
+        }else if ([string isEqualToString:@"1"]){
+            [HUD hide:YES];
+            [MyEUtil showInstructionStatusWithYes:YES andView:self.navigationController.navigationBar andMessage:@"success"];
             // 把这个指令的学习成功标志在数据model里面修改了
             self.instruction.status = 1;
             // 把校验按钮enable
             self.validateKeyBtn.enabled = YES;
-//            [self.validateKeyBtn setTitleColor:[UIColor colorWithRed:.196 green:0.3098 blue:0.52 alpha:1.0] forState:UIControlStateNormal];
         } else{
             if(studyQueryTimes >= 6){
                 [HUD hide:YES];
+                [_timer invalidate];  //这里要将定时器清空
                 [self sendInstructionStudyTimeout];
                 studyQueryTimes = 0;
                 [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"学习超时，请重新开始!"];
-                //[MyEUtil showErrorOn:self.navigationController.view withMessage:@"学习超时，请重新开始!" ];
                 self.instruction.status = 0;
             } else {
-                NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(queryStudayProgressTimerFired:) userInfo:nil repeats:NO];
-                NSLog(@"%@",timer);
+                _timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(queryStudayProgress) userInfo:nil repeats:NO];
+                NSLog(@"%@",_timer);
             }
         }
     }
@@ -250,20 +206,7 @@
     NSLog(@"In delegate Connection failed! Error - %@ %@",
           [error localizedDescription],
           [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
-    NSString *msg;
-    if ([name isEqualToString:IR_DEVICE_DELETE_KEY_UPLOADER_NMAE])
-        msg = @"删除按键通信错误，请稍后重试.";
-    else if ([name isEqualToString:IR_DEVICE_STUDY_KEY_LOADER_NMAE])
-        msg = @"发送按键学习请求通信错误，请稍后重试.";
-    else if ([name isEqualToString:IR_DEVICE_QUERY_STUDY_KEY_LOADER_NMAE])
-        msg = @"查询按键学习进度通信错误，请稍后重试.";
-    else if ([name isEqualToString:IR_DEVICE_GET_STATUS_LOADER_NMAE])
-        msg = @"指令学习通知通信错误.";
-    else if ([name isEqualToString:IR_DEVICE_SEND_KEY_STUDY_TIMEOUT_LOADER_NMAE])
-        msg = @"指令学习通知超时通信错误.";
-    else if ([name isEqualToString:IR_DEVICE_VALIDATE_KEY_LOADER_NMAE])
-        msg = @"指令校验超时通信错误.";
-    else msg = @"通信错误，请稍后重试.";
+    NSString *msg = @"通信错误，请稍后重试.";
     
     [MyEUtil showSuccessOn:self.navigationController.view withMessage:msg];
     [HUD hide:YES];

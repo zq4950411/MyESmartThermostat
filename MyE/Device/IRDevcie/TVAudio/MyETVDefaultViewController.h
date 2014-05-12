@@ -7,12 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MyEIrStudyEditKeyModalViewController.h"
-@interface MyETVDefaultViewController : UIViewController<MyEDataLoaderDelegate>
+#import "MyEIRDefaultViewController.h"
+
+@interface MyETVDefaultViewController : MyEIRDefaultViewController
 
 @property (strong, nonatomic) IBOutletCollection(MyEControlBtn) NSArray *controlBtns;
-
-@property (nonatomic) BOOL isControlMode;
-@property (nonatomic, strong) MyEInstructions *instructions;
-@property (nonatomic, strong) MyEDevice *device;
 @end

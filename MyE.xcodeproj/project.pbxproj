@@ -31,6 +31,7 @@
 		8CA06049190916B90090A350 /* MyESocketUsageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA06048190916B90090A350 /* MyESocketUsageViewController.m */; };
 		8CCB0D541909FF460044B0E5 /* MyESocketInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */; };
 		8CE5860F191E131A00157EE2 /* MyEIrUserKeyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE5860E191E131A00157EE2 /* MyEIrUserKeyViewController.m */; };
+		8CEC64C61920CCDE005953FB /* MyEIRDefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEC64C51920CCDE005953FB /* MyEIRDefaultViewController.m */; };
 		B211DB95180400D4002B3651 /* sprinkler@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B211DB93180400D4002B3651 /* sprinkler@2x.png */; };
 		B211DB96180400D4002B3651 /* sprinkler.png in Resources */ = {isa = PBXBuildFile; fileRef = B211DB94180400D4002B3651 /* sprinkler.png */; };
 		B243AFE3181F4AEE007E2552 /* T-switch.png in Resources */ = {isa = PBXBuildFile; fileRef = B243AFE1181F4AEE007E2552 /* T-switch.png */; };
@@ -778,6 +779,8 @@
 		8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketInfo.m; sourceTree = "<group>"; };
 		8CE5860D191E131A00157EE2 /* MyEIrUserKeyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIrUserKeyViewController.h; sourceTree = "<group>"; };
 		8CE5860E191E131A00157EE2 /* MyEIrUserKeyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIrUserKeyViewController.m; sourceTree = "<group>"; };
+		8CEC64C41920CCDE005953FB /* MyEIRDefaultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIRDefaultViewController.h; sourceTree = "<group>"; };
+		8CEC64C51920CCDE005953FB /* MyEIRDefaultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIRDefaultViewController.m; sourceTree = "<group>"; };
 		B211DB93180400D4002B3651 /* sprinkler@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sprinkler@2x.png"; sourceTree = "<group>"; };
 		B211DB94180400D4002B3651 /* sprinkler.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprinkler.png; sourceTree = "<group>"; };
 		B243AFE1181F4AEE007E2552 /* T-switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "T-switch.png"; sourceTree = "<group>"; };
@@ -1832,6 +1835,8 @@
 				8CA060031908A2F40090A350 /* MyEIrStudyEditKeyModalViewController.m */,
 				8CE5860D191E131A00157EE2 /* MyEIrUserKeyViewController.h */,
 				8CE5860E191E131A00157EE2 /* MyEIrUserKeyViewController.m */,
+				8CEC64C41920CCDE005953FB /* MyEIRDefaultViewController.h */,
+				8CEC64C51920CCDE005953FB /* MyEIRDefaultViewController.m */,
 				8CA060061908A2F40090A350 /* TVAudio */,
 			);
 			name = IRDevcie;
@@ -4097,6 +4102,7 @@
 				C3FDB81718FA82AE009B423D /* MyESwitchInfo.m in Sources */,
 				8CA06043190912380090A350 /* MyESocketManualViewController.m in Sources */,
 				C3FDB71A18FA6589009B423D /* MyEDashboardViewController.m in Sources */,
+				8CEC64C61920CCDE005953FB /* MyEIRDefaultViewController.m in Sources */,
 				C3FDB4BF18FA403E009B423D /* ASIS3BucketRequest.m in Sources */,
 				C3F61B0218E1154200DEE477 /* SBJsonStreamWriter.m in Sources */,
 				C3FDB86718FA83A9009B423D /* MyEPeriodData.m in Sources */,

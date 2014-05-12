@@ -195,10 +195,10 @@
             </objects>
             <point key="canvasLocation" x="-6156" y="-6529"/>
         </scene>
-        <!--View Controller - Curtain-->
+        <!--MyE Curtain Control View Controller - Curtain-->
         <scene sceneID="VMn-Is-UOc">
             <objects>
-                <viewController id="DPK-ni-PZs" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="curtain" id="DPK-ni-PZs" customClass="MyECurtainControlViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eeg-sT-8Dy"/>
                         <viewControllerLayoutGuide type="bottom" id="efd-ka-S63"/>
@@ -211,38 +211,38 @@
                                 <rect key="frame" x="55" y="69" width="210" height="210"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqW-G8-CMX">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqW-G8-CMX" customClass="MyEControlBtn">
                                 <rect key="frame" x="125" y="139" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="OK">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3WU-CS-ym7">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3WU-CS-ym7" customClass="MyEControlBtn">
                                 <rect key="frame" x="194" y="139" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title=">">
+                                <state key="normal" title="〉">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVh-A7-qLo">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVh-A7-qLo" customClass="MyEControlBtn">
                                 <rect key="frame" x="125" y="69" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="+">
+                                <state key="normal" title="︿">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7uh-Pf-Puo">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7uh-Pf-Puo" customClass="MyEControlBtn">
                                 <rect key="frame" x="55" y="139" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="&lt;">
+                                <state key="normal" title="〈">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Td9-mC-RhB">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Td9-mC-RhB" customClass="MyEControlBtn">
                                 <rect key="frame" x="125" y="209" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="-">
+                                <state key="normal" title="﹀">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -251,6 +251,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Curtain" id="c9W-FV-yPq"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outletCollection property="controlBtns" destination="EVh-A7-qLo" id="lNR-wP-5yJ"/>
+                        <outletCollection property="controlBtns" destination="7uh-Pf-Puo" id="jfk-Q9-zcw"/>
+                        <outletCollection property="controlBtns" destination="iqW-G8-CMX" id="imD-aC-Rre"/>
+                        <outletCollection property="controlBtns" destination="3WU-CS-ym7" id="xhf-9T-NUd"/>
+                        <outletCollection property="controlBtns" destination="Td9-mC-RhB" id="2u4-Pe-tWx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bsf-Po-0Ee" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -385,7 +392,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNc-eS-ifI" customClass="MyEControlBtn">
                                 <rect key="frame" x="244" y="20" width="60" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="++">
+                                <state key="normal" title="静音">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -395,15 +402,19 @@
                     <navigationItem key="navigationItem" title="Audio" id="1La-qC-gGL"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
-                        <outletCollection property="controlBtns" destination="Z3M-kW-i7F" id="riG-nC-pMa"/>
-                        <outletCollection property="controlBtns" destination="MNc-eS-ifI" id="opW-FE-5eE"/>
-                        <outletCollection property="controlBtns" destination="lc4-YQ-yIw" id="0f5-hk-0YL"/>
-                        <outletCollection property="controlBtns" destination="uvH-SB-7Zp" id="pSm-8E-e14"/>
-                        <outletCollection property="controlBtns" destination="wg6-zN-en3" id="q3s-TN-O32"/>
-                        <outletCollection property="controlBtns" destination="TBS-ju-UXt" id="biA-WW-9jJ"/>
-                        <outletCollection property="controlBtns" destination="YEd-UO-FNv" id="hRz-ZW-DG9"/>
-                        <outletCollection property="controlBtns" destination="cS3-Lq-KrS" id="Q05-ne-oEv"/>
-                        <outletCollection property="controlBtns" destination="nC3-jw-RRV" id="mya-xa-uTt"/>
+                        <outletCollection property="controlBtns" destination="Z3M-kW-i7F" id="0Ye-JZ-2o9"/>
+                        <outletCollection property="controlBtns" destination="cS3-Lq-KrS" id="WNL-fS-ISa"/>
+                        <outletCollection property="controlBtns" destination="nC3-jw-RRV" id="C0q-fs-Cke"/>
+                        <outletCollection property="controlBtns" destination="MNc-eS-ifI" id="Syh-9s-8RO"/>
+                        <outletCollection property="controlBtns" destination="TBS-ju-UXt" id="MOH-dA-dvA"/>
+                        <outletCollection property="controlBtns" destination="YEd-UO-FNv" id="HBm-2k-FqO"/>
+                        <outletCollection property="controlBtns" destination="wg6-zN-en3" id="gqh-lI-2VU"/>
+                        <outletCollection property="controlBtns" destination="lc4-YQ-yIw" id="tXp-zD-4md"/>
+                        <outletCollection property="controlBtns" destination="uvH-SB-7Zp" id="jzj-Qo-m0x"/>
+                        <outletCollection property="controlBtns" destination="SAw-h0-uQS" id="CvC-bO-XPE"/>
+                        <outletCollection property="controlBtns" destination="ufb-3E-Kni" id="Wyu-5N-fVe"/>
+                        <outletCollection property="controlBtns" destination="KdI-3H-mcQ" id="b8n-rd-GHb"/>
+                        <outletCollection property="controlBtns" destination="1cr-IR-fvt" id="NZ9-Gv-izT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoQ-eN-SDs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -506,7 +517,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0RD-1K-xlL" customClass="MyEControlBtn">
                                 <rect key="frame" x="35" y="342" width="70" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="++">
+                                <state key="normal" title="静音">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -565,25 +576,25 @@
                     <navigationItem key="navigationItem" id="fFD-rX-K2l"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
-                        <outletCollection property="controlBtns" destination="2Tr-D3-WjX" id="vs7-wO-P3l"/>
-                        <outletCollection property="controlBtns" destination="0RD-1K-xlL" id="X7F-Sm-fUB"/>
-                        <outletCollection property="controlBtns" destination="cnq-uQ-ohh" id="CII-G1-UnD"/>
-                        <outletCollection property="controlBtns" destination="7Vf-c2-8C7" id="OGT-XM-b74"/>
-                        <outletCollection property="controlBtns" destination="R0P-m4-QHq" id="hGj-jN-RbY"/>
-                        <outletCollection property="controlBtns" destination="3Vm-eU-1aP" id="00d-fa-GxS"/>
-                        <outletCollection property="controlBtns" destination="Xmn-xh-weD" id="Yg3-jK-pfG"/>
-                        <outletCollection property="controlBtns" destination="HLJ-J8-gf6" id="3tN-rY-VGI"/>
-                        <outletCollection property="controlBtns" destination="8sT-cj-dlO" id="2hs-6P-9Kn"/>
-                        <outletCollection property="controlBtns" destination="g03-Xg-He1" id="IV9-J1-16G"/>
-                        <outletCollection property="controlBtns" destination="IhM-F3-njX" id="GCg-FN-rDV"/>
-                        <outletCollection property="controlBtns" destination="czm-NW-pTO" id="Ha6-6r-dVp"/>
-                        <outletCollection property="controlBtns" destination="agp-Ia-oCd" id="K0c-yi-VNx"/>
-                        <outletCollection property="controlBtns" destination="PRk-r5-23w" id="5tB-tf-Ir1"/>
-                        <outletCollection property="controlBtns" destination="Hhb-cZ-nqg" id="1yz-fK-36Z"/>
-                        <outletCollection property="controlBtns" destination="toA-LO-fKn" id="9aK-nq-sm8"/>
-                        <outletCollection property="controlBtns" destination="m7S-3Q-VCM" id="ZXY-TK-W9z"/>
-                        <outletCollection property="controlBtns" destination="QAE-Fw-cnT" id="kNH-qq-frz"/>
-                        <outletCollection property="controlBtns" destination="dSX-Ap-Sgl" id="YfD-3N-6ce"/>
+                        <outletCollection property="controlBtns" destination="2Tr-D3-WjX" id="wSb-zI-npF"/>
+                        <outletCollection property="controlBtns" destination="0RD-1K-xlL" id="fmq-xM-rQW"/>
+                        <outletCollection property="controlBtns" destination="cnq-uQ-ohh" id="D6d-Fx-iFg"/>
+                        <outletCollection property="controlBtns" destination="HLJ-J8-gf6" id="gar-WV-gbv"/>
+                        <outletCollection property="controlBtns" destination="R0P-m4-QHq" id="32M-XQ-e0x"/>
+                        <outletCollection property="controlBtns" destination="3Vm-eU-1aP" id="UoK-ug-Bix"/>
+                        <outletCollection property="controlBtns" destination="Xmn-xh-weD" id="eyR-OX-PE5"/>
+                        <outletCollection property="controlBtns" destination="7Vf-c2-8C7" id="oSi-r6-uWd"/>
+                        <outletCollection property="controlBtns" destination="8sT-cj-dlO" id="2QU-vh-r0G"/>
+                        <outletCollection property="controlBtns" destination="g03-Xg-He1" id="R1G-WZ-gXa"/>
+                        <outletCollection property="controlBtns" destination="IhM-F3-njX" id="O0W-bT-ec9"/>
+                        <outletCollection property="controlBtns" destination="czm-NW-pTO" id="Afa-5H-JCC"/>
+                        <outletCollection property="controlBtns" destination="agp-Ia-oCd" id="6aK-Us-STx"/>
+                        <outletCollection property="controlBtns" destination="PRk-r5-23w" id="caY-CA-kru"/>
+                        <outletCollection property="controlBtns" destination="Hhb-cZ-nqg" id="mJK-dc-TVo"/>
+                        <outletCollection property="controlBtns" destination="toA-LO-fKn" id="btk-af-HST"/>
+                        <outletCollection property="controlBtns" destination="m7S-3Q-VCM" id="7iY-eH-eBX"/>
+                        <outletCollection property="controlBtns" destination="dSX-Ap-Sgl" id="kJi-qB-ZGa"/>
+                        <outletCollection property="controlBtns" destination="QAE-Fw-cnT" id="Pgu-fK-vUf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rGo-5a-8cK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -602,7 +613,7 @@
                         <rect key="frame" x="0.0" y="44" width="280" height="206"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="按键名称" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OkW-ZJ-D0M">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OkW-ZJ-D0M">
                                 <rect key="frame" x="20" y="24" width="68" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -613,7 +624,7 @@
                                 <rect key="frame" x="20" y="65" width="110" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="学  习">
+                                <state key="normal" title="Study">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -630,7 +641,7 @@
                                 <rect key="frame" x="20" y="110" width="240" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="删   除" backgroundImage="deleteBtn">
+                                <state key="normal" title="Delete" backgroundImage="deleteBtn">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -642,7 +653,7 @@
                                 <rect key="frame" x="150" y="65" width="110" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="校  验">
+                                <state key="normal" title="Verify">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -650,10 +661,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tKI-dK-tjL">
-                                <rect key="frame" x="20" y="155" width="240" height="30"/>
+                                <rect key="frame" x="20" y="156" width="240" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="返   回">
+                                <state key="normal" title="Cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -676,7 +687,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ydN-8F-N0b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5984" y="-7960"/>
+            <point key="canvasLocation" x="-6052" y="-7960"/>
         </scene>
         <!--MyE Ir Device Add Key Modal View Controller-->
         <scene sceneID="9S2-HM-xmB">
@@ -687,17 +698,14 @@
                         <viewControllerLayoutGuide type="bottom" id="u3U-sr-EIr"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="sAi-Af-EAQ">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="44" width="280" height="206"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rK8-u5-hHE">
-                                <rect key="frame" x="40" y="140" width="240" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rK8-u5-hHE">
+                                <rect key="frame" x="40" y="140" width="200" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="45B-UM-n7U"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="确   定" backgroundImage="deleteBtn">
+                                <state key="normal" title="Ok" backgroundImage="deleteBtn">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -705,33 +713,24 @@
                                     <action selector="confirmNewKey:" destination="A8N-Xx-rCD" eventType="touchUpInside" id="IZ4-GN-f2H"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入新按键名称" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frd-58-LVH">
-                                <rect key="frame" x="40" y="20" width="240" height="20"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter a new key name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frd-58-LVH">
+                                <rect key="frame" x="40" y="20" width="200" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="e4i-QR-gR6"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4hb-Ea-dy9">
-                                <rect key="frame" x="40" y="50" width="240" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4hb-Ea-dy9">
+                                <rect key="frame" x="40" y="50" width="200" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="8Am-Wi-wd8"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yAz-kt-BpO">
-                                <rect key="frame" x="40" y="95" width="240" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yAz-kt-BpO">
+                                <rect key="frame" x="40" y="95" width="200" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="3yQ-0F-uc9"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="取   消" backgroundImage="cancelBtn">
+                                <state key="normal" title="Cancel" backgroundImage="cancelBtn">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -741,30 +740,19 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="frd-58-LVH" firstAttribute="leading" secondItem="sAi-Af-EAQ" secondAttribute="leading" constant="40" id="10b-QK-bwu"/>
-                            <constraint firstItem="rK8-u5-hHE" firstAttribute="top" secondItem="yAz-kt-BpO" secondAttribute="bottom" constant="15" id="1nd-2y-cl6"/>
-                            <constraint firstAttribute="trailing" secondItem="4hb-Ea-dy9" secondAttribute="trailing" constant="40" id="22U-92-V0Q"/>
-                            <constraint firstAttribute="trailing" secondItem="yAz-kt-BpO" secondAttribute="trailing" constant="40" id="7XM-o8-bJP"/>
-                            <constraint firstItem="yAz-kt-BpO" firstAttribute="leading" secondItem="sAi-Af-EAQ" secondAttribute="leading" constant="40" id="Hmu-2L-SUt"/>
-                            <constraint firstItem="yAz-kt-BpO" firstAttribute="top" secondItem="4hb-Ea-dy9" secondAttribute="bottom" constant="15" id="K06-Ir-WGl"/>
-                            <constraint firstAttribute="trailing" secondItem="rK8-u5-hHE" secondAttribute="trailing" constant="40" id="dZ4-4v-Mi2"/>
-                            <constraint firstAttribute="trailing" secondItem="frd-58-LVH" secondAttribute="trailing" constant="40" id="ez4-im-zL5"/>
-                            <constraint firstItem="4hb-Ea-dy9" firstAttribute="leading" secondItem="sAi-Af-EAQ" secondAttribute="leading" constant="40" id="mQf-fZ-xzq"/>
-                            <constraint firstItem="rK8-u5-hHE" firstAttribute="leading" secondItem="sAi-Af-EAQ" secondAttribute="leading" constant="40" id="tFw-dH-e99"/>
-                            <constraint firstItem="4hb-Ea-dy9" firstAttribute="top" secondItem="frd-58-LVH" secondAttribute="bottom" constant="10" id="thV-lA-b3X"/>
-                            <constraint firstItem="frd-58-LVH" firstAttribute="top" secondItem="i1d-Ia-YZz" secondAttribute="bottom" constant="20" id="xiY-lZ-aqB"/>
-                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="v7J-lV-N2B"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="280" height="250"/>
                     <connections>
                         <outlet property="keyNameTextfield" destination="4hb-Ea-dy9" id="Dde-GM-rDs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6UD-3V-75O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5984" y="-7411"/>
+            <point key="canvasLocation" x="-6052" y="-7296"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tYC-63-xOZ">
@@ -817,7 +805,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CMF-Od-k8u">
                                     <rect key="frame" x="74" y="15" width="172" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="添加新按键">
+                                    <state key="normal" title="Add new key">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
@@ -842,7 +830,6 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="btnPressed:" destination="8dW-IC-Ypb" eventType="touchUpInside" id="MTe-pU-Irg"/>
                                                 <action selector="controlKey:" destination="8dW-IC-Ypb" eventType="touchUpInside" id="k7e-vI-ZQ6"/>
                                             </connections>
                                         </button>
@@ -857,7 +844,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="xQQ-I3-XQZ">
-                        <barButtonItem key="rightBarButtonItem" title="学习模式" id="bwg-ns-ruG">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="bwg-ns-ruG">
                             <connections>
                                 <action selector="changeMode:" destination="8dW-IC-Ypb" id="e7Q-5o-gen"/>
                             </connections>

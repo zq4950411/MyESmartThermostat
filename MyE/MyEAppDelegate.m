@@ -70,7 +70,6 @@
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[UINavigationBar appearance].titleTextAttributes];
         [dic setValue:[UIColor whiteColor] forKey:UITextAttributeTextColor];
         [[UINavigationBar appearance] setTitleTextAttributes:dic];
-        
         [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
         [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
         [[UITabBar appearance] setTintColor:[UIColor whiteColor]];

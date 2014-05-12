@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyEIRDefaultViewController.h"
+@interface MyECurtainControlViewController : MyEIRDefaultViewController
 
-@interface MyECurtainControlViewController : UIViewController<MyEDataLoaderDelegate>{
-    BOOL isControlMode;
-}
-@property (nonatomic, weak) MyEDevice *device;
+@property (strong, nonatomic) IBOutletCollection(MyEControlBtn) NSArray *controlBtns;
 
 @end

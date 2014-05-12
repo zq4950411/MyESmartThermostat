@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyEIRDefaultViewController.h"
+@interface MyEAudioDefaultViewController :MyEIRDefaultViewController
 
-@interface MyEAudioDefaultViewController : UIViewController
 @property (strong, nonatomic) IBOutletCollection(MyEControlBtn) NSArray *controlBtns;
-@property (nonatomic, strong) MyEDevice *device;
-@property (nonatomic) BOOL isControlMode;
+
 @end

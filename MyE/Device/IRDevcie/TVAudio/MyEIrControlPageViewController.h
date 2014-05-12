@@ -10,6 +10,7 @@
 #import "SUNSlideSwitchView.h"
 #import "MyEAudioDefaultViewController.h"
 #import "MyETVDefaultViewController.h"
+#import "MyEIrUserKeyViewController.h"
 
 
 @interface MyEIrControlPageViewController : UIViewController<SUNSlideSwitchViewDelegate>

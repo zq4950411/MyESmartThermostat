@@ -8,9 +8,6 @@
 
 #import "MyECurtainControlViewController.h"
 
-#define IR_KEY_SET_DOWNLOADER_NMAE @"IrKeySetDownloader"
-#define IR_DEVICE_SEND_CONTROL_KEY_UPLOADER_NMAE @"IRDeviceSencControlKeyUploader"
-
 @interface MyECurtainControlViewController ()
 
 @end
@@ -29,23 +26,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    isControlMode = YES;
+    _keyBtns = self.controlBtns;
+    _initNumber = 400;
 }
-
+#pragma mark - memory warning method
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
-#pragma mark - IBAction methods
-- (IBAction)studyInstruction:(UIBarButtonItem *)sender {
-    if ([sender.title isEqualToString:@"学习模式"]) {
-        sender.title = @"退出学习";
-        isControlMode = NO;
-    }else{
-        sender.title = @"学习模式";
-        isControlMode = YES;
-    }
-}
-#pragma mark - private methods
 
 @end

@@ -11,11 +11,14 @@
 #import "OperationViewController.h"
 #import "PlugControlViewController.h"
 #import "ControlViewController.h"
+//switch
 #import "MyESwitchManualControlViewController.h"
 #import "MyESwitchAutoViewController.h"
 #import "MyESwitchElecInfoViewController.h"
-
+//tv or audio
 #import "MyEIrControlPageViewController.h"
+//curtain
+#import "MyECurtainControlViewController.h"
 
 #import "MyEHouseData.h"
 
@@ -85,11 +88,16 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:hit];
     _selectedIndexPath = indexPath;
     MyEDevice *device = (MyEDevice *)self.datas[indexPath.row];
+    if (device.typeId.intValue == 4 || device.typeId.intValue == 5) {
+        return;
+    }
     if ([device.tid isEqualToString:@""]) {
+        [SVProgressHUD showErrorWithStatus:@"SmartRemote is not specified"];
         return;
     }
     if (device.rfStatus.intValue == -1)
     {
+        [SVProgressHUD showErrorWithStatus:@"device is not online"];
         return;
     }
     
@@ -114,16 +122,20 @@
         [params safeSetObject:device.deviceId forKey:@"deviceId"];
         string = URL_FOR_IRDEVICE_CONTROL;
     }
-    [params safeSetObject:device.switchStatus.intValue==1?@"0":@"1" forKey:@"switchStatus"];
+    if (device.typeId.intValue == 2) {
+        [params safeSetObject:@"203" forKey:@"switchStatus"];
+    }else if(device.typeId.intValue == 3){
+        [params safeSetObject:@"301" forKey:@"switchStatus"];
+    }else
+        [params safeSetObject:device.switchStatus.intValue==1?@"0":@"1" forKey:@"switchStatus"];
     [[NetManager sharedManager] requestWithURL:GetRequst(string) delegate:self withUserInfo:@{REQUET_PARAMS: params}];
-    
 }
 
 -(void) sendGetDatas
 {
     self.isShowLoading = YES;
     
-//    [MyEUniversal doThisWhenNeedUploadOrDownloadDataFromServerWithURL:URL_FOR_ROOMLIST_VIEW andUIViewController:self andDictionary:@{@"houseId": @(MainDelegate.houseData.houseId)}];
+    //    [MyEUniversal doThisWhenNeedUploadOrDownloadDataFromServerWithURL:URL_FOR_ROOMLIST_VIEW andUIViewController:self andDictionary:@{@"houseId": @(MainDelegate.houseData.houseId)}];
     [MyEUniversal doThisWhenNeedUploadOrDownloadDataFromServerWithURL:URL_FOR_SMARTUP_LIST2 andUIViewController:self andDictionary:@{@"houseId": @(MainDelegate.houseData.houseId)}];
     
 }
@@ -158,11 +170,11 @@
     currentTapIndex = indexPath.row;
     currentSelectedIndex = indexPath.row;
     MyEDevice *device = [self.datas objectAtIndex:indexPath.row];
-//    if (device.typeId.intValue == 2)  //TV
-//    {
-//        PlugControlViewController *plug = [[PlugControlViewController alloc] initWithEditType];
-//        [self.navigationController pushViewController:plug animated:YES];
-//    }
+    //    if (device.typeId.intValue == 2)  //TV
+    //    {
+    //        PlugControlViewController *plug = [[PlugControlViewController alloc] initWithEditType];
+    //        [self.navigationController pushViewController:plug animated:YES];
+    //    }
     if (device.typeId.intValue == 6)  //socket
     {
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"Device" bundle:nil];
@@ -170,7 +182,7 @@
         vc.isAddDevice = NO;
         vc.device = device;
         [self.navigationController pushViewController:vc animated:YES];
-//        PlugControlViewController *plug = [[PlugControlViewController alloc] initWithEditType];
+        //        PlugControlViewController *plug = [[PlugControlViewController alloc] initWithEditType];
     }
     else if(device.typeId.intValue == 7)  //通用控制器
     {
@@ -191,11 +203,11 @@
         vc.isAddDevice = NO;
         vc.device = device;
         [self.navigationController pushViewController:vc animated:YES];
-
-//        AddDeviceTableViewView *vc = [[AddDeviceTableViewView alloc] init];
-//        vc.smartup = device;
-//        
-//        [self.navigationController pushViewController:vc animated:YES];
+        
+        //        AddDeviceTableViewView *vc = [[AddDeviceTableViewView alloc] init];
+        //        vc.smartup = device;
+        //
+        //        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 -(void) tap:(UILongPressGestureRecognizer *) tap
@@ -205,7 +217,6 @@
         [self.tableView setEditing:!self.tableView.editing animated:YES];
     }
 }
-
 
 -(void) addAction:(id) sender
 {
@@ -217,78 +228,9 @@
 {
     [self sendGetDatas];
 }
--(void)setTypeImageView:(UIImageView *)imageView WithDevice:(MyEDevice *)d{
-    if (d.typeId.intValue == 2)
-    {
-        imageView.image = [UIImage imageNamed:@"tv-on.png"];
-    }
-    else if (d.typeId.intValue == 3)
-    {
-        imageView.image = [UIImage imageNamed:@"audio-on.png"];
-    }
-    else if (d.typeId.intValue == 4)
-    {
-        imageView.image = [UIImage imageNamed:@"curtain-on.png"];
-    }
-    else if (d.typeId.intValue == 5)
-    {
-        imageView.image = [UIImage imageNamed:@"other-on.png"];
-    }
-    else if (d.typeId.intValue == 6)
-    {
-        if (d.switchStatus.intValue == 0)
-        {
-            imageView.image = [UIImage imageNamed:@"socket-off.png"];
-        }
-        else
-        {
-            imageView.image = [UIImage imageNamed:@"socket-on.png"];
-        }
-    }
-    else if (d.typeId.intValue == 7)
-    {
-        imageView.image = [UIImage imageNamed:@"sprinkler.png"];
-    }
-    else if (d.typeId.intValue == 8){
-        if (d.switchStatus.intValue == 0) {
-            imageView.image = [UIImage imageNamed:@"switch-off"];
-        }else
-            imageView.image = [UIImage imageNamed:@"switch-on"];
-    }
-}
--(void)setSignalImageView:(UIImageView *)imageView withDevice:(MyEDevice *)d{
-    if (d.rfStatus.intValue == -1)
-    {
-        imageView.image = [UIImage imageNamed:@"noconnection"];
-    }
-    else if (d.rfStatus.intValue == 0){
-        imageView.image = [UIImage imageNamed:@"signal0"];
-    }
-    else if(d.rfStatus.intValue == 1)
-    {
-        imageView.image = [UIImage imageNamed:@"signal1"];
-    }
-    else if(d.rfStatus.intValue == 2)
-    {
-        imageView.image = [UIImage imageNamed:@"signal2"];
-    }
-    else if(d.rfStatus.intValue == 3)
-    {
-        imageView.image = [UIImage imageNamed:@"signal3"];
-    }
-    else if(d.rfStatus.intValue == 4)
-    {
-        imageView.image = [UIImage imageNamed:@"signal4"];
-    }
-}
--(void)changeSwitchStatusImageView{
-    MyEDevice *device = [self.datas safeObjectAtIndex:_selectedIndexPath.row];
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:_selectedIndexPath];
-    UIImageView *image = (UIImageView *)[cell.contentView viewWithTag:100];
+-(NSString *)getDeviceTypeNameByTypeId:(NSString *)typeId{
     NSString *string = nil;
-    //2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器  8:开关
-
-    switch ([device.typeId intValue]) {
+    switch (typeId.intValue) {
         case 2:
             string = @"tv";
             break;
@@ -314,19 +256,28 @@
             string = @"tv";
             break;
     }
-    if (device.switchStatus.intValue == 0)
-    {
-        device.switchStatus = @"1";
-        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-on",string]];
-    }
-    else
-    {
-        device.switchStatus = @"0";
-        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-off",string]];
-    }
+    return string;
+}
+-(void)changeSwitchStatusImageView{
+    MyEDevice *device = [self.datas safeObjectAtIndex:_selectedIndexPath.row];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:_selectedIndexPath];
+    UIImageView *image = (UIImageView *)[cell.contentView viewWithTag:100];
+    //2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器  8:开关
+    image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[self getDeviceTypeNameByTypeId:device.typeId],device.switchStatus.intValue == 0 ?@"on":@"off"]];
+    device.switchStatus = device.switchStatus.intValue == 0?@"1":@"0";
+//    if (device.switchStatus.intValue == 0)
+//    {
+//        device.switchStatus = @"1";
+//        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-on",string]];
+//    }
+//    else
+//    {
+//        device.switchStatus = @"0";
+//        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-off",string]];
+//    }
 }
 -(void)reloadRoomsTableViewContents{
-
+    
     [_roomsTableView reloadData];
     [_roomsTableView initTableViewDataSourceAndDelegate:^(UITableView *tableView,NSUInteger section){
         return [_mainDic.allKeys count];
@@ -375,10 +326,10 @@
             }
         }
         [_mainDic setValue:array forKey:r.roomName];
-//        if ([array count] != 0) {
-//            [_mainDic setValue:array forKey:r.roomName];
-//        }else
-//            [_mainDic setValue:[NSArray array] forKey:r.roomName];
+        //        if ([array count] != 0) {
+        //            [_mainDic setValue:array forKey:r.roomName];
+        //        }else
+        //            [_mainDic setValue:[NSArray array] forKey:r.roomName];
         array = [NSMutableArray array];
     }
     [_mainDic setValue:array1 forKey:@"unspecified"];
@@ -458,12 +409,10 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(deviceControl:)];
     [typeImageView addGestureRecognizer:tap];
-    [self setTypeImageView:typeImageView WithDevice:device];
-    
+    typeImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[self getDeviceTypeNameByTypeId:device.typeId],device.switchStatus.intValue==0?@"off":@"on"]];
     nameLabel.text = device.deviceName;
-    roomLabel.text = device.locationName;
-    
-    [self setSignalImageView:signal withDevice:device];
+    roomLabel.text = device.instructionName;
+    signal.image = [UIImage imageNamed:device.rfStatus.intValue == -1?@"noconnection":[NSString stringWithFormat:@"signal%i",device.rfStatus.intValue]];
     [btn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
@@ -478,9 +427,10 @@
         [SVProgressHUD showErrorWithStatus:@"Please specify the SmartRemoteUsed"];
         return;
     }
-
+    
     if (device.rfStatus.intValue == -1)
     {
+        [SVProgressHUD showErrorWithStatus:@"device is not online"];
         return;
     }
     
@@ -489,7 +439,17 @@
     
     currentSelectedIndex = indexPath.row;
     //2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器  8:开关
-    if (device.typeId.intValue == 6)
+    if(device.typeId.intValue == 2 || device.typeId.intValue == 3)  //TV  Audio
+    {
+        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Device" bundle:nil];
+        MyEIrControlPageViewController *vc = [story instantiateViewControllerWithIdentifier:@"irControl"];
+        vc.device = device;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (device.typeId.intValue == 4){   //curtain
+        MyECurtainControlViewController *vc = [[UIStoryboard storyboardWithName:@"Device" bundle:nil] instantiateViewControllerWithIdentifier:@"curtain"];
+        vc.device = device;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (device.typeId.intValue == 6)  //插座
     {
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"Socket" bundle:nil];
         UITabBarController *tab = [story instantiateViewControllerWithIdentifier:@"socket"];
@@ -501,7 +461,7 @@
         UINavigationController *nav3 = tab.childViewControllers[2];
         MyESocketUsageViewController *vc3 = nav3.childViewControllers[0];
         
-//        PlugControlViewController *plug = [[PlugControlViewController alloc] init];
+        //        PlugControlViewController *plug = [[PlugControlViewController alloc] init];
         [self.navigationController pushViewController:tab animated:YES];
     }
     else if(device.typeId.intValue == 7)
@@ -526,15 +486,6 @@
         MyESwitchElecInfoViewController *elecInfoVC = [[nc2 childViewControllers] objectAtIndex:0];
         elecInfoVC.device = device;
         [self presentViewController:tabBarController animated:YES completion:nil];
-        //        [self.navigationController pushViewController:tabBarController animated:YES];
-    }
-    else if(device.typeId.intValue == 2 || device.typeId.intValue == 3)  //TV  Audio
-    {
-        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Device" bundle:nil];
-        MyEIrControlPageViewController *vc = [story instantiateViewControllerWithIdentifier:@"irControl"];
-        vc.device = device;
-//        OperationViewController *operationVc = [[OperationViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 -(BOOL) tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath

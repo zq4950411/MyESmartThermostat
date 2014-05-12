@@ -1,75 +1,91 @@
 //
-//  MyEIrDefaultViewController.m
-//  MyEHomeCN2
+//  MyEIRDefaultViewController.m
+//  MyE
 //
-//  Created by Ye Yuan on 11/4/13.
-//  Copyright (c) 2013 My Energy Domain Inc. All rights reserved.
+//  Created by 翟强 on 14-5-12.
+//  Copyright (c) 2014年 MyEnergy Domain. All rights reserved.
 //
 
-#import "MyEIrDefaultViewController.h"
+#import "MyEIRDefaultViewController.h"
 #import "MyEIrStudyEditKeyModalViewController.h"
-
-#define IR_KEY_SET_DOWNLOADER_NMAE @"IrKeySetDownloader"
-#define IR_DEVICE_SEND_CONTROL_KEY_UPLOADER_NMAE @"IRDeviceSencControlKeyUploader"
-
-@interface MyEIrDefaultViewController ()
+#import "MyEIrUserKeyViewController.h"
+@interface MyEIRDefaultViewController ()
 
 @end
 
-@implementation MyEIrDefaultViewController
-@synthesize isControlMode;
+@implementation MyEIRDefaultViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - life circle methods
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self downloadKeySetFromServer];
-    [[MZFormSheetBackgroundWindow appearance] setBackgroundBlurEffect:YES];
-    [[MZFormSheetBackgroundWindow appearance] setBlurRadius:5.0];
-    [[MZFormSheetBackgroundWindow appearance] setBackgroundColor:[UIColor clearColor]];
+    for (MyEControlBtn *btn in _keyBtns) {
+        _initNumber++;
+        btn.tag = _initNumber;
+        [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        btn.status = 0;  //这里要对status的值进行初始化
+        NSLog(@"%@    %i",btn.currentTitle,btn.tag);
+    }
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&tId=%@",GetRequst(URL_FOR_INSTRUCTIONLIST_VIEW),MainDelegate.houseData.houseId,self.device.deviceId,self.device.tid] andName:@"instructionList"];
 }
-
+#pragma mark - memory warning methods
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-#pragma mark -
-#pragma mark private methods
-- (IBAction) keyTapped:(id)sender
-{
-    for (NSDictionary *dict in _keyMap) {
-        if ([dict objectForKey:@"button"] == sender) {
-            MyEIrKey *key = [self.device.irKeySet getDefaultKeyByType:[[dict objectForKey:@"type"] integerValue]];
-            if (isControlMode) {
-                if (key.status >0) {
-                    [self sendControlKeyToServer:key andRunTimes:1];
-                }else{
-                    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示"
-                                                                contentText:@"此按键没有学习，请点击右上角【学习模式】学习此按键"
-                                                            leftButtonTitle:nil
-                                                           rightButtonTitle:@"知道了"];
-                    [alert show];
-                }
-            } else
-                [self editStudyKey:key];
-            //这里加return有个好处，一旦达到了目的，就可以停止了，这个要记住
-            return;
+#pragma mark - private methods
+-(NSInteger)getInstructionIdByTypeId:(NSInteger)typeId{
+    for (MyEInstruction *i in self.instructions.templateList) {
+        if (i.type == typeId) {
+            return i.instructionId;
         }
     }
+    return 0;
 }
--(void)editStudyKey:(MyEIrKey *)key
+-(MyEInstruction *)getInstructionByTypeId:(NSInteger)typeId{
+    for (MyEInstruction *i in self.instructions.templateList) {
+        if (i.type == typeId) {
+            return i;
+        }
+    }
+    return nil;
+}
+-(void)btnClicked:(MyEControlBtn *)btn{
+    if (self.isControlMode) {
+        if (btn.status > 0) {
+            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&instructionId=%i",GetRequst(URL_FOR_INSTRUCTION_CONTROL),MainDelegate.houseData.houseId,[self getInstructionIdByTypeId:btn.tag]] andName:@"control"];
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"This Key Has not studied" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }else{
+        [self editStudyKey:btn];
+        
+    }
+}
+-(void)refreshUI{
+#warning 这里要针对不同的方式做不同的处理
+    NSString *normalStr = nil;
+    NSString *highlightStr = nil;
+    for (MyEControlBtn *btn in _keyBtns) {
+        if (btn.tag < 204 || btn.tag > 208) {
+            normalStr = [NSString stringWithFormat:@"control-%@-normal",btn.status>0?@"enable":@"disable"];
+            highlightStr = [NSString stringWithFormat:@"control-%@-highlight",btn.status>0?@"enable":@"disable"];
+        }else{
+            //这里要针对不同的btn设计图标
+            normalStr = nil;
+            highlightStr = nil;
+        }
+        [btn setBackgroundImage:[[UIImage imageNamed:normalStr] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+        [btn setBackgroundImage:[[UIImage imageNamed:highlightStr] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateHighlighted];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    }
+}
+-(void)editStudyKey:(MyEControlBtn *)btn
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"IrDevice" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Device" bundle:nil];
     UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"IRDeviceStudyEditKeyModal"];
     
     MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
@@ -87,217 +103,75 @@
         UINavigationController *navController = (UINavigationController *)presentedFSViewController;
         navController.topViewController.title = @"按键学习";
         MyEIrStudyEditKeyModalViewController *modalVc = (MyEIrStudyEditKeyModalViewController *)navController.topViewController;
-        modalVc.accountData = self.accountData;
         modalVc.device = self.device;
-//        modalVc.delegate = self;
-        modalVc.key = key;
+        
+//        MyEInstruction *instruction = [[MyEInstruction alloc] init];
+//        instruction.instructionId = btn.tag - _initNumber; //这里主要是有各种情况，所以这里要这么写
+//        instruction.type = btn.tag;
+//        instruction.name = btn.currentTitle;
+        modalVc.instruction = [self getInstructionByTypeId:btn.tag];
+        
         modalVc.keyNameTextfield.enabled = NO;
         modalVc.deleteKeyBtn.enabled = NO;
-        if (key.status > 0) {
+        if (btn.status > 0) {
             [modalVc.learnBtn setTitle:@"再学习" forState:UIControlStateNormal];
         }else
             modalVc.validateKeyBtn.enabled = NO;
     };
     
-    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-        UINavigationController *navController = (UINavigationController *)formSheetController.presentedFSViewController;
-        MyEIrStudyEditKeyModalViewController *vc = (MyEIrStudyEditKeyModalViewController *)(navController.topViewController);
-        vc.keyNameTextfield.text = key.keyName;
-    }];
+//    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+//        UINavigationController *navController = (UINavigationController *)formSheetController.presentedFSViewController;
+//        MyEIrStudyEditKeyModalViewController *vc = (MyEIrStudyEditKeyModalViewController *)(navController.topViewController);
+//        vc.keyNameTextfield.text = btn.currentTitle;
+//    }];
     
     formSheet.didDismissCompletionHandler = ^(UIViewController *presentedFSViewController) {
         [self refreshUI];
     };
+    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:nil];
 }
-- (void) refreshUI
-{
-    for (NSDictionary *dict in _keyMap) {
-        MyEIrKey *key = [self.device.irKeySet getDefaultKeyByType:[[dict objectForKey:@"type"] integerValue]];
-        UIButton *btn = [dict objectForKey:@"button"];
-//        btn.showsTouchWhenHighlighted = YES;
-        
-//        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//        [btn setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
-        if (key.status > 0) {
-            btn.layer.masksToBounds = YES;
-            btn.layer.cornerRadius = 4;
-            if (IS_IOS6) {
-                btn.layer.borderColor = [UIColor blackColor].CGColor;
-                [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            }else{
-                btn.layer.borderColor = btn.tintColor.CGColor;
-                [btn setTitleColor:btn.tintColor forState:UIControlStateNormal];
-            }
-            btn.layer.borderWidth = 1;
-        }else{
-            btn.layer.masksToBounds = YES;
-            btn.layer.cornerRadius = 4;
-            btn.layer.borderColor = [UIColor redColor].CGColor;
-            btn.layer.borderWidth = 1;
-            [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        }
-        [btn addTarget:self action:@selector(keyTapped:) forControlEvents:UIControlEventTouchUpInside];
-        
-        if ((btn.tag == 100 || btn.tag == 101 ||
-            btn.tag == 102|| btn.tag == 103)
-            && key.status >0) {
-            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-            longPress.minimumPressDuration = 0.7;
-            [btn addGestureRecognizer:longPress];
-        }
-    }
-}
--(void) sendControlKeyToServer:(MyEIrKey *)key andRunTimes:(NSInteger)runTimes
-{
-    NSDictionary *dict;
-    if (key) {
-       dict = [NSDictionary dictionaryWithObject:key forKey:@"key"];
-    }
-        
-    NSString * urlStr= [NSString stringWithFormat:@"%@?gid=%@&id=%ld&deviceId=%ld&type=%ld&runCount=%li",
-                        URL_FOR_IR_DEVICE_SEND_CONTROL_KEY,
-                        self.accountData.userId,
-                        (long)key.keyId,
-                        (long)self.device.deviceId,
-                        (long)key.type,(long)runTimes];
-    MyEDataLoader *downloader = [[MyEDataLoader alloc]
-                                 initLoadingWithURLString:urlStr
-                                 postData:nil
-                                 delegate:self loaderName:IR_DEVICE_SEND_CONTROL_KEY_UPLOADER_NMAE
-                                 userDataDictionary:dict];
-    NSLog(@"%@",downloader.name);
-}
--(void) handleLongPress: (UIGestureRecognizer *)longPress {
-    if (!isControlMode) {
-        return;
-    }
-    MyEIrKey *irKey;
-    UIButton *btn = (UIButton *)longPress.view;
-    for (NSDictionary *dict in _keyMap) {
-        if ([dict objectForKey:@"button"] == btn) {
-            MyEIrKey *key = [self.device.irKeySet getDefaultKeyByType:[[dict objectForKey:@"type"] integerValue]];
-            irKey = key;
-        }
-    }
-    switch (longPress.state) {
-        case UIGestureRecognizerStateBegan:{
-            MyEAppDelegate *delegate = [UIApplication sharedApplication].delegate;
-            progressHUD = [MBProgressHUD showHUDAddedTo:delegate.window animated:YES];
-            UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
-            image.image = [UIImage imageNamed:@"Volume"];
-            progressHUD.mode = MBProgressHUDModeCustomView;
-            progressHUD.customView = image;
-            progressHUD.opacity = 0.4;  //透明度
-            progressHUD.margin = 5;
-            progressHUD.cornerRadius = 5;
-            progressHUD.yOffset = - 150;
-            progressHUD.minSize = CGSizeMake(100, 100);
-            progressHUD.userInteractionEnabled = NO;
-            valueChange = 0;
-            secondsFromNow = 0;
-            //长按手势刚开始时就要发送一条指令
-            [self sendControlKeyToServer:irKey andRunTimes:1];
-            valueChange = 1;
-            progressHUD.labelText = [NSString stringWithFormat:@"%i",valueChange];
-            timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(doSomethingWhenTimerBegin) userInfo:irKey repeats:YES];}
-            break;
-        case UIGestureRecognizerStateEnded:
-            [timer invalidate];
-            secondsFromNow = 0;
-            valueChange = 0;
-            [progressHUD hide:YES afterDelay:1];
-            break;
-        default:
-            break;
-    }
-}
--(void)doSomethingWhenTimerBegin{
-    secondsFromNow ++;
-    switch (secondsFromNow) {
-        case 1:
-            [self sendControlKeyToServer:timer.userInfo andRunTimes:1];
-            valueChange = valueChange + 1;
-            break;
-        case 2:
-            [self sendControlKeyToServer:timer.userInfo andRunTimes:2];
-            valueChange = valueChange + 2;
-            break;
-        default:
-            if (valueChange <= 30) {
-                [self sendControlKeyToServer:timer.userInfo andRunTimes:3];
-            }
-            valueChange = valueChange + 3;
-            break;
-    }
-    if (valueChange <= 30)  {
-//        progressHUD.progress = valueChange/30;
-        progressHUD.labelText = [NSString stringWithFormat:@"%i",valueChange];
-    }else{
-//        progressHUD.progress = 1.0;
-        progressHUD.labelText = @"30";
-    }
-}
-#pragma mark - URL private methods
-- (void) downloadKeySetFromServer
-{
-    if(HUD == nil) {
+
+#pragma mark - url methods
+-(void)uploadOrDownloadInfoFromServerWithURL:(NSString *)string andName:(NSString *)name{
+    if (HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        HUD.delegate = self;
-    } else
-        [HUD show:YES];
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@?gid=%@&tId=%@&id=%ld",URL_FOR_KEY_SET_VIEW, self.accountData.userId, self.device.tId, (long)self.device.deviceId];
-    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:IR_KEY_SET_DOWNLOADER_NMAE  userDataDictionary:nil];
-    NSLog(@"%@",downloader.name);
+    }
+    [HUD show:YES];
+    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:string postData:nil delegate:self loaderName:name userDataDictionary:nil];
+    NSLog(@"%@",loader.name);
 }
 #pragma mark - URL delegate methods
-- (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+-(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     [HUD hide:YES];
-    if([name isEqualToString:IR_KEY_SET_DOWNLOADER_NMAE]) {
-        if ([MyEUtil getResultFromAjaxString:string] == -1) {
-            [MyEUtil showErrorOn:self.navigationController.view withMessage:@"下载红外设备指令时发生错误！"];
-        } else  if ([MyEUtil getResultFromAjaxString:string] == -3) {
-            [MyEUniversal doThisWhenUserLogOutWithVC:self];
-        } else  if ([MyEUtil getResultFromAjaxString:string] == 1){
-            NSLog(@"ajax json = %@", string);
-            MyEIrKeySet *keySet = [[MyEIrKeySet alloc] initWithJSONString:string];
-            self.device.irKeySet = keySet;
-            NSLog(@"%@",self.view.superview.superview.nextResponder.nextResponder);
+    NSLog(@"receive string is %@",string);
+    if ([name isEqualToString:@"instructionList"]) {
+        if (![string isEqualToString:@"fail"]) {
+            MyEInstructions *instructions = [[MyEInstructions alloc] initWithJSONString:string];
+            self.instructions = instructions;
+            for (MyEInstruction *i in self.instructions.templateList) {
+                MyEControlBtn *btn = (MyEControlBtn *)[self.view viewWithTag:i.type];
+                btn.status = 1;
+            }
+            [self refreshUI];
+            NSLog(@"self.parentViewController is %@  self is %@",self.parentViewController,self);
             NSLog(@"%@",self.view.superview.subviews[1]);
             UITableView *view = self.view.superview.subviews[1];
             MyEIrUserKeyViewController *vc = (MyEIrUserKeyViewController *)view.nextResponder;
+            vc.instructions = self.instructions;
             [vc.tableView reloadData];
-            [self refreshUI];
-        }
+#warning 传值
+        }else
+            [SVProgressHUD showErrorWithStatus:@"Error!"];
     }
-    if([name isEqualToString:IR_DEVICE_SEND_CONTROL_KEY_UPLOADER_NMAE]) {
-        if ([MyEUtil getResultFromAjaxString:string] == -1) {
-            [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"发送按键控制时发生错误！"];
-        } else if ([MyEUtil getResultFromAjaxString:string] == 1){
-            if([MyEUtil getResultFromAjaxString:string] == 1){
-                [MyEUtil showInstructionStatusWithYes:YES andView:self.navigationController.navigationBar andMessage:@"指令发送成功"];
-            } else if([MyEUtil getResultFromAjaxString:string] == -1){
-                [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"指令发送失败"];
-            } else
-                [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"指令发送产生错误"];
-        }
+    if ([name isEqualToString:@"control"]) {
+        if (string.intValue == -999) {
+            [SVProgressHUD showErrorWithStatus:@"No Connection"];
+        }else if (![string isEqualToString:@"fail"]){
+            
+        }else
+            [SVProgressHUD showErrorWithStatus:@"Error!"];
     }
 }
-- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
-    
-    // inform the user
-    NSLog(@"In delegate Connection failed! Error - %@ %@",
-          [error localizedDescription],
-          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
-    NSString *msg;
-    if ([name isEqualToString:IR_KEY_SET_DOWNLOADER_NMAE])
-        msg = @"获取指令通信错误，请稍后重试.";
-    else if ([name isEqualToString:IR_DEVICE_SEND_CONTROL_KEY_UPLOADER_NMAE])
-        msg = @"发送按键控制通信错误，请稍后重试.";
-    else msg = @"通信错误，请稍后重试.";
-    
-    [MyEUtil showErrorOn:self.navigationController.view withMessage:msg];
-    [HUD hide:YES];
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
 }
-
 @end
