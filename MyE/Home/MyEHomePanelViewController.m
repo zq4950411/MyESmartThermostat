@@ -12,6 +12,7 @@
 #import "MyEAccountData.h"
 #import "MyEThermostatData.h"
 #import "MyEDashboardData.h"
+#import "MyENext24HrsScheduleViewController.h"
 
 @interface MyEHomePanelViewController ()
 - (void)configureView;
@@ -49,10 +50,13 @@
     
     [self.elecUsageTile setFlatStyleType:ACPButtonOK];
     [self.elecUsageTile setFlatStyle:[UIColor blueColor] andHighlightedColor:[UIColor grayColor]];
+    [self.elecUsageTile setBorderStyle:[UIColor clearColor] andInnerColor:[UIColor clearColor] ];
     [self.thermostatTile setFlatStyleType:ACPButtonOK];
     [self.thermostatTile setFlatStyle:[UIColor blueColor] andHighlightedColor:[UIColor grayColor]];
+    [self.thermostatTile setBorderStyle:[UIColor clearColor] andInnerColor:[UIColor clearColor] ];
     [self.faultInfoTile setFlatStyleType:ACPButtonOK];
     [self.faultInfoTile setFlatStyle:[UIColor blueColor] andHighlightedColor:[UIColor grayColor]];
+    [self.faultInfoTile setBorderStyle:[UIColor clearColor] andInnerColor:[UIColor clearColor] ];
 }
 - (void) viewWillAppear:(BOOL)animated
 {
@@ -88,7 +92,20 @@
 }
 
 - (IBAction)goThermostat:(id)sender {
-    [self performSegueWithIdentifier:@"goThermostat" sender:self];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"thermostat" bundle:nil];
+    UITabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tab_bar_controller"];
+    
+    MyENext24HrsScheduleViewController *next24hrsVC = vc.childViewControllers[1];
+    next24hrsVC.userId = MainDelegate.accountData.userId;
+    next24hrsVC.houseId = MainDelegate.houseData.houseId;
+    next24hrsVC.tId = MainDelegate.thermostatData.tId;
+    next24hrsVC.tName = MainDelegate.thermostatData.tName;
+    next24hrsVC.isRemoteControl = MainDelegate.thermostatData.remote;
+    next24hrsVC.navigationController = self.navigationController;
+ 
+    
+    
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -
@@ -164,10 +181,10 @@
         UIImage *image = [UIImage imageNamed: imgFileName];
         self.weatherImageView.image = image;
         
-        self.weatherTemperatureLabel.text = [NSString stringWithFormat:@"%.0f", self.dashboardData.weatherTemp];
-        self.weatherTemperatureRangeLabel.text = [NSString stringWithFormat:@"%.0f~%.0f", self.dashboardData.lowTemp, self.dashboardData.highTemp];
-        self.humidityLabel.text = [NSString stringWithFormat:@"%i%%",self.dashboardData.humidity];
-        self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f", self.dashboardData.temperature];
+        self.weatherTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.dashboardData.weatherTemp];
+        self.weatherTemperatureRangeLabel.text = [NSString stringWithFormat:@"%.0f~%.0f\u00B0F", self.dashboardData.lowTemp, self.dashboardData.highTemp];
+        self.humidityLabel.text = [NSString stringWithFormat:@"%i%%RH",self.dashboardData.humidity];
+        self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.dashboardData.temperature];
     }
 }
 // 判定是否服务器相应正常，如果正常返回一些字符串，如果服务器相应为-999/-998，

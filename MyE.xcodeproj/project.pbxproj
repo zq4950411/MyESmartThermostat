@@ -450,6 +450,9 @@
 		C39AD94B151C589C00ACAB52 /* ApplicationIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C39AD948151C589C00ACAB52 /* ApplicationIcon.png */; };
 		C39AD94C151C589C00ACAB52 /* ApplicationIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C39AD949151C589C00ACAB52 /* ApplicationIcon@2x.png */; };
 		C39AD94F151C58BB00ACAB52 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C39AD94E151C58BB00ACAB52 /* Default.png */; };
+		C39D1C3619208C550009F2E2 /* thermostat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C39D1C3419208C540009F2E2 /* thermostat.storyboard */; };
+		C39D1C3919208FD60009F2E2 /* MyENext24HrsScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39D1C3819208FD60009F2E2 /* MyENext24HrsScheduleViewController.m */; };
+		C39D1C3C19209ADE0009F2E2 /* MyETodayScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39D1C3B19209ADE0009F2E2 /* MyETodayScheduleController.m */; };
 		C3A1C8211902ED9B001A1F99 /* DictionaryTableViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A1C81F1902ED9B001A1F99 /* DictionaryTableViewViewController.m */; };
 		C3A1C8221902ED9B001A1F99 /* DictionaryTableViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3A1C8201902ED9B001A1F99 /* DictionaryTableViewViewController.xib */; };
 		C3A292A11516D26400FB6E92 /* Ctrl_FanAuto-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A2929B1516D26400FB6E92 /* Ctrl_FanAuto-01.png */; };
@@ -706,7 +709,6 @@
 		C3FDB86D18FA83A9009B423D /* MyETodayHoldEditingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB83818FA83A9009B423D /* MyETodayHoldEditingView.m */; };
 		C3FDB86E18FA83A9009B423D /* MyETodayPeriodEditingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB83A18FA83A9009B423D /* MyETodayPeriodEditingView.m */; };
 		C3FDB86F18FA83A9009B423D /* MyETodayPeriodInforView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB83C18FA83A9009B423D /* MyETodayPeriodInforView.m */; };
-		C3FDB87018FA83A9009B423D /* MyETodayScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB83E18FA83A9009B423D /* MyETodayScheduleController.m */; };
 		C3FDB87118FA83A9009B423D /* MyEWeekdayToolbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB84018FA83A9009B423D /* MyEWeekdayToolbarController.m */; };
 		C3FDB87218FA83A9009B423D /* MyEWeeklyDaySelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB84218FA83A9009B423D /* MyEWeeklyDaySelectionView.m */; };
 		C3FDB87318FA83A9009B423D /* MyEWeeklyModeEditingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB84418FA83A9009B423D /* MyEWeeklyModeEditingView.m */; };
@@ -1290,6 +1292,11 @@
 		C39AD948151C589C00ACAB52 /* ApplicationIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ApplicationIcon.png; sourceTree = "<group>"; };
 		C39AD949151C589C00ACAB52 /* ApplicationIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ApplicationIcon@2x.png"; sourceTree = "<group>"; };
 		C39AD94E151C58BB00ACAB52 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		C39D1C3519208C540009F2E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = thermostat.storyboard; sourceTree = "<group>"; };
+		C39D1C3719208FD60009F2E2 /* MyENext24HrsScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyENext24HrsScheduleViewController.h; sourceTree = "<group>"; };
+		C39D1C3819208FD60009F2E2 /* MyENext24HrsScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyENext24HrsScheduleViewController.m; sourceTree = "<group>"; };
+		C39D1C3A19209ADE0009F2E2 /* MyETodayScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETodayScheduleController.h; sourceTree = "<group>"; };
+		C39D1C3B19209ADE0009F2E2 /* MyETodayScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETodayScheduleController.m; sourceTree = "<group>"; };
 		C3A1C81E1902ED9B001A1F99 /* DictionaryTableViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryTableViewViewController.h; sourceTree = "<group>"; };
 		C3A1C81F1902ED9B001A1F99 /* DictionaryTableViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryTableViewViewController.m; sourceTree = "<group>"; };
 		C3A1C8201902ED9B001A1F99 /* DictionaryTableViewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DictionaryTableViewViewController.xib; sourceTree = "<group>"; };
@@ -1714,8 +1721,6 @@
 		C3FDB83A18FA83A9009B423D /* MyETodayPeriodEditingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETodayPeriodEditingView.m; sourceTree = "<group>"; };
 		C3FDB83B18FA83A9009B423D /* MyETodayPeriodInforView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETodayPeriodInforView.h; sourceTree = "<group>"; };
 		C3FDB83C18FA83A9009B423D /* MyETodayPeriodInforView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETodayPeriodInforView.m; sourceTree = "<group>"; };
-		C3FDB83D18FA83A9009B423D /* MyETodayScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETodayScheduleController.h; sourceTree = "<group>"; };
-		C3FDB83E18FA83A9009B423D /* MyETodayScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETodayScheduleController.m; sourceTree = "<group>"; };
 		C3FDB83F18FA83A9009B423D /* MyEWeekdayToolbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEWeekdayToolbarController.h; sourceTree = "<group>"; };
 		C3FDB84018FA83A9009B423D /* MyEWeekdayToolbarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEWeekdayToolbarController.m; sourceTree = "<group>"; };
 		C3FDB84118FA83A9009B423D /* MyEWeeklyDaySelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEWeeklyDaySelectionView.h; sourceTree = "<group>"; };
@@ -2617,6 +2622,7 @@
 				C3F61AA618DFE64C00DEE477 /* MainStoryboard.storyboard */,
 				8C722605190653E40033A78A /* Device.storyboard */,
 				8CA05FEC1907E5E70090A350 /* Socket.storyboard */,
+				C39D1C3419208C540009F2E2 /* thermostat.storyboard */,
 			);
 			name = Storyboards;
 			path = MyE/Base.lproj;
@@ -3511,8 +3517,8 @@
 				C3FDB83A18FA83A9009B423D /* MyETodayPeriodEditingView.m */,
 				C3FDB83B18FA83A9009B423D /* MyETodayPeriodInforView.h */,
 				C3FDB83C18FA83A9009B423D /* MyETodayPeriodInforView.m */,
-				C3FDB83D18FA83A9009B423D /* MyETodayScheduleController.h */,
-				C3FDB83E18FA83A9009B423D /* MyETodayScheduleController.m */,
+				C39D1C3A19209ADE0009F2E2 /* MyETodayScheduleController.h */,
+				C39D1C3B19209ADE0009F2E2 /* MyETodayScheduleController.m */,
 				C3FDB83F18FA83A9009B423D /* MyEWeekdayToolbarController.h */,
 				C3FDB84018FA83A9009B423D /* MyEWeekdayToolbarController.m */,
 				C3FDB84118FA83A9009B423D /* MyEWeeklyDaySelectionView.h */,
@@ -3525,6 +3531,8 @@
 				C3FDB84818FA83A9009B423D /* MyVacationMasterViewController.xib */,
 				C3FDB84918FA83A9009B423D /* UISegmentedControl+Extension.h */,
 				C3FDB84A18FA83A9009B423D /* UISegmentedControl+Extension.m */,
+				C39D1C3719208FD60009F2E2 /* MyENext24HrsScheduleViewController.h */,
+				C39D1C3819208FD60009F2E2 /* MyENext24HrsScheduleViewController.m */,
 			);
 			path = Shcedule;
 			sourceTree = "<group>";
@@ -3851,6 +3859,7 @@
 				B2588FBC17B09C1B007ED13C /* cond115.png in Resources */,
 				C3FDB6F818FA640B009B423D /* UpAccessory.png in Resources */,
 				B2588FBD17B09C1B007ED13C /* cond116.png in Resources */,
+				C39D1C3619208C550009F2E2 /* thermostat.storyboard in Resources */,
 				C36A90CB18F8DF67006D26DE /* radio_selected@2x.png in Resources */,
 				B2588FBE17B09C1B007ED13C /* cond117.png in Resources */,
 				B2588FBF17B09C1B007ED13C /* cond118.png in Resources */,
@@ -4075,7 +4084,6 @@
 			files = (
 				8C722604190610BB0033A78A /* NetManager.m in Sources */,
 				C33587D01903859100959C94 /* MyEEventSceneEntity.m in Sources */,
-				C3FDB87018FA83A9009B423D /* MyETodayScheduleController.m in Sources */,
 				C3FDB7C218FA672D009B423D /* OperationViewController.m in Sources */,
 				C3F61AD318DFEE1700DEE477 /* IQActionSheetPickerView.m in Sources */,
 				C3AE7F4118E14D99000AA5FC /* MZFormSheetController.m in Sources */,
@@ -4130,6 +4138,7 @@
 				C3FDB88018FA83A9009B423D /* MyEVacationEditFromStaycationViewController.m in Sources */,
 				C3FDB4BC18FA403E009B423D /* ASICloudFilesRequest.m in Sources */,
 				C3AE7F4318E14D99000AA5FC /* MZTransition.m in Sources */,
+				C39D1C3C19209ADE0009F2E2 /* MyETodayScheduleController.m in Sources */,
 				C3FDB80918FA82AE009B423D /* MyEScheduleModeData.m in Sources */,
 				C3194B9F18E299EA006E3ABE /* EViewSwitcher.m in Sources */,
 				C3FDB4B818FA403E009B423D /* ASICloudFilesContainerRequest.m in Sources */,
@@ -4207,6 +4216,7 @@
 				C3F61B0118E1154200DEE477 /* SBJsonStreamParserState.m in Sources */,
 				C3FDB6BD18FA640B009B423D /* PopAddNewSceneViewController.m in Sources */,
 				8CA060341908A3BF0090A350 /* SUNSlideSwitchView.m in Sources */,
+				C39D1C3919208FD60009F2E2 /* MyENext24HrsScheduleViewController.m in Sources */,
 				C3FDB7CD18FA672E009B423D /* MyESwitchAutoViewController.m in Sources */,
 				C39498741919D7F70075ABD3 /* CDIconView.m in Sources */,
 				C3F61B0518E1154200DEE477 /* SBJsonTokeniser.m in Sources */,
@@ -4372,6 +4382,14 @@
 				C30E01FD14C7A69200011160 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C39D1C3419208C540009F2E2 /* thermostat.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C39D1C3519208C540009F2E2 /* Base */,
+			);
+			name = thermostat.storyboard;
 			sourceTree = "<group>";
 		};
 		C3AE7F0018E13B4C000AA5FC /* Switch.storyboard */ = {

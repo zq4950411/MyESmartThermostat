@@ -28,6 +28,10 @@
 
 #import "CDCircleOverlayView.h"
 
+#define CIRCLE_ORIGIN_X 30
+#define CIRCLE_ORIGIN_Y 40
+#define CIRCLE_DIAMETER 260
+
 @interface MyEDashboardViewController ()
 - (void)configureView;
 - (void)_toggleFanControlToolbarView;
@@ -134,7 +138,7 @@
     _maxVal = 90;
     self.selectedSegment = 80;
     
-    self.circle = [[CDCircle alloc] initWithFrame:CGRectMake(30 , 90, 260, 260) numberOfSegments:(360 / STEP_DEGREE) ringWidth:50.f];
+    self.circle = [[CDCircle alloc] initWithFrame:CGRectMake(CIRCLE_ORIGIN_X , CIRCLE_ORIGIN_Y, CIRCLE_DIAMETER, CIRCLE_DIAMETER) numberOfSegments:(360 / STEP_DEGREE) ringWidth:50.f];
     self.circle.dataSource = self;
     self.circle.delegate = self;
     CDCircleOverlayView *overlay = [[CDCircleOverlayView alloc] initWithCircle:self.circle];
@@ -144,7 +148,7 @@
         thumb.separatorColor = [UIColor colorWithRed:0.08 green:0.8 blue:0.8 alpha:1];
         thumb.separatorStyle = CDCircleThumbsSeparatorBasic;
         thumb.gradientFill = NO;
-        thumb.arcColor = [UIColor colorWithRed:0.08 green:0.8 blue:0.8 alpha:1];
+        thumb.arcColor = [UIColor colorWithRed:75.0/255.0 green:180.0/255.0 blue:200.0/255.0 alpha:1.0];
 //        thumb.gradientColors = [NSArray arrayWithObjects:(id) [UIColor blackColor].CGColor, (id) [UIColor yellowColor].CGColor, (id) [UIColor blueColor].CGColor, nil];
 //        thumb.colorsLocations = [NSMutableArray arrayWithObjects:[NSNumber numberWithFloat:0.00f], [NSNumber numberWithFloat:0.30f], [NSNumber numberWithFloat:1.00f], nil];
         
@@ -156,9 +160,7 @@
     
     
     [self _addHoldRunButtonForType:0];
-    self.inHoldAnimation = NO;
-    
-
+    self.inHoldAnimation = NO; // for testing
     
     
     
@@ -746,69 +748,92 @@
 
     return offset;
 }
-- (void)_toggleSystemControlToolbarView
-{
+
+- (void)_toggleSystemControlToolbarView{
     if (_isFanControlToolbarViewShowing) {
         [self _toggleFanControlToolbarView];
     }
     if (self.dashboardData.con_hp == 1) {
         self.systemControlEmgHeatingButton.enabled = YES;
     } else {
+        [self.view bringSubviewToFront:self.systemControlToolbarView];
         self.systemControlEmgHeatingButton.enabled = NO;
     }
     
-    NSInteger offset = [self _getToolbarOffset];
-    CGRect frame = [self.systemControlToolbarView frame];
-    NSLog(@"%f  %f  %f  %f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
-
-    frame.origin.x = 0;//不知为何toolbar被右移了一个点, 这里校正一下
-    if (_isSystemControlToolbarViewShowing) {
-        frame.origin.y = frame.origin.y+offset;
-    } else {
-        frame.origin.y = frame.origin.y-offset;
-//        frame.origin.y -= frame.size.height;
+    if(_isSystemControlToolbarViewShowing){
+        self.systemControlToolbarView.hidden = YES;
+    }else {
+        self.systemControlToolbarView.hidden = NO;
     }
-    NSLog(@"%f  %f  %f  %f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
-
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.3];
-    [self.systemControlToolbarView setFrame:frame];
-//    [self.view bringSubviewToFront:self.systemControlToolbarView];
-    [UIView commitAnimations];
     
     _isSystemControlToolbarViewShowing = !_isSystemControlToolbarViewShowing;
 }
-- (void)_toggleFanControlToolbarView
-{
-    NSInteger offset = [self _getToolbarOffset];
+- (void)_toggleFanControlToolbarView{
     if (_isSystemControlToolbarViewShowing) {
         [self _toggleSystemControlToolbarView];
     }
-    
-    CGRect frame = [self.fanControlToolbarView frame];
-    NSLog(@"%f  %f  %f  %f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
-
-    frame.origin.x = 0;//不知为何toolbar被右移了一个点, 这里校正一下
     if (_isFanControlToolbarViewShowing) {
-        frame.origin.y = frame.origin.y+offset;
+        self.fanControlToolbarView.hidden = YES;
     } else {
-        frame.origin.y = frame.origin.y-offset;
+        [self.view bringSubviewToFront:self.fanControlToolbarView];
+        self.fanControlToolbarView.hidden = NO;
     }
-    NSLog(@"%f  %f  %f  %f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
-//    if (_isFanControlToolbarViewShowing) {
-//        frame.origin.y += frame.size.height;
-//    } else {
-//        frame.origin.y -= frame.size.height;
-//    }
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.3];
-    [self.fanControlToolbarView setFrame:frame];
-//  [self.view bringSubviewToFront:self.fanControlToolbarView];
-    [UIView commitAnimations];
     
     _isFanControlToolbarViewShowing = !_isFanControlToolbarViewShowing;
 }
+//- (void)_toggleSystemControlToolbarView
+//{
+//    if (_isFanControlToolbarViewShowing) {
+//        [self _toggleFanControlToolbarView];
+//    }
+//    if (self.dashboardData.con_hp == 1) {
+//        self.systemControlEmgHeatingButton.enabled = YES;
+//    } else {
+//        self.systemControlEmgHeatingButton.enabled = NO;
+//    }
+//    
+//    NSInteger offset = [self _getToolbarOffset];
+//    CGRect frame = [self.systemControlToolbarView frame];
+//
+//    frame.origin.x = 0;//不知为何toolbar被右移了一个点, 这里校正一下
+//    if (_isSystemControlToolbarViewShowing) {
+//        frame.origin.y = frame.origin.y+offset;
+//    } else {
+//        frame.origin.y = frame.origin.y-offset;
+//    }
+//
+//    [UIView beginAnimations:nil context:nil];
+//    [UIView setAnimationDuration:0.3];
+//    [self.systemControlToolbarView setFrame:frame];
+//    [UIView commitAnimations];
+//    
+//    _isSystemControlToolbarViewShowing = !_isSystemControlToolbarViewShowing;
+//}
+//- (void)_toggleFanControlToolbarView
+//{
+//    NSInteger offset = [self _getToolbarOffset];
+//    if (_isSystemControlToolbarViewShowing) {
+//        [self _toggleSystemControlToolbarView];
+//    }
+//    
+//    CGRect frame = [self.fanControlToolbarView frame];
+//    NSLog(@"%f  %f  %f  %f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
+//
+//    frame.origin.x = 0;//不知为何toolbar被右移了一个点, 这里校正一下
+//    if (_isFanControlToolbarViewShowing) {
+//        frame.origin.y = frame.origin.y+offset;
+//    } else {
+//        frame.origin.y = frame.origin.y-offset;
+//    }
+//
+//    
+//    [UIView beginAnimations:nil context:nil];
+//    [UIView setAnimationDuration:0.3];
+//    [self.fanControlToolbarView setFrame:frame];
+//    [UIView commitAnimations];
+//    
+//    _isFanControlToolbarViewShowing = !_isFanControlToolbarViewShowing;
+//}
 
 // 判定是否服务器相应正常，如果正常返回一些字符串，如果服务器相应为-999/-998，
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
@@ -864,18 +889,24 @@
     }
 }
 
-// type: 0 -> green, 1 -> blue, 2 -> red
+// type: 0 -> red, 1 -> green, 2 -> blue
 -(void)_addHoldRunButtonForType:(NSInteger)type
 {
     if (self.holdRunButton) {
         [self.holdRunButton removeFromSuperview];
         self.holdRunButton = Nil;
     }
+    CGFloat diameter = CIRCLE_DIAMETER - (self.circle.ringWidth + 20.0) * 2.0;
+    CGRect bounds = CGRectMake(CIRCLE_ORIGIN_X + (self.circle.ringWidth + 20.0),
+                               CIRCLE_ORIGIN_Y + (self.circle.ringWidth + 20.0),
+                               diameter,diameter);
+    NSLog(@"x=%f, y=%f, w=%f, h=%f", self.circle.bounds.origin.x, self.circle.bounds.origin.y, bounds.size.width, bounds
+.size.height);
     self.holdRunButton = [UIButton buttonWithType:UIButtonTypeCustom];
     //    [self.holdRunButton setImage:[UIImage imageNamed:@"Micky.png"] forState:UIControlStateNormal];
     [self.holdRunButton addTarget:self action:@selector(_holdRunButtionAction) forControlEvents:UIControlEventTouchUpInside];
     [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i\u00B0F", self.selectedSegment] forState:UIControlStateNormal];
-    self.holdRunButton.frame = CGRectMake(100.0, 160.0, 120.0, 120.0);//width and height should be same value
+    self.holdRunButton.frame = bounds;//    CGRectMake(100.0, 160.0, 120.0, 120.0);
     self.holdRunButton.clipsToBounds = YES;
     [self.holdRunButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.holdRunButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
@@ -886,13 +917,15 @@
 //    self.holdRunButton.layer.borderWidth=2.0f;
     //    self.holdRunButton.layer.backgroundColor=[UIColor greenColor].CGColor; // 此句会遮住或阻止阴影, 所以注释
     
-    if (type > 0){
-        self.holdRunButton.layer.shadowColor = [UIColor blackColor].CGColor;
-    } else
-        self.holdRunButton.layer.shadowColor = [UIColor clearColor].CGColor;
+    if (type == 0){
+        self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:60.0/255.0 green:30.0/255.0 blue:15.0/255.0 alpha:0.75].CGColor;
+    } else if(type == 1){
+        self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:20.0/255.0 green:25.0/255.0 blue:5.0/255.0 alpha:0.75].CGColor;
+    }else
+        self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:10.0/255.0 green:40.0/255.0 blue:45.0/255.0 alpha:0.75].CGColor;
     //    self.holdRunButton.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
     self.holdRunButton.layer.shadowRadius = 15.0f;
-    self.holdRunButton.layer.shadowOpacity = 0.999f;
+    self.holdRunButton.layer.shadowOpacity = 0.75f;
     self.holdRunButton.layer.shadowPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height/2.0f startAngle:0 endAngle:2*M_PI clockwise:YES].CGPath;
     
     //@see http://stackoverflow.com/questions/10133109/fastest-way-to-do-shadows-on-ios
@@ -916,11 +949,11 @@
     UIGraphicsBeginImageContext(self.holdRunButton.bounds.size);
     [self.holdRunButton.layer renderInContext:UIGraphicsGetCurrentContext()];
     if (type == 0) {
-        [[UIColor greenColor] setFill];
+        [[UIColor colorWithRed:230.0/255.0 green:125.0/255.0 blue:30.0/255.0 alpha:1.0] setFill];
     }else if( type == 1) {
-        [[UIColor blueColor] setFill];
+        [[UIColor colorWithRed:130.0/255.0 green:190.0/256 blue:60.0/255.0 alpha:1.0] setFill];
     }else if( type == 2) {
-        [[UIColor redColor] setFill];
+        [[UIColor colorWithRed:75.0/255.0 green:190.0/255.0 blue:215.0/255.0 alpha:1.0] setFill];
     }
     
     bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height/2.0f -5 startAngle:0 endAngle:2*M_PI clockwise:YES];
