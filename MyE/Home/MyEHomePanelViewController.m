@@ -12,6 +12,7 @@
 #import "MyEAccountData.h"
 #import "MyEThermostatData.h"
 #import "MyEDashboardData.h"
+#import "MyENext24HrsScheduleViewController.h"
 
 @interface MyEHomePanelViewController ()
 - (void)configureView;
@@ -49,10 +50,13 @@
     
     [self.elecUsageTile setFlatStyleType:ACPButtonOK];
     [self.elecUsageTile setFlatStyle:[UIColor blueColor] andHighlightedColor:[UIColor grayColor]];
+    [self.elecUsageTile setBorderStyle:[UIColor clearColor] andInnerColor:[UIColor clearColor] ];
     [self.thermostatTile setFlatStyleType:ACPButtonOK];
     [self.thermostatTile setFlatStyle:[UIColor blueColor] andHighlightedColor:[UIColor grayColor]];
+    [self.thermostatTile setBorderStyle:[UIColor clearColor] andInnerColor:[UIColor clearColor] ];
     [self.faultInfoTile setFlatStyleType:ACPButtonOK];
     [self.faultInfoTile setFlatStyle:[UIColor blueColor] andHighlightedColor:[UIColor grayColor]];
+    [self.faultInfoTile setBorderStyle:[UIColor clearColor] andInnerColor:[UIColor clearColor] ];
 }
 - (void) viewWillAppear:(BOOL)animated
 {
@@ -88,7 +92,20 @@
 }
 
 - (IBAction)goThermostat:(id)sender {
-    [self performSegueWithIdentifier:@"goThermostat" sender:self];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"thermostat" bundle:nil];
+    UITabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tab_bar_controller"];
+    
+    MyENext24HrsScheduleViewController *next24hrsVC = vc.childViewControllers[1];
+    next24hrsVC.userId = MainDelegate.accountData.userId;
+    next24hrsVC.houseId = MainDelegate.houseData.houseId;
+    next24hrsVC.tId = MainDelegate.thermostatData.tId;
+    next24hrsVC.tName = MainDelegate.thermostatData.tName;
+    next24hrsVC.isRemoteControl = MainDelegate.thermostatData.remote;
+    next24hrsVC.navigationController = self.navigationController;
+ 
+    
+    
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -
