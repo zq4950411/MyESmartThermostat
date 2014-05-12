@@ -68,10 +68,12 @@
 }
 -(void)refreshUI{
     for (MyEControlBtn *btn in self.controlBtns) {
-        if (btn.status > 0) {
-            [btn setBackgroundImage:[UIImage imageNamed:@"000"] forState:UIControlStateNormal];
-        }else
-            [btn setBackgroundImage:[UIImage imageNamed:@"111"] forState:UIControlStateNormal];
+        NSString *normalStr = [NSString stringWithFormat:@"control-%@-normal",btn.status>0?@"enable":@"disable"];
+        NSString *highlightStr = [NSString stringWithFormat:@"control-%@-highlight",btn.status>0?@"enable":@"disable"];
+        [btn setBackgroundImage:[UIImage imageNamed:normalStr] forState:UIControlStateNormal];
+        [btn setBackgroundImage:[UIImage imageNamed:highlightStr] forState:UIControlStateHighlighted];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     }
 }
 -(void)editStudyKey:(MyEControlBtn *)btn

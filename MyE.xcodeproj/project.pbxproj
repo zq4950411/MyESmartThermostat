@@ -30,6 +30,7 @@
 		8CA06046190912470090A350 /* MyESocketAutoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA06045190912470090A350 /* MyESocketAutoViewController.m */; };
 		8CA06049190916B90090A350 /* MyESocketUsageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA06048190916B90090A350 /* MyESocketUsageViewController.m */; };
 		8CCB0D541909FF460044B0E5 /* MyESocketInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */; };
+		8CE5860F191E131A00157EE2 /* MyEIrUserKeyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE5860E191E131A00157EE2 /* MyEIrUserKeyViewController.m */; };
 		B211DB95180400D4002B3651 /* sprinkler@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B211DB93180400D4002B3651 /* sprinkler@2x.png */; };
 		B211DB96180400D4002B3651 /* sprinkler.png in Resources */ = {isa = PBXBuildFile; fileRef = B211DB94180400D4002B3651 /* sprinkler.png */; };
 		B243AFE3181F4AEE007E2552 /* T-switch.png in Resources */ = {isa = PBXBuildFile; fileRef = B243AFE1181F4AEE007E2552 /* T-switch.png */; };
@@ -775,6 +776,8 @@
 		8CA06048190916B90090A350 /* MyESocketUsageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketUsageViewController.m; sourceTree = "<group>"; };
 		8CCB0D521909FF460044B0E5 /* MyESocketInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESocketInfo.h; sourceTree = "<group>"; };
 		8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketInfo.m; sourceTree = "<group>"; };
+		8CE5860D191E131A00157EE2 /* MyEIrUserKeyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIrUserKeyViewController.h; sourceTree = "<group>"; };
+		8CE5860E191E131A00157EE2 /* MyEIrUserKeyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIrUserKeyViewController.m; sourceTree = "<group>"; };
 		B211DB93180400D4002B3651 /* sprinkler@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sprinkler@2x.png"; sourceTree = "<group>"; };
 		B211DB94180400D4002B3651 /* sprinkler.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprinkler.png; sourceTree = "<group>"; };
 		B243AFE1181F4AEE007E2552 /* T-switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "T-switch.png"; sourceTree = "<group>"; };
@@ -1827,6 +1830,8 @@
 				8CA05FFD1908A2F40090A350 /* MyECurtainControlViewController.m */,
 				8CA060021908A2F40090A350 /* MyEIrStudyEditKeyModalViewController.h */,
 				8CA060031908A2F40090A350 /* MyEIrStudyEditKeyModalViewController.m */,
+				8CE5860D191E131A00157EE2 /* MyEIrUserKeyViewController.h */,
+				8CE5860E191E131A00157EE2 /* MyEIrUserKeyViewController.m */,
 				8CA060061908A2F40090A350 /* TVAudio */,
 			);
 			name = IRDevcie;
@@ -4203,6 +4208,7 @@
 				C3FDB88C18FA882E009B423D /* MyESettingsViewController.m in Sources */,
 				B2588D2417B09B9D007ED13C /* UIView+Frame.m in Sources */,
 				B2588D2517B09B9D007ED13C /* UIViewExtention.m in Sources */,
+				8CE5860F191E131A00157EE2 /* MyEIrUserKeyViewController.m in Sources */,
 				C3FDB87E18FA83A9009B423D /* MyEStaycationTableViewCell.m in Sources */,
 				C395989818E12CC800E30AFF /* FUISwitch.m in Sources */,
 				C3FDB79618FA672D009B423D /* WeekCell.m in Sources */,

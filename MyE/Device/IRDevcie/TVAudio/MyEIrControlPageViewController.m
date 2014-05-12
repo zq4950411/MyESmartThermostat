@@ -26,12 +26,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.navigationController.navigationBar setTranslucent:NO];
+    self.slideSwitchView = [[SUNSlideSwitchView alloc] initWithFrame:self.view.frame];
     self.slideSwitchView.slideSwitchViewDelegate = self;
     self.slideSwitchView.tabItemNormalColor = [SUNSlideSwitchView colorFromHexRGB:@"868686"];
     self.slideSwitchView.tabItemSelectedColor = [SUNSlideSwitchView colorFromHexRGB:@"bb0b15"];
     self.slideSwitchView.shadowImage = [UIImage imageNamed:@"red_line_btn.png"];//这里可以认为是九宫格的样式
     self.irUserKeyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"IrUserKeyVC"];
-    self.irUserKeyViewController.device = self.device;
+//    self.irUserKeyViewController.device = self.device;
 
     if (self.device.typeId.intValue == 2) {
         self.navigationItem.title = @"电视控制";
@@ -44,6 +46,7 @@
     }
     
     [self.slideSwitchView buildUI];
+    [self.view addSubview:self.slideSwitchView];
 }
 
 - (IBAction)changMode:(UIBarButtonItem *)sender {

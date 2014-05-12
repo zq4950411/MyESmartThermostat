@@ -54,10 +54,6 @@
 #define URL_FOR_SETTINGS_DELETE_THERMOSTAT  @"/setting_delete.do"
 #define URL_FOR_SETTINGS_DELETE_THERMOSTAT_QUERY_STATUS  @"/setting_findThermostat.do"
 
-
-
-
-
 #define URL_FOR_SMARTUP_LIST  @"/smartUp_view.do"
 #define URL_FOR_SMARTUP_LIST2 @"/smartUp_findDeviceList.do"
 #define URL_FOR_SAVE_SORT @"/smartUp_saveSort.do"
@@ -136,9 +132,6 @@
 #define URL_FOR_SWITCH_SCHEDULE_SAVE   @"/switch_schedule_save.do"
 #define URL_FOR_SWITCH_SCHEDULE_ENABLE  @"/switch_auto_control_enable_save.do"
 #define URL_FOR_SWITCH_ELECT_STATUS   @"/switch_electric_stati.do"
-
-
-
 
 
 // 定义tip显示的标志位的key，该可以会用于NSDefaults里面存储此标志位

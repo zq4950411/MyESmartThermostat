@@ -21,10 +21,10 @@
 @interface MyEInstruction : NSObject
 
 @property (nonatomic) NSInteger instructionId;
-@property (nonatomic) NSInteger type;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic) NSInteger sortId;
 @property (nonatomic) NSInteger status;
+@property (nonatomic) NSInteger type;
 
 -(MyEInstruction *)initWithDic:(NSDictionary *)dic;
 @end
