@@ -1,25 +1,21 @@
 //
-//  MyEIrDefaultViewController.h
-//  MyEHomeCN2
+//  MyEIRDefaultViewController.h
+//  MyE
 //
-//  Created by Ye Yuan on 11/4/13.
-//  Copyright (c) 2013 My Energy Domain Inc. All rights reserved.
+//  Created by 翟强 on 14-5-12.
+//  Copyright (c) 2014年 MyEnergy Domain. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "MyEIrStudyEditKeyModalViewController.h"
-#import "MyEIrUserKeyViewController.h"
-@interface MyEIrDefaultViewController : UIViewController<MyEDataLoaderDelegate,MBProgressHUDDelegate>{
+
+@interface MyEIrDefaultViewController : UIViewController<MyEDataLoaderDelegate>
+{
     MBProgressHUD *HUD;
-    MBProgressHUD *progressHUD;
-    NSMutableArray *_keyMap;
-//    BOOL isControlMode;
-    NSInteger secondsFromNow;
-    NSTimer *timer;
-    int valueChange; //用于表示音量和节目一共改变的值
+    NSArray *_keyBtns;
+    NSInteger _initNumber; //表示当前模板从什么数字开始
 }
-@property (nonatomic, weak) MyEAccountData *accountData;
-@property (nonatomic, weak) MyEDevice *device;
 @property (nonatomic) BOOL isControlMode;
+@property (nonatomic, strong) MyEInstructions *instructions;
+@property (nonatomic, strong) MyEDevice *device;
 
 @end

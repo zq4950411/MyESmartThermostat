@@ -27,6 +27,7 @@
 		8CA06043190912380090A350 /* MyESocketManualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA06042190912380090A350 /* MyESocketManualViewController.m */; };
 		8CA06046190912470090A350 /* MyESocketAutoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA06045190912470090A350 /* MyESocketAutoViewController.m */; };
 		8CA06049190916B90090A350 /* MyESocketUsageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA06048190916B90090A350 /* MyESocketUsageViewController.m */; };
+		8CCB090A192241360095EAAD /* MyEIRDefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0909192241360095EAAD /* MyEIRDefaultViewController.m */; };
 		8CCB0D541909FF460044B0E5 /* MyESocketInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */; };
 		8CE5860F191E131A00157EE2 /* MyEIrUserKeyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE5860E191E131A00157EE2 /* MyEIrUserKeyViewController.m */; };
 		8CEC64CF1921B825005953FB /* MyESocketElecInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEC64CE1921B825005953FB /* MyESocketElecInfoViewController.m */; };
@@ -41,7 +42,6 @@
 		8CEC64E91921C0DE005953FB /* TwoDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CEC64DD1921C0DE005953FB /* TwoDatePicker.xib */; };
 		8CEC64EA1921C0DE005953FB /* WeekCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEC64DF1921C0DE005953FB /* WeekCell.m */; };
 		8CEC64EB1921C0DE005953FB /* WeekCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CEC64E01921C0DE005953FB /* WeekCell.xib */; };
-		8CEC64EF19223DB5005953FB /* MyEIRDefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEC64EE19223DB5005953FB /* MyEIRDefaultViewController.m */; };
 		B211DB95180400D4002B3651 /* sprinkler@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B211DB93180400D4002B3651 /* sprinkler@2x.png */; };
 		B211DB96180400D4002B3651 /* sprinkler.png in Resources */ = {isa = PBXBuildFile; fileRef = B211DB94180400D4002B3651 /* sprinkler.png */; };
 		B243AFE3181F4AEE007E2552 /* T-switch.png in Resources */ = {isa = PBXBuildFile; fileRef = B243AFE1181F4AEE007E2552 /* T-switch.png */; };
@@ -740,6 +740,8 @@
 		8CA06045190912470090A350 /* MyESocketAutoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketAutoViewController.m; sourceTree = "<group>"; };
 		8CA06047190916B90090A350 /* MyESocketUsageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESocketUsageViewController.h; sourceTree = "<group>"; };
 		8CA06048190916B90090A350 /* MyESocketUsageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketUsageViewController.m; sourceTree = "<group>"; };
+		8CCB0908192241360095EAAD /* MyEIRDefaultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIRDefaultViewController.h; sourceTree = "<group>"; };
+		8CCB0909192241360095EAAD /* MyEIRDefaultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIRDefaultViewController.m; sourceTree = "<group>"; };
 		8CCB0D521909FF460044B0E5 /* MyESocketInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESocketInfo.h; sourceTree = "<group>"; };
 		8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketInfo.m; sourceTree = "<group>"; };
 		8CE5860D191E131A00157EE2 /* MyEIrUserKeyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIrUserKeyViewController.h; sourceTree = "<group>"; };
@@ -762,8 +764,6 @@
 		8CEC64DE1921C0DE005953FB /* WeekCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeekCell.h; sourceTree = "<group>"; };
 		8CEC64DF1921C0DE005953FB /* WeekCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeekCell.m; sourceTree = "<group>"; };
 		8CEC64E01921C0DE005953FB /* WeekCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeekCell.xib; sourceTree = "<group>"; };
-		8CEC64ED19223DB5005953FB /* MyEIRDefaultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIRDefaultViewController.h; sourceTree = "<group>"; };
-		8CEC64EE19223DB5005953FB /* MyEIRDefaultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIRDefaultViewController.m; sourceTree = "<group>"; };
 		B211DB93180400D4002B3651 /* sprinkler@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sprinkler@2x.png"; sourceTree = "<group>"; };
 		B211DB94180400D4002B3651 /* sprinkler.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprinkler.png; sourceTree = "<group>"; };
 		B243AFE1181F4AEE007E2552 /* T-switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "T-switch.png"; sourceTree = "<group>"; };
@@ -1747,8 +1747,8 @@
 		8CA05FFB1908A2F40090A350 /* IRDevcie */ = {
 			isa = PBXGroup;
 			children = (
-				8CEC64ED19223DB5005953FB /* MyEIRDefaultViewController.h */,
-				8CEC64EE19223DB5005953FB /* MyEIRDefaultViewController.m */,
+				8CCB0908192241360095EAAD /* MyEIRDefaultViewController.h */,
+				8CCB0909192241360095EAAD /* MyEIRDefaultViewController.m */,
 				8CA05FFC1908A2F40090A350 /* MyECurtainControlViewController.h */,
 				8CA05FFD1908A2F40090A350 /* MyECurtainControlViewController.m */,
 				8CA060021908A2F40090A350 /* MyEIrStudyEditKeyModalViewController.h */,
@@ -3928,7 +3928,7 @@
 				C3A2C09818F39DE500A08D2C /* SwipeView.m in Sources */,
 				C3194B9B18E299EA006E3ABE /* ELine.m in Sources */,
 				C3FDB88918FA871A009B423D /* MyEThermostatListViewController.m in Sources */,
-				8CEC64EF19223DB5005953FB /* MyEIRDefaultViewController.m in Sources */,
+				8CCB090A192241360095EAAD /* MyEIRDefaultViewController.m in Sources */,
 				C3FDB4BE18FA403E009B423D /* ASIS3BucketObject.m in Sources */,
 				C3FDB88F18FA884A009B423D /* MyESettingsThermostatCell.m in Sources */,
 				C3FDB71718FA6589009B423D /* MyECheckBoxView.m in Sources */,

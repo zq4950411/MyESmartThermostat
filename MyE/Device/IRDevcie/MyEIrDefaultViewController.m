@@ -6,14 +6,14 @@
 //  Copyright (c) 2014年 MyEnergy Domain. All rights reserved.
 //
 
-#import "MyEIRDefaultViewController.h"
+#import "MyEIrDefaultViewController.h"
 #import "MyEIrStudyEditKeyModalViewController.h"
 #import "MyEIrUserKeyViewController.h"
-@interface MyEIRDefaultViewController ()
+@interface MyEIrDefaultViewController ()
 
 @end
 
-@implementation MyEIRDefaultViewController
+@implementation MyEIrDefaultViewController
 
 #pragma mark - life circle methods
 - (void)viewDidLoad

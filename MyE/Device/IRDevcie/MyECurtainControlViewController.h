@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MyEIRDefaultViewController.h"
-@interface MyECurtainControlViewController : MyEIRDefaultViewController
+#import "MyEIrDefaultViewController.h"
+@interface MyECurtainControlViewController : MyEIrDefaultViewController
 
 @property (strong, nonatomic) IBOutletCollection(MyEControlBtn) NSArray *controlBtns;
 
