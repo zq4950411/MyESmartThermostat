@@ -446,11 +446,12 @@
         vc1.device = device;
         UINavigationController *nav2 = tab.childViewControllers[1];
         MyESocketAutoViewController *vc2 = nav2.childViewControllers[0];
+        
         UINavigationController *nav3 = tab.childViewControllers[2];
         MyESocketUsageViewController *vc3 = nav3.childViewControllers[0];
-        
+        vc3.device = device;
         //        PlugControlViewController *plug = [[PlugControlViewController alloc] init];
-        [self.navigationController pushViewController:tab animated:YES];
+        [self presentViewController:tab animated:YES completion:nil];
     }
     else if(device.typeId.intValue == 7)
     {
