@@ -13,6 +13,7 @@
 #import "MyEThermostatData.h"
 #import "MyEDashboardData.h"
 #import "MyENext24HrsScheduleViewController.h"
+#import "MyEWeeklyScheduleViewController.h"
 
 @interface MyEHomePanelViewController ()
 - (void)configureView;
@@ -103,6 +104,14 @@
     next24hrsVC.isRemoteControl = MainDelegate.thermostatData.remote;
     next24hrsVC.navigationController = self.navigationController;
  
+    
+    MyEWeeklyScheduleViewController *weeklyScheduleController = vc.childViewControllers[1];
+    weeklyScheduleController.userId = MainDelegate.accountData.userId;
+    weeklyScheduleController.houseId = MainDelegate.houseData.houseId;
+    weeklyScheduleController.tId = MainDelegate.thermostatData.tId;
+    weeklyScheduleController.tName = MainDelegate.thermostatData.tName;
+    weeklyScheduleController.isRemoteControl = MainDelegate.thermostatData.remote;
+    weeklyScheduleController.navigationController = self.navigationController;
     
     
     [self.navigationController pushViewController:vc animated:YES];
