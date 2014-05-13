@@ -8,9 +8,6 @@
 
 #import "MyEDevicesViewController.h"
 #import "AddDeviceTableViewView.h"
-#import "OperationViewController.h"
-#import "PlugControlViewController.h"
-#import "ControlViewController.h"
 //switch
 #import "MyESwitchManualControlViewController.h"
 #import "MyESwitchAutoViewController.h"
@@ -186,8 +183,6 @@
     }
     else if(device.typeId.intValue == 7)  //通用控制器
     {
-        ControlViewController *controlVc = [[ControlViewController alloc] initWithEditType];
-        [self.navigationController pushViewController:controlVc animated:YES];
     }
     else if(device.typeId.intValue == 8)  //switch
     {
@@ -217,13 +212,6 @@
         [self.tableView setEditing:!self.tableView.editing animated:YES];
     }
 }
-
--(void) addAction:(id) sender
-{
-    AddDeviceTableViewView *add = [[AddDeviceTableViewView alloc] init];
-    [self.navigationController pushViewController:add animated:YES];
-}
-
 -(void) refreshAction:(id) sender
 {
     [self sendGetDatas];
@@ -466,8 +454,6 @@
     }
     else if(device.typeId.intValue == 7)
     {
-        ControlViewController *controlVc = [[ControlViewController alloc] init];
-        [self.navigationController pushViewController:controlVc animated:YES];
     }
     else if(device.typeId.intValue == 8)
     {

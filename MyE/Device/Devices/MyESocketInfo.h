@@ -9,6 +9,17 @@
 #import <Foundation/Foundation.h>
 
 @interface MyESocketInfo : NSObject
+
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *tIdName;
+@property (nonatomic) NSInteger locationId;
+@property (nonatomic) NSInteger maxCurrent;
+
+-(MyESocketInfo *)initWithJSONString:(NSString *)string;
+-(MyESocketInfo *)initWithDic:(NSDictionary *)dic;
+@end
+
+@interface MyESocketControlInfo : NSObject
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic) NSInteger currentPower;
 @property (nonatomic, strong) NSString *startTime;
@@ -18,10 +29,10 @@
 @property (nonatomic) NSInteger timeSet;
 @property (nonatomic) NSInteger locationId;
 @property (nonatomic) NSInteger maxCurrent;
--(MyESocketInfo *)initWithJSONString:(NSString *)string;
--(MyESocketInfo *)initWithDic:(NSDictionary *)dic;
-@end
+-(MyESocketControlInfo *)initWithJSONString:(NSString *)string;
+-(MyESocketControlInfo *)initWithDic:(NSDictionary *)dic;
 
+@end
 
 @interface MyESocketSchedules : NSObject
 @property (nonatomic, assign) NSInteger autoMode;

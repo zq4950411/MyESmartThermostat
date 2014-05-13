@@ -844,7 +844,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="xQQ-I3-XQZ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="bwg-ns-ruG">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="bwg-ns-ruG">
                             <connections>
                                 <action selector="changeMode:" destination="8dW-IC-Ypb" id="e7Q-5o-gen"/>
                             </connections>

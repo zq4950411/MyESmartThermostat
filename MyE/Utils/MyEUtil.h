@@ -68,6 +68,7 @@
 
 #define URL_FOR_ROOMLIST_VIEW @"/smartUp_findRoom.do"
 #define URL_FOR_SOCKET_PlUG_CONTROL @"/socket_findPlug.do"
+#define URL_FOR_SOCKET_INFO @"/socket_findPlugDevice.do"
 #define URL_FOR_FIND_SOCKET_AUTO @"/socket_findSocketAuto.do"
 #define URL_FOR_SAVE_SOCKET_AUTO @"/socket_saveAutoMode.do"
 
@@ -77,6 +78,7 @@
 #define URL_FOR_SOCKET_Reset @"/socket_resetPlug.do"
 #define URL_FOR_SOCKET_MUTEX_DELAY @"/socket_mutex_delay_timing.do"
 #define URL_FOR_SOCKET_DELAY_SAVE @"/socket_timing_save.do"
+#define URL_FOR_SOCKET_ELEC_INFO @"/socket_electric_stati.do"
 
 #define URL_FOR_IRDEVICE_CONTROL @"/smartUp_irControl.do"
 #define URL_FOR_UNIVERSAL_CONTROL_MANUEL_CONTROL @"/universalcontroller_ucControl.do"

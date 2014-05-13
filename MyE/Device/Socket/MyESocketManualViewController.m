@@ -12,24 +12,22 @@
 {
     MBProgressHUD *HUD;
     NSInteger _delayTime;
+    NSTimer *_timer;
 }
 @end
 
 @implementation MyESocketManualViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 #pragma mark - life circle methods
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:YES];
+    [_timer invalidate];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_PlUG_CONTROL),MainDelegate.houseData.houseId,self.device.deviceId] andName:@"downloadInfo"];
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_PlUG_CONTROL),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(handleTimer) userInfo:nil repeats:YES];
 }
 #pragma mark - IBAction methods
 - (IBAction)socketControl:(UIButton *)sender {
@@ -48,24 +46,30 @@
 
 #pragma mark - private methods
 -(void)refreshUI{
-    self.currentPowerLabel.text = [NSString stringWithFormat:@"%i W",self.socketInfo.currentPower];
-    if (self.socketInfo.switchStatus == 1) {
+    self.currentPowerLabel.text = [NSString stringWithFormat:@"%i W",self.socketControlInfo.currentPower];
+    if (self.socketControlInfo.switchStatus == 1) {
         self.socketControlBtn.selected = NO;
-        if (self.socketInfo.surplusMinutes != 0) {
+        if (self.socketControlInfo.surplusMinutes != 0) { //剩余时间不为零，那就肯定在延时
             self.timeDelayBtn.selected = NO;
-            self.timeDelaySetLabel.hidden = YES;
+            self.timeDelaySetLabel.hidden = NO;
             self.timeDelayLabel.hidden = NO;
-            self.timeDelayLabel.text = [NSString stringWithFormat:@"%im left",self.socketInfo.surplusMinutes];
+            self.timeDelaySetLabel.text = [NSString stringWithFormat:@"%im set",self.socketControlInfo.timeSet];
+            self.timeDelayLabel.text = [NSString stringWithFormat:@"%im left",self.socketControlInfo.surplusMinutes];
         }else{
             self.timeDelayBtn.selected = YES;
             self.timeDelayLabel.hidden = YES;
             self.timeDelaySetLabel.hidden = YES;
+            self.timeDelaySetLabel.text = @"";
             self.timeDelayLabel.text = @"";
         }
     }else{
         self.socketControlBtn.selected = YES;
         self.timeDelayBtn.selected = YES;
         self.timeDelayLabel.hidden = YES;
+        self.timeDelaySetLabel.hidden = NO;
+        if (self.socketControlInfo.timeSet > 0) {
+            self.timeDelaySetLabel.text = [NSString stringWithFormat:@"%im set",self.socketControlInfo.timeSet];
+        }
     }
 }
 -(void)uploadOrDownloadInfoFromServerWithURL:(NSString *)url andName:(NSString *)name{
@@ -76,10 +80,14 @@
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:url postData:nil delegate:self loaderName:name userDataDictionary:nil];
     NSLog(@"loader is %@",loader.name);
 }
+-(void)handleTimer{
+    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_PlUG_CONTROL),MainDelegate.houseData.houseId,self.device.tid] postData:nil delegate:self loaderName:@"downloadInfo" userDataDictionary:nil];
+    NSLog(@"loader is %@",loader.name);
+
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - URL Delegate methods
@@ -88,8 +96,8 @@
     NSLog(@"receive string is %@",string);
     if ([name isEqualToString:@"downloadInfo"]) {
         if (![string isEqualToString:@"fail"]) {
-            MyESocketInfo *info = [[MyESocketInfo alloc] initWithJSONString:string];
-            self.socketInfo = info;
+            MyESocketControlInfo *info = [[MyESocketControlInfo alloc] initWithJSONString:string];
+            self.socketControlInfo = info;
             [self refreshUI];
         } else {
             [SVProgressHUD showErrorWithStatus:@"Error!"];
@@ -115,6 +123,15 @@
             }
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];
+    }
+    if ([name isEqualToString:@"delaySave"]) {
+        if (![string isEqualToString:@"fail"]) {
+            self.timeDelaySetLabel.text = [NSString stringWithFormat:@"%im set",_delayTime];
+            if (self.socketControlInfo.switchStatus == 1) {
+                self.timeDelayLabel.text = [NSString stringWithFormat:@"%im left",_delayTime];
+            }else
+                self.timeDelayLabel.text = @"";
+        }
     }
 }
 #pragma mark - IQActionSheet delegate methods

@@ -9,6 +9,7 @@
 #import "MyESocketInfo.h"
 
 @implementation MyESocketInfo
+
 -(MyESocketInfo *)initWithJSONString:(NSString *)string{
     NSDictionary *dic = [string JSONValue];
     MyESocketInfo *info = [[MyESocketInfo alloc] initWithDic:dic];
@@ -16,12 +17,31 @@
 }
 -(MyESocketInfo *)initWithDic:(NSDictionary *)dic{
     if (self = [super init]) {
+        self.name = dic[@"name"];
+        self.tIdName = dic[@"t_aliasName"];
+        self.locationId = [dic[@"localtionId"] intValue];
+        self.maxCurrent = [dic[@"maxCurrent"] intValue];
+        return self;
+    }
+    return nil;
+}
+
+@end
+
+@implementation MyESocketControlInfo
+-(MyESocketControlInfo *)initWithJSONString:(NSString *)string{
+    NSDictionary *dic = [string JSONValue];
+    MyESocketControlInfo *info = [[MyESocketControlInfo alloc] initWithDic:dic];
+    return info;
+}
+-(MyESocketControlInfo *)initWithDic:(NSDictionary *)dic{
+    if (self = [super init]) {
         self.name = dic[@"aliasName"];
         self.currentPower = [dic[@"realPower"] intValue];
         self.startTime = dic[@"startTime"];
         self.totalPower = [dic[@"totalPower"] intValue];
         self.surplusMinutes = [dic[@"surplusMinutes"] intValue];
-        self.switchStatus = [dic[@"switchStatus"] intValue];
+        self.switchStatus = dic[@"switchStatus"]==[NSNull null]?0: [dic[@"switchStatus"] intValue];
         self.timeSet = [dic[@"timerSet"] intValue];
         self.maxCurrent = [dic[@"maximalCurrent"] intValue];
         self.locationId = [dic[@"locationId"] intValue];

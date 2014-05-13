@@ -17,14 +17,6 @@
 
 @implementation MyEDeviceAddOrEditTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 #pragma mark - life circle methods
 - (void)viewDidLoad
 {
@@ -39,7 +31,7 @@
         if (self.device.typeId.intValue != 6) {
             [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&action=editDevice",GetRequst(URL_FOR_FIND_DEVICE),MainDelegate.houseData.houseId,self.device.deviceId] andName:@"downloadInfo"];
         }else
-            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_PlUG_CONTROL),MainDelegate.houseData.houseId,self.device.deviceId] andName:@"downloadSocketInfo"];
+            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_INFO),MainDelegate.houseData.houseId,self.device.deviceId] andName:@"downloadSocketInfo"];
         
     }
     //    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&tId=%@",GetRequst(URL_FOR_INSTRUCTIONLIST_VIEW),MainDelegate.houseData.houseId,self.device.deviceId,self.device.tid] andName:@"instruction"];

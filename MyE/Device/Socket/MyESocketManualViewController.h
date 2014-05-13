@@ -12,7 +12,8 @@
 
 @interface MyESocketManualViewController : UIViewController<MyEDataLoaderDelegate,IQActionSheetPickerView,UIAlertViewDelegate>
 @property(nonatomic, strong) MyEDevice *device;
-@property(nonatomic, strong) MyESocketInfo *socketInfo;
+@property(nonatomic, strong) MyESocketControlInfo *socketControlInfo;
+
 @property (weak, nonatomic) IBOutlet UILabel *currentPowerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *socketControlBtn;
 @property (weak, nonatomic) IBOutlet UIButton *timeDelayBtn;

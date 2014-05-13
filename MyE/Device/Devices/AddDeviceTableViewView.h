@@ -8,12 +8,12 @@
 
 #import "BaseTableViewController.h"
 #import "DictionaryTableViewViewController.h"
-#import "LocationViewController.h"
+//#import "LocationViewController.h"
 
 @class CommonCell;
 @class MyEDevice;
 
-@interface AddDeviceTableViewView : BaseTableViewController <UITableViewDataSource,UITableViewDelegate,DictionaryDelegate,LocationDelegate>
+@interface AddDeviceTableViewView : BaseTableViewController <UITableViewDataSource,UITableViewDelegate,DictionaryDelegate>
 {
     NSDictionary *typeDic;
     NSDictionary *locationDic;
