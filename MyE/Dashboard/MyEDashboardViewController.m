@@ -113,6 +113,14 @@
     [self.view bringSubviewToFront:self.systemControlToolbarView];
     
     
+    
+    [self.controlModeBtn setStyleType:ACPButtonOK];
+    [self.controlModeBtn setStyle:[UIColor clearColor] andBottomColor:[UIColor clearColor]];
+    [self.fanStatusBtn setStyleType:ACPButtonOK];
+    [self.fanStatusBtn setStyle:[UIColor clearColor] andBottomColor:[UIColor clearColor]];
+    
+    
+    
     // 设置面板背景为一个图片模式
     UIColor *bgcolor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgpattern.png"]];
     [self.view setBackgroundColor:bgcolor];
@@ -165,37 +173,6 @@
     
     
 
-}
-
-- (void)viewDidUnload
-{
-    [self setActiveProgramLabel:nil];
-    [self setStageLevelLabel:nil];
-    [self setControlModeImageView:nil];
-    [self setFanImageView:nil];
-    [self setSystemControlToolbarView:nil];
-
-    
-    [self setFanImageView:nil];
-    
-    [self setSelectedLabelView:nil];
-    [self setOldLabelView:nil];
-    
-
-    [self setSystemControlToolbarView:nil];
-    [self setFanControlToolbarView:nil];
-    [self setSystemControlToolbarViewTapRecognizer:nil];
-    [self setFanControlToolbarViewTapRecognizer:nil];
-    [self setSystemControlHeatingButton:nil];
-    [self setSystemControlCoolingButton:nil];
-    [self setSystemControlAutoButton:nil];
-    [self setSystemControlEmgHeatingButton:nil];
-    [self setSystemControlOffButton:nil];
-    [self setFanControlAutoButton:nil];
-    [self setFanControlOnButton:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)chooseHouse:(KxMenuItem *) sender
@@ -660,6 +637,8 @@
                 self.fanImageView.animationRepeatCount = 0;
                 [self.fanImageView startAnimating];
                 
+                self.fanStatusLabel.text = @"Auto";
+                
             } else if([theDashboardData.fan_status caseInsensitiveCompare:@"off"] == NSOrderedSame) {
                 // 展示两种从Bundle中找到图像文件信息装载该图像文件的例子
                 //都用动画后，好像下面这样直接赋值一个静态图片不清作用，还没深入研究why
@@ -672,6 +651,7 @@
                 self.fanImageView.animationDuration = ANIMATION_DURATION;
                 self.fanImageView.animationRepeatCount = 0;
                 [self.fanImageView startAnimating];
+                self.fanStatusLabel.text = @"Off";
             }
 
         }else if (theDashboardData.fan_control == 1) {//on
@@ -682,6 +662,7 @@
             self.fanImageView.animationDuration = ANIMATION_DURATION;
             self.fanImageView.animationRepeatCount = 0;
             [self.fanImageView startAnimating];
+            self.fanStatusLabel.text = @"On";
         }
         
         // 如果是在关闭状态，setpoint就设置为不可访问

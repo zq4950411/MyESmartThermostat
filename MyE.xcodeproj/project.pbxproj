@@ -467,6 +467,8 @@
 		C3A17D7B1921C983001030CE /* MyEWeeklyScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A17D7A1921C983001030CE /* MyEWeeklyScheduleViewController.m */; };
 		C3A1C8211902ED9B001A1F99 /* DictionaryTableViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A1C81F1902ED9B001A1F99 /* DictionaryTableViewViewController.m */; };
 		C3A1C8221902ED9B001A1F99 /* DictionaryTableViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3A1C8201902ED9B001A1F99 /* DictionaryTableViewViewController.xib */; };
+		C3A1CD17192310C700F250AD /* tab-24hrs-schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A1CD15192310C700F250AD /* tab-24hrs-schedule.png */; };
+		C3A1CD18192310C700F250AD /* tab-24hrs-schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A1CD16192310C700F250AD /* tab-24hrs-schedule@2x.png */; };
 		C3A292A11516D26400FB6E92 /* Ctrl_FanAuto-01.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A2929B1516D26400FB6E92 /* Ctrl_FanAuto-01.png */; };
 		C3A292A21516D26400FB6E92 /* Ctrl_FanAuto-01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A2929C1516D26400FB6E92 /* Ctrl_FanAuto-01@2x.png */; };
 		C3A292A31516D26400FB6E92 /* Ctrl_FanAuto-02.png in Resources */ = {isa = PBXBuildFile; fileRef = C3A2929D1516D26400FB6E92 /* Ctrl_FanAuto-02.png */; };
@@ -1289,6 +1291,8 @@
 		C3A1C81E1902ED9B001A1F99 /* DictionaryTableViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryTableViewViewController.h; sourceTree = "<group>"; };
 		C3A1C81F1902ED9B001A1F99 /* DictionaryTableViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryTableViewViewController.m; sourceTree = "<group>"; };
 		C3A1C8201902ED9B001A1F99 /* DictionaryTableViewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DictionaryTableViewViewController.xib; sourceTree = "<group>"; };
+		C3A1CD15192310C700F250AD /* tab-24hrs-schedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-24hrs-schedule.png"; sourceTree = "<group>"; };
+		C3A1CD16192310C700F250AD /* tab-24hrs-schedule@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab-24hrs-schedule@2x.png"; sourceTree = "<group>"; };
 		C3A2929B1516D26400FB6E92 /* Ctrl_FanAuto-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ctrl_FanAuto-01.png"; sourceTree = "<group>"; };
 		C3A2929C1516D26400FB6E92 /* Ctrl_FanAuto-01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ctrl_FanAuto-01@2x.png"; sourceTree = "<group>"; };
 		C3A2929D1516D26400FB6E92 /* Ctrl_FanAuto-02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ctrl_FanAuto-02.png"; sourceTree = "<group>"; };
@@ -2343,6 +2347,8 @@
 				C39A503316F9600D00C5957F /* tab-switch@2x.png */,
 				C34CF2C214FE265A00E88079 /* tab-doshboard.png */,
 				C34CF2C314FE265A00E88079 /* tab-doshboard@2x.png */,
+				C3A1CD15192310C700F250AD /* tab-24hrs-schedule.png */,
+				C3A1CD16192310C700F250AD /* tab-24hrs-schedule@2x.png */,
 				C34CF2C414FE265A00E88079 /* tab-schedule.png */,
 				C34CF2C514FE265A00E88079 /* tab-schedule@2x.png */,
 				C34CF2C614FE265A00E88079 /* tab-settings.png */,
@@ -3516,6 +3522,7 @@
 				C34CF2B314FE262300E88079 /* Tb_AutoRun.png in Resources */,
 				C34CF2B414FE262300E88079 /* Tb_AutoRun@2x.png in Resources */,
 				C34CF2B514FE262300E88079 /* Tb_Cooling01.png in Resources */,
+				C3A1CD17192310C700F250AD /* tab-24hrs-schedule.png in Resources */,
 				C34CF2B614FE262300E88079 /* Tb_Cooling01@2x.png in Resources */,
 				C34CF2B714FE262300E88079 /* Tb_EmgH01.png in Resources */,
 				C34CF2B814FE262300E88079 /* Tb_EmgH01@2x.png in Resources */,
@@ -3776,6 +3783,7 @@
 				B258900117B09C1B007ED13C /* cond007.png in Resources */,
 				B258900217B09C1B007ED13C /* cond008.png in Resources */,
 				B258900317B09C1B007ED13C /* cond009.png in Resources */,
+				C3A1CD18192310C700F250AD /* tab-24hrs-schedule@2x.png in Resources */,
 				B258900417B09C1B007ED13C /* cond010.png in Resources */,
 				B258900517B09C1B007ED13C /* cond011.png in Resources */,
 				C3086C6018FE51420005E0EE /* news.png in Resources */,

@@ -48,8 +48,6 @@
     // 用于记录是不是第一次从服务器获取数据。如果是第一次获取数据，那么_currentWeekdayId就重新计算为当天的星期几，并把view的初始显示设置这个星期几，否则就不计算，下载新数据后view的显示仍然是用户选择的星期几。在本类初始化时会用设备当前时间初始化这个值，但服务器时间和设备时间可能不同，所以需要用服务器时间来在第一次初始化这个值。
     BOOL _hasLoadFromServer;
 }
-// 用于保持一个到根NavigationController对象的引用
-@property (strong, nonatomic) UINavigationController *navigationController;
 // 用于保持一个对最底层容器的引用
 @property (strong, nonatomic) MyEScheduleViewController *delegate;
 

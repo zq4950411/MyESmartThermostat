@@ -240,20 +240,8 @@
     NSLog(@"WeeklyScheduleUploader is %@",[loader description]);
 }
 - (void)uploadToServerEditingMode:(MyEScheduleModeData *)mode {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
-    
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        //        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];
@@ -269,17 +257,6 @@
 }
 
 - (void)uploadToServerDeletingMode:(MyEScheduleModeData *)mode {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
-    
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         //        HUD.dimBackground = YES;//容易产生灰条
@@ -298,17 +275,6 @@
 }
 
 - (void)uploadToServerNewMode:(MyEScheduleModeData *)mode {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
-    
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         //        HUD.dimBackground = YES;//容易产生灰条
@@ -776,6 +742,10 @@
     _scheduleChangedByUserTouch = NO;
     //self.applyButton.enabled = NO;
     self.resetButton.enabled = NO;
+}
+- (void)refreshAction
+{
+    [self downloadModelFromServer];
 }
 
 #pragma mark -

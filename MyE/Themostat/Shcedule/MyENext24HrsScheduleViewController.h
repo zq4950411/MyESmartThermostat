@@ -62,9 +62,6 @@ MyEPeriodInforDoughnutViewDelegate> {
     MBProgressHUD *HUD;
     
 }
-// 用于保持一个到根NavigationController对象的引用
-@property (strong, nonatomic) UINavigationController *navigationController;
-
 @property (copy, nonatomic) NSString *userId;
 @property (nonatomic) NSInteger houseId;
 @property (nonatomic, copy) NSString *tId;

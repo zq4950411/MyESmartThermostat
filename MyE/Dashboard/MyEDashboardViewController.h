@@ -56,12 +56,18 @@ CDCircleDelegate, CDCircleDataSource> {
 
 
 
+@property (weak, nonatomic) IBOutlet ACPButton *controlModeBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *controlModeImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *fanImageView;
-@property (weak, nonatomic) IBOutlet UILabel *activeProgramLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stageLevelLabel;
 @property (weak, nonatomic) IBOutlet UIView *systemControlToolbarView;
+
+@property (weak, nonatomic) IBOutlet ACPButton *fanStatusBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *fanImageView;
+@property (weak, nonatomic) IBOutlet UILabel *fanStatusLabel;
 @property (weak, nonatomic) IBOutlet UIView *fanControlToolbarView;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *activeProgramLabel;
 @property (weak, nonatomic) IBOutlet UILabel *holdRunLabel;
 
 
