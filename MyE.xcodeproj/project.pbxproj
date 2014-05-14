@@ -26,12 +26,16 @@
 		8CA0603A1908B46E0090A350 /* MyEControlBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA060391908B46E0090A350 /* MyEControlBtn.m */; };
 		8CA06043190912380090A350 /* MyESocketManualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA06042190912380090A350 /* MyESocketManualViewController.m */; };
 		8CA06046190912470090A350 /* MyESocketAutoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA06045190912470090A350 /* MyESocketAutoViewController.m */; };
-		8CA06049190916B90090A350 /* MyESocketUsageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA06048190916B90090A350 /* MyESocketUsageViewController.m */; };
+		8CA52F9A192307E800D40EDD /* Event.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CA52F98192307E800D40EDD /* Event.storyboard */; };
+		8CA52F9D192318A500D40EDD /* MyEEventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52F9C192318A500D40EDD /* MyEEventListViewController.m */; };
+		8CA52FA0192318BB00D40EDD /* MyEEventAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52F9F192318BB00D40EDD /* MyEEventAddViewController.m */; };
+		8CA52FA319231A0D00D40EDD /* MyEEventConditionEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA219231A0D00D40EDD /* MyEEventConditionEditViewController.m */; };
+		8CA52FA619231A3000D40EDD /* MyEEventTimeEdtiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA519231A3000D40EDD /* MyEEventTimeEdtiViewController.m */; };
+		8CA52FA919231D4700D40EDD /* MyEEventDeviceEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA819231D4700D40EDD /* MyEEventDeviceEditViewController.m */; };
 		8CCB090A192241360095EAAD /* MyEIrDefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0909192241360095EAAD /* MyEIrDefaultViewController.m */; };
 		8CCB090C192247610095EAAD /* WeekCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CCB090B192247610095EAAD /* WeekCell.xib */; };
 		8CCB0D541909FF460044B0E5 /* MyESocketInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */; };
 		8CE5860F191E131A00157EE2 /* MyEIrUserKeyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE5860E191E131A00157EE2 /* MyEIrUserKeyViewController.m */; };
-		8CEC64CF1921B825005953FB /* MyESocketElecInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEC64CE1921B825005953FB /* MyESocketElecInfoViewController.m */; };
 		8CEC64E11921C0DE005953FB /* CommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEC64D21921C0DE005953FB /* CommonCell.m */; };
 		8CEC64E21921C0DE005953FB /* CommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CEC64D31921C0DE005953FB /* CommonCell.xib */; };
 		8CEC64E31921C0DE005953FB /* CommonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CEC64D41921C0DE005953FB /* CommonTableViewCell.xib */; };
@@ -349,7 +353,6 @@
 		C3194BAB18E93A38006E3ABE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3194BAA18E93A37006E3ABE /* Images.xcassets */; };
 		C31A070716FBFE5C0063490A /* button-enter.png in Resources */ = {isa = PBXBuildFile; fileRef = C31A070516FBFE5C0063490A /* button-enter.png */; };
 		C31A070816FBFE5C0063490A /* button-enter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C31A070616FBFE5C0063490A /* button-enter@2x.png */; };
-		C33587D01903859100959C94 /* MyEEventSceneEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C33587CF1903859100959C94 /* MyEEventSceneEntity.m */; };
 		C33587D4190452F300959C94 /* MyEHomePanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C33587D3190452F300959C94 /* MyEHomePanelViewController.m */; };
 		C34B47BF155309FF00848DB7 /* nomark.png in Resources */ = {isa = PBXBuildFile; fileRef = C34B47BB155309FF00848DB7 /* nomark.png */; };
 		C34B47C0155309FF00848DB7 /* nomark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C34B47BC155309FF00848DB7 /* nomark@2x.png */; };
@@ -595,23 +598,6 @@
 		C3FDB50D18FA62A0009B423D /* MyEUniversal.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB50718FA62A0009B423D /* MyEUniversal.m */; };
 		C3FDB50E18FA62A0009B423D /* MyEUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB50918FA62A0009B423D /* MyEUtil.m */; };
 		C3FDB50F18FA62A0009B423D /* ServerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB50B18FA62A0009B423D /* ServerUtils.m */; };
-		C3FDB6B618FA640B009B423D /* AddSceneDeviceViewControlerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB61018FA640B009B423D /* AddSceneDeviceViewControlerViewController.m */; };
-		C3FDB6B718FA640B009B423D /* AddSceneDeviceViewControlerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB61118FA640B009B423D /* AddSceneDeviceViewControlerViewController.xib */; };
-		C3FDB6B818FA640B009B423D /* MyEEventDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB61318FA640B009B423D /* MyEEventDeviceCell.m */; };
-		C3FDB6B918FA640B009B423D /* MyEEventDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB61418FA640B009B423D /* MyEEventDeviceCell.xib */; };
-		C3FDB6BA18FA640B009B423D /* MyEEventDeviceEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB61618FA640B009B423D /* MyEEventDeviceEntity.m */; };
-		C3FDB6BB18FA640B009B423D /* MyEEventDeviceView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB61818FA640B009B423D /* MyEEventDeviceView.m */; };
-		C3FDB6BC18FA640B009B423D /* MyEEventDeviceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB61918FA640B009B423D /* MyEEventDeviceView.xib */; };
-		C3FDB6BD18FA640B009B423D /* PopAddNewSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB61B18FA640B009B423D /* PopAddNewSceneViewController.m */; };
-		C3FDB6BE18FA640B009B423D /* PopAddNewSceneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB61C18FA640B009B423D /* PopAddNewSceneViewController.xib */; };
-		C3FDB6BF18FA640B009B423D /* PopEditSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB61E18FA640B009B423D /* PopEditSceneViewController.m */; };
-		C3FDB6C018FA640B009B423D /* PopEditSceneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB61F18FA640B009B423D /* PopEditSceneViewController.xib */; };
-		C3FDB6C118FA640B009B423D /* MyEEventSceneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB62118FA640B009B423D /* MyEEventSceneCell.m */; };
-		C3FDB6C218FA640B009B423D /* MyEEventSceneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB62218FA640B009B423D /* MyEEventSceneCell.xib */; };
-		C3FDB6C318FA640B009B423D /* SceneDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB62418FA640B009B423D /* SceneDeviceViewController.m */; };
-		C3FDB6C418FA640B009B423D /* SceneDeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB62518FA640B009B423D /* SceneDeviceViewController.xib */; };
-		C3FDB6C618FA640B009B423D /* SceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB62918FA640B009B423D /* SceneViewController.m */; };
-		C3FDB6C718FA640B009B423D /* SceneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB62A18FA640B009B423D /* SceneViewController.xib */; };
 		C3FDB6EE18FA640B009B423D /* DownAccessory.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB67218FA640B009B423D /* DownAccessory.png */; };
 		C3FDB6EF18FA640B009B423D /* DownAccessory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB67318FA640B009B423D /* DownAccessory@2x.png */; };
 		C3FDB6F018FA640B009B423D /* GatewayDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB67518FA640B009B423D /* GatewayDeviceCell.m */; };
@@ -739,8 +725,17 @@
 		8CA06042190912380090A350 /* MyESocketManualViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketManualViewController.m; sourceTree = "<group>"; };
 		8CA06044190912470090A350 /* MyESocketAutoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESocketAutoViewController.h; sourceTree = "<group>"; };
 		8CA06045190912470090A350 /* MyESocketAutoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketAutoViewController.m; sourceTree = "<group>"; };
-		8CA06047190916B90090A350 /* MyESocketUsageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESocketUsageViewController.h; sourceTree = "<group>"; };
-		8CA06048190916B90090A350 /* MyESocketUsageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketUsageViewController.m; sourceTree = "<group>"; };
+		8CA52F99192307E800D40EDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Event.storyboard; sourceTree = "<group>"; };
+		8CA52F9B192318A500D40EDD /* MyEEventListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventListViewController.h; sourceTree = "<group>"; };
+		8CA52F9C192318A500D40EDD /* MyEEventListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventListViewController.m; sourceTree = "<group>"; };
+		8CA52F9E192318BB00D40EDD /* MyEEventAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventAddViewController.h; sourceTree = "<group>"; };
+		8CA52F9F192318BB00D40EDD /* MyEEventAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventAddViewController.m; sourceTree = "<group>"; };
+		8CA52FA119231A0D00D40EDD /* MyEEventConditionEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventConditionEditViewController.h; sourceTree = "<group>"; };
+		8CA52FA219231A0D00D40EDD /* MyEEventConditionEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventConditionEditViewController.m; sourceTree = "<group>"; };
+		8CA52FA419231A3000D40EDD /* MyEEventTimeEdtiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventTimeEdtiViewController.h; sourceTree = "<group>"; };
+		8CA52FA519231A3000D40EDD /* MyEEventTimeEdtiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventTimeEdtiViewController.m; sourceTree = "<group>"; };
+		8CA52FA719231D4700D40EDD /* MyEEventDeviceEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventDeviceEditViewController.h; sourceTree = "<group>"; };
+		8CA52FA819231D4700D40EDD /* MyEEventDeviceEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventDeviceEditViewController.m; sourceTree = "<group>"; };
 		8CCB0908192241360095EAAD /* MyEIrDefaultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIrDefaultViewController.h; sourceTree = "<group>"; };
 		8CCB0909192241360095EAAD /* MyEIrDefaultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIrDefaultViewController.m; sourceTree = "<group>"; };
 		8CCB090B192247610095EAAD /* WeekCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeekCell.xib; sourceTree = "<group>"; };
@@ -748,8 +743,6 @@
 		8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketInfo.m; sourceTree = "<group>"; };
 		8CE5860D191E131A00157EE2 /* MyEIrUserKeyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIrUserKeyViewController.h; sourceTree = "<group>"; };
 		8CE5860E191E131A00157EE2 /* MyEIrUserKeyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIrUserKeyViewController.m; sourceTree = "<group>"; };
-		8CEC64CD1921B825005953FB /* MyESocketElecInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESocketElecInfoViewController.h; sourceTree = "<group>"; };
-		8CEC64CE1921B825005953FB /* MyESocketElecInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketElecInfoViewController.m; sourceTree = "<group>"; };
 		8CEC64D11921C0DE005953FB /* CommonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonCell.h; sourceTree = "<group>"; };
 		8CEC64D21921C0DE005953FB /* CommonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonCell.m; sourceTree = "<group>"; };
 		8CEC64D31921C0DE005953FB /* CommonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommonCell.xib; sourceTree = "<group>"; };
@@ -1153,8 +1146,6 @@
 		C3194BAA18E93A37006E3ABE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C31A070516FBFE5C0063490A /* button-enter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-enter.png"; sourceTree = "<group>"; };
 		C31A070616FBFE5C0063490A /* button-enter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-enter@2x.png"; sourceTree = "<group>"; };
-		C33587CE1903859100959C94 /* MyEEventSceneEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventSceneEntity.h; sourceTree = "<group>"; };
-		C33587CF1903859100959C94 /* MyEEventSceneEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventSceneEntity.m; sourceTree = "<group>"; };
 		C33587D2190452F300959C94 /* MyEHomePanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEHomePanelViewController.h; sourceTree = "<group>"; };
 		C33587D3190452F300959C94 /* MyEHomePanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEHomePanelViewController.m; sourceTree = "<group>"; };
 		C34B47BB155309FF00848DB7 /* nomark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nomark.png; sourceTree = "<group>"; };
@@ -1495,32 +1486,6 @@
 		C3FDB50918FA62A0009B423D /* MyEUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUtil.m; sourceTree = "<group>"; };
 		C3FDB50A18FA62A0009B423D /* ServerUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerUtils.h; sourceTree = "<group>"; };
 		C3FDB50B18FA62A0009B423D /* ServerUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerUtils.m; sourceTree = "<group>"; };
-		C3FDB60F18FA640B009B423D /* AddSceneDeviceViewControlerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSceneDeviceViewControlerViewController.h; sourceTree = "<group>"; };
-		C3FDB61018FA640B009B423D /* AddSceneDeviceViewControlerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSceneDeviceViewControlerViewController.m; sourceTree = "<group>"; };
-		C3FDB61118FA640B009B423D /* AddSceneDeviceViewControlerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSceneDeviceViewControlerViewController.xib; sourceTree = "<group>"; };
-		C3FDB61218FA640B009B423D /* MyEEventDeviceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventDeviceCell.h; sourceTree = "<group>"; };
-		C3FDB61318FA640B009B423D /* MyEEventDeviceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventDeviceCell.m; sourceTree = "<group>"; };
-		C3FDB61418FA640B009B423D /* MyEEventDeviceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyEEventDeviceCell.xib; sourceTree = "<group>"; };
-		C3FDB61518FA640B009B423D /* MyEEventDeviceEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventDeviceEntity.h; sourceTree = "<group>"; };
-		C3FDB61618FA640B009B423D /* MyEEventDeviceEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventDeviceEntity.m; sourceTree = "<group>"; };
-		C3FDB61718FA640B009B423D /* MyEEventDeviceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventDeviceView.h; sourceTree = "<group>"; };
-		C3FDB61818FA640B009B423D /* MyEEventDeviceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventDeviceView.m; sourceTree = "<group>"; };
-		C3FDB61918FA640B009B423D /* MyEEventDeviceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyEEventDeviceView.xib; sourceTree = "<group>"; };
-		C3FDB61A18FA640B009B423D /* PopAddNewSceneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopAddNewSceneViewController.h; sourceTree = "<group>"; };
-		C3FDB61B18FA640B009B423D /* PopAddNewSceneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopAddNewSceneViewController.m; sourceTree = "<group>"; };
-		C3FDB61C18FA640B009B423D /* PopAddNewSceneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopAddNewSceneViewController.xib; sourceTree = "<group>"; };
-		C3FDB61D18FA640B009B423D /* PopEditSceneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopEditSceneViewController.h; sourceTree = "<group>"; };
-		C3FDB61E18FA640B009B423D /* PopEditSceneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopEditSceneViewController.m; sourceTree = "<group>"; };
-		C3FDB61F18FA640B009B423D /* PopEditSceneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopEditSceneViewController.xib; sourceTree = "<group>"; };
-		C3FDB62018FA640B009B423D /* MyEEventSceneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventSceneCell.h; sourceTree = "<group>"; };
-		C3FDB62118FA640B009B423D /* MyEEventSceneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventSceneCell.m; sourceTree = "<group>"; };
-		C3FDB62218FA640B009B423D /* MyEEventSceneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyEEventSceneCell.xib; sourceTree = "<group>"; };
-		C3FDB62318FA640B009B423D /* SceneDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneDeviceViewController.h; sourceTree = "<group>"; };
-		C3FDB62418FA640B009B423D /* SceneDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneDeviceViewController.m; sourceTree = "<group>"; };
-		C3FDB62518FA640B009B423D /* SceneDeviceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SceneDeviceViewController.xib; sourceTree = "<group>"; };
-		C3FDB62818FA640B009B423D /* SceneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneViewController.h; sourceTree = "<group>"; };
-		C3FDB62918FA640B009B423D /* SceneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneViewController.m; sourceTree = "<group>"; };
-		C3FDB62A18FA640B009B423D /* SceneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SceneViewController.xib; sourceTree = "<group>"; };
 		C3FDB67218FA640B009B423D /* DownAccessory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DownAccessory.png; sourceTree = "<group>"; };
 		C3FDB67318FA640B009B423D /* DownAccessory@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DownAccessory@2x.png"; sourceTree = "<group>"; };
 		C3FDB67418FA640B009B423D /* GatewayDeviceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GatewayDeviceCell.h; sourceTree = "<group>"; };
@@ -1789,14 +1754,10 @@
 		8CA06040190912130090A350 /* Socket */ = {
 			isa = PBXGroup;
 			children = (
-				8CEC64CD1921B825005953FB /* MyESocketElecInfoViewController.h */,
-				8CEC64CE1921B825005953FB /* MyESocketElecInfoViewController.m */,
 				8CA06041190912380090A350 /* MyESocketManualViewController.h */,
 				8CA06042190912380090A350 /* MyESocketManualViewController.m */,
 				8CA06044190912470090A350 /* MyESocketAutoViewController.h */,
 				8CA06045190912470090A350 /* MyESocketAutoViewController.m */,
-				8CA06047190916B90090A350 /* MyESocketUsageViewController.h */,
-				8CA06048190916B90090A350 /* MyESocketUsageViewController.m */,
 			);
 			path = Socket;
 			sourceTree = "<group>";
@@ -2575,6 +2536,7 @@
 				8C722605190653E40033A78A /* Device.storyboard */,
 				8CA05FEC1907E5E70090A350 /* Socket.storyboard */,
 				C39D1C3419208C540009F2E2 /* thermostat.storyboard */,
+				8CA52F98192307E800D40EDD /* Event.storyboard */,
 			);
 			name = Storyboards;
 			path = MyE/Base.lproj;
@@ -3111,34 +3073,16 @@
 		C3FDB60E18FA640B009B423D /* Event */ = {
 			isa = PBXGroup;
 			children = (
-				C3FDB60F18FA640B009B423D /* AddSceneDeviceViewControlerViewController.h */,
-				C3FDB61018FA640B009B423D /* AddSceneDeviceViewControlerViewController.m */,
-				C3FDB61118FA640B009B423D /* AddSceneDeviceViewControlerViewController.xib */,
-				C3FDB61218FA640B009B423D /* MyEEventDeviceCell.h */,
-				C3FDB61318FA640B009B423D /* MyEEventDeviceCell.m */,
-				C3FDB61418FA640B009B423D /* MyEEventDeviceCell.xib */,
-				C3FDB61518FA640B009B423D /* MyEEventDeviceEntity.h */,
-				C3FDB61618FA640B009B423D /* MyEEventDeviceEntity.m */,
-				C3FDB61718FA640B009B423D /* MyEEventDeviceView.h */,
-				C3FDB61818FA640B009B423D /* MyEEventDeviceView.m */,
-				C3FDB61918FA640B009B423D /* MyEEventDeviceView.xib */,
-				C3FDB61A18FA640B009B423D /* PopAddNewSceneViewController.h */,
-				C3FDB61B18FA640B009B423D /* PopAddNewSceneViewController.m */,
-				C3FDB61C18FA640B009B423D /* PopAddNewSceneViewController.xib */,
-				C3FDB61D18FA640B009B423D /* PopEditSceneViewController.h */,
-				C3FDB61E18FA640B009B423D /* PopEditSceneViewController.m */,
-				C3FDB61F18FA640B009B423D /* PopEditSceneViewController.xib */,
-				C3FDB62018FA640B009B423D /* MyEEventSceneCell.h */,
-				C3FDB62118FA640B009B423D /* MyEEventSceneCell.m */,
-				C3FDB62218FA640B009B423D /* MyEEventSceneCell.xib */,
-				C33587CE1903859100959C94 /* MyEEventSceneEntity.h */,
-				C33587CF1903859100959C94 /* MyEEventSceneEntity.m */,
-				C3FDB62318FA640B009B423D /* SceneDeviceViewController.h */,
-				C3FDB62418FA640B009B423D /* SceneDeviceViewController.m */,
-				C3FDB62518FA640B009B423D /* SceneDeviceViewController.xib */,
-				C3FDB62818FA640B009B423D /* SceneViewController.h */,
-				C3FDB62918FA640B009B423D /* SceneViewController.m */,
-				C3FDB62A18FA640B009B423D /* SceneViewController.xib */,
+				8CA52F9B192318A500D40EDD /* MyEEventListViewController.h */,
+				8CA52F9C192318A500D40EDD /* MyEEventListViewController.m */,
+				8CA52F9E192318BB00D40EDD /* MyEEventAddViewController.h */,
+				8CA52F9F192318BB00D40EDD /* MyEEventAddViewController.m */,
+				8CA52FA119231A0D00D40EDD /* MyEEventConditionEditViewController.h */,
+				8CA52FA219231A0D00D40EDD /* MyEEventConditionEditViewController.m */,
+				8CA52FA419231A3000D40EDD /* MyEEventTimeEdtiViewController.h */,
+				8CA52FA519231A3000D40EDD /* MyEEventTimeEdtiViewController.m */,
+				8CA52FA719231D4700D40EDD /* MyEEventDeviceEditViewController.h */,
+				8CA52FA819231D4700D40EDD /* MyEEventDeviceEditViewController.m */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -3531,7 +3475,6 @@
 				C34CF2CA14FE265A00E88079 /* tab-doshboard.png in Resources */,
 				C34CF2CB14FE265A00E88079 /* tab-doshboard@2x.png in Resources */,
 				C34CF2CC14FE265A00E88079 /* tab-schedule.png in Resources */,
-				C3FDB6C718FA640B009B423D /* SceneViewController.xib in Resources */,
 				C34CF2CD14FE265A00E88079 /* tab-schedule@2x.png in Resources */,
 				C34CF2CE14FE265A00E88079 /* tab-settings.png in Resources */,
 				C34CF2CF14FE265A00E88079 /* tab-settings@2x.png in Resources */,
@@ -3677,7 +3620,6 @@
 				B2588FAE17B09C1B007ED13C /* cond101.png in Resources */,
 				B2588FAF17B09C1B007ED13C /* cond102.png in Resources */,
 				B2588FB017B09C1B007ED13C /* cond103.png in Resources */,
-				C3FDB6C218FA640B009B423D /* MyEEventSceneCell.xib in Resources */,
 				C3086C7618FE5D710005E0EE /* settingg.png in Resources */,
 				B2588FB117B09C1B007ED13C /* cond104.png in Resources */,
 				B2588FB217B09C1B007ED13C /* cond105.png in Resources */,
@@ -3723,6 +3665,7 @@
 				B2588FD117B09C1B007ED13C /* cond136.png in Resources */,
 				B2588FD217B09C1B007ED13C /* cond137.png in Resources */,
 				B2588FD317B09C1B007ED13C /* cond138.png in Resources */,
+				8CA52F9A192307E800D40EDD /* Event.storyboard in Resources */,
 				B2588FD417B09C1B007ED13C /* cond139.png in Resources */,
 				C3086C7118FE5D710005E0EE /* demo0@2x.png in Resources */,
 				B2588FD517B09C1B007ED13C /* cond140.png in Resources */,
@@ -3758,8 +3701,6 @@
 				B2588FF217B09C1B007ED13C /* cond169.png in Resources */,
 				B2588FF317B09C1B007ED13C /* cond170.png in Resources */,
 				B2588FF417B09C1B007ED13C /* cond171.png in Resources */,
-				C3FDB6B918FA640B009B423D /* MyEEventDeviceCell.xib in Resources */,
-				C3FDB6C018FA640B009B423D /* PopEditSceneViewController.xib in Resources */,
 				B2588FF517B09C1B007ED13C /* cond172.png in Resources */,
 				B2588FF617B09C1B007ED13C /* cond173.png in Resources */,
 				B2588FF717B09C1B007ED13C /* cond174.png in Resources */,
@@ -3826,7 +3767,6 @@
 				B258902717B09C1B007ED13C /* cond045.png in Resources */,
 				B258902817B09C1B007ED13C /* cond046.png in Resources */,
 				C3FDB87518FA83A9009B423D /* MyEWeekLyScheduleView.xib in Resources */,
-				C3FDB6C418FA640B009B423D /* SceneDeviceViewController.xib in Resources */,
 				B258902917B09C1B007ED13C /* cond047.png in Resources */,
 				B258902A17B09C1B007ED13C /* cond048.png in Resources */,
 				B258902B17B09C1B007ED13C /* cond049.png in Resources */,
@@ -3845,7 +3785,6 @@
 				B258903617B09C1B007ED13C /* cond060.png in Resources */,
 				B258903717B09C1B007ED13C /* cond061.png in Resources */,
 				B258903817B09C1B007ED13C /* cond062.png in Resources */,
-				C3FDB6B718FA640B009B423D /* AddSceneDeviceViewControlerViewController.xib in Resources */,
 				C3086C7818FE5D710005E0EE /* themostatg.png in Resources */,
 				B258903917B09C1B007ED13C /* cond063.png in Resources */,
 				C3086C7018FE5D710005E0EE /* demo0.png in Resources */,
@@ -3894,13 +3833,11 @@
 				B2C810F817B8CD7800DE450E /* tab-Thermostat@2x.png in Resources */,
 				B25B79E517D198A9009F4E84 /* zbar-back.png in Resources */,
 				B25B79E617D198A9009F4E84 /* zbar-help.html in Resources */,
-				C3FDB6BC18FA640B009B423D /* MyEEventDeviceView.xib in Resources */,
 				8CEC64E91921C0DE005953FB /* TwoDatePicker.xib in Resources */,
 				B25B79E717D198A9009F4E84 /* zbar-helpicons.png in Resources */,
 				B25B79E817D198A9009F4E84 /* zbar-samples.png in Resources */,
 				B211DB95180400D4002B3651 /* sprinkler@2x.png in Resources */,
 				B211DB96180400D4002B3651 /* sprinkler.png in Resources */,
-				C3FDB6BE18FA640B009B423D /* PopAddNewSceneViewController.xib in Resources */,
 				B243AFE3181F4AEE007E2552 /* T-switch.png in Resources */,
 				B243AFE4181F4AEE007E2552 /* T-switch@2x.png in Resources */,
 				E27120B618706FD700A795BA /* tab-account@2x.png in Resources */,
@@ -3916,7 +3853,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C722604190610BB0033A78A /* NetManager.m in Sources */,
-				C33587D01903859100959C94 /* MyEEventSceneEntity.m in Sources */,
 				C3F61AD318DFEE1700DEE477 /* IQActionSheetPickerView.m in Sources */,
 				C3AE7F4118E14D99000AA5FC /* MZFormSheetController.m in Sources */,
 				C3FDB7D118FA672E009B423D /* MyESwitchScheduleSettingViewController.m in Sources */,
@@ -3986,18 +3922,17 @@
 				C3FDB4E818FA6044009B423D /* MyEHouseListDisconnectedCell.m in Sources */,
 				8CEC64E81921C0DE005953FB /* TwoDatePicker.m in Sources */,
 				C3FDB87C18FA83A9009B423D /* MyEStaycationDetailViewController.m in Sources */,
-				C3FDB6BA18FA640B009B423D /* MyEEventDeviceEntity.m in Sources */,
 				C3FDB71818FA6589009B423D /* MyETipDataModel.m in Sources */,
+				8CA52FA919231D4700D40EDD /* MyEEventDeviceEditViewController.m in Sources */,
 				B2588D0817B09B9C007ED13C /* BaseCustomCell.m in Sources */,
 				B2588D0917B09B9C007ED13C /* BaseView.m in Sources */,
+				8CA52FA0192318BB00D40EDD /* MyEEventAddViewController.m in Sources */,
 				C3194B9D18E299EA006E3ABE /* ELineChartDataModel.m in Sources */,
-				C3FDB6BB18FA640B009B423D /* MyEEventDeviceView.m in Sources */,
 				C3FDB50E18FA62A0009B423D /* MyEUtil.m in Sources */,
 				C3FDB70418FA6460009B423D /* MoreViewController.m in Sources */,
 				C3FDB80E18FA82AE009B423D /* MyEStaycationItemData.m in Sources */,
 				C3AE7F4418E14D99000AA5FC /* UIImage+Additional.m in Sources */,
 				B2588D0A17B09B9C007ED13C /* BaseNetViewController.m in Sources */,
-				C3FDB6B618FA640B009B423D /* AddSceneDeviceViewControlerViewController.m in Sources */,
 				C3FDB87718FA83A9009B423D /* UISegmentedControl+Extension.m in Sources */,
 				C3FDB7A618FA672D009B423D /* BaseObject.m in Sources */,
 				B2588D0B17B09B9C007ED13C /* BaseTableViewController.m in Sources */,
@@ -4006,12 +3941,12 @@
 				C395989A18E12CC800E30AFF /* UIFont+FlatUI.m in Sources */,
 				C3FDB4BD18FA403E009B423D /* ASIS3Bucket.m in Sources */,
 				B2588D0F17B09B9C007ED13C /* NSData+AES256.m in Sources */,
+				8CA52FA619231A3000D40EDD /* MyEEventTimeEdtiViewController.m in Sources */,
 				C3FDB71918FA6589009B423D /* MyETipViewController.m in Sources */,
 				C3FDB4B718FA403E009B423D /* ASICloudFilesContainer.m in Sources */,
 				B2588D1017B09B9C007ED13C /* NSDictionary+Extention.m in Sources */,
 				B2588D1117B09B9C007ED13C /* NSMutableArray+Safe.m in Sources */,
 				C3FDB70518FA6460009B423D /* RepwdViewController.m in Sources */,
-				C3FDB6BF18FA640B009B423D /* PopEditSceneViewController.m in Sources */,
 				B2588D1217B09B9C007ED13C /* NSMutableDictionary+Safe.m in Sources */,
 				B2588D1317B09B9C007ED13C /* NSString+NSTimeInterval.m in Sources */,
 				C3AE7F5218E14F3F000AA5FC /* NSInvocation+Copy.m in Sources */,
@@ -4037,12 +3972,12 @@
 				C395989818E12CC800E30AFF /* FUISwitch.m in Sources */,
 				C3FDB4BA18FA403E009B423D /* ASICloudFilesObject.m in Sources */,
 				C3F61B0118E1154200DEE477 /* SBJsonStreamParserState.m in Sources */,
-				C3FDB6BD18FA640B009B423D /* PopAddNewSceneViewController.m in Sources */,
 				8CA060341908A3BF0090A350 /* SUNSlideSwitchView.m in Sources */,
 				C39D1C3919208FD60009F2E2 /* MyENext24HrsScheduleViewController.m in Sources */,
 				C3FDB7CD18FA672E009B423D /* MyESwitchAutoViewController.m in Sources */,
 				C39498741919D7F70075ABD3 /* CDIconView.m in Sources */,
 				C3F61B0518E1154200DEE477 /* SBJsonTokeniser.m in Sources */,
+				8CA52F9D192318A500D40EDD /* MyEEventListViewController.m in Sources */,
 				C3F61AFD18E1154200DEE477 /* SBJsonParser.m in Sources */,
 				B2588D3817B09B9D007ED13C /* EGORefreshTableHeaderView.m in Sources */,
 				B2588D4F17B09B9D007ED13C /* LoadMoreTableFooterView.m in Sources */,
@@ -4067,6 +4002,7 @@
 				C3FDB4B618FA403E009B423D /* ASICloudFilesCDNRequest.m in Sources */,
 				C3AE7F4018E14D99000AA5FC /* MZFormSheetBackgroundWindowViewController.m in Sources */,
 				C3FDB7CF18FA672E009B423D /* MyESwitchElecInfoViewController.m in Sources */,
+				8CA52FA319231A0D00D40EDD /* MyEEventConditionEditViewController.m in Sources */,
 				B2588D8A17B09B9D007ED13C /* Services.m in Sources */,
 				C3FDB71618FA6589009B423D /* MyEBlockAlertViewWithCheckbox.m in Sources */,
 				C3F61AE118E1153400DEE477 /* BlockTextPromptAlertView.m in Sources */,
@@ -4090,7 +4026,6 @@
 				B2520A0E17C2F60F00CB56BA /* UIUtils.m in Sources */,
 				C3AE7F5618E14FF3000AA5FC /* MZTimerLabel.m in Sources */,
 				8CA0601A1908A3480090A350 /* MyETVDefaultViewController.m in Sources */,
-				C3FDB6C618FA640B009B423D /* SceneViewController.m in Sources */,
 				C3AE7F4F18E14F0C000AA5FC /* MZAppearance.m in Sources */,
 				C3FDB4AE18FA403E009B423D /* ASIDataCompressor.m in Sources */,
 				C3F61B1E18E11DAE00DEE477 /* TPKeyboardAvoidingScrollView.m in Sources */,
@@ -4109,9 +4044,7 @@
 				C3FDB4E718FA6044009B423D /* MyEHouseListConnectedCell.m in Sources */,
 				8CA060191908A3480090A350 /* MyEAudioDefaultViewController.m in Sources */,
 				C3F61B1F18E11DAE00DEE477 /* TPKeyboardAvoidingTableView.m in Sources */,
-				C3FDB6C318FA640B009B423D /* SceneDeviceViewController.m in Sources */,
 				C3F61B0B18E1155500DEE477 /* MBProgressHUD.m in Sources */,
-				C3FDB6B818FA640B009B423D /* MyEEventDeviceCell.m in Sources */,
 				B2B2577617CC368C003833E6 /* MJPopupBackgroundView.m in Sources */,
 				C3FDB4D418FA4495009B423D /* Reachability.m in Sources */,
 				C3FDB4EA18FA6044009B423D /* MyELaunchIntroViewController.m in Sources */,
@@ -4139,12 +4072,9 @@
 				C3FDB4AD18FA403E009B423D /* ASIAuthenticationDialog.m in Sources */,
 				C3FDB87118FA83A9009B423D /* MyEWeekdayToolbarController.m in Sources */,
 				C3FDB7CC18FA672E009B423D /* MyEDelayTimeSetViewController.m in Sources */,
-				8CEC64CF1921B825005953FB /* MyESocketElecInfoViewController.m in Sources */,
 				C3194B9A18E299EA006E3ABE /* EFloatBox.m in Sources */,
 				C3FDB4C018FA403E009B423D /* ASIS3ObjectRequest.m in Sources */,
-				8CA06049190916B90090A350 /* MyESocketUsageViewController.m in Sources */,
 				C3AE7F2F18E14C62000AA5FC /* DXAlertView.m in Sources */,
-				C3FDB6C118FA640B009B423D /* MyEEventSceneCell.m in Sources */,
 				C3194B9C18E299EA006E3ABE /* ELineChart.m in Sources */,
 				B25B79E117D198A9009F4E84 /* qrspec.c in Sources */,
 				C3FDB7AF18FA672D009B423D /* MyEDevicesViewController.m in Sources */,
@@ -4191,6 +4121,14 @@
 				8CA05FED1907E5E70090A350 /* Base */,
 			);
 			name = Socket.storyboard;
+			sourceTree = "<group>";
+		};
+		8CA52F98192307E800D40EDD /* Event.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8CA52F99192307E800D40EDD /* Base */,
+			);
+			name = Event.storyboard;
 			sourceTree = "<group>";
 		};
 		C30E01FC14C7A69200011160 /* InfoPlist.strings */ = {

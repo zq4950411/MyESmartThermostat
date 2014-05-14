@@ -16,20 +16,17 @@
 
 @implementation MyESocketAutoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 #pragma mark - life Circle methods
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?tId=%@",GetRequst(URL_FOR_FIND_SOCKET_AUTO),self.device.tid] andName:@"downloadInfo"];
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_FIND_SOCKET_AUTO),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
 }
+#pragma mark - IBAction methods
+- (IBAction)controlChange:(UISegmentedControl *)sender {
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&autoMode=%i",GetRequst(URL_FOR_SAVE_SOCKET_AUTO),MainDelegate.houseData.houseId,self.device.tid,1-sender.selectedSegmentIndex] andName:@"control"];
+}
+
 #pragma mark - private methods
 -(void)uploadOrDownloadInfoFromServerWithURL:(NSString *)url andName:(NSString *)name{
     if (HUD == nil) {
@@ -43,7 +40,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - URL DELEGATE methods
@@ -51,12 +47,27 @@
     NSLog(@"receive string is %@",string);
     if ([name isEqualToString:@"downloadInfo"]) {
         if (string.intValue == -999) {
-            [SVProgressHUD showWithStatus:@"no connection"];
+            [SVProgressHUD showWithStatus:@"No Connection"];
         }else if(![string isEqualToString:@"fail"]){
             MyESocketSchedules *schedules = [[MyESocketSchedules alloc] initWithJSONString:string];
             self.schedules = schedules;
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];
     }
+    if ([name isEqualToString:@"control"]) {
+        if (string.intValue == -999) {
+            [SVProgressHUD showWithStatus:@"No Connection"];
+        }else if (string.intValue == -501){
+            [SVProgressHUD showWithStatus:@"No Schedule"];
+        }else if (![string isEqualToString:@"fail"]){
+            
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"Error!"];
+            self.controlSeg.selectedSegmentIndex = 1-self.controlSeg.selectedSegmentIndex;
+        }
+    }
+}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    NSLog(@"%@",error);
 }
 @end

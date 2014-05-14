@@ -11,4 +11,6 @@
 @interface MyESocketAutoViewController : UIViewController<MyEDataLoaderDelegate>
 @property (nonatomic, strong) MyEDevice *device;
 @property (nonatomic, strong) MyESocketSchedules *schedules;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *controlSeg;
+
 @end
