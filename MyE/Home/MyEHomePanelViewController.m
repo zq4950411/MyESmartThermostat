@@ -14,6 +14,7 @@
 #import "MyEDashboardData.h"
 #import "MyENext24HrsScheduleViewController.h"
 #import "MyEWeeklyScheduleViewController.h"
+#import "MyEVacationMasterViewController.h"
 
 @interface MyEHomePanelViewController ()
 - (void)configureView;
@@ -96,23 +97,30 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"thermostat" bundle:nil];
     UITabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tab_bar_controller"];
     
+    // 	温控器所有二级控制页面（Dashboard, Next24, Weekly, etc），标题都采用该温控器的别名。
+    vc.navigationController.title = MainDelegate.thermostatData.tName;
+    
     MyENext24HrsScheduleViewController *next24hrsVC = vc.childViewControllers[1];
     next24hrsVC.userId = MainDelegate.accountData.userId;
     next24hrsVC.houseId = MainDelegate.houseData.houseId;
     next24hrsVC.tId = MainDelegate.thermostatData.tId;
     next24hrsVC.tName = MainDelegate.thermostatData.tName;
     next24hrsVC.isRemoteControl = MainDelegate.thermostatData.remote;
-    next24hrsVC.navigationController = self.navigationController;
- 
-    
-    MyEWeeklyScheduleViewController *weeklyScheduleController = vc.childViewControllers[1];
+
+    MyEWeeklyScheduleViewController *weeklyScheduleController = vc.childViewControllers[2];
     weeklyScheduleController.userId = MainDelegate.accountData.userId;
     weeklyScheduleController.houseId = MainDelegate.houseData.houseId;
     weeklyScheduleController.tId = MainDelegate.thermostatData.tId;
     weeklyScheduleController.tName = MainDelegate.thermostatData.tName;
     weeklyScheduleController.isRemoteControl = MainDelegate.thermostatData.remote;
-    weeklyScheduleController.navigationController = self.navigationController;
     
+    MyEVacationMasterViewController *vacationViewController = vc.childViewControllers[3];
+    vacationViewController.userId = MainDelegate.accountData.userId;
+    vacationViewController.houseId = MainDelegate.houseData.houseId;
+    vacationViewController.houseName = MainDelegate.thermostatData.tName;
+    vacationViewController.tId = MainDelegate.thermostatData.tId;
+    vacationViewController.tName = MainDelegate.thermostatData.tName;
+    vacationViewController.isRemoteControl = MainDelegate.thermostatData.remote;
     
     [self.navigationController pushViewController:vc animated:YES];
 }

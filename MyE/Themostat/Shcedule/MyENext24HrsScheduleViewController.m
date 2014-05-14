@@ -662,6 +662,10 @@
     return NUM_SECTOR - 1;
     
 }
+- (void)refreshAction
+{
+    [self downloadModelFromServer];
+}
 
 #pragma mark -
 #pragma mark methods for mode editing view

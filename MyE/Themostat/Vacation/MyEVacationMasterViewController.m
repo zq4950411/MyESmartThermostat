@@ -92,7 +92,6 @@
     
     self.isRemoteControl = MainDelegate.thermostatData.remote;
     self.title = MainDelegate.houseData.houseName;
-
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -104,6 +103,8 @@
 
 - (void) addRightButtonsWithNewButton:(BOOL)shouldGenerateNewButton
 {
+    //首先去掉父容器TabBarController的navigationItem的右边按钮
+    self.parentViewController.navigationItem.rightBarButtonItems = nil;
     //可以用下面语句生成2个新button，并替换掉父容器TabBarController的navigationItem的右边按钮
     UIBarButtonItem *addButton = nil;
     if (shouldGenerateNewButton)
@@ -117,29 +118,8 @@
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] 
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh 
                                       target:self 
-                                      action:@selector(refreshList:)];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, addButton, nil];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(back:)];
-}
-
--(void) back:(UIBarButtonItem *) sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)viewDidUnload
-{
-    self.vacationsModel = nil;
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+                                      action:@selector(refreshAction:)];
+    self.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, addButton, nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -180,8 +160,7 @@
     [self performSegueWithIdentifier:@"ShowVacationDetailView" sender:sender];
 }
 
-- (void) refreshList:(id)sender {
-    NSLog(@"Vacation refresh list button is taped");
+- (void) refreshAction:(id)sender {
     [self downloadModelFromServer];
 }
 
@@ -189,20 +168,8 @@
 #pragma mark URL Loading System methods
 - (void) downloadModelFromServer
 {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
-
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];
