@@ -42,7 +42,7 @@
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
 - (BOOL)_processHttpRespondForString:(NSString *)respondText;
 - (void)_holdRunButtionAction;
-- (void)_addHoldRunButtonForType:(NSInteger)type;
+- (void)_addHoldRunButtonForType:(NSInteger)type andHold:(HoldType)hold;
 
 
 #pragma mark 触摸圆环使用的变量
@@ -62,13 +62,6 @@
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
-
--(void) go:(UIButton *) sender
-{
-    [self performSegueWithIdentifier:@"ShowSchedule" sender:self];
-}
-
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -83,32 +76,7 @@
     self.tName = MainDelegate.thermostatData.tName;
     self.isRemoteControl = isRC;
 
-    
-    self.fUISwitch.offColor = [UIColor whiteColor];
-    self.fUISwitch.onColor = [UIColor whiteColor];
-    
-    self.fUISwitch.offBackgroundColor = [UIColor grayColor];
-    self.fUISwitch.onBackgroundColor = [UIColor grayColor];
-    
-    self.fUISwitch.onLabel.text = @"";
-    self.fUISwitch.offLabel.text = @"";
-    
-    
-    [self.fUIButton setStyleType:ACPButtonOK];
-    
-    [self.fUIButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateNormal];
-    [self.fUIButton setTitleColor:[UIColor cloudsColor] forState:UIControlStateHighlighted];
-    [self.fUIButton addTarget:self action:@selector(go:) forControlEvents:UIControlEventTouchUpInside];
-    
-    if (IS_IPHONE_5)
-    {
-        self.fUIButton.frame = CGRectMake(20, 400, 278, 44);
-    }
-    else
-    {
-        self.fUIButton.frame = CGRectMake(20, 311, 278, 44);
-    }
-    
+  
     [self.view bringSubviewToFront:self.fanControlToolbarView];
     [self.view bringSubviewToFront:self.systemControlToolbarView];
     
@@ -164,64 +132,7 @@
     
     [self.view addSubview:self.circle];
     [self.view addSubview:overlay];
-    
-    
-    
-    [self _addHoldRunButtonForType:0];
-    self.inHoldAnimation = NO; // for testing
-    
-    
-    
 
-}
-
-- (void)chooseHouse:(KxMenuItem *) sender
-{
-    MyEThermostatData *the = [MainDelegate.houseData.thermostats objectAtIndex:sender.tag];
-    if (![the.tId isEqualToString:MainDelegate.thermostatData.tId])
-    {
-        MainDelegate.thermostatData = the;
-        if (MainDelegate.isRemember)
-        {
-            [MainDelegate setValue:the.tId withKey:KEY_FOR_TID_LAST_VIEWED];
-        }
-        [self refreshAction];
-    }
-}
-
--(void) switchThermostat:(UIBarButtonItem *) sender
-{
-    NSMutableArray *items = [NSMutableArray array];
-    for (int i = 0; i < [MainDelegate.houseData.thermostats count]; i++)
-    {
-        MyEThermostatData *t = [MainDelegate.houseData.thermostats objectAtIndex:i];
-        if (t.tName && t.deviceType == 0)
-        {
-            KxMenuItem *item = [KxMenuItem menuItem:t.tName
-                                              image:nil
-                                             target:self
-                                             action:@selector(chooseHouse:)];
-            
-            if ([t.tId isEqualToString:MainDelegate.thermostatData.tId])
-            {
-                item.foreColor = [UIColor redColor];
-            }
-            else
-            {
-                item.foreColor = [UIColor whiteColor];
-            }
-            
-            item.tag = i;
-            [items addObject:item];
-        }
-    }
-    if (items.count > 0)
-    {
-        CGRect rect = CGRectMake(233, 4 - 30, 10, 35);
-        [KxMenu showMenuInView:self.view
-                      fromRect:rect
-                     menuItems:items];
-    }
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -231,14 +142,11 @@
     self.parentViewController.navigationItem.title = @"Thermostat";
     self.parentViewController.navigationItem.rightBarButtonItems = nil;
     
-//    UIBarButtonItem *tButton = [[UIBarButtonItem alloc] initWithTitle:@"T" style:UIBarButtonItemStyleBordered target:self action:@selector(switchThermostat:)];
-    UIBarButtonItem *tButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"T-switch.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(switchThermostat:)];
-    
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] 
                                   initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh 
                                   target:self 
                                   action:@selector(refreshAction)];
-    self.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton,tButton, nil];
+    self.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, nil];
     
     [self downloadModelFromServer];
 
@@ -414,7 +322,7 @@
     _isRemoteControl = isRemoteControl;
     
     // Update the view.
-    self.fUISwitch.enabled = isRemoteControl;
+    self.holdRunButton.enabled = isRemoteControl;
     
 //    self.setpointPickerView.alpha = isRemoteControl ? 1.0 : 0.77;
     self.controlModeImageView.alpha = isRemoteControl ? 1.0 : 0.77;
@@ -495,6 +403,8 @@
     self.isRemoteControl = [theDashboardData.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame;
         
     if (theDashboardData) {
+        self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.dashboardData.temperature];
+        
         switch (theDashboardData.controlMode) {
             case 1://Heat
                 if ([theDashboardData.realControlMode caseInsensitiveCompare:@"Heating"] == NSOrderedSame) {
@@ -671,8 +581,6 @@
         if (theDashboardData.controlMode ==5)
         {
             self.circle.userInteractionEnabled = NO;
-
-            self.fUISwitch.hidden = YES;
             self.holdRunLabel.hidden = YES;
             self.holdRunButton.userInteractionEnabled = NO;
             
@@ -682,25 +590,22 @@
             self.circle.userInteractionEnabled = YES;
             [self.holdRunButton setTitle:[NSString stringWithFormat:@"%d\u00B0F", theDashboardData.setpoint] forState:UIControlStateNormal];
 
-            self.fUISwitch.hidden = NO;
             self.holdRunLabel.hidden = NO;
             self.holdRunButton.userInteractionEnabled = YES;
             
             self.activeProgramLabel.text = theDashboardData.currentProgram;
         }
         
+        //isOvrried  分别对应0(Run), 1(Permanent Hold), 2(Temporary Hold)。
         if(theDashboardData.isOvrried == 0)
         {
-
-            [self.fUISwitch setOn:NO animated:YES];
             self.holdRunLabel.text = @"Press to Hold";
         }
         else
         {
-            [self.fUISwitch setOn:YES animated:YES];
             self.holdRunLabel.text = @"Press to Run";
         }
-        
+        [self _addHoldRunButtonForType:0 andHold:theDashboardData.isOvrried];
         
         
         // 这里不需要在每次下载新数据时判定是否Remote NO，否则会产生一种情况：操作中变为Remote No的时候没有提示文字并返回House List，而是直接 disable掉控制面板了. 2012-05-29
@@ -762,59 +667,6 @@
     
     _isFanControlToolbarViewShowing = !_isFanControlToolbarViewShowing;
 }
-//- (void)_toggleSystemControlToolbarView
-//{
-//    if (_isFanControlToolbarViewShowing) {
-//        [self _toggleFanControlToolbarView];
-//    }
-//    if (self.dashboardData.con_hp == 1) {
-//        self.systemControlEmgHeatingButton.enabled = YES;
-//    } else {
-//        self.systemControlEmgHeatingButton.enabled = NO;
-//    }
-//    
-//    NSInteger offset = [self _getToolbarOffset];
-//    CGRect frame = [self.systemControlToolbarView frame];
-//
-//    frame.origin.x = 0;//不知为何toolbar被右移了一个点, 这里校正一下
-//    if (_isSystemControlToolbarViewShowing) {
-//        frame.origin.y = frame.origin.y+offset;
-//    } else {
-//        frame.origin.y = frame.origin.y-offset;
-//    }
-//
-//    [UIView beginAnimations:nil context:nil];
-//    [UIView setAnimationDuration:0.3];
-//    [self.systemControlToolbarView setFrame:frame];
-//    [UIView commitAnimations];
-//    
-//    _isSystemControlToolbarViewShowing = !_isSystemControlToolbarViewShowing;
-//}
-//- (void)_toggleFanControlToolbarView
-//{
-//    NSInteger offset = [self _getToolbarOffset];
-//    if (_isSystemControlToolbarViewShowing) {
-//        [self _toggleSystemControlToolbarView];
-//    }
-//    
-//    CGRect frame = [self.fanControlToolbarView frame];
-//    NSLog(@"%f  %f  %f  %f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
-//
-//    frame.origin.x = 0;//不知为何toolbar被右移了一个点, 这里校正一下
-//    if (_isFanControlToolbarViewShowing) {
-//        frame.origin.y = frame.origin.y+offset;
-//    } else {
-//        frame.origin.y = frame.origin.y-offset;
-//    }
-//
-//    
-//    [UIView beginAnimations:nil context:nil];
-//    [UIView setAnimationDuration:0.3];
-//    [self.fanControlToolbarView setFrame:frame];
-//    [UIView commitAnimations];
-//    
-//    _isFanControlToolbarViewShowing = !_isFanControlToolbarViewShowing;
-//}
 
 // 判定是否服务器相应正常，如果正常返回一些字符串，如果服务器相应为-999/-998，
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
@@ -851,27 +703,47 @@
 }
 - (void)_holdRunButtionAction
 {
-    [self _addHoldRunButtonForType:1];
-    CALayer *myLayer = self.holdRunButton.layer;
-    if(!self.inHoldAnimation){
-        CABasicAnimation *theAnimation;
-        theAnimation=[CABasicAnimation animationWithKeyPath:@"shadowOpacity"];
-        theAnimation.duration=0.5;
-        theAnimation.repeatCount=HUGE_VALF;
-        theAnimation.autoreverses=YES;
-        theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
-        theAnimation.toValue=[NSNumber numberWithFloat:0.2];
-        [myLayer addAnimation:theAnimation forKey:@"animateOpacity"]; // here key is defined by developer
-        self.inHoldAnimation = YES;
-    } else{
-        [myLayer removeAnimationForKey:@"animateOpacity" ];
-        self.inHoldAnimation = NO;
-        [self _addHoldRunButtonForType:2];
+//    [self _addHoldRunButtonForType:1];
+//    CALayer *myLayer = self.holdRunButton.layer;
+//    if(!self.inHoldAnimation){
+//        CABasicAnimation *theAnimation;
+//        theAnimation=[CABasicAnimation animationWithKeyPath:@"shadowOpacity"];
+//        theAnimation.duration=0.5;
+//        theAnimation.repeatCount=HUGE_VALF;
+//        theAnimation.autoreverses=YES;
+//        theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
+//        theAnimation.toValue=[NSNumber numberWithFloat:0.2];
+//        [myLayer addAnimation:theAnimation forKey:@"animateOpacity"]; // here key is defined by developer
+//        self.inHoldAnimation = YES;
+//    } else{
+//        [myLayer removeAnimationForKey:@"animateOpacity" ];
+//        self.inHoldAnimation = NO;
+//        [self _addHoldRunButtonForType:2];
+//    }
+    
+    // hold不按下，setpoint picker 控件如果动了视作Temporary hold， 如果按下Hold，其它几个控件进行的修改都视作Permanent Hold。
+    NSLog(@" self.dashboardData.isOvrried = %i",self.dashboardData.isOvrried);
+    
+    //上面这一点在将来修改成：如果用户在没有修改setpoint的情况下直接按下hold按钮，就设置这个值为1表示permanent hold，发送到服务器。
+    if(self.dashboardData.isOvrried == 0 || (self.dashboardData.isOvrried == 2 && _isSetpointChanged)) {
+        self.dashboardData.isOvrried = 1;
+    } else if(self.dashboardData.isOvrried == 1|| (self.dashboardData.isOvrried == 2 && !_isSetpointChanged)){
+        self.dashboardData.isOvrried = 0;
     }
+    if ([loadTimer isValid]) {
+        [loadTimer invalidate];
+        loadTimer = nil;
+    }
+    loadTimer = [NSTimer scheduledTimerWithTimeInterval:LOAD_DELAY
+                                                 target:self
+                                               selector:@selector(uploadModelToServer)
+                                               userInfo:nil
+                                                repeats:NO];
 }
 
 // type: 0 -> red, 1 -> green, 2 -> blue
--(void)_addHoldRunButtonForType:(NSInteger)type
+// hold 对应 MyEDashboardData.isOvrried  分别对应0(Run), 1(Permanent Hold), 2(Temporary Hold)。
+-(void)_addHoldRunButtonForType:(NSInteger)type andHold:(HoldType)hold
 {
     if (self.holdRunButton) {
         [self.holdRunButton removeFromSuperview];
@@ -897,24 +769,36 @@
 //    self.holdRunButton.layer.borderColor=[UIColor redColor].CGColor;
 //    self.holdRunButton.layer.borderWidth=2.0f;
     //    self.holdRunButton.layer.backgroundColor=[UIColor greenColor].CGColor; // 此句会遮住或阻止阴影, 所以注释
-    
-    if (type == 0){
-        self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:60.0/255.0 green:30.0/255.0 blue:15.0/255.0 alpha:0.75].CGColor;
-    } else if(type == 1){
-        self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:20.0/255.0 green:25.0/255.0 blue:5.0/255.0 alpha:0.75].CGColor;
-    }else
-        self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:10.0/255.0 green:40.0/255.0 blue:45.0/255.0 alpha:0.75].CGColor;
-    //    self.holdRunButton.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
-    self.holdRunButton.layer.shadowRadius = 15.0f;
-    self.holdRunButton.layer.shadowOpacity = 0.75f;
-    self.holdRunButton.layer.shadowPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height/2.0f startAngle:0 endAngle:2*M_PI clockwise:YES].CGPath;
-    
+    if(hold == HOLD_TYPE_TEMPORARY || hold == HOLD_TYPE_PERMANENT){
+        if (type == 0){
+            self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:60.0/255.0 green:30.0/255.0 blue:15.0/255.0 alpha:0.75].CGColor;
+        } else if(type == 1){
+            self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:20.0/255.0 green:25.0/255.0 blue:5.0/255.0 alpha:0.75].CGColor;
+        }else
+            self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:10.0/255.0 green:40.0/255.0 blue:45.0/255.0 alpha:0.75].CGColor;
+        //    self.holdRunButton.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
+        self.holdRunButton.layer.shadowRadius = 15.0f;
+        self.holdRunButton.layer.shadowOpacity = 0.75f;
+        self.holdRunButton.layer.shadowPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height/2.0f startAngle:0 endAngle:2*M_PI clockwise:YES].CGPath;
+        
+        
+        if(hold == HOLD_TYPE_TEMPORARY){
+            CABasicAnimation *theAnimation;
+            theAnimation=[CABasicAnimation animationWithKeyPath:@"shadowOpacity"];
+            theAnimation.duration=0.5;
+            theAnimation.repeatCount=HUGE_VALF;
+            theAnimation.autoreverses=YES;
+            theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
+            theAnimation.toValue=[NSNumber numberWithFloat:0.2];
+            [self.holdRunButton.layer addAnimation:theAnimation forKey:@"animateOpacity"]; // here key is defined by developer
+
+        }
+    }
     //@see http://stackoverflow.com/questions/10133109/fastest-way-to-do-shadows-on-ios
     self.holdRunButton.layer.shouldRasterize = YES;
     // Don't forget the rasterization scale
     // I spent days trying to figure out why retina display assets weren't working as expected
     self.holdRunButton.layer.rasterizationScale = [UIScreen mainScreen].scale;
-    
     
     // 用一个image做Highlighted背景
     UIGraphicsBeginImageContext(self.holdRunButton.bounds.size);
@@ -1103,26 +987,6 @@
     [self _toggleFanControlToolbarView];
 }
 
-- (IBAction)holdAction:(id)sender {
-    // hold不按下，setpoint picker 控件如果动了视作Temporary hold， 如果按下Hold，其它几个控件进行的修改都视作Permanent Hold。
-    NSLog(@" self.dashboardData.isOvrried = %i",self.dashboardData.isOvrried);
-    
-    //上面这一点在将来修改成：如果用户在没有修改setpoint的情况下直接按下hold按钮，就设置这个值为1表示permanent hold，发送到服务器。
-    if(self.dashboardData.isOvrried == 0 || (self.dashboardData.isOvrried == 2 && _isSetpointChanged)) {
-        self.dashboardData.isOvrried = 1;
-    } else if(self.dashboardData.isOvrried == 1|| (self.dashboardData.isOvrried == 2 && !_isSetpointChanged)){
-        self.dashboardData.isOvrried = 0;
-    }
-    if ([loadTimer isValid]) {
-        [loadTimer invalidate];
-        loadTimer = nil;
-    }
-    loadTimer = [NSTimer scheduledTimerWithTimeInterval:LOAD_DELAY
-                                                   target:self 
-                                                 selector:@selector(uploadModelToServer) 
-                                                 userInfo:nil 
-                                                  repeats:NO]; 
-}
 - (void)refreshAction
 {
     [self downloadModelFromServer];

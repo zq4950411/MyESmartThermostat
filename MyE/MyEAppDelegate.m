@@ -10,12 +10,9 @@
 
 
 #import "MyEHouseListViewController.h"
-#import "MyEMainTabBarController.h"
 #import "MyEDashboardViewController.h"
-#import "MyEScheduleViewController.h"
-#import "MyETodayScheduleController.h"
-#import "MyEWeeklyScheduleSubviewController.h"
-#import "MyENext24HrsScheduleSubviewController.h"
+#import "MyEWeeklyScheduleViewController.h"
+#import "MyENext24HrsScheduleViewController.h"
 #import "MyEVacationMasterViewController.h"
 #import "MyESettingsViewController.h"
 #import "MyELaunchIntroViewController.h"
@@ -156,33 +153,34 @@
         
     }
     else if([subVS count] == 2){// 在进入TabBarController的任何一个直接子view时，view堆栈的数目是2
-        id vc= [subVS objectAtIndex:1];
-        if ([vc isKindOfClass:[MyEMainTabBarController class]]) {
-            MyEMainTabBarController * mtbc = vc;
-            id selectedVC = [mtbc selectedViewController];
-            
-            if([selectedVC isKindOfClass:[MyEDashboardViewController class]]){
-                [(MyEDashboardViewController *)selectedVC downloadModelFromServer];
-            }
-            if([selectedVC isKindOfClass:[MyEScheduleViewController class]]){
-                MyEScheduleViewController *svc = (MyEScheduleViewController *)selectedVC;
-                if (svc.currentPanelType == SCHEDULE_TYPE_TODAY && svc.todayBaseViewController != nil)
-                    [svc.todayBaseViewController downloadModelFromServer];
-                else if (svc.currentPanelType == SCHEDULE_TYPE_WEEKLY && svc.weeklyBaseViewController != nil)
-                    [svc.weeklyBaseViewController downloadModelFromServer];
-                else if (svc.currentPanelType == SCHEDULE_TYPE_NEXT24HRS && svc.next24HrsBaseViewController != nil)
-                    [svc.next24HrsBaseViewController downloadModelFromServer];
-            }
-            if([selectedVC isKindOfClass:[MyEVacationMasterViewController class]]){
-                [(MyEVacationMasterViewController *)selectedVC downloadModelFromServer];
-            }
-            if([selectedVC isKindOfClass:[MyESettingsViewController class]]){
-                [(MyESettingsViewController *)selectedVC downloadModelFromServer];
-            }
-        } else {//有可能是view堆栈的最顶上vc不是MyEMainTabBarController，有可能是HouseListViewController
-            // 这种情况不应该发生，但有可能是程序设计时没有想到而导致的未处理的情况。所以这里进行调试检查一下。
-            NSLog(@"This message indicates that the top vc in vc stack is no the  MyEMainTabBarController");
-        }
+#warning 添加代码, 处理新架构下的Thermostat几个面板的刷新
+//        id vc= [subVS objectAtIndex:1];
+//        if ([vc isKindOfClass:[MyEMainTabBarController class]]) {
+//            MyEMainTabBarController * mtbc = vc;
+//            id selectedVC = [mtbc selectedViewController];
+//            
+//            if([selectedVC isKindOfClass:[MyEDashboardViewController class]]){
+//                [(MyEDashboardViewController *)selectedVC downloadModelFromServer];
+//            }
+//            if([selectedVC isKindOfClass:[MyENext24HrsScheduleViewController class]]){
+//                MyEScheduleViewController *svc = (MyEScheduleViewController *)selectedVC;
+//                if (svc.currentPanelType == SCHEDULE_TYPE_TODAY && svc.todayBaseViewController != nil)
+//                    [svc.todayBaseViewController downloadModelFromServer];
+//                else if (svc.currentPanelType == SCHEDULE_TYPE_WEEKLY && svc.weeklyBaseViewController != nil)
+//                    [svc.weeklyBaseViewController downloadModelFromServer];
+//                else if (svc.currentPanelType == SCHEDULE_TYPE_NEXT24HRS && svc.next24HrsBaseViewController != nil)
+//                    [svc.next24HrsBaseViewController downloadModelFromServer];
+//            }
+//            if([selectedVC isKindOfClass:[MyEVacationMasterViewController class]]){
+//                [(MyEVacationMasterViewController *)selectedVC downloadModelFromServer];
+//            }
+//            if([selectedVC isKindOfClass:[MyESettingsViewController class]]){
+//                [(MyESettingsViewController *)selectedVC downloadModelFromServer];
+//            }
+//        } else {//有可能是view堆栈的最顶上vc不是MyEMainTabBarController，有可能是HouseListViewController
+//            // 这种情况不应该发生，但有可能是程序设计时没有想到而导致的未处理的情况。所以这里进行调试检查一下。
+//            NSLog(@"This message indicates that the top vc in vc stack is no the  MyEMainTabBarController");
+//        }
         
     }else if([subVS count] > 2){// 在vacation模块的添加、修改vacation时，view堆栈的数目是3或4
         NSLog(@"view堆栈的数目是 %i", [subVS count]);

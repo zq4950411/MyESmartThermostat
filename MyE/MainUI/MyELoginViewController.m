@@ -12,9 +12,7 @@
 #import "MyEHouseAddViewController.h"
 #import "MyEMainTabBarController.h"
 #import "MyEDashboardViewController.h"
-#import "MyEScheduleViewController.h"
 #import "MyEVacationMasterViewController.h"
-#import "MyEThermostatListViewController.h"
 #import "MyEHouseData.h"
 #import "MyEThermostatData.h"
 #import "MyEUtil.h"
@@ -67,20 +65,6 @@
     [self.loginButton setBackgroundImage:buttonBackImage forState:UIControlStateNormal];
     
     [self loadSettings];
-    
-    // Observe keyboard hide and show notifications to resize the text view appropriately.
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWillShow:)
-//                                                 name:UIKeyboardWillShowNotification
-//                                               object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWillHide:)
-//                                                 name:UIKeyboardWillHideNotification
-//                                               object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(hideKeyboardBeforeResignActive:)
-//                                                 name:UIApplicationWillResignActiveNotification
-//                                               object:nil];
 }
 
 
@@ -112,8 +96,6 @@
     
     if ([[segue identifier] isEqualToString:@"go_main_menu"])
     {
-//        MyEMainTabBarController *tabBarController = [segue destinationViewController];
-        //在这里为每个tab view设置houseId和userId, 同时要为每个tab viewController中定义这两个变量，并实现一个统一的签名方法，以保存这个变量。
         MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:0];
         MainDelegate.houseData = houseData;
         
@@ -126,65 +108,7 @@
         
         [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
         [prefs synchronize];
-        
-        
-//        BOOL isRC = (thermostatData.remote == 0? NO:YES);
-//        
-//        
-//        //        [tabBarController setTitle:@"Dashboard"];
-//        [tabBarController setTitle:houseData.houseName];
-//        tabBarController.userId = self.accountData.userId;
-//        tabBarController.houseId = houseData.houseId;
-//        tabBarController.tId = thermostatData.tId;
-//        tabBarController.tName = thermostatData.tName;
-//        tabBarController.houseName = houseData.houseName;
-////        tabBarController.tCount = [houseData countOfConnectedThermostat];// 此处仅设置这个房子的有连接的t的数量，但我们要显示所有t，所以改用用下面的所有t的数目
-//        tabBarController.tCount = [houseData.thermostats count];// 设置这个房子的t的数量
-//
-//        MyEDashboardViewController *dashboardViewController = [[tabBarController childViewControllers] objectAtIndex:0];
-//        dashboardViewController.userId = self.accountData.userId;
-//        dashboardViewController.houseId = houseData.houseId;
-//        dashboardViewController.houseName = houseData.houseName;
-//        dashboardViewController.tId = thermostatData.tId;
-//        dashboardViewController.tName = thermostatData.tName;
-//        dashboardViewController.isRemoteControl = isRC;
-        
-        
-//        MyEScheduleViewController *scheduleViewController = [[tabBarController childViewControllers] objectAtIndex:1];
-//        scheduleViewController.userId = self.accountData.userId;
-//        scheduleViewController.houseId = houseData.houseId;
-//        scheduleViewController.houseName = houseData.houseName;
-//        scheduleViewController.tId = thermostatData.tId;
-//        scheduleViewController.tName = thermostatData.tName;
-//        scheduleViewController.isRemoteControl = isRC;
-        
-//        MyEVacationMasterViewController *vacationViewController = [[tabBarController childViewControllers] objectAtIndex:2];
-//        vacationViewController.userId = self.accountData.userId;
-//        vacationViewController.houseId = houseData.houseId;
-//        vacationViewController.houseName = houseData.houseName;
-//        vacationViewController.tId = thermostatData.tId;
-//        vacationViewController.tName = thermostatData.tName;
-//        vacationViewController.isRemoteControl = isRC;
-        
-//        MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
-//        settingsViewController.userId = self.accountData.userId;
-//        settingsViewController.userName = self.accountData.userName;
-//        settingsViewController.houseId = houseData.houseId;
-//        settingsViewController.houseName = houseData.houseName;
-//        settingsViewController.tId = thermostatData.tId;
-//        settingsViewController.tName = thermostatData.tName;
-//      settingsViewController.isRemoteControl = isRC;
-        
-        
-//        MyEThermostatListViewController *thermostatListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
-//        thermostatListViewController.userId = self.accountData.userId;
-//        thermostatListViewController.houseId = houseData.houseId;
-//        thermostatListViewController.houseName = houseData.houseName;
-//        thermostatListViewController.thermostats = houseData.thermostats;
-//        thermostatListViewController.tId = thermostatData.tId;
-//        thermostatListViewController.tName = thermostatData.tName;
-
-    }
+     }
     if ([[segue identifier] isEqualToString:@"ShowHouseList"])
     {
         MyEHouseListViewController *hlvc = [[segue destinationViewController] childViewControllers][0];

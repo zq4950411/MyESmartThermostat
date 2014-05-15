@@ -40,8 +40,35 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MAV-yd-csY">
+                                <rect key="frame" x="10" y="0.0" width="300" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="72F" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcH-yu-c72">
+                                        <rect key="frame" x="240" y="11" width="60" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Current" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="jJ4-c2-FBp">
+                                        <rect key="frame" x="10" y="5" width="127" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="textColor" red="0.27049604669999999" green="0.78431379800000001" blue="0.86315182609999996" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Weekly Program" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="G8O-q9-rCV">
+                                        <rect key="frame" x="10" y="21" width="156" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nvq-U1-kBd" customClass="ACPButton">
-                                <rect key="frame" x="10" y="25" width="130" height="40"/>
+                                <rect key="frame" x="10" y="320" width="130" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Stage 1 + 2" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6yT-2G-n1V">
@@ -66,7 +93,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zAa-Vd-qld" customClass="ACPButton">
-                                <rect key="frame" x="160" y="25" width="130" height="40"/>
+                                <rect key="frame" x="160" y="320" width="130" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView contentMode="scaleToFill" fixedFrame="YES" image="Ctrl_FanOn-01" translatesAutoresizingMaskIntoConstraints="NO" id="Uuw-PK-lJl">
@@ -90,49 +117,6 @@
                                     <action selector="changeFanControl:" destination="wsk-OD-Yur" eventType="touchUpInside" id="6eC-pO-JwQ"/>
                                 </connections>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Current" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="jJ4-c2-FBp">
-                                <rect key="frame" x="23" y="0.0" width="127" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Weekly Program" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="G8O-q9-rCV">
-                                <rect key="frame" x="147" y="0.0" width="156" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" red="0.0" green="0.016062736510000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMr-O7-N3Y" customClass="ACPButton">
-                                <rect key="frame" x="21" y="369" width="278" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Edit Schedule">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Uu-ly-Mg7" customClass="FUISwitch">
-                                <rect key="frame" x="105" y="331" width="100" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.96078431369999995" green="0.41176470590000003" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="holdAction:" destination="wsk-OD-Yur" eventType="valueChanged" id="76M-8B-c84"/>
-                                </connections>
-                            </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Run" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEX-T8-kyA">
-                                <rect key="frame" x="71" y="338" width="34" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Hold" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3bu-Mn-I5D">
-                                <rect key="frame" x="210" y="338" width="40" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X3f-oc-Dy8">
                                 <rect key="frame" x="0.0" y="-49" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -258,7 +242,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.95896084337349397" green="0.95920792545180722" blue="0.96105515813253017" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="X3f-oc-Dy8" secondAttribute="bottom" id="9IQ-RT-TbP"/>
@@ -275,8 +259,6 @@
                         <outlet property="activeProgramLabel" destination="G8O-q9-rCV" id="UFp-PO-c0w"/>
                         <outlet property="controlModeBtn" destination="nvq-U1-kBd" id="t5h-eO-kg5"/>
                         <outlet property="controlModeImageView" destination="4bS-Ug-ZmV" id="kXL-sl-xep"/>
-                        <outlet property="fUIButton" destination="YMr-O7-N3Y" id="4rb-v3-9HK"/>
-                        <outlet property="fUISwitch" destination="7Uu-ly-Mg7" id="D7a-zN-38F"/>
                         <outlet property="fanControlAutoButton" destination="BNW-ff-m2h" id="zvm-Mp-WxA"/>
                         <outlet property="fanControlOnButton" destination="uP1-Hv-v8h" id="VIG-Oo-lQa"/>
                         <outlet property="fanControlToolbarView" destination="7lo-pV-iZC" id="PYc-W8-jhD"/>
@@ -285,6 +267,7 @@
                         <outlet property="fanStatusBtn" destination="zAa-Vd-qld" id="HeI-xc-FdY"/>
                         <outlet property="fanStatusLabel" destination="jYz-nG-eSl" id="Z1T-xY-7q3"/>
                         <outlet property="holdRunLabel" destination="5Ou-UL-3Nx" id="z11-Xc-gep"/>
+                        <outlet property="indoorTemperatureLabel" destination="kcH-yu-c72" id="Vmm-Fq-uNH"/>
                         <outlet property="stageLevelLabel" destination="6yT-2G-n1V" id="S7F-jp-lRX"/>
                         <outlet property="systemControlAutoButton" destination="TfN-pM-WUV" id="1nk-ng-nKr"/>
                         <outlet property="systemControlCoolingButton" destination="9gH-hu-dSR" id="iZw-ns-GoC"/>
@@ -293,7 +276,6 @@
                         <outlet property="systemControlOffButton" destination="hFV-Bo-Krx" id="ZwP-a9-iUm"/>
                         <outlet property="systemControlToolbarView" destination="X3f-oc-Dy8" id="kta-Od-tYT"/>
                         <outlet property="systemControlToolbarViewTapRecognizer" destination="cvu-OR-vPA" id="65t-oL-vAV"/>
-                        <segue destination="8IQ-hN-W4G" kind="push" identifier="ShowSchedule" id="tbE-Oj-sjy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JEW-Ak-5A2" sceneMemberID="firstResponder"/>
@@ -377,7 +359,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.95896084339999998" green="0.9592079255" blue="0.96105515809999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Next 24Hrs" image="tab-24hrs-schedule" id="eDb-UZ-rKW"/>
@@ -491,7 +473,7 @@
                                 </connections>
                             </segmentedControl>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.95896084339999998" green="0.9592079255" blue="0.96105515809999997" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>

@@ -7,12 +7,9 @@
 //
 
 #import "MyEHouseListViewController.h"
-#import "MyEMainTabBarController.h"
 #import "MyEDashboardViewController.h"
-#import "MyEScheduleViewController.h"
 #import "MyEVacationMasterViewController.h"
 #import "MyESettingsViewController.h"
-#import "MyEThermostatListViewController.h"
 #import "MyEHouseListConnectedCell.h"
 #import "MyEHouseListDisconnectedCell.h"
 #import "MyEAccountData.h"
@@ -28,7 +25,7 @@
 #import "SWRevealViewController.h"
 #import "MyEMainMenuViewController.h"
 
-@interface MyEHouseListViewController() <SelectedTabBar>
+@interface MyEHouseListViewController()
 
 // selectedTabIndex变量原来是为SelectedTabBar protocol所定义的，定义在这里，但为了保证在ThermostatListViewController里面程序转移到新的tab后也能记住所进入的tab，就把此变量定义到类声明的地方，以便其他地方也可以访问。
 @property (nonatomic) NSInteger selectedHouseId;
@@ -498,78 +495,11 @@
     [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
     [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
     [prefs synchronize];
-   
-    BOOL isRC = (thermostatData.remote == 0? NO:YES);
-    
-    // 下面的这些语句功能和MyEThermostatListViewController下Selection按钮的Action函数功能一样
-    //在这里为每个tab view设置houseId和userId, 同时要为每个tab viewController中定义这两个变量，并实现一个统一的签名方法，以保存这个变量。
-//    SWRevealViewController *revealVC = [segue destinationViewController];
-//    NSLog(@"count = %d", [[revealVC childViewControllers] count]);
-//    SidebarTableViewController *tabBarController = [revealVC childViewControllers][0];
-//    
-//    //    [tabBarController setTitle:@"Dashboard"];
-//    [tabBarController setTitle:houseData.houseName];
-//    tabBarController.userId = self.accountData.userId;
-    
+
     if (self.selectedHouseId != houseData.houseId) {
         self.selectedTabIndex = 0;
         self.selectedHouseId = houseData.houseId;
     }
-    
-//    tabBarController.selectedTabIndex = self.selectedTabIndex;
-//    tabBarController.selectedTabIndexDelegate = self;
-//    tabBarController.houseId = houseData.houseId;
-//    tabBarController.houseName = houseData.houseName;
-//    tabBarController.tId = thermostatData.tId;
-//    tabBarController.tName = thermostatData.tName;
-//    
-////    tabBarController.tCount = [houseData countOfConnectedThermostat];// 此处仅设置这个房子的有连接的t的数量，但我们要显示所有t，所以改用下面的所有t的数目
-//    tabBarController.tCount = [houseData.thermostats count];// 设置这个房子的t的数量
-    
-    //注意，在下面houseData.remote和后面每个面板的查看请求中的locWeb字段功能含义是相同的，
-    // 只是houseData.remote是在HouseList面板时表示硬件是否可控，而locWeb是在每个面板单独查看硬件信息时，
-    // 服务器通知本App硬件状态是否有变化。
-    // 实际上，现在每个面板都添加了locWeb这个字段来设定面板是否可控，这里的houseData.remote就多余了 2012-9-7
-
-//    MyEDashboardViewController *dashboardViewController = revealVC childViewControllers][1];
-//    dashboardViewController.userId = self.accountData.userId;
-//    dashboardViewController.houseId = houseData.houseId;
-//    dashboardViewController.houseName = houseData.houseName;
-//    dashboardViewController.tId = thermostatData.tId;
-//    dashboardViewController.tName = thermostatData.tName;
-//    dashboardViewController.isRemoteControl = isRC;     
-    
-//    MyEScheduleViewController *scheduleViewController = [[tabBarController childViewControllers] objectAtIndex:1];
-//    scheduleViewController.userId = self.accountData.userId;
-//    scheduleViewController.houseId = houseData.houseId;
-//    scheduleViewController.houseName = houseData.houseName;
-//    scheduleViewController.tId = thermostatData.tId;
-//    scheduleViewController.tName = thermostatData.tName;
-//    scheduleViewController.isRemoteControl = isRC;
-    
-//    MyEVacationMasterViewController *vacationViewController = [[tabBarController childViewControllers] objectAtIndex:2];
-//    vacationViewController.userId = self.accountData.userId;
-//    vacationViewController.houseId = houseData.houseId;
-//    vacationViewController.houseName = houseData.houseName;
-//    vacationViewController.tId = thermostatData.tId;
-//    vacationViewController.tName = thermostatData.tName;
-//    vacationViewController.isRemoteControl = thermostatData.remote == 0? NO:YES;
-    
-//    MyESettingsViewController *settingsViewController = [[tabBarController childViewControllers] objectAtIndex:3];
-//    settingsViewController.userId = self.accountData.userId;
-//    settingsViewController.userName = self.accountData.userName;
-//    settingsViewController.houseId = houseData.houseId;
-//    settingsViewController.houseName = houseData.houseName;
-//    settingsViewController.tId = thermostatData.tId;
-//    settingsViewController.tName = thermostatData.tName;
-    //settingsViewController.isRemoteControl = isRC;
-    
-//    MyEThermostatListViewController *thermostatListViewController = [[tabBarController childViewControllers] objectAtIndex:4];
-//    thermostatListViewController.userId = self.accountData.userId;
-//    thermostatListViewController.houseId = houseData.houseId;
-//    thermostatListViewController.houseName = houseData.houseName;
-//    thermostatListViewController.thermostats = houseData.thermostats;
-//    thermostatListViewController.tId = thermostatData.tId;
 }
 
 
@@ -577,19 +507,8 @@
 #pragma mark URL Loading System methods
 - (void) downloadModelFromServer
 {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];
@@ -650,17 +569,5 @@
     [alert show];
     [self performSelector:@selector(dimissAlert:) withObject:alert afterDelay:delay];
 }
-
-
-#pragma mark -
-#pragma mark SelectedTabBar protocol methods
-
-- (void) saveSeletedTabIndex:(NSInteger) index {
-    
-    self.selectedTabIndex = index;
-    
-}
-
-
 
 @end
