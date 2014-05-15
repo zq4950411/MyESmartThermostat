@@ -51,7 +51,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView contentMode="scaleToFill" fixedFrame="YES" image="Ctrl_Cooling01.png" translatesAutoresizingMaskIntoConstraints="NO" id="4bS-Ug-ZmV">
+                                    <imageView contentMode="scaleToFill" fixedFrame="YES" image="Ctrl_Cooling01" translatesAutoresizingMaskIntoConstraints="NO" id="4bS-Ug-ZmV">
                                         <rect key="frame" x="5" y="5" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
@@ -69,7 +69,7 @@
                                 <rect key="frame" x="160" y="25" width="130" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView contentMode="scaleToFill" fixedFrame="YES" image="Ctrl_FanOn-01.png" translatesAutoresizingMaskIntoConstraints="NO" id="Uuw-PK-lJl">
+                                    <imageView contentMode="scaleToFill" fixedFrame="YES" image="Ctrl_FanOn-01" translatesAutoresizingMaskIntoConstraints="NO" id="Uuw-PK-lJl">
                                         <rect key="frame" x="5" y="5" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
@@ -268,7 +268,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Dashboard" image="tab-doshboard.png" id="ulX-yr-1Nt"/>
+                    <tabBarItem key="tabBarItem" title="Dashboard" image="tab-doshboard" id="ulX-yr-1Nt"/>
                     <navigationItem key="navigationItem" title="Dashboard" id="8JX-Sf-80W"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
@@ -342,7 +342,7 @@
                                         <rect key="frame" x="115" y="99" width="90" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="reset.png">
+                                        <state key="normal" image="reset">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -380,7 +380,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Next 24Hrs" image="tab-24hrs-schedule.png" id="eDb-UZ-rKW"/>
+                    <tabBarItem key="tabBarItem" title="Next 24Hrs" image="tab-24hrs-schedule" id="eDb-UZ-rKW"/>
                     <navigationItem key="navigationItem" title="Next 24 Hours" id="LAY-GV-b9d"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
@@ -414,7 +414,7 @@
                                         <rect key="frame" x="117" y="92" width="88" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="apply.png">
+                                        <state key="normal" image="apply">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -429,7 +429,7 @@
                                         <rect key="frame" x="117" y="135" width="88" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="reset_halfcircle.png">
+                                        <state key="normal" image="reset_halfcircle">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -448,7 +448,7 @@
                                 <rect key="frame" x="20" y="318" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                                <state key="normal" image="add.png">
+                                <state key="normal" image="add">
                                     <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -463,7 +463,7 @@
                                 <rect key="frame" x="270" y="318" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Edit" image="pen.png">
+                                <state key="normal" title="Edit" image="pen">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -552,7 +552,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation02.png" translatesAutoresizingMaskIntoConstraints="NO" id="yB8-hj-H3H">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation02" translatesAutoresizingMaskIntoConstraints="NO" id="yB8-hj-H3H">
                                                     <rect key="frame" x="50" y="4" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -824,7 +824,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation01.png" translatesAutoresizingMaskIntoConstraints="NO" id="zGK-5I-L2R">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation01" translatesAutoresizingMaskIntoConstraints="NO" id="zGK-5I-L2R">
                                             <rect key="frame" x="15" y="3" width="45" height="45"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -857,7 +857,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation02.png" translatesAutoresizingMaskIntoConstraints="NO" id="EId-hX-emh">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation02" translatesAutoresizingMaskIntoConstraints="NO" id="EId-hX-emh">
                                             <rect key="frame" x="15" y="2" width="45" height="45"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -938,7 +938,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation01.png" translatesAutoresizingMaskIntoConstraints="NO" id="tgL-Oj-qyD">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation01" translatesAutoresizingMaskIntoConstraints="NO" id="tgL-Oj-qyD">
                                                     <rect key="frame" x="50" y="4" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -1235,7 +1235,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation01.png" translatesAutoresizingMaskIntoConstraints="NO" id="KSq-Zi-zmi">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation01" translatesAutoresizingMaskIntoConstraints="NO" id="KSq-Zi-zmi">
                                                     <rect key="frame" x="50" y="4" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -1463,7 +1463,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation02.png" translatesAutoresizingMaskIntoConstraints="NO" id="eIo-h6-WZM">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation02" translatesAutoresizingMaskIntoConstraints="NO" id="eIo-h6-WZM">
                                                     <rect key="frame" x="50" y="4" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -1744,7 +1744,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation02.png" translatesAutoresizingMaskIntoConstraints="NO" id="ipF-E7-VT3">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation02" translatesAutoresizingMaskIntoConstraints="NO" id="ipF-E7-VT3">
                                                     <rect key="frame" x="50" y="4" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -2016,7 +2016,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation01.png" translatesAutoresizingMaskIntoConstraints="NO" id="1jE-3y-2Pu">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation01" translatesAutoresizingMaskIntoConstraints="NO" id="1jE-3y-2Pu">
                                             <rect key="frame" x="15" y="3" width="45" height="45"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -2049,7 +2049,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation02.png" translatesAutoresizingMaskIntoConstraints="NO" id="2IW-iJ-RQg">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation02" translatesAutoresizingMaskIntoConstraints="NO" id="2IW-iJ-RQg">
                                             <rect key="frame" x="15" y="2" width="45" height="45"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -2068,7 +2068,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" tag="2" title="Vacation" image="tab-vacation.png" id="huN-es-BFb"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Vacation" image="tab-vacation" id="huN-es-BFb"/>
                     <navigationItem key="navigationItem" title="Vacation" id="ESk-cD-dhb"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                 </tableViewController>
@@ -2117,7 +2117,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation01.png" translatesAutoresizingMaskIntoConstraints="NO" id="E7G-SO-hcz">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation01" translatesAutoresizingMaskIntoConstraints="NO" id="E7G-SO-hcz">
                                                     <rect key="frame" x="50" y="4" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -2347,7 +2347,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation01.png" translatesAutoresizingMaskIntoConstraints="NO" id="FbR-sf-Iws">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation01" translatesAutoresizingMaskIntoConstraints="NO" id="FbR-sf-Iws">
                                                     <rect key="frame" x="50" y="4" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -2575,7 +2575,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation02.png" translatesAutoresizingMaskIntoConstraints="NO" id="c5A-n5-GwZ">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Vacation02" translatesAutoresizingMaskIntoConstraints="NO" id="c5A-n5-GwZ">
                                                     <rect key="frame" x="50" y="4" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -2817,8 +2817,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Ctrl_Cooling01.png" width="45" height="45"/>
-        <image name="Ctrl_FanOn-01.png" width="45" height="45"/>
+        <image name="Ctrl_Cooling01" width="45" height="45"/>
+        <image name="Ctrl_FanOn-01" width="45" height="45"/>
         <image name="Tb_AutoRun.png" width="45" height="45"/>
         <image name="Tb_Cooling01.png" width="40" height="40"/>
         <image name="Tb_EmgH01.png" width="40" height="40"/>
@@ -2826,17 +2826,18 @@
         <image name="Tb_FanON01.png" width="40" height="40"/>
         <image name="Tb_Heating01.png" width="40" height="40"/>
         <image name="Tb_Off.png" width="40" height="40"/>
-        <image name="Vacation01.png" width="45" height="45"/>
-        <image name="Vacation02.png" width="45" height="45"/>
-        <image name="add.png" width="30" height="30"/>
-        <image name="apply.png" width="100" height="50"/>
-        <image name="pen.png" width="30" height="30"/>
-        <image name="reset.png" width="100" height="100"/>
-        <image name="reset_halfcircle.png" width="100" height="50"/>
-        <image name="tab-24hrs-schedule.png" width="30" height="30"/>
-        <image name="tab-doshboard.png" width="30" height="30"/>
+        <image name="Vacation01" width="45" height="45"/>
+        <image name="Vacation02" width="45" height="45"/>
+        <image name="add" width="30" height="30"/>
+        <image name="apply" width="100" height="50"/>
+        <image name="pen" width="30" height="30"/>
+        <image name="reset" width="100" height="100"/>
+        <image name="reset_halfcircle" width="100" height="50"/>
+        <image name="tab-24hrs-schedule" width="30" height="30"/>
+        <image name="tab-doshboard" width="30" height="30"/>
         <image name="tab-schedule" width="30" height="30"/>
         <image name="tab-schedule.png" width="30" height="30"/>
+        <image name="tab-vacation" width="30" height="30"/>
         <image name="tab-vacation.png" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

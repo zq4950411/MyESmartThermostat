@@ -143,25 +143,25 @@
 #pragma -
 #pragma 重写以下方法
 
-//-(void) netFinish:(NSDictionary *) jsonString withUserInfo:(NSDictionary *) userInfo
-//{
-//    
-//}
-//
-//-(void) netFinish:(NSDictionary *) jsonString withUserInfo:(NSDictionary *) userInfo andURL:(NSString *) url
-//{
-//    
-//}
-//
-//-(void) netError:(id) errorMsg withUserInfo:(NSDictionary *) userInfo
-//{
-//    
-//}
-//
-//-(void) netError:(id) errorMsg withUserInfo:(NSDictionary *) userInfo andURL:(NSString *) url
-//{
-//    
-//}
+-(void) netFinish:(NSDictionary *) jsonString withUserInfo:(NSDictionary *) userInfo
+{
+    
+}
+
+-(void) netFinish:(NSDictionary *) jsonString withUserInfo:(NSDictionary *) userInfo andURL:(NSString *) url
+{
+    
+}
+
+-(void) netError:(id) errorMsg withUserInfo:(NSDictionary *) userInfo
+{
+    
+}
+
+-(void) netError:(id) errorMsg withUserInfo:(NSDictionary *) userInfo andURL:(NSString *) url
+{
+    
+}
 
 
 -(void) leftButtonItemClickBackCall

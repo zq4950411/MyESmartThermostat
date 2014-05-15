@@ -9,6 +9,7 @@
 #import "MyELoginViewController.h"
 #import "MyEAccountData.h"
 #import "MyEHouseListViewController.h"
+#import "MyEHouseAddViewController.h"
 #import "MyEMainTabBarController.h"
 #import "MyEDashboardViewController.h"
 #import "MyEScheduleViewController.h"
@@ -26,7 +27,6 @@
 
 @synthesize usernameInput = _usernameInput;
 @synthesize passwordInput = _passwordInput;
-@synthesize rememberMeInput = _rememberMeInput;
 @synthesize loginButton = _loginButton;
 
 @synthesize accountData = _accountData;
@@ -57,15 +57,6 @@
 
 #pragma mark - View lifecycle
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -97,7 +88,6 @@
 {
     [self setUsernameInput:nil];
     [self setPasswordInput:nil];
-    [self setRememberMeInput:nil];
     [self setLoginButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -115,8 +105,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-//*
- // Implement prepareForSegue to do additional configuration, such as assigning data before transition to another view.
+#pragma mark - Navigation methods
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     MainDelegate.accountData = self.accountData;
@@ -267,31 +256,16 @@
     [UIView commitAnimations];
 }
 
--(void)loadSettings{
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    self.rememberMeInput.on = [prefs boolForKey:@"rememberme"];
-    if (self.rememberMeInput.isOn) {
-        self.usernameInput.text = [prefs objectForKey:@"username"];
-        self.passwordInput.text = [prefs objectForKey:@"password"];
-    }
-}
-
--(void)saveSettings{   
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    if (self.rememberMeInput.isOn) {
-        [prefs setObject:self.usernameInput.text forKey:@"username"];
-        [prefs setObject:self.passwordInput.text forKey:@"password"];
-        [prefs setBool:YES forKey:@"rememberme"];  
-    }else {
-        [prefs setObject:[NSNumber numberWithBool:NO] forKey:@"rememberme"]; 
-    }
-    [prefs synchronize];
-}
-
+#pragma mark - IBAction methods
 - (IBAction)login:(id)sender {
     [self _doLogin];
 }
-
+- (IBAction)changeSaveSettings:(UIButton *)sender {
+    
+}
+- (IBAction)scanToRegister:(UIButton *)sender {
+    
+}
 
 
 - (void)hideKeyboardBeforeResignActive:(NSNotification *)notification{
@@ -299,17 +273,12 @@
     [self.passwordInput resignFirstResponder];
 }
 
-
-
-
 #pragma mark -
 #pragma mark URL Loading System methods
 
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"Login account JSON String from server is \n%@",string);
     if([name isEqualToString:@"LoginDownloader"]) {
-        // for test
-        //string = @"{\"houses\":[{\"mId\":\"05-00-00-00-00-00-02-0E\",\"connection\":0,\"houseName\":\"House5604\",\"thermostats\":[{\"thermostat\":0,\"tName\":\"T_50\",\"deviceType\":0,\"tId\":\"00-00-00-00-00-00-02-50\",\"keypad\":0,\"remote\":1},{\"thermostat\":0,\"tName\":\"T_74\",\"deviceType\":0,\"tId\":\"00-00-00-00-00-00-01-74\",\"keypad\":0,\"remote\":1}],\"houseId\":3374},{\"mId\":\"\",\"connection\":1,\"houseName\":\"House623\",\"thermostats\":[],\"houseId\":7032}],\"success\":\"true\",\"userId\":\"1000100000000000578\",\"userName\":\"xyk2\"}";
         MyEAccountData *anAccountData = [[MyEAccountData alloc] initWithJSONString:string];
         if(anAccountData && anAccountData.loginSuccess)
         {
@@ -318,10 +287,11 @@
             
             if (anAccountData.houseList.count < 1 ){
                 UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Information" 
-                                                              message:@"This app is for Smart Home control associated with a property. Please visit our website and add a property to your account before using this app."
+                                                              message:@"This app is for Smart Home control associated with a property. Please tap OK to go on adding a property to your account before using this app, or tap Cancel to exit."
                                                              delegate:self 
                                                     cancelButtonTitle:@"Ok"
                                                     otherButtonTitles:@"Cancel",nil];
+                alert.tag = 100;
                 [alert show];
             }
             else if (anAccountData.houseList.count == 1 &&
@@ -405,10 +375,10 @@
 #pragma mark UIAlertViewDelegate methods
 -(void)alertView:(UIAlertView *)alertView  clickedButtonAtIndex:(int)index
 {
-    if([alertView.title isEqualToString:@"Information"] && index == 0) {
-        NSString *urlString = @"http://www.myenergydomain.com";
-        NSURL *url = [NSURL URLWithString:urlString];
-        [[UIApplication sharedApplication] openURL:url];
+    if(alertView.tag == 100 && index == 0) {
+        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Setting" bundle:nil];
+        MyEHouseAddViewController *vc = [story instantiateViewControllerWithIdentifier:@"houseAdd"];
+        [self presentViewController:vc animated:YES completion:nil];
     }
 }
 
@@ -502,4 +472,25 @@
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"LoginDownloader" userDataDictionary:nil];
     NSLog(@"downloader.name is  %@ urlStr =  %@",downloader.name, urlStr);
 }
+-(void)loadSettings{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    self.saveBtn.selected = [prefs boolForKey:@"rememberme"];
+    if (self.saveBtn.selected) {
+        self.usernameInput.text = [prefs objectForKey:@"username"];
+        self.passwordInput.text = [prefs objectForKey:@"password"];
+    }
+}
+
+-(void)saveSettings{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    if (self.saveBtn.selected) {
+        [prefs setObject:self.usernameInput.text forKey:@"username"];
+        [prefs setObject:self.passwordInput.text forKey:@"password"];
+        [prefs setBool:YES forKey:@"rememberme"];
+    }else {
+        [prefs setObject:[NSNumber numberWithBool:NO] forKey:@"rememberme"];
+    }
+    [prefs synchronize];
+}
+
 @end

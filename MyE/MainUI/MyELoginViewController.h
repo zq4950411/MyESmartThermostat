@@ -22,7 +22,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameInput;
 @property (weak, nonatomic) IBOutlet UITextField *passwordInput;
-@property (weak, nonatomic) IBOutlet UISwitch *rememberMeInput;
+@property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 - (IBAction)login:(id)sender;
 
