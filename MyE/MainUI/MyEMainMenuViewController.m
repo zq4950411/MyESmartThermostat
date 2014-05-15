@@ -62,6 +62,58 @@
     NSString *CellIdentifier = [self.menuItems objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+#warning 下面根据房间的设备的情况, 来确定对应的菜单按钮是否允许访问.下面代码参考原来的MyEMainTabBarController,- (void)viewDidLoad 里面的代码
+    //b)	网关在线，但尚未绑定任何一个智能终端：则后面显示文字“Connected”和红叉，点击后进入settings页面，其他主菜单置灰（不能进入）。
+    
+//    BOOL hasT = NO;
+//    BOOL hasS = NO;
+//    
+//    int index = -1;
+//    
+//    for (MyEThermostatData *t in MainDelegate.houseData.thermostats)
+//    {
+//        if (t.deviceType == 0 && t.thermostat == 0)
+//        {
+//            hasT = YES;
+//        }
+//        else if((t.deviceType == 1 || t.deviceType == 2 || t.deviceType == 3 || t.deviceType == 6) && t.thermostat == 0 )
+//        {
+//            hasS = YES;
+//        }
+//    }
+//    
+//    if (hasT )
+//    {
+//        index = 0;
+//        [[vc.tabBar.items objectAtIndex:0] setEnabled:YES];
+//    }
+//    else
+//    {
+//        [[vc.tabBar.items objectAtIndex:0] setEnabled:NO];
+//    }
+//    
+//    if (hasS)
+//    {
+//        if (!hasT)
+//        {
+//            index = 1;
+//        }
+//        [[vc.tabBar.items objectAtIndex:1] setEnabled:YES];
+//    }
+//    else
+//    {
+//        [[vc.tabBar.items objectAtIndex:1] setEnabled:NO];
+//    }
+//    
+//    if (index == -1)
+//    {
+//        vc.selectedIndex = 3;
+//    }
+//    else
+//    {
+//        vc.selectedIndex = index;
+//    }
+///////////////////////////////////////////
     return cell;
 }
 

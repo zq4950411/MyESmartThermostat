@@ -9,8 +9,6 @@
 #import "MyEThermostatData.h"
 
 @implementation MyEThermostatData
-@synthesize tName = _tName, tId = _tId, thermostat = _thermostat, remote = _remote, deviceType = _deviceType, keypad = _keypad;
-
 - (MyEThermostatData *)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
         self.tId = [dictionary objectForKey:@"tId"];

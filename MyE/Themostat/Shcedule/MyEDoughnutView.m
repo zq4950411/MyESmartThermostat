@@ -10,7 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MyESectorView.h"
 #import "MyEUtil.h"
-#import "MyETodayScheduleController.h"
 #import "MyEScheduleTodayData.h"
 
 #include <math.h>
@@ -844,10 +843,6 @@ typedef enum {
         [aPath addLineToPoint:CGPointMake(newCenter.x + tickTextRadius * 0.9 * cos(self.sectorIdSpaningCurrentTime * ALPHA - M_PI_2), 
                                           newCenter.y + tickTextRadius * 0.9 * sin(self.sectorIdSpaningCurrentTime * ALPHA - M_PI_2))];
         [aPath closePath];
-        
-        // for test
-        NSLog(@"In Doughnut view draw rect, Current Time is : %@", ((MyETodayScheduleController *)self.delegate).todayModel.currentTime);
-        
         
         // ------------下面绘制表针的阴影，要向右下角偏移一点距离----------------
         CGContextSaveGState(context);

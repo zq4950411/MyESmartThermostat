@@ -11,7 +11,6 @@
 #import "MyETodayPeriodData.h"
 #import "MyEScheduleNext24HrsData.h"
 #import "MyEHouseListViewController.h"
-#import "MyEScheduleViewController.h"
 
 #import "MyEAccountData.h"
 #import "MyEHouseData.h"
@@ -183,17 +182,6 @@
 #pragma mark URL Loading System methods
 - (void) downloadModelFromServer
 {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
-    
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         //        HUD.dimBackground = YES;//容易产生灰条
@@ -207,20 +195,8 @@
 }
 - (void) downloadWeeklyModelFromServer
 {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
-    
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        //        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];
@@ -233,20 +209,9 @@
 
 - (void) uploadModelToServer
 {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
-    
+   
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        //        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];
@@ -265,17 +230,6 @@
 
 - (void) uploadHoldModelToServerWithSetpoint:(NSInteger)setpoint hold:(NSInteger)hold
 {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
-    
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         //        HUD.dimBackground = YES;//容易产生灰条
@@ -328,7 +282,7 @@
             [self.resetButton setEnabled:NO];
             
             //刷新远程控制的状态。
-            self.isRemoteControl = [next24hrsModel.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame;
+            [self setIsRemoteControl:[next24hrsModel.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame ];
         } else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:@"Communication error. Please try again."
@@ -570,7 +524,7 @@
     NSInteger lastSectorIdOfPeriodSpaningCurrentTime = [self _lastSectorIdOfPeriodSpaningCurrentTime];
     
     NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
-    if (sectorInedx <  sectorIdSpaningCurrentTime || !self.isRemoteControl){
+    if (sectorInedx <  sectorIdSpaningCurrentTime || !MainDelegate.thermostatData.remote){
         [self _togglePeriodInforView];
     }
     else if(sectorInedx >=sectorIdSpaningCurrentTime && sectorInedx <=  lastSectorIdOfPeriodSpaningCurrentTime){
@@ -838,7 +792,7 @@
         [hlvc downloadModelFromServer ];
         
         //获取当前正在操作的house的name
-        NSString *currentHouseName = [hlvc.accountData getHouseNameByHouseId:self.houseId];
+        NSString *currentHouseName = [hlvc.accountData getHouseNameByHouseId:MainDelegate.houseData.houseId];
         NSString *message;
         
         if (respondInt == -999) {

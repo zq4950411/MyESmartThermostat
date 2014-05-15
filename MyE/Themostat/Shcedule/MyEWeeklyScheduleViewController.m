@@ -12,7 +12,6 @@
 #import "MyEWeeklyPeriodData.h"
 #import "MyEWeekDayItemData.h"
 #import "MyEHouseListViewController.h"
-#import "MyEScheduleViewController.h"
 
 #import "MyESectorView.h"
 #import "MyEUtil.h"
@@ -115,7 +114,7 @@
     self.currentWeekdayId = week-1;//设置我们这里所用的今天的星期数，0-sun， 1-mon, ..., 6-sat
     
     [self.centerContainerView insertSubview:_doughnutView atIndex:0];
-    [self setIsRemoteControl:self.isRemoteControl];// 重新调用一次，因为有可能在外部第一次设置isRemoteControl]的时候，调用下面的setIsRemoteControl:函数，但那时候View组件还没加载生成完成，那么就可能不能正确设置subviews的可见性。
+    [self setIsRemoteControl:MainDelegate.thermostatData.remote];// 重新调用一次，因为有可能在外部第一次设置isRemoteControl]的时候，调用下面的setIsRemoteControl:函数，但那时候View组件还没加载生成完成，那么就可能不能正确设置subviews的可见性。
 
 }
 - (void)viewWillAppear:(BOOL)animated
@@ -331,7 +330,7 @@
             self.resetButton.enabled = NO;
             
             //刷新远程控制的状态。
-            self.isRemoteControl = [weeklyModel.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame;
+            [self setIsRemoteControl:[weeklyModel.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame];
         } else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:@"Communication error. Please try again."
@@ -752,16 +751,12 @@
 #pragma mark methods for mode editing view
 - (void)_createModeEditingViewIfNecessary {
     if (!_modeEditingView) {
-        //  获取最底层ScheduleView,这里本来应该把_modeEditingView添加到self.view的，可以保持低耦合，不过这里为了特殊显示效果，才把_modeEditingView添加到底层ScheduleView的
-        UIView *baseView = self.view;
-        if (self.delegate)
-            baseView = self.delegate.view;
-        
-        CGRect bounds = [baseView bounds];
+       
+        CGRect bounds = [self.view bounds];
         CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMaxY(bounds), bounds.size.width, bounds.size.height);
         _modeEditingView = [[MyEWeeklyModeEditingView alloc] initWithFrame:frame];
         [_modeEditingView setDelegate:self];
-        [baseView addSubview:_modeEditingView];
+        [self.view addSubview:_modeEditingView];
     }
 }
 
@@ -780,19 +775,13 @@
     CGRect frame = [_modeEditingView frame];
     if (_modeEditingViewShowing) {//假如正在显示，则隐藏
         frame.origin.y += frame.size.height;
-        
-        //  把底层ScheduleView上的Today/Weekly切换按钮启用。
-        if (self.delegate)
-            self.delegate.todayWeeklySwitchButton.enabled = YES;
+
     } else {//假如正在隐藏，则显示
         //首先设置是否允许远程控制操作
-        [_modeEditingView setRemoteControlEnabled:self.isRemoteControl];
+        [_modeEditingView setRemoteControlEnabled:MainDelegate.thermostatData.remote];
         
         frame.origin.y -= frame.size.height;
-        
-        //  把底层ScheduleView上的Today/Weekly切换按钮禁用
-        if (self.delegate)
-            self.delegate.todayWeeklySwitchButton.enabled = NO;
+
         
         if(typeOfEditing == ModeEditingViewTypeEditing) { //显示编辑现存模式的面板
             BOOL isSystemMode = NO;// 标记是否是系统默认属性，metaModeArray里面的前四个始终是系统默认属性，不允许删除，但可以修改。
@@ -844,17 +833,11 @@
 #pragma mark methods for Apply To days selection view
 - (void)_createApplyToDaysSelectionViewIfNecessary {
     if (!_weeklyDaySelectionView) {
-        // 获取最底层ScheduleView,这里本来应该把_weeklyDaySelectionView添加到self.view的，可以保持低耦合，
-        // 不过这里为了特殊显示效果，才把_weeklyDaySelectionView添加到底层ScheduleView的
-        UIView *baseView = self.view;
-        if (self.delegate)
-            baseView = self.delegate.view;
-        
-        CGRect bounds = [baseView bounds];
+        CGRect bounds = [self.view bounds];
         CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMaxY(bounds), bounds.size.width, bounds.size.height);
         _weeklyDaySelectionView = [[MyEWeeklyDaySelectionView alloc] initWithFrame:frame];
         [_weeklyDaySelectionView setDelegate:self];
-        [baseView addSubview:_weeklyDaySelectionView];
+        [self.view addSubview:_weeklyDaySelectionView];
     }
 }
 - (void)_toggleApplyToDaysSelectionView
@@ -865,18 +848,8 @@
     CGRect frame = [_weeklyDaySelectionView frame];
     if (_applyToDaysSelectionViewShowing) {//假如正在显示，则隐藏
         frame.origin.y += frame.size.height;
-        
-        //  把底层ScheduleView上的Today/Weekly切换按钮启用。
-        if (self.delegate)
-            self.delegate.todayWeeklySwitchButton.enabled = YES;
     } else {//假如正在隐藏，则显示
-        
         frame.origin.y -= frame.size.height;
-        
-        //  把底层ScheduleView上的Today/Weekly切换按钮禁用
-        if (self.delegate)
-            self.delegate.todayWeeklySwitchButton.enabled = NO;
-        
         [_weeklyDaySelectionView setCurrentWeekdayIndex:self.currentWeekdayId];
     }
     
@@ -891,12 +864,8 @@
 
 - (void)_createPeriodInforDoughnutViewIfNecessary {
     if (!_periodInforDoughnutView) {
-        //  获取底层ScheduleView,这里本来应该把此添加到self.view的，可以保持低耦合，不过这里为了特殊显示效果，才把_modeEditingView添加到底层ScheduleView的
-        UIView *baseView = self.view;
-        if (self.delegate)
-            baseView = self.delegate.view;
         
-        CGRect bounds = [baseView bounds];
+        CGRect bounds = [self.view bounds];
         
         // 为了Retina4屏幕而修改的Doughnut圈高度固定
         //CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, bounds.size.height);
@@ -907,7 +876,7 @@
         _periodInforDoughnutView.doughnutViewRadius = WEEKLY_DOUGHNUT_VIEW_SIZE / 2;
         _periodInforDoughnutView.doughnutCenterOffsetY = 12;
         [_periodInforDoughnutView setDelegate:self];
-        [baseView addSubview:_periodInforDoughnutView];
+        [self.view addSubview:_periodInforDoughnutView];
     }
 }
 - (void)_togglePeriodInforDoughnutView{
@@ -917,28 +886,25 @@
         [_periodInforDoughnutView setHidden:YES];
         
         //  把底层ScheduleView上的Today/Weekly切换按钮启用
-        if (self.delegate){
-            self.delegate.todayWeeklySwitchButton.enabled = YES;
+
             _resetButton.alpha = 1;
             _applyButton.alpha = 1;
             _modePickerView.alpha = 1.0f;
             _weeklyDaySelectionView.alpha = 1.0f;
             _addNewModeButton.alpha = 1.0f;
             _editModeButton.alpha = 1.0f;
-        }
+
     } else {
         [_periodInforDoughnutView setHidden:NO];
         
         //  把底层ScheduleView上的Today/Weekly切换按钮禁用
-        if (self.delegate){
-            self.delegate.todayWeeklySwitchButton.enabled = NO;
+
             _resetButton.alpha = 0.66;
             _applyButton.alpha = 0.66;
             _modePickerView.alpha = 0.66f;
             _weeklyDaySelectionView.alpha = 0.66f;
             _addNewModeButton.alpha = 0.66f;
             _editModeButton.alpha = 0.66f;
-        }
         
         _periodInforDoughnutView.periods = [self.weeklyModel periodsForWeekdayId:self.currentWeekdayId];
     }
@@ -969,7 +935,7 @@
         [hlvc downloadModelFromServer ];
         
         //获取当前正在操作的house的name
-        NSString *currentHouseName = [hlvc.accountData getHouseNameByHouseId:self.houseId];
+        NSString *currentHouseName = [hlvc.accountData getHouseNameByHouseId:MainDelegate.houseData.houseId];
         NSString *message;
         
         if (respondInt == -999) {

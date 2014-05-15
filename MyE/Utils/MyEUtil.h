@@ -191,7 +191,14 @@ typedef enum
 // 定义heating和cooling setpoint之间允许的最小差距，单位是华氏度，整数
 #define MINIMUM_HEATING_COOLING_GAP 2
 
-
+// 定义Thermostat Dashboard 的 hold状态
+// hold 对应 MyEDashboardData.isOvrried  分别对应0(Run), 1(Permanent Hold), 2(Temporary Hold)。
+typedef enum
+{
+    HOLD_TYPE_RUN,
+    HOLD_TYPE_PERMANENT,
+    HOLD_TYPE_TEMPORARY
+} HoldType;
 
 
 // 定义Schedule模块中mode所能使用的16中颜色
