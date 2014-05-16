@@ -28,8 +28,9 @@
 
 #import "CDCircleOverlayView.h"
 
+// 定义圆环view外接矩形的左上角远点左边
 #define CIRCLE_ORIGIN_X 30
-#define CIRCLE_ORIGIN_Y 40
+#define CIRCLE_ORIGIN_Y 55
 #define CIRCLE_DIAMETER 260
 
 @interface MyEDashboardViewController ()
@@ -124,10 +125,16 @@
     self.circle.delegate = self;
     CDCircleOverlayView *overlay = [[CDCircleOverlayView alloc] initWithCircle:self.circle];
     
+    // 根据Circle位置,重新定义hold 标签的位置
+    CGRect bounds = CGRectMake(CIRCLE_ORIGIN_X + (self.circle.ringWidth + 20.0),
+                               CIRCLE_ORIGIN_Y + (self.circle.ringWidth + 60.0),
+                               self.holdRunLabel.frame.size.width,self.holdRunLabel.frame.size.height);
+    self.holdRunLabel.frame = bounds;
+    
     for (CDCircleThumb *thumb in self.circle.thumbs) {
         [thumb.iconView setHighlitedIconColor:[UIColor whiteColor]];
         thumb.separatorColor = [UIColor colorWithRed:0.08 green:0.8 blue:0.8 alpha:1];
-        thumb.separatorStyle = CDCircleThumbsSeparatorBasic;
+        thumb.separatorStyle = CDCircleThumbsSeparatorNone;
         thumb.gradientFill = NO;
         thumb.arcColor = [UIColor colorWithRed:75.0/255.0 green:180.0/255.0 blue:200.0/255.0 alpha:1.0];
 //        thumb.gradientColors = [NSArray arrayWithObjects:(id) [UIColor blackColor].CGColor, (id) [UIColor yellowColor].CGColor, (id) [UIColor blueColor].CGColor, nil];
@@ -879,6 +886,10 @@
 -(void) circleToucheBegan: (CDCircle *) circle // 发送一个信号表示触摸开始
 {
     _totalDegree = 0;
+    if ([loadTimer isValid]) {
+        [loadTimer invalidate];
+        loadTimer = nil;
+    }
     NSLog(@"begin代理");
 }
 -(void) circle:(CDCircle *)circle didMoveToSegment:(NSInteger)segment thumb:(CDCircleThumb *)thumb {
@@ -942,7 +953,8 @@
 //    NSString *fileString = [[[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:nil] lastObject];
 //    return [UIImage imageWithContentsOfFile:fileString];
 
-    return [UIImage imageNamed:@"icon_arrow_up.png"];
+//    return [UIImage imageNamed:@"icon_arrow_up.png"];
+    return Nil;
 }
 
 

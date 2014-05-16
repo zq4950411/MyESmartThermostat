@@ -73,10 +73,10 @@
    [self setRotation:angleInRadians];
     currentTransformAngle = atan2f(view.transform.b, view.transform.a);
     
-    
+    // 注意angleInRadians的计时方法其实和下面的getTouchAngle函数原理一样
     CGFloat direction = [self getTouchAngle:currentTouchPoint] - [self getTouchAngle:previousTouchPoint];
     
-    NSInteger degree = (NSInteger)(180 * direction / M_PI);// 两次调用之间旋转过的度数
+    NSInteger degree = (NSInteger)(180.0 * direction / M_PI);// 两次调用之间旋转过的度数
     [view.delegate circle:view didMoveDegree:degree];
 //    NSLog(@"touch moved, arc = %f,  旋转的度数=%d", currentTransformAngle, degree);
 
@@ -200,8 +200,9 @@
 - (float)getTouchAngle:(CGPoint)touch {
     
     // Translate into cartesian space with origin at the center of a 320-pixel square
-    float x = touch.x - 160;
-    float y = -(touch.y - 160);
+    // 现在修改成260-pixel的正方形, 就是Circle的外接矩形
+    float x = touch.x - 130;
+    float y = -(touch.y - 130);
     
     // Take care not to divide by zero!
     if (y == 0) {

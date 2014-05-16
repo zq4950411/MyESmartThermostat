@@ -106,7 +106,7 @@
 @synthesize uid = _uid;
 @synthesize delegate = _delegate;
 
-- (id)initWithFrame:(CGRect)frame fillColor:(UIColor *)fillColor radiusOfCC:(CGFloat)radiusOfCC angle:(float)angle uid:(int)index isFlashing:(BOOL)isFlashing
+- (id)initWithFrame:(CGRect)frame fillColor:(UIColor *)fillColor radiusOfCC:(CGFloat)radiusOfCC angle:(float)angle uid:(int)index isFlashing:(BOOL)isFlashing delegate:(MyEDoughnutView *)delegate
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -123,7 +123,7 @@
         _isFlashing = isFlashing;
         
         //[self _highlightBorder];
-        
+        _delegate = delegate;
         self.clipsToBounds = NO;
     }
     return self;
