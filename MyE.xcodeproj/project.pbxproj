@@ -144,7 +144,6 @@
 		C3194BA418E29C5D006E3ABE /* MultiSelectSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C3194BA318E29C5D006E3ABE /* MultiSelectSegmentedControl.m */; };
 		C3194BAB18E93A38006E3ABE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3194BAA18E93A37006E3ABE /* Images.xcassets */; };
 		C33587D4190452F300959C94 /* MyEHomePanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C33587D3190452F300959C94 /* MyEHomePanelViewController.m */; };
-		C386E006191C8A4600F654EB /* MyEMainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C386E005191C8A4600F654EB /* MyEMainTabBarController.m */; };
 		C39498701919D7F70075ABD3 /* CDCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = C39498651919D7F70075ABD3 /* CDCircle.m */; };
 		C39498711919D7F70075ABD3 /* CDCircleGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C39498671919D7F70075ABD3 /* CDCircleGestureRecognizer.m */; };
 		C39498721919D7F70075ABD3 /* CDCircleOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = C39498691919D7F70075ABD3 /* CDCircleOverlayView.m */; };
@@ -570,8 +569,6 @@
 		C3194BAA18E93A37006E3ABE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C33587D2190452F300959C94 /* MyEHomePanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEHomePanelViewController.h; sourceTree = "<group>"; };
 		C33587D3190452F300959C94 /* MyEHomePanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEHomePanelViewController.m; sourceTree = "<group>"; };
-		C386E004191C8A4600F654EB /* MyEMainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEMainTabBarController.h; sourceTree = "<group>"; };
-		C386E005191C8A4600F654EB /* MyEMainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEMainTabBarController.m; sourceTree = "<group>"; };
 		C39498641919D7F70075ABD3 /* CDCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDCircle.h; sourceTree = "<group>"; };
 		C39498651919D7F70075ABD3 /* CDCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDCircle.m; sourceTree = "<group>"; };
 		C39498661919D7F70075ABD3 /* CDCircleGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDCircleGestureRecognizer.h; sourceTree = "<group>"; };
@@ -1807,8 +1804,6 @@
 			children = (
 				8C23AB2C1924BACF00821596 /* MyEQRScanViewController.h */,
 				8C23AB2D1924BACF00821596 /* MyEQRScanViewController.m */,
-				C386E004191C8A4600F654EB /* MyEMainTabBarController.h */,
-				C386E005191C8A4600F654EB /* MyEMainTabBarController.m */,
 				C3FDB4D618FA6044009B423D /* HouseBlankView.h */,
 				C3FDB4D718FA6044009B423D /* HouseBlankView.m */,
 				C3FDB4D818FA6044009B423D /* HouseBlankView.xib */,
@@ -1927,7 +1922,6 @@
 			isa = PBXGroup;
 			children = (
 				C3FDB71418FA6589009B423D /* MyEDashboardViewController.h */,
-				C397E89C1924947F0012B0A7 /* MyEDashboardViewController.m */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -2209,10 +2203,8 @@
 				B2588D3C17B09B9D007ED13C /* whiteArrow@2x.png in Resources */,
 				B2588D5117B09B9D007ED13C /* README.md in Resources */,
 				B2588D6117B09B9D007ED13C /* SVProgressHUD.bundle in Resources */,
-				C3FDB86618FA83A9009B423D /* MyENext24HrsScheduleView.xib in Resources */,
 				C3A1C8221902ED9B001A1F99 /* DictionaryTableViewViewController.xib in Resources */,
 				C3FDB87918FA83A9009B423D /* README.txt in Resources */,
-				C3FDB87618FA83A9009B423D /* MyVacationMasterViewController.xib in Resources */,
 				8C23AB301924BDB700821596 /* beep-beep.aiff in Resources */,
 				C3FDB6F818FA640B009B423D /* UpAccessory.png in Resources */,
 				C39D1C3619208C550009F2E2 /* thermostat.storyboard in Resources */,
@@ -2227,7 +2219,6 @@
 				C3FDB7D718FA7F65009B423D /* ServerViewController.xib in Resources */,
 				C3FDB6EE18FA640B009B423D /* DownAccessory.png in Resources */,
 				C3FDB70618FA6460009B423D /* RepwdViewController.xib in Resources */,
-				C3FDB87518FA83A9009B423D /* MyEWeekLyScheduleView.xib in Resources */,
 				C3FDB4E618FA6044009B423D /* HouseBlankView.xib in Resources */,
 				C3F61AAA18DFE64C00DEE477 /* MainStoryboard.storyboard in Resources */,
 				8CCB090C192247610095EAAD /* WeekCell.xib in Resources */,
@@ -2466,7 +2457,6 @@
 				C3194B9C18E299EA006E3ABE /* ELineChart.m in Sources */,
 				8C23AB2E1924BACF00821596 /* MyEQRScanViewController.m in Sources */,
 				B25B79E117D198A9009F4E84 /* qrspec.c in Sources */,
-				C397E89D1924947F0012B0A7 /* MyEDashboardViewController.m in Sources */,
 				C3FDB7AF18FA672D009B423D /* MyEDevicesViewController.m in Sources */,
 				B25B79E217D198A9009F4E84 /* rscode.c in Sources */,
 				C3FDB6F518FA640B009B423D /* SettingViewController.m in Sources */,

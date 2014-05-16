@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyEHouseAddViewController : UIViewController<MyEDataLoaderDelegate>
+@interface MyEHouseAddViewController : UIViewController<MyEDataLoaderDelegate,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *txtStreet;
 @property (weak, nonatomic) IBOutlet UITextField *txtCity;
 @property (weak, nonatomic) IBOutlet UITextField *txtState;
 @property (weak, nonatomic) IBOutlet UIButton *bindBtn;
-
+@property (nonatomic, weak) MyEAccountData *accountData;
 @end

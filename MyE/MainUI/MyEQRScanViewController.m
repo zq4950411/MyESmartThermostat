@@ -10,7 +10,6 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface MyEQRScanViewController ()
-
 @end
 
 @implementation MyEQRScanViewController
@@ -117,9 +116,8 @@
     [readerView stop];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-#pragma mark - private methods
+#pragma mark - IBAction methods
 - (IBAction)dismissView:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 @end

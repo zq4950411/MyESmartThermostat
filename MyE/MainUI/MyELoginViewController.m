@@ -10,7 +10,6 @@
 #import "MyEAccountData.h"
 #import "MyEHouseListViewController.h"
 #import "MyEHouseAddViewController.h"
-#import "MyEMainTabBarController.h"
 #import "MyEDashboardViewController.h"
 #import "MyEVacationMasterViewController.h"
 #import "MyEHouseData.h"
@@ -185,12 +184,14 @@
     [self _doLogin];
 }
 - (IBAction)changeSaveSettings:(UIButton *)sender {
-    
+    sender.selected = !sender.selected;
 }
 - (IBAction)scanToRegister:(UIButton *)sender {
-    
+    UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Setting" bundle:nil] instantiateViewControllerWithIdentifier:@"scanNav"];
+    MyEQRScanViewController *vc = nav.childViewControllers[0];
+    vc.delegate = self;
+    [self presentViewController:nav animated:YES completion:nil];
 }
-
 
 - (void)hideKeyboardBeforeResignActive:(NSNotification *)notification{
     [self.usernameInput resignFirstResponder];
@@ -301,11 +302,17 @@
 {
     if(alertView.tag == 100 && index == 0) {
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"Setting" bundle:nil];
-        MyEHouseAddViewController *vc = [story instantiateViewControllerWithIdentifier:@"houseAdd"];
-        [self presentViewController:vc animated:YES completion:nil];
+        UINavigationController *nav = [story instantiateViewControllerWithIdentifier:@"addHouse"];
+        [self presentViewController:nav animated:YES completion:nil];
     }
 }
 
+#pragma mark - MyEQRScanViewControllerDelegate method
+-(void)passMID:(NSString *)mid andPIN:(NSString *)pin{
+    self.usernameInput.text = mid;
+    self.passwordInput.text = pin;
+    [self _doLogin];
+}
 #pragma mark -
 #pragma mark MBProgressHUDDelegate methods
 - (void)hudWasHidden:(MBProgressHUD *)hud {
@@ -346,9 +353,6 @@
         [alert show];
         return;
     }
-    
-    
-    
     [self saveSettings];
     
     /* 这段语句用于根据标示符，从Storyboard生成一个新的标示符为
@@ -416,5 +420,4 @@
     }
     [prefs synchronize];
 }
-
 @end

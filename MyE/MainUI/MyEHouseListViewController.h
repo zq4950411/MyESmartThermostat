@@ -22,7 +22,7 @@
 }
 @property (nonatomic) NSInteger selectedTabIndex; // 这个原来是为SelectedTabBar protocol所定义的，定义在m文件的前面的SelectedTabBar协议变量部分，但为了保证在ThermostatListViewController里面程序转移到新的tab后也能记住所进入的tab，就把此变量定义到这里，以便其他地方也可以访问。
 @property (nonatomic, retain) MyEAccountData *accountData;
-@property (weak, nonatomic) IBOutlet UISwitch *rememberHouseIdSwitch;
+@property (weak, nonatomic) IBOutlet UIButton *rememberHouseIdBtn;
 @property (weak, nonatomic) IBOutlet ACPButton *registerButton;
 
 // 加载持久存储的设置

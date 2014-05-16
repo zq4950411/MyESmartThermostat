@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "MyEDataLoader.h"
 #import "MBProgressHUD.h"
-
+#import "MyEQRScanViewController.h"
 @class MyEAccountData;
 
-@interface MyELoginViewController : UIViewController <UITextFieldDelegate, MyEDataLoaderDelegate, MBProgressHUDDelegate, UIAlertViewDelegate> {
+@interface MyELoginViewController : UIViewController <UITextFieldDelegate, MyEDataLoaderDelegate, MBProgressHUDDelegate, UIAlertViewDelegate,MyEQRScanViewControllerDelegate> {
     UIView *opaqueview;
     
     MBProgressHUD *HUD;

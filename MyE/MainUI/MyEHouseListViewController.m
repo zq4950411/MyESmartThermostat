@@ -34,43 +34,12 @@
 
 @implementation MyEHouseListViewController
 @synthesize accountData = _accountData;
-@synthesize rememberHouseIdSwitch = _rememberHouseIdSwitch;
-
 @synthesize selectedTabIndex = _selectedTabIndex;
 @synthesize selectedHouseId = _selectedHouseId;
 
 @synthesize registerButton = _registerButton;
 
-
--(void) registeGateway:(UIButton *) sender
-{
-    RegistGatewayViewController *reg = [[RegistGatewayViewController alloc] init];
-    [self.navigationController pushViewController:reg animated:YES];
-}
-
-
-
-
-
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-#pragma mark - View lifecycle
+#pragma mark - View lifecycle methods
 
 - (void)viewDidLoad
 {
@@ -117,22 +86,12 @@
         }
     }
 }
-
-
--(void) goToRegister
-{
-    RegistGatewayViewController *reg = [[RegistGatewayViewController alloc] init];
-    [self.navigationController pushViewController:reg animated:YES];
-}
-
 - (void)viewDidUnload
 {
-    [self setRememberHouseIdSwitch:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -153,7 +112,6 @@
         }
     }
 }
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -162,23 +120,14 @@
         _hasLoadedDefaultHouseId = YES;
     }
 }
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
+#pragma mark - IBAction methods
+- (IBAction)rememberChoice:(UIButton *)sender {
+    sender.selected = !sender.selected;
+}
+- (IBAction)registerGateway:(ACPButton *)sender {
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
+#pragma mark - private methods
 -(void)loadSettings
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -249,15 +198,44 @@
 -(void)saveSettings:(NSInteger)defaultHouseId
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    if (self.rememberHouseIdSwitch.isOn) {
+    if (self.rememberHouseIdBtn.selected) {
         [prefs setInteger:defaultHouseId  forKey:@"defaulthouseid"];
     }else {
         [prefs setInteger:-1  forKey:@"defaulthouseid"];
     }
     [prefs synchronize];
 }
+-(void) registeGateway:(UIButton *) sender
+{
+    RegistGatewayViewController *reg = [[RegistGatewayViewController alloc] init];
+    [self.navigationController pushViewController:reg animated:YES];
+}
+-(void) goToRegister
+{
+    RegistGatewayViewController *reg = [[RegistGatewayViewController alloc] init];
+    [self.navigationController pushViewController:reg animated:YES];
+}
+- (void)refreshAction
+{
+    [self downloadModelFromServer];
+}
 
+- (void) dimissAlert:(UIAlertView *)alert
+{
+    if(alert)
+    {
+        [alert dismissWithClickedButtonIndex:[alert cancelButtonIndex] animated:YES];
+    }
+}
 
+// the unit of delay is second
+- (void)showAutoDisappearAlertWithTile:(NSString *)title message:(NSString *)message delay:(NSInteger)delay{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil
+                                          cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    
+    [alert show];
+    [self performSelector:@selector(dimissAlert:) withObject:alert afterDelay:delay];
+}
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -452,7 +430,7 @@
     [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
     MainDelegate.window.rootViewController = vc;
 }
-
+#pragma mark - Navigation methods
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     MyEHouseData *houseData;
@@ -546,28 +524,6 @@
           [error localizedDescription],
           [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
     [HUD hide:YES];
-}
-#pragma mark
-- (void)refreshAction
-{
-    [self downloadModelFromServer];
-}
-
-- (void) dimissAlert:(UIAlertView *)alert
-{
-    if(alert)
-    {
-        [alert dismissWithClickedButtonIndex:[alert cancelButtonIndex] animated:YES];
-    }
-}
-
-// the unit of delay is second
-- (void)showAutoDisappearAlertWithTile:(NSString *)title message:(NSString *)message delay:(NSInteger)delay{            
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil 
-                                          cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    
-    [alert show];
-    [self performSelector:@selector(dimissAlert:) withObject:alert afterDelay:delay];
 }
 
 @end
