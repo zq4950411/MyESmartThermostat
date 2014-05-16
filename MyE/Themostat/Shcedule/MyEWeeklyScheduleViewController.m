@@ -63,7 +63,7 @@
     
     _modePickerView = [[MyEModePickerView alloc]
                        initWithFrame:CGRectMake((self.view.bounds.size.width - MODE_PICKER_VIEW_WIDTH)*.5,
-                                                self.view.bounds.size.height - MODE_PICKER_VIEW_HEIGHT, // -18, changed @2014-2-25
+                                                315,//self.view.bounds.size.height - MODE_PICKER_VIEW_HEIGHT,
                                                 MODE_PICKER_VIEW_WIDTH,
                                                 MODE_PICKER_VIEW_HEIGHT)
                        delegate:self];
