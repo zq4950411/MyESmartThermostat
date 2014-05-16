@@ -69,10 +69,10 @@ CDCircleDelegate, CDCircleDataSource> {
 
 @property (weak, nonatomic) IBOutlet UILabel *activeProgramLabel;
 @property (weak, nonatomic) IBOutlet UILabel *holdRunLabel;
+
+
+
 @property (weak, nonatomic) IBOutlet UILabel *indoorTemperatureLabel;
-
-
-
 
 
 
@@ -91,6 +91,7 @@ CDCircleDelegate, CDCircleDataSource> {
 @property (weak, nonatomic) IBOutlet UIButton *fanControlOnButton;
 
 
+
 // 显示提示信息
 - (void)showAlertWithMessage:(NSString *)message messageId:(NSString *)mid;
 
@@ -105,6 +106,7 @@ CDCircleDelegate, CDCircleDataSource> {
 - (IBAction)changeFanControlToOn:(id)sender;
 - (IBAction)hideSystemControlToolbarView:(id)sender;
 - (IBAction)hideFanControlToolbarView:(id)sender;
+
 
 - (void)refreshAction;
 - (void)downloadModelFromServer;

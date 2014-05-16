@@ -159,7 +159,6 @@
             MyEIrUserKeyViewController *vc = (MyEIrUserKeyViewController *)view.nextResponder;
             vc.instructions = self.instructions;
             [vc.tableView reloadData];
-#warning 传值
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];
     }

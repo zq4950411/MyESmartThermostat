@@ -41,7 +41,6 @@
 #import "MyESocketInfo.h"
 #endif
 
-
 #define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double )568) < DBL_EPSILON )
 #define IS_IOS6 (([[UIDevice currentDevice].systemVersion intValue]-6)?NO:YES)
 #define MainDelegate ((MyEAppDelegate *)[[UIApplication sharedApplication] delegate])
