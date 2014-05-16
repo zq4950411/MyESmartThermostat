@@ -68,7 +68,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nvq-U1-kBd" customClass="ACPButton">
-                                <rect key="frame" x="10" y="320" width="130" height="40"/>
+                                <rect key="frame" x="15" y="320" width="130" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Stage 1 + 2" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6yT-2G-n1V">
@@ -93,7 +93,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zAa-Vd-qld" customClass="ACPButton">
-                                <rect key="frame" x="160" y="320" width="130" height="40"/>
+                                <rect key="frame" x="175" y="320" width="130" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView contentMode="scaleToFill" fixedFrame="YES" image="Ctrl_FanOn-01" translatesAutoresizingMaskIntoConstraints="NO" id="Uuw-PK-lJl">
@@ -235,7 +235,7 @@
                                 </connections>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ou-UL-3Nx">
-                                <rect key="frame" x="113" y="180" width="94" height="21"/>
+                                <rect key="frame" x="113" y="200" width="94" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -267,7 +267,7 @@
                         <outlet property="fanStatusBtn" destination="zAa-Vd-qld" id="HeI-xc-FdY"/>
                         <outlet property="fanStatusLabel" destination="jYz-nG-eSl" id="Z1T-xY-7q3"/>
                         <outlet property="holdRunLabel" destination="5Ou-UL-3Nx" id="z11-Xc-gep"/>
-                        <outlet property="indoorTemperatureLabel" destination="kcH-yu-c72" id="Vmm-Fq-uNH"/>
+                        <outlet property="indoorTemperatureLabel" destination="kcH-yu-c72" id="Nek-JF-HBq"/>
                         <outlet property="stageLevelLabel" destination="6yT-2G-n1V" id="S7F-jp-lRX"/>
                         <outlet property="systemControlAutoButton" destination="TfN-pM-WUV" id="1nk-ng-nKr"/>
                         <outlet property="systemControlCoolingButton" destination="9gH-hu-dSR" id="iZw-ns-GoC"/>
@@ -1118,7 +1118,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Fhq-6A-3W8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Spg-Nf-7pt">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Jwo-ma-55a">
@@ -1139,7 +1139,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" tag="10" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hV3-IQ-egf">
-                                <rect key="frame" x="-3" y="456" width="320" height="44"/>
+                                <rect key="frame" x="-3" y="520" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem width="5" style="plain" systemItem="fixedSpace" id="dm5-q3-I8o"/>

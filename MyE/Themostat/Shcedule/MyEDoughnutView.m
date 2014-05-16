@@ -555,7 +555,8 @@ typedef enum {
                  radiusOfCC:radius 
                  angle:angle
                  uid:index
-                 isFlashing:isFlashing];
+                 isFlashing:isFlashing
+                 delegate:self];
     //原来旋转扇形矩形的默认0度为和X轴重叠，现在旋转为以Y轴为0度
     CGAffineTransform xform = CGAffineTransformMakeRotation(angle);
     sectorView.transform = xform;
@@ -565,9 +566,7 @@ typedef enum {
     [[sectorView layer] setShadowRadius:1];
     [[sectorView layer] setShadowOpacity:1]; 
     [[sectorView layer] setShadowColor:[UIColor grayColor].CGColor];
-    
-    sectorView.delegate = self;
-    
+        
     return sectorView;
     
 }
@@ -1144,8 +1143,12 @@ typedef enum {
             self.sectorTouchType = SectorTouchTypeDisable;
         } else {
             if(position == SectorPositionTypeMiddle ) {//如果当前触摸的sector位于一个时段的中间，就不允许拖动
-                self.sectorTouchType = SectorTouchTypeDisable;
-            } else if(position == SectorPositionTypeFirst ) {// if the current sector is the first sector of the period
+                // 原来这里只是赋值SectorTouchTypeDisable, 表示禁止从时段中间开始其触摸, 下载注释了下句, 允许用户从中间开始触摸
+//                self.sectorTouchType = SectorTouchTypeDisable;
+                self.sectorTouchType = SectorTouchTypePainting;
+                self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
+            } else
+            if(position == SectorPositionTypeFirst ) {// if the current sector is the first sector of the period
                 self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
                 self.sectorTouchType = SectorTouchTypeDraggingBorder;
             } else if(position == SectorPositionTypeLast ) {// if the current sector is the last sector of the period
@@ -1161,8 +1164,12 @@ typedef enum {
                 self.sectorTouchType = SectorTouchTypeDisable;
             } else {
                 if(position == SectorPositionTypeMiddle ) {//如果当前触摸的sector位于一个时段的中间
-                    self.sectorTouchType = SectorTouchTypeDisable;
-                } else if(position == SectorPositionTypeFirst ) {// if the current sector is the first sector of the period
+                    // 原来这里只是赋值SectorTouchTypeDisable, 表示禁止从时段中间开始其触摸, 下载注释了下句, 允许用户从中间开始触摸
+                    // self.sectorTouchType = SectorTouchTypeDisable;
+                    self.sectorTouchType = SectorTouchTypePainting;
+                    self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
+                } else
+                    if(position == SectorPositionTypeFirst ) {// if the current sector is the first sector of the period
                     self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
                     self.sectorTouchType = SectorTouchTypeDraggingBorder;
                 } else {// if the current sector is the last sector of the period

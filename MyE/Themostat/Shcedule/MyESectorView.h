@@ -27,7 +27,7 @@
 @property (nonatomic) int uid;
 @property (weak, nonatomic) MyEDoughnutView *delegate;
 
-- (id)initWithFrame:(CGRect)frame  fillColor:(UIColor *)fillColor radiusOfCC:(CGFloat)radiusOfCC angle:(float)angle uid:(int)index isFlashing:(BOOL)isFlashing;
+- (id)initWithFrame:(CGRect)frame  fillColor:(UIColor *)fillColor radiusOfCC:(CGFloat)radiusOfCC angle:(float)angle uid:(int)index isFlashing:(BOOL)isFlashing delegate:(MyEDoughnutView *)delegate;
 - (void) viewDidUnload;
 
 // 判定点point是否在本View的定制曲线范围内。点point必须在本View的坐标系内

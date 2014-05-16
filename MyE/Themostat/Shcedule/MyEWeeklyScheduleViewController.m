@@ -63,7 +63,7 @@
     
     _modePickerView = [[MyEModePickerView alloc]
                        initWithFrame:CGRectMake((self.view.bounds.size.width - MODE_PICKER_VIEW_WIDTH)*.5,
-                                                self.view.bounds.size.height - MODE_PICKER_VIEW_HEIGHT, // -18, changed @2014-2-25
+                                                315,//self.view.bounds.size.height - MODE_PICKER_VIEW_HEIGHT,
                                                 MODE_PICKER_VIEW_WIDTH,
                                                 MODE_PICKER_VIEW_HEIGHT)
                        delegate:self];
@@ -188,17 +188,6 @@
 
 - (void) downloadModelFromServer
 {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
-    
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         //        HUD.dimBackground = YES;//容易产生灰条
@@ -211,20 +200,8 @@
     NSLog(@"%@",downloader.name);
 }
 - (void)uploadModelToServer {
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSString *username = [prefs objectForKey:@"username"];
-    
-    if (username != nil && [username caseInsensitiveCompare:@"demo"] == NSOrderedSame) // 如果是demo账户
-        return;
-    ///////////////////////////////////////////////////////////////////////
-    
-    
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        //        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];
