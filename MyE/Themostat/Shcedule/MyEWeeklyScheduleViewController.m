@@ -62,12 +62,12 @@
     
     
     _modePickerView = [[MyEModePickerView alloc]
-                       initWithFrame:CGRectMake((self.view.bounds.size.width - MODE_PICKER_VIEW_WIDTH)*.5,
-                                                315,//self.view.bounds.size.height - MODE_PICKER_VIEW_HEIGHT,
+                       initWithFrame:CGRectMake((self.modeToolContainer.bounds.size.width - MODE_PICKER_VIEW_WIDTH)*.5,
+                                                2,//self.view.bounds.size.height - MODE_PICKER_VIEW_HEIGHT,
                                                 MODE_PICKER_VIEW_WIDTH,
                                                 MODE_PICKER_VIEW_HEIGHT)
                        delegate:self];
-    [self.view addSubview:_modePickerView];
+    [self.modeToolContainer addSubview:_modePickerView];
     
     
     CGRect bounds = self.centerContainerView.bounds;
@@ -190,7 +190,6 @@
 {
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        //        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];

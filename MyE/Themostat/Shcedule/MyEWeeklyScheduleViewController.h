@@ -55,6 +55,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *resetButton;
 @property (weak, nonatomic) IBOutlet UIButton *addNewModeButton;
 @property (weak, nonatomic) IBOutlet UIButton *editModeButton;
+@property (weak, nonatomic) IBOutlet UIView *modeToolContainer;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *weekdaySegmentedControl;
 
 @property (strong, nonatomic) MyEScheduleWeeklyData *weeklyModel;

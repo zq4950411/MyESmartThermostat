@@ -155,7 +155,6 @@
 		C395989918E12CC800E30AFF /* UIColor+FlatUI.m in Sources */ = {isa = PBXBuildFile; fileRef = C395989218E12CC800E30AFF /* UIColor+FlatUI.m */; };
 		C395989A18E12CC800E30AFF /* UIFont+FlatUI.m in Sources */ = {isa = PBXBuildFile; fileRef = C395989418E12CC800E30AFF /* UIFont+FlatUI.m */; };
 		C395989B18E12CC800E30AFF /* UIImage+FlatUI.m in Sources */ = {isa = PBXBuildFile; fileRef = C395989618E12CC800E30AFF /* UIImage+FlatUI.m */; };
-		C39803B91925A3EE00586DAF /* MyEDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39803B81925A3EE00586DAF /* MyEDashboardViewController.m */; };
 		C39D1C3619208C550009F2E2 /* thermostat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C39D1C3419208C540009F2E2 /* thermostat.storyboard */; };
 		C39D1C3919208FD60009F2E2 /* MyENext24HrsScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39D1C3819208FD60009F2E2 /* MyENext24HrsScheduleViewController.m */; };
 		C3A17D7B1921C983001030CE /* MyEWeeklyScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A17D7A1921C983001030CE /* MyEWeeklyScheduleViewController.m */; };
@@ -318,6 +317,8 @@
 		C3FDB88518FA867F009B423D /* MyEPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB88418FA867F009B423D /* MyEPasswordResetViewController.m */; };
 		C3FDB88C18FA882E009B423D /* MyESettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB88B18FA882E009B423D /* MyESettingsViewController.m */; };
 		C3FDB88F18FA884A009B423D /* MyESettingsThermostatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB88E18FA884A009B423D /* MyESettingsThermostatCell.m */; };
+		C3FEF2311929334700741318 /* MyEDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FEF2301929334700741318 /* MyEDashboardViewController.m */; };
+		C3FEF23419294D2C00741318 /* MyESpecialDaysScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FEF23319294D2C00741318 /* MyESpecialDaysScheduleViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -592,8 +593,6 @@
 		C395989418E12CC800E30AFF /* UIFont+FlatUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FlatUI.m"; sourceTree = "<group>"; };
 		C395989518E12CC800E30AFF /* UIImage+FlatUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FlatUI.h"; sourceTree = "<group>"; };
 		C395989618E12CC800E30AFF /* UIImage+FlatUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FlatUI.m"; sourceTree = "<group>"; };
-		C39803B81925A3EE00586DAF /* MyEDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEDashboardViewController.m; sourceTree = "<group>"; };
-		C39803BA1925A83600586DAF /* MyEDashboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyEDashboardViewController.h; sourceTree = "<group>"; };
 		C39D1C3519208C540009F2E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = thermostat.storyboard; sourceTree = "<group>"; };
 		C39D1C3719208FD60009F2E2 /* MyENext24HrsScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyENext24HrsScheduleViewController.h; sourceTree = "<group>"; };
 		C39D1C3819208FD60009F2E2 /* MyENext24HrsScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyENext24HrsScheduleViewController.m; sourceTree = "<group>"; };
@@ -907,6 +906,10 @@
 		C3FDB88B18FA882E009B423D /* MyESettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESettingsViewController.m; sourceTree = "<group>"; };
 		C3FDB88D18FA884A009B423D /* MyESettingsThermostatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESettingsThermostatCell.h; sourceTree = "<group>"; };
 		C3FDB88E18FA884A009B423D /* MyESettingsThermostatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESettingsThermostatCell.m; sourceTree = "<group>"; };
+		C3FEF22F1929334700741318 /* MyEDashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEDashboardViewController.h; sourceTree = "<group>"; };
+		C3FEF2301929334700741318 /* MyEDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEDashboardViewController.m; sourceTree = "<group>"; };
+		C3FEF23219294D2C00741318 /* MyESpecialDaysScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESpecialDaysScheduleViewController.h; sourceTree = "<group>"; };
+		C3FEF23319294D2C00741318 /* MyESpecialDaysScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESpecialDaysScheduleViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1923,7 +1926,8 @@
 		C3FDB71318FA6589009B423D /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				C3FDB71418FA6589009B423D /* MyEDashboardViewController.h */,
+				C3FEF22F1929334700741318 /* MyEDashboardViewController.h */,
+				C3FEF2301929334700741318 /* MyEDashboardViewController.m */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -2086,6 +2090,8 @@
 				C39D1C3819208FD60009F2E2 /* MyENext24HrsScheduleViewController.m */,
 				C3A17D791921C983001030CE /* MyEWeeklyScheduleViewController.h */,
 				C3A17D7A1921C983001030CE /* MyEWeeklyScheduleViewController.m */,
+				C3FEF23219294D2C00741318 /* MyESpecialDaysScheduleViewController.h */,
+				C3FEF23319294D2C00741318 /* MyESpecialDaysScheduleViewController.m */,
 			);
 			path = Shcedule;
 			sourceTree = "<group>";
@@ -2239,7 +2245,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C39803B91925A3EE00586DAF /* MyEDashboardViewController.m in Sources */,
 				8C722604190610BB0033A78A /* NetManager.m in Sources */,
 				C3F61AD318DFEE1700DEE477 /* IQActionSheetPickerView.m in Sources */,
 				C3AE7F4118E14D99000AA5FC /* MZFormSheetController.m in Sources */,
@@ -2310,6 +2315,7 @@
 				C3FDB71818FA6589009B423D /* MyETipDataModel.m in Sources */,
 				8CA52FA919231D4700D40EDD /* MyEEventDeviceEditViewController.m in Sources */,
 				B2588D0817B09B9C007ED13C /* BaseCustomCell.m in Sources */,
+				C3FEF2311929334700741318 /* MyEDashboardViewController.m in Sources */,
 				B2588D0917B09B9C007ED13C /* BaseView.m in Sources */,
 				8CA52FA0192318BB00D40EDD /* MyEEventAddViewController.m in Sources */,
 				C3194B9D18E299EA006E3ABE /* ELineChartDataModel.m in Sources */,
@@ -2475,6 +2481,7 @@
 				C3FDB81218FA82AE009B423D /* MyEVacationListData.m in Sources */,
 				8CCB0D541909FF460044B0E5 /* MyESocketInfo.m in Sources */,
 				C39498711919D7F70075ABD3 /* CDCircleGestureRecognizer.m in Sources */,
+				C3FEF23419294D2C00741318 /* MyESpecialDaysScheduleViewController.m in Sources */,
 				C3A1C8211902ED9B001A1F99 /* DictionaryTableViewViewController.m in Sources */,
 				C3194B9618E299EA006E3ABE /* EColumn.m in Sources */,
 				C3FDB86D18FA83A9009B423D /* MyETodayHoldEditingView.m in Sources */,
