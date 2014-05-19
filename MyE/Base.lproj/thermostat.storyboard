@@ -2806,10 +2806,10 @@
             </objects>
             <point key="canvasLocation" x="2198" y="-2198"/>
         </scene>
-        <!--View Controller - Weekly-->
+        <!--MyE Special Days Schedule View Controller - Weekly-->
         <scene sceneID="TJu-Bk-0PX">
             <objects>
-                <viewController title="Weekly" id="atr-Rb-FZC" sceneMemberID="viewController">
+                <viewController title="Weekly" id="atr-Rb-FZC" customClass="MyESpecialDaysScheduleViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TVZ-tt-37u"/>
                         <viewControllerLayoutGuide type="bottom" id="v2x-74-r9l"/>
@@ -2822,16 +2822,21 @@
                                 <rect key="frame" x="10" y="5" width="300" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5b5-rD-Cyl">
-                                        <rect key="frame" x="13" y="5" width="132" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTo-7D-Lzg">
+                                        <rect key="frame" x="5" y="5" width="150" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <inset key="titleEdgeInsets" minX="-70" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="100" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Staycation" image="xMark">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Button">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="changeDay:" destination="atr-Rb-FZC" eventType="touchUpInside" id="Vxf-PG-g1b"/>
+                                        </connections>
                                     </button>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="kgM-K3-hFY" customClass="TableViewWithBlock">
+                                        <rect key="frame" x="5" y="35" width="150" height="1"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ge6-Ij-KHZ">
                                         <rect key="frame" x="240" y="5" width="44" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2921,6 +2926,8 @@
                         <outlet property="addNewModeButton" destination="zg2-wr-TKU" id="Vcv-C3-TGD"/>
                         <outlet property="applyButton" destination="6ym-kU-Oa3" id="HMW-nz-08f"/>
                         <outlet property="centerContainerView" destination="1sk-RP-6Iv" id="lP7-hI-v2p"/>
+                        <outlet property="dayBtn" destination="oTo-7D-Lzg" id="eH4-op-GZt"/>
+                        <outlet property="daysTableView" destination="kgM-K3-hFY" id="8Rf-o9-Ocm"/>
                         <outlet property="editModeButton" destination="p9u-bG-iqC" id="fMe-1q-1SB"/>
                         <outlet property="modeToolContainer" destination="1S3-Q5-6TM" id="05T-ii-dZt"/>
                     </connections>
@@ -2953,7 +2960,6 @@
         <image name="tab-schedule.png" width="30" height="30"/>
         <image name="tab-vacation" width="30" height="30"/>
         <image name="tab-vacation.png" width="30" height="30"/>
-        <image name="xMark" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
