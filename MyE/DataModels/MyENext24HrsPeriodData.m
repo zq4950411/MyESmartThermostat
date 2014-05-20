@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 MyEnergy Domain. All rights reserved.
 //
 
-#import "MyETodayPeriodData.h"
+#import "MyENext24HrsPeriodData.h"
 #import "MyEScheduleModeData.h"
 #import "SBJson.h"
 #import "MyEUtil.h"
 
-@implementation MyETodayPeriodData
+@implementation MyENext24HrsPeriodData
 
 @synthesize  color = _color, stid = _stid, etid = _etid, cooling = _cooling, heating = _heating;
 @synthesize hold = _hold, title = _title, modeId = _modeId;
@@ -34,7 +34,7 @@
     }
     return nil;
 }
-- (MyETodayPeriodData *)initWithDictionary:(NSDictionary *)dictionary
+- (MyENext24HrsPeriodData *)initWithDictionary:(NSDictionary *)dictionary
 {
     if (self = [super init]) {
         self.color = [MyEUtil colorWithHexString:[dictionary objectForKey:@"color"]];
@@ -65,7 +65,7 @@
     return dict;
 }
 -(id)copyWithZone:(NSZone *)zone {
-    return [[MyETodayPeriodData alloc] initWithDictionary:[self JSONDictionary]];
+    return [[MyENext24HrsPeriodData alloc] initWithDictionary:[self JSONDictionary]];
 }
 -(NSString *)description
 {

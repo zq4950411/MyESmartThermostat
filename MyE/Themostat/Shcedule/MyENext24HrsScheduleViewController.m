@@ -8,7 +8,7 @@
 
 #import "MyENext24HrsScheduleViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "MyETodayPeriodData.h"
+#import "MyENext24HrsPeriodData.h"
 #import "MyEScheduleNext24HrsData.h"
 #import "MyEHouseListViewController.h"
 
@@ -520,7 +520,7 @@
     self.currentSelectedModeId = [[modeIdArray objectAtIndex:sectorInedx] intValue];
     NSMutableArray * periodIndexArray = [self.next24hrsModel periodIndexArray];
     self.currentSelectedPeriodIndex = [[periodIndexArray objectAtIndex:sectorInedx] intValue];
-    MyETodayPeriodData *period = [self.next24hrsModel.periods objectAtIndex:self.currentSelectedPeriodIndex];
+    MyENext24HrsPeriodData *period = [self.next24hrsModel.periods objectAtIndex:self.currentSelectedPeriodIndex];
     NSInteger lastSectorIdOfPeriodSpaningCurrentTime = [self _lastSectorIdOfPeriodSpaningCurrentTime];
     
     NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
@@ -607,7 +607,7 @@
 //获取跨越当前时刻的period的最后一个sector的id
 - (NSInteger)_lastSectorIdOfPeriodSpaningCurrentTime {
     NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
-    for (MyETodayPeriodData *period in self.next24hrsModel.periods) {
+    for (MyENext24HrsPeriodData *period in self.next24hrsModel.periods) {
         // 注意时段的结束半点id是下一个时段的开始半点id，
         if (period.stid <= sectorIdSpaningCurrentTime && period.etid-1 >= sectorIdSpaningCurrentTime) {
             return period.etid-1;
@@ -650,7 +650,7 @@
         
         _periodEditingView.periodIndex = self.currentSelectedPeriodIndex;
         
-        MyETodayPeriodData *period = [self.next24hrsModel.periods objectAtIndex:self.currentSelectedPeriodIndex];
+        MyENext24HrsPeriodData *period = [self.next24hrsModel.periods objectAtIndex:self.currentSelectedPeriodIndex];
         NSAssert((period != nil),@"error in [MyENext24HrsScheduleController _togglePeriodEditingViewWithType]: period is nil! ");
         
         NSLog(@"period = %@", [period description]);
@@ -720,7 +720,7 @@
     } else {
         frame.origin.y -= frame.size.height;
         
-        MyETodayPeriodData *period = [self.next24hrsModel.periods objectAtIndex:self.currentSelectedPeriodIndex];
+        MyENext24HrsPeriodData *period = [self.next24hrsModel.periods objectAtIndex:self.currentSelectedPeriodIndex];
         if(period == nil)
             NSLog(@"error in [MyETodayScheduleController _togglePeriodEditingViewWithType]: period is nil! ");
         

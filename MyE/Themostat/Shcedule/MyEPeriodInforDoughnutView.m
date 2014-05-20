@@ -9,7 +9,7 @@
 #import "MyEPeriodInforDoughnutView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "MyETodayPeriodInforView.h"
-#import "MyETodayPeriodData.h"
+#import "MyENext24HrsPeriodData.h"
 #import "MyEUtil.h"
 @interface MyEPeriodInforDoughnutView(PrivateMethods)
 - (void) _doneView;
@@ -65,18 +65,18 @@
     NSInteger count = [periods count];
     if(count > 1) {
         for (NSInteger i = 0; i < count - 1; i++) {
-            MyETodayPeriodData *pd = [periods objectAtIndex:i];
+            MyENext24HrsPeriodData *pd = [periods objectAtIndex:i];
             [_periods addObject:[pd copy]];
         }
-        MyETodayPeriodData *firstpd = [_periods objectAtIndex:0];
-        MyETodayPeriodData *lastpd = [periods objectAtIndex:count - 1];
+        MyENext24HrsPeriodData *firstpd = [_periods objectAtIndex:0];
+        MyENext24HrsPeriodData *lastpd = [periods objectAtIndex:count - 1];
         if (firstpd.heating == lastpd.heating && firstpd.cooling == lastpd.cooling) {
             firstpd.stid = lastpd.stid;
         } else {
             [_periods addObject:lastpd];
         }
     }else if(count == 1){// 如果传递进来的periods数组的数目只等于1，就不需要进行Sleep的两个区段的合并处理。
-        MyETodayPeriodData *pd = [periods objectAtIndex:0];
+        MyENext24HrsPeriodData *pd = [periods objectAtIndex:0];
         [_periods addObject:[pd copy]];
     } else {
         NSLog(@"错误，传递进来的periods数组的数目<1");
@@ -171,7 +171,7 @@
          CGContextRestoreGState(context);
      }
      //*/
-     for (MyETodayPeriodData *period in self.periods) {
+     for (MyENext24HrsPeriodData *period in self.periods) {
          
          // 取得时段中间半点id,专门取浮点数，可以精确计算角度
          

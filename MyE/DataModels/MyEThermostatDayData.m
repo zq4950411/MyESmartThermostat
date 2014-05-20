@@ -1,17 +1,17 @@
 //
-//  MyEWeekDayItemData.m
+//  MyEThermostatDayData.m
 //  MyE
 //
 //  Created by Ye Yuan on 2/29/12.
 //  Copyright (c) 2012 MyEnergy Domain. All rights reserved.
 //
 
-#import "MyEWeekDayItemData.h"
-#import "MyEWeeklyPeriodData.h"
+#import "MyEThermostatDayData.h"
+#import "MyEThermostatPeriodData.h"
 #import "SBJson.h"
 #import "MyEUtil.h"
 
-@implementation MyEWeekDayItemData
+@implementation MyEThermostatDayData
 @synthesize dayId = _dayId, periods = _periods;
 - (id)init {
     if (self = [super init]) {
@@ -24,14 +24,14 @@
 
 
 
-- (MyEWeekDayItemData *)initWithDictionary:(NSDictionary *)dictionary
+- (MyEThermostatDayData *)initWithDictionary:(NSDictionary *)dictionary
 {
     _periods = [[NSMutableArray alloc] init];
     self.dayId = [[dictionary objectForKey:@"dayId"] intValue];
     NSArray *periodsInDict = [dictionary objectForKey:@"periods"];
     NSMutableArray *periods = [NSMutableArray array];
     for (NSDictionary *period in periodsInDict) {
-        [periods addObject:[[MyEWeeklyPeriodData alloc] initWithDictionary:period]];
+        [periods addObject:[[MyEThermostatPeriodData alloc] initWithDictionary:period]];
     }
     
     // 这里必须调用 - (void) setPeriods:(NSArray *)periods，在其中由根据periods生成新的metaModeArray的代码。
@@ -40,14 +40,14 @@
     return self;
 }
 
-- (MyEWeekDayItemData *)initWithJSONString:(NSString *)jsonString
+- (MyEThermostatDayData *)initWithJSONString:(NSString *)jsonString
 {
     // Create new SBJSON parser object
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     // 把JSON转为字典    
     NSDictionary *dict = [parser objectWithString:jsonString error:nil];
     
-    MyEWeekDayItemData *day = [[MyEWeekDayItemData alloc] initWithDictionary:dict];
+    MyEThermostatDayData *day = [[MyEThermostatDayData alloc] initWithDictionary:dict];
     return day;
 }
 
@@ -55,7 +55,7 @@
 {
     NSMutableArray *periods = [NSMutableArray array];
     
-    for (MyEWeeklyPeriodData *period in self.periods)
+    for (MyEThermostatPeriodData *period in self.periods)
         [periods addObject:[period JSONDictionary]];
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -66,15 +66,15 @@
     return dict;
 }
 -(id)copyWithZone:(NSZone *)zone {
-    return [[MyEWeekDayItemData alloc] initWithDictionary:[self JSONDictionary]];
+    return [[MyEThermostatDayData alloc] initWithDictionary:[self JSONDictionary]];
 }
--(void)updatePeriodWithAnother:(MyEWeekDayItemData *)another {
+-(void)updatePeriodWithAnother:(MyEThermostatDayData *)another {
     self.periods = [another.periods copy];
 }
 -(NSString *)description
 {
     NSMutableString *desc = [NSMutableString stringWithFormat:@"\ndayId = %i , \nperiods:[",_dayId];
-    for (MyEWeeklyPeriodData *period in self.periods)
+    for (MyEThermostatPeriodData *period in self.periods)
         [desc appendString:[NSString stringWithFormat:@"{\n%@\n}",[period description]]];
     [desc appendString:@"\n]"];
     return desc;

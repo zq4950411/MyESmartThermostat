@@ -7,10 +7,10 @@
 //
 
 #import "MyESpecialDaysScheduleViewController.h"
-#import "MyEScheduleWeeklyData.h"
+#import "MyEScheduleDaysData.h"
 #import "MyEScheduleModeData.h"
-#import "MyEWeeklyPeriodData.h"
-#import "MyEWeekDayItemData.h"
+#import "MyEThermostatPeriodData.h"
+#import "MyEThermostatDayData.h"
 #import "MyEHouseListViewController.h"
 
 #import "MyESectorView.h"
@@ -80,8 +80,8 @@
     _doughnutView = [[MyEDoughnutView alloc] initWithFrame:CGRectMake(doughnutViewX, doughnutViewY, WEEKLY_DOUGHNUT_VIEW_SIZE, WEEKLY_DOUGHNUT_VIEW_SIZE) delegate:self];
     
     // 在下载之前，先用样例数据进行初始化
-    self.weeklyModel = [[MyEScheduleWeeklyData alloc] initWithJSONString:@"{\"currentTime\":\"4/22/2012 19:35\",\"dayItems\":[{\"dayId\":6,\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":42,\"modeid\":7181,\"stid\":16},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":0,\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":1,\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":2,\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":3,\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":4,\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":5,\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":42,\"modeid\":7181,\"stid\":16},{\"etid\":48,\"modeid\":7183,\"stid\":42}]}],\"houseId\":419,\"modes\":[{\"color\":\"0xffcc66\",\"cooling\":74,\"heating\":70,\"modeName\":\"Rise\",\"modeid\":\"7180\"},{\"color\":\"0x9999ff\",\"cooling\":74,\"heating\":70,\"modeName\":\"Home\",\"modeid\":\"7181\"},{\"color\":\"0xcccccc\",\"cooling\":80,\"heating\":64,\"modeName\":\"Work\",\"modeid\":\"7182\"},{\"color\":\"0x006699\",\"cooling\":78,\"heating\":66,\"modeName\":\"Sleep\",\"modeid\":\"7183\"}],\"userId\":\"1000100000000000317\",\"locWeb\":\"enabled\"}"];
-    self.weeklyModelCache = [self.weeklyModel copy];
+    self.dataModel = [[MyEScheduleDaysData alloc] initWithJSONString:@"{\"currentTime\":\"4/22/2012 19:35\",\"dayItems\":[{\"dayId\":6,\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":42,\"modeid\":7181,\"stid\":16},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":0,\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":1,\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":2,\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":3,\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":4,\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":5,\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":42,\"modeid\":7181,\"stid\":16},{\"etid\":48,\"modeid\":7183,\"stid\":42}]}],\"houseId\":419,\"modes\":[{\"color\":\"0xffcc66\",\"cooling\":74,\"heating\":70,\"modeName\":\"Rise\",\"modeid\":\"7180\"},{\"color\":\"0x9999ff\",\"cooling\":74,\"heating\":70,\"modeName\":\"Home\",\"modeid\":\"7181\"},{\"color\":\"0xcccccc\",\"cooling\":80,\"heating\":64,\"modeName\":\"Work\",\"modeid\":\"7182\"},{\"color\":\"0x006699\",\"cooling\":78,\"heating\":66,\"modeName\":\"Sleep\",\"modeid\":\"7183\"}],\"userId\":\"1000100000000000317\",\"locWeb\":\"enabled\"}"];
+    self.dataModelCache = [self.dataModel copy];
     
     /* 注意，在服务器传递的数据中，dayItem的dayId对应的关系是：0-Mon, 1-Tue, ..., 5-Sat, 6-Sun, 这个在本程序里面没有用到，
      * 但是服务器程序把dayItem的顺序调整成[{6-Sun}, {0-Mon}, {1-Tue}, {2-Wed}, {3-Thu}, {4-Fri}, {5-Sat}]。
@@ -89,7 +89,7 @@
      * 为了区分在服务器传递的数据中dayItem的dayId属性和我们这里的自己的weekday排序，这里我们都用变量weekdayId做weekday的id
      * 我们在这里保存的dayItems中的weekdayId和weekday对应关系以及dayItem顺序是: 0-Sun, 1-Mon, 2-Tue, 3-Wed, 4-Thu, 5-Fri, 6-Sat。
      */
-    NSMutableArray * modeIdArray = [self.weeklyModel modeIdArrayForWeekdayId:0];
+    NSMutableArray * modeIdArray = [self.dataModel modeIdArrayForDayId:0];
     
     //调用这个函数前，如果是Today面板，应该准备好sectorHoldArray，sectorIdSpaningCurrentTime
     //对于today和weekly两种面板，都要准备好并传入模式数组modeIdArray，才能正确绘制。
@@ -106,7 +106,7 @@
 	NSCalendar *gregorian = [NSCalendar currentCalendar];
 	NSDateComponents *weekDayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:aDate];
 	NSInteger week = [weekDayComponents weekday];//此函数取值1-sun, 2-mon, ..., 7-sat
-    self.currentWeekdayId = week-1;//设置我们这里所用的今天的星期数，0-sun， 1-mon, ..., 6-sat
+    self.currentDayId = week-1;//设置我们这里所用的今天的星期数，0-sun， 1-mon, ..., 6-sat
     
     [self.centerContainerView insertSubview:_doughnutView atIndex:0];
     [self setIsRemoteControl:MainDelegate.thermostatData.remote];// 重新调用一次，因为有可能在外部第一次设置isRemoteControl]的时候，调用下面的setIsRemoteControl:函数，但那时候View组件还没加载生成完成，那么就可能不能正确设置subviews的可见性。
@@ -163,19 +163,12 @@
 }
 
 // 更新week day选择
-- (void)setCurrentWeekdayId:(NSUInteger)currentWeekdayId {
-    _currentWeekdayId = currentWeekdayId;
-    NSMutableArray * modeIdArray = [self.weeklyModel modeIdArrayForWeekdayId:currentWeekdayId];
+- (void)setCurrentWeekdayId:(NSUInteger)currentDayId {
+    _currentDayId = currentDayId;
+    NSMutableArray * modeIdArray = [self.dataModel modeIdArrayForDayId:currentDayId];
     [self->_doughnutView updateWithModeIdArray:modeIdArray];
-    
-    // 设置segmentedController toolbar上的相应按钮被选中
-    // weekdayId顺序是:               0-sun, 1-mon, 2-Tue, ..., 6-Sat
-    // 调整顺序，segmentedControl顺序是:       0-Mon, 1-Tue, ..., 5-Sat, 6-Sun
-    NSInteger selectedSegmentIndex = currentWeekdayId-1;
-    if (selectedSegmentIndex < 0) {
-        selectedSegmentIndex = 6;
-    }
-    [self.weekdaySegmentedControl setSelectedSegmentIndex:selectedSegmentIndex];
+
+//    self.dayBtn.titleLabel.text = self.dataModel.dayItems[currentDayId].title;
     [self.dayBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
 }
 #pragma mark -
@@ -199,7 +192,7 @@
         HUD.delegate = self;
     } else
         [HUD show:YES];
-    NSDictionary *dict = [self.weeklyModel JSONDictionary];
+    NSDictionary *dict = [self.dataModel JSONDictionary];
     NSMutableString *body = [NSMutableString stringWithFormat:@"schedule=%@", [dict JSONRepresentation]];
     NSLog(@"WeeklyScheduleUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
@@ -247,7 +240,6 @@
 - (void)uploadToServerNewMode:(MyEScheduleModeData *)mode {
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        //        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];
@@ -271,27 +263,27 @@
         if (![self _processHttpRespondForString:string])
             return;
         
-        MyEScheduleWeeklyData *weeklyModel = [[MyEScheduleWeeklyData alloc] initWithJSONString:string];
+        MyEScheduleDaysData *weeklyModel = [[MyEScheduleDaysData alloc] initWithJSONString:string];
         if (weeklyModel) {
-            self.weeklyModel = weeklyModel;
-            self.weeklyModelCache = [self.weeklyModel copy];//更新缓冲数据模型为最新的数据模型
+            self.dataModel = weeklyModel;
+            self.dataModelCache = [self.dataModel copy];//更新缓冲数据模型为最新的数据模型
             
-            //如果是第一次获取数据，那么_currentWeekdayId就重新计算为当天的星期几，并把view的初始显示设置这个星期几，否则就不计算，下载新数据后view的显示仍然是用户选择的星期几。在本类初始化时会用设备当前时间初始化这个值，但服务器时间和设备时间可能不同，所以需要用服务器时间来在第一次初始化这个值。
+            //如果是第一次获取数据，那么_currentDayId就重新计算为当天的星期几，并把view的初始显示设置这个星期几，否则就不计算，下载新数据后view的显示仍然是用户选择的星期几。在本类初始化时会用设备当前时间初始化这个值，但服务器时间和设备时间可能不同，所以需要用服务器时间来在第一次初始化这个值。
             //if (!_hasLoadFromServer) {//现在每次下载新数据都重新显示今天的Week day，故注释此语句;若要记住上次的选择的week day，就取消此注释
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat:@"MM/dd/yyyy HH:mm"];
             
-            NSDate *aDate = [dateFormatter dateFromString:self.weeklyModel.currentTime];
+            NSDate *aDate = [dateFormatter dateFromString:self.dataModel.currentTime];
             
             NSCalendar *gregorian = [NSCalendar currentCalendar];
             NSDateComponents *weekDayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:aDate];
             NSInteger week = [weekDayComponents weekday];//此函数取值1-sun, 2-mon, ..., 7-sat
-            self.currentWeekdayId = week-1;//设置我们这里所用的今天的星期数，0-sun， 1-mon, ..., 6-sat
+            self.currentDayId = week-1;//设置我们这里所用的今天的星期数，0-sun， 1-mon, ..., 6-sat
             
             //_hasLoadFromServer = YES;//现在每次下载新数据都重新显示今天的Week day，故注释此语句;若要记住上次的选择的week day，就取消此注释
             //}//现在每次下载新数据都重新显示今天的Week day，故注释此语句;若要记住上次的选择的week day，就取消此注释
             
-            NSMutableArray * modeIdArray = [self.weeklyModel modeIdArrayForWeekdayId:self.currentWeekdayId];
+            NSMutableArray * modeIdArray = [self.dataModel modeIdArrayForDayId:self.currentDayId];
             [_doughnutView updateWithModeIdArray:modeIdArray];
             
             [_modePickerView createOrUpdateThumbScrollViewIfNecessary ];
@@ -318,7 +310,7 @@
         
         if ([string isEqualToString:@"OK"]) {
             _scheduleChangedByUserTouch = NO;
-            self.weeklyModelCache = [self.weeklyModel copy];//更新缓冲数据模型为最新的数据模型
+            self.dataModelCache = [self.dataModel copy];//更新缓冲数据模型为最新的数据模型
         }  else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:string
@@ -340,7 +332,7 @@
             if(_editingPendingMode) {
                 MyEScheduleModeData *mode;
                 // 首先在mode array里搜寻当前正在编辑的那个mode条目
-                for (MyEScheduleModeData *m in self.weeklyModel.metaModeArray) {
+                for (MyEScheduleModeData *m in self.dataModel.metaModeArray) {
                     if (m.modeId == _editingPendingMode.modeId) {
                         mode = m;
                         break;
@@ -353,7 +345,7 @@
                 mode.heating = _editingPendingMode.heating;
                 mode.cooling = _editingPendingMode.cooling;
                 
-                [_doughnutView updateWithModeIdArray:[self.weeklyModel modeIdArrayForWeekdayId:self.currentWeekdayId]];
+                [_doughnutView updateWithModeIdArray:[self.dataModel modeIdArrayForDayId:self.currentDayId]];
                 [_modePickerView createOrUpdateThumbScrollViewIfNecessary];
                 
                 _editingPendingMode = nil;
@@ -382,8 +374,8 @@
         if (resultNumber > 0) { // 表示添加新mode成功，返回的结果resultNumber就是这个mode的真正的modeId
             if(_editingPendingMode) {
                 _editingPendingMode.modeId = resultNumber;//更新新的modeId为resultNumber
-                [self.weeklyModel.metaModeArray addObject:_editingPendingMode];
-                [_doughnutView updateWithModeIdArray:[self.weeklyModel modeIdArrayForWeekdayId:self.currentWeekdayId]];
+                [self.dataModel.metaModeArray addObject:_editingPendingMode];
+                [_doughnutView updateWithModeIdArray:[self.dataModel modeIdArrayForDayId:self.currentDayId]];
                 [_modePickerView createOrUpdateThumbScrollViewIfNecessary];
                 
                 _editingPendingMode = nil;
@@ -418,16 +410,16 @@
             if(_editingPendingMode) {
                 MyEScheduleModeData *mode;
                 // 首先在mode array里搜寻当前正要删除的那个mode条目
-                for (MyEScheduleModeData *m in self.weeklyModel.metaModeArray) {
+                for (MyEScheduleModeData *m in self.dataModel.metaModeArray) {
                     if (m.modeId == _editingPendingMode.modeId) {
                         mode = m;
                         break;
                     }
                 }
                 // 然后删除这个mode
-                [self.weeklyModel.metaModeArray removeObject:mode];
+                [self.dataModel.metaModeArray removeObject:mode];
                 
-                [_doughnutView updateWithModeIdArray:[self.weeklyModel modeIdArrayForWeekdayId:self.currentWeekdayId]];
+                [_doughnutView updateWithModeIdArray:[self.dataModel modeIdArrayForDayId:self.currentDayId]];
                 [_modePickerView createOrUpdateThumbScrollViewIfNecessary];
                 
                 _editingPendingMode = nil;
@@ -487,10 +479,10 @@
     if (modeIdArray != nil) {
         _scheduleChangedByUserTouch = YES;
         
-        MyEWeekDayItemData *dayItem = [self.weeklyModel.dayItems objectAtIndex:self.currentWeekdayId];
+        MyEThermostatDayData *dayItem = [self.dataModel.dayItems objectAtIndex:self.currentDayId];
         [dayItem.periods removeAllObjects] ;
         
-        MyEWeeklyPeriodData *period = [[MyEWeeklyPeriodData alloc] init];
+        MyEThermostatPeriodData *period = [[MyEThermostatPeriodData alloc] init];
         period.stid = 0;
         period.modeId = [[modeIdArray objectAtIndex:0]intValue];
         for (int i = 1; i <=NUM_SECTOR; i++) {
@@ -498,7 +490,7 @@
                 if(period.modeId !=[[modeIdArray objectAtIndex:i]intValue]) {
                     period.etid = i;
                     [dayItem.periods addObject:period];
-                    period = [[MyEWeeklyPeriodData alloc] init];
+                    period = [[MyEThermostatPeriodData alloc] init];
                     period.stid = i;
                     period.modeId = [[modeIdArray objectAtIndex:i]intValue];
                 }
@@ -525,7 +517,7 @@
 // 当用户双击一个Secotr时，表示要修改这个sector所在period的heating/cooling或颜色，把这个sector的序号传递回去
 - (void)didDoubleTapSectorIndex:(NSUInteger)sectorInedx {
     NSLog(@"............in Weekly panel, didDoubleTapSectorIndex");
-    NSMutableArray * modeIdArray = [self.weeklyModel modeIdArrayForWeekdayId:self.currentWeekdayId];
+    NSMutableArray * modeIdArray = [self.dataModel modeIdArrayForDayId:self.currentDayId];
     
     self.currentSelectedModeId = [[modeIdArray objectAtIndex:sectorInedx] intValue];
     [self _toggleModeEditingViewWithType:ModeEditingViewTypeEditing];
@@ -542,7 +534,7 @@
     
     MyEScheduleModeData *mode;
     // 首先在mode array里搜寻当前选中的mode条目
-    for (MyEScheduleModeData *m in self.weeklyModel.metaModeArray) {
+    for (MyEScheduleModeData *m in self.dataModel.metaModeArray) {
         if (m.modeId == _currentSelectedModeId) {
             mode = m;
             break;
@@ -556,7 +548,7 @@
 {
     MyEScheduleModeData *mode;
     // 首先在mode array里搜寻modeId匹配的mode条目
-    for (MyEScheduleModeData *m in self.weeklyModel.metaModeArray) {
+    for (MyEScheduleModeData *m in self.dataModel.metaModeArray) {
         if (m.modeId == modeId) {
             mode = m;
             break;
@@ -619,10 +611,10 @@
     _modePickerView.currentSelectedThumbModeView = nil;
 }
 - (BOOL) isModeNameInUse:(NSString *)name exceptCurrentModeId:(NSInteger)modeId{
-    return [self.weeklyModel isModeNameInUse:name exceptCurrentModeId:modeId];
+    return [self.dataModel isModeNameInUse:name exceptCurrentModeId:modeId];
 }
 - (BOOL) isModeColorInUse:(UIColor *)color  exceptCurrentModeId:(NSInteger)modeId{
-    return [self.weeklyModel isModeColorInUse:color exceptCurrentModeId:modeId];
+    return [self.dataModel isModeColorInUse:color exceptCurrentModeId:modeId];
 }
 
 #pragma mark
@@ -699,7 +691,7 @@
 //        weekdayId = 0;
 //    }
 //    NSLog(@"selected weekdayId = %i", weekdayId);
-//    self.currentWeekdayId = weekdayId;//星期数，0-sun， 1-mon, ..., 6-sat
+//    self.currentDayId = weekdayId;//星期数，0-sun， 1-mon, ..., 6-sat
 //}
 
 #pragma mark
@@ -749,8 +741,8 @@
             BOOL isSystemMode = NO;// 标记是否是系统默认属性，metaModeArray里面的前四个始终是系统默认属性，不允许删除，但可以修改。
             MyEScheduleModeData *mode;
             // 首先在mode array里搜寻当前选中的mode条目
-            for (int i = 0; i < [self.weeklyModel.metaModeArray count]; i++) {
-                mode = [self.weeklyModel.metaModeArray objectAtIndex:i];
+            for (int i = 0; i < [self.dataModel.metaModeArray count]; i++) {
+                mode = [self.dataModel.metaModeArray objectAtIndex:i];
                 if (mode.modeId == self.currentSelectedModeId) {
                     if (i < 4) {
                         isSystemMode = YES;
@@ -813,7 +805,7 @@
         frame.origin.y += frame.size.height;
     } else {//假如正在隐藏，则显示
         frame.origin.y -= frame.size.height;
-        [_weeklyDaySelectionView setCurrentWeekdayIndex:self.currentWeekdayId];
+        [_weeklyDaySelectionView setCurrentWeekdayIndex:self.currentDayId];
     }
     
     [UIView beginAnimations:nil context:nil];
@@ -865,7 +857,7 @@
         _addNewModeButton.alpha = 0.66f;
         _editModeButton.alpha = 0.66f;
         
-        _periodInforDoughnutView.periods = [self.weeklyModel periodsForWeekdayId:self.currentWeekdayId];
+        _periodInforDoughnutView.periods = [self.dataModel periodsForDayId:self.currentDayId];
     }
     
     
@@ -913,31 +905,31 @@
 -(void)reloadDaysTableViewContents{
     
     [_daysTableView reloadData];
-    [_daysTableView initTableViewDataSourceAndDelegate:^(UITableView *tableView,NSUInteger section){
-        return [_mainDic.allKeys count];
-        
-    } setCellForIndexPathBlock:^(UITableView *tableview,NSIndexPath *indexPath){
-        static NSString *cellIdetifier = @"cell";
-        UITableViewCell *cell=[tableview dequeueReusableCellWithIdentifier:cellIdetifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdetifier];
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableview.frame.size.width, 35)];
-            label.font = [UIFont systemFontOfSize:15];
-            label.tag = 998;
-            label.textAlignment = NSTextAlignmentCenter;
-            [cell.contentView addSubview:label];
-        }
-        UILabel *label = (UILabel *)[cell.contentView viewWithTag:998];
-        label.text = _mainDic.allKeys[indexPath.row];
-        return cell;
-    } setDidSelectRowBlock:^(UITableView *tableview,NSIndexPath *indexPath){
-        UITableViewCell *cell=(UITableViewCell*)[tableview cellForRowAtIndexPath:indexPath];
-        UILabel *label = (UILabel *)[cell.contentView viewWithTag:998];
-        NSArray *array = _mainDic[label.text];
-        self.datas = [NSMutableArray arrayWithArray:array];
-        [self.tableView reloadData];
-        [self.dayBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
-    } beginEditingStyleForRowAtIndexPath :nil];
+//    [_daysTableView initTableViewDataSourceAndDelegate:^(UITableView *tableView,NSUInteger section){
+//        return [_mainDic.allKeys count];
+//        
+//    } setCellForIndexPathBlock:^(UITableView *tableview,NSIndexPath *indexPath){
+//        static NSString *cellIdetifier = @"cell";
+//        UITableViewCell *cell=[tableview dequeueReusableCellWithIdentifier:cellIdetifier];
+//        if (!cell) {
+//            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdetifier];
+//            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableview.frame.size.width, 35)];
+//            label.font = [UIFont systemFontOfSize:15];
+//            label.tag = 998;
+//            label.textAlignment = NSTextAlignmentCenter;
+//            [cell.contentView addSubview:label];
+//        }
+//        UILabel *label = (UILabel *)[cell.contentView viewWithTag:998];
+//        label.text = _mainDic.allKeys[indexPath.row];
+//        return cell;
+//    } setDidSelectRowBlock:^(UITableView *tableview,NSIndexPath *indexPath){
+//        UITableViewCell *cell=(UITableViewCell*)[tableview cellForRowAtIndexPath:indexPath];
+//        UILabel *label = (UILabel *)[cell.contentView viewWithTag:998];
+//        NSArray *array = _mainDic[label.text];
+//        self.datas = [NSMutableArray arrayWithArray:array];
+//        [self.tableView reloadData];
+//        [self.dayBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
+//    } beginEditingStyleForRowAtIndexPath :nil];
     _daysTableView.tableFooterView = [[UIView alloc] init];
     [_daysTableView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
     [_daysTableView.layer setBorderWidth:1];

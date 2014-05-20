@@ -17,7 +17,7 @@
 #import "MyEPeriodInforDoughnutView.h"
 #import "TableViewWithBlock.h"
 
-@class MyEScheduleWeeklyData;
+@class MyEScheduleDaysData;
 @class MyEScheduleModeData;
 @class MyEScheduleViewController;
 @interface MyESpecialDaysScheduleViewController : UIViewController<MyEDoughnutViewDelegate, MyEModePickerViewDelegate, MyEWeeklyModeEditingViewDelegate,MyEApplyToDaysSelectionViewDelegate, MyEDataLoaderDelegate, MBProgressHUDDelegate,MyEPeriodInforDoughnutViewDelegate>
@@ -46,7 +46,7 @@
     
     MBProgressHUD *HUD;
     
-    // 用于记录是不是第一次从服务器获取数据。如果是第一次获取数据，那么_currentWeekdayId就重新计算为当天的星期几，并把view的初始显示设置这个星期几，否则就不计算，下载新数据后view的显示仍然是用户选择的星期几。在本类初始化时会用设备当前时间初始化这个值，但服务器时间和设备时间可能不同，所以需要用服务器时间来在第一次初始化这个值。
+    // 用于记录是不是第一次从服务器获取数据。如果是第一次获取数据，那么_currentDayId就重新计算为当天的星期几，并把view的初始显示设置这个星期几，否则就不计算，下载新数据后view的显示仍然是用户选择的星期几。在本类初始化时会用设备当前时间初始化这个值，但服务器时间和设备时间可能不同，所以需要用服务器时间来在第一次初始化这个值。
     BOOL _hasLoadFromServer;
 }
 @property (nonatomic) BOOL isRemoteControl;
@@ -60,12 +60,12 @@
 @property (weak, nonatomic) IBOutlet TableViewWithBlock *daysTableView;
 
 
-@property (strong, nonatomic) MyEScheduleWeeklyData *weeklyModel;
-@property (strong, nonatomic) MyEScheduleWeeklyData *weeklyModelCache;//缓冲数据，用于恢复用户修改Schedule操作的
+@property (strong, nonatomic) MyEScheduleDaysData *dataModel;
+@property (strong, nonatomic) MyEScheduleDaysData *dataModelCache;//缓冲数据，用于恢复用户修改Schedule操作的
 
 // 当前选择的模式的id。用于用户手触摸修改sector，或者编辑这个mode。这个值和MyEDoughnutView中的成员变量相同
 @property (nonatomic) NSInteger currentSelectedModeId;
-@property (nonatomic)NSUInteger currentWeekdayId;
+@property (nonatomic)NSUInteger currentDayId;
 
 - (IBAction)editSelectedMode:(id)sender;
 - (IBAction)addNewMode:(id)sender;

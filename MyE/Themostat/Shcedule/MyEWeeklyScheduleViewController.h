@@ -16,7 +16,7 @@
 #import "MBProgressHUD.h"
 #import "MyEPeriodInforDoughnutView.h"
 
-@class MyEScheduleWeeklyData;
+@class MyEScheduleDaysData;
 @class MyEScheduleModeData;
 @class MyEScheduleViewController;
 @interface MyEWeeklyScheduleViewController : UIViewController<MyEDoughnutViewDelegate, MyEModePickerViewDelegate, MyEWeeklyModeEditingViewDelegate,MyEApplyToDaysSelectionViewDelegate, MyEDataLoaderDelegate, MBProgressHUDDelegate,MyEPeriodInforDoughnutViewDelegate>
@@ -58,8 +58,8 @@
 @property (weak, nonatomic) IBOutlet UIView *modeToolContainer;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *weekdaySegmentedControl;
 
-@property (strong, nonatomic) MyEScheduleWeeklyData *weeklyModel;
-@property (strong, nonatomic) MyEScheduleWeeklyData *weeklyModelCache;//缓冲数据，用于恢复用户修改Schedule操作的
+@property (strong, nonatomic) MyEScheduleDaysData *dataModel;
+@property (strong, nonatomic) MyEScheduleDaysData *weeklyModelCache;//缓冲数据，用于恢复用户修改Schedule操作的
 
 // 当前选择的模式的id。用于用户手触摸修改sector，或者编辑这个mode。这个值和MyEDoughnutView中的成员变量相同
 @property (nonatomic) NSInteger currentSelectedModeId;

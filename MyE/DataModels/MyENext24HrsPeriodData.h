@@ -1,5 +1,5 @@
 //
-//  MyETodayPeriodData.h.h
+//  MyENext24HrsPeriodData.h
 //  MyE
 //
 //  Created by Ye Yuan on 2/21/12.
@@ -10,7 +10,7 @@
 @class MyEScheduleModeData;
 
 
-@interface MyETodayPeriodData : NSObject <NSCopying> 
+@interface MyENext24HrsPeriodData : NSObject <NSCopying> 
 @property (retain, nonatomic) UIColor *color;
 @property (nonatomic) NSInteger stid;//需要注意，stid的取值范围可能是0到47，0表示今天的凌晨12:00AM
 @property (nonatomic) NSInteger etid;//需要注意，etid的取值范围可能是1到48，48表示第二天的凌晨12:00AM
@@ -32,7 +32,7 @@
 
 
 
-- (MyETodayPeriodData *)initWithDictionary:(NSDictionary *)dictionary;
+- (MyENext24HrsPeriodData *)initWithDictionary:(NSDictionary *)dictionary;
 - (NSDictionary *)JSONDictionary;
 
 //从period数据获取由MyEScheduleModeData类对象，它是元模式数据.传入的参数modeId其实是时段的在today数据中的编号，

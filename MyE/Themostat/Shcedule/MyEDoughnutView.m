@@ -10,7 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MyESectorView.h"
 #import "MyEUtil.h"
-#import "MyEScheduleTodayData.h"
 
 #include <math.h>
 //static inline double radians (double degrees) {return degrees * M_PI/180;}//计算弧度的, 暂时未使用, 所以注释了

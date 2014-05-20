@@ -1,6 +1,7 @@
 //
-//  MyEWeeklyPeriodData.h
+//  MyEThermostatPeriodData.h
 //  MyE
+//  用于Thermostat Weekly Schedule / Thermostat SpecialDays Schedule
 //
 //  Created by Ye Yuan on 2/29/12.
 //  Copyright (c) 2012 MyEnergy Domain. All rights reserved.
@@ -11,7 +12,7 @@
 @class MyEScheduleModeData;
 
 
-@interface MyEWeeklyPeriodData : NSObject <NSCopying> 
+@interface MyEThermostatPeriodData : NSObject <NSCopying> 
 {
     NSInteger _stid;//需要注意，stid的取值范围可能是0到47，0表示今天的凌晨12:00AM
     NSInteger _etid;//需要注意，etid的取值范围可能是1到48，48表示第二天的凌晨12:00AM
@@ -23,7 +24,7 @@
 
 
 
-- (MyEWeeklyPeriodData *)initWithDictionary:(NSDictionary *)dictionary;
+- (MyEThermostatPeriodData *)initWithDictionary:(NSDictionary *)dictionary;
 - (NSDictionary *)JSONDictionary;
 
 @end

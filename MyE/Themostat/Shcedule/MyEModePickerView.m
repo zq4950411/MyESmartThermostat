@@ -9,7 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MyEModePickerView.h"
 #import "MyEScheduleModeData.h"
-#import "MyEScheduleWeeklyData.h"
+#import "MyEScheduleDaysData.h"
 
 
 #define THUMB_WIDTH 50
@@ -95,7 +95,7 @@
     float xPosition = THUMB_H_PADDING;
 
 
-    for (MyEScheduleModeData *mode in self.delegate.weeklyModel.metaModeArray) {
+    for (MyEScheduleModeData *mode in self.delegate.dataModel.metaModeArray) {
         NSLog(@"2 Mode name = %@, id = %i", mode.modeName, mode.modeId);
         UIColor *color = mode.color;
         CGRect frame = CGRectMake(xPosition, 1.0, THUMB_WIDTH, THUMB_HEIGHT);

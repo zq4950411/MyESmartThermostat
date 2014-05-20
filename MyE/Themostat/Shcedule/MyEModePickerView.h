@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MyEThumbModeView.h"
-@class MyEScheduleWeeklyData;
+@class MyEScheduleDaysData;
 
 @protocol MyEModePickerViewDelegate;
 
@@ -34,7 +34,7 @@
 
 @required
 
-@property (retain, nonatomic) MyEScheduleWeeklyData *weeklyModel;
+@property (retain, nonatomic) MyEScheduleDaysData *dataModel;
 - (void)modePickerView:(MyEModePickerView *)modePickerView didSelectModeId:(NSInteger)modeId;
 - (void)modePickerView:(MyEModePickerView *)modePickerView didDoubleTapModeId:(NSInteger)modeId;
 @end
