@@ -12,9 +12,7 @@
 #import "MyEAccountData.h"
 #import "MyEThermostatData.h"
 #import "MyEDashboardData.h"
-#import "MyENext24HrsScheduleViewController.h"
-#import "MyEWeeklyScheduleViewController.h"
-#import "MyEVacationMasterViewController.h"
+
 
 @interface MyEHomePanelViewController ()
 - (void)configureView;

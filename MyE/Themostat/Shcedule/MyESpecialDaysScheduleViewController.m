@@ -167,7 +167,7 @@
 
     MyEThermostatDayData *day = self.dataModel.dayItems[currentDayId];
     self.dayBtn.titleLabel.text = day.title;
-    [self.dayBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
+//    [self.dayBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
 }
 #pragma mark -
 #pragma mark URL Loading System methods
@@ -647,9 +647,10 @@
     [self _toggleApplyToDaysSelectionView];
     
 }
-#define  day_count 5
+
 - (IBAction)changeDay:(id)sender {
     if ([sender isSelected]) {   //isSelected 就是selected
+        self.topToolbar.frame =CGRectMake(self.topToolbar.frame.origin.x, self.topToolbar.frame.origin.y, self.topToolbar.frame.size.width, 40);
         [UIView animateWithDuration:0.3 animations:^{
             //            UIImage *closeImage=[UIImage imageNamed:@"dropdown.png"];
             //            [_showBtn setImage:closeImage forState:UIControlStateNormal];
@@ -661,20 +662,22 @@
             [sender setSelected:NO];
         }];
     }else{
+        self.topToolbar.frame =CGRectMake(self.topToolbar.frame.origin.x, self.topToolbar.frame.origin.y, self.topToolbar.frame.size.width, 450);
         [UIView animateWithDuration:0.3 animations:^{
             //            UIImage *openImage=[UIImage imageNamed:@"dropup.png"];
             //            [_showBtn setImage:openImage forState:UIControlStateNormal];
             
             CGRect frame=_daysTableView.frame;
-            if (day_count < 6 ) {
-                frame.size.height = 35 * day_count;
+            if (self.dataModel.dayItems.count <= 6 ) {
+                frame.size.height = 25 * self.dataModel.dayItems.count;
             }else
                 frame.size.height=150;
             [_daysTableView setFrame:frame];
         } completion:^(BOOL finished){
-            _daysTableView.hidden = NO;
+            
             [self reloadDaysTableViewContents];
             [sender setSelected:YES];
+            _daysTableView.hidden = NO;
         }];
     }
 }
@@ -918,17 +921,23 @@
             [cell.contentView addSubview:label];
         }
         UILabel *label = (UILabel *)[cell.contentView viewWithTag:998];
-        label.text = self.dataModel.dayItems[indexPath.row];
+        MyEThermostatDayData *day = self.dataModel.dayItems[indexPath.row];
+        label.text = day.title;
         return cell;
     } setDidSelectRowBlock:^(UITableView *tableview,NSIndexPath *indexPath){
 //        UITableViewCell *cell=(UITableViewCell*)[tableview cellForRowAtIndexPath:indexPath];
 //        UILabel *label = (UILabel *)[cell.contentView viewWithTag:998];
         self.currentDayId = indexPath.row;
-        [self.dayBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
+//        [self.dayBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
     } beginEditingStyleForRowAtIndexPath :nil];
     _daysTableView.tableFooterView = [[UIView alloc] init];
     [_daysTableView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
     [_daysTableView.layer setBorderWidth:1];
+    [self.view bringSubviewToFront:self.topToolbar];
+    [self.topToolbar bringSubviewToFront:self.daysTableView];
+    [self.view bringSubviewToFront:_daysTableView];
+    [self.view sendSubviewToBack:self.centerContainerView];
+
 }
 
 @end
