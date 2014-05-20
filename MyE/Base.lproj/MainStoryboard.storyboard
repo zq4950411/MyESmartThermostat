@@ -1210,7 +1210,7 @@
                                             <color key="textColor" red="0.2196078431372549" green="0.32941176470588235" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="D618CFD3-DE2E-44F5-8441-5596F4AA67A6" id="b33-U4-8DE">
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="BC422490-587A-48BD-AC68-A8AE661F27D2" id="b33-U4-8DE">
                                             <rect key="frame" x="15" y="6" width="39" height="31"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
@@ -1238,7 +1238,7 @@
                                             <color key="textColor" red="0.2196078431372549" green="0.32941176470588235" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="5867AE8A-C8CC-4D72-811B-BC595FA335F2" id="cg7-Zh-qTW">
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="1C4A93B4-78C0-40C4-B68D-892DB75440C7" id="cg7-Zh-qTW">
                                             <rect key="frame" x="15" y="6" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
@@ -1271,7 +1271,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <tabBarItem key="tabBarItem" tag="4" title="Switch" image="885C791B-EB58-4ACF-AAB2-8B65F8D3B613" id="Cv9-VA-5iG"/>
+                    <tabBarItem key="tabBarItem" tag="4" title="Switch" image="A9C45844-DE4A-4EF8-9303-EE4886ACBCA5" id="Cv9-VA-5iG"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hiy-h4-WwN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1368,7 +1368,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="5867AE8A-C8CC-4D72-811B-BC595FA335F2" width="30" height="30">
+        <image name="1C4A93B4-78C0-40C4-B68D-892DB75440C7" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -1499,7 +1499,7 @@ AAACAQAAAAAAAAA/AAAAAAAAAAAAAAAAAAAcyg
 </mutableData>
         </image>
         <image name="87484745-6EB0-4EB5-9207-E3AB47EE6893" width="28" height="20"/>
-        <image name="885C791B-EB58-4ACF-AAB2-8B65F8D3B613" width="30" height="30">
+        <image name="A9C45844-DE4A-4EF8-9303-EE4886ACBCA5" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -1631,7 +1631,7 @@ AAACAQAAAAAAAAA/AAAAAAAAAAAAAAAAAAAcyg
         </image>
         <image name="Account" width="60" height="60"/>
         <image name="Alerts" width="100" height="100"/>
-        <image name="D618CFD3-DE2E-44F5-8441-5596F4AA67A6" width="39" height="31">
+        <image name="BC422490-587A-48BD-AC68-A8AE661F27D2" width="39" height="31">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
