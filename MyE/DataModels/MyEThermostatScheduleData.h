@@ -1,5 +1,5 @@
 //
-//  MyEScheduleDaysData.h
+//  MyEThermostatScheduleData.h
 //  MyE
 //  用于Thermostat Schedule Weekly / Thermostat Schedule SpecialDays 两个子模块的主数据
 //
@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 @class MyEScheduleModeData;
 
-@interface MyEScheduleDaysData : NSObject <NSCopying> 
+@interface MyEThermostatScheduleData : NSObject <NSCopying> 
 @property (copy, nonatomic) NSString *userId;
 @property (copy, nonatomic) NSString *houseId;
 @property (copy, nonatomic) NSString *currentTime;
@@ -19,8 +19,8 @@
 //模式数组。在Today模块，这个数组就对应MyEScheduleTodayData的metaModeArray，其元素是MyEScheduleModeData类对象
 @property (retain, nonatomic) NSMutableArray *metaModeArray;
 
-- (MyEScheduleDaysData *)initWithDictionary:(NSDictionary *)dictionary;
-- (MyEScheduleDaysData *)initWithJSONString:(NSString *)jsonString;
+- (MyEThermostatScheduleData *)initWithDictionary:(NSDictionary *)dictionary;
+- (MyEThermostatScheduleData *)initWithJSONString:(NSString *)jsonString;
 
 - (NSDictionary *)JSONDictionary;
 

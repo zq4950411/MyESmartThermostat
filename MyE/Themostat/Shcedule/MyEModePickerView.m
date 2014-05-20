@@ -9,7 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MyEModePickerView.h"
 #import "MyEScheduleModeData.h"
-#import "MyEScheduleDaysData.h"
+#import "MyEThermostatScheduleData.h"
 
 
 #define THUMB_WIDTH 50

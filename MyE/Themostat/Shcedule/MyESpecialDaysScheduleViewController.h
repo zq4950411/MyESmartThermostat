@@ -17,7 +17,7 @@
 #import "MyEPeriodInforDoughnutView.h"
 #import "TableViewWithBlock.h"
 
-@class MyEScheduleDaysData;
+@class MyEThermostatScheduleData;
 @class MyEScheduleModeData;
 @class MyEScheduleViewController;
 @interface MyESpecialDaysScheduleViewController : UIViewController<MyEDoughnutViewDelegate, MyEModePickerViewDelegate, MyEWeeklyModeEditingViewDelegate,MyEApplyToDaysSelectionViewDelegate, MyEDataLoaderDelegate, MBProgressHUDDelegate,MyEPeriodInforDoughnutViewDelegate>
@@ -60,8 +60,8 @@
 @property (weak, nonatomic) IBOutlet TableViewWithBlock *daysTableView;
 
 
-@property (strong, nonatomic) MyEScheduleDaysData *dataModel;
-@property (strong, nonatomic) MyEScheduleDaysData *dataModelCache;//缓冲数据，用于恢复用户修改Schedule操作的
+@property (strong, nonatomic) MyEThermostatScheduleData *dataModel;
+@property (strong, nonatomic) MyEThermostatScheduleData *dataModelCache;//缓冲数据，用于恢复用户修改Schedule操作的
 
 // 当前选择的模式的id。用于用户手触摸修改sector，或者编辑这个mode。这个值和MyEDoughnutView中的成员变量相同
 @property (nonatomic) NSInteger currentSelectedModeId;

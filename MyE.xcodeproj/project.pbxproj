@@ -275,7 +275,7 @@
 		C3FDB80718FA82AE009B423D /* MyENext24HrsDayItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7E018FA82AE009B423D /* MyENext24HrsDayItemData.m */; };
 		C3FDB80918FA82AE009B423D /* MyEScheduleModeData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7E418FA82AE009B423D /* MyEScheduleModeData.m */; };
 		C3FDB80A18FA82AE009B423D /* MyEScheduleNext24HrsData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7E618FA82AE009B423D /* MyEScheduleNext24HrsData.m */; };
-		C3FDB80C18FA82AE009B423D /* MyEScheduleDaysData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7EA18FA82AE009B423D /* MyEScheduleDaysData.m */; };
+		C3FDB80C18FA82AE009B423D /* MyEThermostatScheduleData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7EA18FA82AE009B423D /* MyEThermostatScheduleData.m */; };
 		C3FDB80D18FA82AE009B423D /* MyESettingsData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7EC18FA82AE009B423D /* MyESettingsData.m */; };
 		C3FDB80E18FA82AE009B423D /* MyEStaycationItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7EE18FA82AE009B423D /* MyEStaycationItemData.m */; };
 		C3FDB80F18FA82AE009B423D /* MyEThermostatData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7F018FA82AE009B423D /* MyEThermostatData.m */; };
@@ -821,8 +821,8 @@
 		C3FDB7E418FA82AE009B423D /* MyEScheduleModeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEScheduleModeData.m; sourceTree = "<group>"; };
 		C3FDB7E518FA82AE009B423D /* MyEScheduleNext24HrsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEScheduleNext24HrsData.h; sourceTree = "<group>"; };
 		C3FDB7E618FA82AE009B423D /* MyEScheduleNext24HrsData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEScheduleNext24HrsData.m; sourceTree = "<group>"; };
-		C3FDB7E918FA82AE009B423D /* MyEScheduleDaysData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEScheduleDaysData.h; sourceTree = "<group>"; };
-		C3FDB7EA18FA82AE009B423D /* MyEScheduleDaysData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEScheduleDaysData.m; sourceTree = "<group>"; };
+		C3FDB7E918FA82AE009B423D /* MyEThermostatScheduleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEThermostatScheduleData.h; sourceTree = "<group>"; };
+		C3FDB7EA18FA82AE009B423D /* MyEThermostatScheduleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEThermostatScheduleData.m; sourceTree = "<group>"; };
 		C3FDB7EB18FA82AE009B423D /* MyESettingsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESettingsData.h; sourceTree = "<group>"; };
 		C3FDB7EC18FA82AE009B423D /* MyESettingsData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESettingsData.m; sourceTree = "<group>"; };
 		C3FDB7ED18FA82AE009B423D /* MyEStaycationItemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEStaycationItemData.h; sourceTree = "<group>"; };
@@ -1997,8 +1997,8 @@
 				C3FDB7E418FA82AE009B423D /* MyEScheduleModeData.m */,
 				C3FDB7E518FA82AE009B423D /* MyEScheduleNext24HrsData.h */,
 				C3FDB7E618FA82AE009B423D /* MyEScheduleNext24HrsData.m */,
-				C3FDB7E918FA82AE009B423D /* MyEScheduleDaysData.h */,
-				C3FDB7EA18FA82AE009B423D /* MyEScheduleDaysData.m */,
+				C3FDB7E918FA82AE009B423D /* MyEThermostatScheduleData.h */,
+				C3FDB7EA18FA82AE009B423D /* MyEThermostatScheduleData.m */,
 				C3FDB7EB18FA82AE009B423D /* MyESettingsData.h */,
 				C3FDB7EC18FA82AE009B423D /* MyESettingsData.m */,
 				C3FDB7ED18FA82AE009B423D /* MyEStaycationItemData.h */,
@@ -2458,7 +2458,7 @@
 				C3FDB7AF18FA672D009B423D /* MyEDevicesViewController.m in Sources */,
 				B25B79E217D198A9009F4E84 /* rscode.c in Sources */,
 				C3FDB6F518FA640B009B423D /* SettingViewController.m in Sources */,
-				C3FDB80C18FA82AE009B423D /* MyEScheduleDaysData.m in Sources */,
+				C3FDB80C18FA82AE009B423D /* MyEThermostatScheduleData.m in Sources */,
 				B25B79E317D198A9009F4E84 /* split.c in Sources */,
 				C3FDB70918FA652A009B423D /* MyEAppDelegate.m in Sources */,
 				C3F61B2018E11DAE00DEE477 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,

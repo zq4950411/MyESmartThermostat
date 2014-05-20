@@ -1,12 +1,12 @@
 //
-//  MyEScheduleWeeklyData.m
+//  MyEThermostatScheduleData.m
 //  MyE
 //
 //  Created by Ye Yuan on 2/29/12.
 //  Copyright (c) 2012 MyEnergy Domain. All rights reserved.
 //
 
-#import "MyEScheduleDaysData.h"
+#import "MyEThermostatScheduleData.h"
 #import "MyEThermostatDayData.h"
 #import "MyEThermostatPeriodData.h"
 #import "MyEScheduleModeData.h"
@@ -14,7 +14,7 @@
 #import "MyEUtil.h"
 #import "SBJson.h"
 
-@implementation MyEScheduleDaysData
+@implementation MyEThermostatScheduleData
 - (id)init {
     if (self = [super init]) {
         _userId = @"1000100000000000831";
@@ -33,7 +33,7 @@
 }
 
 
-- (MyEScheduleDaysData *)initWithDictionary:(NSDictionary *)dictionary
+- (MyEThermostatScheduleData *)initWithDictionary:(NSDictionary *)dictionary
 {
     _dayItems = [[NSMutableArray alloc] init];
     self.userId = [dictionary objectForKey:@"userId"];
@@ -60,14 +60,14 @@
     return self;
 }
 
-- (MyEScheduleDaysData *)initWithJSONString:(NSString *)jsonString
+- (MyEThermostatScheduleData *)initWithJSONString:(NSString *)jsonString
 {
     // Create new SBJSON parser object
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     // 把JSON转为字典    
     NSDictionary *dict = [parser objectWithString:jsonString error:nil];
     if (dict && [dict isKindOfClass:[NSDictionary class]]) {
-        MyEScheduleDaysData *weekly = [[MyEScheduleDaysData alloc] initWithDictionary:dict];
+        MyEThermostatScheduleData *weekly = [[MyEThermostatScheduleData alloc] initWithDictionary:dict];
         return weekly;
     } else return nil;
 }
@@ -101,7 +101,7 @@
 }
 
 -(id)copyWithZone:(NSZone *)zone {
-    return [[MyEScheduleDaysData alloc] initWithDictionary:[self JSONDictionary]];
+    return [[MyEThermostatScheduleData alloc] initWithDictionary:[self JSONDictionary]];
 }
 -(NSString *)description
 {
