@@ -7,7 +7,7 @@
 //
 
 #import "MyENext24HrsDayItemData.h"
-#import "MyETodayPeriodData.h"
+#import "MyENext24HrsPeriodData.h"
 #import "SBJson.h"
 #import "MyEUtil.h"
 
@@ -35,7 +35,7 @@
     NSArray *periodsInDict = [dictionary objectForKey:@"periods"];
     NSMutableArray *periods = [NSMutableArray array];
     for (NSDictionary *period in periodsInDict) {
-        [periods addObject:[[MyETodayPeriodData alloc] initWithDictionary:period]];
+        [periods addObject:[[MyENext24HrsPeriodData alloc] initWithDictionary:period]];
     }
     
     // 这里必须调用 - (void) setPeriods:(NSArray *)periods，在其中由根据periods生成新的metaModeArray的代码。
@@ -59,7 +59,7 @@
 {
     NSMutableArray *periods = [NSMutableArray array];
     
-    for (MyETodayPeriodData *period in self.periods)
+    for (MyENext24HrsPeriodData *period in self.periods)
         [periods addObject:[period JSONDictionary]];
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -82,7 +82,7 @@
 -(NSString *)description
 {
     NSMutableString *desc = [NSMutableString stringWithFormat:@"\nyear = %i ,\nmonth = %i ,\ndate = %i , \nperiods:[",self.year, self.month, self.date];
-    for (MyETodayPeriodData *period in self.periods)
+    for (MyENext24HrsPeriodData *period in self.periods)
         [desc appendString:[NSString stringWithFormat:@"{\n%@\n}",[period description]]];
     [desc appendString:@"\n]"];
     return desc;

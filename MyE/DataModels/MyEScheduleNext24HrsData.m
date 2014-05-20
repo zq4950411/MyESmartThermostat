@@ -8,7 +8,7 @@
 
 #import "MyEScheduleNext24HrsData.h"
 #import "MyENext24HrsDayItemData.h"
-#import "MyETodayPeriodData.h"
+#import "MyENext24HrsPeriodData.h"
 #import "MyEScheduleModeData.h"
 #import "MyEUtil.h"
 #import "SBJson.h"
@@ -100,10 +100,10 @@ metaModeArray = _metaModeArray;
     MyENext24HrsDayItemData *nextDayItem = [self.dayItems objectAtIndex:1]; // 取得第二天的数据对象
     
     // 1 首先对今天的时段进行处理，寻找当前时刻之后的数据今天的所有时段，把它们放到结果数组里。第一个时段有可能是拆分而来的。
-    MyETodayPeriodData *lastPeriodOfToday; // 保存今天的时段数组中的最后一个时段
+    MyENext24HrsPeriodData *lastPeriodOfToday; // 保存今天的时段数组中的最后一个时段
     for (NSInteger i = 0; i < [todayItem.periods count]; i++) {// 对今天的每个时段进行分析处理
-        MyETodayPeriodData *period = [todayItem.periods objectAtIndex:i];// 取得第i个时段
-        MyETodayPeriodData *newPeriod = [period copy]; // 克隆该时段为一个新对象
+        MyENext24HrsPeriodData *period = [todayItem.periods objectAtIndex:i];// 取得第i个时段
+        MyENext24HrsPeriodData *newPeriod = [period copy]; // 克隆该时段为一个新对象
 
         // 对时段period进行测试，如果它的开始时刻小于等于当前时刻，并且其结束时刻大于当前时刻， 表示碰到正在运行的时段，也就是将在next24Hrs圆环上Y正轴方向出现的第一个时段
         if(period.stid <= currentHalfHr && period.etid >= currentHalfHr) {
@@ -128,8 +128,8 @@ metaModeArray = _metaModeArray;
     if (lastPeriodOfToday.etid < NUM_SECTOR) { // 如果已经添加进self.periods的最后一个时段的结束不是48,表示至少最后一个时段还有一部分是从第二天获取的. 
         // 对第二天的每个时段进行循环分析处理
         for (NSInteger i = 0; i < [nextDayItem.periods count]; i++) {
-            MyETodayPeriodData *period = [nextDayItem.periods objectAtIndex:i];// 取得第i个时段
-            MyETodayPeriodData *newPeriod = [period copy];// 克隆该时段为一个新对象
+            MyENext24HrsPeriodData *period = [nextDayItem.periods objectAtIndex:i];// 取得第i个时段
+            MyENext24HrsPeriodData *newPeriod = [period copy];// 克隆该时段为一个新对象
             //对于第二天的第一个时段，要考虑：如果今天晚上的Sleep mode和明天凌晨的sleep mode完全一样，从界面上就把它们合并起来作为一个时段进行操作.
             // 这里对相同setpoint的0点前后时段进行合并
             if (i == 0 && newPeriod.heating == lastPeriodOfToday.heating && newPeriod.cooling == lastPeriodOfToday.cooling) {
@@ -180,18 +180,18 @@ metaModeArray = _metaModeArray;
         [dayItem.periods removeAllObjects];// 删除全部today里面的时段
         // 把所有Next24Hrs 的 Periods的时段复制到today时段里面
         for (NSInteger i = 0; i < [self.periods count]; i++ ) {
-            MyETodayPeriodData *p = [self.periods objectAtIndex:i];// 取得next24hrs的periods数组的第i个元素
+            MyENext24HrsPeriodData *p = [self.periods objectAtIndex:i];// 取得next24hrs的periods数组的第i个元素
             [dayItem.periods addObject:[p copy]];
         }
     } else {
         // 1 首先处理dayItems中today的periods数组，首先处理第一个时段，然后删除其中的其他非next24Hrs的第一个时段
-        MyETodayPeriodData *firstPeriod = [self.periods objectAtIndex:0];// 取得next24hrs的periods数组的第一个元素
+        MyENext24HrsPeriodData *firstPeriod = [self.periods objectAtIndex:0];// 取得next24hrs的periods数组的第一个元素
         MyENext24HrsDayItemData *dayItem = [self.dayItems objectAtIndex:0];// 取得今天的数据对象
         NSInteger countOfTodayPeriods = [dayItem.periods count];//记录今天的periods数组的元素数目
         // 寻找第一时段在原来dayItem里面的下标, 取得当前period在原始dayItem里面的periods数组中的原始对象
-        NSInteger originalFirstPeriodIndexInToday = 0; MyETodayPeriodData *originalFirstPeriod = nil;
+        NSInteger originalFirstPeriodIndexInToday = 0; MyENext24HrsPeriodData *originalFirstPeriod = nil;
         for (NSInteger i= 0; i<countOfTodayPeriods; i++) {
-            MyETodayPeriodData *p = [dayItem.periods objectAtIndex:i];
+            MyENext24HrsPeriodData *p = [dayItem.periods objectAtIndex:i];
             if (firstPeriod.stid + currentHalfHr>= p.stid && firstPeriod.stid + currentHalfHr< p.etid) {
                 originalFirstPeriodIndexInToday = i;
                 originalFirstPeriod = p;
@@ -212,14 +212,14 @@ metaModeArray = _metaModeArray;
 
         // 执行添加next24Hrs中periods里面非next24Hrs的第一时段但属于today的时段
         for (NSInteger i = 1; i < [self.periods count]; i++ ) {
-            MyETodayPeriodData *p = [self.periods objectAtIndex:i];// 取得next24hrs的periods数组的第i个元素
+            MyENext24HrsPeriodData *p = [self.periods objectAtIndex:i];// 取得next24hrs的periods数组的第i个元素
             if (p.etid < zeroHourSectorId/* || p.stid > zeroHourSectorId*/) {// 如果p不是跨越0点、而是在0点之前的时段
-                MyETodayPeriodData *np = [p copy];
+                MyENext24HrsPeriodData *np = [p copy];
                 np.stid = p.stid + currentHalfHr;
                 np.etid = p.etid + currentHalfHr;
                 [dayItem.periods addObject:np];
             }else if (p.stid < zeroHourSectorId && p.etid >= zeroHourSectorId) {// 如果p是跨越0点的时段
-                MyETodayPeriodData *np = [p copy];
+                MyENext24HrsPeriodData *np = [p copy];
                 np.stid = p.stid + currentHalfHr;
                 np.etid = NUM_SECTOR;
                 [dayItem.periods addObject:np];
@@ -228,14 +228,14 @@ metaModeArray = _metaModeArray;
         }
 
         // ========== 2 其次处理dayItems中第二天的periods数组，首先处理最后一个时段，然后删除其中的其他非next24Hrs的最后一个时段
-        MyETodayPeriodData *lastPeriod = [self.periods objectAtIndex:[self.periods count]-1];// 取得next24hrs的periods数组的最后一个元素
+        MyENext24HrsPeriodData *lastPeriod = [self.periods objectAtIndex:[self.periods count]-1];// 取得next24hrs的periods数组的最后一个元素
         dayItem = [self.dayItems objectAtIndex:1];// 取得今天的数据对象
         NSInteger countOfSecondDayPeriods = [dayItem.periods count];//记录今天的periods数组的元素数目
         if (lastPeriod.etid > zeroHourSectorId) {// 确保最后来自第二天，然后进行修改此最后一个时段的开始时间、heating、cooling
             // 寻找第一时段在原来dayItem里面的下标, 取得当前period在原始dayItem里面的periods数组中的原始对象
-            NSInteger originalLastPeriodIndex = 0; MyETodayPeriodData *originalLastPeriod = nil;
+            NSInteger originalLastPeriodIndex = 0; MyENext24HrsPeriodData *originalLastPeriod = nil;
             for (NSInteger i= 0; i<countOfSecondDayPeriods; i++) {
-                MyETodayPeriodData *p = [dayItem.periods objectAtIndex:i];
+                MyENext24HrsPeriodData *p = [dayItem.periods objectAtIndex:i];
                 if (lastPeriod.etid - zeroHourSectorId > p.stid && lastPeriod.etid - zeroHourSectorId <= p.etid) {
                     originalLastPeriodIndex = i;
                     originalLastPeriod = p;
@@ -273,14 +273,14 @@ metaModeArray = _metaModeArray;
             if ([self.periods count] >= 2) {
                 for (NSInteger i = [self.periods count] - 2; i >=0; i--){
                     //对每一个Next24Hrs.periods中最后一个时段之前的个时段进行检查
-                    MyETodayPeriodData *p = [self.periods objectAtIndex:i];
+                    MyENext24HrsPeriodData *p = [self.periods objectAtIndex:i];
                     if (p.stid > zeroHourSectorId) {// 如果p不是跨越0点的时段,比0点晚
-                        MyETodayPeriodData *np = [p copy];
+                        MyENext24HrsPeriodData *np = [p copy];
                         np.stid = p.stid - zeroHourSectorId;
                         np.etid = p.etid - zeroHourSectorId;
                         [dayItem.periods insertObject:np atIndex:0];//添加
                     }else if(p.stid <= zeroHourSectorId && p.etid > zeroHourSectorId){// 如果p是跨越0点的时段
-                        MyETodayPeriodData *np = [p copy];
+                        MyENext24HrsPeriodData *np = [p copy];
                         np.stid = 0;
                         np.etid = p.etid - zeroHourSectorId;
                         [dayItem.periods insertObject:np atIndex:0];//添加
@@ -315,7 +315,7 @@ metaModeArray = _metaModeArray;
     int count = [self.periods count];
     for (int i = 0; i < count; i++) 
     {
-        MyETodayPeriodData *period = [self.periods objectAtIndex:i];
+        MyENext24HrsPeriodData *period = [self.periods objectAtIndex:i];
         MyEScheduleModeData *metaMode = [period scheduleModeDataWithPeriodIndex:i];
         metaMode.modeId = period.modeId;
         [self.metaModeArray addObject:metaMode];
@@ -386,7 +386,7 @@ metaModeArray = _metaModeArray;
     for (MyENext24HrsDayItemData *day in self.dayItems)
         [desc appendString:[NSString stringWithFormat:@"\n{%@}",[day description]]];
     [desc appendString:[NSString stringWithFormat:@"\n Periods: {\n"]];
-    for (MyETodayPeriodData *period in self.periods)
+    for (MyENext24HrsPeriodData *period in self.periods)
         [desc appendString:[NSString stringWithFormat:@"\n%@",[period description]]];
     [desc appendString:[NSString stringWithFormat:@"\n}\n"]];
     return desc;
@@ -406,7 +406,7 @@ metaModeArray = _metaModeArray;
 
     int count = [self.periods count];
     for (int i = 0; i < count; i++) {
-        MyETodayPeriodData *period = [self.periods objectAtIndex:i];
+        MyENext24HrsPeriodData *period = [self.periods objectAtIndex:i];
         //注意，在next24Hrs模块里，每个period对应一个mode。
         MyEScheduleModeData *modeData = [self.metaModeArray objectAtIndex:i];
         for (int j = period.stid; j < period.etid; j++) {
@@ -422,7 +422,7 @@ metaModeArray = _metaModeArray;
     
     int count = [self.periods count];
     for (int i = 0; i < count; i++) {
-        MyETodayPeriodData *period = [self.periods objectAtIndex:i];
+        MyENext24HrsPeriodData *period = [self.periods objectAtIndex:i];
         //注意，在next24Hrs模块里，每个period对应一个mode。
         for (int j = period.stid; j < period.etid; j++) {
             [periodIndexArray addObject:[NSNumber numberWithInt:i]];
@@ -438,7 +438,7 @@ metaModeArray = _metaModeArray;
     NSMutableArray *holdArray = [[NSMutableArray alloc] init];
     int count = [self.periods count];
     for (int i = 0; i < count; i++) {
-        MyETodayPeriodData *period = [self.periods objectAtIndex:i];
+        MyENext24HrsPeriodData *period = [self.periods objectAtIndex:i];
         for (int j = period.stid; j < period.etid; j++) {
             [holdArray addObject:period.hold];
         }
@@ -467,7 +467,7 @@ metaModeArray = _metaModeArray;
 {
     NSMutableArray *periods = [NSMutableArray array];
     int metaModeIndex = 0;//当前正在处理的半点的元模式在metaModeArray数组中的编号
-    MyETodayPeriodData *period = [[MyETodayPeriodData alloc] init];
+    MyENext24HrsPeriodData *period = [[MyENext24HrsPeriodData alloc] init];
     MyEScheduleModeData *currentModeInMetaModeArray = [self.metaModeArray objectAtIndex:metaModeIndex];
     //next24Hrs模块有个特点，它的时段边界可以移动，但不会减少和增加，它的元模式也不会增减，只是温度setpoint可以改变。
     //因此，next24Hrs数据的第一个时段总是对应第一个元模式
@@ -493,7 +493,7 @@ metaModeArray = _metaModeArray;
             // 首先保存前面找到的这个period
             [periods addObject:period];
             // 其次，创建一个新的period
-            period = [[MyETodayPeriodData alloc] init];
+            period = [[MyENext24HrsPeriodData alloc] init];
             // 当前正在处理的半点的元模式在metaModeArray数组中的编号增加1
             metaModeIndex++;
             if(metaModeIndex >= [self.metaModeArray count])
@@ -534,7 +534,7 @@ metaModeArray = _metaModeArray;
 // 用户双击某个sector后，对其heating/cooling进行编辑，这里就用新的数据更新periods数据。
 // 注意传入的已经是时段period的序号，而不是sector的序号
 - (void)updateWithPeriodIndex:(NSUInteger)periodIndex heating:(float)heating cooling:(float)cooling {
-    MyETodayPeriodData *period = [self.periods objectAtIndex:periodIndex];
+    MyENext24HrsPeriodData *period = [self.periods objectAtIndex:periodIndex];
     
     period.heating = heating;
     period.cooling = cooling;
@@ -558,24 +558,24 @@ metaModeArray = _metaModeArray;
 // 测试Next24Hrs的periods中的时段中间的下标记录是否标记正确
 -(BOOL)isPeriodsValid:(NSMutableArray *)periods {
     if ([periods count] == 1) {// 只有一个时段的情况
-        MyETodayPeriodData *p = [periods objectAtIndex:0];
+        MyENext24HrsPeriodData *p = [periods objectAtIndex:0];
         if (p.stid == 0 && p.etid == NUM_SECTOR) {
             return YES;
         } else {
             return NO;
         }
     }
-    MyETodayPeriodData *fp = [periods objectAtIndex:0];
+    MyENext24HrsPeriodData *fp = [periods objectAtIndex:0];
     if (fp.stid != 0) {
         return NO;
     }
-    MyETodayPeriodData *lp = [periods objectAtIndex:[periods count]-1];
+    MyENext24HrsPeriodData *lp = [periods objectAtIndex:[periods count]-1];
     if (lp.etid != NUM_SECTOR) {
         return NO;
     }
     for (NSInteger i = 0; i < [periods count] - 1; i++) {
-        MyETodayPeriodData *cp = [periods objectAtIndex:i];
-        MyETodayPeriodData *np = [periods objectAtIndex:i+1];
+        MyENext24HrsPeriodData *cp = [periods objectAtIndex:i];
+        MyENext24HrsPeriodData *np = [periods objectAtIndex:i+1];
         if(cp.stid == cp.etid || np.stid == np.etid){
             return NO;
         }

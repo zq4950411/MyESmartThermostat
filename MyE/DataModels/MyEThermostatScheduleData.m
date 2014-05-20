@@ -1,23 +1,20 @@
 //
-//  MyEScheduleWeeklyData.m
+//  MyEThermostatScheduleData.m
 //  MyE
 //
 //  Created by Ye Yuan on 2/29/12.
 //  Copyright (c) 2012 MyEnergy Domain. All rights reserved.
 //
 
-#import "MyEScheduleWeeklyData.h"
-#import "MyEWeekDayItemData.h"
-#import "MyEWeeklyPeriodData.h"
+#import "MyEThermostatScheduleData.h"
+#import "MyEThermostatDayData.h"
+#import "MyEThermostatPeriodData.h"
 #import "MyEScheduleModeData.h"
-#import "MyETodayPeriodData.h"
+#import "MyENext24HrsPeriodData.h"
 #import "MyEUtil.h"
 #import "SBJson.h"
 
-@implementation MyEScheduleWeeklyData
-@synthesize userId = _userId, houseId = _houseId, currentTime = _currentTime,
-locWeb = _locWeb, dayItems = _dayItems, metaModeArray = _metaModeArray;
-
+@implementation MyEThermostatScheduleData
 - (id)init {
     if (self = [super init]) {
         _userId = @"1000100000000000831";
@@ -36,7 +33,7 @@ locWeb = _locWeb, dayItems = _dayItems, metaModeArray = _metaModeArray;
 }
 
 
-- (MyEScheduleWeeklyData *)initWithDictionary:(NSDictionary *)dictionary
+- (MyEThermostatScheduleData *)initWithDictionary:(NSDictionary *)dictionary
 {
     _dayItems = [[NSMutableArray alloc] init];
     self.userId = [dictionary objectForKey:@"userId"];
@@ -48,7 +45,7 @@ locWeb = _locWeb, dayItems = _dayItems, metaModeArray = _metaModeArray;
     
     // 注意这里dayId和星期几的对应关系是(按照在dayItems里面传来的顺序排列):6-Sun, 0-Mon, 1-Tue, 2-Wed, 3-Thu, 4-Fri, 5-Sat
     for (NSDictionary *dayItem in dayItemsInDict) {
-        [dayItems addObject:[[MyEWeekDayItemData alloc] initWithDictionary:dayItem]];
+        [dayItems addObject:[[MyEThermostatDayData alloc] initWithDictionary:dayItem]];
     }
     self.dayItems = dayItems;
     
@@ -63,14 +60,14 @@ locWeb = _locWeb, dayItems = _dayItems, metaModeArray = _metaModeArray;
     return self;
 }
 
-- (MyEScheduleWeeklyData *)initWithJSONString:(NSString *)jsonString
+- (MyEThermostatScheduleData *)initWithJSONString:(NSString *)jsonString
 {
     // Create new SBJSON parser object
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     // 把JSON转为字典    
     NSDictionary *dict = [parser objectWithString:jsonString error:nil];
     if (dict && [dict isKindOfClass:[NSDictionary class]]) {
-        MyEScheduleWeeklyData *weekly = [[MyEScheduleWeeklyData alloc] initWithDictionary:dict];
+        MyEThermostatScheduleData *weekly = [[MyEThermostatScheduleData alloc] initWithDictionary:dict];
         return weekly;
     } else return nil;
 }
@@ -79,14 +76,14 @@ locWeb = _locWeb, dayItems = _dayItems, metaModeArray = _metaModeArray;
 {
     // 这里把self.dayItems里面的每个dayItem对象进行json序列化后放入数组dayItems。这样才能把数组dayItems进行正确的JSON序列化
     NSMutableArray *dayItems = [NSMutableArray array];
-    for (MyEWeekDayItemData *dayItem in self.dayItems)
+    for (MyEThermostatDayData *dayItem in self.dayItems)
         [dayItems addObject:[dayItem JSONDictionary]];
     
-    /* 注意，在服务器传递的数据中，dayItem的dayId对应的关系是：0-Mod, 1-Tue, ..., 5-Sat, 6-Sun, 这个在本程序里面没有用到，
+    /* 注意， Thermostat Weekly Schedule :在服务器传递的数据中，dayItem的dayId对应的关系是：0-Mod, 1-Tue, ..., 5-Sat, 6-Sun, 这个在本程序里面没有用到，
      * 但是服务器程序把dayItem的顺序调整成[{6-Sun}, {0-Mon}, {1-Tue}, {2-Wed}, {3-Thu}, {4-Fri}, {5-Sat}]。
-     * 对每个Weekday的Schedule的任何改变，直接写到对应的dayItems的元素中，所以在我们应用里面不要考虑dayItem自带的dayId属性。
-     * 为了区分在服务器传递的数据中dayItem的dayId属性和我们这里的自己的weekday排序，这里我们都用变量weekdayId做weekday的id
-     * 我们在这里保存的dayItems中的weekdayId和weekday对应关系以及dayItem顺序是: 0-Sun, 1-Mon, 2-Tue, 3-Wed, 4-Thu, 5-Fri, 6-Sat。
+     * 对每个Day的Schedule的任何改变，直接写到对应的dayItems的元素中，所以在我们应用里面不要考虑dayItem自带的dayId属性。
+     * 为了区分在服务器传递的数据中dayItem的dayId属性和我们这里的自己的day排序，这里我们都用变量dayId做day的id
+     * 我们在这里保存的dayItems中的dayId和day对应关系以及dayItem顺序是: 0-Sun, 1-Mon, 2-Tue, 3-Wed, 4-Thu, 5-Fri, 6-Sat。
      */
     NSMutableArray *modes = [NSMutableArray array];
     for (MyEScheduleModeData *mode in self.metaModeArray)
@@ -104,12 +101,12 @@ locWeb = _locWeb, dayItems = _dayItems, metaModeArray = _metaModeArray;
 }
 
 -(id)copyWithZone:(NSZone *)zone {
-    return [[MyEScheduleWeeklyData alloc] initWithDictionary:[self JSONDictionary]];
+    return [[MyEThermostatScheduleData alloc] initWithDictionary:[self JSONDictionary]];
 }
 -(NSString *)description
 {
     NSMutableString *desc = [NSMutableString stringWithFormat:@"userId = (%@), houseId = %@, locWeb = %@, currentTime = %@,  \ndayItems:\n", _userId, _houseId, _locWeb, _currentTime];
-    for (MyEWeekDayItemData *day in self.dayItems)
+    for (MyEThermostatDayData *day in self.dayItems)
         [desc appendString:[NSString stringWithFormat:@"\n{%@}",[day description]]];
     [desc appendString:@"\nmodes:\n"];
     for (MyEScheduleModeData *mode in self.metaModeArray)
@@ -121,18 +118,18 @@ locWeb = _locWeb, dayItems = _dayItems, metaModeArray = _metaModeArray;
 
 /* 注意，在服务器传递的数据中，dayItem的dayId对应的关系是：0-Mod, 1-Tue, ..., 5-Sat, 6-Sun, 这个在本程序里面没有用到，
  * 但是服务器程序把dayItem的顺序调整成[{6-Sun}, {0-Mon}, {1-Tue}, {2-Wed}, {3-Thu}, {4-Fri}, {5-Sat}]。
- * 对每个Weekday的Schedule的任何改变，直接写到对应的dayItems的元素中，所以在我们应用里面不要考虑dayItem自带的dayId属性。
- * 为了区分在服务器传递的数据中dayItem的dayId属性和我们这里的自己的weekday排序，这里我们都用变量weekdayId做weekday的id
- * 我们在这里保存的dayItems中的weekdayId和weekday对应关系以及dayItem顺序是: 0-Sun, 1-Mon, 2-Tue, 3-Wed, 4-Thu, 5-Fri, 6-Sat。
+ * 对每个Day的Schedule的任何改变，直接写到对应的dayItems的元素中，所以在我们应用里面不要考虑dayItem自带的dayId属性。
+ * 为了区分在服务器传递的数据中dayItem的dayId属性和我们这里的自己的day排序，这里我们都用变量dayId做day的id
+ * 我们在这里保存的dayItems中的dayId和day对应关系以及dayItem顺序是: 0-Sun, 1-Mon, 2-Tue, 3-Wed, 4-Thu, 5-Fri, 6-Sat。
  */
 // 下面函数作用是取得每个半小时对应的mode的modeId所构成的数组，数组元素是48个
-- (NSMutableArray *) modeIdArrayForWeekdayId:(NSUInteger)weekdayId
+- (NSMutableArray *) modeIdArrayForDayId:(NSUInteger)dayId
 {
     NSMutableArray *modeArray = [[NSMutableArray alloc] init];
-    MyEWeekDayItemData * dayItem = [self.dayItems objectAtIndex:weekdayId];
+    MyEThermostatDayData * dayItem = [self.dayItems objectAtIndex:dayId];
     int count = [dayItem.periods count];
     for (int i = 0; i < count; i++) {
-        MyEWeeklyPeriodData *period = [dayItem.periods objectAtIndex:i];
+        MyEThermostatPeriodData *period = [dayItem.periods objectAtIndex:i];
 
         for (int j = period.stid; j < period.etid; j++) {
 
@@ -150,14 +147,14 @@ locWeb = _locWeb, dayItems = _dayItems, metaModeArray = _metaModeArray;
     }
     return nil;
 }
-// 下面函数作用是取得给定weekdayId那一天的由MyETodayPeriodData对象构成的时段数组
+// 下面函数作用是取得给定dayId那一天的由MyETodayPeriodData对象构成的时段数组
 // 此函数的主要作用是和Today面板公用MyEPeriodDoughnutView类来显示圆环上的提示信息，
 // 那里要用MyETodayPeriodData对象构成的数组，也就是一个Today数据的时段数组
-- (NSMutableArray *) periodsForWeekdayId:(NSUInteger)weekdayId {
+- (NSMutableArray *) periodsForDayId:(NSUInteger)dayId {
     NSMutableArray *periods = [NSMutableArray array]; 
-    MyEWeekDayItemData *dayItem = [self.dayItems objectAtIndex:weekdayId];
-    for (MyEWeeklyPeriodData *weeklyPeriod in dayItem.periods) {
-        MyETodayPeriodData *todayPeriod = [[MyETodayPeriodData alloc] init];
+    MyEThermostatDayData *dayItem = [self.dayItems objectAtIndex:dayId];
+    for (MyEThermostatPeriodData *weeklyPeriod in dayItem.periods) {
+        MyENext24HrsPeriodData *todayPeriod = [[MyENext24HrsPeriodData alloc] init];
         todayPeriod.stid = weeklyPeriod.stid;
         todayPeriod.etid = weeklyPeriod.etid;
         MyEScheduleModeData *mode = [self getModeDataByModeId:weeklyPeriod.modeId];

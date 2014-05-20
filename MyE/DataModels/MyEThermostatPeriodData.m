@@ -1,17 +1,17 @@
 //
-//  MyEWeeklyPeriodData.m
+//  MyEThermostatPeriodData.m
 //  MyE
 //
 //  Created by Ye Yuan on 2/29/12.
 //  Copyright (c) 2012 MyEnergy Domain. All rights reserved.
 //
 
-#import "MyEWeeklyPeriodData.h"
+#import "MyEThermostatPeriodData.h"
 #import "MyEScheduleModeData.h"
 #import "SBJson.h"
 #import "MyEUtil.h"
 
-@implementation MyEWeeklyPeriodData
+@implementation MyEThermostatPeriodData
 
 @synthesize stid = _stid, etid = _etid;
 @synthesize modeId = _modeId;
@@ -26,7 +26,7 @@
     }
     return nil;
 }
-- (MyEWeeklyPeriodData *)initWithDictionary:(NSDictionary *)dictionary
+- (MyEThermostatPeriodData *)initWithDictionary:(NSDictionary *)dictionary
 {
     if (self = [super init]) {
         self.stid = [[dictionary objectForKey:@"stid"] intValue];
@@ -48,7 +48,7 @@
     return dict;
 }
 -(id)copyWithZone:(NSZone *)zone {
-    return [[MyEWeeklyPeriodData alloc] initWithDictionary:[self JSONDictionary]];
+    return [[MyEThermostatPeriodData alloc] initWithDictionary:[self JSONDictionary]];
 }
 -(NSString *)description
 {
