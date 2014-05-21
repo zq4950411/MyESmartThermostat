@@ -12,10 +12,10 @@
 #import "MyEUtil.h"
 
 @implementation MyEThermostatDayData
-@synthesize dayId = _dayId, periods = _periods;
 - (id)init {
     if (self = [super init]) {
         _dayId = 0;
+        _title = @"Noname";
         _periods = [[NSMutableArray alloc] init];
         return self;
     }
@@ -28,6 +28,7 @@
 {
     _periods = [[NSMutableArray alloc] init];
     self.dayId = [[dictionary objectForKey:@"dayId"] intValue];
+    _title = [dictionary objectForKey:@"title"];
     NSArray *periodsInDict = [dictionary objectForKey:@"periods"];
     NSMutableArray *periods = [NSMutableArray array];
     for (NSDictionary *period in periodsInDict) {
@@ -60,6 +61,7 @@
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           [NSString stringWithFormat:@"%i",self.dayId], @"dayId",
+                          self.title, @"title",
                           periods, @"periods",
                           
                           nil ];
@@ -73,7 +75,7 @@
 }
 -(NSString *)description
 {
-    NSMutableString *desc = [NSMutableString stringWithFormat:@"\ndayId = %i , \nperiods:[",_dayId];
+    NSMutableString *desc = [NSMutableString stringWithFormat:@"\ndayId = %i , title = %@, \nperiods:[",_dayId, self.title];
     for (MyEThermostatPeriodData *period in self.periods)
         [desc appendString:[NSString stringWithFormat:@"{\n%@\n}",[period description]]];
     [desc appendString:@"\n]"];

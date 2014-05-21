@@ -16,6 +16,7 @@
 #import "MBProgressHUD.h"
 #import "MyEPeriodInforDoughnutView.h"
 #import "TableViewWithBlock.h"
+#import "MyEDropDownMenu.h"
 
 @class MyEThermostatScheduleData;
 @class MyEScheduleModeData;
@@ -58,6 +59,7 @@
 @property (weak, nonatomic) IBOutlet UIView *modeToolContainer;
 @property (weak, nonatomic) IBOutlet UIButton *dayBtn;
 @property (weak, nonatomic) IBOutlet TableViewWithBlock *daysTableView;
+@property (weak, nonatomic) IBOutlet UIView *topToolbar;
 
 
 @property (strong, nonatomic) MyEThermostatScheduleData *dataModel;
