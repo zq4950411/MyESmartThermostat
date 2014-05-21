@@ -35,21 +35,16 @@
 @end
 
 @interface MyESocketSchedules : NSObject
-@property (nonatomic, assign) NSInteger autoMode;
 @property (nonatomic, strong) NSMutableArray *schedules;
 -(MyESocketSchedules *)initWithJSONString:(NSString *)string;
 -(MyESocketSchedules *)initWithDic:(NSDictionary *)dic;
 @end
 
 @interface MyESocketSchedule : NSObject
-@property (nonatomic, strong) NSMutableArray *periods;
-@property (nonatomic, strong) NSMutableArray *weeks;
 @property (nonatomic, assign) NSInteger scheduleId;
+@property (nonatomic, strong) NSString *onTime;
+@property (nonatomic, strong) NSString *offTime;
+@property (nonatomic, strong) NSMutableArray *weeks;
+@property (nonatomic, assign) NSInteger runFlag;
 -(MyESocketSchedule *)initWithDic:(NSDictionary *)dic;
-@end
-
-@interface MyESocketPeriod : NSObject
-@property (nonatomic, assign) NSInteger stid;
-@property (nonatomic, assign) NSInteger etid;
--(MyESocketPeriod *)initWithDic:(NSDictionary *)dic;
 @end

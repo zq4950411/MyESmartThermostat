@@ -37,6 +37,7 @@
 		8CA52FA319231A0D00D40EDD /* MyEEventConditionEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA219231A0D00D40EDD /* MyEEventConditionEditViewController.m */; };
 		8CA52FA619231A3000D40EDD /* MyEEventTimeEdtiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA519231A3000D40EDD /* MyEEventTimeEdtiViewController.m */; };
 		8CA52FA919231D4700D40EDD /* MyEEventDeviceEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA819231D4700D40EDD /* MyEEventDeviceEditViewController.m */; };
+		8CB4B552192B46610077CFCB /* MYEWeekButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4B551192B46610077CFCB /* MYEWeekButtons.m */; };
 		8CCB090A192241360095EAAD /* MyEIrDefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0909192241360095EAAD /* MyEIrDefaultViewController.m */; };
 		8CCB090C192247610095EAAD /* WeekCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CCB090B192247610095EAAD /* WeekCell.xib */; };
 		8CCB0D541909FF460044B0E5 /* MyESocketInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */; };
@@ -372,6 +373,8 @@
 		8CA52FA519231A3000D40EDD /* MyEEventTimeEdtiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventTimeEdtiViewController.m; sourceTree = "<group>"; };
 		8CA52FA719231D4700D40EDD /* MyEEventDeviceEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventDeviceEditViewController.h; sourceTree = "<group>"; };
 		8CA52FA819231D4700D40EDD /* MyEEventDeviceEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventDeviceEditViewController.m; sourceTree = "<group>"; };
+		8CB4B550192B46610077CFCB /* MYEWeekButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYEWeekButtons.h; sourceTree = "<group>"; };
+		8CB4B551192B46610077CFCB /* MYEWeekButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYEWeekButtons.m; sourceTree = "<group>"; };
 		8CCB0908192241360095EAAD /* MyEIrDefaultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIrDefaultViewController.h; sourceTree = "<group>"; };
 		8CCB0909192241360095EAAD /* MyEIrDefaultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIrDefaultViewController.m; sourceTree = "<group>"; };
 		8CCB090B192247610095EAAD /* WeekCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeekCell.xib; sourceTree = "<group>"; };
@@ -944,6 +947,7 @@
 		8CA05FDE19078A8D0090A350 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				8CB4B54F192B46610077CFCB /* MYEWeekButtons */,
 				8CA0602A1908A3BF0090A350 /* SUNSlideSwitchView */,
 				8CA05FDF19078A8E0090A350 /* dropDownTableView */,
 				8CA060381908B46E0090A350 /* MyEControlBtn.h */,
@@ -1013,6 +1017,15 @@
 				8CA06045190912470090A350 /* MyESocketAutoViewController.m */,
 			);
 			path = Socket;
+			sourceTree = "<group>";
+		};
+		8CB4B54F192B46610077CFCB /* MYEWeekButtons */ = {
+			isa = PBXGroup;
+			children = (
+				8CB4B550192B46610077CFCB /* MYEWeekButtons.h */,
+				8CB4B551192B46610077CFCB /* MYEWeekButtons.m */,
+			);
+			path = MYEWeekButtons;
 			sourceTree = "<group>";
 		};
 		8CEC64D01921C0DE005953FB /* Common */ = {
@@ -2426,6 +2439,7 @@
 				C3FDB4D418FA4495009B423D /* Reachability.m in Sources */,
 				C3FDB4EA18FA6044009B423D /* MyELaunchIntroViewController.m in Sources */,
 				C3FDB87F18FA83A9009B423D /* MyEVacationDetailViewController.m in Sources */,
+				8CB4B552192B46610077CFCB /* MYEWeekButtons.m in Sources */,
 				B2B2577717CC368C003833E6 /* UIViewController+MJPopupViewController.m in Sources */,
 				C3F61AFF18E1154200DEE477 /* SBJsonStreamParserAccumulator.m in Sources */,
 				C3FDB86C18FA83A9009B423D /* MyEThumbModeView.m in Sources */,

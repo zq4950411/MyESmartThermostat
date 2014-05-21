@@ -60,9 +60,8 @@
 }
 -(MyESocketSchedules *)initWithDic:(NSDictionary *)dic{
     if (self = [super init]) {
-        self.autoMode = [dic[@"autoMode"] intValue];
         self.schedules = [NSMutableArray array];
-        for (NSDictionary *d in dic[@"schedules"]) {
+        for (NSDictionary *d in dic[@"SSList"]) {
             [self.schedules addObject:[[MyESocketSchedule alloc] initWithDic:d]];
         }
         return self;
@@ -75,28 +74,14 @@
 
 -(MyESocketSchedule *)initWithDic:(NSDictionary *)dic{
     if (self = [super init]) {
-        self.periods = [NSMutableArray array];
         self.weeks = [NSMutableArray array];
-        for (NSDictionary *d in dic[@"periods"]) {
-            [self.periods addObject:[[MyESocketPeriod alloc] initWithDic:d]];
-        }
-        for (NSNumber *n in dic[@"weekDays"]) {
+        for (NSNumber *n in dic[@"weeks"]) {
             [self.weeks addObject:n];
         }
         self.scheduleId = [dic[@"scheduleId"] intValue];
-        return self;
-    }
-    return nil;
-}
-
-@end
-
-@implementation MyESocketPeriod
-
--(MyESocketPeriod *)initWithDic:(NSDictionary *)dic{
-    if (self = [super init]) {
-        self.stid = [dic[@"stid"] intValue];
-        self.etid = [dic[@"etid"] intValue];
+        self.onTime = dic[@"onTime"];
+        self.offTime = dic[@"offTime"];
+        self.runFlag = [dic[@"runFlag"] intValue];
         return self;
     }
     return nil;

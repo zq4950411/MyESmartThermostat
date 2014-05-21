@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyESocketAutoViewController : UIViewController<MyEDataLoaderDelegate>
+@interface MyESocketAutoViewController : UITableViewController<MyEDataLoaderDelegate>
 @property (nonatomic, strong) MyEDevice *device;
 @property (nonatomic, strong) MyESocketSchedules *schedules;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *controlSeg;
