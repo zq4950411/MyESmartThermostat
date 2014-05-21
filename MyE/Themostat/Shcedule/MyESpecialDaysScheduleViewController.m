@@ -167,7 +167,7 @@
 
     MyEThermostatDayData *day = self.dataModel.dayItems[currentDayId];
     self.dayBtn.titleLabel.text = day.title;
-//    [self.dayBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
+    [self.dayBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
 }
 #pragma mark -
 #pragma mark URL Loading System methods
@@ -650,7 +650,6 @@
 
 - (IBAction)changeDay:(id)sender {
     if ([sender isSelected]) {   //isSelected 就是selected
-        self.topToolbar.frame =CGRectMake(self.topToolbar.frame.origin.x, self.topToolbar.frame.origin.y, self.topToolbar.frame.size.width, 40);
         [UIView animateWithDuration:0.3 animations:^{
             //            UIImage *closeImage=[UIImage imageNamed:@"dropdown.png"];
             //            [_showBtn setImage:closeImage forState:UIControlStateNormal];
@@ -662,7 +661,6 @@
             [sender setSelected:NO];
         }];
     }else{
-        self.topToolbar.frame =CGRectMake(self.topToolbar.frame.origin.x, self.topToolbar.frame.origin.y, self.topToolbar.frame.size.width, 450);
         [UIView animateWithDuration:0.3 animations:^{
             //            UIImage *openImage=[UIImage imageNamed:@"dropup.png"];
             //            [_showBtn setImage:openImage forState:UIControlStateNormal];
@@ -674,10 +672,9 @@
                 frame.size.height=150;
             [_daysTableView setFrame:frame];
         } completion:^(BOOL finished){
-            
+            _daysTableView.hidden = NO;
             [self reloadDaysTableViewContents];
             [sender setSelected:YES];
-            _daysTableView.hidden = NO;
         }];
     }
 }
@@ -928,7 +925,7 @@
 //        UITableViewCell *cell=(UITableViewCell*)[tableview cellForRowAtIndexPath:indexPath];
 //        UILabel *label = (UILabel *)[cell.contentView viewWithTag:998];
         self.currentDayId = indexPath.row;
-//        [self.dayBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
+        [self.dayBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
     } beginEditingStyleForRowAtIndexPath :nil];
     _daysTableView.tableFooterView = [[UIView alloc] init];
     [_daysTableView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
