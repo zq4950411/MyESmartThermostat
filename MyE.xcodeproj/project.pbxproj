@@ -203,6 +203,7 @@
 		C3F61B2618E11E7400DEE477 /* ASDepthModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F61B2318E11E7400DEE477 /* ASDepthModalViewController.m */; };
 		C3F61B2A18E1218E00DEE477 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F61B2918E1218E00DEE477 /* UIImage+Blur.m */; };
 		C3F61B2C18E1231B00DEE477 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F61B2B18E1231B00DEE477 /* Accelerate.framework */; };
+		C3FB3BA7192C3AA00039D052 /* MyEDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3BA6192C3AA00039D052 /* MyEDropDownMenu.m */; };
 		C3FDB4AD18FA403E009B423D /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB45C18FA403E009B423D /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3FDB4AE18FA403E009B423D /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB45F18FA403E009B423D /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3FDB4AF18FA403E009B423D /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB46118FA403E009B423D /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -682,6 +683,8 @@
 		C3F61B2818E1218E00DEE477 /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Blur.h"; sourceTree = "<group>"; };
 		C3F61B2918E1218E00DEE477 /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Blur.m"; sourceTree = "<group>"; };
 		C3F61B2B18E1231B00DEE477 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		C3FB3BA5192C3AA00039D052 /* MyEDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEDropDownMenu.h; sourceTree = "<group>"; };
+		C3FB3BA6192C3AA00039D052 /* MyEDropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEDropDownMenu.m; sourceTree = "<group>"; };
 		C3FDB45B18FA403E009B423D /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		C3FDB45C18FA403E009B423D /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		C3FDB45D18FA403E009B423D /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -1124,6 +1127,7 @@
 		B2588C2D17B09B9C007ED13C /* LIB */ = {
 			isa = PBXGroup;
 			children = (
+				C3FB3BA4192C3AA00039D052 /* DropDownMenu */,
 				C39498631919D7F70075ABD3 /* Wheel */,
 				C3FDB45A18FA403E009B423D /* ASIHttpRequest */,
 				C3A2C09518F39DE500A08D2C /* SwipeView */,
@@ -1714,6 +1718,15 @@
 				C3F61B2318E11E7400DEE477 /* ASDepthModalViewController.m */,
 			);
 			path = ASDepthModal;
+			sourceTree = "<group>";
+		};
+		C3FB3BA4192C3AA00039D052 /* DropDownMenu */ = {
+			isa = PBXGroup;
+			children = (
+				C3FB3BA5192C3AA00039D052 /* MyEDropDownMenu.h */,
+				C3FB3BA6192C3AA00039D052 /* MyEDropDownMenu.m */,
+			);
+			path = DropDownMenu;
 			sourceTree = "<group>";
 		};
 		C3FDB45A18FA403E009B423D /* ASIHttpRequest */ = {
@@ -2418,6 +2431,7 @@
 				C3FDB86E18FA83A9009B423D /* MyETodayPeriodEditingView.m in Sources */,
 				C3F61B0418E1154200DEE477 /* SBJsonStreamWriterState.m in Sources */,
 				8CA05FEB1907A8CD0090A350 /* MyERoomsTableViewController.m in Sources */,
+				C3FB3BA7192C3AA00039D052 /* MyEDropDownMenu.m in Sources */,
 				C3FDB4E718FA6044009B423D /* MyEHouseListConnectedCell.m in Sources */,
 				8CA060191908A3480090A350 /* MyEAudioDefaultViewController.m in Sources */,
 				C3F61B1F18E11DAE00DEE477 /* TPKeyboardAvoidingTableView.m in Sources */,

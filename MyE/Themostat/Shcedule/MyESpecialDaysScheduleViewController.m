@@ -21,6 +21,8 @@
 #import "MyEHouseData.h"
 #import "MyEThermostatData.h"
 
+#import "MyEDropDownMenu.h"
+
 #define TOOBAR_ANIMATION_DURATION 0.5f
 @interface MyESpecialDaysScheduleViewController ()
 - (void)_restoreToLastUnchanged;
@@ -37,6 +39,8 @@
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
 - (BOOL)_processHttpRespondForString:(NSString *)respondText;
+
+@property (nonatomic, strong) MyEDropDownMenu *dropDown;
 @end
 
 @implementation MyESpecialDaysScheduleViewController
@@ -167,7 +171,6 @@
 
     MyEThermostatDayData *day = self.dataModel.dayItems[currentDayId];
     self.dayBtn.titleLabel.text = day.title;
-    [self.dayBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
 }
 #pragma mark -
 #pragma mark URL Loading System methods
@@ -649,36 +652,67 @@
 }
 
 - (IBAction)changeDay:(id)sender {
-    if ([sender isSelected]) {   //isSelected 就是selected
-        [UIView animateWithDuration:0.3 animations:^{
-            //            UIImage *closeImage=[UIImage imageNamed:@"dropdown.png"];
-            //            [_showBtn setImage:closeImage forState:UIControlStateNormal];
-            CGRect frame=_daysTableView.frame;
-            frame.size.height=1;
-            [_daysTableView setFrame:frame];
-        } completion:^(BOOL finished){
-            _daysTableView.hidden = YES;
-            [sender setSelected:NO];
-        }];
-    }else{
-        [UIView animateWithDuration:0.3 animations:^{
-            //            UIImage *openImage=[UIImage imageNamed:@"dropup.png"];
-            //            [_showBtn setImage:openImage forState:UIControlStateNormal];
-            
-            CGRect frame=_daysTableView.frame;
-            if (self.dataModel.dayItems.count <= 6 ) {
-                frame.size.height = 25 * self.dataModel.dayItems.count;
-            }else
-                frame.size.height=150;
-            [_daysTableView setFrame:frame];
-        } completion:^(BOOL finished){
-            _daysTableView.hidden = NO;
-            [self reloadDaysTableViewContents];
-            [sender setSelected:YES];
-        }];
+//    if ([sender isSelected]) {   //isSelected 就是selected
+//        [UIView animateWithDuration:0.3 animations:^{
+//            //            UIImage *closeImage=[UIImage imageNamed:@"dropdown.png"];
+//            //            [_showBtn setImage:closeImage forState:UIControlStateNormal];
+//            CGRect frame=_daysTableView.frame;
+//            frame.size.height=1;
+//            [_daysTableView setFrame:frame];
+//        } completion:^(BOOL finished){
+//            _daysTableView.hidden = YES;
+//            [sender setSelected:NO];
+//        }];
+//    }else{
+//        [UIView animateWithDuration:0.3 animations:^{
+//            //            UIImage *openImage=[UIImage imageNamed:@"dropup.png"];
+//            //            [_showBtn setImage:openImage forState:UIControlStateNormal];
+//            
+//            CGRect frame=_daysTableView.frame;
+//            if (self.dataModel.dayItems.count <= 6 ) {
+//                frame.size.height = 25 * self.dataModel.dayItems.count;
+//            }else
+//                frame.size.height=150;
+//            [_daysTableView setFrame:frame];
+//        } completion:^(BOOL finished){
+//            _daysTableView.hidden = NO;
+//            [self reloadDaysTableViewContents];
+//            [sender setSelected:YES];
+//        }];
+//    }
+    
+    if ([sender isSelected]) {
+        [self closeMenu];
+        [sender setSelected:NO];
+    } else{
+        [sender setSelected:YES];
+        if(self.dropDown == nil) {
+            NSArray *arr = [NSArray arrayWithObjects:@"Add tag's comment", @"Tag info", @"Help", @"Languages", @"Home22", @"home33", @"Home32", nil];
+//            NSArray *arrImage = [NSArray arrayWithObjects:[UIImage imageNamed:@"bookmark.png"],
+//                                 [UIImage imageNamed:@"map.png"],
+//                                 [UIImage imageNamed:@"news.png"],
+//                                 [UIImage imageNamed:@"photo.png"], nil];
+            self.dropDown = [[MyEDropDownMenu alloc] showDropDown:sender
+                                                  titleList:arr
+                                                  imageList:nil
+                                              directionDown:YES];
+            __weak MyESpecialDaysScheduleViewController *bSelf = self;
+            self.dropDown.function = ^(NSInteger index){
+                NSLog(@"you chose : %d", index);
+            };
+            self.dropDown.releseMenu = ^{
+                [bSelf closeMenu];
+                [bSelf.dayBtn setSelected:NO];
+            };
+        }
     }
+    
 }
-
+- (void)closeMenu
+{
+    [self.dropDown hideDropDown:self.view];
+    self.dropDown = nil;
+}
 #warning 下面将替换成day下拉选择控件的值变化方法
 //
 //- (IBAction)weekdaySegmentedControlValueDidChange:(id)sender {
