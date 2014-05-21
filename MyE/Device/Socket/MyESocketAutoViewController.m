@@ -41,7 +41,21 @@
 {
     [super didReceiveMemoryWarning];
 }
-
+#pragma mark - table view dataSource
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [self.schedules.schedules count];
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"scheduleCell" forIndexPath:indexPath];
+    MyESocketSchedule *schedule = self.schedules.schedules[indexPath.row];
+    UILabel *lblTime = (UILabel *)[cell.contentView viewWithTag:200];
+    UISwitch *controlSwitch = (UISwitch *)[cell.contentView viewWithTag:201];
+    MYEWeekButtons *weekBtns = (MYEWeekButtons *)[cell.contentView viewWithTag:202];
+    lblTime.text = [NSString stringWithFormat:@"%@-%@",schedule.onTime,schedule.offTime];
+    [controlSwitch setOn:schedule.runFlag animated:YES];
+    weekBtns.selectedButtons = schedule.weeks;
+    return cell;
+}
 #pragma mark - URL DELEGATE methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"receive string is %@",string);
@@ -51,6 +65,7 @@
         }else if(![string isEqualToString:@"fail"]){
             MyESocketSchedules *schedules = [[MyESocketSchedules alloc] initWithJSONString:string];
             self.schedules = schedules;
+            [self.tableView reloadData];
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];
     }
@@ -63,11 +78,10 @@
             
         }else{
             [SVProgressHUD showErrorWithStatus:@"Error!"];
-            self.controlSeg.selectedSegmentIndex = 1-self.controlSeg.selectedSegmentIndex;
         }
     }
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
-    NSLog(@"%@",error);
+    NSLog(@"%@",[error localizedDescription]);
 }
 @end

@@ -40,7 +40,7 @@
 -(MyESocketSchedules *)initWithDic:(NSDictionary *)dic;
 @end
 
-@interface MyESocketSchedule : NSObject
+@interface MyESocketSchedule : NSObject<NSCopying>
 @property (nonatomic, assign) NSInteger scheduleId;
 @property (nonatomic, strong) NSString *onTime;
 @property (nonatomic, strong) NSString *offTime;

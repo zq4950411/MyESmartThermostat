@@ -71,7 +71,16 @@
 @end
 
 @implementation MyESocketSchedule
-
+-(id)init{
+    if (self = [super init]) {
+        self.weeks = [NSMutableArray array];
+        self.scheduleId = 0;
+        self.onTime = @"11:00";  //这里的初始值用于btn的显示
+        self.offTime = @"12:00";
+        self.runFlag = 0;
+    }
+    return self;
+}
 -(MyESocketSchedule *)initWithDic:(NSDictionary *)dic{
     if (self = [super init]) {
         self.weeks = [NSMutableArray array];
@@ -86,5 +95,16 @@
     }
     return nil;
 }
-
+-(id)copyWithZone:(NSZone *)zone{
+    MyESocketSchedule *schedule = [[[self class] allocWithZone:zone] init];
+    schedule.weeks = self.weeks;
+    schedule.scheduleId = self.scheduleId;
+    schedule.onTime = self.onTime;
+    schedule.offTime = self.offTime;
+    schedule.runFlag = self.runFlag;
+    return schedule;
+}
+-(NSString *)description{
+    return [NSString stringWithFormat:@"%i %@ %@ %@ %i",self.scheduleId,self.onTime,self.offTime,[self.weeks componentsJoinedByString:@","],self.runFlag];
+}
 @end

@@ -21,6 +21,7 @@
 {
     NSLog(@"draw rect");
     self.weeks = [NSMutableArray array];
+    self.backgroundColor = [UIColor clearColor]; //背景透明
     [self setButtonsInViewWithFrame:rect];
 }
 #pragma mark - add Button In View
@@ -95,5 +96,17 @@
         [self.delegate weekButtons:self selectedButtonTag:newArray];
     }
 }
-
+#pragma mark - private methods
+-(void)setSelectedButtons:(NSArray *)selectedButtons{
+    if (![selectedButtons count]) {
+        return;
+    }
+    for (NSNumber *i in selectedButtons) {
+        for (UIButton *btn in self.subviews) {
+            if (btn.tag == [i intValue]+1000) {
+                btn.selected = YES;
+            }
+        }
+    }
+}
 @end
