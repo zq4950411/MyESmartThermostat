@@ -739,18 +739,10 @@
 
 - (void)_createPeriodInforDoughnutViewIfNecessary {
     if (!_periodInforDoughnutView) {
-        //  获取底层ScheduleView,这里本来应该把此添加到self.view的，可以保持低耦合，不过这里为了特殊显示效果，才把_modeEditingView添加到底层ScheduleView的
-        UIView *baseView = self.view;
-        
-        CGRect bounds = [baseView bounds];
-        // 为了Retina4屏幕而修改的Doughnut圈高度固定
-        //        CGRect frame = CGRectMake(CGRectGetMinX(bounds)-5, CGRectGetMinY(bounds), bounds.size.width, bounds.size.height);// x方向向做微调了5
-        // CGRect frame = CGRectMake(CGRectGetMinX(bounds)-5, CGRectGetMinY(bounds), bounds.size.width, 367);// x方向向做微调了5 originally 2014-2-24
-        CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, 307);// x方向向做微调了5  changed @ : 2014-2-24
-        _periodInforDoughnutView = [[MyEPeriodInforDoughnutView alloc] initWithFrame:frame];
-        _periodInforDoughnutView.doughnutViewRadius = TODAY_DOUGHNUT_VIEW_SIZE / 2;
+        _periodInforDoughnutView = [[MyEPeriodInforDoughnutView alloc] initWithFrame:[self.centerContainerView frame]];
+        _periodInforDoughnutView.doughnutViewRadius = NEXT24HRS_DOUGHNUT_VIEW_SIZE / 2;
         [_periodInforDoughnutView setDelegate:self];
-        [baseView addSubview:_periodInforDoughnutView];
+        [self.view addSubview:_periodInforDoughnutView];
     }
 }
 - (void)_togglePeriodInforDoughnutView{

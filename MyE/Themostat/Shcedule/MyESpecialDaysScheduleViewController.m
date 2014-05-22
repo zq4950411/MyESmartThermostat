@@ -29,9 +29,6 @@
 - (void)_createModeEditingViewIfNecessary;
 - (void)_toggleModeEditingViewWithType:(ModeEditingViewType)typeOfEditing;
 
-- (void)_createApplyToDaysSelectionViewIfNecessary;
-- (void)_toggleApplyToDaysSelectionView;
-
 - (void)_createPeriodInforDoughnutViewIfNecessary;
 - (void)_togglePeriodInforDoughnutView;
 
@@ -84,7 +81,7 @@
     _doughnutView = [[MyEDoughnutView alloc] initWithFrame:CGRectMake(doughnutViewX, doughnutViewY, WEEKLY_DOUGHNUT_VIEW_SIZE, WEEKLY_DOUGHNUT_VIEW_SIZE) delegate:self];
     
     // 在下载之前，先用样例数据进行初始化
-    self.dataModel = [[MyEThermostatScheduleData alloc] initWithJSONString:@"{\"currentTime\":\"4/22/2012 19:35\",\"dayItems\":[{\"dayId\":6,\"title\":\"home1\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":42,\"modeid\":7181,\"stid\":16},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":0,\"title\":\"home2\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":1,\"title\":\"home3\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":2,\"title\":\"home4\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":3,\"title\":\"home5\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":4,\"title\":\"home6\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":5,\"title\":\"home7\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":42,\"modeid\":7181,\"stid\":16},{\"etid\":48,\"modeid\":7183,\"stid\":42}]}],\"houseId\":419,\"modes\":[{\"color\":\"0xffcc66\",\"cooling\":74,\"heating\":70,\"modeName\":\"Rise\",\"modeid\":\"7180\"},{\"color\":\"0x9999ff\",\"cooling\":74,\"heating\":70,\"modeName\":\"Home\",\"modeid\":\"7181\"},{\"color\":\"0xcccccc\",\"cooling\":80,\"heating\":64,\"modeName\":\"Work\",\"modeid\":\"7182\"},{\"color\":\"0x006699\",\"cooling\":78,\"heating\":66,\"modeName\":\"Sleep\",\"modeid\":\"7183\"}],\"userId\":\"1000100000000000317\",\"locWeb\":\"enabled\"}"];
+    self.dataModel = [[MyEThermostatScheduleData alloc] initWithJSONString:@"{\"currentTime\":\"4/22/2012 19:35\",\"dayItems\":[{\"dayId\":6,\"name\":\"home1\",\"periods\":[{\"etid\":10,\"modeid\":7183,\"stid\":0},{\"etid\":19,\"modeid\":7180,\"stid\":10},{\"etid\":42,\"modeid\":7181,\"stid\":19},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":0,\"name\":\"home2\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":1,\"name\":\"home3\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":2,\"name\":\"home4\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":3,\"name\":\"home5\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":4,\"name\":\"home6\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":26,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":26},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":5,\"name\":\"home7\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":42,\"modeid\":7181,\"stid\":16},{\"etid\":48,\"modeid\":7183,\"stid\":42}]}],\"houseId\":419,\"modes\":[{\"color\":\"0xffcc66\",\"cooling\":74,\"heating\":70,\"modeName\":\"Rise\",\"modeid\":\"7180\"},{\"color\":\"0x9999ff\",\"cooling\":74,\"heating\":70,\"modeName\":\"Home\",\"modeid\":\"7181\"},{\"color\":\"0xcccccc\",\"cooling\":80,\"heating\":64,\"modeName\":\"Work\",\"modeid\":\"7182\"},{\"color\":\"0x006699\",\"cooling\":78,\"heating\":66,\"modeName\":\"Sleep\",\"modeid\":\"7183\"}],\"userId\":\"1000100000000000317\",\"locWeb\":\"enabled\"}"];
     self.dataModelCache = [self.dataModel copy];
     
     /* 注意，在服务器传递的数据中，dayItem的dayId对应的关系是：0-Mon, 1-Tue, ..., 5-Sat, 6-Sun, 这个在本程序里面没有用到，
@@ -103,7 +100,13 @@
     
     _scheduleChangedByUserTouch = NO;
     
-    [self.applyButton setImage:[UIImage imageNamed:@"apply.png"] forState:UIControlStateNormal];
+//    [self.applyButton setImage:[UIImage imageNamed:@"apply.png"] forState:UIControlStateNormal];
+    self.applyButton.layer.cornerRadius = 45;//half of the width
+    self.applyButton.layer.borderColor=[UIColor blueColor].CGColor;
+    //    self.holdRunButton.layer.borderWidth=2.0f;
+    [self.applyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.applyButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    self.applyButton.layer.backgroundColor = [UIColor colorWithRed:75.0/255.0 green:180.0/255.0 blue:200.0/255.0 alpha:1.0].CGColor;
     //self.applyButton.enabled = NO;
     
     self.currentDayId = 2;
@@ -170,10 +173,13 @@
     [self->_doughnutView updateWithModeIdArray:modeIdArray];
 
     MyEThermostatDayData *day = self.dataModel.dayItems[currentDayId];
-    self.dayBtn.titleLabel.text = day.title;
+    [self.dayBtn setTitle:day.name forState:UIControlStateNormal];
 }
 #pragma mark -
 #pragma mark URL Loading System methods
+
+- (IBAction)deleteCurrentDay:(id)sender {
+}
 
 - (void) downloadModelFromServer
 {
@@ -445,9 +451,6 @@
     if (_modeEditingViewShowing) {
         [self _toggleModeEditingViewWithType:ModeEditingViewTypeNew];
     }
-    if (_applyToDaysSelectionViewShowing) {
-        [self _toggleApplyToDaysSelectionView];
-    }
     if (_periodInforDoughnutViewShowing) {
         [self _togglePeriodInforDoughnutView];
     }
@@ -647,51 +650,23 @@
 }
 
 - (IBAction)applyNewSchedule:(id)sender {
-    [self _toggleApplyToDaysSelectionView];
+#warning  这里添加代码直接处理上传服务器的功能.
     
 }
 
 - (IBAction)changeDay:(id)sender {
-//    if ([sender isSelected]) {   //isSelected 就是selected
-//        [UIView animateWithDuration:0.3 animations:^{
-//            //            UIImage *closeImage=[UIImage imageNamed:@"dropdown.png"];
-//            //            [_showBtn setImage:closeImage forState:UIControlStateNormal];
-//            CGRect frame=_daysTableView.frame;
-//            frame.size.height=1;
-//            [_daysTableView setFrame:frame];
-//        } completion:^(BOOL finished){
-//            _daysTableView.hidden = YES;
-//            [sender setSelected:NO];
-//        }];
-//    }else{
-//        [UIView animateWithDuration:0.3 animations:^{
-//            //            UIImage *openImage=[UIImage imageNamed:@"dropup.png"];
-//            //            [_showBtn setImage:openImage forState:UIControlStateNormal];
-//            
-//            CGRect frame=_daysTableView.frame;
-//            if (self.dataModel.dayItems.count <= 6 ) {
-//                frame.size.height = 25 * self.dataModel.dayItems.count;
-//            }else
-//                frame.size.height=150;
-//            [_daysTableView setFrame:frame];
-//        } completion:^(BOOL finished){
-//            _daysTableView.hidden = NO;
-//            [self reloadDaysTableViewContents];
-//            [sender setSelected:YES];
-//        }];
-//    }
-    
     if ([sender isSelected]) {
         [self closeMenu];
         [sender setSelected:NO];
     } else{
         [sender setSelected:YES];
         if(self.dropDown == nil) {
-            NSArray *arr = [NSArray arrayWithObjects:@"Add tag's comment", @"Tag info", @"Help", @"Languages", @"Home22", @"home33", @"Home32", nil];
+//            NSArray *arr = [NSArray arrayWithObjects:@"Add tag's comment", @"Tag info", @"Help", @"Languages", @"Home22", @"home33", @"Home32", nil];
 //            NSArray *arrImage = [NSArray arrayWithObjects:[UIImage imageNamed:@"bookmark.png"],
 //                                 [UIImage imageNamed:@"map.png"],
 //                                 [UIImage imageNamed:@"news.png"],
 //                                 [UIImage imageNamed:@"photo.png"], nil];
+            NSArray *arr = self.dataModel.dayNames;
             self.dropDown = [[MyEDropDownMenu alloc] showDropDown:sender
                                                   titleList:arr
                                                   imageList:nil
@@ -699,6 +674,8 @@
             __weak MyESpecialDaysScheduleViewController *bSelf = self;
             self.dropDown.function = ^(NSInteger index){
                 NSLog(@"you chose : %d", index);
+                bSelf.currentDayId = index;
+                [bSelf.dayBtn setTitle:arr[index] forState:UIControlStateNormal];
             };
             self.dropDown.releseMenu = ^{
                 [bSelf closeMenu];
@@ -708,23 +685,18 @@
     }
     
 }
+
+- (IBAction)saveAsNewDay:(id)sender {
+}
+
+- (IBAction)saveAs:(id)sender {
+}
 - (void)closeMenu
 {
     [self.dropDown hideDropDown:self.view];
     self.dropDown = nil;
 }
-#warning 下面将替换成day下拉选择控件的值变化方法
-//
-//- (IBAction)weekdaySegmentedControlValueDidChange:(id)sender {
-//    //在本App中，weekdayId顺序是:         0-sun, 1-mon, 2-Tue, ..., 6-Sat
-//    // 调整顺序，因为segmentedControl顺序是       0-Mon, 1-Tue, ..., 5-Sat, 6-Sun
-//    NSInteger weekdayId = ((UISegmentedControl *)sender).selectedSegmentIndex+1;
-//    if (weekdayId >6) {
-//        weekdayId = 0;
-//    }
-//    NSLog(@"selected weekdayId = %i", weekdayId);
-//    self.currentDayId = weekdayId;//星期数，0-sun， 1-mon, ..., 6-sat
-//}
+
 
 #pragma mark
 #pragma mark privates methods
@@ -816,52 +788,13 @@
     _modeEditingViewShowing = !_modeEditingViewShowing;
 }
 
-#pragma mark -
-#pragma mark methods for Apply To days selection view
-- (void)_createApplyToDaysSelectionViewIfNecessary {
-    if (!_weeklyDaySelectionView) {
-        CGRect bounds = [self.view bounds];
-        CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMaxY(bounds), bounds.size.width, bounds.size.height);
-        _weeklyDaySelectionView = [[MyEWeeklyDaySelectionView alloc] initWithFrame:frame];
-        [_weeklyDaySelectionView setDelegate:self];
-        [self.view addSubview:_weeklyDaySelectionView];
-    }
-}
-- (void)_toggleApplyToDaysSelectionView
-{
-    [self _createApplyToDaysSelectionViewIfNecessary]; // no-op if slideUpView has already been created
-    
-    
-    CGRect frame = [_weeklyDaySelectionView frame];
-    if (_applyToDaysSelectionViewShowing) {//假如正在显示，则隐藏
-        frame.origin.y += frame.size.height;
-    } else {//假如正在隐藏，则显示
-        frame.origin.y -= frame.size.height;
-        [_weeklyDaySelectionView setCurrentWeekdayIndex:self.currentDayId];
-    }
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.3];
-    [_weeklyDaySelectionView setFrame:frame];
-    [UIView commitAnimations];
-    
-    _applyToDaysSelectionViewShowing = !_applyToDaysSelectionViewShowing;
-}
 
 
 - (void)_createPeriodInforDoughnutViewIfNecessary {
     if (!_periodInforDoughnutView) {
-        
-        CGRect bounds = [self.view bounds];
-        
-        // 为了Retina4屏幕而修改的Doughnut圈高度固定
-        //CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, bounds.size.height);
-        //        CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, 367);
-        CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, 327);
-        
-        _periodInforDoughnutView = [[MyEPeriodInforDoughnutView alloc] initWithFrame:frame];
+        _periodInforDoughnutView = [[MyEPeriodInforDoughnutView alloc] initWithFrame:[self.centerContainerView frame]];
         _periodInforDoughnutView.doughnutViewRadius = WEEKLY_DOUGHNUT_VIEW_SIZE / 2;
-        _periodInforDoughnutView.doughnutCenterOffsetY = 12;
+//        _periodInforDoughnutView.doughnutCenterOffsetY = 12;
         [_periodInforDoughnutView setDelegate:self];
         [self.view addSubview:_periodInforDoughnutView];
     }
@@ -932,43 +865,6 @@
     }
     return YES;
     
-}
-
--(void)reloadDaysTableViewContents{
-    
-    [_daysTableView reloadData];
-    [_daysTableView initTableViewDataSourceAndDelegate:^(UITableView *tableView,NSUInteger section){
-        return [self.dataModel.dayItems count];
-        
-    } setCellForIndexPathBlock:^(UITableView *tableview,NSIndexPath *indexPath){
-        static NSString *cellIdetifier = @"cell";
-        UITableViewCell *cell=[tableview dequeueReusableCellWithIdentifier:cellIdetifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdetifier];
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableview.frame.size.width, 35)];
-            label.font = [UIFont systemFontOfSize:15];
-            label.tag = 998;
-            label.textAlignment = NSTextAlignmentCenter;
-            [cell.contentView addSubview:label];
-        }
-        UILabel *label = (UILabel *)[cell.contentView viewWithTag:998];
-        MyEThermostatDayData *day = self.dataModel.dayItems[indexPath.row];
-        label.text = day.title;
-        return cell;
-    } setDidSelectRowBlock:^(UITableView *tableview,NSIndexPath *indexPath){
-//        UITableViewCell *cell=(UITableViewCell*)[tableview cellForRowAtIndexPath:indexPath];
-//        UILabel *label = (UILabel *)[cell.contentView viewWithTag:998];
-        self.currentDayId = indexPath.row;
-        [self.dayBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
-    } beginEditingStyleForRowAtIndexPath :nil];
-    _daysTableView.tableFooterView = [[UIView alloc] init];
-    [_daysTableView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [_daysTableView.layer setBorderWidth:1];
-    [self.view bringSubviewToFront:self.topToolbar];
-    [self.topToolbar bringSubviewToFront:self.daysTableView];
-    [self.view bringSubviewToFront:_daysTableView];
-    [self.view sendSubviewToBack:self.centerContainerView];
-
 }
 
 @end

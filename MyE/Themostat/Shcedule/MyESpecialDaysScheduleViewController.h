@@ -58,8 +58,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *editModeButton;
 @property (weak, nonatomic) IBOutlet UIView *modeToolContainer;
 @property (weak, nonatomic) IBOutlet UIButton *dayBtn;
-@property (weak, nonatomic) IBOutlet TableViewWithBlock *daysTableView;
-@property (weak, nonatomic) IBOutlet UIView *topToolbar;
 
 
 @property (strong, nonatomic) MyEThermostatScheduleData *dataModel;
@@ -73,6 +71,10 @@
 - (IBAction)addNewMode:(id)sender;
 - (IBAction)applyNewSchedule:(id)sender;
 - (IBAction)changeDay:(id)sender;
+- (IBAction)saveAsNewDay:(id)sender;
+- (IBAction)deleteCurrentDay:(id)sender;
+
+
 
 
 

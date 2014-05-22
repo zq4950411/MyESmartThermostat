@@ -86,6 +86,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self hideDropDown:viewSender];
     self.releseMenu();
+    NSLog(@"触摸在其他位置");
 }
 - (void)hideDropDown:(UIView *)view
 {
@@ -161,6 +162,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self hideDropDown:viewSender];
     self.releseMenu();
+    NSLog(@"indexPath.row=%d", indexPath.row);
     self.function(indexPath.row);
     
 }

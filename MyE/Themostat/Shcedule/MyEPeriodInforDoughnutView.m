@@ -28,7 +28,7 @@
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
-        self.doughnutViewRadius = TODAY_DOUGHNUT_VIEW_SIZE / 2;//默认的一个值
+        self.doughnutViewRadius = NEXT24HRS_DOUGHNUT_VIEW_SIZE / 2;//默认的一个值
         //偏移量初始值设置为0.
         self.doughnutCenterOffsetX = 0;
         self.doughnutCenterOffsetY = 0;

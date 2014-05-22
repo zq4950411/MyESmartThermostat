@@ -16,6 +16,7 @@
 @property (copy, nonatomic) NSString *currentTime;
 @property (nonatomic, copy) NSString *locWeb;
 @property (retain, nonatomic) NSMutableArray *dayItems;
+@property (weak, nonatomic) NSArray* dayNames;
 //模式数组。在Today模块，这个数组就对应MyEScheduleTodayData的metaModeArray，其元素是MyEScheduleModeData类对象
 @property (retain, nonatomic) NSMutableArray *metaModeArray;
 
@@ -44,4 +45,6 @@
 // 判定给定的名字或颜色是否已经被其他mode使用
 - (BOOL) isModeNameInUse:(NSString *)name exceptCurrentModeId:(NSInteger)modeId;
 - (BOOL) isModeColorInUse:(UIColor *)color exceptCurrentModeId:(NSInteger)modeId;
+
+
 @end

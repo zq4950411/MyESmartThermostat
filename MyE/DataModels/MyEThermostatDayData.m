@@ -15,7 +15,7 @@
 - (id)init {
     if (self = [super init]) {
         _dayId = 0;
-        _title = @"Noname";
+        _name = @"Noname";
         _periods = [[NSMutableArray alloc] init];
         return self;
     }
@@ -28,7 +28,7 @@
 {
     _periods = [[NSMutableArray alloc] init];
     self.dayId = [[dictionary objectForKey:@"dayId"] intValue];
-    _title = [dictionary objectForKey:@"title"];
+    _name = [dictionary objectForKey:@"name"];
     NSArray *periodsInDict = [dictionary objectForKey:@"periods"];
     NSMutableArray *periods = [NSMutableArray array];
     for (NSDictionary *period in periodsInDict) {
@@ -61,7 +61,7 @@
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           [NSString stringWithFormat:@"%i",self.dayId], @"dayId",
-                          self.title, @"title",
+                          self.name, @"name",
                           periods, @"periods",
                           
                           nil ];
@@ -75,7 +75,7 @@
 }
 -(NSString *)description
 {
-    NSMutableString *desc = [NSMutableString stringWithFormat:@"\ndayId = %i , title = %@, \nperiods:[",_dayId, self.title];
+    NSMutableString *desc = [NSMutableString stringWithFormat:@"\ndayId = %i , name = %@, \nperiods:[",_dayId, self.name];
     for (MyEThermostatPeriodData *period in self.periods)
         [desc appendString:[NSString stringWithFormat:@"{\n%@\n}",[period description]]];
     [desc appendString:@"\n]"];

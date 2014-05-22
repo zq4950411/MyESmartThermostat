@@ -840,17 +840,9 @@
 
 - (void)_createPeriodInforDoughnutViewIfNecessary {
     if (!_periodInforDoughnutView) {
-        
-        CGRect bounds = [self.view bounds];
-        
-        // 为了Retina4屏幕而修改的Doughnut圈高度固定
-        //CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, bounds.size.height);
-        //        CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, 367);
-        CGRect frame = CGRectMake(CGRectGetMinX(bounds), CGRectGetMinY(bounds), bounds.size.width, 327);
-        
-        _periodInforDoughnutView = [[MyEPeriodInforDoughnutView alloc] initWithFrame:frame];
+        _periodInforDoughnutView = [[MyEPeriodInforDoughnutView alloc] initWithFrame:[self.centerContainerView frame]];
         _periodInforDoughnutView.doughnutViewRadius = WEEKLY_DOUGHNUT_VIEW_SIZE / 2;
-        _periodInforDoughnutView.doughnutCenterOffsetY = 12;
+//        _periodInforDoughnutView.doughnutCenterOffsetY = 12;
         [_periodInforDoughnutView setDelegate:self];
         [self.view addSubview:_periodInforDoughnutView];
     }
