@@ -7,46 +7,45 @@
 //
 
 #import "MyEDevicesViewController.h"
-#import "AddDeviceTableViewView.h"
 //switch
 #import "MyESwitchManualControlViewController.h"
 #import "MyESwitchAutoViewController.h"
 #import "MyESwitchElecInfoViewController.h"
+#import "MyESwitchEditViewController.h"
 //tv or audio
 #import "MyEIrControlPageViewController.h"
 //curtain
 #import "MyECurtainControlViewController.h"
-
-#import "MyEHouseData.h"
-
-#import "MyEDevice.h"
+//rooms
+#import "MyERoomsTableViewController.h"
+//device add or edit
+#import "MyEDeviceAddOrEditTableViewController.h"
+//socket
+#import "MyESocketManualViewController.h"
+//框架文件
 #import "SWRevealViewController.h"
 
 @implementation MyEDevicesViewController
 
 #pragma mark - life circle methods
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     if (self.needRefresh) {
         self.needRefresh = NO;
-        [self sendGetDatas];
+        [self downloadDevicesFromServer];
     }
 }
 
 -(void) viewDidLoad
 {
     [super viewDidLoad];
-    self.mainDevice = [[MyEMainDevice alloc] init]; //初始化完毕，以备用
-    self.parentViewController.navigationItem.title = @"Devices";
-    [self sendGetDatas];
-    
+
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = view;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
+    [self downloadDevicesFromServer];
     //这里是用来更新button的UI
     UIButton *btn = (UIButton *)[self.view viewWithTag:98];
     if (!IS_IOS6) {
@@ -56,35 +55,32 @@
     }
     [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
     
-    //这里添加长按手势，以便进行排序，方便让tableview进入编辑模式
-    UILongPressGestureRecognizer *tap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    [self.tableView addGestureRecognizer:tap];
-    
-    //初始化顶部视图，也就是加入下拉刷新功能
-    [self initHeaderView:self];
-    
-    // Change button color
     _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
-    // Set the side bar button action. When it's tapped, it'll show up the sidebar.
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
-    
-    // Set the gesture,主要是为了完成向右滑动打开菜单的功能
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
 }
 
--(MyEDevice *) getCurrentSmartup
-{
-    return [self.datas safeObjectAtIndex:currentSelectedIndex];
+#pragma mark - URL  methods
+-(void)downloadDevicesFromServer{
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i",GetRequst(URL_FOR_SMARTUP_LIST),MainDelegate.houseData.houseId] andName:@"downloadDevices"];
+}
+-(void)uploadOrDownloadInfoFromServerWithURL:(NSString *)url andName:(NSString *)name{
+    if (HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    }
+    [HUD show:YES];
+    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:url postData:nil delegate:self loaderName:name userDataDictionary:nil];
+    NSLog(@"loader is %@",loader.name);
 }
 
-#pragma mark - private methods
--(void) deviceControl:(UITapGestureRecognizer *) tap
+#pragma mark - device control and edit methods
+-(void)deviceControl:(UITapGestureRecognizer *)tap
 {
     CGPoint hit = [tap.view convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:hit];
     _selectedIndexPath = indexPath;
-    MyEDevice *device = (MyEDevice *)self.datas[indexPath.row];
+    MyEDevice *device = _devices[indexPath.row];
     if (device.typeId.intValue == 4 || device.typeId.intValue == 5) {
         return;
     }
@@ -97,81 +93,33 @@
         [SVProgressHUD showErrorWithStatus:@"device is not online"];
         return;
     }
-    
-    self.isShowLoading = YES;
     //2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器  8:开关
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    NSString *string = nil;
-    [params safeSetObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
     if (device.typeId.intValue == 8) {  //switch
-        [params safeSetObject:device.tid forKey:@"tId"];
-        [params safeSetObject:@"1" forKey:@"action"];
-        string = URL_FOR_SWITCH_CONTROL;
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&action=1&switchStatus=%i",GetRequst(URL_FOR_SWITCH_CONTROL),MainDelegate.houseData.houseId,device.tid,device.switchStatus.intValue==1?0:1] andName:@"switchControl"];
     }
     else if (device.typeId.intValue == 7){  //通用控制器
-        [params safeSetObject:device.tid forKey:@"tId"];
-        string = URL_FOR_UNIVERSAL_CONTROL_MANUEL_CONTROL;
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&switchStatus=%i",URL_FOR_UNIVERSAL_CONTROL_MANUEL_CONTROL,MainDelegate.houseData.houseId,device.tid,device.switchStatus.intValue==1?0:1] andName:@"universalControl"];
     }
     else if (device.typeId.intValue == 6){  // socket
-        [params safeSetObject:device.tid forKey:@"tId"];
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SMARTUP_PlUG_CONTROL),MainDelegate.houseData.houseId,device.tid] andName:@"socketControl"];
+    }else{
+        NSInteger controlValue = 0;
+        if (device.typeId.intValue == 2) {
+            controlValue = 203;
+        }else if(device.typeId.intValue == 3){
+            controlValue = 301;
+        }else
+            controlValue = device.switchStatus.intValue==1?0:1;
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&switchStatus=%i",GetRequst(URL_FOR_IRDEVICE_CONTROL),MainDelegate.houseData.houseId,device.deviceId,controlValue] andName:@"irDeviceControl"];
     }
-    else{
-        [params safeSetObject:device.deviceId forKey:@"deviceId"];
-        string = URL_FOR_IRDEVICE_CONTROL;
-    }
-    if (device.typeId.intValue == 2) {
-        [params safeSetObject:@"203" forKey:@"switchStatus"];
-    }else if(device.typeId.intValue == 3){
-        [params safeSetObject:@"301" forKey:@"switchStatus"];
-    }else
-        [params safeSetObject:device.switchStatus.intValue==1?@"0":@"1" forKey:@"switchStatus"];
-    [[NetManager sharedManager] requestWithURL:GetRequst(string) delegate:self withUserInfo:@{REQUET_PARAMS: params}];
 }
 
--(void) sendGetDatas
-{
-    self.isShowLoading = YES;
-    
-    //    [MyEUniversal doThisWhenNeedUploadOrDownloadDataFromServerWithURL:URL_FOR_ROOMLIST_VIEW andUIViewController:self andDictionary:@{@"houseId": @(MainDelegate.houseData.houseId)}];
-    [MyEUniversal doThisWhenNeedUploadOrDownloadDataFromServerWithURL:URL_FOR_SMARTUP_LIST2 andUIViewController:self andDictionary:@{@"houseId": @(MainDelegate.houseData.houseId)}];
-    
-}
-
--(void) moveWithDeviceId:(NSString *) deviceId andSortedId:(NSString *) sort
-{
-    self.isShowLoading = YES;
-    [MyEUniversal doThisWhenNeedUploadOrDownloadDataFromServerWithURL:URL_FOR_SAVE_SORT andUIViewController:self andDictionary:@{@"houseId": @(MainDelegate.houseData.houseId),@"deviceId":deviceId,@"sortId":sort}];
-}
-
--(void) deleteWithDeviceId:(NSString *) deviceId andHouseId:(int) houseId
-{
-    self.isShowLoading = YES;
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
-    [params safeSetObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
-    [params safeSetObject:deviceId forKey:@"deviceId"];
-    [params safeSetObject:@"deleteDevice" forKey:@"action"];
-    
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
-    
-    [[NetManager sharedManager] requestWithURL:GetRequst(URL_FOR_SAVE_DEVICE)
-                                      delegate:self
-                                  withUserInfo:dic];
-}
--(void) edit:(UIButton *) sender
+-(void) editDevice:(UIButton *)sender
 {
     //2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器  8:开关
     CGPoint hit = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:hit];
-    currentTapIndex = indexPath.row;
-    currentSelectedIndex = indexPath.row;
-    MyEDevice *device = [self.datas objectAtIndex:indexPath.row];
-    //    if (device.typeId.intValue == 2)  //TV
-    //    {
-    //        PlugControlViewController *plug = [[PlugControlViewController alloc] initWithEditType];
-    //        [self.navigationController pushViewController:plug animated:YES];
-    //    }
+    MyEDevice *device = [_devices objectAtIndex:indexPath.row];
     if (device.typeId.intValue == 6)  //socket
     {
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"Device" bundle:nil];
@@ -179,7 +127,6 @@
         vc.isAddDevice = NO;
         vc.device = device;
         [self.navigationController pushViewController:vc animated:YES];
-        //        PlugControlViewController *plug = [[PlugControlViewController alloc] initWithEditType];
     }
     else if(device.typeId.intValue == 7)  //通用控制器
     {
@@ -190,32 +137,16 @@
         MyESwitchEditViewController *vc = [story instantiateViewControllerWithIdentifier:@"switchEdit"];
         vc.device = device;
         [self.navigationController pushViewController:vc animated:YES];
-    }
-    else
+    }else
     {
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"Device" bundle:nil];
         MyEDeviceAddOrEditTableViewController *vc = [story instantiateViewControllerWithIdentifier:@"deviceAddOrEdit"];
         vc.isAddDevice = NO;
         vc.device = device;
         [self.navigationController pushViewController:vc animated:YES];
-        
-        //        AddDeviceTableViewView *vc = [[AddDeviceTableViewView alloc] init];
-        //        vc.smartup = device;
-        //
-        //        [self.navigationController pushViewController:vc animated:YES];
     }
 }
--(void) tap:(UILongPressGestureRecognizer *) tap
-{
-    if (tap.state == UIGestureRecognizerStateEnded)
-    {
-        [self.tableView setEditing:!self.tableView.editing animated:YES];
-    }
-}
--(void) refreshAction:(id) sender
-{
-    [self sendGetDatas];
-}
+#pragma mark - private methods
 -(NSString *)getDeviceTypeNameByTypeId:(NSString *)typeId{
     NSString *string = nil;
     switch (typeId.intValue) {
@@ -247,7 +178,7 @@
     return string;
 }
 -(void)changeSwitchStatusImageView{
-    MyEDevice *device = [self.datas safeObjectAtIndex:_selectedIndexPath.row];
+    MyEDevice *device = [_devices objectAtIndex:_selectedIndexPath.row];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:_selectedIndexPath];
     UIImageView *image = (UIImageView *)[cell.contentView viewWithTag:100];
     //2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器  8:开关
@@ -264,6 +195,7 @@
 //        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-off",string]];
 //    }
 }
+#pragma mark - rooms deta source methods
 -(void)reloadRoomsTableViewContents{
     
     [_roomsTableView reloadData];
@@ -288,7 +220,7 @@
         UITableViewCell *cell=(UITableViewCell*)[tableview cellForRowAtIndexPath:indexPath];
         UILabel *label = (UILabel *)[cell.contentView viewWithTag:998];
         NSArray *array = _mainDic[label.text];
-        self.datas = [NSMutableArray arrayWithArray:array];
+        _devices = [NSMutableArray arrayWithArray:array];
         [self.tableView reloadData];
         [self.roomBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
     } beginEditingStyleForRowAtIndexPath :nil];
@@ -328,8 +260,6 @@
     [self refreshData];
     if ([sender isSelected]) {   //isSelected 就是selected
         [UIView animateWithDuration:0.3 animations:^{
-            //            UIImage *closeImage=[UIImage imageNamed:@"dropdown.png"];
-            //            [_showBtn setImage:closeImage forState:UIControlStateNormal];
             CGRect frame=_roomsTableView.frame;
             frame.size.height=1;
             [_roomsTableView setFrame:frame];
@@ -339,9 +269,6 @@
         }];
     }else{
         [UIView animateWithDuration:0.3 animations:^{
-            //            UIImage *openImage=[UIImage imageNamed:@"dropup.png"];
-            //            [_showBtn setImage:openImage forState:UIControlStateNormal];
-            
             CGRect frame=_roomsTableView.frame;
             if ([_mainDic count] < 6 ) {
                 frame.size.height = 35 * _mainDic.count;
@@ -374,7 +301,7 @@
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.datas.count;
+    return _devices.count;
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -383,7 +310,7 @@
     if (cell == nil) {
         cell = [self.tableView dequeueReusableCellWithIdentifier:@"deviceCell" forIndexPath:indexPath];
     }
-    MyEDevice *device = [self.datas objectAtIndex:indexPath.row];
+    MyEDevice *device = [_devices objectAtIndex:indexPath.row];
     UIView *bgView = (UIView *)[cell.contentView viewWithTag:99];
     UIImageView *typeImageView = (UIImageView *)[cell.contentView viewWithTag:100];
     UILabel *nameLabel = (UILabel *)[cell.contentView viewWithTag:101];
@@ -392,16 +319,16 @@
     UIButton *btn = (UIButton*)[cell.contentView viewWithTag:104];
     
     bgView.layer.cornerRadius = 4;
-    //    bgView.layer.borderColor = [UIColor blackColor].CGColor;
-    //    bgView.layer.borderWidth = 0.5;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(deviceControl:)];
     [typeImageView addGestureRecognizer:tap];
+    
     typeImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[self getDeviceTypeNameByTypeId:device.typeId],device.switchStatus.intValue==0?@"off":@"on"]];
     nameLabel.text = device.deviceName;
     roomLabel.text = device.instructionName;
     signal.image = [UIImage imageNamed:device.rfStatus.intValue == -1?@"noconnection":[NSString stringWithFormat:@"signal%i",device.rfStatus.intValue]];
-    [btn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(editDevice:) forControlEvents:UIControlEventTouchUpInside];
+    
     return cell;
 }
 
@@ -409,7 +336,7 @@
 -(void) tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    MyEDevice *device = [self.datas objectAtIndex:indexPath.row];
+    MyEDevice *device = [_devices objectAtIndex:indexPath.row];
     if (device.tid.length == 0)
     {
         [SVProgressHUD showErrorWithStatus:@"Please specify the SmartRemoteUsed"];
@@ -421,11 +348,6 @@
         [SVProgressHUD showErrorWithStatus:@"device is not online"];
         return;
     }
-    
-    //UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"Smart-Up" style:UIBarButtonItemStyleBordered target:nil action:nil];
-    //[self.parentViewController.navigationItem setBackBarButtonItem:backItem];
-    
-    currentSelectedIndex = indexPath.row;
     //2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器  8:开关
     if(device.typeId.intValue == 2 || device.typeId.intValue == 3)  //TV  Audio
     {
@@ -495,134 +417,54 @@
         [alertView show];
     }
 }
-// 可选，对那些被移动栏格作特定操作
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    if (fromIndexPath.row == toIndexPath.row)
-    {
-        return;
-    }
-    MyEDevice *smart = [self.datas objectAtIndex:fromIndexPath.row];
-    [self moveWithDeviceId:smart.deviceId andSortedId:[NSString stringWithFormat:@"%d",toIndexPath.row]];
 }
 
 #pragma mark - network delegate methods
--(void) netFinish:(id) jsonString withUserInfo:(NSDictionary *) userInfo andURL:(NSString *) u
-{
-    [self headerFinish];
-    NSLog(@"%@\n%@\n%@",jsonString,u,userInfo);
-    if ([u rangeOfString:URL_FOR_SMARTUP_LIST2].location != NSNotFound)
-    {
-        MyEMainDevice *main = [[MyEMainDevice alloc] initWithJSONString:jsonString];
-        self.mainDevice = main;
-        self.datas = self.mainDevice.devices;
-        [self.tableView reloadData];
-    }
-    else if ([u rangeOfString:URL_FOR_SAVE_SORT].location != NSNotFound)
-    {
-        
-        if([jsonString isEqualToString:@"OK"])
-        {
-            [SVProgressHUD showSuccessWithStatus:@"Successs"];
-        }
-        else
-        {
-            [SVProgressHUD showSuccessWithStatus:@"Error"];
-        }
-        [self.tableView setEditing:NO];
-    }
-    else if ([u rangeOfString:URL_FOR_SWITCH_CONTROL].location != NSNotFound)   //Switch Control
-    {
-        if ([@"OK" isEqualToString:jsonString])
-        {
-            [self changeSwitchStatusImageView];
-        }
-        else if ([jsonString isEqualToString:@"-999"]){
-            [SVProgressHUD showWithStatus:@"No Connection"];
-        }
-        else
-        {
-            [SVProgressHUD showErrorWithStatus:@"Error!"];
-        }
-    }
-    else if ([MyEUniversal requstString:u hasURLString:URL_FOR_IRDEVICE_CONTROL]){  //irDevice Control
-        if ([jsonString isEqualToString:@"OK"]) {
-            [self changeSwitchStatusImageView];
-        }else if ([jsonString isEqualToString:@"-999"]){
-            [SVProgressHUD showWithStatus:@"No Connection"];
-        }else
-            [SVProgressHUD showErrorWithStatus:@"Error!"];
-        
-    }
-    else if ([MyEUniversal requstString:u hasURLString:URL_FOR_UNIVERSAL_CONTROL_MANUEL_CONTROL]){ //universal control
-        if ([jsonString isEqualToString:@"OK"]) {
-            [self changeSwitchStatusImageView];
-        }else if ([jsonString isEqualToString:@"-999"]){
-            [SVProgressHUD showWithStatus:@"No Connection"];
-        }else
-            [SVProgressHUD showErrorWithStatus:@"Error!"];
-    }
-    else if ([u rangeOfString:URL_FOR_SMARTUP_PlUG_CONTROL].location != NSNotFound)  //socket control
-    {
-        if ([@"OK" isEqualToString:jsonString])
-        {
-            [self changeSwitchStatusImageView];
-        }
-        else if ([jsonString isEqualToString:@"-999"]){
-            [SVProgressHUD showWithStatus:@"No Connection"];
-        }
-        else
-        {
-            [SVProgressHUD showErrorWithStatus:@"Error!"];
-        }
-    }
-    else if ([u rangeOfString:URL_FOR_SAVE_DEVICE].location != NSNotFound)
-    {
-        if([jsonString isEqualToString:@"OK"])
-        {
-            [self.datas safeRemovetAtIndex:currentSelectedIndex];
+-(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    [HUD hide:YES];
+    NSLog(@"received string is %@",string);
+    if ([name isEqualToString:@"downloadDevices"]) {
+        if (string.intValue == -999) {
+            [SVProgressHUD showErrorWithStatus:@"No Connection!"];
+        }else if (![string isEqualToString:@"fail"]){
+            MyEMainDevice *main = [[MyEMainDevice alloc] initWithJSONString:string];
+            self.mainDevice = main;
+            _devices = main.devices;
             [self.tableView reloadData];
-            [SVProgressHUD showSuccessWithStatus:@"Successs"];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"Error!"];
+    }
+    if ([name isEqualToString:@"irDeviceControl"] ||
+        [name isEqualToString:@"switchControl"] ||
+        [name isEqualToString:@"universalControl"] ||
+        [name isEqualToString:@"socketControl"] ) {
+        if ([@"OK" isEqualToString:string])
+        {
+            [self changeSwitchStatusImageView];
+        }
+        else if ([string isEqualToString:@"-999"]){
+            [SVProgressHUD showWithStatus:@"No Connection"];
         }
         else
         {
-            [SVProgressHUD showSuccessWithStatus:@"Error"];
+            [SVProgressHUD showErrorWithStatus:@"Error!"];
         }
-        [self.tableView setEditing:NO];
     }
+    if ([name isEqualToString:@"switchControl"]) {}
+    if ([name isEqualToString:@"universalControl"]) {}
+    if ([name isEqualToString:@"socketControl"]) {}
     
 }
-
--(void) netError:(id)errorMsg withUserInfo:(NSDictionary *)userInfo andURL:(NSString *) u
-{
-    if ([u rangeOfString:URL_FOR_SMARTUP_LIST].location != NSNotFound)
-    {
-        
-    }
-    else if ([u rangeOfString:URL_FOR_SAVE_SORT].location != NSNotFound)
-    {
-        [self.tableView setEditing:NO];
-    }
-    else if ([u rangeOfString:URL_FOR_SMARTUP_PlUG_CONTROL].location != NSNotFound)
-    {
-        
-    }
-    else if ([u rangeOfString:URL_FOR_SAVE_DEVICE].location != NSNotFound)
-    {
-        
-    }
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    NSLog(@"error is %@",[error localizedDescription]);
 }
 
 #pragma mark - UIAlertView delegate methods
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0)
-    {
-        MyEDevice *smartUP = (MyEDevice *)[self.datas safeObjectAtIndex:alertView.tag];
-        currentSelectedIndex = alertView.tag;
-        
-        [self deleteWithDeviceId:smartUP.deviceId andHouseId:MainDelegate.houseData.houseId];
-    }
+    NSLog(@"click button index is %i",buttonIndex);
 }
 
 @end

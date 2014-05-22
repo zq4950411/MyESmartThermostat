@@ -26,12 +26,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_PlUG_CONTROL),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(handleTimer) userInfo:nil repeats:YES];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [btn setFrame:CGRectMake(0, 0, 50, 30)];
+    if (!IS_IOS6) {
+        [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+    }else{
+        [btn setBackgroundImage:[UIImage imageNamed:@"back-ios6"] forState:UIControlStateNormal];
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn setTitle:@"Back" forState:UIControlStateNormal];
+    }
+    
+    [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_FIND),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
+//    _timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(handleTimer) userInfo:nil repeats:YES];
 }
 #pragma mark - IBAction methods
 - (IBAction)socketControl:(UIButton *)sender {
-    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&switchStatus=%i",GetRequst(URL_FOR_SOCKET_PlUG_CONTROL),MainDelegate.houseData.houseId,self.device.tid,[self.device.switchStatus isEqualToString:@"1"]?0:1] andName:@"socketControl"];
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SMARTUP_PlUG_CONTROL),MainDelegate.houseData.houseId,self.device.tid] andName:@"socketControl"];
 }
 - (IBAction)timeDelay:(UIButton *)sender {
     NSMutableArray *array = [NSMutableArray array];
@@ -41,10 +57,13 @@
     [MyEUniversal doThisWhenNeedPickerWithTitle:@"time select" andDelegate:self andTag:1 andArray:@[array] andSelectRow:@[@(0)] andViewController:self];
 }
 - (IBAction)refreshData:(UIBarButtonItem *)sender {
-    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_PlUG_CONTROL),MainDelegate.houseData.houseId,self.device.deviceId] andName:@"downloadInfo"];
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_FIND),MainDelegate.houseData.houseId,self.device.deviceId] andName:@"downloadInfo"];
 }
 
 #pragma mark - private methods
+-(void)dismissVC{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 -(void)refreshUI{
     self.currentPowerLabel.text = [NSString stringWithFormat:@"%i W",self.socketControlInfo.currentPower];
     if (self.socketControlInfo.switchStatus == 1) {
@@ -81,9 +100,8 @@
     NSLog(@"loader is %@",loader.name);
 }
 -(void)handleTimer{
-    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_PlUG_CONTROL),MainDelegate.houseData.houseId,self.device.tid] postData:nil delegate:self loaderName:@"downloadInfo" userDataDictionary:nil];
+    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_FIND),MainDelegate.houseData.houseId,self.device.tid] postData:nil delegate:self loaderName:@"downloadInfo" userDataDictionary:nil];
     NSLog(@"loader is %@",loader.name);
-
 }
 - (void)didReceiveMemoryWarning
 {
@@ -107,7 +125,11 @@
         if (string.intValue == -999) {
             [SVProgressHUD showWithStatus:@"device unlink"];
         }else if (![string isEqualToString:@"fail"]){
-            self.device.switchStatus = [self.device.switchStatus isEqualToString:@"1"]?@"0":@"1";
+            MyESocketControlInfo *info = [[MyESocketControlInfo alloc] initWithJSONString:string];
+            self.socketControlInfo = info;
+            [self refreshUI];
+//            self.socketControlInfo.switchStatus = 1-self.socketControlInfo.switchStatus;
+//            self.socketControlBtn.selected = !self.socketControlBtn.selected;
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];
     }
@@ -126,18 +148,22 @@
     }
     if ([name isEqualToString:@"delaySave"]) {
         if (![string isEqualToString:@"fail"]) {
-            self.timeDelaySetLabel.text = [NSString stringWithFormat:@"%im set",_delayTime];
-            if (self.socketControlInfo.switchStatus == 1) {
-                self.timeDelayLabel.text = [NSString stringWithFormat:@"%im left",_delayTime];
-            }else
-                self.timeDelayLabel.text = @"";
-        }
+//            self.timeDelaySetLabel.text = [NSString stringWithFormat:@"%im set",_delayTime];
+//            if (self.socketControlInfo.switchStatus == 1) {
+//                self.timeDelayLabel.text = [NSString stringWithFormat:@"%im left",_delayTime];
+//            }else
+//                self.timeDelayLabel.text = @"";
+        }else
+            [SVProgressHUD showErrorWithStatus:@"Error!"];
     }
+}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    NSLog(@"error is %@",[error localizedDescription]);
 }
 #pragma mark - IQActionSheet delegate methods
 -(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles{
     _delayTime = [[titles[0] substringToIndex:[titles[0] length] == 3?1:2] intValue];
-    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?tId=%@&action=1",GetRequst(URL_FOR_SOCKET_MUTEX_DELAY),self.device.tid] andName:@"delay"];
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&action=1",GetRequst(URL_FOR_SOCKET_MUTEX_DELAY),MainDelegate.houseData.houseId,self.device.tid] andName:@"delay"];
 }
 #pragma mark - UIAlertView delegate method
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

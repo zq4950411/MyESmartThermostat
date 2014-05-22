@@ -29,8 +29,8 @@
 //#define URL_FOR_SETTINGS_SAVE @"http://www.myenergydomain.com/setting_save.do"
 
 #define GetServer [ServerUtils getServierIp]
-#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
-//#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
+//#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
+#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
 
 #define URL_FOR_LOGIN @"/user/userJson_login_phone.do"
 #define URL_FOR_ADD_ADDRESS @"/house_add4mobile.do"
@@ -55,8 +55,8 @@
 #define URL_FOR_SETTINGS_DELETE_THERMOSTAT  @"/setting_delete.do"
 #define URL_FOR_SETTINGS_DELETE_THERMOSTAT_QUERY_STATUS  @"/setting_findThermostat.do"
 
-#define URL_FOR_SMARTUP_LIST  @"/smartUp_view.do"
-#define URL_FOR_SMARTUP_LIST2 @"/smartUp_findDeviceList.do"
+
+#define URL_FOR_SMARTUP_LIST @"/smartUp_findDeviceList.do"
 #define URL_FOR_SAVE_SORT @"/smartUp_saveSort.do"
 #define URL_FOR_SMARTUP_PlUG_CONTROL @"/socket_plugContro.do"
 #define URL_FOR_FIND_DEVICE @"/smartUp_findDevice.do"
@@ -68,7 +68,8 @@
 #define URL_FOR_INSTRUCTION_TIME_OUT @"/smartUp_recordTimeOut.do"
 
 #define URL_FOR_ROOMLIST_VIEW @"/smartUp_findRoom.do"
-#define URL_FOR_SOCKET_PlUG_CONTROL @"/socket_findPlug.do"
+
+#define URL_FOR_SOCKET_FIND @"/socket_findPlug.do"
 #define URL_FOR_SOCKET_INFO @"/socket_findPlugDevice.do"
 #define URL_FOR_FIND_SOCKET_AUTO @"/socket_findSocketAuto.do"
 #define URL_FOR_SAVE_SOCKET_AUTO @"/socket_saveAutoMode.do"

@@ -17,7 +17,7 @@
 @interface MYEWeekButtons : UIView
 
 @property (nonatomic, strong) NSMutableArray *weeks;  //选中btn之后返回的星期数组
-@property (nonatomic, strong) NSArray *selectedButtons;  //外部传进来的选定的btn
+@property (nonatomic, strong) NSMutableArray *selectedButtons;  //外部传进来的选定的btn
 @property (nonatomic, weak) id <MYEWeekButtonsDelegate> delegate;
 
 @end

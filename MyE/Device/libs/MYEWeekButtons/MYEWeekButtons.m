@@ -45,6 +45,7 @@
         [btn addTarget:self action:@selector(didBtnSelected:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
     }
+    [self changeBtnSelected];
 }
 -(NSString *)setBtnTitleWithTag:(NSInteger)tag{
     /*星期一： Mon.=Monday
@@ -84,29 +85,40 @@
 -(void)didBtnSelected:(UIButton *)btn{
     btn.selected = !btn.selected;
     if (btn.selected) {
-        [self.weeks addObject:@(btn.tag - 1000)];
+        [self.selectedButtons addObject:@(btn.tag - 1000)];
     }else{
-        if ([self.weeks containsObject:@(btn.tag - 1000)]) {
-            [self.weeks removeObject:@(btn.tag - 1000)];
+        if ([self.selectedButtons containsObject:@(btn.tag - 1000)]) {
+            [self.selectedButtons removeObject:@(btn.tag - 1000)];
         }
     }
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
-    NSArray *newArray = [self.weeks sortedArrayUsingDescriptors:@[sort]];
+    NSArray *newArray = [self.selectedButtons sortedArrayUsingDescriptors:@[sort]];
     if ([self.delegate respondsToSelector:@selector(weekButtons:selectedButtonTag:)]) {
         [self.delegate weekButtons:self selectedButtonTag:newArray];
     }
 }
 #pragma mark - private methods
--(void)setSelectedButtons:(NSArray *)selectedButtons{
-    if (![selectedButtons count]) {
+//因为这里使用了Property来进行赋值，所以此处不必写setter方法
+//-(void)setSelectedButtons:(NSArray *)selectedButtons{
+//    NSLog(@"%@",selectedButtons);
+//    self.selectedButtons = [selectedButtons mutableCopy];
+//}
+-(void)changeBtnSelected{
+    if (![self.selectedButtons count]) {
         return;
     }
-    for (NSNumber *i in selectedButtons) {
-        for (UIButton *btn in self.subviews) {
-            if (btn.tag == [i intValue]+1000) {
-                btn.selected = YES;
-            }
-        }
+    for (UIButton *btn in self.subviews) {
+        if ([self.selectedButtons containsObject:@(btn.tag - 1000)]) {
+            btn.selected = YES;
+        }else
+            btn.selected = NO;
     }
+//    for (NSNumber *i in self.selectedButtons) {
+//        for (UIButton *btn in self.subviews) {
+//            if (btn.tag == [i intValue]+1000) {
+//                btn.selected = YES;
+//            }
+//        }
+//    }
 }
 @end

@@ -7,27 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseTableViewController.h"
-#import "MyESwitchEditViewController.h"
-#import "MyEDeviceAddOrEditTableViewController.h"
 #import "TableViewWithBlock.h"
-#import "MyERoomsTableViewController.h"
-#import "MyESocketManualViewController.h"
-@class MyEDevice;
 
-@interface MyEDevicesViewController : BaseTableViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
+@interface MyEDevicesViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,MyEDataLoaderDelegate>
 {
-    NSInteger currentTapIndex;
-    NSIndexPath *_selectedIndexPath;
+    NSIndexPath *_selectedIndexPath;  //当前选定的indexPath
     NSMutableDictionary *_mainDic;
+    MBProgressHUD *HUD;
+    NSMutableArray *_devices;
 }
 
--(MyEDevice *) getCurrentSmartup;
-@property (weak, nonatomic) IBOutlet TableViewWithBlock *roomsTableView;
 @property (nonatomic, strong) MyEMainDevice *mainDevice;
-@property (weak, nonatomic) IBOutlet UIButton *roomBtn;
-
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @property (nonatomic) BOOL needRefresh;
+
+@property (weak, nonatomic) IBOutlet TableViewWithBlock *roomsTableView;
+@property (weak, nonatomic) IBOutlet UIButton *roomBtn;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
 @end
