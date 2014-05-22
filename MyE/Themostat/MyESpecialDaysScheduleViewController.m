@@ -31,6 +31,7 @@
 
 - (void)_createPeriodInforDoughnutViewIfNecessary;
 - (void)_togglePeriodInforDoughnutView;
+- (void)_saveAsNewDayFromDayId:(NSInteger)dayId andNewName:(NSString *)newName;
 
 // 判定是否服务器相应正常，如果正常返回YES，如果服务器相应为-999/-998，
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
@@ -527,8 +528,6 @@
     [self _toggleModeEditingViewWithType:ModeEditingViewTypeEditing];
 }
 
-#pragma mark
-#pragma mark MyEDoughnutViewDelegate 些方法。
 // 返回当前选定的mode的颜色
 - (UIColor *)currentModeColor
 {
@@ -687,23 +686,21 @@
 }
 
 - (IBAction)saveAsNewDay:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please enter new day name" message:nil delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"OK", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    UITextField *textField = [alert textFieldAtIndex:0];
+    textField.placeholder = @"New day name";
+    textField.textAlignment = NSTextAlignmentCenter;
+    alert.tag = 101;
+    [alert show];
 }
 
-- (IBAction)saveAs:(id)sender {
-}
 - (void)closeMenu
 {
     [self.dropDown hideDropDown:self.view];
     self.dropDown = nil;
 }
 
-
-#pragma mark
-#pragma mark privates methods
-- (void)refreshAction
-{
-    [self downloadModelFromServer];
-}
 
 #pragma mark -
 #pragma mark methods for mode editing view
@@ -867,4 +864,27 @@
     
 }
 
+- (void)refreshAction
+{
+    [self downloadModelFromServer];
+}
+- (void)_saveAsNewDayFromDayId:(NSInteger)dayId andNewName:(NSString *)newName{
+    MyEThermostatDayData *day = [self.dataModel.dayItems[self.currentDayId] copy];
+    day.name = newName;
+    [self.dataModel.dayItems addObject:day];
+    self.currentDayId = self.dataModel.dayItems.count - 1;
+    [self.dayBtn setTitle:newName forState:UIControlStateNormal];
+}
+
+
+#pragma mark - UIAlertView Delegate methods
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSLog(@"%@",alertView.subviews);
+    UITextField *textField = [alertView textFieldAtIndex:0];
+    if (buttonIndex == 1) {
+        if (alertView.tag == 101) {
+            [self _saveAsNewDayFromDayId:self.currentDayId andNewName:textField.text];
+        }
+    }
+}
 @end

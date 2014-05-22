@@ -155,7 +155,7 @@
             cell.imageView.image = [imgList objectAtIndex:indexPath.row];
         }
     }
-    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
     return cell;
 }
 
@@ -163,6 +163,7 @@
     [self hideDropDown:viewSender];
     self.releseMenu();
     NSLog(@"indexPath.row=%d", indexPath.row);
+    if(self.function)
     self.function(indexPath.row);
     
 }

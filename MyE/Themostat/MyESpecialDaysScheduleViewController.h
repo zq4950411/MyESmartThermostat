@@ -20,7 +20,7 @@
 @class MyEThermostatScheduleData;
 @class MyEScheduleModeData;
 @class MyEScheduleViewController;
-@interface MyESpecialDaysScheduleViewController : UIViewController<MyEDoughnutViewDelegate, MyEModePickerViewDelegate, MyEWeeklyModeEditingViewDelegate,MyEApplyToDaysSelectionViewDelegate, MyEDataLoaderDelegate, MBProgressHUDDelegate,MyEPeriodInforDoughnutViewDelegate>
+@interface MyESpecialDaysScheduleViewController : UIViewController<MyEDoughnutViewDelegate, MyEModePickerViewDelegate, MyEWeeklyModeEditingViewDelegate,MyEApplyToDaysSelectionViewDelegate, MyEDataLoaderDelegate, MBProgressHUDDelegate,MyEPeriodInforDoughnutViewDelegate,UIAlertViewDelegate>
 {
     MyEDoughnutView *_doughnutView;
     
