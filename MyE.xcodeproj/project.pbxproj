@@ -37,6 +37,7 @@
 		8CA52FA319231A0D00D40EDD /* MyEEventConditionEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA219231A0D00D40EDD /* MyEEventConditionEditViewController.m */; };
 		8CA52FA619231A3000D40EDD /* MyEEventTimeEdtiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA519231A3000D40EDD /* MyEEventTimeEdtiViewController.m */; };
 		8CA52FA919231D4700D40EDD /* MyEEventDeviceEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA819231D4700D40EDD /* MyEEventDeviceEditViewController.m */; };
+		8CB4B552192B46610077CFCB /* MYEWeekButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4B551192B46610077CFCB /* MYEWeekButtons.m */; };
 		8CCB090A192241360095EAAD /* MyEIrDefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0909192241360095EAAD /* MyEIrDefaultViewController.m */; };
 		8CCB090C192247610095EAAD /* WeekCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CCB090B192247610095EAAD /* WeekCell.xib */; };
 		8CCB0D541909FF460044B0E5 /* MyESocketInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */; };
@@ -51,6 +52,7 @@
 		8CEC64E81921C0DE005953FB /* TwoDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEC64DC1921C0DE005953FB /* TwoDatePicker.m */; };
 		8CEC64E91921C0DE005953FB /* TwoDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CEC64DD1921C0DE005953FB /* TwoDatePicker.xib */; };
 		8CEC64EA1921C0DE005953FB /* WeekCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEC64DF1921C0DE005953FB /* WeekCell.m */; };
+		8CFF1C04192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFF1C03192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.m */; };
 		B2520A0517C212E100CB56BA /* NSDictionary+JSONNSNull.m in Sources */ = {isa = PBXBuildFile; fileRef = B2520A0417C212E100CB56BA /* NSDictionary+JSONNSNull.m */; };
 		B2520A0817C216EB00CB56BA /* NSString+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = B2520A0717C216EA00CB56BA /* NSString+Common.m */; };
 		B2520A0B17C2451600CB56BA /* NSDictionary+Convert.m in Sources */ = {isa = PBXBuildFile; fileRef = B2520A0A17C2451600CB56BA /* NSDictionary+Convert.m */; };
@@ -373,6 +375,8 @@
 		8CA52FA519231A3000D40EDD /* MyEEventTimeEdtiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventTimeEdtiViewController.m; sourceTree = "<group>"; };
 		8CA52FA719231D4700D40EDD /* MyEEventDeviceEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventDeviceEditViewController.h; sourceTree = "<group>"; };
 		8CA52FA819231D4700D40EDD /* MyEEventDeviceEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventDeviceEditViewController.m; sourceTree = "<group>"; };
+		8CB4B550192B46610077CFCB /* MYEWeekButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYEWeekButtons.h; sourceTree = "<group>"; };
+		8CB4B551192B46610077CFCB /* MYEWeekButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYEWeekButtons.m; sourceTree = "<group>"; };
 		8CCB0908192241360095EAAD /* MyEIrDefaultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIrDefaultViewController.h; sourceTree = "<group>"; };
 		8CCB0909192241360095EAAD /* MyEIrDefaultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIrDefaultViewController.m; sourceTree = "<group>"; };
 		8CCB090B192247610095EAAD /* WeekCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeekCell.xib; sourceTree = "<group>"; };
@@ -395,6 +399,8 @@
 		8CEC64DD1921C0DE005953FB /* TwoDatePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwoDatePicker.xib; sourceTree = "<group>"; };
 		8CEC64DE1921C0DE005953FB /* WeekCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeekCell.h; sourceTree = "<group>"; };
 		8CEC64DF1921C0DE005953FB /* WeekCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeekCell.m; sourceTree = "<group>"; };
+		8CFF1C02192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESocketScheduleAddOrEditViewController.h; sourceTree = "<group>"; };
+		8CFF1C03192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketScheduleAddOrEditViewController.m; sourceTree = "<group>"; };
 		B2520A0317C212E100CB56BA /* NSDictionary+JSONNSNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JSONNSNull.h"; sourceTree = "<group>"; };
 		B2520A0417C212E100CB56BA /* NSDictionary+JSONNSNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+JSONNSNull.m"; sourceTree = "<group>"; };
 		B2520A0617C216EA00CB56BA /* NSString+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Common.h"; sourceTree = "<group>"; };
@@ -947,6 +953,7 @@
 		8CA05FDE19078A8D0090A350 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				8CB4B54F192B46610077CFCB /* MYEWeekButtons */,
 				8CA0602A1908A3BF0090A350 /* SUNSlideSwitchView */,
 				8CA05FDF19078A8E0090A350 /* dropDownTableView */,
 				8CA060381908B46E0090A350 /* MyEControlBtn.h */,
@@ -1014,8 +1021,19 @@
 				8CA06042190912380090A350 /* MyESocketManualViewController.m */,
 				8CA06044190912470090A350 /* MyESocketAutoViewController.h */,
 				8CA06045190912470090A350 /* MyESocketAutoViewController.m */,
+				8CFF1C02192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.h */,
+				8CFF1C03192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.m */,
 			);
 			path = Socket;
+			sourceTree = "<group>";
+		};
+		8CB4B54F192B46610077CFCB /* MYEWeekButtons */ = {
+			isa = PBXGroup;
+			children = (
+				8CB4B550192B46610077CFCB /* MYEWeekButtons.h */,
+				8CB4B551192B46610077CFCB /* MYEWeekButtons.m */,
+			);
+			path = MYEWeekButtons;
 			sourceTree = "<group>";
 		};
 		8CEC64D01921C0DE005953FB /* Common */ = {
@@ -2440,6 +2458,7 @@
 				C3FDB4D418FA4495009B423D /* Reachability.m in Sources */,
 				C3FDB4EA18FA6044009B423D /* MyELaunchIntroViewController.m in Sources */,
 				C3FDB87F18FA83A9009B423D /* MyEVacationDetailViewController.m in Sources */,
+				8CB4B552192B46610077CFCB /* MYEWeekButtons.m in Sources */,
 				B2B2577717CC368C003833E6 /* UIViewController+MJPopupViewController.m in Sources */,
 				C3F61AFF18E1154200DEE477 /* SBJsonStreamParserAccumulator.m in Sources */,
 				C3FDB86C18FA83A9009B423D /* MyEThumbModeView.m in Sources */,
@@ -2479,6 +2498,7 @@
 				C3F61B2618E11E7400DEE477 /* ASDepthModalViewController.m in Sources */,
 				C39498731919D7F70075ABD3 /* CDCircleThumb.m in Sources */,
 				C3FDB81518FA82AE009B423D /* MyESwitchAutoControl.m in Sources */,
+				8CFF1C04192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.m in Sources */,
 				C3FDB7AC18FA672D009B423D /* MyEDevice.m in Sources */,
 				C3F61B0618E1154200DEE477 /* SBJsonUTF8Stream.m in Sources */,
 				C3FDB81218FA82AE009B423D /* MyEVacationListData.m in Sources */,

@@ -72,6 +72,7 @@
 #define URL_FOR_SOCKET_INFO @"/socket_findPlugDevice.do"
 #define URL_FOR_FIND_SOCKET_AUTO @"/socket_findSocketAuto.do"
 #define URL_FOR_SAVE_SOCKET_AUTO @"/socket_saveAutoMode.do"
+#define URL_FOR_SOCKET_GET_SCHEDULELIST @"/socket_findSocketScheduleList.do"
 
 #define URL_FOR_SOCKET_TIMER_CONTROL @"/socket_timerContro.do"
 #define URL_FOR_SOCKET_SAVE_PLUG_SCHEDULE @"/socket_savePlugSchedule.do"

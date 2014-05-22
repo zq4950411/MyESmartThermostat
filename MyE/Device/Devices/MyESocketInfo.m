@@ -60,9 +60,8 @@
 }
 -(MyESocketSchedules *)initWithDic:(NSDictionary *)dic{
     if (self = [super init]) {
-        self.autoMode = [dic[@"autoMode"] intValue];
         self.schedules = [NSMutableArray array];
-        for (NSDictionary *d in dic[@"schedules"]) {
+        for (NSDictionary *d in dic[@"SSList"]) {
             [self.schedules addObject:[[MyESocketSchedule alloc] initWithDic:d]];
         }
         return self;
@@ -72,34 +71,40 @@
 @end
 
 @implementation MyESocketSchedule
-
+-(id)init{
+    if (self = [super init]) {
+        self.weeks = [NSMutableArray array];
+        self.scheduleId = 0;
+        self.onTime = @"11:00";  //这里的初始值用于btn的显示
+        self.offTime = @"12:00";
+        self.runFlag = 0;
+    }
+    return self;
+}
 -(MyESocketSchedule *)initWithDic:(NSDictionary *)dic{
     if (self = [super init]) {
-        self.periods = [NSMutableArray array];
         self.weeks = [NSMutableArray array];
-        for (NSDictionary *d in dic[@"periods"]) {
-            [self.periods addObject:[[MyESocketPeriod alloc] initWithDic:d]];
-        }
-        for (NSNumber *n in dic[@"weekDays"]) {
+        for (NSNumber *n in dic[@"weeks"]) {
             [self.weeks addObject:n];
         }
         self.scheduleId = [dic[@"scheduleId"] intValue];
+        self.onTime = dic[@"onTime"];
+        self.offTime = dic[@"offTime"];
+        self.runFlag = [dic[@"runFlag"] intValue];
         return self;
     }
     return nil;
 }
-
-@end
-
-@implementation MyESocketPeriod
-
--(MyESocketPeriod *)initWithDic:(NSDictionary *)dic{
-    if (self = [super init]) {
-        self.stid = [dic[@"stid"] intValue];
-        self.etid = [dic[@"etid"] intValue];
-        return self;
-    }
-    return nil;
+-(id)copyWithZone:(NSZone *)zone{
+    MyESocketSchedule *schedule = [[[self class] allocWithZone:zone] init];
+    schedule.weeks = self.weeks;
+    schedule.scheduleId = self.scheduleId;
+    schedule.onTime = self.onTime;
+    schedule.offTime = self.offTime;
+    schedule.runFlag = self.runFlag;
+    return schedule;
 }
-
+-(NSString *)description{
+    return [NSString stringWithFormat:@"%i %@ %@ %@ %i",self.scheduleId,self.onTime,self.offTime,[self.weeks componentsJoinedByString:@","],self.runFlag];
+}
 @end

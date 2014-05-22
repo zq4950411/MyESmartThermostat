@@ -39,6 +39,7 @@
 #import "IQActionSheetPickerView.h"
 #import "MyEControlBtn.h"
 #import "MyESocketInfo.h"
+#import "MYEWeekButtons.h"
 #endif
 
 #define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double )568) < DBL_EPSILON )
