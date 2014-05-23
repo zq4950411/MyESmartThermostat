@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyEEventListViewController : UIViewController
+@interface MyEEventListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,EGORefreshTableHeaderDelegate,MyEDataLoaderDelegate>
 
+@property (nonatomic, strong) MyEEvents *events;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @end

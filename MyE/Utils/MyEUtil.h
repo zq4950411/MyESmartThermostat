@@ -99,7 +99,7 @@
 #define URL_FOR_UNIVERSAL_CONTROLLER_VIEW @"/universalcontroller_view.do"
 #define URL_FOR_UNIVERSAL_CONTROLLER_SAVE @"/universalcontroller_save.do"
 
-
+#define URL_FOR_SCENES_LIST @"/scenes_findSceneList.do"
 #define URL_FOR_SCENES_VIEW @"/scenes_view.do"
 #define URL_FOR_SCENES_FIND_SCENE_DEVICE @"/scenes_findSDevice.do"
 #define URL_FOR_SCENES_SAVE_SCENE @"/scenes_saveScene.do"

@@ -42,8 +42,8 @@
 
 @interface MyESocketSchedule : NSObject<NSCopying>
 @property (nonatomic, assign) NSInteger scheduleId;
-@property (nonatomic, strong) NSString *onTime;
-@property (nonatomic, strong) NSString *offTime;
+@property (nonatomic, copy) NSString *onTime;
+@property (nonatomic, copy) NSString *offTime;
 @property (nonatomic, strong) NSMutableArray *weeks;
 @property (nonatomic, assign) NSInteger runFlag;
 -(MyESocketSchedule *)initWithDic:(NSDictionary *)dic;

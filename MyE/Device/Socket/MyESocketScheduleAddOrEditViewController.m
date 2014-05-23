@@ -63,9 +63,7 @@
             if (self.isAdd) {
                 NSDictionary *dic = [string JSONValue];
                 _newSchedule.scheduleId = [dic[@"scheduleId"] intValue];
-                NSLog(@"%@",self.schedules.schedules);
                 [self.schedules.schedules addObject:_newSchedule];
-                NSLog(@"%@",self.schedules.schedules);
             }else{
                 NSUInteger index = 0;
                 if ([self.schedules.schedules containsObject:self.schedule]) {

@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "TableViewWithBlock.h"
 
-@interface MyEDevicesViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,MyEDataLoaderDelegate>
+@interface MyEDevicesViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,MyEDataLoaderDelegate,EGORefreshTableHeaderDelegate>
 {
     NSIndexPath *_selectedIndexPath;  //当前选定的indexPath
     NSMutableDictionary *_mainDic;
     MBProgressHUD *HUD;
     NSMutableArray *_devices;
+    EGORefreshTableHeaderView *_refreshHeaderView;
+    BOOL _isRefreshing;
 }
 
 @property (nonatomic, strong) MyEMainDevice *mainDevice;

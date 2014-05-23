@@ -86,7 +86,6 @@
     [controlSwitch setOn:schedule.runFlag animated:YES];
     for (UILabel *lbl in cell.contentView.subviews) {
         if ([lbl isKindOfClass:[UILabel class]]) {
-            NSLog(@"%i",lbl.tag);
             if ([schedule.weeks containsObject:@(lbl.tag - 100)]) {
                 lbl.textColor = [UIColor redColor];
             }else

@@ -45,7 +45,7 @@
     self.tableView.tableFooterView = view;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    [self downloadDevicesFromServer];
+    
     //这里是用来更新button的UI
     UIButton *btn = (UIButton *)[self.view viewWithTag:98];
     if (!IS_IOS6) {
@@ -54,11 +54,21 @@
         [btn setBackgroundImage:[UIImage imageNamed:@"detailBtn-ios6"] forState:UIControlStateNormal];
     }
     [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
-    
+    //初始化左上角菜单
     _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    //初始化下拉视图
+    if (!_refreshHeaderView) {
+        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.tableView.frame.size.width, self.tableView.bounds.size.height)];
+        view.delegate = self;
+        [self.tableView addSubview:view];
+        _refreshHeaderView = view;
+    }
+    [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
+
+    [self downloadDevicesFromServer];
 }
 
 #pragma mark - URL  methods
@@ -424,6 +434,10 @@
 #pragma mark - network delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     [HUD hide:YES];
+    if (_isRefreshing) {
+        _isRefreshing = NO;
+        [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+    }
     NSLog(@"received string is %@",string);
     if ([name isEqualToString:@"downloadDevices"]) {
         if (string.intValue == -999) {
@@ -465,6 +479,27 @@
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSLog(@"click button index is %i",buttonIndex);
+}
+
+#pragma mark - UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+}
+#pragma mark - EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+    _isRefreshing = YES;
+    [self downloadDevicesFromServer];
+}
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+    return [NSDate date]; // should return date data source was last changed
 }
 
 @end

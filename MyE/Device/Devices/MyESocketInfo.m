@@ -77,7 +77,7 @@
         self.scheduleId = 0;
         self.onTime = @"11:00";  //这里的初始值用于btn的显示
         self.offTime = @"12:00";
-        self.runFlag = 0;
+        self.runFlag = 1;
     }
     return self;
 }
@@ -97,7 +97,9 @@
 }
 -(id)copyWithZone:(NSZone *)zone{
     MyESocketSchedule *schedule = [[[self class] allocWithZone:zone] init];
-    schedule.weeks = self.weeks;
+    for (NSNumber *i in self.weeks) {
+        [schedule.weeks addObject:i];
+    }
     schedule.scheduleId = self.scheduleId;
     schedule.onTime = self.onTime;
     schedule.offTime = self.offTime;

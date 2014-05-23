@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C1AC073192F2A8E00A8DEFD /* MyEEventInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1AC072192F2A8E00A8DEFD /* MyEEventInfo.m */; };
 		8C23AB281924A02B00821596 /* iPod Click.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 8C23AB271924A02B00821596 /* iPod Click.aiff */; };
 		8C23AB2B1924B7E100821596 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C23AB291924B7E100821596 /* Setting.storyboard */; };
 		8C23AB2E1924BACF00821596 /* MyEQRScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C23AB2D1924BACF00821596 /* MyEQRScanViewController.m */; };
@@ -323,6 +324,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C1AC071192F2A8E00A8DEFD /* MyEEventInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventInfo.h; sourceTree = "<group>"; };
+		8C1AC072192F2A8E00A8DEFD /* MyEEventInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventInfo.m; sourceTree = "<group>"; };
 		8C23AB271924A02B00821596 /* iPod Click.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "iPod Click.aiff"; sourceTree = "<group>"; };
 		8C23AB2A1924B7E100821596 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Setting.storyboard; sourceTree = "<group>"; };
 		8C23AB2C1924BACF00821596 /* MyEQRScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEQRScanViewController.h; sourceTree = "<group>"; };
@@ -1876,6 +1879,8 @@
 		C3FDB60E18FA640B009B423D /* Event */ = {
 			isa = PBXGroup;
 			children = (
+				8C1AC071192F2A8E00A8DEFD /* MyEEventInfo.h */,
+				8C1AC072192F2A8E00A8DEFD /* MyEEventInfo.m */,
 				8CA52F9B192318A500D40EDD /* MyEEventListViewController.h */,
 				8CA52F9C192318A500D40EDD /* MyEEventListViewController.m */,
 				8CA52F9E192318BB00D40EDD /* MyEEventAddViewController.h */,
@@ -2324,6 +2329,7 @@
 				C3F61B2A18E1218E00DEE477 /* UIImage+Blur.m in Sources */,
 				C3FDB7D618FA7F65009B423D /* ServerViewController.m in Sources */,
 				C3FDB4E518FA6044009B423D /* HouseBlankView.m in Sources */,
+				8C1AC073192F2A8E00A8DEFD /* MyEEventInfo.m in Sources */,
 				C395989B18E12CC800E30AFF /* UIImage+FlatUI.m in Sources */,
 				C395989918E12CC800E30AFF /* UIColor+FlatUI.m in Sources */,
 				C3FDB4B218FA403E009B423D /* ASIHTTPRequest.m in Sources */,
