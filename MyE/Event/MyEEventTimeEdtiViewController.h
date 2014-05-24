@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyEEventTimeEdtiViewController : UIViewController
+@interface MyEEventTimeEdtiViewController : UIViewController<MYEWeekButtonsDelegate>
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet MYEWeekButtons *weekBtns;
 
 @end
