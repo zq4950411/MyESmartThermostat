@@ -242,6 +242,26 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="561" y="74"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="73U-zX-AwC">
+            <objects>
+                <viewController id="22b-Gr-YiS" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qsB-WA-2Z1"/>
+                        <viewControllerLayoutGuide type="bottom" id="jov-gS-aTT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aPQ-gf-uEF">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="otv-CR-2vt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="870" y="74"/>
+        </scene>
     </scenes>
     <resources>
         <image name="clock-on" width="30" height="30"/>
