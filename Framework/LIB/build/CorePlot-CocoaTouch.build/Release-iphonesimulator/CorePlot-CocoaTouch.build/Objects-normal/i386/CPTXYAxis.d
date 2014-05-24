@@ -1,0 +1,26 @@
+dependencies: \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTXYAxis.m \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTXYAxis.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTAxis.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTDefinitions.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTLayer.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTResponder.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/iPhoneOnly/CPTPlatformSpecificDefines.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTTextStyle.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/iPhoneOnly/CPTTextStylePlatformSpecific.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTConstraints.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTFill.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTLimitBand.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTLineCap.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTLineStyle.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTMutablePlotRange.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTPlotRange.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTPlotArea.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTAnnotationHostLayer.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTGraph.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTBorderedLayer.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTPlotSpace.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTUtilities.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTXYPlotSpace.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/CPTAnimation.h \
+  /Development/iOS/MyESmartThermostat_V3/Framework/LIB/Core-Plot/Source/NSCoderExtensions.h

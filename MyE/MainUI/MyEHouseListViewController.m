@@ -8,7 +8,6 @@
 
 #import "MyEHouseListViewController.h"
 #import "MyEDashboardViewController.h"
-#import "MyEVacationMasterViewController.h"
 #import "MyESettingsViewController.h"
 #import "MyEHouseListConnectedCell.h"
 #import "MyEHouseListDisconnectedCell.h"

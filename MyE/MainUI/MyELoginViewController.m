@@ -11,7 +11,6 @@
 #import "MyEHouseListViewController.h"
 #import "MyEHouseAddViewController.h"
 #import "MyEDashboardViewController.h"
-#import "MyEVacationMasterViewController.h"
 #import "MyEHouseData.h"
 #import "MyEThermostatData.h"
 #import "MyEUtil.h"

@@ -12,7 +12,7 @@
 @interface MyEThermostatDayData : NSObject <NSCopying> 
 @property (nonatomic) NSInteger dayId;
 //title仅用于SpecialDays, Weekly情况, 就用默认的Mon,Tue, Wed.....
-@property (retain, nonatomic) NSString *title;
+@property (retain, nonatomic) NSString *name;
 @property (retain, nonatomic) NSMutableArray *periods;
 
 

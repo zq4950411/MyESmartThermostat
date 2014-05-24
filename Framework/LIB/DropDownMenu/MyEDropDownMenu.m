@@ -86,6 +86,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self hideDropDown:viewSender];
     self.releseMenu();
+    NSLog(@"触摸在其他位置");
 }
 - (void)hideDropDown:(UIView *)view
 {
@@ -154,13 +155,15 @@
             cell.imageView.image = [imgList objectAtIndex:indexPath.row];
         }
     }
-    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self hideDropDown:viewSender];
     self.releseMenu();
+    NSLog(@"indexPath.row=%d", indexPath.row);
+    if(self.function)
     self.function(indexPath.row);
     
 }

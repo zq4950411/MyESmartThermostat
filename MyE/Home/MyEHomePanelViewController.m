@@ -83,7 +83,14 @@
 */
 
 - (IBAction)goElecUsage:(id)sender {
-    [MyEUtil showMessageOn:self.view withMessage:@"Click Electricity Usage"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Others" bundle:nil];
+    UITabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ElecUsageStat"];
+    
+    // 	温控器所有二级控制页面（Dashboard, Next24, Weekly, etc），标题都采用该温控器的别名。
+    self.title = MainDelegate.thermostatData.tName;
+    NSLog(@"MainDelegate.thermostatData.tName = %@", MainDelegate.thermostatData.tName);
+    
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)goFaultInfo:(id)sender {

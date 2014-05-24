@@ -198,4 +198,13 @@
     }
     return NO;
 }
+
+// 返回由day name构成的数组
+- (NSArray *)dayNames {
+    NSMutableArray *arr = [NSMutableArray array];
+    for (MyEThermostatDayData *dayItem in self.dayItems) {
+        [arr addObject:dayItem.name];
+    }
+    return arr;
+}
 @end

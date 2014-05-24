@@ -13,7 +13,7 @@
 #import "MyEDashboardViewController.h"
 #import "MyEWeeklyScheduleViewController.h"
 #import "MyENext24HrsScheduleViewController.h"
-#import "MyEVacationMasterViewController.h"
+#import "MyESpecialDaysScheduleViewController.h"
 #import "MyESettingsViewController.h"
 #import "MyELaunchIntroViewController.h"
 
@@ -171,8 +171,8 @@
 //                else if (svc.currentPanelType == SCHEDULE_TYPE_NEXT24HRS && svc.next24HrsBaseViewController != nil)
 //                    [svc.next24HrsBaseViewController downloadModelFromServer];
 //            }
-//            if([selectedVC isKindOfClass:[MyEVacationMasterViewController class]]){
-//                [(MyEVacationMasterViewController *)selectedVC downloadModelFromServer];
+//            if([selectedVC isKindOfClass:[MyESpecialDaysScheduleViewController class]]){
+//                [(MyESpecialDaysScheduleViewController *)selectedVC downloadModelFromServer];
 //            }
 //            if([selectedVC isKindOfClass:[MyESettingsViewController class]]){
 //                [(MyESettingsViewController *)selectedVC downloadModelFromServer];

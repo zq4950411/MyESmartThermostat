@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyE/MainUI/MyELoginViewController.m"
-            timestampString = "421896588.456816"
+            timestampString = "422430627.492033"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
             landmarkName = "-didReceiveString:loaderName:userDataDictionary:"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyE/MainUI/MyELoginViewController.m"
-            timestampString = "421896588.456816"
+            timestampString = "422430627.492033"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
             landmarkName = "-didReceiveString:loaderName:userDataDictionary:"
             landmarkType = "5">
          </BreakpointContent>

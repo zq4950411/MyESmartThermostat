@@ -166,8 +166,6 @@
 #define NUM_SECTOR 48
 // 定义sector view的高度是宽度的几倍
 #define SECTOR_ASPECT_RATIO 3.2 // original: 3
-// TODAY 面板的DoughnutView的边长
-#define TODAY_DOUGHNUT_VIEW_SIZE 260.0f
 // Weekly 面板的DoughnutView的边长
 #define WEEKLY_DOUGHNUT_VIEW_SIZE 270.0f  // original : 240.0f   changed @ 2014-2-25
 // Next24Hrs 面板的DoughnutView的边长

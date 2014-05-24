@@ -40,7 +40,7 @@
 {
     if ([u rangeOfString:SETTING_FIND_GATEWAY].location != NSNotFound)
     {
-        if ([[jsonString JSONValue] count] > 0)
+        if ([(NSArray *)[jsonString JSONValue] count] > 0)
         {
             self.gateway = [GatewayEntity getGateWay:jsonString];
             [self.tableView reloadData];
