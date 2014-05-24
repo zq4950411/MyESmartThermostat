@@ -29,8 +29,8 @@
 //#define URL_FOR_SETTINGS_SAVE @"http://www.myenergydomain.com/setting_save.do"
 
 #define GetServer [ServerUtils getServierIp]
-#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
-//#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
+//#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
+#define GetRequst(API) [@"http://182.110.138.162:65533" stringByAppendingFormat:@"%@",API]
 
 #define URL_FOR_LOGIN @"/user/userJson_login_phone.do"
 #define URL_FOR_ADD_ADDRESS @"/house_add4mobile.do"
