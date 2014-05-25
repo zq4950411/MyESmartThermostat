@@ -9,6 +9,7 @@
 #import "MyEMainMenuViewController.h"
 #import "MyEHouseListViewController.h"
 #import "SWRevealViewController.h"
+#import "MyEUsageStatsViewController.h"
 
 @interface MyEMainMenuViewController ()
 
@@ -33,7 +34,7 @@
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.2f alpha:1.0f];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.15f alpha:0.2f];
     
-    _menuItems = @[@"title", @"home", @"devices", @"event", @"settings", @"account"];
+    _menuItems = @[@"home", @"devices", @"events", @"usage", @"alerts", @"settings", @"account", @"signout"];
 
     self.houseName.text = MainDelegate.houseData.houseName;
 }
@@ -155,6 +156,14 @@
  }
  */
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.menuItems.count-1 == indexPath.row) {
+        [MyEUtil showMessageOn:self.view withMessage:@"Tap to Signout"];
+        NSLog(@"signout");
+    }
+    
+}
 
 #pragma mark - Navigation
 
@@ -167,6 +176,10 @@
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     UINavigationController *destViewController = (UINavigationController*)segue.destinationViewController;
     destViewController.title = [[_menuItems objectAtIndex:indexPath.row] capitalizedString];
+    if(self.tableView.indexPathForSelectedRow.row == 3){
+        MyEUsageStatsViewController *dvc = (MyEUsageStatsViewController*)segue.destinationViewController;
+        dvc.fromHome = NO;
+    }
      
 //    // Set the photo if it navigates to the PhotoView
 //    if ([segue.identifier isEqualToString:@"showPhoto"]) {

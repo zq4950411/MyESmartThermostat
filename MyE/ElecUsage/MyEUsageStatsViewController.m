@@ -1,19 +1,19 @@
 //
-//  MyEElecUsageStatViewController.m
+//  MyEUsageStatsViewController.m
 //  MyE
 //
 //  Created by Ye Yuan on 5/22/14.
 //  Copyright (c) 2014 MyEnergy Domain. All rights reserved.
 //
 
-#import "MyEElecUsageStatViewController.h"
+#import "MyEUsageStatsViewController.h"
+#import "SWRevealViewController.h"
 
-
-@interface MyEElecUsageStatViewController ()
-
+@interface MyEUsageStatsViewController ()
+-(void)configView;
 @end
 
-@implementation MyEElecUsageStatViewController
+@implementation MyEUsageStatsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,6 +29,58 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    if(!self.fromHome){
+        // Change button color
+        _sidebarButton.tintColor = [UIColor colorWithWhite:0.3f alpha:0.82f];
+        
+        // Set the side bar button action. When it's tapped, it'll show up the sidebar.
+        _sidebarButton.target = self.revealViewController;
+        _sidebarButton.action = @selector(revealToggle:);
+        
+        // Set the gesture
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    } else {
+        self.navigationItem.leftBarButtonItem = nil;
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                       initWithTitle: @"Home"
+                                       style:UIBarButtonItemStylePlain
+                                       target:self
+                                       action:@selector(goHome)];
+        self.navigationItem.backBarButtonItem = backButton;
+    }
+    
+    [self configView];
+}
+-(void)goHome
+{
+    [self dismissViewControllerAnimated:YES completion:Nil];
+}
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    return YES;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+#pragma mark -
+#pragma mark private method
+-(void)configView
+{
     // Create barChart from theme
     barChart = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
@@ -107,8 +159,8 @@
     // Define some custom labels for the data elements
     x.labelRotation  = M_PI_4;
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
-    NSArray *customTickLocations = @[@1, @5, @10, @15];
-    NSArray *xAxisLabels         = @[@"Label A", @"Label B", @"Label C", @"Label D"];
+    NSArray *customTickLocations = @[@1, @3, @6, @9, @12, @15];
+    NSArray *xAxisLabels         = @[@"Label A", @"Label B", @"Label C", @"Label D", @"Label e", @"Label F"];
     NSUInteger labelLocation     = 0;
     NSMutableSet *customLabels   = [NSMutableSet setWithCapacity:[xAxisLabels count]];
     for ( NSNumber *tickLocation in customTickLocations ) {
@@ -132,7 +184,7 @@
     y.titleLocation               = CPTDecimalFromFloat(150.0f);
     
     // First bar plot
-    CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor darkGrayColor] horizontalBars:NO];
+    CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor greenColor] horizontalBars:NO];
     barPlot.baseValue  = CPTDecimalFromDouble(0.0);
     barPlot.dataSource = self;
     barPlot.barOffset  = CPTDecimalFromFloat(-0.25f);
@@ -147,29 +199,8 @@
     barPlot.barCornerRadius = 2.0;
     barPlot.identifier      = @"Bar Plot 2";
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
-}
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return YES;
-}
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 
 #pragma mark -
 #pragma mark Plot Data Source Methods
