@@ -8,6 +8,7 @@
 
 #import "MyEUsageStatsViewController.h"
 #import "SWRevealViewController.h"
+#import "MyEThermostatData.h"
 
 @interface MyEUsageStatsViewController ()
 -(void)configView;
@@ -65,6 +66,14 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self downloadModelFromServer];
+    
+}
+
 
 /*
 #pragma mark - Navigation
@@ -231,4 +240,50 @@
     
     return num;
 }
+
+#pragma mark -
+#pragma mark URL Loading System methods
+
+- (void) downloadModelFromServer
+{
+    if(HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        HUD.delegate = self;
+    } else
+        [HUD show:YES];
+    NSString *urlStr = [NSString stringWithFormat:
+                        @"%@?&houseId=%i&tId=%@&action=%d",GetRequst(URL_FOR_USAGE_STATS_VIEW),
+                        MainDelegate.houseData.houseId,
+                        MainDelegate.thermostatData.tId,
+                        1];
+    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"UsageStatsDownloader"  userDataDictionary:nil];
+    NSLog(@"UsageStatsDownloader is %@, url is %@",downloader.name, urlStr);
+}
+
+- (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    if([name isEqualToString:@"UsageStatsDownloader"]) {
+        [HUD hide:YES];
+        NSLog(@"UsageStatsDownloader string from server is \n %@", string);
+        
+        MyEUsageStat *elct = [[MyEUsageStat alloc] initWithString:string];
+#warning Todo 转换数据
+    }
+}
+- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
+                                                  message:@"Communication error. Please try again."
+                                                 delegate:self
+                                        cancelButtonTitle:@"Ok"
+                                        otherButtonTitles:nil];
+    [alert show];
+    
+    // inform the user
+    NSLog(@"Connection of %@ failed! Error - %@ %@",name,
+          [error localizedDescription],
+          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+    [HUD hide:YES];
+}
+
+
 @end

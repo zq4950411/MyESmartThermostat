@@ -112,12 +112,12 @@
     [HUD hide:YES];
     NSLog(@"downloadElecInfo string is %@",string);
     if (![string isEqualToString:@"fail"]) {
-        MyESwitchElec *elct = [[MyESwitchElec alloc] initWithString:string];
+        MyEUsageStat *elct = [[MyEUsageStat alloc] initWithString:string];
         
         NSMutableArray *temp = [NSMutableArray array];
         for (int i = 0; i < [elct.powerRecordList count]; i++)
         {
-            MyESwitchElecStatus *status = elct.powerRecordList[i];
+            MyEUsageStatus *status = elct.powerRecordList[i];
             EColumnDataModel *eColumnDataModel = [[EColumnDataModel alloc] initWithLabel:status.date value:status.totalPower/1000 index:i unit:@"kWh"];
             [temp addObject:eColumnDataModel];
         }

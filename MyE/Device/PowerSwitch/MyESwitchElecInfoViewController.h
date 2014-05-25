@@ -14,7 +14,7 @@
     MBProgressHUD *HUD;
 }
 @property (strong, nonatomic) MyEDevice *device;
-@property (strong, nonatomic) MyESwitchElec *elecStatus;
+@property (strong, nonatomic) MyEUsageStat *elecStatus;
 
 @property (strong, nonatomic) EColumnChart *eColumnChart;
 

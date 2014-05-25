@@ -30,7 +30,7 @@
 #import "MyEInstructions.h"
 #import "MyESwitchManualControl.h"
 #import "MyESwitchAutoControl.h"
-#import "MyESwitchElec.h"
+#import "MyEUsageStat.h"
 #import "MyEDeviceEdit.h"
 #import "MZFormSheetController.h"
 #import "DXAlertView.h"

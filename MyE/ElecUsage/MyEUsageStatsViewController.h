@@ -10,10 +10,11 @@
 #import <UIKit/UIKit.h>
 
 
-@interface MyEUsageStatsViewController : UIViewController<CPTPlotDataSource>
+@interface MyEUsageStatsViewController : UIViewController<CPTPlotDataSource,MyEDataLoaderDelegate,MBProgressHUDDelegate>
 {
 @private
     CPTXYGraph *barChart;
+    MBProgressHUD *HUD;
 }
 @property (assign, nonatomic) BOOL fromHome;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;

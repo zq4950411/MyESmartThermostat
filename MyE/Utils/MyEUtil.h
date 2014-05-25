@@ -47,6 +47,7 @@
 #define URL_FOR_NEXT24HRS_DEFAULT_SCHEDULE_VIEW @"/next24Program_reset.do"
 #define URL_FOR_VACATION_VIEW @"/vacation_view.do"
 #define URL_FOR_SETTINGS_VIEW @"/setting_view.do"
+#define URL_FOR_USAGE_STATS_VIEW @"/usage_electric_stati.do"
 
 #define URL_FOR_DASHBOARD_SAVE @"/dashboard_save.do"
 #define URL_FOR_TODAY_SCHEDULE_SAVE @"/programToday_save.do"
