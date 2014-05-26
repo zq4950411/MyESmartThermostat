@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class MyEAccountData;
-@class MyEThermostatData;
+@class MyETerminalData;
 @class MyEHouseData;
 
 
@@ -18,7 +18,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) MyEAccountData *accountData;
-@property (strong, nonatomic) MyEThermostatData *thermostatData;
+@property (strong, nonatomic) MyETerminalData *thermostatData;
 @property (strong, nonatomic) MyEHouseData *houseData;
 
 -(void) getLoginView;

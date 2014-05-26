@@ -1830,7 +1830,7 @@
         <image name="Vacation01" width="45" height="45"/>
         <image name="Vacation02" width="45" height="45"/>
         <image name="add" width="30" height="30"/>
-        <image name="apply" width="100" height="50"/>
+        <image name="apply" width="64" height="64"/>
         <image name="pen" width="30" height="30"/>
         <image name="reset" width="100" height="100"/>
         <image name="reset_halfcircle" width="100" height="50"/>

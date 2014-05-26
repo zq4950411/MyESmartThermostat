@@ -147,6 +147,7 @@
 		C3194BA018E299EA006E3ABE /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C3194B9418E299EA006E3ABE /* UICountingLabel.m */; };
 		C3194BA418E29C5D006E3ABE /* MultiSelectSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C3194BA318E29C5D006E3ABE /* MultiSelectSegmentedControl.m */; };
 		C3194BAB18E93A38006E3ABE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3194BAA18E93A37006E3ABE /* Images.xcassets */; };
+		C32497461931C10F00109599 /* MyEUsageStat.m in Sources */ = {isa = PBXBuildFile; fileRef = C32497451931C10F00109599 /* MyEUsageStat.m */; };
 		C33587D4190452F300959C94 /* MyEHomePanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C33587D3190452F300959C94 /* MyEHomePanelViewController.m */; };
 		C39498701919D7F70075ABD3 /* CDCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = C39498651919D7F70075ABD3 /* CDCircle.m */; };
 		C39498711919D7F70075ABD3 /* CDCircleGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C39498671919D7F70075ABD3 /* CDCircleGestureRecognizer.m */; };
@@ -159,6 +160,8 @@
 		C395989918E12CC800E30AFF /* UIColor+FlatUI.m in Sources */ = {isa = PBXBuildFile; fileRef = C395989218E12CC800E30AFF /* UIColor+FlatUI.m */; };
 		C395989A18E12CC800E30AFF /* UIFont+FlatUI.m in Sources */ = {isa = PBXBuildFile; fileRef = C395989418E12CC800E30AFF /* UIFont+FlatUI.m */; };
 		C395989B18E12CC800E30AFF /* UIImage+FlatUI.m in Sources */ = {isa = PBXBuildFile; fileRef = C395989618E12CC800E30AFF /* UIImage+FlatUI.m */; };
+		C3988D6C193120F8002657F0 /* MyEUsageStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3988D6B193120F8002657F0 /* MyEUsageStatsViewController.m */; };
+		C3988D7019313488002657F0 /* MyEAlertsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3988D6F19313488002657F0 /* MyEAlertsTableViewController.m */; };
 		C39D1C3619208C550009F2E2 /* thermostat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C39D1C3419208C540009F2E2 /* thermostat.storyboard */; };
 		C3A1C8211902ED9B001A1F99 /* DictionaryTableViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A1C81F1902ED9B001A1F99 /* DictionaryTableViewViewController.m */; };
 		C3A1C8221902ED9B001A1F99 /* DictionaryTableViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3A1C8201902ED9B001A1F99 /* DictionaryTableViewViewController.xib */; };
@@ -224,7 +227,6 @@
 		C3FB3BD9192DC6460039D052 /* MyEWeeklyScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3BC7192DC6460039D052 /* MyEWeeklyScheduleViewController.m */; };
 		C3FB3BDA192DC6460039D052 /* UISegmentedControl+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3BC9192DC6460039D052 /* UISegmentedControl+Extension.m */; };
 		C3FB3C0A192F10C10039D052 /* Others.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3FB3C08192F10C10039D052 /* Others.storyboard */; };
-		C3FB3C0D192F11A10039D052 /* MyEElecUsageStatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3C0C192F11A10039D052 /* MyEElecUsageStatViewController.m */; };
 		C3FB3C20192F1F700039D052 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3FB3C1D192F1E6B0039D052 /* libCorePlot-CocoaTouch.a */; };
 		C3FDB4AD18FA403E009B423D /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB45C18FA403E009B423D /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3FDB4AE18FA403E009B423D /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB45F18FA403E009B423D /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -301,13 +303,10 @@
 		C3FDB80C18FA82AE009B423D /* MyEThermostatScheduleData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7EA18FA82AE009B423D /* MyEThermostatScheduleData.m */; };
 		C3FDB80D18FA82AE009B423D /* MyESettingsData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7EC18FA82AE009B423D /* MyESettingsData.m */; };
 		C3FDB80E18FA82AE009B423D /* MyEStaycationItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7EE18FA82AE009B423D /* MyEStaycationItemData.m */; };
-		C3FDB80F18FA82AE009B423D /* MyEThermostatData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7F018FA82AE009B423D /* MyEThermostatData.m */; };
-		C3FDB81118FA82AE009B423D /* MyEVacationItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7F418FA82AE009B423D /* MyEVacationItemData.m */; };
-		C3FDB81218FA82AE009B423D /* MyEVacationListData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7F618FA82AE009B423D /* MyEVacationListData.m */; };
+		C3FDB80F18FA82AE009B423D /* MyETerminalData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7F018FA82AE009B423D /* MyETerminalData.m */; };
 		C3FDB81318FA82AE009B423D /* MyEThermostatDayData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7F818FA82AE009B423D /* MyEThermostatDayData.m */; };
 		C3FDB81418FA82AE009B423D /* MyEThermostatPeriodData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7FA18FA82AE009B423D /* MyEThermostatPeriodData.m */; };
 		C3FDB81518FA82AE009B423D /* MyESwitchAutoControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7FD18FA82AE009B423D /* MyESwitchAutoControl.m */; };
-		C3FDB81618FA82AE009B423D /* MyESwitchElec.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7FF18FA82AE009B423D /* MyESwitchElec.m */; };
 		C3FDB81718FA82AE009B423D /* MyESwitchInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB80118FA82AE009B423D /* MyESwitchInfo.m */; };
 		C3FDB81818FA82AE009B423D /* MyESwitchManualControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB80318FA82AE009B423D /* MyESwitchManualControl.m */; };
 		C3FDB88518FA867F009B423D /* MyEPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB88418FA867F009B423D /* MyEPasswordResetViewController.m */; };
@@ -590,6 +589,8 @@
 		C3194BA218E29C5D006E3ABE /* MultiSelectSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiSelectSegmentedControl.h; sourceTree = "<group>"; };
 		C3194BA318E29C5D006E3ABE /* MultiSelectSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiSelectSegmentedControl.m; sourceTree = "<group>"; };
 		C3194BAA18E93A37006E3ABE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C32497441931C10F00109599 /* MyEUsageStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUsageStat.h; sourceTree = "<group>"; };
+		C32497451931C10F00109599 /* MyEUsageStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUsageStat.m; sourceTree = "<group>"; };
 		C33587D2190452F300959C94 /* MyEHomePanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEHomePanelViewController.h; sourceTree = "<group>"; };
 		C33587D3190452F300959C94 /* MyEHomePanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEHomePanelViewController.m; sourceTree = "<group>"; };
 		C39498641919D7F70075ABD3 /* CDCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDCircle.h; sourceTree = "<group>"; };
@@ -614,6 +615,10 @@
 		C395989418E12CC800E30AFF /* UIFont+FlatUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FlatUI.m"; sourceTree = "<group>"; };
 		C395989518E12CC800E30AFF /* UIImage+FlatUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FlatUI.h"; sourceTree = "<group>"; };
 		C395989618E12CC800E30AFF /* UIImage+FlatUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FlatUI.m"; sourceTree = "<group>"; };
+		C3988D6A193120F8002657F0 /* MyEUsageStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUsageStatsViewController.h; sourceTree = "<group>"; };
+		C3988D6B193120F8002657F0 /* MyEUsageStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUsageStatsViewController.m; sourceTree = "<group>"; };
+		C3988D6E19313488002657F0 /* MyEAlertsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAlertsTableViewController.h; sourceTree = "<group>"; };
+		C3988D6F19313488002657F0 /* MyEAlertsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAlertsTableViewController.m; sourceTree = "<group>"; };
 		C39D1C3519208C540009F2E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = thermostat.storyboard; sourceTree = "<group>"; };
 		C3A1C81E1902ED9B001A1F99 /* DictionaryTableViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryTableViewViewController.h; sourceTree = "<group>"; };
 		C3A1C81F1902ED9B001A1F99 /* DictionaryTableViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryTableViewViewController.m; sourceTree = "<group>"; };
@@ -738,8 +743,6 @@
 		C3FB3BC8192DC6460039D052 /* UISegmentedControl+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISegmentedControl+Extension.h"; sourceTree = "<group>"; };
 		C3FB3BC9192DC6460039D052 /* UISegmentedControl+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISegmentedControl+Extension.m"; sourceTree = "<group>"; };
 		C3FB3C09192F10C10039D052 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Others.storyboard; sourceTree = "<group>"; };
-		C3FB3C0B192F11A10039D052 /* MyEElecUsageStatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEElecUsageStatViewController.h; sourceTree = "<group>"; };
-		C3FB3C0C192F11A10039D052 /* MyEElecUsageStatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEElecUsageStatViewController.m; sourceTree = "<group>"; };
 		C3FB3C16192F1E690039D052 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "Framework/LIB/Core-Plot/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		C3FDB45B18FA403E009B423D /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		C3FDB45C18FA403E009B423D /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
@@ -886,20 +889,14 @@
 		C3FDB7EC18FA82AE009B423D /* MyESettingsData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESettingsData.m; sourceTree = "<group>"; };
 		C3FDB7ED18FA82AE009B423D /* MyEStaycationItemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEStaycationItemData.h; sourceTree = "<group>"; };
 		C3FDB7EE18FA82AE009B423D /* MyEStaycationItemData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEStaycationItemData.m; sourceTree = "<group>"; };
-		C3FDB7EF18FA82AE009B423D /* MyEThermostatData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEThermostatData.h; sourceTree = "<group>"; };
-		C3FDB7F018FA82AE009B423D /* MyEThermostatData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEThermostatData.m; sourceTree = "<group>"; };
-		C3FDB7F318FA82AE009B423D /* MyEVacationItemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEVacationItemData.h; sourceTree = "<group>"; };
-		C3FDB7F418FA82AE009B423D /* MyEVacationItemData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEVacationItemData.m; sourceTree = "<group>"; };
-		C3FDB7F518FA82AE009B423D /* MyEVacationListData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEVacationListData.h; sourceTree = "<group>"; };
-		C3FDB7F618FA82AE009B423D /* MyEVacationListData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEVacationListData.m; sourceTree = "<group>"; };
+		C3FDB7EF18FA82AE009B423D /* MyETerminalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETerminalData.h; sourceTree = "<group>"; };
+		C3FDB7F018FA82AE009B423D /* MyETerminalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETerminalData.m; sourceTree = "<group>"; };
 		C3FDB7F718FA82AE009B423D /* MyEThermostatDayData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEThermostatDayData.h; sourceTree = "<group>"; };
 		C3FDB7F818FA82AE009B423D /* MyEThermostatDayData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEThermostatDayData.m; sourceTree = "<group>"; };
 		C3FDB7F918FA82AE009B423D /* MyEThermostatPeriodData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEThermostatPeriodData.h; sourceTree = "<group>"; };
 		C3FDB7FA18FA82AE009B423D /* MyEThermostatPeriodData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEThermostatPeriodData.m; sourceTree = "<group>"; };
 		C3FDB7FC18FA82AE009B423D /* MyESwitchAutoControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESwitchAutoControl.h; sourceTree = "<group>"; };
 		C3FDB7FD18FA82AE009B423D /* MyESwitchAutoControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESwitchAutoControl.m; sourceTree = "<group>"; };
-		C3FDB7FE18FA82AE009B423D /* MyESwitchElec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESwitchElec.h; sourceTree = "<group>"; };
-		C3FDB7FF18FA82AE009B423D /* MyESwitchElec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESwitchElec.m; sourceTree = "<group>"; };
 		C3FDB80018FA82AE009B423D /* MyESwitchInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESwitchInfo.h; sourceTree = "<group>"; };
 		C3FDB80118FA82AE009B423D /* MyESwitchInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESwitchInfo.m; sourceTree = "<group>"; };
 		C3FDB80218FA82AE009B423D /* MyESwitchManualControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESwitchManualControl.h; sourceTree = "<group>"; };
@@ -1436,10 +1433,12 @@
 		C30E01F914C7A69200011160 /* MyE */ = {
 			isa = PBXGroup;
 			children = (
+				C3988D6D1931346D002657F0 /* Alerts */,
 				C3A1C81D1902ED9B001A1F99 /* Common */,
 				C33587D11904480000959C94 /* Home */,
 				C3FDB70718FA652A009B423D /* MyEAppDelegate.h */,
 				C3FDB70818FA652A009B423D /* MyEAppDelegate.m */,
+				C3988D69193120F8002657F0 /* ElecUsage */,
 				C3FDB70A18FA6589009B423D /* CustomViews */,
 				C3FDB71318FA6589009B423D /* Dashboard */,
 				C3FDB82218FA83A8009B423D /* Themostat */,
@@ -1514,8 +1513,6 @@
 			children = (
 				C33587D2190452F300959C94 /* MyEHomePanelViewController.h */,
 				C33587D3190452F300959C94 /* MyEHomePanelViewController.m */,
-				C3FB3C0B192F11A10039D052 /* MyEElecUsageStatViewController.h */,
-				C3FB3C0C192F11A10039D052 /* MyEElecUsageStatViewController.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1554,6 +1551,24 @@
 				C395989618E12CC800E30AFF /* UIImage+FlatUI.m */,
 			);
 			path = FUI;
+			sourceTree = "<group>";
+		};
+		C3988D69193120F8002657F0 /* ElecUsage */ = {
+			isa = PBXGroup;
+			children = (
+				C3988D6A193120F8002657F0 /* MyEUsageStatsViewController.h */,
+				C3988D6B193120F8002657F0 /* MyEUsageStatsViewController.m */,
+			);
+			path = ElecUsage;
+			sourceTree = "<group>";
+		};
+		C3988D6D1931346D002657F0 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				C3988D6E19313488002657F0 /* MyEAlertsTableViewController.h */,
+				C3988D6F19313488002657F0 /* MyEAlertsTableViewController.m */,
+			);
+			path = Alerts;
 			sourceTree = "<group>";
 		};
 		C3A1C81D1902ED9B001A1F99 /* Common */ = {
@@ -2052,18 +2067,16 @@
 				C3FDB7EC18FA82AE009B423D /* MyESettingsData.m */,
 				C3FDB7ED18FA82AE009B423D /* MyEStaycationItemData.h */,
 				C3FDB7EE18FA82AE009B423D /* MyEStaycationItemData.m */,
-				C3FDB7EF18FA82AE009B423D /* MyEThermostatData.h */,
-				C3FDB7F018FA82AE009B423D /* MyEThermostatData.m */,
-				C3FDB7F318FA82AE009B423D /* MyEVacationItemData.h */,
-				C3FDB7F418FA82AE009B423D /* MyEVacationItemData.m */,
-				C3FDB7F518FA82AE009B423D /* MyEVacationListData.h */,
-				C3FDB7F618FA82AE009B423D /* MyEVacationListData.m */,
+				C3FDB7EF18FA82AE009B423D /* MyETerminalData.h */,
+				C3FDB7F018FA82AE009B423D /* MyETerminalData.m */,
 				C3FEF239192AD2D900741318 /* MyENext24HrsPeriodData.h */,
 				C3FEF23A192AD2D900741318 /* MyENext24HrsPeriodData.m */,
 				C3FDB7F718FA82AE009B423D /* MyEThermostatDayData.h */,
 				C3FDB7F818FA82AE009B423D /* MyEThermostatDayData.m */,
 				C3FDB7F918FA82AE009B423D /* MyEThermostatPeriodData.h */,
 				C3FDB7FA18FA82AE009B423D /* MyEThermostatPeriodData.m */,
+				C32497441931C10F00109599 /* MyEUsageStat.h */,
+				C32497451931C10F00109599 /* MyEUsageStat.m */,
 				C3FDB7FB18FA82AE009B423D /* Switch */,
 			);
 			path = DataModels;
@@ -2074,8 +2087,6 @@
 			children = (
 				C3FDB7FC18FA82AE009B423D /* MyESwitchAutoControl.h */,
 				C3FDB7FD18FA82AE009B423D /* MyESwitchAutoControl.m */,
-				C3FDB7FE18FA82AE009B423D /* MyESwitchElec.h */,
-				C3FDB7FF18FA82AE009B423D /* MyESwitchElec.m */,
 				C3FDB80018FA82AE009B423D /* MyESwitchInfo.h */,
 				C3FDB80118FA82AE009B423D /* MyESwitchInfo.m */,
 				C3FDB80218FA82AE009B423D /* MyESwitchManualControl.h */,
@@ -2272,6 +2283,7 @@
 				C30E020014C7A69200011160 /* main.m in Sources */,
 				C3A2C09818F39DE500A08D2C /* SwipeView.m in Sources */,
 				C3194B9B18E299EA006E3ABE /* ELine.m in Sources */,
+				C3988D6C193120F8002657F0 /* MyEUsageStatsViewController.m in Sources */,
 				8CCB090A192241360095EAAD /* MyEIrDefaultViewController.m in Sources */,
 				C3FDB4BE18FA403E009B423D /* ASIS3BucketObject.m in Sources */,
 				C3FDB88F18FA884A009B423D /* MyESettingsThermostatCell.m in Sources */,
@@ -2390,9 +2402,8 @@
 				B2588D4F17B09B9D007ED13C /* LoadMoreTableFooterView.m in Sources */,
 				C3FDB80418FA82AE009B423D /* MyEAccountData.m in Sources */,
 				8CA060371908A70A0090A350 /* MyEInstructions.m in Sources */,
-				C3FDB80F18FA82AE009B423D /* MyEThermostatData.m in Sources */,
+				C3FDB80F18FA82AE009B423D /* MyETerminalData.m in Sources */,
 				C3194B9518E299EA006E3ABE /* EColor.m in Sources */,
-				C3FDB81618FA82AE009B423D /* MyESwitchElec.m in Sources */,
 				8CA05FE619078A8E0090A350 /* TableViewWithBlock.m in Sources */,
 				C3FDB50C18FA62A0009B423D /* MyEDataLoader.m in Sources */,
 				C3F61B1318E11A7B00DEE477 /* RTLabel.m in Sources */,
@@ -2412,7 +2423,6 @@
 				C3194BA018E299EA006E3ABE /* UICountingLabel.m in Sources */,
 				C3F61AFC18E1154200DEE477 /* NSObject+SBJson.m in Sources */,
 				B2520A0517C212E100CB56BA /* NSDictionary+JSONNSNull.m in Sources */,
-				C3FB3C0D192F11A10039D052 /* MyEElecUsageStatViewController.m in Sources */,
 				8CEC64E41921C0DE005953FB /* SequentialCell.m in Sources */,
 				C3FB3BCD192DC6460039D052 /* MyEPeriodData.m in Sources */,
 				B2520A0817C216EB00CB56BA /* NSString+Common.m in Sources */,
@@ -2439,6 +2449,7 @@
 				C3194B9818E299EA006E3ABE /* EColumnChartLabel.m in Sources */,
 				C3F61ADE18E1153400DEE477 /* BlockActionSheet.m in Sources */,
 				8CA060101908A2F40090A350 /* MyEIrStudyEditKeyModalViewController.m in Sources */,
+				C32497461931C10F00109599 /* MyEUsageStat.m in Sources */,
 				C3F61B0418E1154200DEE477 /* SBJsonStreamWriterState.m in Sources */,
 				8CA05FEB1907A8CD0090A350 /* MyERoomsTableViewController.m in Sources */,
 				C3FB3BA7192C3AA00039D052 /* MyEDropDownMenu.m in Sources */,
@@ -2457,6 +2468,7 @@
 				8CEC64E11921C0DE005953FB /* CommonCell.m in Sources */,
 				B25B79DC17D198A9009F4E84 /* bitstream.c in Sources */,
 				C3AE7F4218E14D99000AA5FC /* MZFormSheetSegue.m in Sources */,
+				C3988D7019313488002657F0 /* MyEAlertsTableViewController.m in Sources */,
 				B25B79DD17D198A9009F4E84 /* mask.c in Sources */,
 				C3FDB4E918FA6044009B423D /* MyEHouseListViewController.m in Sources */,
 				C39498751919D7F70075ABD3 /* Common.m in Sources */,
@@ -2466,7 +2478,6 @@
 				C33587D4190452F300959C94 /* MyEHomePanelViewController.m in Sources */,
 				B25B79DF17D198A9009F4E84 /* qrencode.c in Sources */,
 				B25B79E017D198A9009F4E84 /* qrinput.c in Sources */,
-				C3FDB81118FA82AE009B423D /* MyEVacationItemData.m in Sources */,
 				C3FDB4AD18FA403E009B423D /* ASIAuthenticationDialog.m in Sources */,
 				C3FDB7CC18FA672E009B423D /* MyEDelayTimeSetViewController.m in Sources */,
 				C3194B9A18E299EA006E3ABE /* EFloatBox.m in Sources */,
@@ -2489,7 +2500,6 @@
 				8CFF1C04192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.m in Sources */,
 				C3FDB7AC18FA672D009B423D /* MyEDevice.m in Sources */,
 				C3F61B0618E1154200DEE477 /* SBJsonUTF8Stream.m in Sources */,
-				C3FDB81218FA82AE009B423D /* MyEVacationListData.m in Sources */,
 				8CCB0D541909FF460044B0E5 /* MyESocketInfo.m in Sources */,
 				C39498711919D7F70075ABD3 /* CDCircleGestureRecognizer.m in Sources */,
 				C3A1C8211902ED9B001A1F99 /* DictionaryTableViewViewController.m in Sources */,

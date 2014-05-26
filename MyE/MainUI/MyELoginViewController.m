@@ -12,7 +12,7 @@
 #import "MyEHouseAddViewController.h"
 #import "MyEDashboardViewController.h"
 #import "MyEHouseData.h"
-#import "MyEThermostatData.h"
+#import "MyETerminalData.h"
 #import "MyEUtil.h"
 #import "SBJson.h"
 
@@ -101,7 +101,7 @@
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
         
-        MyEThermostatData *thermostatData = [houseData.thermostats objectAtIndex:0];// 用该房子的第一个T
+        MyETerminalData *thermostatData = [houseData.terminals objectAtIndex:0];// 用该房子的第一个T
         MainDelegate.thermostatData = thermostatData;
         
         [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
@@ -226,7 +226,7 @@
                 NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
                 
                 NSString *tid = [prefs objectForKey:KEY_FOR_TID_LAST_VIEWED];
-                for (MyEThermostatData *temp in MainDelegate.houseData.thermostats)
+                for (MyETerminalData *temp in MainDelegate.houseData.terminals)
                 {
                     if ([tid isEqualToString:temp.tId])
                     {
@@ -245,7 +245,7 @@
                 //在NSDefaults里面记录这次要进入的房屋
                 [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
                 
-                MyEThermostatData *thermostatData = [houseData.thermostats objectAtIndex:0];// 用该房子的第一个T
+                MyETerminalData *thermostatData = [houseData.terminals objectAtIndex:0];// 用该房子的第一个T
                 MainDelegate.thermostatData = thermostatData;
                 
                 [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];

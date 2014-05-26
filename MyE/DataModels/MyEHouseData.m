@@ -7,7 +7,7 @@
 //
 
 #import "MyEHouseData.h"
-#import "MyEThermostatData.h"
+#import "MyETerminalData.h"
 #import "SBJson.h"
 
 @interface MyEHouseData ()
@@ -16,11 +16,11 @@
 
 @implementation MyEHouseData
 
-@synthesize houseName = _houseName, houseId = _houseId, mId = _mId, connection = _connection, thermostats = _thermostats;
+@synthesize houseName = _houseName, houseId = _houseId, mId = _mId, connection = _connection, terminals = _terminals;
 
 - (void)setthermostats:(NSMutableArray *)newList {
-    if(_thermostats != newList) {
-        _thermostats = [newList mutableCopy];
+    if(_terminals != newList) {
+        _terminals = [newList mutableCopy];
     }
 }
 
@@ -38,10 +38,10 @@
         if ([thermostatsInDict isKindOfClass:[NSArray class]]){
             for (NSDictionary *t in thermostatsInDict) {
                 if([[t objectForKey:@"thermostat"] intValue]<2)// 只统计有温控器的房屋。去掉这句就会统计所有房屋
-                    [thermostats addObject:[[MyEThermostatData alloc] initWithDictionary:t]];
+                    [thermostats addObject:[[MyETerminalData alloc] initWithDictionary:t]];
             }
         }        
-        self.thermostats = thermostats;
+        self.terminals = thermostats;
         
         return self;
     }
@@ -63,7 +63,7 @@
                           self.mId, @"mId",
                           [NSNumber numberWithInt:self.connection],@"connection",
                           self.houseName, @"houseName",
-                          self.thermostats, @"thermostats",
+                          self.terminals, @"thermostats",
                           nil ];
     return dict;
 }
@@ -83,19 +83,19 @@
 - (BOOL)isConnected{
     if([self.mId length] == 0 || self.connection == 1)
         return NO;
-    for (MyEThermostatData *t  in self.thermostats) {
-        if (t.thermostat ==0 ) {
+    for (MyETerminalData *t  in self.terminals) {
+        if (t.connection ==0 ) {
             return YES;
         }
     }
     return NO;
 }
 
-- (MyEThermostatData *)firstConnectedThermostat
+- (MyETerminalData *)firstConnectedThermostat
 {
-    for (MyEThermostatData *t  in self.thermostats)
+    for (MyETerminalData *t  in self.terminals)
     {
-        if (t.thermostat == 0 && t.deviceType == 0)
+        if (t.connection == 0 && t.deviceType == 0)
         {
             return t;
         }
@@ -106,8 +106,8 @@
 
 - (NSInteger)countOfConnectedThermostat{// 房子有连接的T的数目。
     NSInteger count =0;
-    for (MyEThermostatData *t  in self.thermostats) {
-        if (t.thermostat ==0 ) {
+    for (MyETerminalData *t  in self.terminals) {
+        if (t.connection ==0 ) {
             count ++;
         }
     }

@@ -1,19 +1,25 @@
 //
-//  MyEElecUsageStatViewController.m
+//  MyEUsageStatsViewController.m
 //  MyE
 //
 //  Created by Ye Yuan on 5/22/14.
 //  Copyright (c) 2014 MyEnergy Domain. All rights reserved.
 //
 
-#import "MyEElecUsageStatViewController.h"
+#import "MyEUsageStatsViewController.h"
+#import "SWRevealViewController.h"
+#import "MyETerminalData.h"
+#import "MyEUsageStat.h"
+#import "MyEHouseData.h"
+#import "MyETerminalData.h"
 
-
-@interface MyEElecUsageStatViewController ()
-
+@interface MyEUsageStatsViewController ()
+-(void)configView;
+-(void)goHome;
+- (void)refreshAction;
 @end
 
-@implementation MyEElecUsageStatViewController
+@implementation MyEUsageStatsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,12 +34,81 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    validTerminals = [NSMutableArray array];
+    for (MyETerminalData *t in MainDelegate.houseData.terminals) {
+        [validTerminals addObject:t];
+    }
+    currentTerminalIdx = 0;
     
+    
+    if(!self.fromHome){
+        // Change button color
+        _sidebarButton.tintColor = [UIColor colorWithWhite:0.3f alpha:0.82f];
+        
+        // Set the side bar button action. When it's tapped, it'll show up the sidebar.
+        _sidebarButton.target = self.revealViewController;
+        _sidebarButton.action = @selector(revealToggle:);
+        
+        // Set the gesture
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    } else {
+        self.navigationItem.leftBarButtonItem = nil;
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                       initWithTitle: @"Home"
+                                       style:UIBarButtonItemStylePlain
+                                       target:self
+                                       action:@selector(goHome)];
+        self.navigationItem.backBarButtonItem = backButton;
+    }
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                      target:self
+                                      action:@selector(refreshAction)];
+    self.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, nil];
+    
+    
+    [self configView];
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    return YES;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self downloadModelFromServer];
+    
+}
+
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+#pragma mark -
+#pragma mark private method
+-(void)configView
+{
     // Create barChart from theme
     barChart = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
     [barChart applyTheme:theme];
-    CPTGraphHostingView *hostingView = (CPTGraphHostingView *)self.view;
+    CPTGraphHostingView *hostingView = (CPTGraphHostingView *)self.chartView;
     hostingView.hostedGraph = barChart;
     
     // Border
@@ -107,8 +182,8 @@
     // Define some custom labels for the data elements
     x.labelRotation  = M_PI_4;
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
-    NSArray *customTickLocations = @[@1, @5, @10, @15];
-    NSArray *xAxisLabels         = @[@"Label A", @"Label B", @"Label C", @"Label D"];
+    NSArray *customTickLocations = @[@1, @3, @6, @9, @12, @15];
+    NSArray *xAxisLabels         = @[@"Label A", @"Label B", @"Label C", @"Label D", @"Label e", @"Label F"];
     NSUInteger labelLocation     = 0;
     NSMutableSet *customLabels   = [NSMutableSet setWithCapacity:[xAxisLabels count]];
     for ( NSNumber *tickLocation in customTickLocations ) {
@@ -132,7 +207,7 @@
     y.titleLocation               = CPTDecimalFromFloat(150.0f);
     
     // First bar plot
-    CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor darkGrayColor] horizontalBars:NO];
+    CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor greenColor] horizontalBars:NO];
     barPlot.baseValue  = CPTDecimalFromDouble(0.0);
     barPlot.dataSource = self;
     barPlot.barOffset  = CPTDecimalFromFloat(-0.25f);
@@ -147,29 +222,8 @@
     barPlot.barCornerRadius = 2.0;
     barPlot.identifier      = @"Bar Plot 2";
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
-}
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-    return YES;
-}
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 
 #pragma mark -
 #pragma mark Plot Data Source Methods
@@ -199,5 +253,73 @@
     }
     
     return num;
+}
+
+#pragma mark -
+#pragma mark URL Loading System methods
+
+- (void) downloadModelFromServer
+{
+    if(HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        HUD.delegate = self;
+    } else
+        [HUD show:YES];
+    NSString *urlStr = [NSString stringWithFormat:
+                        @"%@?&houseId=%i&tId=%@&action=%d",GetRequst(URL_FOR_USAGE_STATS_VIEW),
+                        MainDelegate.houseData.houseId,
+                        MainDelegate.thermostatData.tId,
+                        1];
+    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"UsageStatsDownloader"  userDataDictionary:nil];
+    NSLog(@"UsageStatsDownloader is %@, url is %@",downloader.name, urlStr);
+}
+
+- (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    if([name isEqualToString:@"UsageStatsDownloader"]) {
+        [HUD hide:YES];
+        NSLog(@"UsageStatsDownloader string from server is \n %@", string);
+        
+        MyEUsageStat *usage = [[MyEUsageStat alloc] initWithString:string];
+        NSLog(@"当前功率=%f, 本期用电量=%f", usage.currentPower * 110, usage.totalPower/1000);
+        for (MyEUsageRecord *r in usage.powerRecordList) {
+            NSLog(@"dateTime=%@, totalPower=%f", r.date, r.totalPower);
+        }
+#warning Todo 转换数据
+    }
+}
+- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
+                                                  message:@"Communication error. Please try again."
+                                                 delegate:self
+                                        cancelButtonTitle:@"Ok"
+                                        otherButtonTitles:nil];
+    [alert show];
+    
+    // inform the user
+    NSLog(@"Connection of %@ failed! Error - %@ %@",name,
+          [error localizedDescription],
+          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+    [HUD hide:YES];
+}
+
+
+- (IBAction)changeTerminal:(id)sender {
+    [self downloadModelFromServer];
+}
+
+- (IBAction)changeTimaeRange:(id)sender {
+    [self downloadModelFromServer];
+}
+
+#pragma mark 
+#pragma mark private methods
+-(void)goHome
+{
+    [self dismissViewControllerAnimated:YES completion:Nil];
+}
+- (void)refreshAction
+{
+    [self downloadModelFromServer];
 }
 @end

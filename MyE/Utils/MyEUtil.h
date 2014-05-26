@@ -31,9 +31,9 @@
 #define GetServer [ServerUtils getServierIp]
 //#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
 
-#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
+//#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
 
-//#define GetRequst(API) [@"http://182.110.138.162:65533" stringByAppendingFormat:@"%@",API]
+#define GetRequst(API) [@"http://117.21.67.123:65533" stringByAppendingFormat:@"%@",API]
 
 #define URL_FOR_LOGIN @"/user/userJson_login_phone.do"
 #define URL_FOR_ADD_ADDRESS @"/house_add4mobile.do"
@@ -46,6 +46,7 @@
 #define URL_FOR_NEXT24HRS_DEFAULT_SCHEDULE_VIEW @"/next24Program_reset.do"
 #define URL_FOR_VACATION_VIEW @"/vacation_view.do"
 #define URL_FOR_SETTINGS_VIEW @"/setting_view.do"
+#define URL_FOR_USAGE_STATS_VIEW @"/usage_electric_stati.do"
 
 #define URL_FOR_DASHBOARD_SAVE @"/dashboard_save.do"
 #define URL_FOR_TODAY_SCHEDULE_SAVE @"/programToday_save.do"

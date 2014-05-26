@@ -19,7 +19,7 @@
 
 #import "MyEAccountData.h"
 #import "MyEHouseData.h"
-#import "MyEThermostatData.h"
+#import "MyETerminalData.h"
 
 #define TOOBAR_ANIMATION_DURATION 0.5f
 

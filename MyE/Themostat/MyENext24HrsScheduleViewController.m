@@ -14,7 +14,7 @@
 
 #import "MyEAccountData.h"
 #import "MyEHouseData.h"
-#import "MyEThermostatData.h"
+#import "MyETerminalData.h"
 
 #import "MyENext24HrsDayItemData.h"
 #import "MyEScheduleNext24HrsData.h"

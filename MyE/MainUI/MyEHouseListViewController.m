@@ -13,7 +13,7 @@
 #import "MyEHouseListDisconnectedCell.h"
 #import "MyEAccountData.h"
 #import "MyEHouseData.h"
-#import "MyEThermostatData.h"
+#import "MyETerminalData.h"
 #import "MyEDashboardData.h"
 #import "MyEUtil.h"
 #import "SBJson.h"
@@ -148,10 +148,10 @@
     MyEHouseData *defaultHouseData = [self.accountData houseDataByHouseId:_defaultHouseId];
     if (defaultHouseData.connection == 0 && defaultHouseData.mId != nil && ![defaultHouseData.mId isEqualToString:@""])
     {
-        if ( defaultHouseData.thermostats.count > 0 && [defaultHouseData.mId length] > 0 )
+        if ( defaultHouseData.terminals.count > 0 && [defaultHouseData.mId length] > 0 )
         {
             MyEHouseData *houseData;
-            MyEThermostatData *thermostatData;
+            MyETerminalData *thermostatData;
             houseData = [self.accountData houseDataByHouseId:_defaultHouseId];
             MainDelegate.houseData = houseData;
             
@@ -161,7 +161,7 @@
             //在NSDefaults里面记录这次要进入的房屋
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             NSString *tid = [prefs objectForKey:KEY_FOR_TID_LAST_VIEWED];
-            for (MyEThermostatData *temp in MainDelegate.houseData.thermostats)
+            for (MyETerminalData *temp in MainDelegate.houseData.terminals)
             {
                 if ([tid isEqualToString:temp.tId])
                 {
@@ -252,7 +252,7 @@
     
     if(houseDataAtIndex.mId.length != 0 && houseDataAtIndex.connection == 0)
     {// 如果房间有M并且至少有一个温控器正常连接
-        if (houseDataAtIndex.thermostats.count == 0)
+        if (houseDataAtIndex.terminals.count == 0)
         {
             MyEHouseListConnectedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HouseListConnectedCellRemoteNo"];
             if (cell == nil)
@@ -372,7 +372,7 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 
-    MyEThermostatData *thermostatData;
+    MyETerminalData *thermostatData;
     MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:indexPath.row];
     
 //    if(houseData.mId.length != 0 && houseData.connection == 0)
@@ -400,7 +400,7 @@
     //在NSDefaults里面记录这次要进入的房屋
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *tid = [prefs objectForKey:KEY_FOR_TID_LAST_VIEWED];
-    for (MyEThermostatData *temp in MainDelegate.houseData.thermostats)
+    for (MyETerminalData *temp in MainDelegate.houseData.terminals)
     {
         if ([tid isEqualToString:temp.tId])
         {
@@ -433,7 +433,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     MyEHouseData *houseData;
-    MyEThermostatData *thermostatData;
+    MyETerminalData *thermostatData;
     if ([[segue identifier] isEqualToString:@"ShowMainTabViewRemoteNo"] ||
         [[segue identifier] isEqualToString:@"ShowMainTabViewRemoteYes"] ||
         [[segue identifier] isEqualToString:@"ShowMainTabViewRemoteYesConnected"] )
@@ -455,7 +455,7 @@
     //在NSDefaults里面记录这次要进入的房屋
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *tid = [prefs objectForKey:KEY_FOR_TID_LAST_VIEWED];
-    for (MyEThermostatData *temp in MainDelegate.houseData.thermostats)
+    for (MyETerminalData *temp in MainDelegate.houseData.terminals)
     {
         if ([tid isEqualToString:temp.tId])
         {

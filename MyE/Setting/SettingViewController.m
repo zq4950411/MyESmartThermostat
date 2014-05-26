@@ -518,7 +518,7 @@
     }
     else
     {
-        if (MainDelegate.houseData.thermostats.count == 0)
+        if (MainDelegate.houseData.terminals.count == 0)
         {
             return 2;
         }

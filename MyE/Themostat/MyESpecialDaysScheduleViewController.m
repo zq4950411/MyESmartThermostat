@@ -19,7 +19,7 @@
 
 #import "MyEAccountData.h"
 #import "MyEHouseData.h"
-#import "MyEThermostatData.h"
+#import "MyETerminalData.h"
 
 #import "MyEDropDownMenu.h"
 
@@ -179,8 +179,6 @@
 #pragma mark -
 #pragma mark URL Loading System methods
 
-- (IBAction)deleteCurrentDay:(id)sender {
-}
 
 - (void) downloadModelFromServer
 {
@@ -695,11 +693,11 @@
     [alert show];
 }
 
-- (void)closeMenu
-{
-    [self.dropDown hideDropDown:self.view];
-    self.dropDown = nil;
+- (IBAction)deleteCurrentDay:(id)sender {
+    [MyEUtil showMessageOn:self.view withMessage:@"Click deleteCurrentDay"];
+    NSLog(@"deleteCurrentDay");
 }
+
 
 
 #pragma mark -
@@ -874,6 +872,12 @@
     [self.dataModel.dayItems addObject:day];
     self.currentDayId = self.dataModel.dayItems.count - 1;
     [self.dayBtn setTitle:newName forState:UIControlStateNormal];
+}
+
+- (void)closeMenu
+{
+    [self.dropDown hideDropDown:self.view];
+    self.dropDown = nil;
 }
 
 

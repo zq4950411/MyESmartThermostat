@@ -9,8 +9,9 @@
 #import "MyEHomePanelViewController.h"
 #import "SWRevealViewController.h"
 #import "MyEHouseListViewController.h"
+#import "MyEUsageStatsViewController.h"
 #import "MyEAccountData.h"
-#import "MyEThermostatData.h"
+#import "MyETerminalData.h"
 #import "MyEDashboardData.h"
 
 
@@ -83,13 +84,13 @@
 */
 
 - (IBAction)goElecUsage:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Others" bundle:nil];
-    UITabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ElecUsageStat"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    MyEUsageStatsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ElecUsageStat"];
     
     // 	温控器所有二级控制页面（Dashboard, Next24, Weekly, etc），标题都采用该温控器的别名。
     self.title = MainDelegate.thermostatData.tName;
     NSLog(@"MainDelegate.thermostatData.tName = %@", MainDelegate.thermostatData.tName);
-    
+    vc.fromHome = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

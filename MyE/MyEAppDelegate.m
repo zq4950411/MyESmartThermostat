@@ -18,7 +18,7 @@
 #import "MyELaunchIntroViewController.h"
 
 #import "MyEAccountData.h"
-#import "MyEThermostatData.h"
+#import "MyETerminalData.h"
 #import "MyEHouseData.h"
 
 @implementation MyEAppDelegate
