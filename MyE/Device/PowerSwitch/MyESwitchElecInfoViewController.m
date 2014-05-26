@@ -117,7 +117,7 @@
         NSMutableArray *temp = [NSMutableArray array];
         for (int i = 0; i < [elct.powerRecordList count]; i++)
         {
-            MyEUsageStatus *status = elct.powerRecordList[i];
+            MyEUsageRecord *status = elct.powerRecordList[i];
             EColumnDataModel *eColumnDataModel = [[EColumnDataModel alloc] initWithLabel:status.date value:status.totalPower/1000 index:i unit:@"kWh"];
             [temp addObject:eColumnDataModel];
         }

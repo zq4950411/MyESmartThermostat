@@ -9,6 +9,7 @@
 #import "MyEUsageStatsViewController.h"
 #import "SWRevealViewController.h"
 #import "MyEThermostatData.h"
+#import "MyEUsageStat.h"
 
 @interface MyEUsageStatsViewController ()
 -(void)configView;
@@ -94,7 +95,7 @@
     barChart = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
     [barChart applyTheme:theme];
-    CPTGraphHostingView *hostingView = (CPTGraphHostingView *)self.view;
+    CPTGraphHostingView *hostingView = (CPTGraphHostingView *)self.chartView;
     hostingView.hostedGraph = barChart;
     
     // Border
@@ -266,7 +267,11 @@
         [HUD hide:YES];
         NSLog(@"UsageStatsDownloader string from server is \n %@", string);
         
-        MyEUsageStat *elct = [[MyEUsageStat alloc] initWithString:string];
+        MyEUsageStat *usage = [[MyEUsageStat alloc] initWithString:string];
+        NSLog(@"当前功率=%f, 本期用电量=%f", usage.currentPower * 110, usage.totalPower/1000);
+        for (MyEUsageRecord *r in usage.powerRecordList) {
+            NSLog(@"dateTime=%@, totalPower=%f", r.date, r.totalPower);
+        }
 #warning Todo 转换数据
     }
 }
@@ -286,4 +291,6 @@
 }
 
 
+- (IBAction)changeTerminal:(id)sender {
+}
 @end

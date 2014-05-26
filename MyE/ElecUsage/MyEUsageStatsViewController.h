@@ -18,4 +18,9 @@
 }
 @property (assign, nonatomic) BOOL fromHome;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
+@property (weak, nonatomic) IBOutlet CPTGraphHostingView *chartView;
+@property (weak, nonatomic) IBOutlet UILabel *currentPowerLabel;
+@property (weak, nonatomic) IBOutlet UIButton *terminalBtn;
+
+- (IBAction)changeTerminal:(id)sender;
 @end
