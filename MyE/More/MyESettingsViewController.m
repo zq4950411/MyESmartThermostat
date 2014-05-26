@@ -10,7 +10,7 @@
 #import "MyEPasswordResetViewController.h"
 #import "MyEAccountData.h"
 #import "MyEHouseData.h"
-#import "MyEThermostatData.h"
+#import "MyETerminalData.h"
 #import "MyEHouseListViewController.h"
 #import "MyESettingsThermostatCell.h"
 #import "MyETipViewController.h"
@@ -416,21 +416,21 @@
         NSLog(@"Keypad upload with result: %@", string);
         NSString *tIdChanged = [dict objectForKey:@"tId"];
         NSInteger tIndex=0;
-        for (tIndex=0; tIndex<[self.houseData.thermostats count]; tIndex++) {
-            MyEThermostatData *t = ((MyEThermostatData *)[self.houseData.thermostats objectAtIndex:tIndex]);
+        for (tIndex=0; tIndex<[self.houseData.terminals count]; tIndex++) {
+            MyETerminalData *t = ((MyETerminalData *)[self.houseData.terminals objectAtIndex:tIndex]);
             if([t.tId isEqualToString:tIdChanged]){
                 break;
             }
         }
         if ([string isEqualToString:@"OK"]) {//TODO
             // 如果服务器修改成功了，这里才真正地修改keyPad的值
-            ((MyEThermostatData *)[self.houseData.thermostats objectAtIndex:tIndex]).keypad = (NSInteger)[dict valueForKey:@"keypad"];
+            ((MyETerminalData *)[self.houseData.terminals objectAtIndex:tIndex]).keypad = (NSInteger)[dict valueForKey:@"keypad"];
         } else {
             // 如果修改失败，把switch的开关转会原来状态
             
             
             NSIndexPath *ip = [NSIndexPath indexPathForItem:tIndex inSection:2];
-            ((MyESettingsThermostatCell *)[self.tableView cellForRowAtIndexPath:ip]).keypadLockSwitch.on = ((MyEThermostatData *)[self.houseData.thermostats objectAtIndex:tIndex]).keypad == 1; //0为没锁灰色，1为锁定蓝色。
+            ((MyESettingsThermostatCell *)[self.tableView cellForRowAtIndexPath:ip]).keypadLockSwitch.on = ((MyETerminalData *)[self.houseData.terminals objectAtIndex:tIndex]).keypad == 1; //0为没锁灰色，1为锁定蓝色。
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:string  //@"Cannot change keypad lock."
                                                          delegate:self 
@@ -451,9 +451,9 @@
         NSString *tId = [dict objectForKey:@"tId"]; 
         if([string isEqualToString:@"0"]){
             NSMutableArray *discardedItems = [NSMutableArray array];
-            MyEThermostatData *item;
+            MyETerminalData *item;
             
-            for (item in self.houseData.thermostats) {
+            for (item in self.houseData.terminals) {
                 if ([item.tId isEqualToString:tId])
                     [discardedItems addObject:item];
             }
@@ -497,14 +497,14 @@
 
         if([string isEqualToString:@"0"]){
             NSMutableArray *discardedItems = [NSMutableArray array];
-            MyEThermostatData *item;
+            MyETerminalData *item;
             
-            for (item in self.houseData.thermostats) {
+            for (item in self.houseData.terminals) {
                 if ([item.tId isEqualToString:tId])
                     [discardedItems addObject:item];
             }
             
-            [self.houseData.thermostats removeObjectsInArray:discardedItems];
+            [self.houseData.terminals removeObjectsInArray:discardedItems];
 //            [self.houseData.thermostats removeObjectAtIndex:index]; // 这个报告错误，不知原因，改用上面的办法
             [self.tableView reloadData];
             if ([loadTimer isValid]) {
@@ -607,13 +607,13 @@
 {
     
     // Return the number of rows in the section.
-    return [self.houseData.thermostats count];
+    return [self.houseData.terminals count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Configure the cell...
-    MyEThermostatData *thermostat = [self.houseData.thermostats objectAtIndex:indexPath.row];
+    MyETerminalData *thermostat = [self.houseData.terminals objectAtIndex:indexPath.row];
 
         
     MyESettingsThermostatCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingsThermostatCell"];
@@ -638,7 +638,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSLog(@"点击了删除");
 
-        MyEThermostatData *thermostat = [self.houseData.thermostats objectAtIndex:indexPath.row];
+        MyETerminalData *thermostat = [self.houseData.terminals objectAtIndex:indexPath.row];
         _tIdToDelete = thermostat.tId;
         _tIndexToDelete = indexPath.row;
 

@@ -11,7 +11,7 @@
 #import "MyEHouseListViewController.h"
 #import "MyEUsageStatsViewController.h"
 #import "MyEAccountData.h"
-#import "MyEThermostatData.h"
+#import "MyETerminalData.h"
 #import "MyEDashboardData.h"
 
 

@@ -19,7 +19,7 @@
 
 #import "MyEAccountData.h"
 #import "MyEHouseData.h"
-#import "MyEThermostatData.h"
+#import "MyETerminalData.h"
 
 #import "MyEDropDownMenu.h"
 

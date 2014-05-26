@@ -8,11 +8,15 @@
 
 #import "MyEUsageStatsViewController.h"
 #import "SWRevealViewController.h"
-#import "MyEThermostatData.h"
+#import "MyETerminalData.h"
 #import "MyEUsageStat.h"
+#import "MyEHouseData.h"
+#import "MyETerminalData.h"
 
 @interface MyEUsageStatsViewController ()
 -(void)configView;
+-(void)goHome;
+- (void)refreshAction;
 @end
 
 @implementation MyEUsageStatsViewController
@@ -30,6 +34,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    validTerminals = [NSMutableArray array];
+    for (MyETerminalData *t in MainDelegate.houseData.terminals) {
+        [validTerminals addObject:t];
+    }
+    currentTerminalIdx = 0;
+    
     
     if(!self.fromHome){
         // Change button color
@@ -50,13 +60,16 @@
                                        action:@selector(goHome)];
         self.navigationItem.backBarButtonItem = backButton;
     }
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                      target:self
+                                      action:@selector(refreshAction)];
+    self.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, nil];
+    
     
     [self configView];
 }
--(void)goHome
-{
-    [self dismissViewControllerAnimated:YES completion:Nil];
-}
+
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
     return YES;
@@ -292,5 +305,21 @@
 
 
 - (IBAction)changeTerminal:(id)sender {
+    [self downloadModelFromServer];
+}
+
+- (IBAction)changeTimaeRange:(id)sender {
+    [self downloadModelFromServer];
+}
+
+#pragma mark 
+#pragma mark private methods
+-(void)goHome
+{
+    [self dismissViewControllerAnimated:YES completion:Nil];
+}
+- (void)refreshAction
+{
+    [self downloadModelFromServer];
 }
 @end

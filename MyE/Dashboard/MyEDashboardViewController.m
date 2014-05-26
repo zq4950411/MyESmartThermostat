@@ -21,7 +21,7 @@
 #import "KxMenu.h"
 #import "UIColor+FlatUI.h"
 
-#import "MyEThermostatData.h"
+#import "MyETerminalData.h"
 #import "MyEHouseData.h"
 #import "SWRevealViewController.h"
 

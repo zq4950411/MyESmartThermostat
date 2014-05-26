@@ -302,7 +302,7 @@
 		C3FDB80C18FA82AE009B423D /* MyEThermostatScheduleData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7EA18FA82AE009B423D /* MyEThermostatScheduleData.m */; };
 		C3FDB80D18FA82AE009B423D /* MyESettingsData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7EC18FA82AE009B423D /* MyESettingsData.m */; };
 		C3FDB80E18FA82AE009B423D /* MyEStaycationItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7EE18FA82AE009B423D /* MyEStaycationItemData.m */; };
-		C3FDB80F18FA82AE009B423D /* MyEThermostatData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7F018FA82AE009B423D /* MyEThermostatData.m */; };
+		C3FDB80F18FA82AE009B423D /* MyETerminalData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7F018FA82AE009B423D /* MyETerminalData.m */; };
 		C3FDB81318FA82AE009B423D /* MyEThermostatDayData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7F818FA82AE009B423D /* MyEThermostatDayData.m */; };
 		C3FDB81418FA82AE009B423D /* MyEThermostatPeriodData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7FA18FA82AE009B423D /* MyEThermostatPeriodData.m */; };
 		C3FDB81518FA82AE009B423D /* MyESwitchAutoControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7FD18FA82AE009B423D /* MyESwitchAutoControl.m */; };
@@ -886,8 +886,8 @@
 		C3FDB7EC18FA82AE009B423D /* MyESettingsData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESettingsData.m; sourceTree = "<group>"; };
 		C3FDB7ED18FA82AE009B423D /* MyEStaycationItemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEStaycationItemData.h; sourceTree = "<group>"; };
 		C3FDB7EE18FA82AE009B423D /* MyEStaycationItemData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEStaycationItemData.m; sourceTree = "<group>"; };
-		C3FDB7EF18FA82AE009B423D /* MyEThermostatData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEThermostatData.h; sourceTree = "<group>"; };
-		C3FDB7F018FA82AE009B423D /* MyEThermostatData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEThermostatData.m; sourceTree = "<group>"; };
+		C3FDB7EF18FA82AE009B423D /* MyETerminalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETerminalData.h; sourceTree = "<group>"; };
+		C3FDB7F018FA82AE009B423D /* MyETerminalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETerminalData.m; sourceTree = "<group>"; };
 		C3FDB7F718FA82AE009B423D /* MyEThermostatDayData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEThermostatDayData.h; sourceTree = "<group>"; };
 		C3FDB7F818FA82AE009B423D /* MyEThermostatDayData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEThermostatDayData.m; sourceTree = "<group>"; };
 		C3FDB7F918FA82AE009B423D /* MyEThermostatPeriodData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEThermostatPeriodData.h; sourceTree = "<group>"; };
@@ -2062,8 +2062,8 @@
 				C3FDB7EC18FA82AE009B423D /* MyESettingsData.m */,
 				C3FDB7ED18FA82AE009B423D /* MyEStaycationItemData.h */,
 				C3FDB7EE18FA82AE009B423D /* MyEStaycationItemData.m */,
-				C3FDB7EF18FA82AE009B423D /* MyEThermostatData.h */,
-				C3FDB7F018FA82AE009B423D /* MyEThermostatData.m */,
+				C3FDB7EF18FA82AE009B423D /* MyETerminalData.h */,
+				C3FDB7F018FA82AE009B423D /* MyETerminalData.m */,
 				C3FEF239192AD2D900741318 /* MyENext24HrsPeriodData.h */,
 				C3FEF23A192AD2D900741318 /* MyENext24HrsPeriodData.m */,
 				C3FDB7F718FA82AE009B423D /* MyEThermostatDayData.h */,
@@ -2397,7 +2397,7 @@
 				B2588D4F17B09B9D007ED13C /* LoadMoreTableFooterView.m in Sources */,
 				C3FDB80418FA82AE009B423D /* MyEAccountData.m in Sources */,
 				8CA060371908A70A0090A350 /* MyEInstructions.m in Sources */,
-				C3FDB80F18FA82AE009B423D /* MyEThermostatData.m in Sources */,
+				C3FDB80F18FA82AE009B423D /* MyETerminalData.m in Sources */,
 				C3194B9518E299EA006E3ABE /* EColor.m in Sources */,
 				8CA05FE619078A8E0090A350 /* TableViewWithBlock.m in Sources */,
 				C3FDB50C18FA62A0009B423D /* MyEDataLoader.m in Sources */,
