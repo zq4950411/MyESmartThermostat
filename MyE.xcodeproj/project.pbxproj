@@ -17,6 +17,7 @@
 		8C722607190653E40033A78A /* Device.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C722605190653E40033A78A /* Device.storyboard */; };
 		8C72264B190658990033A78A /* MyEDeviceAddOrEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C72264A190658990033A78A /* MyEDeviceAddOrEditTableViewController.m */; };
 		8C72264E190660CD0033A78A /* MyEDeviceEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C72264D190660CD0033A78A /* MyEDeviceEdit.m */; };
+		8C82DCD51930A4B5006A10E0 /* MyEEventAddOrEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C82DCD41930A4B5006A10E0 /* MyEEventAddOrEditViewController.m */; };
 		8CA05FE619078A8E0090A350 /* TableViewWithBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA05FE119078A8E0090A350 /* TableViewWithBlock.m */; };
 		8CA05FE719078A8E0090A350 /* UITableView+DataSourceBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA05FE319078A8E0090A350 /* UITableView+DataSourceBlocks.m */; };
 		8CA05FE819078A8E0090A350 /* UITableView+DelegateBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA05FE519078A8E0090A350 /* UITableView+DelegateBlocks.m */; };
@@ -348,6 +349,8 @@
 		8C72264A190658990033A78A /* MyEDeviceAddOrEditTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEDeviceAddOrEditTableViewController.m; sourceTree = "<group>"; };
 		8C72264C190660CD0033A78A /* MyEDeviceEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEDeviceEdit.h; sourceTree = "<group>"; };
 		8C72264D190660CD0033A78A /* MyEDeviceEdit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEDeviceEdit.m; sourceTree = "<group>"; };
+		8C82DCD31930A4B5006A10E0 /* MyEEventAddOrEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventAddOrEditViewController.h; sourceTree = "<group>"; };
+		8C82DCD41930A4B5006A10E0 /* MyEEventAddOrEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventAddOrEditViewController.m; sourceTree = "<group>"; };
 		8CA05FE019078A8E0090A350 /* TableViewWithBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewWithBlock.h; sourceTree = "<group>"; };
 		8CA05FE119078A8E0090A350 /* TableViewWithBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewWithBlock.m; sourceTree = "<group>"; };
 		8CA05FE219078A8E0090A350 /* UITableView+DataSourceBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+DataSourceBlocks.h"; sourceTree = "<group>"; };
@@ -1891,6 +1894,8 @@
 				8C1AC072192F2A8E00A8DEFD /* MyEEventInfo.m */,
 				8CA52F9B192318A500D40EDD /* MyEEventListViewController.h */,
 				8CA52F9C192318A500D40EDD /* MyEEventListViewController.m */,
+				8C82DCD31930A4B5006A10E0 /* MyEEventAddOrEditViewController.h */,
+				8C82DCD41930A4B5006A10E0 /* MyEEventAddOrEditViewController.m */,
 				8CA52F9E192318BB00D40EDD /* MyEEventAddViewController.h */,
 				8CA52F9F192318BB00D40EDD /* MyEEventAddViewController.m */,
 				8CA52FA119231A0D00D40EDD /* MyEEventConditionEditViewController.h */,
@@ -2475,6 +2480,7 @@
 				C3FDB6F518FA640B009B423D /* SettingViewController.m in Sources */,
 				C3FDB80C18FA82AE009B423D /* MyEThermostatScheduleData.m in Sources */,
 				B25B79E317D198A9009F4E84 /* split.c in Sources */,
+				8C82DCD51930A4B5006A10E0 /* MyEEventAddOrEditViewController.m in Sources */,
 				C3FDB70918FA652A009B423D /* MyEAppDelegate.m in Sources */,
 				C3F61B2018E11DAE00DEE477 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				C3F61B2618E11E7400DEE477 /* ASDepthModalViewController.m in Sources */,

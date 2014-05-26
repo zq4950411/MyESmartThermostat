@@ -35,7 +35,6 @@
 
 //#define GetRequst(API) [@"http://182.110.138.162:65533" stringByAppendingFormat:@"%@",API]
 
-
 #define URL_FOR_LOGIN @"/user/userJson_login_phone.do"
 #define URL_FOR_ADD_ADDRESS @"/house_add4mobile.do"
 #define URL_FOR_HOUSELIST_VIEW @"/house_findHouseList.do"
@@ -58,7 +57,6 @@
 #define URL_FOR_SETTINGS_SAVE @"/setting_save.do"
 #define URL_FOR_SETTINGS_DELETE_THERMOSTAT  @"/setting_delete.do"
 #define URL_FOR_SETTINGS_DELETE_THERMOSTAT_QUERY_STATUS  @"/setting_findThermostat.do"
-
 
 #define URL_FOR_SMARTUP_LIST @"/smartUp_findDeviceList.do"
 #define URL_FOR_SAVE_SORT @"/smartUp_saveSort.do"
@@ -97,7 +95,6 @@
 
 #define URL_FOR_UNIVERSAL_CONTROLLER_SEQUENTIAL_VIEW @"/universalcontroller_sequential_view.do"
 #define URL_FOR_UNIVERSAL_CONTROLLER_SEQUENTIAL_Save @"/universalcontroller_sequential_save.do"
-
 
 #define URL_FOR_UNIVERSAL_CONTROLLER_AUTO_SAVE @"/universalcontroller_auto_save.do"
 #define URL_FOR_UNIVERSAL_CONTROLLER_VIEW @"/universalcontroller_view.do"

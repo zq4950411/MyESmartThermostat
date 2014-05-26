@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface MyEEventTimeEdtiViewController : UIViewController<MYEWeekButtonsDelegate>
+
+@property (nonatomic, strong) MyEEventConditionTime *conditionTime;
+
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet MYEWeekButtons *weekBtns;
 

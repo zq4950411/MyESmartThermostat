@@ -14,14 +14,7 @@
 
 @implementation MyEEventTimeEdtiViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
-
+#pragma mark - life circle methods
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -32,6 +25,7 @@
 {
     [super didReceiveMemoryWarning];
 }
+
 #pragma mark - IBAction methods
 - (IBAction)changeDate:(UIButton *)sender {
     if (sender.selected) {
