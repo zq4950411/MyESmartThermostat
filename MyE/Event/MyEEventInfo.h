@@ -11,7 +11,7 @@
 @interface MyEEventInfo : NSObject
 @property (nonatomic, copy) NSString *sceneName;
 @property (nonatomic, assign) NSInteger sceneId;
-@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, assign) NSInteger type;  //0是自动，1是手动
 @property (nonatomic, assign) NSInteger timeTriggerFlag;  //时间触发开关
 @property (nonatomic, assign) NSInteger conditionTriggerFlag; //条件触发开关
 
@@ -36,6 +36,7 @@
 
 @interface MyEEventDevice : NSObject
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, assign) NSInteger deviceId;
 @property (nonatomic, assign) NSInteger sceneSubId; //场景中对应设备的ID
 @property (nonatomic, assign) NSInteger terminalType;  //设备类型  0表示美国温度控制器，1  红外转发器，2 智能插座，3  通用控制器，4 安防设备，6智能开关
 @property (nonatomic, copy) NSString *instructionName;  //插座和红外设备的控制状态

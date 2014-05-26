@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyEEventListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,EGORefreshTableHeaderDelegate,MyEDataLoaderDelegate>
+@interface MyEEventListViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate, EGORefreshTableHeaderDelegate,MyEDataLoaderDelegate>
 
 @property (nonatomic, strong) MyEEvents *events;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

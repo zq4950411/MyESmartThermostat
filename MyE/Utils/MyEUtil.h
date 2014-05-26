@@ -31,9 +31,9 @@
 #define GetServer [ServerUtils getServierIp]
 //#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
 
-//#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
+#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
 
-#define GetRequst(API) [@"http://117.21.67.123:65533" stringByAppendingFormat:@"%@",API]
+//#define GetRequst(API) [@"http://117.21.67.123:65533" stringByAppendingFormat:@"%@",API]
 
 #define URL_FOR_LOGIN @"/user/userJson_login_phone.do"
 #define URL_FOR_ADD_ADDRESS @"/house_add4mobile.do"
@@ -101,6 +101,7 @@
 #define URL_FOR_UNIVERSAL_CONTROLLER_VIEW @"/universalcontroller_view.do"
 #define URL_FOR_UNIVERSAL_CONTROLLER_SAVE @"/universalcontroller_save.do"
 
+#define URL_FOR_SCENES_DETAIL @"/scenes_findSceneDeviceParameterList.do"
 #define URL_FOR_SCENES_LIST @"/scenes_findSceneList.do"
 #define URL_FOR_SCENES_VIEW @"/scenes_view.do"
 #define URL_FOR_SCENES_FIND_SCENE_DEVICE @"/scenes_findSDevice.do"
@@ -290,6 +291,6 @@ NSInteger getDaysBetweenDates(NSDate *startDate, NSDate *endDate);
 + (NSString *)timeStringForHhid:(NSInteger)hhid;
 //将传入的字符串改变成数字，从而利于比较
 + (NSInteger)hhidForTimeString:(NSString *)string;
-
++ (void)getFrameDetail:(UIView *)view andName:(NSString *)name;
 @end
 

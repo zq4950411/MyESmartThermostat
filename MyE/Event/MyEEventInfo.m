@@ -11,8 +11,8 @@
 @implementation MyEEventInfo
 -(id)init{
     if (self = [super init]) {
-        self.sceneName = @"";
-        self.sceneId = 0;
+        self.sceneName = @"New Event";  //初始化给这个名字
+        self.sceneId = -1;  //这个是接口明文规定的，新增场景是，ID为0
         self.type = 0;
         self.timeTriggerFlag = 0;
         self.conditionTriggerFlag = 0;
@@ -74,6 +74,7 @@
         for (NSDictionary *d in dic[@"timeParameterList"]) {
             [self.timeConditions addObject:[[MyEEventConditionTime alloc] initWithDictionary:d]];
         }
+        self.sortFlag = [dic[@"sortFlag"] intValue];
     }
     return self;
 }
@@ -84,9 +85,13 @@
 -(MyEEventDevice *)initWithDictionary:(NSDictionary *)dic{
     if (self = [super init]) {
         self.name = dic[@"deviceName"];
-        self.sceneSubId = [dic[@"sceneSubId"] integerValue];
+        self.sceneSubId = dic[@"sceneSubId"] == [NSNull null]?0:[dic[@"sceneSubId"] integerValue];
         self.terminalType = [dic[@"terminalType"] intValue];
-        self.instructionName = dic[@"instructionName"];
+        self.instructionName = dic[@"instructionName"] == [NSNull null]? @"":dic[@"instructionName"];
+        self.point = dic[@"point"] == [NSNull null]?0:[dic[@"point"] intValue];
+        self.controlMode = dic[@"controlMode"] == [NSNull null]?0:[dic[@"controlMode"] intValue];
+        self.typeId = [dic[@"typeId"] intValue];
+        self.deviceId = [dic[@"deviceId"] intValue];
     }
     return self;
 }

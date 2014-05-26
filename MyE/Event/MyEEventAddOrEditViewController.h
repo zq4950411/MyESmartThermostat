@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyEEventAddOrEditViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,MyEDataLoaderDelegate>
+@interface MyEEventAddOrEditViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,MyEDataLoaderDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) MyEEventInfo *eventInfo;
 @property (nonatomic, strong) MyEEventDetail *eventDetail;
@@ -17,5 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *conditionTable;
 @property (weak, nonatomic) IBOutlet UITableView *deviceTable;
 @property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UIButton *sortBtn;
+@property (weak, nonatomic) IBOutlet UIButton *haha;
 
 @end
