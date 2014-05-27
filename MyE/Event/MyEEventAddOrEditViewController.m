@@ -44,9 +44,13 @@
         [self editSceneToServerWithAction:@"addScene"];
     }else
         [self downloadDevicesFromServer];  //编辑的时候要获取数据
-    
+    [self.conditionTable addObserver:self forKeyPath:@"contentSize" options:0 context:NULL];
+    [self.deviceTable addObserver:self forKeyPath:@"contentSize" options:0 context:NULL];
 }
-
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    [self refreshUI];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -191,12 +195,8 @@
         [self.conditionTable reloadData];
         [self.deviceTable reloadData];
         self.sortBtn.selected = self.eventDetail.sortFlag == 0? NO:YES;
-//        [self performSelectorOnMainThread:@selector(refreshUI) withObject:nil waitUntilDone:YES];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self refreshUI];
-//            self.sortBtn.selected = YES;
-//            self.sortBtn.selected = self.eventDetail.sortFlag == 0? NO:YES;
-//        });
+            self.sortBtn.selected = YES;
+            self.sortBtn.selected = self.eventDetail.sortFlag == 0? NO:YES;
     }
     if ([name isEqualToString:@"editScene"]) {
         

@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyEEventAddOrEditViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,MyEDataLoaderDelegate,UIAlertViewDelegate>
+@interface MyEEventAddOrEditViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,MyEDataLoaderDelegate,UIAlertViewDelegate>{
+}
 
 @property (nonatomic, strong) MyEEventInfo *eventInfo;
 @property (nonatomic, strong) MyEEventDetail *eventDetail;
