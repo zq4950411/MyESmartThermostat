@@ -56,7 +56,7 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"please enter room name" message:nil delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"OK", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     UITextField *textField = [alert textFieldAtIndex:0];
-    textField.placeholder = text;
+    textField.text = text;
     textField.textAlignment = NSTextAlignmentCenter;
     alert.tag = tag;
     [alert show];
