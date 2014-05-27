@@ -12,11 +12,14 @@
 #import "MyEUsageStat.h"
 #import "MyEHouseData.h"
 #import "MyETerminalData.h"
+#import "MyEDropDownMenu.h"
 
 @interface MyEUsageStatsViewController ()
 -(void)configView;
 -(void)goHome;
 - (void)refreshAction;
+
+@property (nonatomic, strong) MyEDropDownMenu *dropDown;
 @end
 
 @implementation MyEUsageStatsViewController
@@ -34,11 +37,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    validTerminals = [NSMutableArray array];
-    for (MyETerminalData *t in MainDelegate.houseData.terminals) {
-        [validTerminals addObject:t];
-    }
-    currentTerminalIdx = 0;
+    self.validTerminals = [MainDelegate.houseData terminalsForUsageStats];
+    self.currentTerminalIdx = 0;
     usageData= Nil;
     
     
@@ -101,7 +101,18 @@
     // Pass the selected object to the new view controller.
 }
 */
-
+#pragma mark -
+#pragma mark setter method
+-(void) setValidTerminals:(NSArray *)terminals
+{
+    _validTerminals = terminals;
+    self.currentTerminalIdx = 0;
+    self.terminalNames = [NSMutableArray array];
+    for(MyETerminalData *t in self.validTerminals){
+        [self.terminalNames addObject:t.tName];
+    }
+    [self.terminalBtn setTitle:_terminalNames[self.currentTerminalIdx] forState:UIControlStateNormal];
+}
 #pragma mark -
 #pragma mark private method
 -(void)configView
@@ -273,11 +284,14 @@
         HUD.delegate = self;
     } else
         [HUD show:YES];
+    MyETerminalData *t = self.validTerminals[self.currentTerminalIdx];
+    NSInteger timeRangeType = self.timeRangeSegment.selectedSegmentIndex + 1;
+    
     NSString *urlStr = [NSString stringWithFormat:
                         @"%@?&houseId=%i&tId=%@&action=%d",GetRequst(URL_FOR_USAGE_STATS_VIEW),
                         MainDelegate.houseData.houseId,
-                        MainDelegate.thermostatData.tId,
-                        1];
+                        t.tId,
+                        timeRangeType];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"UsageStatsDownloader"  userDataDictionary:nil];
     NSLog(@"UsageStatsDownloader is %@, url is %@",downloader.name, urlStr);
 }
@@ -311,7 +325,36 @@
 
 
 - (IBAction)changeTerminal:(id)sender {
-    [self downloadModelFromServer];
+    if ([sender isSelected]) {
+        [self closeMenu];
+        [sender setSelected:NO];
+    } else{
+        [sender setSelected:YES];
+        if(self.dropDown == nil) {
+            //            NSArray *arr = [NSArray arrayWithObjects:@"Add tag's comment", @"Tag info", @"Help", @"Languages", @"Home22", @"home33", @"Home32", nil];
+            //            NSArray *arrImage = [NSArray arrayWithObjects:[UIImage imageNamed:@"bookmark.png"],
+            //                                 [UIImage imageNamed:@"map.png"],
+            //                                 [UIImage imageNamed:@"news.png"],
+            //                                 [UIImage imageNamed:@"photo.png"], nil];
+            self.dropDown = [[MyEDropDownMenu alloc] showDropDown:sender
+                                                        titleList:_terminalNames
+                                                        imageList:nil
+                                                    directionDown:YES];
+            __weak MyEUsageStatsViewController *bSelf = self;
+            self.dropDown.function = ^(NSInteger index){
+                NSLog(@"you chose : %d", index);
+                bSelf.currentTerminalIdx = index;
+                [bSelf.terminalBtn setTitle:bSelf.terminalNames[bSelf.currentTerminalIdx] forState:UIControlStateNormal];
+                [bSelf downloadModelFromServer];
+            };
+            self.dropDown.releseMenu = ^{
+                [bSelf closeMenu];
+                [bSelf.terminalBtn setSelected:NO];
+            };
+        }
+    }
+    
+    
 }
 
 - (IBAction)changeTimaeRange:(id)sender {
@@ -327,5 +370,10 @@
 - (void)refreshAction
 {
     [self downloadModelFromServer];
+}
+- (void)closeMenu
+{
+    [self.dropDown hideDropDown:self.view];
+    self.dropDown = nil;
 }
 @end

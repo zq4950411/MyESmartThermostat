@@ -114,7 +114,7 @@
     self.currentWeekdayId = week-1;//设置我们这里所用的今天的星期数，0-sun， 1-mon, ..., 6-sat
     
     [self.centerContainerView insertSubview:_doughnutView atIndex:0];
-    [self setIsRemoteControl:MainDelegate.thermostatData.remote];// 重新调用一次，因为有可能在外部第一次设置isRemoteControl]的时候，调用下面的setIsRemoteControl:函数，但那时候View组件还没加载生成完成，那么就可能不能正确设置subviews的可见性。
+    [self setIsRemoteControl:MainDelegate.terminalData.remote];// 重新调用一次，因为有可能在外部第一次设置isRemoteControl]的时候，调用下面的setIsRemoteControl:函数，但那时候View组件还没加载生成完成，那么就可能不能正确设置subviews的可见性。
 
 }
 - (void)viewWillAppear:(BOOL)animated
@@ -194,7 +194,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_WEEKLY_SCHEDULE_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_WEEKLY_SCHEDULE_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"WeeklyScheduleDownloader" userDataDictionary:nil];
     NSLog(@"%@",downloader.name);
 }
@@ -209,7 +209,7 @@
     NSLog(@"WeeklyScheduleUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=saveschedule",GetRequst(URL_FOR_WEEKLY_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=saveschedule",GetRequst(URL_FOR_WEEKLY_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
     
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"WeeklyScheduleUploader" userDataDictionary:nil];
     NSLog(@"WeeklyScheduleUploader is %@",[loader description]);
@@ -225,7 +225,7 @@
     NSLog(@"WeeklyScheduleEditingModeUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=editmode",GetRequst(URL_FOR_WEEKLY_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=editmode",GetRequst(URL_FOR_WEEKLY_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
     
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"WeeklyScheduleEditingModeUploader" userDataDictionary:nil];
     NSLog(@"WeeklyScheduleEditingModeUploader is %@",[loader description]);
@@ -243,7 +243,7 @@
     NSLog(@"WeeklyScheduleDeletingModeUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=deletemode",GetRequst(URL_FOR_WEEKLY_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=deletemode",GetRequst(URL_FOR_WEEKLY_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
     
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"WeeklyScheduleDeletingModeUploader" userDataDictionary:nil];
     NSLog(@"WeeklyScheduleEditingModeUploader is %@",[loader description]);
@@ -261,7 +261,7 @@
     NSLog(@"WeeklyScheduleNewModeUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=newmode",GetRequst(URL_FOR_WEEKLY_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=newmode",GetRequst(URL_FOR_WEEKLY_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
     
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"WeeklyScheduleNewModeUploader" userDataDictionary:nil];
     NSLog(@"WeeklyScheduleNewModeUploader is %@",[loader description]);
@@ -754,7 +754,7 @@
 
     } else {//假如正在隐藏，则显示
         //首先设置是否允许远程控制操作
-        [_modeEditingView setRemoteControlEnabled:MainDelegate.thermostatData.remote];
+        [_modeEditingView setRemoteControlEnabled:MainDelegate.terminalData.remote];
         
         frame.origin.y -= frame.size.height;
 

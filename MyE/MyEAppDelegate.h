@@ -18,7 +18,11 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) MyEAccountData *accountData;
-@property (strong, nonatomic) MyETerminalData *thermostatData;
+
+// 在进入Thermostat面板时, 会记录下当前选择的房子的Thermostat, 一个Thermostat就是一个Termial
+@property (strong, nonatomic) MyETerminalData *terminalData;
+
+// 从House list 面板选择一个house, 在这里就记录下该house数据
 @property (strong, nonatomic) MyEHouseData *houseData;
 
 -(void) getLoginView;

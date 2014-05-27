@@ -113,4 +113,15 @@
     }
     return count;
 }
+
+// 返回可以用于电量显示的终端, 目前包括：智能插座、智能开关。
+- (NSArray *)terminalsForUsageStats {
+    NSMutableArray *arr = [NSMutableArray array];
+    for (MyETerminalData *t in self.terminals) {
+        if (t.deviceType == 1 || t.deviceType == 6){
+            [arr addObject:t];
+        }
+    }
+    return arr;
+}
 @end

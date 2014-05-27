@@ -24,4 +24,6 @@
 - (BOOL)isConnected;//判定房子是否连接, 标准是房子是否有M，并且至少有一个T在连接工作，才能键入房子，因为我们的目标是点击进入一个房子后必须有一个T的信息。
 - (MyETerminalData *)firstConnectedThermostat;
 - (NSInteger)countOfConnectedThermostat;// 房子有连接的T的数目。
+// 返回可以用于电量显示的终端, 目前包括：智能插座、智能开关。
+- (NSArray *)terminalsForUsageStats;
 @end

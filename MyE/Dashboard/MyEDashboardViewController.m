@@ -75,12 +75,12 @@
 {
     [super viewDidLoad];
     
-    BOOL isRC = (MainDelegate.thermostatData.remote == 0? NO:YES);
+    BOOL isRC = (MainDelegate.terminalData.remote == 0? NO:YES);
     self.userId = MainDelegate.accountData.userId;
     self.houseId = MainDelegate.houseData.houseId;
     self.houseName = MainDelegate.houseData.houseName;
-    self.tId = MainDelegate.thermostatData.tId;
-    self.tName = MainDelegate.thermostatData.tName;
+    self.tId = MainDelegate.terminalData.tId;
+    self.tName = MainDelegate.terminalData.tName;
     self.isRemoteControl = isRC;
     
     [self.view bringSubviewToFront:self.fanControlToolbarView];
@@ -230,7 +230,7 @@
         HUD.delegate = self;
     } else
         [HUD show:YES];
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_DASHBOARD_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_DASHBOARD_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"DashboardDownloader"  userDataDictionary:nil];
     NSLog(@"DashboardDownloader is %@, url is %@",downloader.name, urlStr);
 }
@@ -243,7 +243,7 @@
     NSString *body = [NSString stringWithFormat:@"datamodel=%@", [[self.dashboardData JSONDictionary] JSONRepresentation]];
     NSLog(@"upload dashboar body is \n%@",body);
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_DASHBOARD_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_DASHBOARD_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"DashboardUploader" userDataDictionary:nil];
     NSLog(@"DashboardUploader is %@",[loader description]);
     [loadTimer invalidate];

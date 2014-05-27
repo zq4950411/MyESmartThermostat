@@ -102,7 +102,7 @@
         [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
         
         MyETerminalData *thermostatData = [houseData.terminals objectAtIndex:0];// 用该房子的第一个T
-        MainDelegate.thermostatData = thermostatData;
+        MainDelegate.terminalData = thermostatData;
         
         [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
         [prefs synchronize];
@@ -230,13 +230,13 @@
                 {
                     if ([tid isEqualToString:temp.tId])
                     {
-                        MainDelegate.thermostatData = temp;
+                        MainDelegate.terminalData = temp;
                         break;
                     }
                 }
-                if (MainDelegate.thermostatData == nil)
+                if (MainDelegate.terminalData == nil)
                 {
-                    MainDelegate.thermostatData = [MainDelegate.houseData firstConnectedThermostat];
+                    MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
                 }
                 // 如果只有一个带硬件的房子，且硬件在线，则不用在House List停留，直接将该房子选中而进入Dashboard。
                 MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:0];
@@ -246,7 +246,7 @@
                 [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
                 
                 MyETerminalData *thermostatData = [houseData.terminals objectAtIndex:0];// 用该房子的第一个T
-                MainDelegate.thermostatData = thermostatData;
+                MainDelegate.terminalData = thermostatData;
                 
                 [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
                 [prefs synchronize];

@@ -88,8 +88,8 @@
     MyEUsageStatsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ElecUsageStat"];
     
     // 	温控器所有二级控制页面（Dashboard, Next24, Weekly, etc），标题都采用该温控器的别名。
-    self.title = MainDelegate.thermostatData.tName;
-    NSLog(@"MainDelegate.thermostatData.tName = %@", MainDelegate.thermostatData.tName);
+    self.title = MainDelegate.terminalData.tName;
+    NSLog(@"MainDelegate.thermostatData.tName = %@", MainDelegate.terminalData.tName);
     vc.fromHome = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -104,8 +104,8 @@
     UITabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tab_bar_controller"];
     
     // 	温控器所有二级控制页面（Dashboard, Next24, Weekly, etc），标题都采用该温控器的别名。
-    self.title = MainDelegate.thermostatData.tName;
-    NSLog(@"MainDelegate.thermostatData.tName = %@", MainDelegate.thermostatData.tName);
+    self.title = MainDelegate.terminalData.tName;
+    NSLog(@"MainDelegate.thermostatData.tName = %@", MainDelegate.terminalData.tName);
 
     [self.navigationController pushViewController:vc animated:YES];
     
@@ -127,7 +127,7 @@
                         @"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_DASHBOARD_VIEW),
                         MainDelegate.accountData.userId,
                         MainDelegate.houseData.houseId,
-                        MainDelegate.thermostatData.tId];
+                        MainDelegate.terminalData.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"DashboardDownloader"  userDataDictionary:nil];
     NSLog(@"DashboardDownloader is %@, url is %@",downloader.name, urlStr);
 }

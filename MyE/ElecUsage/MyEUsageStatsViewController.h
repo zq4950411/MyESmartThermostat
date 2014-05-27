@@ -8,6 +8,7 @@
 
 #import "CorePlot-CocoaTouch.h"
 #import <UIKit/UIKit.h>
+#import "MyEDropDownMenu.h"
 
 
 @interface MyEUsageStatsViewController : UIViewController<CPTPlotDataSource,MyEDataLoaderDelegate,MBProgressHUDDelegate>
@@ -15,8 +16,7 @@
 @private
     CPTXYGraph *barChart;
     MBProgressHUD *HUD;
-    NSMutableArray *validTerminals;
-    NSUInteger currentTerminalIdx;
+
     
     MyEUsageStat *usageData;
 }
@@ -26,6 +26,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *currentPowerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *terminalBtn;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *timeRangeSegment;
+
+@property (retain, nonatomic) NSArray *validTerminals;
+@property (nonatomic, strong) NSMutableArray *terminalNames;
+@property (assign, nonatomic) NSUInteger currentTerminalIdx;
 
 - (IBAction)changeTerminal:(id)sender;
 - (IBAction)changeTimaeRange:(id)sender;

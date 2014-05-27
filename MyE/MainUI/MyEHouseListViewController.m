@@ -156,7 +156,7 @@
             MainDelegate.houseData = houseData;
             
             thermostatData = [houseData firstConnectedThermostat];
-            MainDelegate.thermostatData = thermostatData;
+            MainDelegate.terminalData = thermostatData;
             
             //在NSDefaults里面记录这次要进入的房屋
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -165,13 +165,13 @@
             {
                 if ([tid isEqualToString:temp.tId])
                 {
-                    MainDelegate.thermostatData = temp;
+                    MainDelegate.terminalData = temp;
                     break;
                 }
             }
-            if (MainDelegate.thermostatData == nil)
+            if (MainDelegate.terminalData == nil)
             {
-                MainDelegate.thermostatData = [MainDelegate.houseData firstConnectedThermostat];
+                MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
             }
             
             //在NSDefaults里面记录这次要进入的房屋
@@ -395,7 +395,7 @@
     MainDelegate.houseData = houseData;
     
     thermostatData = [houseData firstConnectedThermostat];
-    MainDelegate.thermostatData = thermostatData;
+    MainDelegate.terminalData = thermostatData;
     
     //在NSDefaults里面记录这次要进入的房屋
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -404,13 +404,13 @@
     {
         if ([tid isEqualToString:temp.tId])
         {
-            MainDelegate.thermostatData = temp;
+            MainDelegate.terminalData = temp;
             break;
         }
     }
-    if (MainDelegate.thermostatData == nil)
+    if (MainDelegate.terminalData == nil)
     {
-        MainDelegate.thermostatData = [MainDelegate.houseData firstConnectedThermostat];
+        MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
     }
     
     //在NSDefaults里面记录这次要进入的房屋
@@ -450,7 +450,7 @@
     MainDelegate.houseData = houseData;
     
     thermostatData = [houseData firstConnectedThermostat];
-    MainDelegate.thermostatData = thermostatData;
+    MainDelegate.terminalData = thermostatData;
     
     //在NSDefaults里面记录这次要进入的房屋
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -459,13 +459,13 @@
     {
         if ([tid isEqualToString:temp.tId])
         {
-            MainDelegate.thermostatData = temp;
+            MainDelegate.terminalData = temp;
             break;
         }
     }
-    if (MainDelegate.thermostatData == nil)
+    if (MainDelegate.terminalData == nil)
     {
-        MainDelegate.thermostatData = [MainDelegate.houseData firstConnectedThermostat];
+        MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
     }
     
     //在NSDefaults里面记录这次要进入的房屋
