@@ -134,6 +134,7 @@
         self.dataType = 1;
         self.parameterType = 1;
         self.parameterValue = 0;
+        self.tId = @"";
     }
     return self;
 }
@@ -143,6 +144,7 @@
         self.dataType = [dic[@"dataType"] intValue];
         self.parameterType = [dic[@"parameterType"] intValue];
         self.parameterValue = [dic[@"parameterValue"] intValue];
+        self.tId = self.tId == (NSString *)[NSNull null]?@"":dic[@"tid"];
     }
     return self;
 }
@@ -160,6 +162,18 @@
              @"Lower than",
              @"Equal to"];
 }
+-(NSArray *)conditionDetailArray{
+    return @[@">",@"<",@"="];
+}
+-(id)copyWithZone:(NSZone *)zone{
+    MyEEventConditionCustom *custom = [[[self class] allocWithZone:zone] init];
+    custom.conditionId = self.conditionId;
+    custom.dataType = self.dataType;
+    custom.parameterType = self.parameterType;
+    custom.parameterValue = self.parameterValue;
+    custom.tId = self.tId;
+    return custom;
+}
 @end
 
 @implementation MyEEventConditionTime
@@ -170,6 +184,7 @@
         self.date = @"10/10/2014";
         self.hour = 12;
         self.minute = 10;
+        self.weeks = [NSMutableArray array];
     }
     return self;
 }
@@ -179,11 +194,30 @@
         self.timeType = [dic[@"timeType"] intValue];
         self.minute = [dic[@"minute"] intValue];
         self.hour = [dic[@"hour"] intValue];
-        self.date = dic[@"date"];
+        self.date = dic[@"date"] == [NSNull null]?@"":dic[@"date"];
+        if (dic[@"weeks"] != [NSNull null]) {
+            self.weeks = [NSMutableArray array];
+            for (NSNumber *i in dic[@"weeks"]) {
+                [self.weeks addObject:i];
+            }
+        }
     }
     return self;
 }
+-(id)copyWithZone:(NSZone *)zone{
+    MyEEventConditionTime *time = [[[self class] allocWithZone:zone] init];
+    time.conditionId = self.conditionId;
+    time.timeType = self.timeType;
+    time.date = self.date;
+    time.hour = self.hour;
+    time.minute = self.minute;
+    time.weeks = [self.weeks copy];
+//    for (NSNumber *i in self.weeks) {
+//        [time.weeks addObject:i];
+//    }
+    return time;
+}
 -(NSString *)changeDateToString{
-    return [NSString stringWithFormat:@"%i:%i %@",self.hour,self.minute,self.date];
+    return [NSString stringWithFormat:@"%i:%i %@ %@",self.hour,self.minute,self.date,[self.weeks componentsJoinedByString:@","]];
 }
 @end

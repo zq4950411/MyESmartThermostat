@@ -22,6 +22,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = view;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     /*---------------------UI 更新------------------------*/

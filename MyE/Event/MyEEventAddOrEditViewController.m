@@ -7,6 +7,8 @@
 //
 
 #import "MyEEventAddOrEditViewController.h"
+#import "MyEEventConditionEditViewController.h"
+#import "MyEEventTimeEdtiViewController.h"
 
 @interface MyEEventAddOrEditViewController (){
     BOOL _isShow;  //表示顶部的view是否显示出来了
@@ -210,6 +212,23 @@
         UITextField *txt = [alertView textFieldAtIndex:0];
         self.eventInfo.sceneName = txt.text;
         [self editSceneToServerWithAction:@"editScene"];
+    }
+}
+#pragma mark - Navigation methods
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"time"]) {
+        MyEEventTimeEdtiViewController *vc = segue.destinationViewController;
+        vc.eventDetail = self.eventDetail;
+        vc.isAdd = YES;
+        MyEEventConditionTime *time = [[MyEEventConditionTime alloc] init];
+        vc.conditionTime = time;
+    }
+    if ([segue.identifier isEqualToString:@"condition"]) {
+        MyEEventConditionEditViewController *vc = segue.destinationViewController;
+        vc.eventDetail = self.eventDetail;
+        vc.isAdd = YES;
+        MyEEventConditionCustom *custom = [[MyEEventConditionCustom alloc] init];
+        vc.conditionCustom = custom;
     }
 }
 @end

@@ -10,4 +10,8 @@
 
 @interface MyEEventConditionEditViewController : UIViewController
 
+@property (nonatomic, weak) MyEEventDetail *eventDetail;
+@property (nonatomic, strong) MyEEventConditionCustom *conditionCustom;
+@property (nonatomic, assign) BOOL isAdd;
+
 @end

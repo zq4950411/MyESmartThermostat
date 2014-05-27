@@ -8,7 +8,9 @@
 
 #import "MyEEventTimeEdtiViewController.h"
 
-@interface MyEEventTimeEdtiViewController ()
+@interface MyEEventTimeEdtiViewController (){
+    MyEEventConditionTime *_newTime;
+}
 
 @end
 
@@ -19,6 +21,7 @@
 {
     [super viewDidLoad];
     [self changeDatePickerModeAndBtnWithTag:100]; //100是第一个btn的tag值
+    _newTime = [self.conditionTime copy];
 }
 
 - (void)didReceiveMemoryWarning
@@ -34,7 +37,22 @@
     [self changeDatePickerModeAndBtnWithTag:sender.tag];
 }
 - (IBAction)save:(UIBarButtonItem *)sender {
-    NSLog(@"%@",self.datePicker.date);
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    comps = [calendar components:unitFlags fromDate:self.datePicker.date];
+    NSLog(@"%i %i %i %i %i",[comps year],[comps month],[comps day],[comps hour],[comps minute]);
+    if (_newTime.timeType == 1) {  //表示的是日期
+        _newTime.date = [NSString stringWithFormat:@"%i/%i/%i",[comps month],[comps day],[comps year]];
+        _newTime.weeks = [NSMutableArray array];
+    }else{
+        _newTime.date = @"";
+    }
+    _newTime.hour = [comps hour];
+    _newTime.minute = [comps minute];
+    
+    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&sceneId=%i&id=%i&timeType=%i&triggerData=%@&weekly=%@&hour=%i&minute=%i&action=%i",GetRequst(URL_FOR_SCENES_CONDITION_TIME),MainDelegate.houseData.houseId,self.eventInfo.sceneId,self.conditionTime.conditionId,self.conditionTime.timeType,self.conditionTime.date,[self.conditionTime.weeks componentsJoinedByString:@","],self.conditionTime.hour,self.conditionTime.minute,self.isAdd?1:2] postData:nil delegate:self loaderName:@"time" userDataDictionary:nil];
+    
 }
 
 #pragma mark - private methods
@@ -58,6 +76,6 @@
 }
 #pragma mark - MYEWeekBtns delegate methods
 -(void)weekButtons:(UIView *)weekButtons selectedButtonTag:(NSArray *)buttonTags{
-    
+    _newTime.weeks = [buttonTags mutableCopy];
 }
 @end
