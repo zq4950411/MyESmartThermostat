@@ -17,6 +17,8 @@
     MBProgressHUD *HUD;
     NSMutableArray *validTerminals;
     NSUInteger currentTerminalIdx;
+    
+    MyEUsageStat *usageData;
 }
 @property (assign, nonatomic) BOOL fromHome;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;

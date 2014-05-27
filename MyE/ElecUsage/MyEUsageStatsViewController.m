@@ -39,6 +39,8 @@
         [validTerminals addObject:t];
     }
     currentTerminalIdx = 0;
+    usageData= Nil;
+    
     
     
     if(!self.fromHome){
@@ -230,12 +232,17 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return 16;
+    
+    if (usageData) {
+        return usageData.powerRecordList.count;
+    }else
+        return 0;
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSNumber *num = nil;
+    MyEUsageRecord *ur = usageData.powerRecordList[index];
     
     if ( [plot isKindOfClass:[CPTBarPlot class]] ) {
         switch ( fieldEnum ) {
@@ -244,7 +251,7 @@
                 break;
                 
             case CPTBarPlotFieldBarTip:
-                num = @( (index + 1) * (index + 1) );
+                num = @( ur.totalPower/1000 );
                 if ( [plot.identifier isEqual:@"Bar Plot 2"] ) {
                     num = @(num.integerValue - 10);
                 }
@@ -280,12 +287,11 @@
         [HUD hide:YES];
         NSLog(@"UsageStatsDownloader string from server is \n %@", string);
         
-        MyEUsageStat *usage = [[MyEUsageStat alloc] initWithString:string];
-        NSLog(@"当前功率=%f, 本期用电量=%f", usage.currentPower * 110, usage.totalPower/1000);
-        for (MyEUsageRecord *r in usage.powerRecordList) {
-            NSLog(@"dateTime=%@, totalPower=%f", r.date, r.totalPower);
+        usageData = [[MyEUsageStat alloc] initWithString:string];
+        NSLog(@"当前功率=%f, 本期用电量=%f", usageData.currentPower * 110, usageData.totalPower/1000);
+        for (MyEUsageRecord *r in usageData.powerRecordList) {
+            NSLog(@"dateTime=%@, totalPower=%f", r.date, r.totalPower/1000.0);
         }
-#warning Todo 转换数据
     }
 }
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
