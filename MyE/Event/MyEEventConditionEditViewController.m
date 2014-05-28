@@ -37,7 +37,6 @@
 {
     [super viewDidLoad];
     _newCustom = [self.conditionCustom copy];
-    _isShow = YES;
     /*------------初始化数组-----------------*/
     NSMutableArray *array = [NSMutableArray array];
     for (MyETerminalData *t in MainDelegate.houseData.terminals) {
@@ -81,6 +80,7 @@
             _selectedIndex4 = 20;
         }else
             _selectedIndex4 = 50;
+        _isShow = YES;
     }else{
         _selectedIndex1 = _newCustom.dataType - 1;
         _selectedIndex3 = _newCustom.parameterType - 1;
