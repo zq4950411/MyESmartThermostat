@@ -10,6 +10,7 @@
 #import "MyEEventConditionEditViewController.h"
 #import "MyEEventTimeEdtiViewController.h"
 
+#define newSize CGSizeMake(280, 35*([self.eventDetail.timeConditions count] + [self.eventDetail.customConditions count]));
 @interface MyEEventAddOrEditViewController (){
     BOOL _isShow;  //表示顶部的view是否显示出来了
     MBProgressHUD *HUD;
@@ -21,17 +22,20 @@
 
 #pragma mark - life circle methods
 -(void)viewWillAppear:(BOOL)animated{
-    [self refreshUI];
     [self.conditionTable reloadData];
     [self.deviceTable reloadData];
+}
+-(void)viewWillDisappear:(BOOL)animated{
+//    [self removeObserver:self forKeyPath:@"contentSize"];
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
-    self.conditionTable.frame = CGRectMake(20, 30, 280, 0);
-    self.deviceTable.frame = CGRectMake(20, 30, 280, 0);
+    self.conditionTable.contentSize = CGSizeMake(280, 35*([self.eventDetail.timeConditions count] + [self.eventDetail.customConditions count]));
+//    self.conditionTable.frame = CGRectMake(20, 30, 280, 0);
+//    self.deviceTable.frame = CGRectMake(20, 30, 280, 0);
     self.conditionTable.tableFooterView = view;
     self.deviceTable.tableFooterView = view;
     self.conditionTable.dataSource = self;
@@ -44,12 +48,17 @@
         [self editSceneToServerWithAction:@"addScene"];
     }else
         [self downloadDevicesFromServer];  //编辑的时候要获取数据
-    [self.conditionTable addObserver:self forKeyPath:@"contentSize" options:0 context:NULL];
-    [self.deviceTable addObserver:self forKeyPath:@"contentSize" options:0 context:NULL];
+    
+    [self.conditionTable addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+//    [self.deviceTable addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:@"deviceTable"];
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    [self refreshUI];
+    NSLog(@"001 property %@ of object %@ change %@",keyPath,object,change);
+    
+    if (![change[@"new"] isEqualToValue:change[@"old"]]) {
+        [self refreshUIWithTag:0];
+    }
 }
 - (void)didReceiveMemoryWarning
 {
@@ -97,29 +106,27 @@
             self.conditionTable.frame = frame;
             
         } completion:^(BOOL finished){}];
-    [self refreshUI];
+    [self refreshUIWithTag:1];
 }
 - (IBAction)addDevice:(UIButton *)sender {
-    [self refreshUI];
 }
 
 #pragma mark - private methods
--(void)refreshUI{
+-(void)refreshUIWithTag:(NSInteger)tag{
     [MyEUtil getFrameDetail:self.conditionTable andName:@"conditionTable"];
     [MyEUtil getFrameDetail:self.deviceTable andName:@"deviceTable"];
-    self.sortBtn.selected = self.eventDetail.sortFlag == 0? NO:YES;
     
-    CGFloat x = self.conditionTable.frame.origin.x;
-    CGFloat y = self.conditionTable.frame.origin.y;
-    CGFloat width = self.conditionTable.frame.size.width;
-    CGFloat height = 35*([self.eventDetail.timeConditions count] + [self.eventDetail.customConditions count]);
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat x = tag == self.conditionTable.frame.origin.x;
+    CGFloat y = tag == self.conditionTable.frame.origin.y;
+    NSLog(@"%.0f  %.0f",x,y);
+    CGFloat width = self.conditionTable.contentSize.width;
+    CGFloat height = self.conditionTable.contentSize.height;
+
+//    CGFloat height = 35*([self.eventDetail.timeConditions count] + [self.eventDetail.customConditions count]);
+    CGFloat viewHeight = self.view.bounds.size.height;
     [UIView animateWithDuration:0.3 animations:^{
         self.conditionTable.frame = CGRectMake(x, y, width, height);  //35是conditionTable的行高
-        self.deviceTable.frame = CGRectMake(x, y + height, width, screenHeight - y - height);
-        
-    }completion:^(BOOL finished){
-        
+        self.deviceTable.frame = CGRectMake(x, y + height, width, viewHeight - y - height-100);
     }];
     [MyEUtil getFrameDetail:self.conditionTable andName:@"conditionTable"];
     [MyEUtil getFrameDetail:self.deviceTable andName:@"deviceTable"];
@@ -158,6 +165,28 @@
     }
     return cell;
 }
+#pragma mark - UITable View delegate methods
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView.tag == 100) {
+        if (indexPath.row < [self.eventDetail.timeConditions count]) {
+            MyEEventConditionTime *_newTime = self.eventDetail.timeConditions[indexPath.row];
+            DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"Do you want to delete this conditon?" leftButtonTitle:@"NO" rightButtonTitle:@"YES"];
+            alert.rightBlock = ^{
+                [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&sceneId=%i&id=%i&timeType=%i&triggerDate=%@&weekly=%@&hour=%i&minute=%i&action=3",GetRequst(URL_FOR_SCENES_CONDITION_TIME),MainDelegate.houseData.houseId,self.eventInfo.sceneId,_newTime.conditionId,_newTime.timeType,_newTime.date,[_newTime.weeks componentsJoinedByString:@","],_newTime.hour,_newTime.minute] andName:@"deleteTime"];
+            };
+            [alert show];
+        }else{
+            MyEEventConditionCustom *_newCustom = self.eventDetail.customConditions[indexPath.row - self.eventDetail.timeConditions.count];
+            DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"Do you want to delete this conditon?" leftButtonTitle:@"NO" rightButtonTitle:@"YES"];
+            alert.rightBlock = ^{
+
+            };
+            [alert show];
+        }
+    }else{
+        
+    }
+}
 #pragma mark - URL  methods
 -(void)downloadDevicesFromServer{
     if (HUD == nil) {
@@ -195,8 +224,7 @@
         [self.conditionTable reloadData];
         [self.deviceTable reloadData];
         self.sortBtn.selected = self.eventDetail.sortFlag == 0? NO:YES;
-            self.sortBtn.selected = YES;
-            self.sortBtn.selected = self.eventDetail.sortFlag == 0? NO:YES;
+        self.conditionTable.contentSize = CGSizeMake(280, 35*([self.eventDetail.timeConditions count] + [self.eventDetail.customConditions count]));
     }
     if ([name isEqualToString:@"editScene"]) {
         
@@ -216,17 +244,18 @@
 }
 #pragma mark - Navigation methods
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"time"]) {
+    if ([segue.identifier isEqualToString:@"time"] || [segue.identifier isEqualToString:@"timeEdit"]) {
         MyEEventTimeEdtiViewController *vc = segue.destinationViewController;
         vc.eventDetail = self.eventDetail;
-        vc.isAdd = YES;
+        vc.isAdd = [segue.identifier isEqualToString:@"time"];
         MyEEventConditionTime *time = [[MyEEventConditionTime alloc] init];
         vc.conditionTime = time;
+        vc.eventInfo = self.eventInfo;
     }
-    if ([segue.identifier isEqualToString:@"condition"]) {
+    if ([segue.identifier isEqualToString:@"condition"] || [segue.identifier isEqualToString:@"conditionEdit"]) {
         MyEEventConditionEditViewController *vc = segue.destinationViewController;
         vc.eventDetail = self.eventDetail;
-        vc.isAdd = YES;
+        vc.isAdd = [segue.identifier isEqualToString:@"condition"];
         MyEEventConditionCustom *custom = [[MyEEventConditionCustom alloc] init];
         vc.conditionCustom = custom;
     }

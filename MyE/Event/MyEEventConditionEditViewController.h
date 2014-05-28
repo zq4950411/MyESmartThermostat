@@ -7,11 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyETerminalData.h"
+#import "MYEPickerView.h"
+@interface MyEEventConditionEditViewController : UIViewController<MYEPickerViewDelegate>
 
-@interface MyEEventConditionEditViewController : UIViewController
-
+@property (nonatomic, weak) MyEEventInfo *eventInfo;
 @property (nonatomic, weak) MyEEventDetail *eventDetail;
 @property (nonatomic, strong) MyEEventConditionCustom *conditionCustom;
 @property (nonatomic, assign) BOOL isAdd;
+
+@property (weak, nonatomic) IBOutlet UIView *mainView;
+
+@property (weak, nonatomic) IBOutlet UIButton *conditionBtn;
+@property (weak, nonatomic) IBOutlet UIButton *terminalBtn;
+@property (weak, nonatomic) IBOutlet UIButton *relationBtn;
+@property (weak, nonatomic) IBOutlet UIButton *valueBtn;
 
 @end

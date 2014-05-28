@@ -133,7 +133,7 @@
         self.conditionId = 0;
         self.dataType = 1;
         self.parameterType = 1;
-        self.parameterValue = 0;
+        self.parameterValue = 25;
         self.tId = @"";
     }
     return self;
@@ -174,6 +174,9 @@
     custom.tId = self.tId;
     return custom;
 }
+-(NSString *)description{
+    return [NSString stringWithFormat:@"id: %i type: %i relation: %i value: %i tid: %@",self.conditionId,self.dataType,self.parameterType,self.parameterValue,self.tId];
+}
 @end
 
 @implementation MyEEventConditionTime
@@ -195,8 +198,8 @@
         self.minute = [dic[@"minute"] intValue];
         self.hour = [dic[@"hour"] intValue];
         self.date = dic[@"date"] == [NSNull null]?@"":dic[@"date"];
+        self.weeks = [NSMutableArray array];
         if (dic[@"weeks"] != [NSNull null]) {
-            self.weeks = [NSMutableArray array];
             for (NSNumber *i in dic[@"weeks"]) {
                 [self.weeks addObject:i];
             }
@@ -218,6 +221,7 @@
     return time;
 }
 -(NSString *)changeDateToString{
-    return [NSString stringWithFormat:@"%i:%i %@ %@",self.hour,self.minute,self.date,[self.weeks componentsJoinedByString:@","]];
+    
+    return [NSString stringWithFormat:@"%i:%@ %@ %@",self.hour,self.minute == 0? @"00":[NSString stringWithFormat:@"%i",self.minute],self.date,[self.weeks componentsJoinedByString:@","]];
 }
 @end
