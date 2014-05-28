@@ -15,7 +15,7 @@
 #import "MBProgressHUD.h"
 #import "MyEPeriodInforDoughnutView.h"
 #import "TableViewWithBlock.h"
-#import "MyEDropDownMenu.h"
+
 
 @class MyEThermostatScheduleData;
 @class MyEScheduleModeData;

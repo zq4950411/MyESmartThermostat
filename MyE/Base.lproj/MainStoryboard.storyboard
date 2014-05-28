@@ -1357,7 +1357,7 @@
                                             <color key="textColor" red="0.2196078431372549" green="0.32941176470588235" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="21A296A8-EA9E-4FFE-8092-1C7FCDD7D4AC" id="cg7-Zh-qTW">
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="7EAD63F8-A374-42EA-8307-1FAD4D245825" id="cg7-Zh-qTW">
                                             <rect key="frame" x="15" y="6" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
@@ -1390,7 +1390,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <tabBarItem key="tabBarItem" tag="4" title="Switch" image="5B6A4732-BC11-4A93-A449-B82E65C922BA" id="Cv9-VA-5iG"/>
+                    <tabBarItem key="tabBarItem" tag="4" title="Switch" image="850E5FDA-52E6-499F-BF49-DBB7EDD59330" id="Cv9-VA-5iG"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hiy-h4-WwN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1524,7 +1524,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Past 24 Hrs"/>
-                                    <segment title="Second"/>
+                                    <segment title="Past 7 Days"/>
                                     <segment title="Past 12 Months"/>
                                 </segments>
                                 <connections>
@@ -1534,7 +1534,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="WbD-0x-FO2" firstAttribute="top" secondItem="miV-r1-AnP" secondAttribute="bottom" id="zdj-We-oOQ"/>
+                            <constraint firstItem="WbD-0x-FO2" firstAttribute="top" secondItem="miV-r1-AnP" secondAttribute="bottom" id="Rx5-ru-Cde"/>
+                            <constraint firstItem="miV-r1-AnP" firstAttribute="top" secondItem="pDF-Ry-ZeW" secondAttribute="bottom" constant="118" id="jOW-AP-blW"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -1609,7 +1610,7 @@
     </scenes>
     <resources>
         <image name="20937478-088A-4675-B284-DDCA2AFE20EA" width="28" height="20"/>
-        <image name="21A296A8-EA9E-4FFE-8092-1C7FCDD7D4AC" width="30" height="30">
+        <image name="7EAD63F8-A374-42EA-8307-1FAD4D245825" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -1739,7 +1740,7 @@ G/ocAxwWHBocLRw4HEEcRhxOHFEcVhxlHGkccBx4HIUcihyMHI4ckxybHJ4coxyrHK4cwBzDHMgAAAAA
 AAACAQAAAAAAAAA/AAAAAAAAAAAAAAAAAAAcyg
 </mutableData>
         </image>
-        <image name="5B6A4732-BC11-4A93-A449-B82E65C922BA" width="30" height="30">
+        <image name="850E5FDA-52E6-499F-BF49-DBB7EDD59330" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

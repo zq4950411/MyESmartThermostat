@@ -25,7 +25,7 @@
 
 @synthesize window = _window;
 @synthesize accountData = _accountData;
-@synthesize thermostatData = _thermostatData;
+@synthesize terminalData = _terminalData;
 @synthesize houseData = _houseData;
 
 -(BOOL) isRemember

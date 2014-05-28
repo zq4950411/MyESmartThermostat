@@ -180,6 +180,16 @@
 		C3AE7F5218E14F3F000AA5FC /* NSInvocation+Copy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AE7F5118E14F3F000AA5FC /* NSInvocation+Copy.m */; };
 		C3AE7F5618E14FF3000AA5FC /* MZTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AE7F5518E14FF3000AA5FC /* MZTimerLabel.m */; };
 		C3BB6FE0155B4FFB0056F004 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3BB6FDF155B4FFB0056F004 /* SystemConfiguration.framework */; };
+		C3CB5E84193446A00043440C /* MyENoAnimationSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB5E75193446A00043440C /* MyENoAnimationSegue.m */; };
+		C3CB5E85193446A00043440C /* MyEStaycationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB5E77193446A00043440C /* MyEStaycationDetailViewController.m */; };
+		C3CB5E86193446A00043440C /* MyEStaycationEditFromVacationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB5E79193446A00043440C /* MyEStaycationEditFromVacationViewController.m */; };
+		C3CB5E87193446A00043440C /* MyEStaycationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB5E7B193446A00043440C /* MyEStaycationTableViewCell.m */; };
+		C3CB5E88193446A00043440C /* MyEVacationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB5E7D193446A00043440C /* MyEVacationDetailViewController.m */; };
+		C3CB5E89193446A00043440C /* MyEVacationEditFromStaycationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB5E7F193446A00043440C /* MyEVacationEditFromStaycationViewController.m */; };
+		C3CB5E8A193446A00043440C /* MyEVacationMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB5E81193446A00043440C /* MyEVacationMasterViewController.m */; };
+		C3CB5E8B193446A00043440C /* MyEVacationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB5E83193446A00043440C /* MyEVacationTableViewCell.m */; };
+		C3CB5E9219344AC70043440C /* MyEVacationItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB5E8F19344AC70043440C /* MyEVacationItemData.m */; };
+		C3CB5E9319344AC70043440C /* MyEVacationListData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB5E9119344AC70043440C /* MyEVacationListData.m */; };
 		C3D04F3814DF7D41008B4090 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D04F3714DF7D41008B4090 /* QuartzCore.framework */; };
 		C3F61AAA18DFE64C00DEE477 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3F61AA618DFE64C00DEE477 /* MainStoryboard.storyboard */; };
 		C3F61AD318DFEE1700DEE477 /* IQActionSheetPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F61AD218DFEE1700DEE477 /* IQActionSheetPickerView.m */; };
@@ -652,6 +662,26 @@
 		C3AE7F5418E14FF3000AA5FC /* MZTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZTimerLabel.h; sourceTree = "<group>"; };
 		C3AE7F5518E14FF3000AA5FC /* MZTimerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MZTimerLabel.m; sourceTree = "<group>"; };
 		C3BB6FDF155B4FFB0056F004 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C3CB5E74193446A00043440C /* MyENoAnimationSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyENoAnimationSegue.h; sourceTree = "<group>"; };
+		C3CB5E75193446A00043440C /* MyENoAnimationSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyENoAnimationSegue.m; sourceTree = "<group>"; };
+		C3CB5E76193446A00043440C /* MyEStaycationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEStaycationDetailViewController.h; sourceTree = "<group>"; };
+		C3CB5E77193446A00043440C /* MyEStaycationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEStaycationDetailViewController.m; sourceTree = "<group>"; };
+		C3CB5E78193446A00043440C /* MyEStaycationEditFromVacationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEStaycationEditFromVacationViewController.h; sourceTree = "<group>"; };
+		C3CB5E79193446A00043440C /* MyEStaycationEditFromVacationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEStaycationEditFromVacationViewController.m; sourceTree = "<group>"; };
+		C3CB5E7A193446A00043440C /* MyEStaycationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEStaycationTableViewCell.h; sourceTree = "<group>"; };
+		C3CB5E7B193446A00043440C /* MyEStaycationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEStaycationTableViewCell.m; sourceTree = "<group>"; };
+		C3CB5E7C193446A00043440C /* MyEVacationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEVacationDetailViewController.h; sourceTree = "<group>"; };
+		C3CB5E7D193446A00043440C /* MyEVacationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEVacationDetailViewController.m; sourceTree = "<group>"; };
+		C3CB5E7E193446A00043440C /* MyEVacationEditFromStaycationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEVacationEditFromStaycationViewController.h; sourceTree = "<group>"; };
+		C3CB5E7F193446A00043440C /* MyEVacationEditFromStaycationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEVacationEditFromStaycationViewController.m; sourceTree = "<group>"; };
+		C3CB5E80193446A00043440C /* MyEVacationMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEVacationMasterViewController.h; sourceTree = "<group>"; };
+		C3CB5E81193446A00043440C /* MyEVacationMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEVacationMasterViewController.m; sourceTree = "<group>"; };
+		C3CB5E82193446A00043440C /* MyEVacationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEVacationTableViewCell.h; sourceTree = "<group>"; };
+		C3CB5E83193446A00043440C /* MyEVacationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEVacationTableViewCell.m; sourceTree = "<group>"; };
+		C3CB5E8E19344AC70043440C /* MyEVacationItemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEVacationItemData.h; sourceTree = "<group>"; };
+		C3CB5E8F19344AC70043440C /* MyEVacationItemData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEVacationItemData.m; sourceTree = "<group>"; };
+		C3CB5E9019344AC70043440C /* MyEVacationListData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEVacationListData.h; sourceTree = "<group>"; };
+		C3CB5E9119344AC70043440C /* MyEVacationListData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEVacationListData.m; sourceTree = "<group>"; };
 		C3D04F3714DF7D41008B4090 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C3F61AA718DFE64C00DEE477 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		C3F61AD118DFEE1700DEE477 /* IQActionSheetPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQActionSheetPickerView.h; sourceTree = "<group>"; };
@@ -1646,6 +1676,29 @@
 			path = MZTimerLabel;
 			sourceTree = "<group>";
 		};
+		C3CB5E73193446A00043440C /* Vacation */ = {
+			isa = PBXGroup;
+			children = (
+				C3CB5E74193446A00043440C /* MyENoAnimationSegue.h */,
+				C3CB5E75193446A00043440C /* MyENoAnimationSegue.m */,
+				C3CB5E76193446A00043440C /* MyEStaycationDetailViewController.h */,
+				C3CB5E77193446A00043440C /* MyEStaycationDetailViewController.m */,
+				C3CB5E78193446A00043440C /* MyEStaycationEditFromVacationViewController.h */,
+				C3CB5E79193446A00043440C /* MyEStaycationEditFromVacationViewController.m */,
+				C3CB5E7A193446A00043440C /* MyEStaycationTableViewCell.h */,
+				C3CB5E7B193446A00043440C /* MyEStaycationTableViewCell.m */,
+				C3CB5E7C193446A00043440C /* MyEVacationDetailViewController.h */,
+				C3CB5E7D193446A00043440C /* MyEVacationDetailViewController.m */,
+				C3CB5E7E193446A00043440C /* MyEVacationEditFromStaycationViewController.h */,
+				C3CB5E7F193446A00043440C /* MyEVacationEditFromStaycationViewController.m */,
+				C3CB5E80193446A00043440C /* MyEVacationMasterViewController.h */,
+				C3CB5E81193446A00043440C /* MyEVacationMasterViewController.m */,
+				C3CB5E82193446A00043440C /* MyEVacationTableViewCell.h */,
+				C3CB5E83193446A00043440C /* MyEVacationTableViewCell.m */,
+			);
+			path = Vacation;
+			sourceTree = "<group>";
+		};
 		C3F61AA518DFE64C00DEE477 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -2090,6 +2143,10 @@
 				C3FDB7FA18FA82AE009B423D /* MyEThermostatPeriodData.m */,
 				C32497441931C10F00109599 /* MyEUsageStat.h */,
 				C32497451931C10F00109599 /* MyEUsageStat.m */,
+				C3CB5E8E19344AC70043440C /* MyEVacationItemData.h */,
+				C3CB5E8F19344AC70043440C /* MyEVacationItemData.m */,
+				C3CB5E9019344AC70043440C /* MyEVacationListData.h */,
+				C3CB5E9119344AC70043440C /* MyEVacationListData.m */,
 				C3FDB7FB18FA82AE009B423D /* Switch */,
 			);
 			path = DataModels;
@@ -2111,6 +2168,7 @@
 		C3FDB82218FA83A8009B423D /* Themostat */ = {
 			isa = PBXGroup;
 			children = (
+				C3CB5E73193446A00043440C /* Vacation */,
 				C3FB3BA8192DC6460039D052 /* MyEDoughnutView.h */,
 				C3FB3BA9192DC6460039D052 /* MyEDoughnutView.m */,
 				C3FB3BAA192DC6460039D052 /* MyEModePickerView.h */,
@@ -2292,12 +2350,14 @@
 				C3FDB81718FA82AE009B423D /* MyESwitchInfo.m in Sources */,
 				8CA06043190912380090A350 /* MyESocketManualViewController.m in Sources */,
 				C3FDB4BF18FA403E009B423D /* ASIS3BucketRequest.m in Sources */,
+				C3CB5E9319344AC70043440C /* MyEVacationListData.m in Sources */,
 				C3F61B0218E1154200DEE477 /* SBJsonStreamWriter.m in Sources */,
 				C30E020014C7A69200011160 /* main.m in Sources */,
 				C3A2C09818F39DE500A08D2C /* SwipeView.m in Sources */,
 				C3194B9B18E299EA006E3ABE /* ELine.m in Sources */,
 				C3988D6C193120F8002657F0 /* MyEUsageStatsViewController.m in Sources */,
 				8CCB090A192241360095EAAD /* MyEIrDefaultViewController.m in Sources */,
+				C3CB5E87193446A00043440C /* MyEStaycationTableViewCell.m in Sources */,
 				C3FDB4BE18FA403E009B423D /* ASIS3BucketObject.m in Sources */,
 				C3FDB88F18FA884A009B423D /* MyESettingsThermostatCell.m in Sources */,
 				C3FDB71718FA6589009B423D /* MyECheckBoxView.m in Sources */,
@@ -2321,6 +2381,7 @@
 				8CEC64EA1921C0DE005953FB /* WeekCell.m in Sources */,
 				C3086C4918FCC1BE0005E0EE /* SWRevealViewController.m in Sources */,
 				C3FDB80718FA82AE009B423D /* MyENext24HrsDayItemData.m in Sources */,
+				C3CB5E86193446A00043440C /* MyEStaycationEditFromVacationViewController.m in Sources */,
 				C3FDB7CE18FA672E009B423D /* MyESwitchEditViewController.m in Sources */,
 				C3FDB4B118FA403E009B423D /* ASIFormDataRequest.m in Sources */,
 				C3FDB6F018FA640B009B423D /* GatewayDeviceCell.m in Sources */,
@@ -2332,8 +2393,10 @@
 				C3F61B0718E1154200DEE477 /* SBJsonWriter.m in Sources */,
 				8C72264B190658990033A78A /* MyEDeviceAddOrEditTableViewController.m in Sources */,
 				8C72264E190660CD0033A78A /* MyEDeviceEdit.m in Sources */,
+				C3CB5E85193446A00043440C /* MyEStaycationDetailViewController.m in Sources */,
 				C3FDB4B018FA403E009B423D /* ASIDownloadCache.m in Sources */,
 				C3FDB4BC18FA403E009B423D /* ASICloudFilesRequest.m in Sources */,
+				C3CB5E9219344AC70043440C /* MyEVacationItemData.m in Sources */,
 				C3AE7F4318E14D99000AA5FC /* MZTransition.m in Sources */,
 				C3FDB80918FA82AE009B423D /* MyEScheduleModeData.m in Sources */,
 				C3194B9F18E299EA006E3ABE /* EViewSwitcher.m in Sources */,
@@ -2392,6 +2455,7 @@
 				B2588D2217B09B9D007ED13C /* UITextField+Extention.m in Sources */,
 				8CEC64E71921C0DE005953FB /* TemperatureCell.m in Sources */,
 				C3FDB6F618FA640B009B423D /* UNRegistHouseViewController.m in Sources */,
+				C3CB5E88193446A00043440C /* MyEVacationDetailViewController.m in Sources */,
 				B2588D2317B09B9D007ED13C /* UITextField+Shake.m in Sources */,
 				C3FDB80618FA82AE009B423D /* MyEHouseData.m in Sources */,
 				C3FDB88C18FA882E009B423D /* MyESettingsViewController.m in Sources */,
@@ -2420,6 +2484,7 @@
 				8CA05FE619078A8E0090A350 /* TableViewWithBlock.m in Sources */,
 				C3FDB50C18FA62A0009B423D /* MyEDataLoader.m in Sources */,
 				C3F61B1318E11A7B00DEE477 /* RTLabel.m in Sources */,
+				C3CB5E84193446A00043440C /* MyENoAnimationSegue.m in Sources */,
 				C3F61B1D18E11DAE00DEE477 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				B2588D5017B09B9D007ED13C /* OpenUDID.m in Sources */,
 				B2588D6217B09B9D007ED13C /* SVProgressHUD.m in Sources */,
@@ -2429,6 +2494,7 @@
 				8CA52FA319231A0D00D40EDD /* MyEEventConditionEditViewController.m in Sources */,
 				B2588D8A17B09B9D007ED13C /* Services.m in Sources */,
 				C3FDB71618FA6589009B423D /* MyEBlockAlertViewWithCheckbox.m in Sources */,
+				C3CB5E8B193446A00043440C /* MyEVacationTableViewCell.m in Sources */,
 				C3F61AE118E1153400DEE477 /* BlockTextPromptAlertView.m in Sources */,
 				B2588D8B17B09B9D007ED13C /* WSNet.m in Sources */,
 				C395989718E12CC800E30AFF /* FUIButton.m in Sources */,
@@ -2488,6 +2554,7 @@
 				C39498751919D7F70075ABD3 /* Common.m in Sources */,
 				C3FDB81418FA82AE009B423D /* MyEThermostatPeriodData.m in Sources */,
 				C3FDB50D18FA62A0009B423D /* MyEUniversal.m in Sources */,
+				C3CB5E89193446A00043440C /* MyEVacationEditFromStaycationViewController.m in Sources */,
 				B25B79DE17D198A9009F4E84 /* QRCodeGenerator.m in Sources */,
 				C33587D4190452F300959C94 /* MyEHomePanelViewController.m in Sources */,
 				B25B79DF17D198A9009F4E84 /* qrencode.c in Sources */,
@@ -2508,6 +2575,7 @@
 				8C82DCD51930A4B5006A10E0 /* MyEEventAddOrEditViewController.m in Sources */,
 				C3FDB70918FA652A009B423D /* MyEAppDelegate.m in Sources */,
 				C3F61B2018E11DAE00DEE477 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				C3CB5E8A193446A00043440C /* MyEVacationMasterViewController.m in Sources */,
 				C3F61B2618E11E7400DEE477 /* ASDepthModalViewController.m in Sources */,
 				C39498731919D7F70075ABD3 /* CDCircleThumb.m in Sources */,
 				C3FDB81518FA82AE009B423D /* MyESwitchAutoControl.m in Sources */,

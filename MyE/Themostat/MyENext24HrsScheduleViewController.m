@@ -189,7 +189,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_NEXT24HRS_SCHEDULE_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_NEXT24HRS_SCHEDULE_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"Next24HrsDownloader" userDataDictionary:nil];
     NSLog(@"Next24HrsDownloader.name = %@",downloader.name);
 }
@@ -201,7 +201,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_NEXT24HRS_DEFAULT_SCHEDULE_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_NEXT24HRS_DEFAULT_SCHEDULE_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"Next24HrsUseWeeklyDownloader" userDataDictionary:nil];
     NSLog(@"Next24HrsUseWeeklyDownloader : %@",downloader.name);
 }
@@ -221,7 +221,7 @@
     NSLog(@"Today ScheduleUploader body is \n%@", body);
     [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_NEXT24HRS_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_NEXT24HRS_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
     
     MyEDataLoader *uploader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"Next24HrsScheduleUploader" userDataDictionary:nil];
     NSLog(@"Next24HrsScheduleUploader is %@",uploader.name);
@@ -237,7 +237,7 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&setpoint=%i&hold=%i",GetRequst(URL_FOR_NEXT24HRS_HOLD_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.thermostatData.tId, setpoint, hold];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&setpoint=%i&hold=%i",GetRequst(URL_FOR_NEXT24HRS_HOLD_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.terminalData.tId, setpoint, hold];
     
     MyEDataLoader *uploader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"Next24HrsHoldUploader" userDataDictionary:nil];
     NSLog(@"Next24HrsHoldUploader is %@",uploader.name);
@@ -524,7 +524,7 @@
     NSInteger lastSectorIdOfPeriodSpaningCurrentTime = [self _lastSectorIdOfPeriodSpaningCurrentTime];
     
     NSInteger sectorIdSpaningCurrentTime = [self _sectorIdSpaningCurrentTime];
-    if (sectorInedx <  sectorIdSpaningCurrentTime || !MainDelegate.thermostatData.remote){
+    if (sectorInedx <  sectorIdSpaningCurrentTime || !MainDelegate.terminalData.remote){
         [self _togglePeriodInforView];
     }
     else if(sectorInedx >=sectorIdSpaningCurrentTime && sectorInedx <=  lastSectorIdOfPeriodSpaningCurrentTime){
