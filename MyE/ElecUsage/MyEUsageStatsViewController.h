@@ -11,7 +11,7 @@
 #import "MyEDropDownMenu.h"
 
 
-@interface MyEUsageStatsViewController : UIViewController<CPTPlotDataSource,MyEDataLoaderDelegate,MBProgressHUDDelegate>
+@interface MyEUsageStatsViewController : UIViewController<CPTPlotDataSource,CPTAxisDelegate,MyEDataLoaderDelegate,MBProgressHUDDelegate>
 {
 @private
     CPTXYGraph *barChart;

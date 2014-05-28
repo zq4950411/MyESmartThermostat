@@ -15,9 +15,11 @@
 #import "MyEDropDownMenu.h"
 
 @interface MyEUsageStatsViewController ()
--(void)configView;
+-(void)drawChart;
 -(void)goHome;
-- (void)refreshAction;
+-(void)refreshAction;
+-(void)drawAxisLabels;
+-(double)getMaxUsage;
 
 @property (nonatomic, strong) MyEDropDownMenu *dropDown;
 @end
@@ -69,7 +71,7 @@
     self.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, nil];
     
     
-    [self configView];
+
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -115,8 +117,10 @@
 }
 #pragma mark -
 #pragma mark private method
--(void)configView
+-(void)drawChart
 {
+    float xMax = 0.;
+    float yMax = [self getMaxUsage];
     // Create barChart from theme
     barChart = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     CPTTheme *theme = [CPTTheme themeNamed:kCPTDarkGradientTheme];
@@ -141,8 +145,18 @@
     barChart.plotAreaFrame.paddingBottom = 80.0;
     
     // Graph title
-    NSString *lineOne = @"Graph Title";
+    NSString *lineOne = @"Usage Statistics";
     NSString *lineTwo = @"Line 2";
+    if(self.timeRangeSegment.selectedSegmentIndex == 0) {
+        lineTwo = @"Past 24 Hours";
+        xMax = 24;
+    } else if(self.timeRangeSegment.selectedSegmentIndex == 1){
+        lineTwo = @"Past 7 Days";
+        xMax = 7;
+    } else {
+        lineTwo = @"Past 12 Months";
+        xMax = 12;
+    }
     
     BOOL hasAttributedStringAdditions = (&NSFontAttributeName != NULL) &&
     (&NSForegroundColorAttributeName != NULL) &&
@@ -178,25 +192,97 @@
     
     // Add plot space for horizontal bar charts
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)barChart.defaultPlotSpace;
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(300.0f)];
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(16.0f)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(yMax)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(xMax)];
+    
+    [self drawAxisLabels];
+    
+    
+    // First bar plot
+    CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor greenColor] horizontalBars:NO];
+    barPlot.dataSource = self;
+    barPlot.baseValue  = CPTDecimalFromDouble(0.0);
+    barPlot.barOffset  = CPTDecimalFromFloat(-0.25f);
+    barPlot.barCornerRadius = 2.0;
+    barPlot.identifier = @"Bar Plot 1";
+    [barChart addPlot:barPlot toPlotSpace:plotSpace];
+}
+-(double)getMaxUsage
+{
+    double yMax = 0.0;
+    for (int i = 0; i < usageData.powerRecordList.count; i++) {
+        MyEUsageRecord *r = usageData.powerRecordList[i];
+        if (yMax < r.totalPower / 1000.) {
+            yMax = r.totalPower / 1000.;
+        }
+    }
+    if (yMax < 1.0) {
+        yMax = 1.0;
+    }else{
+        yMax = ceil(yMax / 10.0) * 10.0;
+    }
+    return yMax;
+}
+-(void)drawAxisLabels
+{
+    double yMax = [self getMaxUsage];
+    float title_xPosition = 12.0f;
+    if(self.timeRangeSegment.selectedSegmentIndex == 0) {
+        title_xPosition = 12.0f;
+    }
+    else if(self.timeRangeSegment.selectedSegmentIndex == 1) {
+        title_xPosition = 3.5f;
+    }
+    else {
+        title_xPosition = 6.0f;
+    }
     
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)barChart.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
     x.axisLineStyle               = nil;
     x.majorTickLineStyle          = nil;
     x.minorTickLineStyle          = nil;
-    x.majorIntervalLength         = CPTDecimalFromDouble(5.0);
+    x.majorIntervalLength         = CPTDecimalFromDouble(1.0);
     x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
-    x.title                       = @"X Axis";
-    x.titleLocation               = CPTDecimalFromFloat(7.5f);
-    x.titleOffset                 = 55.0;
+    x.title                       = @"Time";
+    x.titleLocation               = CPTDecimalFromFloat(title_xPosition);
+    x.titleOffset                 = 60.0;
     
     // Define some custom labels for the data elements
     x.labelRotation  = M_PI_4;
     x.labelingPolicy = CPTAxisLabelingPolicyNone;
-    NSArray *customTickLocations = @[@1, @3, @6, @9, @12, @15];
-    NSArray *xAxisLabels         = @[@"Label A", @"Label B", @"Label C", @"Label D", @"Label e", @"Label F"];
+    NSArray *customTickLocations = Nil;
+    NSMutableArray *xAxisLabels         = [NSMutableArray array];
+    
+    if(self.timeRangeSegment.selectedSegmentIndex == 0) {
+        customTickLocations = @[@4, @8, @12, @16, @20, @24];
+        for (int i = 0; i < usageData.powerRecordList.count; i++) {
+            if (i > 0 && (i + 1) % 4 == 0) {
+                MyEUsageRecord *r = usageData.powerRecordList[i];
+                [xAxisLabels addObject:r.date];
+            }
+            
+        }
+    }
+    else if(self.timeRangeSegment.selectedSegmentIndex == 1) {
+        customTickLocations = @[@1, @2, @3, @4, @5, @6, @7];
+        for (int i = 0; i < usageData.powerRecordList.count; i++) {
+            MyEUsageRecord *r = usageData.powerRecordList[i];
+            [xAxisLabels addObject:r.date];
+        }
+    }
+    else {
+        customTickLocations = @[@2, @4, @6, @8, @10, @12];
+        for (int i = 0; i < usageData.powerRecordList.count; i++) {
+            if ( i > 0 && (i + 1) % 2 == 0) {
+                MyEUsageRecord *r = usageData.powerRecordList[i];
+                [xAxisLabels addObject:r.date];
+            }
+        }
+    }
+    
+    
+    
     NSUInteger labelLocation     = 0;
     NSMutableSet *customLabels   = [NSMutableSet setWithCapacity:[xAxisLabels count]];
     for ( NSNumber *tickLocation in customTickLocations ) {
@@ -213,29 +299,12 @@
     y.axisLineStyle               = nil;
     y.majorTickLineStyle          = nil;
     y.minorTickLineStyle          = nil;
-    y.majorIntervalLength         = CPTDecimalFromDouble(50.0);
+    y.majorIntervalLength         = CPTDecimalFromDouble(yMax / 5.0);
     y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
-    y.title                       = @"Y Axis";
-    y.titleOffset                 = 45.0;
+    y.title                       = @"Usage (kWh)";
+    y.titleOffset                 = 25.0;
     y.titleLocation               = CPTDecimalFromFloat(150.0f);
     
-    // First bar plot
-    CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor greenColor] horizontalBars:NO];
-    barPlot.baseValue  = CPTDecimalFromDouble(0.0);
-    barPlot.dataSource = self;
-    barPlot.barOffset  = CPTDecimalFromFloat(-0.25f);
-    barPlot.identifier = @"Bar Plot 1";
-    [barChart addPlot:barPlot toPlotSpace:plotSpace];
-    
-    // Second bar plot
-    barPlot                 = [CPTBarPlot tubularBarPlotWithColor:[CPTColor blueColor] horizontalBars:NO];
-    barPlot.dataSource      = self;
-    barPlot.baseValue       = CPTDecimalFromDouble(0.0);
-    barPlot.barOffset       = CPTDecimalFromFloat(0.25f);
-    barPlot.barCornerRadius = 2.0;
-    barPlot.identifier      = @"Bar Plot 2";
-    [barChart addPlot:barPlot toPlotSpace:plotSpace];
-
 }
 
 #pragma mark -
@@ -258,20 +327,17 @@
     if ( [plot isKindOfClass:[CPTBarPlot class]] ) {
         switch ( fieldEnum ) {
             case CPTBarPlotFieldBarLocation:
-                num = @(index);
+                num = @(index + 1);
                 break;
-                
             case CPTBarPlotFieldBarTip:
-                num = @( ur.totalPower/1000 );
-                if ( [plot.identifier isEqual:@"Bar Plot 2"] ) {
-                    num = @(num.integerValue - 10);
-                }
+                num = @( ur.totalPower/1000. );
                 break;
         }
     }
     
     return num;
 }
+
 
 #pragma mark -
 #pragma mark URL Loading System methods
@@ -300,12 +366,20 @@
     if([name isEqualToString:@"UsageStatsDownloader"]) {
         [HUD hide:YES];
         NSLog(@"UsageStatsDownloader string from server is \n %@", string);
-        
-        usageData = [[MyEUsageStat alloc] initWithString:string];
-        NSLog(@"当前功率=%f, 本期用电量=%f", usageData.currentPower * 110, usageData.totalPower/1000);
-        for (MyEUsageRecord *r in usageData.powerRecordList) {
-            NSLog(@"dateTime=%@, totalPower=%f", r.date, r.totalPower/1000.0);
+        if([string isEqualToString:@"fail"]){
+            [MyEUtil showErrorOn:self.view withMessage:@"Data is not available currently."];
+        }else{
+            usageData = [[MyEUsageStat alloc] initWithString:string];
+            NSLog(@"当前功率=%f, 本期用电量=%f", usageData.currentPower * 110.0, usageData.totalPower/1000.0);
+            for (MyEUsageRecord *r in usageData.powerRecordList) {
+                NSLog(@"dateTime=%@, totalPower=%f W", r.date, r.totalPower/1000.0);
+            }
+            
+            self.currentPowerLabel.text = [NSString stringWithFormat:@"Current Power: %.1f",usageData.currentPower * 110];
+            [self drawChart];
         }
+        
+
     }
 }
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{

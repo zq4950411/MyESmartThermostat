@@ -33,7 +33,7 @@
 
 //#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
 
-#define GetRequst(API) [@"http://182.109.203.10:65533" stringByAppendingFormat:@"%@",API]
+#define GetRequst(API) [@"http://117.42.212.152:65533" stringByAppendingFormat:@"%@",API]
 
 #define URL_FOR_LOGIN @"/user/userJson_login_phone.do"
 #define URL_FOR_ADD_ADDRESS @"/house_add4mobile.do"

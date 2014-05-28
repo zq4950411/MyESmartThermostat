@@ -115,6 +115,7 @@
 }
 
 // 返回可以用于电量显示的终端, 目前包括：智能插座、智能开关。
+//0表示美国温度控制器   1  红外转发器    2 智能插座    3  通用控制器    4 安防设备,    6智能开关
 - (NSArray *)terminalsForUsageStats {
     NSMutableArray *arr = [NSMutableArray array];
     for (MyETerminalData *t in self.terminals) {
