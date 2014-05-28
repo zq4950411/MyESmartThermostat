@@ -302,7 +302,7 @@
     y.majorIntervalLength         = CPTDecimalFromDouble(yMax / 5.0);
     y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
     y.title                       = @"Usage (kWh)";
-    y.titleOffset                 = 25.0;
+    y.titleOffset                 = 65.0;
     y.titleLocation               = CPTDecimalFromFloat(150.0f);
     
 }
