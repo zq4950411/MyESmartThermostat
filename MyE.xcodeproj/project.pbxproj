@@ -39,6 +39,7 @@
 		8CA52FA319231A0D00D40EDD /* MyEEventConditionEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA219231A0D00D40EDD /* MyEEventConditionEditViewController.m */; };
 		8CA52FA619231A3000D40EDD /* MyEEventTimeEdtiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA519231A3000D40EDD /* MyEEventTimeEdtiViewController.m */; };
 		8CA52FA919231D4700D40EDD /* MyEEventDeviceEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA819231D4700D40EDD /* MyEEventDeviceEditViewController.m */; };
+		8CA60FC91935B0B2006F7F06 /* MYEPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA60FC81935B0B2006F7F06 /* MYEPickerView.m */; };
 		8CB4B552192B46610077CFCB /* MYEWeekButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4B551192B46610077CFCB /* MYEWeekButtons.m */; };
 		8CCB090A192241360095EAAD /* MyEIrDefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0909192241360095EAAD /* MyEIrDefaultViewController.m */; };
 		8CCB090C192247610095EAAD /* WeekCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CCB090B192247610095EAAD /* WeekCell.xib */; };
@@ -400,6 +401,8 @@
 		8CA52FA519231A3000D40EDD /* MyEEventTimeEdtiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventTimeEdtiViewController.m; sourceTree = "<group>"; };
 		8CA52FA719231D4700D40EDD /* MyEEventDeviceEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventDeviceEditViewController.h; sourceTree = "<group>"; };
 		8CA52FA819231D4700D40EDD /* MyEEventDeviceEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventDeviceEditViewController.m; sourceTree = "<group>"; };
+		8CA60FC71935B0B2006F7F06 /* MYEPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYEPickerView.h; sourceTree = "<group>"; };
+		8CA60FC81935B0B2006F7F06 /* MYEPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYEPickerView.m; sourceTree = "<group>"; };
 		8CB4B550192B46610077CFCB /* MYEWeekButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYEWeekButtons.h; sourceTree = "<group>"; };
 		8CB4B551192B46610077CFCB /* MYEWeekButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYEWeekButtons.m; sourceTree = "<group>"; };
 		8CCB0908192241360095EAAD /* MyEIrDefaultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIrDefaultViewController.h; sourceTree = "<group>"; };
@@ -982,6 +985,7 @@
 		8CA05FDE19078A8D0090A350 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				8CA60FC61935B0B2006F7F06 /* MYEPickerView */,
 				8CB4B54F192B46610077CFCB /* MYEWeekButtons */,
 				8CA0602A1908A3BF0090A350 /* SUNSlideSwitchView */,
 				8CA05FDF19078A8E0090A350 /* dropDownTableView */,
@@ -1054,6 +1058,15 @@
 				8CFF1C03192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.m */,
 			);
 			path = Socket;
+			sourceTree = "<group>";
+		};
+		8CA60FC61935B0B2006F7F06 /* MYEPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				8CA60FC71935B0B2006F7F06 /* MYEPickerView.h */,
+				8CA60FC81935B0B2006F7F06 /* MYEPickerView.m */,
+			);
+			path = MYEPickerView;
 			sourceTree = "<group>";
 		};
 		8CB4B54F192B46610077CFCB /* MYEWeekButtons */ = {
@@ -2503,6 +2516,7 @@
 				C3AE7F5618E14FF3000AA5FC /* MZTimerLabel.m in Sources */,
 				8CA0601A1908A3480090A350 /* MyETVDefaultViewController.m in Sources */,
 				C3AE7F4F18E14F0C000AA5FC /* MZAppearance.m in Sources */,
+				8CA60FC91935B0B2006F7F06 /* MYEPickerView.m in Sources */,
 				C3FDB4AE18FA403E009B423D /* ASIDataCompressor.m in Sources */,
 				C3F61B1E18E11DAE00DEE477 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				C3FB3BD4192DC6460039D052 /* MyETodayPeriodEditingView.m in Sources */,

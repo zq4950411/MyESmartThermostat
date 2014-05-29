@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface MyETerminalData : NSObject
+
 @property (nonatomic, copy) NSString *tName;
 @property (nonatomic, copy) NSString *tId;
 @property (nonatomic) NSInteger connection;//0表示温控器正常连接，1表示有温控器但没正常连接，2表示用户根本没有为这个房子购买温控器
@@ -17,7 +18,6 @@
 //硬件类型由服务器提供0表示美国温度控制器1  红外转发器, 2 智能插座, 3  通用控制器, 4 安防设备, 6 智能开关
 @property (nonatomic) NSInteger deviceType;
 @property (nonatomic) NSInteger keypad;
-
 
 - (MyETerminalData *)initWithDictionary:(NSDictionary *)dictionary;
 - (NSDictionary *)JSONDictionary;

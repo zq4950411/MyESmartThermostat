@@ -139,11 +139,9 @@
         }
     }
     if (self.device.typeId.intValue == 6) {
-        
-    
-    SBJsonWriter *writer = [[SBJsonWriter alloc] init];
-    NSString *string = [writer stringWithObject:[self.device jsonDevice:self.device]];
-    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%i&action=%@&deviceMode=%@",GetRequst(URL_FOR_SAVE_DEVICE),MainDelegate.houseData.houseId,self.isAddDevice?0:self.device.deviceId.intValue,self.isAddDevice?@"addDevice":@"editDevice",string] andName:@"addOrEditDevice"];
+        SBJsonWriter *writer = [[SBJsonWriter alloc] init];
+        NSString *string = [writer stringWithObject:[self.device jsonDevice:self.device]];
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%i&action=%@&deviceMode=%@",GetRequst(URL_FOR_SAVE_DEVICE),MainDelegate.houseData.houseId,self.isAddDevice?0:self.device.deviceId.intValue,self.isAddDevice?@"addDevice":@"editDevice",string] andName:@"addOrEditDevice"];
     }else{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];

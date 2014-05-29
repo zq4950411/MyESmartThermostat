@@ -58,23 +58,26 @@
 -(MyEEventDeviceAdd *)initWithDictionary:(NSDictionary *)dic;
 @end
 
-@interface MyEEventConditionCustom : NSObject
+@interface MyEEventConditionCustom : NSObject<NSCopying>
 @property (nonatomic, assign) NSInteger conditionId;
 @property (nonatomic, assign) NSInteger dataType;  //条件数据类型：1-室内温度 2-室内湿度 3-室外温度 4-室外湿度
 @property (nonatomic, assign) NSInteger parameterType;  //比较关系：1-大于 2-小于 3-等于
 @property (nonatomic, assign) NSInteger parameterValue;
+@property (nonatomic, copy) NSString *tId;
 -(MyEEventConditionCustom *)initWithDictionary:(NSDictionary *)dic;
 -(NSString *)changeDataToString;
 -(NSArray *)dataTypeArray;
 -(NSArray *)conditionArray;
+-(NSArray *)conditionDetailArray;
 @end
 
-@interface MyEEventConditionTime : NSObject
+@interface MyEEventConditionTime : NSObject<NSCopying>
 @property (nonatomic, assign) NSInteger conditionId;
 @property (nonatomic, assign) NSInteger timeType;  //日期类型：1-按日期 2-按星期
 @property (nonatomic, assign) NSInteger minute;
 @property (nonatomic, assign) NSInteger hour;
-@property (nonatomic, copy) NSString *date; //日期：当timeType=1，显示为:”19/4/2014”,当timeType=2，显示为“Mon”
+@property (nonatomic, copy) NSString *date; //日期：当timeType=1，显示为:”19/4/2014”,
+@property (nonatomic, strong) NSMutableArray *weeks; //timeType=2,显示为[1,2,3,4], 当timeType=1为空
 -(MyEEventConditionTime *)initWithDictionary:(NSDictionary *)dic;
 -(NSString *)changeDateToString;
 @end

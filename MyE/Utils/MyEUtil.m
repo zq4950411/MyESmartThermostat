@@ -418,7 +418,7 @@ NSInteger getDaysBetweenDates(NSDate *startDate, NSDate *endDate) {
 }
 + (void)getFrameDetail:(UIView *)view andName:(NSString *)name{
     CGRect frame = view.frame;
-    NSLog(@"%@ frame is x: %f y: %f width: %f height: %f",name,frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
+    NSLog(@"%@ frame is x: %.0f y: %.0f width: %.0f height: %.0f",name,frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
 }
 @end
 

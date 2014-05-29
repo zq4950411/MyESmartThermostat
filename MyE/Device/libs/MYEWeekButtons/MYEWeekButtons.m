@@ -20,7 +20,7 @@
 - (void)drawRect:(CGRect)rect
 {
     NSLog(@"draw rect");
-    self.weeks = [NSMutableArray array];
+    self.selectedButtons = [NSMutableArray array];
     self.backgroundColor = [UIColor clearColor]; //背景透明
     [self setButtonsInViewWithFrame:rect];
 }
