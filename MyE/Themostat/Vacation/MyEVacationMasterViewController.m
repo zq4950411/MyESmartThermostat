@@ -17,8 +17,6 @@
 #import "MyEStaycationDetailViewController.h"
 #import "MyEAccountData.h"
 #import "MyEHouseListViewController.h"
-#import "MyETipViewController.h"
-#import "MyETipDataModel.h"
 #import "MyEUtil.h"
 #import "SBJson.h"
 
@@ -84,11 +82,7 @@
     
     self.vacationsModel = [[MyEVacationListData alloc] initWithJSONString:@"{\"houseId\":1028,\"userId\":1000100000000000317,\"vacations\":[]}"];    
     [self.tableView reloadData];//重新加载数据,这一步骤是重要的，用来现实更新后的数据。
-    
-    NSArray *tipDataArray = [NSArray arrayWithObjects:
-                             [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_VACATION title:@"Tip" message:@"Click the icon with “+” to add new vacation/ staycation. Swipe to delete."],
-                             nil];
-    _tipViewController = [MyETipViewController tipViewControllerWithTipDataArray:tipDataArray];
+
     
     self.isRemoteControl = MainDelegate.terminalData.remote;
     self.title = MainDelegate.houseData.houseName;
@@ -98,7 +92,6 @@
     [super viewWillAppear:animated];
     
     [self downloadModelFromServer];
-    [_tipViewController showTips];
 }
 
 - (void) addRightButtonsWithNewButton:(BOOL)shouldGenerateNewButton

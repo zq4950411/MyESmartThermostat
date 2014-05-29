@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyEAlertsTableViewController : UITableViewController
+@interface MyEAlertsTableViewController : UITableViewController<MyEDataLoaderDelegate,MBProgressHUDDelegate>
+{
+@private
+    MBProgressHUD *HUD;
+}
+@property (strong, nonatomic) NSMutableArray *alerts;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
+@property (assign, nonatomic) BOOL fromHome;
 
 @end

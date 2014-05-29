@@ -31,9 +31,9 @@
 #define GetServer [ServerUtils getServierIp]
 //#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
 
-#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
+//#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
 
-//#define GetRequst(API) [@"http://117.42.212.152:65533" stringByAppendingFormat:@"%@",API]
+#define GetRequst(API) [@"http://117.42.212.152:65533" stringByAppendingFormat:@"%@",API]
 
 #define URL_FOR_LOGIN @"/user/userJson_login_phone.do"
 #define URL_FOR_ADD_ADDRESS @"/house_add4mobile.do"
@@ -47,6 +47,7 @@
 #define URL_FOR_VACATION_VIEW @"/vacation_view.do"
 #define URL_FOR_SETTINGS_VIEW @"/setting_view.do"
 #define URL_FOR_USAGE_STATS_VIEW @"/usage_electric_stati.do"
+#define URL_FOR_ALERTS_VIEW @"/setting_get_alert_list.do"
 
 #define URL_FOR_DASHBOARD_SAVE @"/dashboard_save.do"
 #define URL_FOR_TODAY_SCHEDULE_SAVE @"/programToday_save.do"
@@ -58,6 +59,7 @@
 #define URL_FOR_SETTINGS_SAVE @"/setting_save.do"
 #define URL_FOR_SETTINGS_DELETE_THERMOSTAT  @"/setting_delete.do"
 #define URL_FOR_SETTINGS_DELETE_THERMOSTAT_QUERY_STATUS  @"/setting_findThermostat.do"
+#define URL_FOR_ALERT_DELETE @"/setting_remove_alert.do"
 
 #define URL_FOR_SMARTUP_LIST @"/smartUp_findDeviceList.do"
 #define URL_FOR_SAVE_SORT @"/smartUp_saveSort.do"
@@ -142,17 +144,6 @@
 #define URL_FOR_SWITCH_SCHEDULE_ENABLE  @"/switch_auto_control_enable_save.do"
 #define URL_FOR_SWITCH_ELECT_STATUS   @"/switch_electric_stati.do"
 
-
-// 定义tip显示的标志位的key，该可以会用于NSDefaults里面存储此标志位
-#define KEY_FOR_HIDE_TIP_OF_DASHBOARD1 @"hide_tip_of_dashboard1"
-#define KEY_FOR_HIDE_TIP_OF_DASHBOARD2 @"hide_tip_of_dashboard2"
-#define KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY1 @"hide_tip_of_schedule1"
-#define KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY2 @"hide_tip_of_schedule2"
-#define KEY_FOR_HIDE_TIP_OF_SCHEDULE_NEXT24HRS1 @"hide_tip_of_schedule1"
-#define KEY_FOR_HIDE_TIP_OF_SCHEDULE_NEXT24HRS2 @"hide_tip_of_schedule2"
-#define KEY_FOR_HIDE_TIP_OF_SCHEDULE_WEEKLY @"hide_tip_of_schedule1"
-#define KEY_FOR_HIDE_TIP_OF_VACATION @"hide_tip_of_vacation"
-#define KEY_FOR_HIDE_TIP_OF_SETTINGS @"hide_tip_of_settings"
 
 // 定义App是否加载过的标志Key
 #define KEY_FOR_APP_HAS_LAUNCHED_ONCE @"AppHasLaunchedOnce"

@@ -13,8 +13,6 @@
 #import "MyEDashboardData.h"
 #import "MyEHouseListViewController.h"
 #import "MyEAccountData.h"
-#import "MyETipViewController.h"
-#import "MyETipDataModel.h"
 #import "MyEUtil.h"
 #import "SBJson.h"
 
@@ -106,14 +104,7 @@
     
     [self.systemControlEmgHeatingButton setBackgroundImage:[UIImage imageNamed:@"Tb_EmgHDisabled.png"] forState:UIControlStateDisabled];
     [self.systemControlEmgHeatingButton setBackgroundImage:[UIImage imageNamed:@"Tb_EmgH01.png"] forState:UIControlStateNormal];
-    
-    NSArray *tipDataArray = [NSArray arrayWithObjects:
-                             [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_DASHBOARD1 title:@"Tip" message:@"Click on the icons to bring up the system and fan mode menu."],
-                             [MyETipDataModel tipDataModelWithKey:KEY_FOR_HIDE_TIP_OF_DASHBOARD2 title:@"Tip" message:@"You can check which thermostat you are currently viewing by double-tapping the navigation bar."],
-                             nil];
-    _tipViewController = [MyETipViewController tipViewControllerWithTipDataArray:tipDataArray];
-    
-    
+
     
     // 下面是触摸圆环Circle
     _minVal = 55;
@@ -160,8 +151,6 @@
     self.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, nil];
     
     [self downloadModelFromServer];
-
-    [_tipViewController showTips];
     
     // 显示提示信息,下面函数仅用于测试自定义UIAlertView，这里不再用了
     // [self showAlertWithMessage:@"Click on the icons to bring up the system and fan mode menu.\n\n" messageId:@"dashobard1" ];    

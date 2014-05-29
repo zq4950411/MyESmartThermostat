@@ -14,7 +14,6 @@
 #import "MyEWeeklyScheduleViewController.h"
 #import "MyENext24HrsScheduleViewController.h"
 #import "MyESpecialDaysScheduleViewController.h"
-#import "MyESettingsViewController.h"
 #import "MyELaunchIntroViewController.h"
 
 #import "MyEAccountData.h"
@@ -96,7 +95,7 @@
         
         // 获取程序的主Navigation VC, 这里可以类似地从stroyboard获取任意的VC，然后设置它为rootViewController，这样就可以显示它
         UIViewController *controller = (UIViewController*)[storybord
-                                    instantiateViewControllerWithIdentifier: @"MainViewController"];
+                                    instantiateViewControllerWithIdentifier: @"LoginViewController"];
         self.window.rootViewController = controller;// 用主Navigation VC作为程序的rootViewController
         [self.window makeKeyAndVisible];
         return YES;
@@ -209,15 +208,6 @@
         [prefs removeObjectForKey:@"rememberme"];
         [prefs removeObjectForKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
         [prefs removeObjectForKey:@"defaulthouseid"];
-        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_DASHBOARD1];
-        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_DASHBOARD2];
-        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY1];
-        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_TODAY2];
-        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_NEXT24HRS1];
-        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_NEXT24HRS2];
-        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_SCHEDULE_WEEKLY];
-        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_VACATION];
-        [prefs removeObjectForKey:KEY_FOR_HIDE_TIP_OF_SETTINGS];
     }
     [prefs setInteger:-1 forKey:@"exitcode"]; //设置exitcode为-1，如果程序异常crash，此exitcode就没有机会设置为1
 }

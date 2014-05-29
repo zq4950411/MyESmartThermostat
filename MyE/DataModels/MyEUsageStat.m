@@ -55,7 +55,18 @@
 @implementation MyEUsageRecord
 
 -(MyEUsageRecord *)initWithString:(NSString *)string{
-    return self;//这里是没怎么写，直接返回self
+    // Create new SBJSON parser object
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    // 把JSON转为字典
+    NSError *error = [[NSError alloc] init];
+    NSDictionary *dict = [parser objectWithString:string error:&error];
+    
+    if (dict && [dict isKindOfClass:[NSDictionary class]]) {
+        MyEUsageRecord *ur = [[MyEUsageRecord alloc] initWithDictionary:dict];
+        return ur;
+    }else
+        return nil;
+
 }
 -(MyEUsageRecord *)initWithDictionary:(NSDictionary *)dic{
     if (self = [super init]) {

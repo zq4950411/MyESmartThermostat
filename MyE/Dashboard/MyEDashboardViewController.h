@@ -33,7 +33,6 @@ CDCircleDelegate, CDCircleDataSource> {
 
 
     MBProgressHUD *HUD;
-    MyETipViewController *_tipViewController;
     
     BOOL _isSetpointChanged;
     

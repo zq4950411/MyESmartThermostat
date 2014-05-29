@@ -159,8 +159,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.menuItems.count-1 == indexPath.row) {
-        [MyEUtil showMessageOn:self.view withMessage:@"Tap to Signout"];
-        NSLog(@"signout");
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        //                [self presentViewController:vc animated:YES completion:nil];
+        [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+        MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
     }
     
 }

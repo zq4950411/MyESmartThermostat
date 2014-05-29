@@ -19,7 +19,6 @@
 
     
     MBProgressHUD *HUD;
-    MyETipViewController *_tipViewController;
     
     // 下面变量纯粹用于要删除或修改Vacation item前显示AlertView时，要把下一步具体删除修改动作的所需变量保存下来，等AlertView点击YES后才执行真正的删除修改
     NSString *_uploadString;

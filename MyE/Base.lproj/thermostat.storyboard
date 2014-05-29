@@ -500,7 +500,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0gi-Yv-Li8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="730" y="-3386"/>
+            <point key="canvasLocation" x="738" y="-3138"/>
         </scene>
         <!--MyE Staycation Detail View Controller - Staycation Detail-->
         <scene sceneID="DAj-Mt-qVk">
@@ -783,7 +783,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5uk-rP-KWa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1775" y="-1368"/>
+            <point key="canvasLocation" x="1783" y="-1912"/>
         </scene>
         <!--MyE Vacation Master View Controller - Vacation-->
         <scene sceneID="ZGO-2h-F7M">
@@ -871,7 +871,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bn5-Mv-CWR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="730" y="-1739"/>
+            <point key="canvasLocation" x="738" y="-2283"/>
         </scene>
         <!--MyE Vacation Detail View Controller - Vacation Detail-->
         <scene sceneID="1bI-IT-s1T">
@@ -1101,7 +1101,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Cd-cu-R1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1249" y="-1938"/>
+            <point key="canvasLocation" x="1257" y="-2482"/>
         </scene>
         <!--MyE Vacation Edit From Staycation View Controller - Vacation Detail-->
         <scene sceneID="tux-8R-SJD">
@@ -1329,7 +1329,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="us7-zb-gFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2362" y="-1368"/>
+            <point key="canvasLocation" x="2370" y="-1912"/>
         </scene>
         <!--MyE Staycation Edit From Vacation View Controller - Staycation Detail-->
         <scene sceneID="gzf-JF-bqz">
@@ -1610,7 +1610,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zva-Gy-RXL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1827" y="-1938"/>
+            <point key="canvasLocation" x="1835" y="-2482"/>
         </scene>
         <!--MyE Special Days Schedule View Controller - Weekly-->
         <scene sceneID="TJu-Bk-0PX">
@@ -1733,7 +1733,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2ZO-Ai-jyx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2282" y="-2794"/>
+            <point key="canvasLocation" x="1402" y="-3378"/>
         </scene>
     </scenes>
     <resources>
