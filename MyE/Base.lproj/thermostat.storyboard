@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar Controller - t test-->
         <scene sceneID="2FB-Ym-wbs">
             <objects>
-                <tabBarController storyboardIdentifier="tab_bar_controller" definesPresentationContext="YES" id="4Rz-pZ-M3x" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tab_bar_controller" title="t test" definesPresentationContext="YES" id="4Rz-pZ-M3x" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="cnw-1Z-2GB"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -507,7 +507,7 @@
             <objects>
                 <tableViewController id="RnK-LG-ZtN" customClass="MyEStaycationDetailViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="emN-R8-5iN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -790,7 +790,7 @@
             <objects>
                 <tableViewController title="Vacation" id="AEP-kn-uSJ" customClass="MyEVacationMasterViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="lkD-HB-8m6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -866,8 +866,10 @@
                             <outlet property="delegate" destination="AEP-kn-uSJ" id="01h-zi-CRF"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" tag="2" title="Vacation" image="tab-vacation.png" id="gnr-SK-YRt"/>
-                    <navigationItem key="navigationItem" id="AVp-pb-xvb"/>
+                    <navigationItem key="navigationItem" title="Vacation" id="AVp-pb-xvb"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bn5-Mv-CWR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -878,7 +880,7 @@
             <objects>
                 <tableViewController id="EWt-S8-5km" customClass="MyEVacationDetailViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="2o9-EK-DgQ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>

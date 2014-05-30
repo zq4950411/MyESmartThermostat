@@ -97,9 +97,7 @@
 - (IBAction)goAlerts:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     MyEUsageStatsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"Alerts"];
-    
-    // 	温控器所有二级控制页面（Dashboard, Next24, Weekly, etc），标题都采用该温控器的别名。
-    self.title = MainDelegate.terminalData.tName;
+
     NSLog(@"MainDelegate.thermostatData.tName = %@", MainDelegate.terminalData.tName);
     vc.fromHome = YES;
     [self.navigationController pushViewController:vc animated:YES];
@@ -108,14 +106,13 @@
 - (IBAction)goThermostat:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"thermostat" bundle:nil];
     UITabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tab_bar_controller"];
-    
     // 	温控器所有二级控制页面（Dashboard, Next24, Weekly, etc），标题都采用该温控器的别名。
-    self.title = MainDelegate.terminalData.tName;
+    self.navigationController.title = MainDelegate.terminalData.tName;
+    vc.navigationController.title = MainDelegate.terminalData.tName;
+    vc.title = MainDelegate.terminalData.tName;
     NSLog(@"MainDelegate.thermostatData.tName = %@", MainDelegate.terminalData.tName);
-
+    
     [self.navigationController pushViewController:vc animated:YES];
-    
-    
 }
 
 #pragma mark -
