@@ -27,9 +27,9 @@
 #import "CDCircleOverlayView.h"
 
 // 定义圆环view外接矩形的左上角远点左边
-#define CIRCLE_ORIGIN_X 30
-#define CIRCLE_ORIGIN_Y 55
-#define CIRCLE_DIAMETER 260
+#define CIRCLE_ORIGIN_X 40
+#define CIRCLE_ORIGIN_Y 75
+#define CIRCLE_DIAMETER 240
 
 @interface MyEDashboardViewController ()
 - (void)configureView;
@@ -111,16 +111,16 @@
     _maxVal = 90;
     self.selectedSegment = 80;
     
-    self.circle = [[CDCircle alloc] initWithFrame:CGRectMake(CIRCLE_ORIGIN_X , CIRCLE_ORIGIN_Y, CIRCLE_DIAMETER, CIRCLE_DIAMETER) numberOfSegments:(360 / STEP_DEGREE) ringWidth:50.f];
+    self.circle = [[CDCircle alloc] initWithFrame:CGRectMake(CIRCLE_ORIGIN_X , CIRCLE_ORIGIN_Y, CIRCLE_DIAMETER, CIRCLE_DIAMETER) numberOfSegments:(360 / STEP_DEGREE) ringWidth:40.f];
     self.circle.dataSource = self;
     self.circle.delegate = self;
     CDCircleOverlayView *overlay = [[CDCircleOverlayView alloc] initWithCircle:self.circle];
     
     // 根据Circle位置,重新定义hold 标签的位置
-    CGRect bounds = CGRectMake(CIRCLE_ORIGIN_X + (self.circle.ringWidth + 20.0),
+    CGRect frame = CGRectMake(CIRCLE_ORIGIN_X + (self.circle.ringWidth + 20.0),
                                CIRCLE_ORIGIN_Y + (self.circle.ringWidth + 60.0),
                                self.holdRunLabel.frame.size.width,self.holdRunLabel.frame.size.height);
-    self.holdRunLabel.frame = bounds;
+    self.holdRunLabel.frame = frame;
     
     for (CDCircleThumb *thumb in self.circle.thumbs) {
         [thumb.iconView setHighlitedIconColor:[UIColor whiteColor]];
@@ -786,9 +786,10 @@
         [self.holdRunButton removeFromSuperview];
         self.holdRunButton = Nil;
     }
-    CGFloat diameter = CIRCLE_DIAMETER - (self.circle.ringWidth + 20.0) * 2.0;
-    CGRect bounds = CGRectMake(CIRCLE_ORIGIN_X + (self.circle.ringWidth + 20.0),
-                               CIRCLE_ORIGIN_Y + (self.circle.ringWidth + 20.0),
+    CGFloat margin = 10.0f;
+    CGFloat diameter = CIRCLE_DIAMETER - (self.circle.ringWidth + margin) * 2.0;
+    CGRect bounds = CGRectMake(CIRCLE_ORIGIN_X + (self.circle.ringWidth + margin),
+                               CIRCLE_ORIGIN_Y + (self.circle.ringWidth + margin),
                                diameter,diameter);
     NSLog(@"x=%f, y=%f, w=%f, h=%f", self.circle.bounds.origin.x, self.circle.bounds.origin.y, bounds.size.width, bounds
 .size.height);
@@ -813,9 +814,10 @@
             self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:20.0/255.0 green:25.0/255.0 blue:5.0/255.0 alpha:0.75].CGColor;
         }else
             self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:10.0/255.0 green:40.0/255.0 blue:45.0/255.0 alpha:0.75].CGColor;
-        //    self.holdRunButton.layer.shadowOffset = CGSizeMake(2.0f, 2.0f);
-        self.holdRunButton.layer.shadowRadius = 15.0f;
+        self.holdRunButton.layer.shadowOffset = CGSizeZero;//CGSizeMake(2.0f, 2.0f);
+        self.holdRunButton.layer.shadowRadius = 5.0f;
         self.holdRunButton.layer.shadowOpacity = 0.75f;
+        self.holdRunButton.layer.masksToBounds = NO;
         self.holdRunButton.layer.shadowPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height/2.0f startAngle:0 endAngle:2*M_PI clockwise:YES].CGPath;
         
         if (hold == HOLD_TYPE_TEMPORARY){
@@ -839,8 +841,13 @@
     
     // 用一个image做Highlighted背景
     UIGraphicsBeginImageContext(self.holdRunButton.bounds.size);
-    [self.holdRunButton.layer renderInContext:UIGraphicsGetCurrentContext()];
-    [[UIColor yellowColor] setFill];
+    if (type == 0) {
+        [[UIColor colorWithRed:230.0/255.0 green:125.0/255.0 blue:30.0/255.0 alpha:.50] setFill];
+    }else if( type == 1) {
+        [[UIColor colorWithRed:130.0/255.0 green:190.0/256 blue:60.0/255.0 alpha:0.5] setFill];
+    }else if( type == 2) {
+        [[UIColor colorWithRed:75.0/255.0 green:190.0/255.0 blue:215.0/255.0 alpha:0.5] setFill];
+    }
     UIBezierPath* bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height/2.0f -5 startAngle:0 endAngle:2*M_PI clockwise:YES];
     [bPath fill];
     UIImage *colorImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -849,7 +856,6 @@
     
     // 用一个image做Normal背景
     UIGraphicsBeginImageContext(self.holdRunButton.bounds.size);
-    [self.holdRunButton.layer renderInContext:UIGraphicsGetCurrentContext()];
     if (type == 0) {
         [[UIColor colorWithRed:230.0/255.0 green:125.0/255.0 blue:30.0/255.0 alpha:1.0] setFill];
     }else if( type == 1) {
@@ -857,7 +863,6 @@
     }else if( type == 2) {
         [[UIColor colorWithRed:75.0/255.0 green:190.0/255.0 blue:215.0/255.0 alpha:1.0] setFill];
     }
-    
     bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height/2.0f -5 startAngle:0 endAngle:2*M_PI clockwise:YES];
     [bPath fill];
     colorImage = UIGraphicsGetImageFromCurrentImageContext();

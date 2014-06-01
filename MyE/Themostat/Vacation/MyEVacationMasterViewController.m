@@ -86,6 +86,17 @@
     
     self.isRemoteControl = MainDelegate.terminalData.remote;
     self.title = MainDelegate.houseData.houseName;
+    
+    
+    
+    //初始化下拉视图
+    if (!_refreshHeaderView) {
+        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.tableView.frame.size.width, self.tableView.bounds.size.height)];
+        view.delegate = self;
+        [self.tableView addSubview:view];
+        _refreshHeaderView = view;
+    }
+    [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -161,11 +172,13 @@
 #pragma mark URL Loading System methods
 - (void) downloadModelFromServer
 {
-    if(HUD == nil) {
-        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        HUD.delegate = self;
-    } else
-        [HUD show:YES];
+    if (!_isRefreshing) {
+        if(HUD == nil) {
+            HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            HUD.delegate = self;
+        } else
+            [HUD show:YES];
+    }
     
     
     NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_VACATION_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
@@ -176,6 +189,12 @@
 
 // 响应下载上传
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    if (_isRefreshing) {
+        _isRefreshing = NO;
+        [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+    }else {
+        [HUD hide:YES];
+    }
     
     NSLog(@"Vacations JSON String from server is \n%@",string);
     if([name isEqualToString:VACATION_DOWNLOADER_NMAE]) {
@@ -244,8 +263,6 @@
             }
         }
     }
-    
-    [HUD hide:YES];
 }
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     
@@ -507,4 +524,26 @@
     
 }
 
+
+#pragma mark - UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+}
+
+#pragma mark - EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+    _isRefreshing = YES;
+    [self downloadModelFromServer];
+}
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+    return [NSDate date]; // should return date data source was last changed
+}
 @end

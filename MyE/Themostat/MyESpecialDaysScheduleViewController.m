@@ -25,6 +25,7 @@
 
 #define TOOBAR_ANIMATION_DURATION 0.5f
 @interface MyESpecialDaysScheduleViewController ()
+-(void)configureCircleButton;
 - (void)_restoreToLastUnchanged;
 - (void)_createModeEditingViewIfNecessary;
 - (void)_toggleModeEditingViewWithType:(ModeEditingViewType)typeOfEditing;
@@ -101,14 +102,8 @@
     
     _scheduleChangedByUserTouch = NO;
     
-//    [self.applyButton setImage:[UIImage imageNamed:@"apply.png"] forState:UIControlStateNormal];
-    self.applyButton.layer.cornerRadius = 45;//half of the width
-    self.applyButton.layer.borderColor=[UIColor blueColor].CGColor;
-    //    self.holdRunButton.layer.borderWidth=2.0f;
-    [self.applyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.applyButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-    self.applyButton.layer.backgroundColor = [UIColor colorWithRed:75.0/255.0 green:180.0/255.0 blue:200.0/255.0 alpha:1.0].CGColor;
-    //self.applyButton.enabled = NO;
+    [self configureCircleButton];
+
     
     self.currentDayId = 2;
     
@@ -828,6 +823,41 @@
 
 #pragma mark -
 #pragma mark private methods
+-(void)configureCircleButton
+{
+    self.applyButton.clipsToBounds = YES;
+    [self.applyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.applyButton setTitleColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
+    [self.applyButton.titleLabel setFont:[UIFont boldSystemFontOfSize:22]];
+    self.applyButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.applyButton.layer.cornerRadius = self.applyButton.frame.size.height/2;//half of the width
+    // 用一个image做Highlighted背景
+    UIGraphicsBeginImageContext(self.applyButton.bounds.size);
+    [DEFAULT_DARK_UI_COLOR setFill];
+    UIBezierPath* bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.applyButton.bounds.origin.x + self.applyButton.bounds.size.width/2.0, self.applyButton.bounds.origin.y + self.applyButton.bounds.size.height/2.0) radius:self.applyButton.bounds.size.width/2.0f startAngle:0 endAngle:2*M_PI clockwise:YES];
+    [bPath fill];
+    UIImage *colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.applyButton setBackgroundImage:colorImage forState:UIControlStateHighlighted];
+    
+    // 用一个image做Disabled背景
+    UIGraphicsBeginImageContext(self.applyButton.bounds.size);
+    [[UIColor lightGrayColor] setFill];
+    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.applyButton.bounds.origin.x + self.applyButton.bounds.size.width/2.0, self.applyButton.bounds.origin.y + self.applyButton.bounds.size.height/2.0) radius:self.applyButton.bounds.size.width/2.0f startAngle:0 endAngle:2*M_PI clockwise:YES];
+    [bPath fill];
+    colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.applyButton setBackgroundImage:colorImage forState:UIControlStateDisabled];
+    
+    // 用一个image做Normal背景
+    UIGraphicsBeginImageContext(self.applyButton.bounds.size);
+    [DEFAULT_UI_COLOR setFill];
+    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.applyButton.bounds.origin.x + self.applyButton.bounds.size.width/2.0, self.applyButton.bounds.origin.y + self.applyButton.bounds.size.height/2.0) radius:self.applyButton.bounds.size.width/2.0f startAngle:0 endAngle:2*M_PI clockwise:YES];
+    [bPath fill];
+    colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.applyButton setBackgroundImage:colorImage forState:UIControlStateNormal];
+}
 // 判定是否服务器相应正常，如果正常返回YES，如果服务器相应为-999/-998，
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。

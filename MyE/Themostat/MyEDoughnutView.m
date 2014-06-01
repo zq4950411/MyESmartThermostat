@@ -1066,7 +1066,7 @@ typedef enum {
 {    
     if([modeIdArray count] != NUM_SECTOR)
     {
-        //[NSException raise:@"Error in number of element" format:@"Number of color is not 48 in modes"];
+        [NSException raise:@"Error in number of element" format:@"Number of color is not 48 in modes"];
         return;
     }
     

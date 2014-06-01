@@ -22,6 +22,7 @@
 #import "MyEUtil.h"
 
 @interface MyENext24HrsScheduleViewController ()
+-(void)configureCircleButton;
 - (void)_restoreToLastUnchanged;
 //此处取得跨过当前时刻的半点的id，由于是next24小时，开始时刻始终处于第0个或第一个半点处，所以此处返回的sector id只能是0或1
 - (NSInteger)_sectorIdSpaningCurrentTime;
@@ -112,13 +113,19 @@
     [self.applyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.applyButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
     
-    [self.resetButton setImage:[UIImage imageNamed:@"reset.png"] forState:UIControlStateNormal];
-    [self.resetButton setImage:[UIImage imageNamed:@"reset_disabled.png"] forState:UIControlStateDisabled];
+
     
     self.applyButton.enabled = NO;
+    _scheduleChangedByUserTouch = NO;
+    
+    
+    
+    [self configureCircleButton];
     self.resetButton.enabled = NO;
     
-    _scheduleChangedByUserTouch = NO;
+    
+    
+    
     
     // 描绘本容器view的边界，以便于调试
     //        CALayer *theLayer= [self.view layer];
@@ -559,7 +566,41 @@
 }
 
 #pragma mark
-#pragma mark private method
+#pragma mark private methods
+-(void)configureCircleButton
+{
+    self.resetButton.clipsToBounds = YES;
+    [self.resetButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.resetButton setTitleColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
+    [self.resetButton.titleLabel setFont:[UIFont boldSystemFontOfSize:25]];
+    self.resetButton.layer.cornerRadius = self.resetButton.frame.size.height/2;//half of the width
+    // 用一个image做Highlighted背景
+    UIGraphicsBeginImageContext(self.resetButton.bounds.size);
+    [DEFAULT_DARK_UI_COLOR setFill];
+    UIBezierPath* bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.resetButton.bounds.origin.x + self.resetButton.bounds.size.width/2.0, self.resetButton.bounds.origin.y + self.resetButton.bounds.size.height/2.0) radius:self.resetButton.bounds.size.width/2.0f startAngle:0 endAngle:2*M_PI clockwise:YES];
+    [bPath fill];
+    UIImage *colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.resetButton setBackgroundImage:colorImage forState:UIControlStateHighlighted];
+    
+    // 用一个image做Disabled背景
+    UIGraphicsBeginImageContext(self.resetButton.bounds.size);
+    [[UIColor lightGrayColor] setFill];
+    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.resetButton.bounds.origin.x + self.resetButton.bounds.size.width/2.0, self.resetButton.bounds.origin.y + self.resetButton.bounds.size.height/2.0) radius:self.resetButton.bounds.size.width/2.0f startAngle:0 endAngle:2*M_PI clockwise:YES];
+    [bPath fill];
+    colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.resetButton setBackgroundImage:colorImage forState:UIControlStateDisabled];
+    
+    // 用一个image做Normal背景
+    UIGraphicsBeginImageContext(self.resetButton.bounds.size);
+    [DEFAULT_UI_COLOR setFill];
+    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.resetButton.bounds.origin.x + self.resetButton.bounds.size.width/2.0, self.resetButton.bounds.origin.y + self.resetButton.bounds.size.height/2.0) radius:self.resetButton.bounds.size.width/2.0f startAngle:0 endAngle:2*M_PI clockwise:YES];
+    [bPath fill];
+    colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.resetButton setBackgroundImage:colorImage forState:UIControlStateNormal];
+}
 - (void)_restoreToLastUnchanged {
     self.next24hrsModel = [self.next24hrsModelCache copy];//将主数据模型整体恢复为缓冲数据模型里面保持的老的数据，这里不需要恢复Modes部分，所以注释了
     NSMutableArray *holdArray = [self.next24hrsModel holdArray];

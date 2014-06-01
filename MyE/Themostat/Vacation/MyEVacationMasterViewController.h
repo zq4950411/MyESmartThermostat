@@ -14,7 +14,7 @@
 @class MyEVacationListData;
 @class MyETipViewController;
 
-@interface MyEVacationMasterViewController : UITableViewController <MyEDataLoaderDelegate, MyEVacationDetailViewControllerDelegate, MyEStaycationDetailViewControllerDelegate, MBProgressHUDDelegate>{
+@interface MyEVacationMasterViewController : UITableViewController <MyEDataLoaderDelegate, MyEVacationDetailViewControllerDelegate, MyEStaycationDetailViewControllerDelegate, MBProgressHUDDelegate,EGORefreshTableHeaderDelegate>{
     MyEVacationListData *_vacationsModel;
 
     
@@ -29,6 +29,9 @@
     // 每次用户点击一个条目时、进入detail之前，就要记录下面两个变量
     UITableView *_tableView;//这个其实不用记录，就是本VC中惟一的tableView
     NSIndexPath *_indexPath;
+    
+    EGORefreshTableHeaderView *_refreshHeaderView;
+    BOOL _isRefreshing;
 }
 @property (copy, nonatomic) NSString *userId;
 @property (nonatomic) NSInteger houseId;

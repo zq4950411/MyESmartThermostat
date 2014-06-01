@@ -24,6 +24,7 @@
 #define TOOBAR_ANIMATION_DURATION 0.5f
 
 @interface MyEWeeklyScheduleViewController ()
+-(void)configureCircleButton;
 - (void)_restoreToLastUnchanged;
 - (void)_createModeEditingViewIfNecessary;
 - (void)_toggleModeEditingViewWithType:(ModeEditingViewType)typeOfEditing;
@@ -100,12 +101,7 @@
     
     _scheduleChangedByUserTouch = NO;
     
-    [self.applyButton setImage:[UIImage imageNamed:@"apply.png"] forState:UIControlStateNormal];
-    //self.applyButton.enabled = NO;
-    
-    [self.resetButton setImage:[UIImage imageNamed:@"reset_halfcircle.png"] forState:UIControlStateNormal];
-    [self.resetButton setImage:[UIImage imageNamed:@"reset_halfcircle_disabled.png"] forState:UIControlStateDisabled];
-    self.resetButton.enabled = NO;
+
     
     NSDate *aDate = [NSDate date];
 	NSCalendar *gregorian = [NSCalendar currentCalendar];
@@ -115,7 +111,9 @@
     
     [self.centerContainerView insertSubview:_doughnutView atIndex:0];
     [self setIsRemoteControl:MainDelegate.terminalData.remote];// 重新调用一次，因为有可能在外部第一次设置isRemoteControl]的时候，调用下面的setIsRemoteControl:函数，但那时候View组件还没加载生成完成，那么就可能不能正确设置subviews的可见性。
-
+    
+    [self configureCircleButton];
+    self.resetButton.enabled = NO;
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -707,6 +705,86 @@
 
 #pragma mark
 #pragma mark privates methods
+-(void)configureCircleButton
+{
+//    [self.applyButton setImage:[UIImage imageNamed:@"apply.png"] forState:UIControlStateNormal];
+    //self.applyButton.enabled = NO;
+    
+//    [self.resetButton setImage:[UIImage imageNamed:@"reset_halfcircle.png"] forState:UIControlStateNormal];
+//    [self.resetButton setImage:[UIImage imageNamed:@"reset_halfcircle_disabled.png"] forState:UIControlStateDisabled];
+    
+    
+    self.applyButton.clipsToBounds = YES;
+    [self.applyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.applyButton setTitleColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
+    [self.applyButton.titleLabel setFont:[UIFont boldSystemFontOfSize:22]];
+    self.applyButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    // 用一个image做Highlighted背景
+    UIGraphicsBeginImageContext(self.applyButton.bounds.size);
+    [self.applyButton.layer renderInContext:UIGraphicsGetCurrentContext()];
+    [DEFAULT_DARK_UI_COLOR setFill];
+    UIBezierPath* bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.applyButton.bounds.origin.x + self.applyButton.bounds.size.width/2.0, self.applyButton.bounds.origin.y + self.applyButton.bounds.size.height) radius:self.applyButton.bounds.size.width/2.0f startAngle:0 endAngle:M_PI clockwise:NO];
+    [bPath fill];
+    UIImage *colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.applyButton setBackgroundImage:colorImage forState:UIControlStateHighlighted];
+    
+    // 用一个image做Disabled背景
+    UIGraphicsBeginImageContext(self.applyButton.bounds.size);
+    [self.applyButton.layer renderInContext:UIGraphicsGetCurrentContext()];
+    [[UIColor lightGrayColor] setFill];
+    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.applyButton.bounds.origin.x + self.applyButton.bounds.size.width/2.0, self.applyButton.bounds.origin.y + self.applyButton.bounds.size.height) radius:self.applyButton.bounds.size.width/2.0f startAngle:0 endAngle:M_PI clockwise:NO];
+    [bPath fill];
+    colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.applyButton setBackgroundImage:colorImage forState:UIControlStateDisabled];
+    
+    // 用一个image做Normal背景
+    UIGraphicsBeginImageContext(self.applyButton.bounds.size);
+    [self.applyButton.layer renderInContext:UIGraphicsGetCurrentContext()];
+    [DEFAULT_UI_COLOR setFill];
+    
+    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.applyButton.bounds.origin.x + self.applyButton.bounds.size.width/2.0, self.applyButton.bounds.origin.y + self.applyButton.bounds.size.height) radius:self.applyButton.bounds.size.width/2.0f startAngle:0 endAngle:M_PI clockwise:NO];
+    [bPath fill];
+    colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.applyButton setBackgroundImage:colorImage forState:UIControlStateNormal];
+    
+    
+    
+    self.resetButton.clipsToBounds = YES;
+    [self.resetButton setTitleColor:DEFAULT_DARK_UI_COLOR forState:UIControlStateNormal];
+    [self.resetButton setTitleColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
+    [self.resetButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    [self.resetButton.titleLabel setFont:[UIFont boldSystemFontOfSize:22]];
+    self.resetButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    // 用一个image做Highlighted背景
+    UIGraphicsBeginImageContext(self.resetButton.bounds.size);
+    [DEFAULT_DARK_UI_COLOR setFill];
+    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.resetButton.bounds.origin.x + self.resetButton.bounds.size.width/2.0, self.resetButton.bounds.origin.y) radius:self.resetButton.bounds.size.width/2.0f startAngle:0 endAngle:M_PI clockwise:YES];
+    [bPath fill];
+    colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.resetButton setBackgroundImage:colorImage forState:UIControlStateHighlighted];
+    
+    // 用一个image做Disabled背景
+    UIGraphicsBeginImageContext(self.resetButton.bounds.size);
+    [[UIColor lightGrayColor] setFill];
+    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.resetButton.bounds.origin.x + self.resetButton.bounds.size.width/2.0, self.resetButton.bounds.origin.y) radius:self.resetButton.bounds.size.width/2.0f startAngle:0 endAngle:M_PI clockwise:YES];
+    [bPath fill];
+    colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.resetButton setBackgroundImage:colorImage forState:UIControlStateDisabled];
+    
+    // 用一个image做Normal背景
+    UIGraphicsBeginImageContext(self.resetButton.bounds.size);
+    [DEFAULT_DARK_UI_COLOR setStroke];
+    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.resetButton.bounds.origin.x + self.resetButton.bounds.size.width/2.0, self.resetButton.bounds.origin.y) radius:self.resetButton.bounds.size.width/2.0f startAngle:0 endAngle:M_PI clockwise:YES];
+    [bPath stroke];
+    colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.resetButton setBackgroundImage:colorImage forState:UIControlStateNormal];
+}
 - (void)_restoreToLastUnchanged{
     //self.weeklyModel = [self.weeklyModelCache copy];//将主数据模型整体恢复为缓冲数据模型里面保持的老的数据，这里不需要恢复Modes部分，所以注释了
     self.dataModel.dayItems = [[NSMutableArray alloc] initWithArray:self.weeklyModelCache.dayItems copyItems:YES];//将主数据模型的Schedule(DayItems部分)恢复为缓冲数据模型里面保持的老的数据
