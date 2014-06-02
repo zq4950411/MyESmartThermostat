@@ -103,16 +103,16 @@
     [self.centerContainerView insertSubview:_doughnutView atIndex:0];
     
     
-    [self.useWeeklyButton setBackgroundImage:[UIImage imageNamed:@"buttonbg.png"] forState:UIControlStateNormal];
-    [self.useWeeklyButton setBackgroundImage:[UIImage imageNamed:@"buttonbgdisabled.png"] forState:UIControlStateDisabled];
-    [self.useWeeklyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.useWeeklyButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-    
-    [self.applyButton setBackgroundImage:[UIImage imageNamed:@"buttonbg.png"] forState:UIControlStateNormal];
-    [self.applyButton setBackgroundImage:[UIImage imageNamed:@"buttonbgdisabled.png"] forState:UIControlStateDisabled];
-    [self.applyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.applyButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-    
+
+    [self.useWeeklyButton setStyleType:ACPButtonOK];
+    [self.useWeeklyButton setStyle:[UIColor clearColor] andBottomColor:[UIColor clearColor]];
+    [self.useWeeklyButton setTitleColor:DEFAULT_UI_COLOR forState:UIControlStateNormal];
+    [self.useWeeklyButton setTitleColor:DEFAULT_DARK_UI_COLOR forState:UIControlStateHighlighted];
+
+    [self.applyButton setStyleType:ACPButtonOK];
+    [self.applyButton setStyle:[UIColor clearColor] andBottomColor:[UIColor clearColor]];
+    [self.applyButton setTitleColor:DEFAULT_UI_COLOR forState:UIControlStateNormal];
+    [self.applyButton setTitleColor:DEFAULT_DARK_UI_COLOR forState:UIControlStateHighlighted];
 
     
     self.applyButton.enabled = NO;

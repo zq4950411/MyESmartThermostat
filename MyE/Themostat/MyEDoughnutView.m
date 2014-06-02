@@ -560,11 +560,14 @@ typedef enum {
     CGAffineTransform xform = CGAffineTransformMakeRotation(angle);
     sectorView.transform = xform;
     
+    /* uncomment to add shadow for SectorView
+     //现在 为了扁平化, 现在不添加阴影了.
     // 添加子View的阴影,每个sector的X方向阴影为0
     [[sectorView layer] setShadowOffset:CGSizeMake(0*sin(angle+M_PI_4), 3*cos(angle+M_PI_4))];
     [[sectorView layer] setShadowRadius:1];
     [[sectorView layer] setShadowOpacity:1]; 
     [[sectorView layer] setShadowColor:[UIColor grayColor].CGColor];
+     */
         
     return sectorView;
     
@@ -603,7 +606,8 @@ typedef enum {
     CGContextSetShouldAntialias(context, YES);
     CGContextSetAllowsAntialiasing(context, YES);
     
-    
+    /* uncomment to add 3D twin ring for DoughtView
+     这是绘制用于增加立体感的两层圆环的正式代码, 现在我们采用扁平化, 所以不要这两个圆环了
     // ========================= 1 绘制外层圆环  ===============================
     CGContextSaveGState(context);
     
@@ -677,8 +681,9 @@ typedef enum {
     CGContextDrawLinearGradient (context, myGradient, myStartPoint, myEndPoint, 0);
     CGGradientRelease(myGradient);
     CGContextRestoreGState(context);
+     */
     
-    /*
+    /* 这一部分是测试代码
      // 测试添加一个圆盘作为内部表盘，但这个圆盘会遮住底下的view本身的layer上的内容。
      // 所以这里把表盘绘制到下面的drawRect:函数里面，也就是绘制到了底下的view本身的layer上。
      CGContextSaveGState(context);

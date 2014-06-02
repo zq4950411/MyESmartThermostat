@@ -37,7 +37,7 @@
         [self createOrUpdateThumbScrollViewIfNecessary];
         self.backgroundColor = [UIColor lightGrayColor];//测试用
         
-        [[self layer] setCornerRadius:5];
+        [[self layer] setCornerRadius:0];//设则圆角半径, 现在为了扁平化, 不搞圆角了
 
     }
     return self;
