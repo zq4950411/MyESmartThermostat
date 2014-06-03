@@ -85,8 +85,8 @@
 
     
     self.isRemoteControl = MainDelegate.terminalData.remote;
-    self.title = MainDelegate.houseData.houseName;
-    
+    self.navigationController.title = MainDelegate.houseData.houseName;
+    MainDelegate.window.rootViewController.title=MainDelegate.houseData.houseName;
     
     
     //初始化下拉视图

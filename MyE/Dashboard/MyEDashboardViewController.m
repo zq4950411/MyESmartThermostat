@@ -141,7 +141,6 @@
 {
     [super viewWillAppear:animated];
     
-    self.parentViewController.navigationItem.title = @"Thermostat";
     self.parentViewController.navigationItem.rightBarButtonItems = nil;
     
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]

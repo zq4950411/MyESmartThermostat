@@ -239,7 +239,6 @@
 		C3FB3BD8192DC6460039D052 /* MyEWeeklyModeEditingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3BC5192DC6460039D052 /* MyEWeeklyModeEditingView.m */; };
 		C3FB3BD9192DC6460039D052 /* MyEWeeklyScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3BC7192DC6460039D052 /* MyEWeeklyScheduleViewController.m */; };
 		C3FB3BDA192DC6460039D052 /* UISegmentedControl+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3BC9192DC6460039D052 /* UISegmentedControl+Extension.m */; };
-		C3FB3C0A192F10C10039D052 /* Others.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3FB3C08192F10C10039D052 /* Others.storyboard */; };
 		C3FB3C20192F1F700039D052 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3FB3C1D192F1E6B0039D052 /* libCorePlot-CocoaTouch.a */; };
 		C3FDB4AD18FA403E009B423D /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB45C18FA403E009B423D /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3FDB4AE18FA403E009B423D /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB45F18FA403E009B423D /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -774,7 +773,6 @@
 		C3FB3BC7192DC6460039D052 /* MyEWeeklyScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEWeeklyScheduleViewController.m; sourceTree = "<group>"; };
 		C3FB3BC8192DC6460039D052 /* UISegmentedControl+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISegmentedControl+Extension.h"; sourceTree = "<group>"; };
 		C3FB3BC9192DC6460039D052 /* UISegmentedControl+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISegmentedControl+Extension.m"; sourceTree = "<group>"; };
-		C3FB3C09192F10C10039D052 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Others.storyboard; sourceTree = "<group>"; };
 		C3FB3C16192F1E690039D052 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "Framework/LIB/Core-Plot/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		C3FDB45B18FA403E009B423D /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		C3FDB45C18FA403E009B423D /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
@@ -1697,7 +1695,6 @@
 				C39D1C3419208C540009F2E2 /* thermostat.storyboard */,
 				8CA52F98192307E800D40EDD /* Event.storyboard */,
 				8C23AB291924B7E100821596 /* Setting.storyboard */,
-				C3FB3C08192F10C10039D052 /* Others.storyboard */,
 			);
 			name = Storyboards;
 			path = MyE/Base.lproj;
@@ -2299,7 +2296,6 @@
 				C3AE7F0218E13B4D000AA5FC /* Switch.storyboard in Resources */,
 				8C23AB2B1924B7E100821596 /* Setting.storyboard in Resources */,
 				C3FDB7D718FA7F65009B423D /* ServerViewController.xib in Resources */,
-				C3FB3C0A192F10C10039D052 /* Others.storyboard in Resources */,
 				C3FDB6EE18FA640B009B423D /* DownAccessory.png in Resources */,
 				C3FDB70618FA6460009B423D /* RepwdViewController.xib in Resources */,
 				C3FDB4E618FA6044009B423D /* HouseBlankView.xib in Resources */,
@@ -2643,14 +2639,6 @@
 				C3F61AA718DFE64C00DEE477 /* Base */,
 			);
 			name = MainStoryboard.storyboard;
-			sourceTree = "<group>";
-		};
-		C3FB3C08192F10C10039D052 /* Others.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C3FB3C09192F10C10039D052 /* Base */,
-			);
-			name = Others.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

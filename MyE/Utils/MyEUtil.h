@@ -29,11 +29,11 @@
 //#define URL_FOR_SETTINGS_SAVE @"http://www.myenergydomain.com/setting_save.do"
 
 #define GetServer [ServerUtils getServierIp]
-#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
+//#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
 
 //#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
 
-//#define GetRequst(API) [@"http://182.107.125.37:65533" stringByAppendingFormat:@"%@",API]
+#define GetRequst(API) [@"http://220.176.182.190:65533" stringByAppendingFormat:@"%@",API]
 
 #define URL_FOR_LOGIN @"/user/userJson_login_phone.do"
 #define URL_FOR_ADD_ADDRESS @"/house_add4mobile.do"
@@ -154,6 +154,7 @@
 
 // 定义默认无效颜色为空
 #define DEFAULT_VOID_COLOR [UIColor clearColor]
+#define DEFAULT_LIGHT_UI_COLOR [UIColor colorWithRed:75.0/255.0 green:200.0/255.0 blue:230.0/255.0 alpha:1.0]
 #define DEFAULT_UI_COLOR [UIColor colorWithRed:75.0/255.0 green:190.0/255.0 blue:215.0/255.0 alpha:1.0]
 #define DEFAULT_DARK_UI_COLOR [UIColor colorWithRed:75.0/255.0 green:180.0/255.0 blue:200.0/255.0 alpha:1.0]
 
