@@ -1361,7 +1361,7 @@
                                             <color key="textColor" red="0.2196078431372549" green="0.32941176470588235" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="07576AB1-877D-43B7-83A3-E6D038DD4748" id="cg7-Zh-qTW">
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="BAE31CDE-C75C-40D1-B965-D91CC79FB716" id="cg7-Zh-qTW">
                                             <rect key="frame" x="15" y="6" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
@@ -1394,7 +1394,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <tabBarItem key="tabBarItem" tag="4" title="Switch" image="E12E9056-2167-4E60-8A3D-0D36E0280007" id="Cv9-VA-5iG"/>
+                    <tabBarItem key="tabBarItem" tag="4" title="Switch" image="151A64A0-EB27-475C-987B-17EA7922148C" id="Cv9-VA-5iG"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hiy-h4-WwN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1507,14 +1507,14 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Power: 1000W" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hsb-Nj-3mk">
-                                <rect key="frame" x="12" y="40" width="296" height="28"/>
+                                <rect key="frame" x="58" y="50" width="208" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O4t-nY-A0Q">
-                                <rect key="frame" x="73" y="8" width="179" height="30"/>
+                                <rect key="frame" x="71" y="20" width="179" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Terminal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1524,7 +1524,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7Bc-mg-y7P">
-                                <rect key="frame" x="12" y="82" width="296" height="29"/>
+                                <rect key="frame" x="12" y="83" width="296" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Past 24 Hrs"/>
@@ -1632,7 +1632,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="07576AB1-877D-43B7-83A3-E6D038DD4748" width="30" height="30">
+        <image name="151A64A0-EB27-475C-987B-17EA7922148C" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -1768,8 +1768,7 @@ AAACAQAAAAAAAAA/AAAAAAAAAAAAAAAAAAAcyg
         <image name="AlertTile" width="100" height="100"/>
         <image name="Alerts" width="100" height="100"/>
         <image name="Alerts-01" width="60" height="60"/>
-        <image name="Devices" width="100" height="100"/>
-        <image name="E12E9056-2167-4E60-8A3D-0D36E0280007" width="30" height="30">
+        <image name="BAE31CDE-C75C-40D1-B965-D91CC79FB716" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -1899,6 +1898,7 @@ G/ocAxwWHBocLRw4HEEcRhxOHFEcVhxlHGkccBx4HIUcihyMHI4ckxybHJ4coxyrHK4cwBzDHMgAAAAA
 AAACAQAAAAAAAAA/AAAAAAAAAAAAAAAAAAAcyg
 </mutableData>
         </image>
+        <image name="Devices" width="100" height="100"/>
         <image name="Events" width="60" height="60"/>
         <image name="Exit" width="60" height="60"/>
         <image name="Home" width="100" height="100"/>
