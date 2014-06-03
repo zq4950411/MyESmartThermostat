@@ -21,7 +21,6 @@
                         <segue destination="wsk-OD-Yur" kind="relationship" relationship="viewControllers" id="wjI-JF-EMA"/>
                         <segue destination="dhV-t3-6No" kind="relationship" relationship="viewControllers" id="MVE-s9-FqT"/>
                         <segue destination="XX0-ez-qnw" kind="relationship" relationship="viewControllers" id="rDb-en-iT8"/>
-                        <segue destination="atr-Rb-FZC" kind="relationship" relationship="viewControllers" id="lgg-WF-d4I"/>
                         <segue destination="AEP-kn-uSJ" kind="relationship" relationship="viewControllers" id="zBp-nC-8vb"/>
                     </connections>
                 </tabBarController>
@@ -1619,13 +1618,13 @@
         <!--MyE Special Days Schedule View Controller - Weekly-->
         <scene sceneID="TJu-Bk-0PX">
             <objects>
-                <viewController title="Weekly" id="atr-Rb-FZC" customClass="MyESpecialDaysScheduleViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ThermostatSpecialDays" title="Weekly" id="atr-Rb-FZC" customClass="MyESpecialDaysScheduleViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TVZ-tt-37u"/>
                         <viewControllerLayoutGuide type="bottom" id="v2x-74-r9l"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="20B-Re-WUG">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTo-7D-Lzg">
