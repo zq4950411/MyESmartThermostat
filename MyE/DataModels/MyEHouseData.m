@@ -23,8 +23,6 @@
         _terminals = [newList mutableCopy];
     }
 }
-
-
 - (MyEHouseData *)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
         self.houseId = [[dictionary objectForKey:@"houseId"] intValue];

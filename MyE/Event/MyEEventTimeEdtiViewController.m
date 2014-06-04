@@ -21,8 +21,11 @@
 {
     [super viewDidLoad];
     self.weekBtns.delegate = self;
-    [self changeDatePickerModeAndBtnWithTag:100]; //100是第一个btn的tag值
     _newTime = [self.conditionTime copy];
+    if (_newTime.timeType == 1) { //这个说明是日期形式
+        [self changeDatePickerModeAndBtnWithTag:100];
+    }else
+        [self changeDatePickerModeAndBtnWithTag:101];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,15 +69,34 @@
         dateBtn.selected = YES;
         timeBtn.selected = NO;
         self.weekBtns.hidden = YES;
-        self.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
-        self.datePicker.minimumDate = [NSDate date];
-        self.datePicker.maximumDate = [[NSDate alloc] initWithTimeIntervalSinceNow:60*60*24*30*2];  //显示两个月之后的日期
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
+            self.datePicker.minimumDate = [NSDate date];
+            self.datePicker.maximumDate = [[NSDate alloc] initWithTimeIntervalSinceNow:60*60*24*30*2];  //显示两个月之后的日期
+            if (self.isAdd) {
+                [self.datePicker setDate:[NSDate date] animated:YES];
+            }else{
+                NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"MM/dd/yyyy HH:mm"]; // 这里是用大写的 H
+                NSDate *date = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@ %i:%i",_newTime.date,_newTime.hour,_newTime.minute]];
+                [self.datePicker setDate:date animated:YES];
+            }
+        });
     }else{
         _newTime.timeType = 2;
         dateBtn.selected = NO;
         timeBtn.selected = YES;
         self.weekBtns.hidden = NO;
         self.datePicker.datePickerMode = UIDatePickerModeTime;
+        if (self.isAdd) {
+            [self.datePicker setDate:[[NSDate alloc] initWithTimeIntervalSinceNow:60*60*24]];
+        }else{
+            NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"HH:mm"]; // 这里是用大写的 H
+            NSDate *date = [dateFormatter dateFromString:[NSString stringWithFormat:@"%i:%i",_newTime.hour,_newTime.minute]];
+            [self.datePicker setDate:date animated:YES];
+            self.weekBtns.selectedButtons = [_newTime.weeks mutableCopy];
+        }
     }
     self.datePicker.minuteInterval = 10;
 }
@@ -97,6 +119,7 @@
                 [self.eventDetail.timeConditions insertObject:_newTime atIndex:i];
             }
         }
+        [self.navigationController popViewControllerAnimated:YES];
     }else
         [SVProgressHUD showErrorWithStatus:@"Error!"];
 }

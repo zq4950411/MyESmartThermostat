@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "SBJson.h"
+#import "MyEInstructions.h"
 @interface MyEEventInfo : NSObject
 @property (nonatomic, copy) NSString *sceneName;
 @property (nonatomic, assign) NSInteger sceneId;
@@ -32,6 +33,8 @@
 @property (nonatomic, assign) NSInteger sortFlag;  //是否按序执行
 -(MyEEventDetail *)initWithJsonString:(NSString *)string;
 -(MyEEventDetail *)initWithDictionary:(NSDictionary *)dic;
+-(NSArray *)getDeviceType;
+-(NSArray *)getTypeDevices;
 @end
 
 @interface MyEEventDevice : NSObject
@@ -50,12 +53,24 @@
 @end
 
 @interface MyEEventDeviceAdd : NSObject
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, assign) NSInteger deviceId;
-@property (nonatomic, assign) NSInteger terminalType;
-@property (nonatomic, assign) NSInteger typeId; //设备类型：2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器 8:智能开关   0：温控器
+@property (nonatomic, copy) NSString *typeName;
+@property (nonatomic, assign) NSInteger typeId;
+@property (nonatomic, strong) NSMutableArray *devices;
+@end
 
--(MyEEventDeviceAdd *)initWithDictionary:(NSDictionary *)dic;
+@interface MyEEventDeviceInstructions : NSObject
+@property (nonatomic, assign) NSInteger controlMode;  //1：heat，2：cool，3：auto，4：emgHeat，5：off
+@property (nonatomic, assign) NSInteger point;  //55-90
+@property (nonatomic, assign) NSInteger fan;  //0：auto，1：on
+@property (nonatomic, copy) NSString *channel;  //控制路数（通用控制器和开关可用）分别代表channel的开关状态，1为第一个channel的状态，
+@property (nonatomic, assign) NSInteger controlStatus; //当前的控制状态，插座显示的开/关的值为：on=1，off=0、智控星表示控制指令的id号、
+@property (nonatomic, strong) NSMutableArray *instructions;
+-(MyEEventDeviceInstructions *)initWithJsonString:(NSString *)string;
+-(MyEEventDeviceInstructions *)initWithDictionary:(NSDictionary *)dic;
+-(NSArray *)controlModeArray;
+-(NSArray *)pointArray;
+-(NSArray *)controlStatusArray;
+-(NSArray *)fanMode;
 @end
 
 @interface MyEEventConditionCustom : NSObject<NSCopying>

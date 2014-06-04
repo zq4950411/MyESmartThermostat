@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MyEDataLoader.h"
+#import "MyEEventInfo.h"
+#import "MyEUtil.h"
+#import "MBProgressHUD.h"
+#import "SVProgressHUD.h"
+#import "DXAlertView.h"
 @interface MyEEventAddOrEditViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,MyEDataLoaderDelegate,UIAlertViewDelegate>{
 }
 
@@ -19,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *deviceTable;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIButton *sortBtn;
-@property (weak, nonatomic) IBOutlet UIButton *haha;
+@property (weak, nonatomic) IBOutlet UIButton *addBtn;
+@property (weak, nonatomic) IBOutlet UIButton *topBtn;
 
 @end

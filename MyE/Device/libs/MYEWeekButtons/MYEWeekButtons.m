@@ -20,7 +20,9 @@
 - (void)drawRect:(CGRect)rect
 {
     NSLog(@"draw rect");
-    self.selectedButtons = [NSMutableArray array];
+    if (self.selectedButtons == nil) {
+        self.selectedButtons = [NSMutableArray array];
+    }
     self.backgroundColor = [UIColor clearColor]; //背景透明
     [self setButtonsInViewWithFrame:rect];
 }

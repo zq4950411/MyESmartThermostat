@@ -26,7 +26,7 @@
         self.data = data;
         self.selectRow = row;
         //定制背景view
-        self.frame = view.bounds;
+        self.frame = view.window.bounds;
         self.backgroundColor = [UIColor clearColor];  //这里背景要设定颜色，选定透明色
         self.tag = tag;
         //topView 主要接收点击事件，并且半透明，可以看到遮盖的背景
@@ -68,13 +68,15 @@
         
         [_contentView sizeToFit];
         [self addSubview:_contentView];
+        SIZEDetail(_pickerView.frame);
+        SIZEDetail(_contentView.frame);
     }
     return self;
 }
 
 #pragma mark - animate methods
 -(void)showInView:(UIView *)view{
-    [view addSubview:self];
+    [view.window addSubview:self];
     [_pickerView reloadAllComponents];
     [_pickerView selectRow:_selectRow inComponent:0 animated:YES];
     [UIView animateWithDuration:0.3 animations:^{

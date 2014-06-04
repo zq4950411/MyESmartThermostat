@@ -103,6 +103,7 @@
 #define URL_FOR_UNIVERSAL_CONTROLLER_VIEW @"/universalcontroller_view.do"
 #define URL_FOR_UNIVERSAL_CONTROLLER_SAVE @"/universalcontroller_save.do"
 
+#define URL_FOR_SCENES_CONDITION_CUSTOM @"/scenes_saveSceneCustomParameter.do"
 #define URL_FOR_SCENES_CONDITION_TIME @"/scenes_saveSceneTimeParameter.do"
 #define URL_FOR_SCENES_DETAIL @"/scenes_findSceneDeviceParameterList.do"
 #define URL_FOR_SCENES_LIST @"/scenes_findSceneList.do"

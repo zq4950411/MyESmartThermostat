@@ -11,9 +11,9 @@
 @implementation MyEEventInfo
 -(id)init{
     if (self = [super init]) {
-        self.sceneName = @"New Event";  //初始化给这个名字
+        self.sceneName = @"";  //初始化给这个名字
         self.sceneId = -1;  //这个是接口明文规定的，新增场景是，ID为0
-        self.type = 0;
+        self.type = 1;  //0是不可应用，1是可应用
         self.timeTriggerFlag = 0;
         self.conditionTriggerFlag = 0;
     }
@@ -51,6 +51,15 @@
 
 @implementation MyEEventDetail
 
+-(id)init{
+    if (self = [super init]) {
+        self.customConditions = [NSMutableArray array];
+        self.timeConditions = [NSMutableArray array];
+        self.devices = [NSMutableArray array];
+        self.addDevices = [NSMutableArray array];
+    }
+    return self;
+}
 -(MyEEventDetail *)initWithJsonString:(NSString *)string{
     NSDictionary *dic = [string JSONValue];
     MyEEventDetail *detail = [[MyEEventDetail alloc] initWithDictionary:dic];
@@ -64,7 +73,7 @@
         }
         self.addDevices = [NSMutableArray array];
         for (NSDictionary *d in dic[@"addDeviceList"]) {
-            [self.addDevices addObject:[[MyEEventDeviceAdd alloc] initWithDictionary:d]];
+            [self.addDevices addObject:[[MyEEventDevice alloc] initWithDictionary:d]];
         }
         self.customConditions = [NSMutableArray array];
         for (NSDictionary *d in dic[@"customParameterList"]) {
@@ -77,6 +86,40 @@
         self.sortFlag = [dic[@"sortFlag"] intValue];
     }
     return self;
+}
+-(NSArray *)getDeviceType{
+    //设备类型：0：温控器  2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器 8:智能开关
+    NSMutableArray *deviceTypes = [NSMutableArray array];
+    NSArray *names = @[@"Thermostat",@"TV",@"Audio",@"Curtain",@"Other",@"Socket",@"DIY",@"Switch"];
+    for (int i = 1; i < 9; i++) {
+        MyEEventDeviceAdd *add = [[MyEEventDeviceAdd alloc] init];
+        if (i == 1 ) {
+            add.typeId = 0;
+        }else
+            add.typeId = i;
+        add.typeName = names[i-1];
+        [deviceTypes addObject:add];
+    }
+    
+    return deviceTypes;
+}
+-(NSArray *)getTypeDevices{
+    //设备类型：0：温控器  2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器 8:智能开关
+    NSArray *deviceTypes = [self getDeviceType];
+    NSMutableArray *array = [deviceTypes mutableCopy];
+    for (MyEEventDeviceAdd *add in deviceTypes) {
+        for (MyEEventDevice *d in self.addDevices) {
+            if (d.typeId == add.typeId) {
+                [add.devices addObject:d];
+            }
+        }
+        if (![add.devices count]) {
+            [array removeObject:add];
+        }
+    }
+//    NSLog(@"deviceTypes is %@",deviceTypes);
+    NSLog(@"array is %@",array);
+    return array;
 }
 @end
 
@@ -112,19 +155,78 @@
     }else
         return [NSString stringWithFormat:@"%@",self.instructionName];
 }
+-(NSString *)description{
+    return [NSString stringWithFormat:@"%@ %i mode:%i point:%i",self.name,self.typeId,self.controlMode,self.point];
+}
 @end
 
 @implementation MyEEventDeviceAdd
 
--(MyEEventDeviceAdd *)initWithDictionary:(NSDictionary *)dic{
+-(id)init{
     if (self = [super init]) {
-        self.name = dic[@"deviceName"];
-        self.deviceId = [dic[@"deviceId"] intValue];
-        self.terminalType = [dic[@"terminalType"] intValue];
+        self.typeName = @"";
+        self.typeId = 0;
+        self.devices = [NSMutableArray array];
     }
     return self;
 }
+-(NSString *)description{
+    return [NSString stringWithFormat:@"%i  %@  %@",self.typeId,self.typeName,self.devices];
+}
+@end
 
+@implementation MyEEventDeviceInstructions
+-(id)init{
+    if (self = [super init]) {
+        self.controlMode = 1;
+        self.point = 55;
+        self.fan = 0;
+        self.channel = @"";
+        self.controlStatus = 0;
+        self.instructions = [NSMutableArray array];
+    }
+    return self;
+}
+-(MyEEventDeviceInstructions *)initWithJsonString:(NSString *)string{
+    NSDictionary *dic = [string JSONValue];
+    MyEEventDeviceInstructions *instructions = [[MyEEventDeviceInstructions alloc] initWithDictionary:dic];
+    return instructions;
+}
+-(MyEEventDeviceInstructions *)initWithDictionary:(NSDictionary *)dic{
+    if (self = [super init]) {
+        self.controlMode = [dic[@"controlMode"] intValue];
+        self.point = [dic[@"point"] intValue];
+        self.fan = [dic[@"fan"] intValue];
+        self.channel = dic[@"channel"];
+        if ([self.channel isEqualToString:@""]) {
+            self.channel = @"000000";
+        }
+        self.controlStatus = [dic[@"controlStatus"] intValue];
+        self.instructions = [NSMutableArray array];
+        if (dic[@"instructionDeviceList"] != [NSNull null]) {
+            for (NSDictionary *d in dic[@"instructionDeviceList"]) {
+                [self.instructions addObject:[[MyEInstruction alloc] initWithDic:d]];
+            }
+        }
+    }
+    return self;
+}
+-(NSArray *)controlModeArray{
+    return @[@"Heat",@"Cool",@"Auto",@"EmgHeat",@"OFF"];
+}
+-(NSArray *)pointArray{
+    NSMutableArray *array = [NSMutableArray array];
+    for (int i = 55; i < 91; i++) {
+        [array addObject:[NSString stringWithFormat:@"%i F",i]];
+    }
+    return array;
+}
+-(NSArray *)controlStatusArray{
+    return @[@"OFF",@"ON"]; //对应了0关1开
+}
+-(NSArray *)fanMode{
+    return @[@"Auto",@"ON"];  //0:auto  1:on
+}
 @end
 
 @implementation MyEEventConditionCustom
@@ -133,7 +235,7 @@
         self.conditionId = 0;
         self.dataType = 1;
         self.parameterType = 1;
-        self.parameterValue = 25;
+        self.parameterValue = 50;
         self.tId = @"";
     }
     return self;
@@ -149,7 +251,7 @@
     return self;
 }
 -(NSString *)changeDataToString{
-    return [NSString stringWithFormat:@"%@ %@ %i",self.dataTypeArray[self.dataType],self.conditionArray[self.parameterType],self.parameterValue];
+    return [NSString stringWithFormat:@"%@ %@ %i",self.dataTypeArray[self.dataType-1],self.conditionDetailArray[self.parameterType-1],self.parameterValue];
 }
 -(NSArray *)dataTypeArray{
     return @[@"Indoor Temperature",
@@ -183,8 +285,8 @@
 -(id)init{
     if (self = [super init]) {
         self.conditionId = 0;
-        self.timeType = 1;
-        self.date = @"10/10/2014";
+        self.timeType = 1;  //默认是日期的格式
+        self.date = @"";
         self.hour = 12;
         self.minute = 10;
         self.weeks = [NSMutableArray array];
