@@ -8,7 +8,6 @@
 
 #import "MyEHouseListViewController.h"
 #import "MyEDashboardViewController.h"
-#import "MyESettingsViewController.h"
 #import "MyEHouseListConnectedCell.h"
 #import "MyEHouseListDisconnectedCell.h"
 #import "MyEAccountData.h"
@@ -84,13 +83,20 @@
             [self performSelector:@selector(goToRegister) withObject:nil afterDelay:0.5f];
         }
     }
+    
+    
+    
+    //初始化下拉视图
+    if (!_refreshHeaderView) {
+        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.tableView.frame.size.width, self.tableView.bounds.size.height)];
+        view.delegate = self;
+        [self.tableView addSubview:view];
+        _refreshHeaderView = view;
+    }
+    [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
+    
 }
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -484,16 +490,25 @@
 #pragma mark URL Loading System methods
 - (void) downloadModelFromServer
 {
-    if(HUD == nil) {
-        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        HUD.delegate = self;
-    } else
-        [HUD show:YES];
+    if (!_isRefreshing) {
+        if(HUD == nil) {
+            HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            HUD.delegate = self;
+        } else
+            [HUD show:YES];
+    }
     NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@",GetRequst(URL_FOR_HOUSELIST_VIEW), self.accountData.userId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"HouseListDownloader"  userDataDictionary:nil];
     NSLog(@"HouseListDownloader is %@",downloader.name);
 }
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    
+    if (_isRefreshing) {
+        _isRefreshing = NO;
+        [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+    } else {
+        [HUD hide:YES];
+    }
     if([name isEqualToString:@"HouseListDownloader"]) {
         if (![self.accountData updateHouseListByJSONString:string]) {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
@@ -505,9 +520,6 @@
         } else {
             [self.tableView reloadData];//重新加载数据,这一步骤是重要的，用来现实更新后的数据。
         }
-        
-        [HUD hide:YES];
-
     }
 }
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
@@ -524,5 +536,25 @@
           [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
     [HUD hide:YES];
 }
+#pragma mark - UIScrollViewDelegate Methods
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+}
+
+#pragma mark - EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+    _isRefreshing = YES;
+    [self downloadModelFromServer];
+}
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+    return [NSDate date]; // should return date data source was last changed
+}
 @end

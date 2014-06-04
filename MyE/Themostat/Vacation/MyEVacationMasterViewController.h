@@ -14,12 +14,11 @@
 @class MyEVacationListData;
 @class MyETipViewController;
 
-@interface MyEVacationMasterViewController : UITableViewController <MyEDataLoaderDelegate, MyEVacationDetailViewControllerDelegate, MyEStaycationDetailViewControllerDelegate, MBProgressHUDDelegate>{
+@interface MyEVacationMasterViewController : UITableViewController <MyEDataLoaderDelegate, MyEVacationDetailViewControllerDelegate, MyEStaycationDetailViewControllerDelegate, MBProgressHUDDelegate,EGORefreshTableHeaderDelegate>{
     MyEVacationListData *_vacationsModel;
 
     
     MBProgressHUD *HUD;
-    MyETipViewController *_tipViewController;
     
     // 下面变量纯粹用于要删除或修改Vacation item前显示AlertView时，要把下一步具体删除修改动作的所需变量保存下来，等AlertView点击YES后才执行真正的删除修改
     NSString *_uploadString;
@@ -30,6 +29,9 @@
     // 每次用户点击一个条目时、进入detail之前，就要记录下面两个变量
     UITableView *_tableView;//这个其实不用记录，就是本VC中惟一的tableView
     NSIndexPath *_indexPath;
+    
+    EGORefreshTableHeaderView *_refreshHeaderView;
+    BOOL _isRefreshing;
 }
 @property (copy, nonatomic) NSString *userId;
 @property (nonatomic) NSInteger houseId;

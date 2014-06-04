@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar Controller - t test-->
         <scene sceneID="2FB-Ym-wbs">
             <objects>
-                <tabBarController storyboardIdentifier="tab_bar_controller" definesPresentationContext="YES" id="4Rz-pZ-M3x" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tab_bar_controller" title="t test" definesPresentationContext="YES" id="4Rz-pZ-M3x" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="cnw-1Z-2GB"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -42,25 +42,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MAV-yd-csY">
-                                <rect key="frame" x="10" y="0.0" width="300" height="50"/>
+                                <rect key="frame" x="10" y="0.0" width="300" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="72F" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcH-yu-c72">
-                                        <rect key="frame" x="240" y="11" width="60" height="28"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="72F" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcH-yu-c72">
+                                        <rect key="frame" x="200" y="20" width="90" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                        <color key="textColor" red="0.25609469126506024" green="0.74630553463855276" blue="0.84339702560240959" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Current" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="jJ4-c2-FBp">
-                                        <rect key="frame" x="10" y="5" width="127" height="22"/>
+                                        <rect key="frame" x="10" y="8" width="130" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                        <color key="textColor" red="0.27049604669999999" green="0.78431379800000001" blue="0.86315182609999996" alpha="1" colorSpace="deviceRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                        <color key="textColor" red="0.29454536897590361" green="0.74384647966867468" blue="0.84396178463855409" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Weekly Program" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="G8O-q9-rCV">
-                                        <rect key="frame" x="10" y="21" width="156" height="29"/>
+                                        <rect key="frame" x="10" y="39" width="160" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <nil key="highlightedColor"/>
@@ -68,15 +68,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nvq-U1-kBd" customClass="ACPButton">
-                                <rect key="frame" x="15" y="320" width="130" height="40"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nvq-U1-kBd" customClass="ACPButton">
+                                <rect key="frame" x="15" y="400" width="130" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Stage 1 + 2" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6yT-2G-n1V">
                                         <rect key="frame" x="45" y="10" width="80" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.29411764705882354" green="0.74425828313253017" blue="0.8436088102409639" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView contentMode="scaleToFill" fixedFrame="YES" image="Ctrl_Cooling01" translatesAutoresizingMaskIntoConstraints="NO" id="4bS-Ug-ZmV">
@@ -93,8 +93,8 @@
                                     <action selector="changeControlMode:" destination="wsk-OD-Yur" eventType="touchUpInside" id="b1I-KS-aEC"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zAa-Vd-qld" customClass="ACPButton">
-                                <rect key="frame" x="175" y="320" width="130" height="40"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zAa-Vd-qld" customClass="ACPButton">
+                                <rect key="frame" x="175" y="400" width="130" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView contentMode="scaleToFill" fixedFrame="YES" image="Ctrl_FanOn-01" translatesAutoresizingMaskIntoConstraints="NO" id="Uuw-PK-lJl">
@@ -109,7 +109,7 @@
                                         <rect key="frame" x="40" y="10" width="80" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.29461596385542171" green="0.74421121987951722" blue="0.8425616528614458" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -236,7 +236,7 @@
                                 </connections>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ou-UL-3Nx">
-                                <rect key="frame" x="113" y="200" width="94" height="21"/>
+                                <rect key="frame" x="113" y="220" width="94" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -246,10 +246,12 @@
                         <color key="backgroundColor" red="0.95896084337349397" green="0.95920792545180722" blue="0.96105515813253017" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="nvq-U1-kBd" secondAttribute="bottom" constant="15" id="19d-qw-3dn"/>
                             <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="X3f-oc-Dy8" secondAttribute="bottom" id="9IQ-RT-TbP"/>
                             <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="7lo-pV-iZC" secondAttribute="bottom" id="Vn6-YU-ef8"/>
                             <constraint firstItem="X3f-oc-Dy8" firstAttribute="top" secondItem="DZS-jh-LHa" secondAttribute="bottom" id="l3s-Bl-PsP"/>
                             <constraint firstItem="7lo-pV-iZC" firstAttribute="top" secondItem="DZS-jh-LHa" secondAttribute="bottom" id="rxl-Io-sLk"/>
+                            <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="zAa-Vd-qld" secondAttribute="bottom" constant="15" id="xH5-bw-vfm"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -317,20 +319,22 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ile-4n-v1z">
-                                <rect key="frame" x="20" y="296" width="108" height="37"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ile-4n-v1z" customClass="ACPButton">
+                                <rect key="frame" x="20" y="400" width="108" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Use Weekly">
+                                    <color key="titleColor" red="0.29411764709999999" green="0.70588235290000001" blue="0.7843137255" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="useWeekly:" destination="dhV-t3-6No" eventType="touchUpInside" id="a7e-hu-5wG"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="roa-yb-5OH">
-                                <rect key="frame" x="192" y="296" width="108" height="37"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="roa-yb-5OH" customClass="ACPButton">
+                                <rect key="frame" x="192" y="400" width="108" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Apply">
+                                    <color key="titleColor" red="0.29411764709999999" green="0.70588235290000001" blue="0.7843137255" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -338,16 +342,16 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Hs-fh-0eU">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="290"/>
+                                <rect key="frame" x="0.0" y="16" width="320" height="290"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oak-rG-JJv">
-                                        <rect key="frame" x="115" y="99" width="90" height="90"/>
+                                        <rect key="frame" x="100" y="85" width="120" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="reset">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.2926510730421687" green="0.74337584713855254" blue="0.84243222891566261" alpha="1" colorSpace="deviceRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                        <state key="normal" title="Reset">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -361,16 +365,20 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.95896084339999998" green="0.9592079255" blue="0.96105515809999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="jNJ-Tp-mYf" firstAttribute="top" secondItem="roa-yb-5OH" secondAttribute="bottom" constant="18" id="P8T-f6-mEI"/>
+                            <constraint firstItem="jNJ-Tp-mYf" firstAttribute="top" secondItem="ile-4n-v1z" secondAttribute="bottom" constant="18" id="bWf-RW-6VR"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Next 24Hrs" image="tab-24hrs-schedule" id="eDb-UZ-rKW"/>
                     <navigationItem key="navigationItem" title="Next 24 Hours" id="LAY-GV-b9d"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="applyButton" destination="roa-yb-5OH" id="oAl-p3-vFM"/>
+                        <outlet property="applyButton" destination="roa-yb-5OH" id="zER-J5-fo3"/>
                         <outlet property="centerContainerView" destination="6Hs-fh-0eU" id="Tx6-Gp-4r7"/>
                         <outlet property="resetButton" destination="oak-rG-JJv" id="txd-kN-5qR"/>
-                        <outlet property="useWeeklyButton" destination="ile-4n-v1z" id="Iu7-st-Afh"/>
+                        <outlet property="useWeeklyButton" destination="ile-4n-v1z" id="pS3-la-Riz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Es-5y-vY6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -396,14 +404,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N93-Hz-37r">
                                         <rect key="frame" x="0.0" y="5" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                                        <state key="normal" image="add">
-                                            <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
+                                        <state key="normal" image="plus"/>
                                         <connections>
                                             <action selector="addNewMode:" destination="XX0-ez-qnw" eventType="touchUpInside" id="IQa-48-ZRQ"/>
                                         </connections>
@@ -412,7 +413,7 @@
                                         <rect key="frame" x="270" y="5" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Edit" image="pen">
+                                        <state key="normal" title="Edit" image="editBtn">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -431,11 +432,11 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s41-qu-mNG">
-                                        <rect key="frame" x="117" y="92" width="88" height="43"/>
+                                        <rect key="frame" x="106" y="80" width="110" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="apply">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <state key="normal" title="Apply">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -446,11 +447,12 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhN-QV-SJF">
-                                        <rect key="frame" x="117" y="135" width="88" height="43"/>
+                                        <rect key="frame" x="106" y="135" width="110" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="reset_halfcircle">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <state key="normal" title="Reset">
+                                            <color key="titleColor" red="0.27049604669999999" green="0.78431379800000001" blue="0.86315182609999996" alpha="1" colorSpace="deviceRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -500,14 +502,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0gi-Yv-Li8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="730" y="-3386"/>
+            <point key="canvasLocation" x="738" y="-3138"/>
         </scene>
         <!--MyE Staycation Detail View Controller - Staycation Detail-->
         <scene sceneID="DAj-Mt-qVk">
             <objects>
                 <tableViewController id="RnK-LG-ZtN" customClass="MyEStaycationDetailViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="emN-R8-5iN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -783,14 +785,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5uk-rP-KWa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1775" y="-1368"/>
+            <point key="canvasLocation" x="1783" y="-1912"/>
         </scene>
         <!--MyE Vacation Master View Controller - Vacation-->
         <scene sceneID="ZGO-2h-F7M">
             <objects>
                 <tableViewController title="Vacation" id="AEP-kn-uSJ" customClass="MyEVacationMasterViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="lkD-HB-8m6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -866,19 +868,21 @@
                             <outlet property="delegate" destination="AEP-kn-uSJ" id="01h-zi-CRF"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" tag="2" title="Vacation" image="tab-vacation.png" id="gnr-SK-YRt"/>
-                    <navigationItem key="navigationItem" id="AVp-pb-xvb"/>
+                    <navigationItem key="navigationItem" title="Vacation" id="AVp-pb-xvb"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bn5-Mv-CWR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="730" y="-1739"/>
+            <point key="canvasLocation" x="738" y="-2283"/>
         </scene>
         <!--MyE Vacation Detail View Controller - Vacation Detail-->
         <scene sceneID="1bI-IT-s1T">
             <objects>
                 <tableViewController id="EWt-S8-5km" customClass="MyEVacationDetailViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="2o9-EK-DgQ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -1101,7 +1105,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Cd-cu-R1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1249" y="-1938"/>
+            <point key="canvasLocation" x="1257" y="-2482"/>
         </scene>
         <!--MyE Vacation Edit From Staycation View Controller - Vacation Detail-->
         <scene sceneID="tux-8R-SJD">
@@ -1329,7 +1333,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="us7-zb-gFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2362" y="-1368"/>
+            <point key="canvasLocation" x="2370" y="-1912"/>
         </scene>
         <!--MyE Staycation Edit From Vacation View Controller - Staycation Detail-->
         <scene sceneID="gzf-JF-bqz">
@@ -1610,7 +1614,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zva-Gy-RXL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1827" y="-1938"/>
+            <point key="canvasLocation" x="1835" y="-2482"/>
         </scene>
         <!--MyE Special Days Schedule View Controller - Weekly-->
         <scene sceneID="TJu-Bk-0PX">
@@ -1695,12 +1699,13 @@
                                 <rect key="frame" x="0.0" y="93" width="320" height="270"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ym-kU-Oa3">
-                                        <rect key="frame" x="117" y="90" width="90" height="90"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="6ym-kU-Oa3">
+                                        <rect key="frame" x="107" y="77" width="110" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="backgroundColor" red="0.29265107299999998" green="0.74337584710000004" blue="0.84243222890000002" alpha="1" colorSpace="deviceRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <state key="normal" title="Apply Now">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -1733,7 +1738,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2ZO-Ai-jyx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2282" y="-2794"/>
+            <point key="canvasLocation" x="1402" y="-3378"/>
         </scene>
     </scenes>
     <resources>
@@ -1749,10 +1754,9 @@
         <image name="Vacation01" width="45" height="45"/>
         <image name="Vacation02" width="45" height="45"/>
         <image name="add" width="30" height="30"/>
-        <image name="apply" width="64" height="64"/>
+        <image name="editBtn" width="30" height="30"/>
         <image name="pen" width="30" height="30"/>
-        <image name="reset" width="100" height="100"/>
-        <image name="reset_halfcircle" width="100" height="50"/>
+        <image name="plus" width="30" height="30"/>
         <image name="tab-24hrs-schedule" width="30" height="30"/>
         <image name="tab-doshboard" width="30" height="30"/>
         <image name="tab-schedule" width="30" height="30"/>

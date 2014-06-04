@@ -120,11 +120,11 @@
 //    ((UIImageView *)cell.backgroundView).image = rowBackground;
     
     UIView *rv = [[UIView alloc] init];
-    rv.backgroundColor = [UIColor grayColor];
+    rv.backgroundColor = [UIColor colorWithRed:75.0/255.0 green:190.0/255.0 blue:215.0/255.0 alpha:1.0];
     cell.backgroundView = rv;
     
     UIView *sv = [[UIView alloc] init];
-    sv.backgroundColor = [UIColor lightGrayColor];
+    sv.backgroundColor = [UIColor colorWithRed:75.0/255.0 green:180.0/255.0 blue:200.0/255.0 alpha:1.0];
     cell.selectedBackgroundView = sv;
     
     return cell;
@@ -164,7 +164,7 @@
     self.releseMenu();
     NSLog(@"indexPath.row=%d", indexPath.row);
     if(self.function)
-    self.function(indexPath.row);
+        self.function(indexPath.row);
     
 }
 @end

@@ -53,6 +53,7 @@ float distanceBetweenPoints(CGPoint a, CGPoint b);
         [[self layer] setCornerRadius:2];
         [[self layer] setBorderWidth:0.0];
         [[self layer] setBorderColor:[UIColor greenColor].CGColor];
+        self.backgroundColor = self.color;
         
         [self setNeedsDisplay];
     }
@@ -145,13 +146,12 @@ float distanceBetweenPoints(CGPoint a, CGPoint b);
      CGContextSetShouldAntialias(context, YES);
      CGContextSetAllowsAntialiasing(context, YES);
      
-     
+     /* uncomment to draw gradiant color rect
+      // 绘制有颜色梯度变化的矩形, 下载为了扁平化, 取消颜色梯度
      // ========================= 1 绘制矩形  ===============================
      CGContextSaveGState(context);
      CGContextAddRect(context, bounds);
-     
      CGContextEOClip(context);
-     
      
      CGContextTranslateCTM(context, 0, bounds.size.height);
      CGContextScaleCTM(context, 1, -1);
@@ -187,9 +187,9 @@ float distanceBetweenPoints(CGPoint a, CGPoint b);
      CGColorSpaceRelease(myColorspace);
      CGGradientRelease(myGradient);
      CGContextRestoreGState(context);
+     //*/
      
-     
-     //如果选中，在右上角绘制一个远点
+     //如果选中，在右上角绘制一个圆点
      if(_highlited) {
          CGContextSaveGState(context);
          [[UIColor redColor] setFill];

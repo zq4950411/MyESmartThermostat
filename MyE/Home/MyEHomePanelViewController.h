@@ -36,5 +36,5 @@
 //- (IBAction)goThermostat:(id)sender;
 //- (IBAction)goFaultInfo:(id)sender;
 - (IBAction)goThermostat:(id)sender;
-- (IBAction)goFaultInfo:(id)sender;
+- (IBAction)goAlerts:(id)sender;
 @end

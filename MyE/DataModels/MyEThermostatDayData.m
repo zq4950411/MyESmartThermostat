@@ -28,7 +28,7 @@
 {
     _periods = [[NSMutableArray alloc] init];
     self.dayId = [[dictionary objectForKey:@"dayId"] intValue];
-    _name = [dictionary objectForKey:@"name"];
+    _name = [dictionary objectForKey:@"name"]?[dictionary objectForKey:@"name"]:@"";
     NSArray *periodsInDict = [dictionary objectForKey:@"periods"];
     NSMutableArray *periods = [NSMutableArray array];
     for (NSDictionary *period in periodsInDict) {

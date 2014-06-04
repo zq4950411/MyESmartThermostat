@@ -15,7 +15,7 @@
 #import "MyETodayPeriodEditingView.h"
 #import "MyETodayHoldEditingView.h"
 #import "MyETodayPeriodInforView.h"
-
+#import "ACPButton.h"
 
 @class MyEScheduleModeData;
 @class MyEScheduleNext24HrsData;
@@ -72,9 +72,10 @@ MyEPeriodInforDoughnutViewDelegate> {
 
 
 @property (weak, nonatomic) IBOutlet UIView *centerContainerView;
-@property (weak, nonatomic) IBOutlet UIButton *applyButton;
 @property (weak, nonatomic) IBOutlet UIButton *resetButton;
-@property (weak, nonatomic) IBOutlet UIButton *useWeeklyButton;
+@property (weak, nonatomic) IBOutlet ACPButton *applyButton;
+@property (weak, nonatomic) IBOutlet ACPButton *useWeeklyButton;
+
 
 
 - (IBAction)applyNewSchedule:(id)sender;
