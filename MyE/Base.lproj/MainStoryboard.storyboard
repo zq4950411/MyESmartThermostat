@@ -1381,7 +1381,7 @@
                                             <color key="textColor" red="0.2196078431372549" green="0.32941176470588235" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="72079141-9ED8-4239-87C2-BCFB8FDA7B69" id="cg7-Zh-qTW">
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="32264432-17B3-41D0-958C-54E72192F5D8" id="cg7-Zh-qTW">
                                             <rect key="frame" x="15" y="6" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
@@ -1916,6 +1916,11 @@ G/ocAxwWHBocLRw4HEEcRhxOHFEcVhxlHGkccBx4HIUcihyMHI4ckxybHJ4coxyrHK4cwBzDHMgAAAAA
 AAACAQAAAAAAAAA/AAAAAAAAAAAAAAAAAAAcyg
 </mutableData>
         </image>
+        <image name="87484745-6EB0-4EB5-9207-E3AB47EE6893" width="28" height="20"/>
+        <image name="Account" width="60" height="60"/>
+        <image name="AlertTile" width="100" height="100"/>
+        <image name="Alerts" width="100" height="100"/>
+        <image name="Alerts-01" width="60" height="60"/>
         <image name="Devices" width="100" height="100"/>
         <image name="Events" width="60" height="60"/>
         <image name="Exit" width="60" height="60"/>
