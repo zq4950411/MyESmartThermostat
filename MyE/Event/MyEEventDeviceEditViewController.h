@@ -21,8 +21,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *typeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *deviceBtn;
-@property (weak, nonatomic) IBOutlet UIButton *roomBtn;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *btns;
 
 
 @end

@@ -13,12 +13,14 @@
 #import "MBProgressHUD.h"
 #import "SVProgressHUD.h"
 #import "DXAlertView.h"
-@interface MyEEventAddOrEditViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,MyEDataLoaderDelegate,UIAlertViewDelegate>{
+@interface MyEEventAddOrEditViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,MyEDataLoaderDelegate>{
 }
 
+@property (nonatomic, strong) MyEEvents *events;
 @property (nonatomic, strong) MyEEventInfo *eventInfo;
 @property (nonatomic, strong) MyEEventDetail *eventDetail;
 @property (nonatomic, assign) BOOL isAdd;  //表示现在是新增场景还是编辑场景
+@property (nonatomic, assign) BOOL needRefresh; //需要重新请求数据
 
 @property (weak, nonatomic) IBOutlet UITableView *conditionTable;
 @property (weak, nonatomic) IBOutlet UITableView *deviceTable;

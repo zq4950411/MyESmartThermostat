@@ -13,7 +13,7 @@
     if (self = [super init]) {
         self.sceneName = @"";  //初始化给这个名字
         self.sceneId = -1;  //这个是接口明文规定的，新增场景是，ID为0
-        self.type = 1;  //0是不可应用，1是可应用
+        self.type = 0;  //0是不可应用，1是可应用,默认是自动的
         self.timeTriggerFlag = 0;
         self.conditionTriggerFlag = 0;
     }
@@ -24,11 +24,14 @@
         self.sceneName = dic[@"sceneName"];
         self.sceneId = [dic[@"sceneId"] intValue];
         self.type = [dic[@"type"] intValue];
-        self.timeTriggerFlag = [dic[@""] intValue];
-        self.conditionTriggerFlag = [dic[@""] intValue];
+        self.timeTriggerFlag = [dic[@"timeTriggerFlag"] intValue];
+        self.conditionTriggerFlag = [dic[@"conditionTriggerFlag"] intValue];
         return self;
     }
     return nil;
+}
+-(NSString *)description{
+    return [NSString stringWithFormat:@"type:%i time:%i condition:%i",self.type,self.timeTriggerFlag,self.conditionTriggerFlag];
 }
 @end
 @implementation MyEEvents
@@ -125,6 +128,19 @@
 
 @implementation MyEEventDevice
 
+-(id)init{
+    if (self = [super init]) {
+        self.name = @"New Device";
+        self.sceneSubId = 0;
+        self.terminalType = 0;
+        self.instructionName = @"";
+        self.point = 50;
+        self.controlMode = 1;
+        self.typeId = 0;
+        self.deviceId = 0;
+    }
+    return self;
+}
 -(MyEEventDevice *)initWithDictionary:(NSDictionary *)dic{
     if (self = [super init]) {
         self.name = dic[@"deviceName"];
@@ -152,8 +168,22 @@
     NSArray *controlMode = @[@"Heat",@"Cool",@"Auto",@"EmgHeat",@"OFF"];
     if (self.typeId == 0) {
         return [NSString stringWithFormat:@"%@ %i",controlMode[self.controlMode - 1],self.point];
+    }else if(self.typeId == 6){
+        return [self.instructionName isEqualToString:@"1"]?@"ON":@"OFF";
     }else
         return [NSString stringWithFormat:@"%@",self.instructionName];
+}
+-(id)copyWithZone:(NSZone *)zone{
+    MyEEventDevice *device = [[[self class] allocWithZone:zone] init];
+    device.name = self.name;
+    device.sceneSubId = self.sceneSubId;
+    device.terminalType = self.terminalType;
+    device.instructionName = self.instructionName;
+    device.point = self.point;
+    device.controlMode = self.controlMode;
+    device.typeId = self.typeId;
+    device.deviceId = self.deviceId;
+    return device;
 }
 -(NSString *)description{
     return [NSString stringWithFormat:@"%@ %i mode:%i point:%i",self.name,self.typeId,self.controlMode,self.point];
@@ -251,7 +281,7 @@
     return self;
 }
 -(NSString *)changeDataToString{
-    return [NSString stringWithFormat:@"%@ %@ %i",self.dataTypeArray[self.dataType-1],self.conditionDetailArray[self.parameterType-1],self.parameterValue];
+    return [NSString stringWithFormat:@"%@ %@ %i",self.dataTypeDetailArray[self.dataType-1],self.conditionDetailArray[self.parameterType-1],self.parameterValue];
 }
 -(NSArray *)dataTypeArray{
     return @[@"Indoor Temperature",
@@ -263,6 +293,12 @@
     return @[@"Higher than",
              @"Lower than",
              @"Equal to"];
+}
+-(NSArray *)dataTypeDetailArray{
+    return @[@"Indoor Tem",
+             @"Indoor Hum",
+             @"Outdoor Tem",
+             @"Outdoor Hum"];
 }
 -(NSArray *)conditionDetailArray{
     return @[@">",@"<",@"="];
@@ -302,9 +338,13 @@
         self.date = dic[@"date"] == [NSNull null]?@"":dic[@"date"];
         self.weeks = [NSMutableArray array];
         if (dic[@"weeks"] != [NSNull null]) {
+            NSMutableArray *array = [NSMutableArray array];
             for (NSNumber *i in dic[@"weeks"]) {
-                [self.weeks addObject:i];
+                [array addObject:i];
             }
+            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+            NSArray *sortArray = [array sortedArrayUsingDescriptors:@[sort]];
+            self.weeks = [sortArray mutableCopy];
         }
     }
     return self;

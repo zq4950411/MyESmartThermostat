@@ -37,7 +37,14 @@
 {
     [super viewDidLoad];
     _newCustom = [self.conditionCustom copy];
+    self.navigationItem.title = _isAdd?@"New Condition":@"Condition Edit";
     NSLog(@"%@",_newCustom);
+    NSString *imgName = IS_IOS6?@"detailBtn-ios6":@"detailBtn";
+    for (UIButton *btn in self.btns) {
+        [btn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
+    }
+    
     /*------------初始化数组-----------------*/
     NSMutableArray *array = [NSMutableArray array];
     for (MyETerminalData *t in MainDelegate.houseData.terminals) {
@@ -87,16 +94,6 @@
         _selectedIndex1 = _newCustom.dataType - 1;
         _selectedIndex3 = _newCustom.parameterType - 1;
         if (_newCustom.dataType == 1 || _newCustom.dataType == 3) {  //说明此时是温度
-            if ([_terminals count]) {
-                for (int i = 0; i < [_terminals count]; i++) {
-                    MyETerminalData *t = _terminals[i];
-                    if ([t.tId isEqualToString:_newCustom.tId]) {
-                        _selectedIndex2 = i;
-                        break;
-                    }
-                }
-            }else
-                _selectedIndex2 = 0;
             _selectedIndex4 = [_tmpArray indexOfObject:[NSString stringWithFormat:@"%i F",_newCustom.parameterValue]];
             [_valueBtn setTitle:_tmpArray[_selectedIndex4] forState:UIControlStateNormal];
         }else{
@@ -105,6 +102,17 @@
         }
         if (_newCustom.dataType == 1 || _newCustom.dataType == 2) {  //这个表示的是室内
             _isShow = YES;
+            if ([_terminals count]) {
+                for (int i = 0; i < [_terminals count]; i++) {
+                    MyETerminalData *t = _terminals[i];
+                    if ([t.tId isEqualToString:_newCustom.tId]) {
+                        NSLog(@"tid is %i",i);
+                        _selectedIndex2 = i;
+                        break;
+                    }
+                }
+            }else
+                _selectedIndex2 = 0;
         }else{
             _isShow = YES;
             [self refreshUIWithBool:NO];
@@ -218,7 +226,7 @@
         if (self.isAdd) {
             NSDictionary *dic = [string JSONValue];
             _newCustom.conditionId = [dic[@"id"] intValue];
-            [self.eventDetail.timeConditions addObject:_newCustom];
+            [self.eventDetail.customConditions addObject:_newCustom];
         }else{
             if ([self.eventDetail.customConditions containsObject:self.conditionCustom]) {
                 NSInteger i = [self.eventDetail.customConditions indexOfObject:self.conditionCustom];

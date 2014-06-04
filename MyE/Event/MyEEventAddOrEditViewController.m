@@ -15,6 +15,9 @@
 @interface MyEEventAddOrEditViewController (){
     BOOL _isShow;  //表示顶部的view是否显示出来了
     MBProgressHUD *HUD;
+    NSIndexPath *_selectIndex;
+    UITapGestureRecognizer *_tableTap;
+    UILongPressGestureRecognizer *_tableLong;
 }
 
 @end
@@ -23,8 +26,16 @@
 
 #pragma mark - life circle methods
 -(void)viewWillAppear:(BOOL)animated{
-    [self.conditionTable reloadData];
-    [self.deviceTable reloadData];
+    if (self.needRefresh) {
+        self.needRefresh = NO;
+        [self downloadDevicesFromServer];
+    }else{
+        [self.conditionTable reloadData];
+        [self.deviceTable reloadData];
+    }
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [self performSelector:@selector(refreshUIWithTime:) withObject:0 afterDelay:0.05];
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidAppear:YES];
@@ -38,8 +49,6 @@
     [super viewDidLoad];
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
-    self.conditionTable.frame = CGRectMake(20, 30, 280, 0);
-    self.deviceTable.frame = CGRectMake(20, 30, 280, 0);
     self.conditionTable.tableFooterView = view;
     self.deviceTable.tableFooterView = view;
     self.conditionTable.dataSource = self;
@@ -49,19 +58,19 @@
     self.navigationItem.title = self.eventInfo.sceneName;
     self.navigationController.navigationBar.translucent = NO;
     [self downloadDevicesFromServer];  //编辑的时候要获取数据
-
-    [self.conditionTable addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+    _tableLong = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(beginTableViewEditing:)];
+    [self.deviceTable addGestureRecognizer:_tableLong];
 }
+/*  ----------------------这里讲的是KVO编程机制，不过对于此处用处不是很大----------------------
+    [self.conditionTable addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+ 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-//    NSLog(@"001 property %@ of object %@ change %@",keyPath,object,change);
-    if ([change[@"new"] isEqual:change[@"old"]]) {
-        [self refreshUIWithBool:NO];
-    }
 }
 -(void)dealloc{  //这个是特别值得注意的
     [self.conditionTable removeObserver:self forKeyPath:@"contentSize"];
 }
+----------------------------------------------------------------------------------------*/
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -69,11 +78,11 @@
 #pragma mark - IBAction methods
 - (IBAction)deviceSort:(UIButton *)sender {
     sender.selected = !sender.selected;
-    [self editSceneToServerWithAction:@"editScene"];
+    [self editSceneToServerWithAction:@"sceneSort"];
 }
 
 - (IBAction)save:(UIBarButtonItem *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self editSceneToServerWithAction:@"save"];
 }
 
 - (IBAction)downOrUpView:(UIButton *)sender {
@@ -82,6 +91,28 @@
 }
 
 #pragma mark - private methods
+-(void)beginTableViewEditing:(UILongPressGestureRecognizer *)sender{
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        if (self.deviceTable.editing) {
+            return;
+        }
+        [self.deviceTable setEditing:!self.deviceTable.editing animated:YES];
+        _tableTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnTableView:)];
+        _tableTap.numberOfTapsRequired = 1;
+        [self.deviceTable removeGestureRecognizer:_tableLong];
+        [self.deviceTable addGestureRecognizer:_tableTap];
+    }
+}
+// 对于双击和单击事件，不需要对状态进行判断，主要是他这个状态维持的时间很短
+-(void)tapOnTableView:(UITapGestureRecognizer *)sender{
+    if (!self.deviceTable.editing) {
+        return;
+    }
+    [self.deviceTable setEditing:!self.deviceTable.editing animated:YES];
+    [self.deviceTable removeGestureRecognizer:_tableTap];
+    [self.deviceTable addGestureRecognizer:_tableLong];
+}
+
 -(void)changeTopViewFrameWithBool:(BOOL)flag{
     if (flag) {
         [UIView animateWithDuration:0.3 animations:^{
@@ -102,21 +133,18 @@
             CGRect frame = self.conditionTable.frame;
             frame.origin.y -= 70;
             self.conditionTable.frame = frame;
-            
         } completion:^(BOOL finished){}];
-    [self refreshUIWithBool:NO];
+    [self refreshUIWithTime:0.3];
 }
--(void)refreshUIWithBool:(BOOL)yes{
-    CGFloat x = self.conditionTable.frame.origin.x;
-    CGFloat y = self.conditionTable.frame.origin.y;
-    CGFloat width = self.conditionTable.contentSize.width;
-    CGFloat height = self.conditionTable.contentSize.height;
-    CGFloat viewHeight = self.view.bounds.size.height;
-    if (yes) {
-        self.conditionTable.frame = CGRectMake(x, y, width, height);  //35是conditionTable的行高
-        self.deviceTable.frame = CGRectMake(x, y + height, width, viewHeight - y - height-50);
-    }else
-    [UIView animateWithDuration:0.3 animations:^{
+-(void)refreshUIWithTime:(double)time{
+    [UIView animateWithDuration:time animations:^{
+        CGFloat x = self.conditionTable.frame.origin.x;
+        CGFloat y = self.conditionTable.frame.origin.y;
+        CGFloat width = self.conditionTable.contentSize.width;
+        CGFloat height = 35*(self.eventDetail.timeConditions.count + self.eventDetail.customConditions.count);
+        CGFloat viewHeight = self.view.bounds.size.height;
+        self.conditionTable.alpha = 1;
+        self.deviceTable.alpha = 1;
         self.conditionTable.frame = CGRectMake(x, y, width, height);  //35是conditionTable的行高
         self.deviceTable.frame = CGRectMake(x, y + height, width, viewHeight - y - height-50);
     }];
@@ -131,6 +159,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell ;
     if (tableView.tag == 100) {
+        NSLog(@"index:%i  count:%i",indexPath.row,[self.eventDetail.timeConditions count]);
         if (indexPath.row < [self.eventDetail.timeConditions count]) {
             MyEEventConditionTime *time = self.eventDetail.timeConditions[indexPath.row];
             cell = [tableView dequeueReusableCellWithIdentifier:@"timeCell"];
@@ -152,10 +181,13 @@
         nameLabel.text = device.name;
         instruction.text = [device getDeviceInstructionName];
     }
+    UIView *view = (UIView *)[cell.contentView viewWithTag:1024];
+    view.layer.cornerRadius = 4;
     return cell;
 }
 #pragma mark - UITable View delegate methods
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    _selectIndex = indexPath;
     if (tableView.tag == 100) {
         if (indexPath.row < [self.eventDetail.timeConditions count]) {
             MyEEventConditionTime *_newTime = self.eventDetail.timeConditions[indexPath.row];
@@ -174,9 +206,29 @@
         }
     }else{
         MyEEventDevice *device = self.eventDetail.devices[indexPath.row];
-        
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"Do you want to delete this device?" leftButtonTitle:@"Cancel" rightButtonTitle:@"OK"];
+        alert.rightBlock = ^{
+            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&sceneSubId=%i&sceneId=%i",GetRequst(URL_FOR_SCENES_DELETE_SCENE_DEVICE),MainDelegate.houseData.houseId,device.sceneSubId,self.eventInfo.sceneId] andName:@"deleteDevice"];
+        };
+        [alert show];
     }
 }
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    return NO;
+}
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+//-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    return UITableViewCellEditingStyleNone;
+//}
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath{
+    MyEEventDevice *device = self.eventDetail.devices[fromIndexPath.row];
+    [self.eventDetail.devices removeObject:device];
+    [self.eventDetail.devices insertObject:device atIndex:toIndexPath.row];
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&sceneId=%i&sceneSubId=%i&sortId=%i",GetRequst(URL_FOR_SCENES_DEVICE_REORDER),MainDelegate.houseData.houseId,self.eventInfo.sceneId,device.sceneSubId,toIndexPath.row] andName:@"reorder"];
+}
+
 #pragma mark - URL  methods
 -(void)downloadDevicesFromServer{
     if (HUD == nil) {
@@ -187,8 +239,9 @@
 }
 -(void)editSceneToServerWithAction:(NSString *)action{
     int i = [self.eventDetail.customConditions count]+[self.eventDetail.timeConditions count];
-    self.eventInfo.type = i > 0?1:0;
-    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&sceneId=%i&sceneName=%@&type=%i&sortFlag=%i&action=%@",GetRequst(URL_FOR_SCENES_SAVE_SCENE),MainDelegate.houseData.houseId,self.eventInfo.sceneId,self.eventInfo.sceneName,self.eventInfo.type,self.sortBtn.selected?1:0,action] andName:action];
+    self.eventInfo.type = i > 0?0:1;  //0是自动，1是手动
+    NSLog(@" type is %i",self.eventInfo.type);
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&sceneId=%i&sceneName=%@&type=%i&sortFlag=%i&action=editScene",GetRequst(URL_FOR_SCENES_SAVE_SCENE),MainDelegate.houseData.houseId,self.eventInfo.sceneId,self.eventInfo.sceneName,self.eventInfo.type,self.sortBtn.selected?1:0] andName:action];
 }
 -(void)uploadOrDownloadInfoFromServerWithURL:(NSString *)url andName:(NSString *)name{
     
@@ -219,21 +272,52 @@
         if (![[self.eventDetail getDeviceType] count]) {
             self.addBtn.enabled = NO;
         }
+        [self performSelector:@selector(refreshUIWithTime:) withObject:@(0.3) afterDelay:0.1];
     }
-    if ([name isEqualToString:@"editScene"]) {
+    if ([name isEqualToString:@"sceneSort"]) {
         
     }
-    if ([name isEqualToString:@"addScene"]) {
-        NSDictionary *dic = [string JSONValue];
-        self.eventInfo.sceneId = [dic[@"sceneId"] intValue];
+    if ([name isEqualToString:@"reorder"]) {
+        
     }
-}
-#pragma mark - UIAlertView delegate
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1) {
-        UITextField *txt = [alertView textFieldAtIndex:0];
-        self.eventInfo.sceneName = txt.text;
-        [self editSceneToServerWithAction:@"editScene"];
+    if ([name isEqualToString:@"deleteDevice"]) {
+        if ([string isEqualToString:@"OK"]) {
+            MyEEventDevice *device = self.eventDetail.devices[_selectIndex.row];
+            if ([self.eventDetail.devices containsObject:device]) {
+                [self.eventDetail.devices removeObject:device];
+                [self.deviceTable reloadData];
+//                [self.deviceTable deleteRowsAtIndexPaths:@[_selectIndex] withRowAnimation:UITableViewRowAnimationAutomatic];   //这个不能用，否则frame会发生变化
+                [self performSelector:@selector(refreshUIWithTime:) withObject:@(0.1) afterDelay:0.1];
+            }
+        }
+    }
+    if ([name isEqualToString:@"deleteTime"]) {
+        MyEEventConditionTime *time = self.eventDetail.timeConditions[_selectIndex.row];
+        if ([self.eventDetail.timeConditions containsObject:time]) {
+            [self.eventDetail.timeConditions removeObject:time];
+            [self.conditionTable deleteRowsAtIndexPaths:@[_selectIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.conditionTable reloadData];
+            [self performSelector:@selector(refreshUIWithTime:) withObject:@(0.1) afterDelay:0.1];
+        }
+    }
+    if ([name isEqualToString:@"deleteCustom"]) {
+        MyEEventConditionCustom *custom = self.eventDetail.customConditions[_selectIndex.row - [self.eventDetail.timeConditions count]];
+        if ([self.eventDetail.customConditions containsObject:custom]) {
+            [self.eventDetail.customConditions removeObject:custom];
+            [self.conditionTable deleteRowsAtIndexPaths:@[_selectIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.conditionTable reloadData];
+            [self performSelector:@selector(refreshUIWithTime:) withObject:@(0.1) afterDelay:0.1];
+        }
+    }
+    if ([name isEqualToString:@"save"]) {
+        if ([string isEqualToString:@"OK"]) {
+            self.eventInfo.timeTriggerFlag = [self.eventDetail.timeConditions count] > 0?1:0;
+            self.eventInfo.conditionTriggerFlag = [self.eventDetail.customConditions count] > 0?1:0;
+            if (self.isAdd) {
+                [self.events.scenes addObject:self.eventInfo];
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 #pragma mark - Navigation methods
@@ -269,7 +353,8 @@
         vc.isAdd = [segue.identifier isEqualToString:@"device"];
         if ([segue.identifier isEqualToString:@"deviceEdit"]) {
             vc.device = self.eventDetail.devices[[self.deviceTable indexPathForCell:sender].row];
-        }
+        }else
+            vc.device = [[MyEEventDevice alloc] init];
     }
 }
 @end

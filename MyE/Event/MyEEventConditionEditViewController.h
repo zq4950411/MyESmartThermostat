@@ -22,5 +22,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *terminalBtn;
 @property (weak, nonatomic) IBOutlet UIButton *relationBtn;
 @property (weak, nonatomic) IBOutlet UIButton *valueBtn;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *btns;
 
 @end

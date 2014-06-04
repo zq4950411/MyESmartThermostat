@@ -7,6 +7,7 @@
 //
 
 #import "MyEEventDeviceEditViewController.h"
+#import "MyEEventAddOrEditViewController.h"
 
 @interface MyEEventDeviceEditViewController (){
     NSArray *_mainArray;
@@ -24,8 +25,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"%@",_device);
     _instructions = [[MyEEventDeviceInstructions alloc] init];
+    _instruction = [[MyEInstruction alloc] init];
     if (self.isAdd) {
         _mainArray = [self.eventDetail getTypeDevices];
         _deviceType = _mainArray[0];
@@ -44,6 +45,12 @@
     self.navigationItem.title = _device.name;
     [self refreshUI];
     [self checkIfNeedDownloadData];
+    
+    NSString *imgName = IS_IOS6?@"detailBtn-ios6":@"detailBtn";
+    for (UIButton *btn in self.btns) {
+        [btn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,7 +66,17 @@
         [alert show];
         return;
     }
+    
     NSLog(@"%i %i %i\n %i type:%i \n%i \n%@\n %i %i %i \n%@",MainDelegate.houseData.houseId,_device.sceneSubId,_eventInfo.sceneId,_device.deviceId,_deviceType.typeId == 0?1:2,_instruction.instructionId,_instructions.channel,_instructions.controlMode,_instructions.point,_instructions.fan,_isAdd?@"add":@"edit");
+    NSString *subString = [NSString stringWithFormat:@"%@?houseId=%i&sceneSubId=%i&sceneId=%i&deviceId=%i&type=%i&action=%@&",GetRequst(URL_FOR_SCENES_SAVE_SCENE_DEVICE),MainDelegate.houseData.houseId,_device.sceneSubId,self.eventInfo.sceneId,_device.deviceId,_deviceType.typeId == 0?1:2,_isAdd?@"addSceneSub":@"editSceneSub"];
+    NSString *tailString = nil;
+    if (_deviceType.typeId == 0) { //温控器
+        tailString = [subString stringByAppendingString:[NSString stringWithFormat:@"controlMode=%i&point=%i&fan=%i",_instructions.controlMode,_instructions.point,_instructions.fan]];
+    }else if (_deviceType.typeId == 7 || _deviceType.typeId == 8){  //开关或者是通用控制器
+        tailString = [subString stringByAppendingString:[NSString stringWithFormat:@"channel=%@",_instructions.channel]];
+    }else
+        tailString = [subString stringByAppendingString:[NSString stringWithFormat:@"instructionId=%i",_instruction.instructionId]];
+    [self updateDeviceToServerWithString:tailString andName:@"device"];
 }
 - (IBAction)btnPressed:(UIButton *)sender {
     NSMutableArray *array = [NSMutableArray array];
@@ -209,6 +226,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     UILabel *label = (UILabel *)[cell.contentView viewWithTag:100];
     UISwitch *status = (UISwitch *)[cell.contentView viewWithTag:101];
+    UIView *view = (UIView *)[cell.contentView viewWithTag:1024];
+    view.layer.cornerRadius = 4;
     if (_deviceType.typeId == 8) {
         label.text = [NSString stringWithFormat:@"Switch %i",indexPath.row + 1];
     }else
@@ -219,6 +238,10 @@
 }
 
 #pragma mark - URL methods
+-(void)updateDeviceToServerWithString:(NSString *)url andName:(NSString *)name{
+    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:url postData:nil delegate:self loaderName:name userDataDictionary:nil];
+    NSLog(@"%@",loader.name);
+}
 -(void)downloadInstructionsWithDeviceId:(NSInteger)deviceId{
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&sceneSubId=%i&deviceId=%i&type=%i&action=%@",GetRequst(URL_FOR_SCENES_FIND_DEVICE),MainDelegate.houseData.houseId,_device.sceneSubId,deviceId,_deviceType.typeId==0?1:2,_isAdd?@"addSceneSub":@"editSceneSub"] postData:nil delegate:self loaderName:@"instruction" userDataDictionary:nil];
     NSLog(@"loader name is %@",loader.name);
@@ -226,9 +249,31 @@
 #pragma mark - URL Delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"receive string is %@",string);
-    _instructions = [[MyEEventDeviceInstructions alloc] initWithJsonString:string];
-    [self refreshUI];
-    NSLog(@"%@",_instructions.instructions);
+    if ([name isEqualToString:@"instruction"]) {
+        _instructions = [[MyEEventDeviceInstructions alloc] initWithJsonString:string];
+        [self refreshUI];
+        NSLog(@"%@",_instructions.instructions);
+    }
+    if ([name isEqualToString:@"device"]) {
+        if ([string isEqualToString:@"OK"]) {
+            MyEEventAddOrEditViewController *vc = self.navigationController.childViewControllers[1];
+            vc.needRefresh = YES;
+            [self.navigationController popViewControllerAnimated:YES];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
+//        if (_deviceType.typeId == 0) {
+//            _device.controlMode = _instructions.controlMode;
+//            _device.point = _instructions.point;
+//        }else if (_deviceType.typeId == 7 || _deviceType.typeId == 8){
+//            _device.instructionName = _instructions.channel;
+//        }else
+//            _device.instructionName = _instruction.name;
+//        if (_isAdd) {
+//            [self.eventDetail.devices addObject:_device];
+//            MyEEventAddOrEditViewController *vc = self.navigationController.childViewControllers[1];
+//            vc.needRefresh = YES;
+//        }
+    }
 }
 #pragma mark - MYEPickerView delegate methods
 -(void)MYEPickerView:(UIView *)pickerView didSelectTitles:(NSString *)title andRow:(NSInteger)row{

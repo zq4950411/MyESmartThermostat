@@ -35,7 +35,6 @@
 		8CA06046190912470090A350 /* MyESocketAutoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA06045190912470090A350 /* MyESocketAutoViewController.m */; };
 		8CA52F9A192307E800D40EDD /* Event.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CA52F98192307E800D40EDD /* Event.storyboard */; };
 		8CA52F9D192318A500D40EDD /* MyEEventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52F9C192318A500D40EDD /* MyEEventListViewController.m */; };
-		8CA52FA0192318BB00D40EDD /* MyEEventAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52F9F192318BB00D40EDD /* MyEEventAddViewController.m */; };
 		8CA52FA319231A0D00D40EDD /* MyEEventConditionEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA219231A0D00D40EDD /* MyEEventConditionEditViewController.m */; };
 		8CA52FA619231A3000D40EDD /* MyEEventTimeEdtiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA519231A3000D40EDD /* MyEEventTimeEdtiViewController.m */; };
 		8CA52FA919231D4700D40EDD /* MyEEventDeviceEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA819231D4700D40EDD /* MyEEventDeviceEditViewController.m */; };
@@ -388,8 +387,6 @@
 		8CA52F99192307E800D40EDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Event.storyboard; sourceTree = "<group>"; };
 		8CA52F9B192318A500D40EDD /* MyEEventListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventListViewController.h; sourceTree = "<group>"; };
 		8CA52F9C192318A500D40EDD /* MyEEventListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventListViewController.m; sourceTree = "<group>"; };
-		8CA52F9E192318BB00D40EDD /* MyEEventAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventAddViewController.h; sourceTree = "<group>"; };
-		8CA52F9F192318BB00D40EDD /* MyEEventAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventAddViewController.m; sourceTree = "<group>"; };
 		8CA52FA119231A0D00D40EDD /* MyEEventConditionEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventConditionEditViewController.h; sourceTree = "<group>"; };
 		8CA52FA219231A0D00D40EDD /* MyEEventConditionEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventConditionEditViewController.m; sourceTree = "<group>"; };
 		8CA52FA419231A3000D40EDD /* MyEEventTimeEdtiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventTimeEdtiViewController.h; sourceTree = "<group>"; };
@@ -1962,8 +1959,6 @@
 				8CA52F9C192318A500D40EDD /* MyEEventListViewController.m */,
 				8C82DCD31930A4B5006A10E0 /* MyEEventAddOrEditViewController.h */,
 				8C82DCD41930A4B5006A10E0 /* MyEEventAddOrEditViewController.m */,
-				8CA52F9E192318BB00D40EDD /* MyEEventAddViewController.h */,
-				8CA52F9F192318BB00D40EDD /* MyEEventAddViewController.m */,
 				8CA52FA119231A0D00D40EDD /* MyEEventConditionEditViewController.h */,
 				8CA52FA219231A0D00D40EDD /* MyEEventConditionEditViewController.m */,
 				8CA52FA419231A3000D40EDD /* MyEEventTimeEdtiViewController.h */,
@@ -2395,7 +2390,6 @@
 				8CA52FA919231D4700D40EDD /* MyEEventDeviceEditViewController.m in Sources */,
 				B2588D0817B09B9C007ED13C /* BaseCustomCell.m in Sources */,
 				B2588D0917B09B9C007ED13C /* BaseView.m in Sources */,
-				8CA52FA0192318BB00D40EDD /* MyEEventAddViewController.m in Sources */,
 				C3194B9D18E299EA006E3ABE /* ELineChartDataModel.m in Sources */,
 				C3FDB50E18FA62A0009B423D /* MyEUtil.m in Sources */,
 				C3FDB70418FA6460009B423D /* MoreViewController.m in Sources */,

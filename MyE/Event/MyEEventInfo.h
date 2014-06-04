@@ -37,7 +37,7 @@
 -(NSArray *)getTypeDevices;
 @end
 
-@interface MyEEventDevice : NSObject
+@interface MyEEventDevice : NSObject<NSCopying>
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, assign) NSInteger deviceId;
 @property (nonatomic, assign) NSInteger sceneSubId; //场景中对应设备的ID

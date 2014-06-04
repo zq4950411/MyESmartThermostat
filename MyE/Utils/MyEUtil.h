@@ -31,9 +31,9 @@
 #define GetServer [ServerUtils getServierIp]
 //#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
 
-//#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
+#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
 
-#define GetRequst(API) [@"http://220.176.182.190:65533" stringByAppendingFormat:@"%@",API]
+//#define GetRequst(API) [@"http://220.176.182.190:65533" stringByAppendingFormat:@"%@",API]
 
 #define URL_FOR_LOGIN @"/user/userJson_login_phone.do"
 #define URL_FOR_ADD_ADDRESS @"/house_add4mobile.do"
@@ -113,6 +113,7 @@
 #define URL_FOR_SCENES_FIND_DEVICE @"/scenes_findDevice.do"
 #define URL_FOR_SCENES_SAVE_SCENE_DEVICE @"/scenes_saveSceneDevice.do"
 #define URL_FOR_SCENES_DELETE_SCENE_DEVICE @"/scenes_deleteSceneDevice.do"
+#define URL_FOR_SCENES_DEVICE_REORDER @"/scenes_saveDeviceSort.do"
 
 #define SETTING_FIND_GATEWAY @"/setting_findGateways.do"
 #define SETTING_REGISTER_GATEWAY @"/setting_register.do"

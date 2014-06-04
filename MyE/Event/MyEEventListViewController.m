@@ -21,6 +21,10 @@
 @implementation MyEEventListViewController
 
 #pragma mark - life circle methods
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self.tableView reloadData];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -100,6 +104,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *string = nil;
     MyEEventInfo *event = self.events.scenes[indexPath.row];
+    NSLog(@"%@",event);
     string = event.type == 0?@"conditionCell":@"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:string forIndexPath:indexPath];
     UIButton *btn = (UIButton *)[cell.contentView viewWithTag:100];
@@ -114,6 +119,8 @@
     if (!act.hidden) {
         act.hidden = YES;
     }
+    UIView *view = (UIView *)[cell.contentView viewWithTag:1024];
+    view.layer.cornerRadius = 4;
     return cell;
 }
 #pragma mark - UITableView delegate methods
@@ -175,6 +182,7 @@
             _newInfo.sceneId = [dic[@"sceneId"] intValue];
             vc.eventInfo = _newInfo;
             vc.isAdd = YES;
+            vc.events = self.events;
             [self.navigationController pushViewController:vc animated:YES];
         }else
             [SVProgressHUD showErrorWithStatus:@"fail"];
