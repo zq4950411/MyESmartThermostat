@@ -187,23 +187,38 @@
         barChart.titleTextStyle = titleStyle;
     }
     
-    barChart.titleDisplacement        = CGPointMake(0.0, -20.0);
+    barChart.titleDisplacement        = CGPointMake(0.0, 0.0);
     barChart.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
     
     // Add plot space for horizontal bar charts
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)barChart.defaultPlotSpace;
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(yMax)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(yMax*1.1)];
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0f) length:CPTDecimalFromFloat(xMax)];
     
     [self drawAxisLabels];
     
     
     // First bar plot
-    CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor greenColor] horizontalBars:NO];
+//    CPTBarPlot *barPlot = [CPTBarPlot tubularBarPlotWithColor:[CPTColor colorWithCGColor:DEFAULT_UI_COLOR.CGColor] horizontalBars:NO]; // use this get a regular grandient bar
+    CPTBarPlot *barPlot = [[CPTBarPlot alloc] init];
+    
+    // set file color, now change default grandient, use our customized grandient
+//    barPlot.fill = [CPTFill fillWithColor:[CPTColor colorWithCGColor:DEFAULT_UI_COLOR.CGColor]]; // use this get a flat bar
+    CPTGradient *fillGradient = [CPTGradient gradientWithBeginningColor:[CPTColor colorWithCGColor:DEFAULT_LIGHT_UI_COLOR.CGColor] endingColor:[CPTColor colorWithCGColor:DEFAULT_DARK_UI_COLOR.CGColor]];
+    barPlot.fill = [CPTFill fillWithGradient:fillGradient];
+    
+    // change line width and color
+    CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
+    lineStyle.lineWidth = 1;
+    lineStyle.lineColor = [CPTColor whiteColor];
+    barPlot.lineStyle = lineStyle;
+    
+    
+    
     barPlot.dataSource = self;
     barPlot.baseValue  = CPTDecimalFromDouble(0.0);
     barPlot.barOffset  = CPTDecimalFromFloat(-0.25f);
-    barPlot.barCornerRadius = 2.0;
+    barPlot.barCornerRadius = 0.0;
     barPlot.identifier = @"Bar Plot 1";
     [barChart addPlot:barPlot toPlotSpace:plotSpace];
 }
@@ -246,7 +261,7 @@
     x.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
     x.title                       = @"Time";
     x.titleLocation               = CPTDecimalFromFloat(title_xPosition);
-    x.titleOffset                 = 60.0;
+    x.titleOffset                 = 55.0;
     
     // Define some custom labels for the data elements
     x.labelRotation  = M_PI_4;
@@ -255,9 +270,9 @@
     NSMutableArray *xAxisLabels         = [NSMutableArray array];
     
     if(self.timeRangeSegment.selectedSegmentIndex == 0) {
-        customTickLocations = @[@4, @8, @12, @16, @20, @24];
+        customTickLocations = @[@3, @6, @9, @12, @15, @18, @21, @24];
         for (int i = 0; i < usageData.powerRecordList.count; i++) {
-            if (i > 0 && (i + 1) % 4 == 0) {
+            if (i > 0 && (i + 1) % 3 == 0) {
                 MyEUsageRecord *r = usageData.powerRecordList[i];
                 [xAxisLabels addObject:r.date];
             }
@@ -288,7 +303,7 @@
     for ( NSNumber *tickLocation in customTickLocations ) {
         CPTAxisLabel *newLabel = [[CPTAxisLabel alloc] initWithText:xAxisLabels[labelLocation++] textStyle:x.labelTextStyle];
         newLabel.tickLocation = [tickLocation decimalValue];
-        newLabel.offset       = x.labelOffset + x.majorTickLength;
+        newLabel.offset       = x.labelOffset;// + x.majorTickLength;
         newLabel.rotation     = M_PI_4;
         [customLabels addObject:newLabel];
     }
@@ -302,8 +317,8 @@
     y.majorIntervalLength         = CPTDecimalFromDouble(yMax / 5.0);
     y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
     y.title                       = @"Usage (kWh)";
-    y.titleOffset                 = 65.0;
-    y.titleLocation               = CPTDecimalFromFloat(150.0f);
+    y.titleOffset                 = 35.0;
+    y.titleLocation               = CPTDecimalFromFloat(yMax/2);
     
 }
 
@@ -370,12 +385,12 @@
             [MyEUtil showErrorOn:self.view withMessage:@"Data is not available currently."];
         }else{
             usageData = [[MyEUsageStat alloc] initWithString:string];
-            NSLog(@"当前功率=%f, 本期用电量=%f", usageData.currentPower * 110.0, usageData.totalPower/1000.0);
+            NSLog(@"当前功率=%f (w), 本期用电量=%f (kWh)", usageData.currentPower * 110.0, usageData.totalPower/1000.0);
             for (MyEUsageRecord *r in usageData.powerRecordList) {
                 NSLog(@"dateTime=%@, totalPower=%f W", r.date, r.totalPower/1000.0);
             }
             
-            self.currentPowerLabel.text = [NSString stringWithFormat:@"Current Power: %.1f",usageData.currentPower * 110];
+            self.currentPowerLabel.text = [NSString stringWithFormat:@"Current Power: %.1f (W)",usageData.currentPower * 110];
             [self drawChart];
         }
         

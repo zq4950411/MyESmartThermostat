@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyE/Themostat/Vacation/MyEVacationMasterViewController.m"
-            timestampString = "423273085.217458"
+            timestampString = "423545917.461373"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
             landmarkName = "-refreshAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -288,6 +288,22 @@
             startingLineNumber = "51"
             endingLineNumber = "51"
             landmarkName = "-copyWithZone:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyE/Alerts/MyEAlertDetailViewController.m"
+            timestampString = "423556639.831096"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "-configureView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

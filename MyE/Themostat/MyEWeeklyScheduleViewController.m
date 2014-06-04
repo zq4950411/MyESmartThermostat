@@ -61,6 +61,8 @@
     _periodInforDoughnutViewShowing = NO;
     _hasLoadFromServer = NO;
     
+    // 设置面板背景为一个纯色
+    UIColor *bgcolor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
     
     _modePickerView = [[MyEModePickerView alloc]
                        initWithFrame:CGRectMake((self.modeToolContainer.bounds.size.width - MODE_PICKER_VIEW_WIDTH)*.5,
@@ -769,7 +771,7 @@
     
     // 用一个image做Disabled背景
     UIGraphicsBeginImageContext(self.resetButton.bounds.size);
-    [[UIColor lightGrayColor] setFill];
+    [[UIColor colorWithWhite:0.8 alpha:1.0] setFill];
     bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.resetButton.bounds.origin.x + self.resetButton.bounds.size.width/2.0, self.resetButton.bounds.origin.y) radius:self.resetButton.bounds.size.width/2.0f startAngle:0 endAngle:M_PI clockwise:YES];
     [bPath fill];
     colorImage = UIGraphicsGetImageFromCurrentImageContext();

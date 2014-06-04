@@ -33,7 +33,7 @@
 
 //#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
 
-#define GetRequst(API) [@"http://220.176.182.190:65533" stringByAppendingFormat:@"%@",API]
+#define GetRequst(API) [@"http://115.151.3.167:65533" stringByAppendingFormat:@"%@",API]
 
 #define URL_FOR_LOGIN @"/user/userJson_login_phone.do"
 #define URL_FOR_ADD_ADDRESS @"/house_add4mobile.do"
@@ -60,6 +60,7 @@
 #define URL_FOR_SETTINGS_DELETE_THERMOSTAT  @"/setting_delete.do"
 #define URL_FOR_SETTINGS_DELETE_THERMOSTAT_QUERY_STATUS  @"/setting_findThermostat.do"
 #define URL_FOR_ALERT_DELETE @"/setting_remove_alert.do"
+#define URL_FOR_ALERT_SET_READ @"/setting_change_alert_read_time.do"
 
 #define URL_FOR_SMARTUP_LIST @"/smartUp_findDeviceList.do"
 #define URL_FOR_SAVE_SORT @"/smartUp_saveSort.do"

@@ -74,8 +74,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //设置表格整体的的背景
-    UIColor *bgcolor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgpattern.png"]];
+    //设置面板背景为一个纹理图片
+//    UIColor *bgcolor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgpattern.png"]];
+    // 设置面板背景为一个纯色
+    UIColor *bgcolor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
     [self.tableView setBackgroundColor:bgcolor];
     
     

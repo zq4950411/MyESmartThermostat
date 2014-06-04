@@ -94,7 +94,9 @@
     
     
     // 设置面板背景为一个图片模式
-    UIColor *bgcolor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgpattern.png"]];
+//    UIColor *bgcolor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgpattern.png"]];
+    // 设置面板背景为一个纯色
+    UIColor *bgcolor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
     [self.view setBackgroundColor:bgcolor];
     
    
