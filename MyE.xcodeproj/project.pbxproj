@@ -129,6 +129,7 @@
 		B2FC108A17C58C0100FD5054 /* JYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B2FC108917C58C0100FD5054 /* JYTextField.m */; };
 		C3086C4918FCC1BE0005E0EE /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3086C4818FCC1BE0005E0EE /* SWRevealViewController.m */; };
 		C3086C4C18FE4B000005E0EE /* MyEMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3086C4B18FE4B000005E0EE /* MyEMainMenuViewController.m */; };
+		C30DBF26193EE8010063AC6D /* MyEAlertDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30DBF25193EE8000063AC6D /* MyEAlertDetailViewController.m */; };
 		C30E01F414C7A69200011160 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30E01F314C7A69200011160 /* UIKit.framework */; };
 		C30E01F614C7A69200011160 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30E01F514C7A69200011160 /* Foundation.framework */; };
 		C30E01F814C7A69200011160 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30E01F714C7A69200011160 /* CoreGraphics.framework */; };
@@ -559,6 +560,8 @@
 		C3086C4818FCC1BE0005E0EE /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		C3086C4A18FE4B000005E0EE /* MyEMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEMainMenuViewController.h; sourceTree = "<group>"; };
 		C3086C4B18FE4B000005E0EE /* MyEMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEMainMenuViewController.m; sourceTree = "<group>"; };
+		C30DBF24193EE8000063AC6D /* MyEAlertDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAlertDetailViewController.h; sourceTree = "<group>"; };
+		C30DBF25193EE8000063AC6D /* MyEAlertDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAlertDetailViewController.m; sourceTree = "<group>"; };
 		C30E01EF14C7A69200011160 /* MyE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30E01F314C7A69200011160 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C30E01F514C7A69200011160 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1593,6 +1596,8 @@
 			children = (
 				C3988D6E19313488002657F0 /* MyEAlertsTableViewController.h */,
 				C3988D6F19313488002657F0 /* MyEAlertsTableViewController.m */,
+				C30DBF24193EE8000063AC6D /* MyEAlertDetailViewController.h */,
+				C30DBF25193EE8000063AC6D /* MyEAlertDetailViewController.m */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -2436,6 +2441,7 @@
 				C3FB3BCE192DC6460039D052 /* MyEPeriodInforDoughnutView.m in Sources */,
 				C3FDB7CD18FA672E009B423D /* MyESwitchAutoViewController.m in Sources */,
 				C3FB3BCB192DC6460039D052 /* MyEModePickerView.m in Sources */,
+				C30DBF26193EE8010063AC6D /* MyEAlertDetailViewController.m in Sources */,
 				C39498741919D7F70075ABD3 /* CDIconView.m in Sources */,
 				C3F61B0518E1154200DEE477 /* SBJsonTokeniser.m in Sources */,
 				8CA52F9D192318A500D40EDD /* MyEEventListViewController.m in Sources */,

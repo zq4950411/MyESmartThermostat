@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "MyEAlert.h"
 #import "MyEAccountData.h"
+#import "MyEAlertDetailViewController.h"
 
 @interface MyEAlertsTableViewController ()
 -(void) deleteAlertFromServerAtRow:(NSInteger)row;
@@ -76,6 +77,12 @@
     }
     [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
 }
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.tableView reloadData];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -102,12 +109,10 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"alertCell" forIndexPath:indexPath];
     UILabel *titleLabel = (UILabel *)[cell.contentView viewWithTag:101];
-    UITextView *contentTV = (UITextView*)[cell.contentView viewWithTag:102];
     UILabel *postDateLabel = (UILabel*)[cell.contentView viewWithTag:103];
     UILabel *isNewLabel = (UILabel*)[cell.contentView viewWithTag:104];
     MyEAlert *alert = self.alerts[indexPath.row];
     titleLabel.text = alert.title;
-    contentTV.text = alert.content;
     postDateLabel.text = alert.publish_date;
     isNewLabel.hidden = (alert.new_flag == 0);
     return cell;
@@ -158,7 +163,7 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -166,8 +171,13 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"godetail"]) {
+        MyEAlertDetailViewController *vc = segue.destinationViewController;
+        NSInteger index = self.tableView.indexPathForSelectedRow.row;
+        vc.alert = self.alerts[index];
+    }
 }
-*/
+
 
 
 - (void)refreshAction
@@ -218,7 +228,7 @@
         if ([string isEqualToString:@"fail"]) {
             [SVProgressHUD showErrorWithStatus:@"Error!"];
         } else {
-            string = @"{\"alertList\":[{\"id\":1,\"new_flag\":1,\"title\":\"title 1133\",\"content\":\"xxxxxxxxxxxxxxxxxxxxxx\",\"publish_date\":\"4:45pm 4/49/2014\"},{\"id\":2,\"new_flag\":1,\"title\":\"title abc\",\"content\":\"yyyyyyyyyyyyyyyyuu\\ndfd bobok\\n \" ,\"publish_date\":\"4:45pm 4/49/2014\"},{\"id\":3,\"new_flag\":0,\"title\":\"ok test\",\"content\":\"xxxxxxxxxxx\\nxxxxxxx tews tab\\txxxx\\nttest hellow new \" ,\"publish_date\":\"4:45pm 4/49/2014\"}]}";
+//            string = @"{\"alertList\":[{\"id\":1,\"new_flag\":1,\"title\":\"title 1133\",\"content\":\"xxxxxxxxxxxxxxxxxxxxxx\",\"publish_date\":\"4:45pm 4/49/2014\"},{\"id\":2,\"new_flag\":1,\"title\":\"title abc\",\"content\":\"yyyyyyyyyyyyyyyyuu\\ndfd bobok\\n \" ,\"publish_date\":\"4:45pm 4/49/2014\"},{\"id\":3,\"new_flag\":0,\"title\":\"ok test\",\"content\":\"xxxxxxxxxxx\\nxxxxxxx tews tab\\txxxx\\nttest hellow new \" ,\"publish_date\":\"4:45pm 4/49/2014\"}]}";
             NSDictionary *dataDic = [string JSONValue];
             if ([dataDic isKindOfClass:[NSDictionary class]])
             {

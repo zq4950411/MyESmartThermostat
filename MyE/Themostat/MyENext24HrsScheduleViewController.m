@@ -65,6 +65,9 @@
     _periodInforViewShowing = NO;
     _periodInforDoughnutViewShowing = NO;
     
+    // 设置面板背景为一个纯色
+    UIColor *bgcolor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
+    
     //    _doughnutView = [[MyEDoughnutView alloc] initWithFrame:CGRectMake(30, 15, NEXT24HRS_DOUGHNUT_VIEW_SIZE, NEXT24HRS_DOUGHNUT_VIEW_SIZE) delegate:self]; // originally 2014-2-24
     _doughnutView = [[MyEDoughnutView alloc] initWithFrame:CGRectMake(15, 0, NEXT24HRS_DOUGHNUT_VIEW_SIZE, NEXT24HRS_DOUGHNUT_VIEW_SIZE) delegate:self]; // changed @  2014-2-24
     _doughnutView.delegate = self;
