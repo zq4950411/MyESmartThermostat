@@ -9,6 +9,7 @@
 #import "MyEEventAddOrEditViewController.h"
 #import "MyEEventConditionEditViewController.h"
 #import "MyEEventTimeEdtiViewController.h"
+#import "MyEEventDeviceEditViewController.h"
 
 #define newSize CGSizeMake(280, 35*([self.eventDetail.timeConditions count] + [self.eventDetail.customConditions count]));
 @interface MyEEventAddOrEditViewController (){
@@ -25,17 +26,20 @@
     [self.conditionTable reloadData];
     [self.deviceTable reloadData];
 }
--(void)viewWillDisappear:(BOOL)animated{
-//    [self removeObserver:self forKeyPath:@"contentSize"];
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    [self changeTopViewFrameWithBool:NO];
+    if (self.topBtn.selected) {
+        self.topBtn.selected = NO;
+    }
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
-    self.conditionTable.contentSize = CGSizeMake(280, 35*([self.eventDetail.timeConditions count] + [self.eventDetail.customConditions count]));
-//    self.conditionTable.frame = CGRectMake(20, 30, 280, 0);
-//    self.deviceTable.frame = CGRectMake(20, 30, 280, 0);
+    self.conditionTable.frame = CGRectMake(20, 30, 280, 0);
+    self.deviceTable.frame = CGRectMake(20, 30, 280, 0);
     self.conditionTable.tableFooterView = view;
     self.deviceTable.tableFooterView = view;
     self.conditionTable.dataSource = self;
@@ -44,21 +48,19 @@
     self.deviceTable.delegate = self;
     self.navigationItem.title = self.eventInfo.sceneName;
     self.navigationController.navigationBar.translucent = NO;
-    if (self.isAdd) {
-        [self editSceneToServerWithAction:@"addScene"];
-    }else
-        [self downloadDevicesFromServer];  //编辑的时候要获取数据
-    
+    [self downloadDevicesFromServer];  //编辑的时候要获取数据
+
     [self.conditionTable addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
-//    [self.deviceTable addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:@"deviceTable"];
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    NSLog(@"001 property %@ of object %@ change %@",keyPath,object,change);
-    
-    if (![change[@"new"] isEqualToValue:change[@"old"]]) {
-        [self refreshUIWithTag:0];
+//    NSLog(@"001 property %@ of object %@ change %@",keyPath,object,change);
+    if ([change[@"new"] isEqual:change[@"old"]]) {
+        [self refreshUIWithBool:NO];
     }
+}
+-(void)dealloc{  //这个是特别值得注意的
+    [self.conditionTable removeObserver:self forKeyPath:@"contentSize"];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -74,18 +76,14 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)editName:(UIButton *)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Enter A New Name" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    UITextField *txt = [alert textFieldAtIndex:0];
-    txt.text = self.eventInfo.sceneName;
-    txt.textAlignment = NSTextAlignmentCenter;
-    [alert show];
-}
 - (IBAction)downOrUpView:(UIButton *)sender {
     sender.selected = !sender.selected;
-    _isShow = sender.selected;
-    if (_isShow) {
+    [self changeTopViewFrameWithBool:sender.selected];
+}
+
+#pragma mark - private methods
+-(void)changeTopViewFrameWithBool:(BOOL)flag{
+    if (flag) {
         [UIView animateWithDuration:0.3 animations:^{
             CGRect newFrame = self.topView.frame;
             newFrame.origin.y += 70;
@@ -106,32 +104,23 @@
             self.conditionTable.frame = frame;
             
         } completion:^(BOOL finished){}];
-    [self refreshUIWithTag:1];
+    [self refreshUIWithBool:NO];
 }
-- (IBAction)addDevice:(UIButton *)sender {
-}
-
-#pragma mark - private methods
--(void)refreshUIWithTag:(NSInteger)tag{
-    [MyEUtil getFrameDetail:self.conditionTable andName:@"conditionTable"];
-    [MyEUtil getFrameDetail:self.deviceTable andName:@"deviceTable"];
-    
-    CGFloat x = tag == self.conditionTable.frame.origin.x;
-    CGFloat y = tag == self.conditionTable.frame.origin.y;
-    NSLog(@"%.0f  %.0f",x,y);
+-(void)refreshUIWithBool:(BOOL)yes{
+    CGFloat x = self.conditionTable.frame.origin.x;
+    CGFloat y = self.conditionTable.frame.origin.y;
     CGFloat width = self.conditionTable.contentSize.width;
     CGFloat height = self.conditionTable.contentSize.height;
-
-//    CGFloat height = 35*([self.eventDetail.timeConditions count] + [self.eventDetail.customConditions count]);
     CGFloat viewHeight = self.view.bounds.size.height;
+    if (yes) {
+        self.conditionTable.frame = CGRectMake(x, y, width, height);  //35是conditionTable的行高
+        self.deviceTable.frame = CGRectMake(x, y + height, width, viewHeight - y - height-50);
+    }else
     [UIView animateWithDuration:0.3 animations:^{
         self.conditionTable.frame = CGRectMake(x, y, width, height);  //35是conditionTable的行高
-        self.deviceTable.frame = CGRectMake(x, y + height, width, viewHeight - y - height-100);
+        self.deviceTable.frame = CGRectMake(x, y + height, width, viewHeight - y - height-50);
     }];
-    [MyEUtil getFrameDetail:self.conditionTable andName:@"conditionTable"];
-    [MyEUtil getFrameDetail:self.deviceTable andName:@"deviceTable"];
 }
-
 #pragma mark - UITableView dataSource methods
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView.tag == 100) {
@@ -179,11 +168,12 @@
             MyEEventConditionCustom *_newCustom = self.eventDetail.customConditions[indexPath.row - self.eventDetail.timeConditions.count];
             DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"Do you want to delete this conditon?" leftButtonTitle:@"NO" rightButtonTitle:@"YES"];
             alert.rightBlock = ^{
-
+                [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&sceneId=%i&tId=%@&id=%i&dataType=%i&parameterType=%i&parameterValue=%i&action=3",GetRequst(URL_FOR_SCENES_CONDITION_CUSTOM),MainDelegate.houseData.houseId,self.eventInfo.sceneId,_newCustom.tId,_newCustom.conditionId,_newCustom.dataType,_newCustom.parameterType,_newCustom.parameterValue] andName:@"deleteCustom"];
             };
             [alert show];
         }
     }else{
+        MyEEventDevice *device = self.eventDetail.devices[indexPath.row];
         
     }
 }
@@ -221,10 +211,14 @@
     if ([name isEqualToString:@"download"]) {
         MyEEventDetail *detail = [[MyEEventDetail alloc] initWithJsonString:string];
         self.eventDetail = detail;
+        
         [self.conditionTable reloadData];
         [self.deviceTable reloadData];
         self.sortBtn.selected = self.eventDetail.sortFlag == 0? NO:YES;
-        self.conditionTable.contentSize = CGSizeMake(280, 35*([self.eventDetail.timeConditions count] + [self.eventDetail.customConditions count]));
+        //如果没有可以添加的设备，则该按钮置灰
+        if (![[self.eventDetail getDeviceType] count]) {
+            self.addBtn.enabled = NO;
+        }
     }
     if ([name isEqualToString:@"editScene"]) {
         
@@ -248,16 +242,34 @@
         MyEEventTimeEdtiViewController *vc = segue.destinationViewController;
         vc.eventDetail = self.eventDetail;
         vc.isAdd = [segue.identifier isEqualToString:@"time"];
-        MyEEventConditionTime *time = [[MyEEventConditionTime alloc] init];
+        MyEEventConditionTime *time;
+        if ([segue.identifier isEqualToString:@"time"]) {
+            time = [[MyEEventConditionTime alloc] init];
+        }else
+            time = self.eventDetail.timeConditions[[self.conditionTable indexPathForCell:sender].row];
         vc.conditionTime = time;
         vc.eventInfo = self.eventInfo;
     }
     if ([segue.identifier isEqualToString:@"condition"] || [segue.identifier isEqualToString:@"conditionEdit"]) {
         MyEEventConditionEditViewController *vc = segue.destinationViewController;
         vc.eventDetail = self.eventDetail;
+        MyEEventConditionCustom *custom;
         vc.isAdd = [segue.identifier isEqualToString:@"condition"];
-        MyEEventConditionCustom *custom = [[MyEEventConditionCustom alloc] init];
+        if ([segue.identifier isEqualToString:@"condition"]) {
+            custom = [[MyEEventConditionCustom alloc] init];
+        }else
+            custom = self.eventDetail.customConditions[[self.conditionTable indexPathForCell:sender].row - self.eventDetail.timeConditions.count];
         vc.conditionCustom = custom;
+        vc.eventInfo = self.eventInfo;
+    }
+    if ([segue.identifier isEqualToString:@"device"] || [segue.identifier isEqualToString:@"deviceEdit"]) {
+        MyEEventDeviceEditViewController *vc = segue.destinationViewController;
+        vc.eventInfo = self.eventInfo;
+        vc.eventDetail = self.eventDetail;
+        vc.isAdd = [segue.identifier isEqualToString:@"device"];
+        if ([segue.identifier isEqualToString:@"deviceEdit"]) {
+            vc.device = self.eventDetail.devices[[self.deviceTable indexPathForCell:sender].row];
+        }
     }
 }
 @end

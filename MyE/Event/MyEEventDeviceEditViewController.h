@@ -7,7 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyEDataLoader.h"
+#import "MyEEventInfo.h"
+#import "MyEUtil.h"
+#import "MyEHouseData.h"
+#import "MYEPickerView.h"
+@interface MyEEventDeviceEditViewController : UIViewController<MyEDataLoaderDelegate,MYEPickerViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
-@interface MyEEventDeviceEditViewController : UIViewController
+@property (nonatomic, strong) MyEEventInfo *eventInfo;
+@property (nonatomic, strong) MyEEventDetail *eventDetail;
+@property (nonatomic, strong) MyEEventDevice *device;
+@property (nonatomic, assign) BOOL isAdd;
+
+@property (weak, nonatomic) IBOutlet UIButton *typeBtn;
+@property (weak, nonatomic) IBOutlet UIButton *deviceBtn;
+@property (weak, nonatomic) IBOutlet UIButton *roomBtn;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 
 @end

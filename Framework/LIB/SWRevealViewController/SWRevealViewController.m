@@ -880,6 +880,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
         SWDirectionPanGestureRecognizer *panRecognizer =
             [[SWDirectionPanGestureRecognizer alloc] initWithTarget:self action:@selector(_handleRevealGesture:)];
         
+     //   panRecognizer.direction = SWDirectionPanGestureRecognizerHorizontal;
         panRecognizer.direction = SWDirectionPanGestureRecognizerHorizontal;
         panRecognizer.delegate = self;
         [_contentView.frontView addGestureRecognizer:panRecognizer];

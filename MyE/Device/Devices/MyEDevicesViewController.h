@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "TableViewWithBlock.h"
-
+#import "MyEDataLoader.h"
+#import "EGORefreshTableHeaderView.h"
+#import "MBProgressHUD.h"
+#import "MyEDevice.h"
+#import "MyEHouseData.h"
+#import "SVProgressHUD.h"
+#import "MyEUtil.h"
 @interface MyEDevicesViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,MyEDataLoaderDelegate,EGORefreshTableHeaderDelegate>
 {
     NSIndexPath *_selectedIndexPath;  //当前选定的indexPath

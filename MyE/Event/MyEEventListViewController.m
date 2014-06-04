@@ -12,6 +12,8 @@
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _isRefreshing;
     NSIndexPath *_selectIndex;
+    MyEEventInfo *_newInfo;
+    NSString *_newName;
 }
 
 @end
@@ -39,7 +41,8 @@
     _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    //这里取消掉手势，因为和tableview有些冲突
+//    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     /*---------------------更新数据----------------------------*/
     [self downloadInfoFromServer];
 }
@@ -49,6 +52,16 @@
     [super didReceiveMemoryWarning];
 }
 #pragma mark - private methods
+-(void)showAlertWithTag:(NSInteger)tag andName:(NSString *)name{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enter New Event Name" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    UITextField *txt = [alert textFieldAtIndex:0];
+    txt.textAlignment = NSTextAlignmentCenter;
+    txt.font = [UIFont systemFontOfSize:20];
+    txt.text = name;
+    alert.tag = tag;
+    [alert show];
+}
 -(void)applyScene:(UIButton *)sender{
     CGPoint hit = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:hit];
@@ -64,26 +77,15 @@
 }
 #pragma mark - IBAction methods
 - (IBAction)addNewScene:(UIBarButtonItem *)sender {
-    MyEEventAddOrEditViewController *vc = [[UIStoryboard storyboardWithName:@"Event" bundle:nil] instantiateViewControllerWithIdentifier:@"event"];
-    MyEEventInfo *info = [[MyEEventInfo alloc] init];
-    //下面这段代码是自动进行名称重复性添加的
-    NSString *name = nil;
-    BOOL hasOne = YES;
-    for (int i = 0; i < 100 ; i++) {
-        name = [NSString stringWithFormat:@"New Event%i",i];
-        for (MyEEventInfo *event in self.events.scenes) {
-            if (![event.sceneName isEqualToString:name]) {
-                hasOne = NO;
-            }
-        }
-        if (!hasOne) {
-            break;
-        }
-    }
-    info.sceneName = name;
-    vc.eventInfo = info;
-    vc.isAdd = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+    [self showAlertWithTag:100 andName:@""];
+}
+- (IBAction)editEventName:(UIButton *)sender {
+    CGPoint hit = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:hit];
+    _selectIndex = indexPath;
+    NSLog(@"selecet row is %i",indexPath.row);
+    MyEEventInfo *info = self.events.scenes[indexPath.row];
+    [self showAlertWithTag:101 andName:info.sceneName];
 }
 
 #pragma mark - URL Delegate methods
@@ -123,10 +125,10 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    _selectIndex = indexPath;
     MyEEventInfo *info = self.events.scenes[indexPath.row];
     DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"Do you want to delete this event?" leftButtonTitle:@"Cancel" rightButtonTitle:@"YES"];
     alert.rightBlock = ^{
-#warning 这里少写了一个参数，不知道是否能够成功sortFlag
         MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&sceneId=%i&sceneName=%@&type=%i&action=deleteScene",GetRequst(URL_FOR_SCENES_SAVE_SCENE),MainDelegate.houseData.houseId,info.sceneId,info.sceneName,info.type] postData:nil delegate:self loaderName:@"delete" userDataDictionary:nil];
         NSLog(@"loader id %@",loader.name);
     };
@@ -160,7 +162,30 @@
             [SVProgressHUD showErrorWithStatus:@"Error"];
     }
     if ([name isEqualToString:@"delete"]) {
-        
+        if ([string isEqualToString:@"OK"]) {
+            [self.events.scenes removeObjectAtIndex:_selectIndex.row];
+            [self.tableView deleteRowsAtIndexPaths:@[_selectIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
+    }
+    if ([name isEqualToString:@"add"]) {
+        if (![string isEqualToString:@"fail"]) {
+            NSDictionary *dic = [string JSONValue];
+            MyEEventAddOrEditViewController *vc = [[UIStoryboard storyboardWithName:@"Event" bundle:nil] instantiateViewControllerWithIdentifier:@"event"];
+            _newInfo.sceneId = [dic[@"sceneId"] intValue];
+            vc.eventInfo = _newInfo;
+            vc.isAdd = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
+    }
+    if ([name isEqualToString:@"edit"]) {
+        if ([string isEqualToString:@"OK"]) {
+            MyEEventInfo *info = self.events.scenes[_selectIndex.row];
+            info.sceneName = _newName;
+            [self.tableView reloadData];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
     }
 }
 #pragma mark - UIScrollViewDelegate Methods
@@ -187,4 +212,20 @@
     return [NSDate date];
 }
 
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 100 && buttonIndex == 1) {
+        UITextField *txt = [alertView textFieldAtIndex:0];
+        _newInfo = [[MyEEventInfo alloc] init];
+        _newInfo.sceneName = txt.text;
+        MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&sceneId=%i&sceneName=%@&type=%i&sortFlag=0&action=addScene",GetRequst(URL_FOR_SCENES_SAVE_SCENE),MainDelegate.houseData.houseId,_newInfo.sceneId,_newInfo.sceneName,_newInfo.type] postData:nil delegate:self loaderName:@"add" userDataDictionary:nil];
+        NSLog(@"loader id %@",loader.name);
+    }
+    if (alertView.tag == 101 && buttonIndex == 1) {
+        UITextField *txt = [alertView textFieldAtIndex:0];
+        _newName = txt.text;
+        MyEEventInfo *info = self.events.scenes[_selectIndex.row];
+        MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&sceneId=%i&sceneName=%@&type=%i&sortFlag=0&action=editScene",GetRequst(URL_FOR_SCENES_SAVE_SCENE),MainDelegate.houseData.houseId,info.sceneId,_newName,info.type] postData:nil delegate:self loaderName:@"edit" userDataDictionary:nil];
+        NSLog(@"loader id %@",loader.name);
+    }
+}
 @end

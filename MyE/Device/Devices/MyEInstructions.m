@@ -7,7 +7,7 @@
 //
 
 #import "MyEInstructions.h"
-
+#import "SBJson.h"
 @implementation MyEInstructions
 -(MyEInstructions *)initWithJSONString:(NSString *)string{
     NSDictionary *dic = [string JSONValue];
@@ -47,7 +47,7 @@
     if (self = [super init]) {
         self.instructionId = [dic[@"instructionId"] intValue];
         self.type = [dic[@"type"] intValue];
-        self.name = dic[@"name"];
+        self.name = dic[@"name"]?dic[@"name"]:dic[@"instructionName"];
         if (dic[@"sortId"]) {
             self.sortId = [dic[@"sortId"] intValue];
         }
@@ -56,5 +56,7 @@
     }
     return nil;
 }
-
+-(NSString *)description{
+    return [NSString stringWithFormat:@"%@  %i",self.name,self.instructionId];
+}
 @end

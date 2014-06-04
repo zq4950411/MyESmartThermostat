@@ -37,6 +37,7 @@
 {
     [super viewDidLoad];
     _newCustom = [self.conditionCustom copy];
+    NSLog(@"%@",_newCustom);
     /*------------初始化数组-----------------*/
     NSMutableArray *array = [NSMutableArray array];
     for (MyETerminalData *t in MainDelegate.houseData.terminals) {
@@ -81,6 +82,7 @@
         }else
             _selectedIndex4 = 50;
         _isShow = YES;
+        [self changeTmpOrHum];
     }else{
         _selectedIndex1 = _newCustom.dataType - 1;
         _selectedIndex3 = _newCustom.parameterType - 1;
@@ -96,14 +98,24 @@
             }else
                 _selectedIndex2 = 0;
             _selectedIndex4 = [_tmpArray indexOfObject:[NSString stringWithFormat:@"%i F",_newCustom.parameterValue]];
-        }else
+            [_valueBtn setTitle:_tmpArray[_selectedIndex4] forState:UIControlStateNormal];
+        }else{
             _selectedIndex4 = [_humArray indexOfObject:[NSString stringWithFormat:@"%i %%RH",_newCustom.parameterValue]];
+            [_valueBtn setTitle:_humArray[_selectedIndex4] forState:UIControlStateNormal];
+        }
+        if (_newCustom.dataType == 1 || _newCustom.dataType == 2) {  //这个表示的是室内
+            _isShow = YES;
+        }else{
+            _isShow = YES;
+            [self refreshUIWithBool:NO];
+        }
     }
     [_conditionBtn setTitle:_conditonArray[_selectedIndex1] forState:UIControlStateNormal];
-    MyETerminalData *termina = _terminals[_selectedIndex2];
-    [_terminalBtn setTitle:termina.tName forState:UIControlStateNormal];
+    MyETerminalData *terminal = _terminals[_selectedIndex2];
+    [_terminalBtn setTitle:terminal.tName forState:UIControlStateNormal];
+    _newCustom.tId = terminal.tId;
     [_relationBtn setTitle:_relationArray[_selectedIndex3] forState:UIControlStateNormal];
-    [self changeTmpOrHumWithString:_conditonArray[_selectedIndex1]];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -114,6 +126,8 @@
 #pragma mark - IBAction methods
 - (IBAction)save:(UIBarButtonItem *)sender {
     NSLog(@"%@",_newCustom);
+    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&sceneId=%i&tid=%@&id=%i&dataType=%i&parameterType=%i&parameterValue=%i&action=%i",GetRequst(URL_FOR_SCENES_CONDITION_CUSTOM),MainDelegate.houseData.houseId,self.eventInfo.sceneId,(_newCustom.dataType == 1 || _newCustom.dataType == 2)?_newCustom.tId:@"",_newCustom.conditionId,_newCustom.dataType,_newCustom.parameterType,_newCustom.parameterValue,_isAdd?1:2] postData:nil delegate:self loaderName:@"condition" userDataDictionary:nil];
+    NSLog(@"loader name is %@",loader.name);
 }
 - (IBAction)changeStatues:(UIButton *)sender {
     MYEPickerView *picker = nil;
@@ -125,7 +139,7 @@
         picker = [[MYEPickerView alloc] initWithView:self.view andTag:sender.tag title:@"Comparison" dataSource:_relationArray andSelectRow:_selectedIndex3];
     }else{
         if ([_conditionBtn.currentTitle rangeOfString:@"Temperature"].location != NSNotFound) {
-            picker = [[MYEPickerView alloc] initWithView:self.view andTag:sender.tag title:@"Temperature" dataSource:_tmpArray andSelectRow:_selectedIndex4>70?20:_selectedIndex4];
+            picker = [[MYEPickerView alloc] initWithView:self.view andTag:sender.tag title:@"Temperature" dataSource:_tmpArray andSelectRow:_selectedIndex4];
         }else
             picker = [[MYEPickerView alloc] initWithView:self.view andTag:sender.tag title:@"humidity" dataSource:_humArray andSelectRow:_selectedIndex4];
     }
@@ -140,7 +154,7 @@
         }
         [UIView animateWithDuration:0.3 animations:^{
             CGRect newFrame = self.mainView.frame;
-            newFrame.origin.y += 35;
+            newFrame.origin.y += 45;
             self.mainView.frame = newFrame;
         }completion:^(BOOL finish){
             _isShow = YES;
@@ -151,15 +165,16 @@
         }
         [UIView animateWithDuration:0.3 animations:^{
             CGRect newFrame = self.mainView.frame;
-            newFrame.origin.y -= 35;
+            newFrame.origin.y -= 45;
             self.mainView.frame = newFrame;
         }completion:^(BOOL finish){
             _isShow = NO;
         }];
     }
 }
--(void)changeTmpOrHumWithString:(NSString *)title{
-    if ([title rangeOfString:@"Temperature"].location != NSNotFound) {
+-(void)changeTmpOrHum{
+    //这里还有其他的比较方法
+    if ([_conditionBtn.currentTitle rangeOfString:@"Temperature"].location != NSNotFound) {
         _selectedIndex4 = 20;
         [_valueBtn setTitle:_tmpArray[_selectedIndex4] forState:UIControlStateNormal];
     }else{
@@ -177,6 +192,7 @@
             [self refreshUIWithBool:YES];
         }else
             [self refreshUIWithBool:NO];
+        [self changeTmpOrHum];
     }else if (pickerView.tag == 101){
         _selectedIndex2 = row;
         [_terminalBtn setTitle:title forState:UIControlStateNormal];
@@ -192,7 +208,26 @@
         if (_newCustom.dataType == 1 || _newCustom.dataType == 3) {  //表示的是温度
             _newCustom.parameterValue = row + 30;
         }else
-            _newCustom.parameterValue = row + 1;
+            _newCustom.parameterValue = row;
     }
+}
+#pragma mark - URL delegate methods
+-(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    NSLog(@"receive string is %@",string);
+    if (![string isEqualToString:@"fail"]) {
+        if (self.isAdd) {
+            NSDictionary *dic = [string JSONValue];
+            _newCustom.conditionId = [dic[@"id"] intValue];
+            [self.eventDetail.timeConditions addObject:_newCustom];
+        }else{
+            if ([self.eventDetail.customConditions containsObject:self.conditionCustom]) {
+                NSInteger i = [self.eventDetail.customConditions indexOfObject:self.conditionCustom];
+                [self.eventDetail.customConditions removeObjectAtIndex:i];
+                [self.eventDetail.customConditions insertObject:_newCustom atIndex:i];
+            }
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }else
+        [SVProgressHUD showErrorWithStatus:@"fail"];
 }
 @end

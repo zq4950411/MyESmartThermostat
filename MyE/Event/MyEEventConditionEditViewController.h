@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MyETerminalData.h"
 #import "MYEPickerView.h"
-@interface MyEEventConditionEditViewController : UIViewController<MYEPickerViewDelegate>
+@interface MyEEventConditionEditViewController : UIViewController<MYEPickerViewDelegate,MyEDataLoaderDelegate>
 
 @property (nonatomic, weak) MyEEventInfo *eventInfo;
 @property (nonatomic, weak) MyEEventDetail *eventDetail;
