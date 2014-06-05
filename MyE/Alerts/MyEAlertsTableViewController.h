@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "UITableView+DragLoad.h"
 typedef enum {
-    ALERT_LOAD_TYPE_INIT,
-    ALERT_LOAD_TYPE_PULL_REFRESH,
-    ALERT_LOAD_TYPE_DRAG_LOADMORE
+    ALERT_LOAD_TYPE_INIT,// init load when enter this VC at first time
+    ALERT_LOAD_TYPE_PULL_REFRESH, // pull down to refresh
+    ALERT_LOAD_TYPE_DRAG_LOADMORE // drag up to load more
 } ALERT_LOAD_TYPE;
 
 @interface MyEAlertsTableViewController : UITableViewController

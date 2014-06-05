@@ -11,7 +11,6 @@
 #import "MyEAlert.h"
 #import "MyEAccountData.h"
 #import "MyEAlertDetailViewController.h"
-#import "UITableView+DragLoad.h"
 
 #define ALERT_COUNT_PER_PAGE  10
 
@@ -219,6 +218,7 @@
     
     
     NSString *urlStr = [NSString stringWithFormat:@"%@?page_index=%d&page_size=%d",GetRequst(URL_FOR_ALERTS_VIEW),index, count];
+    NSLog(@"urlStr=%@", urlStr);
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"AlertsDownloader"  userDataDictionary:@{@"load_type":@(type)}];
     NSLog(@"AlertsDownloader is %@",downloader.name);
 }
@@ -334,7 +334,6 @@
 - (void)dragTableRefreshCanceled:(UITableView *)tableView
 {
     //cancel refresh request(generally network request) here
-    
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(finishRefresh) object:nil];
 }
 
@@ -350,7 +349,6 @@
 - (void)dragTableLoadMoreCanceled:(UITableView *)tableView
 {
     //cancel load more request(generally network request) here
-    
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(finishLoadMore) object:nil];
 }
 @end
