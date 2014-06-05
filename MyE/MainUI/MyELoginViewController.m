@@ -362,21 +362,7 @@
      UITabBarController *rootViewController = [story     instantiateViewControllerWithIdentifier:@"MainTabViewController"];
      [self presentViewController:rootViewController animated:YES completion: nil];
      */
-    
-    
-    ///////////////////////////////////////////////////////////////////////
-    // Demo 用户登录
-    if ( [self.usernameInput.text caseInsensitiveCompare:@"demo"] == NSOrderedSame) {
-        MyEAccountData *anAccountData = [[MyEAccountData alloc] init];
-        
-        self.accountData = anAccountData;
-        
-        [self performSegueWithIdentifier:@"ShowMainTabViewDirectly" sender:self];
-        
-        return;
-    }
-    ///////////////////////////////////////////////////////////////////////
-    
+
     // 1.判断是否联网：
     if (![MyEDataLoader isConnectedToInternet]) {
         UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Alert" 
@@ -390,7 +376,6 @@
     
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        //        HUD.dimBackground = YES; //容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];
