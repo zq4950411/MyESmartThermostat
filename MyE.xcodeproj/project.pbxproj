@@ -130,6 +130,13 @@
 		C3086C4918FCC1BE0005E0EE /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3086C4818FCC1BE0005E0EE /* SWRevealViewController.m */; };
 		C3086C4C18FE4B000005E0EE /* MyEMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3086C4B18FE4B000005E0EE /* MyEMainMenuViewController.m */; };
 		C30DBF26193EE8010063AC6D /* MyEAlertDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30DBF25193EE8000063AC6D /* MyEAlertDetailViewController.m */; };
+		C30DBF39194018DF0063AC6D /* DragTableFooterView_ot.m in Sources */ = {isa = PBXBuildFile; fileRef = C30DBF2C194018DE0063AC6D /* DragTableFooterView_ot.m */; };
+		C30DBF3A194018DF0063AC6D /* DragTableGestureObserver_ot.m in Sources */ = {isa = PBXBuildFile; fileRef = C30DBF2E194018DE0063AC6D /* DragTableGestureObserver_ot.m */; };
+		C30DBF3B194018DF0063AC6D /* DragTableHeaderView_ot.m in Sources */ = {isa = PBXBuildFile; fileRef = C30DBF30194018DE0063AC6D /* DragTableHeaderView_ot.m */; };
+		C30DBF3C194018DF0063AC6D /* UIScrollView+DragTableSafeAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C30DBF32194018DE0063AC6D /* UIScrollView+DragTableSafeAnimation.m */; };
+		C30DBF3D194018DF0063AC6D /* UITableView+DragLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = C30DBF35194018DE0063AC6D /* UITableView+DragLoad.m */; };
+		C30DBF3E194018DF0063AC6D /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C30DBF37194018DF0063AC6D /* blueArrow.png */; };
+		C30DBF3F194018DF0063AC6D /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C30DBF38194018DF0063AC6D /* blueArrow@2x.png */; };
 		C30E01F414C7A69200011160 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30E01F314C7A69200011160 /* UIKit.framework */; };
 		C30E01F614C7A69200011160 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30E01F514C7A69200011160 /* Foundation.framework */; };
 		C30E01F814C7A69200011160 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30E01F714C7A69200011160 /* CoreGraphics.framework */; };
@@ -562,6 +569,19 @@
 		C3086C4B18FE4B000005E0EE /* MyEMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEMainMenuViewController.m; sourceTree = "<group>"; };
 		C30DBF24193EE8000063AC6D /* MyEAlertDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAlertDetailViewController.h; sourceTree = "<group>"; };
 		C30DBF25193EE8000063AC6D /* MyEAlertDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAlertDetailViewController.m; sourceTree = "<group>"; };
+		C30DBF2A194018DE0063AC6D /* DragTableDragState_ot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragTableDragState_ot.h; sourceTree = "<group>"; };
+		C30DBF2B194018DE0063AC6D /* DragTableFooterView_ot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragTableFooterView_ot.h; sourceTree = "<group>"; };
+		C30DBF2C194018DE0063AC6D /* DragTableFooterView_ot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DragTableFooterView_ot.m; sourceTree = "<group>"; };
+		C30DBF2D194018DE0063AC6D /* DragTableGestureObserver_ot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragTableGestureObserver_ot.h; sourceTree = "<group>"; };
+		C30DBF2E194018DE0063AC6D /* DragTableGestureObserver_ot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DragTableGestureObserver_ot.m; sourceTree = "<group>"; };
+		C30DBF2F194018DE0063AC6D /* DragTableHeaderView_ot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragTableHeaderView_ot.h; sourceTree = "<group>"; };
+		C30DBF30194018DE0063AC6D /* DragTableHeaderView_ot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DragTableHeaderView_ot.m; sourceTree = "<group>"; };
+		C30DBF31194018DE0063AC6D /* UIScrollView+DragTableSafeAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+DragTableSafeAnimation.h"; sourceTree = "<group>"; };
+		C30DBF32194018DE0063AC6D /* UIScrollView+DragTableSafeAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+DragTableSafeAnimation.m"; sourceTree = "<group>"; };
+		C30DBF34194018DE0063AC6D /* UITableView+DragLoad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+DragLoad.h"; sourceTree = "<group>"; };
+		C30DBF35194018DE0063AC6D /* UITableView+DragLoad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+DragLoad.m"; sourceTree = "<group>"; };
+		C30DBF37194018DF0063AC6D /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
+		C30DBF38194018DF0063AC6D /* blueArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrow@2x.png"; sourceTree = "<group>"; };
 		C30E01EF14C7A69200011160 /* MyE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30E01F314C7A69200011160 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C30E01F514C7A69200011160 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1173,6 +1193,7 @@
 		B2588C2D17B09B9C007ED13C /* LIB */ = {
 			isa = PBXGroup;
 			children = (
+				C30DBF28194018DE0063AC6D /* UITableViewDragLoad */,
 				C3FB3BA4192C3AA00039D052 /* DropDownMenu */,
 				C39498631919D7F70075ABD3 /* Wheel */,
 				C3FDB45A18FA403E009B423D /* ASIHttpRequest */,
@@ -1406,6 +1427,50 @@
 				C3086C4818FCC1BE0005E0EE /* SWRevealViewController.m */,
 			);
 			path = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		C30DBF28194018DE0063AC6D /* UITableViewDragLoad */ = {
+			isa = PBXGroup;
+			children = (
+				C30DBF29194018DE0063AC6D /* PrivateClass */,
+				C30DBF33194018DE0063AC6D /* PublicClass */,
+				C30DBF36194018DF0063AC6D /* Resources */,
+			);
+			path = UITableViewDragLoad;
+			sourceTree = "<group>";
+		};
+		C30DBF29194018DE0063AC6D /* PrivateClass */ = {
+			isa = PBXGroup;
+			children = (
+				C30DBF2A194018DE0063AC6D /* DragTableDragState_ot.h */,
+				C30DBF2B194018DE0063AC6D /* DragTableFooterView_ot.h */,
+				C30DBF2C194018DE0063AC6D /* DragTableFooterView_ot.m */,
+				C30DBF2D194018DE0063AC6D /* DragTableGestureObserver_ot.h */,
+				C30DBF2E194018DE0063AC6D /* DragTableGestureObserver_ot.m */,
+				C30DBF2F194018DE0063AC6D /* DragTableHeaderView_ot.h */,
+				C30DBF30194018DE0063AC6D /* DragTableHeaderView_ot.m */,
+				C30DBF31194018DE0063AC6D /* UIScrollView+DragTableSafeAnimation.h */,
+				C30DBF32194018DE0063AC6D /* UIScrollView+DragTableSafeAnimation.m */,
+			);
+			path = PrivateClass;
+			sourceTree = "<group>";
+		};
+		C30DBF33194018DE0063AC6D /* PublicClass */ = {
+			isa = PBXGroup;
+			children = (
+				C30DBF34194018DE0063AC6D /* UITableView+DragLoad.h */,
+				C30DBF35194018DE0063AC6D /* UITableView+DragLoad.m */,
+			);
+			path = PublicClass;
+			sourceTree = "<group>";
+		};
+		C30DBF36194018DF0063AC6D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C30DBF37194018DF0063AC6D /* blueArrow.png */,
+				C30DBF38194018DF0063AC6D /* blueArrow@2x.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		C30E01E414C7A69000011160 = {
@@ -2296,6 +2361,7 @@
 				C3AE7F0218E13B4D000AA5FC /* Switch.storyboard in Resources */,
 				8C23AB2B1924B7E100821596 /* Setting.storyboard in Resources */,
 				C3FDB7D718FA7F65009B423D /* ServerViewController.xib in Resources */,
+				C30DBF3F194018DF0063AC6D /* blueArrow@2x.png in Resources */,
 				C3FDB6EE18FA640B009B423D /* DownAccessory.png in Resources */,
 				C3FDB70618FA6460009B423D /* RepwdViewController.xib in Resources */,
 				C3FDB4E618FA6044009B423D /* HouseBlankView.xib in Resources */,
@@ -2304,6 +2370,7 @@
 				B25B79E517D198A9009F4E84 /* zbar-back.png in Resources */,
 				B25B79E617D198A9009F4E84 /* zbar-help.html in Resources */,
 				8CEC64E91921C0DE005953FB /* TwoDatePicker.xib in Resources */,
+				C30DBF3E194018DF0063AC6D /* blueArrow.png in Resources */,
 				B25B79E717D198A9009F4E84 /* zbar-helpicons.png in Resources */,
 				B25B79E817D198A9009F4E84 /* zbar-samples.png in Resources */,
 			);
@@ -2321,6 +2388,7 @@
 				C3AE7F4118E14D99000AA5FC /* MZFormSheetController.m in Sources */,
 				C3FDB7D118FA672E009B423D /* MyESwitchScheduleSettingViewController.m in Sources */,
 				C3FDB81818FA82AE009B423D /* MyESwitchManualControl.m in Sources */,
+				C30DBF3C194018DF0063AC6D /* UIScrollView+DragTableSafeAnimation.m in Sources */,
 				C3FDB80518FA82AE009B423D /* MyEDashboardData.m in Sources */,
 				C3AE7F3F18E14D99000AA5FC /* MZFormSheetBackgroundWindow.m in Sources */,
 				C3FDB81718FA82AE009B423D /* MyESwitchInfo.m in Sources */,
@@ -2421,10 +2489,12 @@
 				C39498721919D7F70075ABD3 /* CDCircleOverlayView.m in Sources */,
 				B2588D1617B09B9C007ED13C /* SwitchButton.m in Sources */,
 				C3FDB88518FA867F009B423D /* MyEPasswordResetViewController.m in Sources */,
+				C30DBF3B194018DF0063AC6D /* DragTableHeaderView_ot.m in Sources */,
 				C3FDB7D018FA672E009B423D /* MyESwitchManualControlViewController.m in Sources */,
 				B2588D1717B09B9C007ED13C /* UIAlertView+BlockExtensions.m in Sources */,
 				C3FB3BD3192DC6460039D052 /* MyETodayHoldEditingView.m in Sources */,
 				B2588D2217B09B9D007ED13C /* UITextField+Extention.m in Sources */,
+				C30DBF39194018DF0063AC6D /* DragTableFooterView_ot.m in Sources */,
 				8CEC64E71921C0DE005953FB /* TemperatureCell.m in Sources */,
 				C3FDB6F618FA640B009B423D /* UNRegistHouseViewController.m in Sources */,
 				C3CB5E88193446A00043440C /* MyEVacationDetailViewController.m in Sources */,
@@ -2464,6 +2534,7 @@
 				C3AE7F4018E14D99000AA5FC /* MZFormSheetBackgroundWindowViewController.m in Sources */,
 				C3FDB7CF18FA672E009B423D /* MyESwitchElecInfoViewController.m in Sources */,
 				8CA52FA319231A0D00D40EDD /* MyEEventConditionEditViewController.m in Sources */,
+				C30DBF3A194018DF0063AC6D /* DragTableGestureObserver_ot.m in Sources */,
 				B2588D8A17B09B9D007ED13C /* Services.m in Sources */,
 				C3CB5E8B193446A00043440C /* MyEVacationTableViewCell.m in Sources */,
 				C3F61AE118E1153400DEE477 /* BlockTextPromptAlertView.m in Sources */,
@@ -2531,6 +2602,7 @@
 				C33587D4190452F300959C94 /* MyEHomePanelViewController.m in Sources */,
 				B25B79DF17D198A9009F4E84 /* qrencode.c in Sources */,
 				B25B79E017D198A9009F4E84 /* qrinput.c in Sources */,
+				C30DBF3D194018DF0063AC6D /* UITableView+DragLoad.m in Sources */,
 				C3FDB4AD18FA403E009B423D /* ASIAuthenticationDialog.m in Sources */,
 				C3FDB7CC18FA672E009B423D /* MyEDelayTimeSetViewController.m in Sources */,
 				C3194B9A18E299EA006E3ABE /* EFloatBox.m in Sources */,

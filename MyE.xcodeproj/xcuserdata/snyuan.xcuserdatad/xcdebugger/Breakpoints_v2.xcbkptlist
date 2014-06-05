@@ -297,13 +297,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MyE/Alerts/MyEAlertDetailViewController.m"
-            timestampString = "423556639.831096"
+            filePath = "MyE/Alerts/MyEAlertsTableViewController.m"
+            timestampString = "423639773.889403"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "-configureView"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
+            landmarkName = "-dragTableRefreshCanceled:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyE/Alerts/MyEAlertsTableViewController.m"
+            timestampString = "423639776.441125"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
+            landmarkName = "-dragTableLoadMoreCanceled:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyE/MainUI/MyELoginViewController.m"
+            timestampString = "423641141.389986"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
+            landmarkName = "-didReceiveString:loaderName:userDataDictionary:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
