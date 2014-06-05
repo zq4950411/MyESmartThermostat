@@ -12,7 +12,7 @@
 #import "MyEAccountData.h"
 #import "MyEAlertDetailViewController.h"
 
-#define ALERT_COUNT_PER_PAGE  10
+#define ALERT_COUNT_PER_PAGE  20
 
 @interface MyEAlertsTableViewController ()
 -(void)goHome;
@@ -343,7 +343,9 @@
     if (self.alerts.count < _totalCount) {
         [self downloadModelForType:ALERT_LOAD_TYPE_DRAG_LOADMORE withPageIndex:_pageIndex+1 andCount:ALERT_COUNT_PER_PAGE];
     }
+    else{
 
+    }
 }
 
 - (void)dragTableLoadMoreCanceled:(UITableView *)tableView
