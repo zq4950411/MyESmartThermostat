@@ -208,12 +208,23 @@
 }
 -(void) downloadModelForType:(ALERT_LOAD_TYPE)type withPageIndex:(NSInteger)index andCount:(NSInteger)count
 {
+
     if (type == ALERT_LOAD_TYPE_INIT) {
         if(HUD == nil) {
             HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             HUD.delegate = self;
         } else
             [HUD show:YES];
+    }
+    
+    // 如果是load more, 但已经加载到本地的alert数目和服务器现有的alert数目一样, 就表示全部加载完成了, 直接返回, 不再加载
+    if(type == ALERT_LOAD_TYPE_DRAG_LOADMORE){
+        self.tableView.footerLoadingText = @"Loading...";
+        if( self.alerts.count >= _totalCount){
+            self.tableView.footerLoadingText = @"No more available";
+            [self.tableView performSelector:@selector(finishLoadMore) withObject:nil afterDelay:2];
+            return;
+        }
     }
     
     
@@ -243,6 +254,7 @@
                     case ALERT_LOAD_TYPE_PULL_REFRESH:
                         if(tempArray.count > 0)
                             _pageIndex = 0;
+                        [self.alerts removeAllObjects];
                         for (NSDictionary *tempAlert in tempArray){
                             MyEAlert *alert = [[MyEAlert alloc] initWithDictionary:tempAlert];
                             [self.alerts addObject:alert];
@@ -255,7 +267,8 @@
                             MyEAlert *alert = [[MyEAlert alloc] initWithDictionary:tempAlert];
                             [self.alerts addObject:alert];
                         }
-                        _pageIndex ++;
+                        if(tempArray.count == ALERT_COUNT_PER_PAGE)
+                            _pageIndex ++;
                         [self finishLoadMore];
                         break;
                 }
@@ -340,10 +353,9 @@
 - (void)dragTableDidTriggerLoadMore:(UITableView *)tableView
 {
     //send load more request(generally network request) here
-    if (self.alerts.count < _totalCount) {
-        [self downloadModelForType:ALERT_LOAD_TYPE_DRAG_LOADMORE withPageIndex:_pageIndex+1 andCount:ALERT_COUNT_PER_PAGE];
-    }else
-        [self finishLoadMore];
+
+    [self downloadModelForType:ALERT_LOAD_TYPE_DRAG_LOADMORE withPageIndex:_pageIndex+1 andCount:ALERT_COUNT_PER_PAGE];
+
 }
 
 - (void)dragTableLoadMoreCanceled:(UITableView *)tableView
