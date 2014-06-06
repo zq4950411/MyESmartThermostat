@@ -342,10 +342,8 @@
     //send load more request(generally network request) here
     if (self.alerts.count < _totalCount) {
         [self downloadModelForType:ALERT_LOAD_TYPE_DRAG_LOADMORE withPageIndex:_pageIndex+1 andCount:ALERT_COUNT_PER_PAGE];
-    }
-    else{
-
-    }
+    }else
+        [self finishLoadMore];
 }
 
 - (void)dragTableLoadMoreCanceled:(UITableView *)tableView
