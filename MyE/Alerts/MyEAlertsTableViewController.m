@@ -220,9 +220,14 @@
     // 如果是load more, 但已经加载到本地的alert数目和服务器现有的alert数目一样, 就表示全部加载完成了, 直接返回, 不再加载
     if(type == ALERT_LOAD_TYPE_DRAG_LOADMORE){
         self.tableView.footerLoadingText = @"Loading...";
+        [self.tableView.footerLoadingIndicator startAnimating];
+        self.tableView.footerLoadingIndicator.hidden = NO;
         if( self.alerts.count >= _totalCount){
-            self.tableView.footerLoadingText = @"No more available";
-            [self.tableView performSelector:@selector(finishLoadMore) withObject:nil afterDelay:2];
+            [self.tableView.footerLoadingIndicator stopAnimating ];
+            self.tableView.footerLoadingIndicator.hidden = YES;
+            
+            self.tableView.footerLoadingText = @"No more data";
+            [self.tableView performSelector:@selector(finishLoadMore) withObject:nil afterDelay:1];
             return;
         }
     }
