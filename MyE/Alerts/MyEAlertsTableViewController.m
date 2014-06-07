@@ -12,9 +12,17 @@
 #import "MyEAccountData.h"
 #import "MyEAlertDetailViewController.h"
 
+#define ALERT_COUNT_PER_PAGE  20
+
 @interface MyEAlertsTableViewController ()
+-(void)goHome;
 -(void) deleteAlertFromServerAtRow:(NSInteger)row;
 - (void) downloadModelFromServer;
+
+// type:0 init load when enter this VC at first time
+// type:1 pull down to refresh
+// type:3 drag up to load more
+-(void) downloadModelForType:(ALERT_LOAD_TYPE)type withPageIndex:(NSInteger)index andCount:(NSInteger)count;
 @end
 
 @implementation MyEAlertsTableViewController
@@ -37,7 +45,11 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.tableView setDragDelegate:self refreshDatePermanentKey:@"AlertList"];
+    
     self.alerts = [NSMutableArray array];
+    _pageIndex = -1;
+    _totalCount = 0;
     
     if(!self.fromHome){
         // Change button color
@@ -66,16 +78,6 @@
     
     [self downloadModelFromServer];
 
-    
-    
-    //初始化下拉视图
-    if (!_refreshHeaderView) {
-        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.tableView.frame.size.width, self.tableView.bounds.size.height)];
-        view.delegate = self;
-        [self.tableView addSubview:view];
-        _refreshHeaderView = view;
-    }
-    [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
 }
 - (void) viewWillAppear:(BOOL)animated
 {
@@ -199,56 +201,95 @@
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"DeleteAlertUploader"  userDataDictionary:@{@"indexPath":indexPath}];
     NSLog(@"DeleteAlertUploader is %@",downloader.name);
 }
+// 进入次面板的初次下载
 - (void) downloadModelFromServer
 {
-    if (!_isRefreshing) {
+    [self downloadModelForType:ALERT_LOAD_TYPE_INIT withPageIndex:0 andCount:ALERT_COUNT_PER_PAGE];
+}
+-(void) downloadModelForType:(ALERT_LOAD_TYPE)type withPageIndex:(NSInteger)index andCount:(NSInteger)count
+{
+
+    if (type == ALERT_LOAD_TYPE_INIT) {
         if(HUD == nil) {
             HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             HUD.delegate = self;
         } else
             [HUD show:YES];
     }
-
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@",GetRequst(URL_FOR_ALERTS_VIEW), MainDelegate.accountData.userId];
-    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"AlertsDownloader"  userDataDictionary:nil];
+    
+    // 如果是load more, 但已经加载到本地的alert数目和服务器现有的alert数目一样, 就表示全部加载完成了, 直接返回, 不再加载
+    if(type == ALERT_LOAD_TYPE_DRAG_LOADMORE){
+        self.tableView.footerLoadingText = @"Loading...";
+        [self.tableView.footerLoadingIndicator startAnimating];
+        self.tableView.footerLoadingIndicator.hidden = NO;
+        if( self.alerts.count >= _totalCount){
+            [self.tableView.footerLoadingIndicator stopAnimating ];
+            self.tableView.footerLoadingIndicator.hidden = YES;
+            
+            self.tableView.footerLoadingText = @"No more data";
+            [self.tableView performSelector:@selector(finishLoadMore) withObject:nil afterDelay:1];
+            return;
+        }
+    }
+    
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@?page_index=%d&page_size=%d",GetRequst(URL_FOR_ALERTS_VIEW),index, count];
+    NSLog(@"urlStr=%@", urlStr);
+    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"AlertsDownloader"  userDataDictionary:@{@"load_type":@(type)}];
     NSLog(@"AlertsDownloader is %@",downloader.name);
 }
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict
 {
-    
-    if (_isRefreshing) {
-        _isRefreshing = NO;
-        [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
-    }else {
-        [HUD hide:YES];
-    }
-
-
     if([name isEqualToString:@"AlertsDownloader"]) {
+        NSInteger load_type = [dict[@"load_type"] integerValue];
+        if(load_type == ALERT_LOAD_TYPE_INIT)
+            [HUD hide:YES];
+        
         if ([string isEqualToString:@"fail"]) {
-            [SVProgressHUD showErrorWithStatus:@"Error!"];
+            [SVProgressHUD showErrorWithStatus:@"Alerts data is not available now. Please try later!"];
         } else {
-//            string = @"{\"alertList\":[{\"id\":1,\"new_flag\":1,\"title\":\"title 1133\",\"content\":\"xxxxxxxxxxxxxxxxxxxxxx\",\"publish_date\":\"4:45pm 4/49/2014\"},{\"id\":2,\"new_flag\":1,\"title\":\"title abc\",\"content\":\"yyyyyyyyyyyyyyyyuu\\ndfd bobok\\n \" ,\"publish_date\":\"4:45pm 4/49/2014\"},{\"id\":3,\"new_flag\":0,\"title\":\"ok test\",\"content\":\"xxxxxxxxxxx\\nxxxxxxx tews tab\\txxxx\\nttest hellow new \" ,\"publish_date\":\"4:45pm 4/49/2014\"}]}";
+            NSLog(@"%@",string);
             NSDictionary *dataDic = [string JSONValue];
             if ([dataDic isKindOfClass:[NSDictionary class]])
             {
+                _totalCount = [[dataDic objectForKey:@"alertSize"] integerValue];
                 NSArray *tempArray = [dataDic objectForKey:@"alertList"];
-                for (NSDictionary *tempAlert in tempArray){
-                    MyEAlert *alert = [[MyEAlert alloc] initWithDictionary:tempAlert];
-                    [self.alerts addObject:alert];
+                switch (load_type) {
+                    case ALERT_LOAD_TYPE_INIT:
+                    case ALERT_LOAD_TYPE_PULL_REFRESH:
+                        if(tempArray.count > 0)
+                            _pageIndex = 0;
+                        [self.alerts removeAllObjects];
+                        for (NSDictionary *tempAlert in tempArray){
+                            MyEAlert *alert = [[MyEAlert alloc] initWithDictionary:tempAlert];
+                            [self.alerts addObject:alert];
+                        }
+                        [self finishRefresh];
+                        break;
+                    case ALERT_LOAD_TYPE_DRAG_LOADMORE:
+                    default:
+                        for (NSDictionary *tempAlert in tempArray){
+                            MyEAlert *alert = [[MyEAlert alloc] initWithDictionary:tempAlert];
+                            [self.alerts addObject:alert];
+                        }
+                        if(tempArray.count == ALERT_COUNT_PER_PAGE)
+                            _pageIndex ++;
+                        [self finishLoadMore];
+                        break;
                 }
-                [self.tableView reloadData ];
             }
         }
         
     }
     if([name isEqualToString:@"DeleteAlertUploader"]) {
+        [HUD hide:YES];
         if ([string isEqualToString:@"fail"]) {
             [SVProgressHUD showErrorWithStatus:@"Error!"];
         } else {
             NSIndexPath *indexPath = (NSIndexPath *)dict[@"indexPath"];
             [self.alerts removeObjectAtIndex:indexPath.row];
             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            _totalCount --;
         }
         
     }
@@ -276,25 +317,55 @@
     
 }
          
-#pragma mark - UIScrollViewDelegate Methods
+#pragma mark - Private Methods
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+-(void)goHome
+{
+    [self dismissViewControllerAnimated:YES completion:Nil];
+}
+
+
+
+#pragma mark - Control datasource
+
+- (void)finishRefresh
+{
+    [self.tableView finishRefresh];
+    [self.tableView reloadData];
+}
+
+- (void)finishLoadMore
+{
+    [self.tableView finishLoadMore];
+    [self.tableView reloadData];
+}
+
+#pragma mark - Drag delegate methods
+
+- (void)dragTableDidTriggerRefresh:(UITableView *)tableView
+{
+    //send refresh request(generally network request) here
+    [self downloadModelForType:ALERT_LOAD_TYPE_PULL_REFRESH withPageIndex:0 andCount:ALERT_COUNT_PER_PAGE];
     
-    [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
-    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+- (void)dragTableRefreshCanceled:(UITableView *)tableView
+{
+    //cancel refresh request(generally network request) here
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(finishRefresh) object:nil];
 }
 
-#pragma mark - EGORefreshTableHeaderDelegate Methods
+- (void)dragTableDidTriggerLoadMore:(UITableView *)tableView
+{
+    //send load more request(generally network request) here
 
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
-    _isRefreshing = YES;
-    [self downloadModelFromServer];
+    [self downloadModelForType:ALERT_LOAD_TYPE_DRAG_LOADMORE withPageIndex:_pageIndex+1 andCount:ALERT_COUNT_PER_PAGE];
+
 }
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
-    return [NSDate date]; // should return date data source was last changed
+
+- (void)dragTableLoadMoreCanceled:(UITableView *)tableView
+{
+    //cancel load more request(generally network request) here
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(finishLoadMore) object:nil];
 }
 @end
