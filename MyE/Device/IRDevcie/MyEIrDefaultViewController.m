@@ -19,6 +19,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.isControlMode = YES; //初始化为控制模式
     for (MyEControlBtn *btn in _keyBtns) {
         _initNumber++;
         btn.tag = _initNumber;
@@ -153,12 +154,14 @@
                 btn.status = 1;
             }
             [self refreshUI];
-            NSLog(@"self.parentViewController is %@  self is %@",self.parentViewController,self);
-            NSLog(@"%@",self.view.superview.subviews[1]);
-            UITableView *view = self.view.superview.subviews[1];
-            MyEIrUserKeyViewController *vc = (MyEIrUserKeyViewController *)view.nextResponder;
-            vc.instructions = self.instructions;
-            [vc.tableView reloadData];
+            if (self.device.typeId.intValue == 2 || self.device.typeId.intValue == 3) {
+                NSLog(@"self.parentViewController is %@  self is %@",self.parentViewController,self);
+                NSLog(@"%@",self.view.superview.subviews[1]);
+                UITableView *view = self.view.superview.subviews[1];
+                MyEIrUserKeyViewController *vc = (MyEIrUserKeyViewController *)view.nextResponder;
+                vc.instructions = self.instructions;
+                [vc.tableView reloadData];
+            }
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];
     }

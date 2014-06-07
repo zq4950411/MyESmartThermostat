@@ -171,9 +171,9 @@ static const NSUInteger kTagOfRightSideButton = 999;
         if (i == 0) {
             _shadowImageView.frame = CGRectMake(60, 0, 100, _shadowImage.size.height);
             button.selected = YES;
-            [button setTitle:@"标准控制" forState:UIControlStateNormal];
+            [button setTitle:@"Standard" forState:UIControlStateNormal];
         }else{
-            [button setTitle:@"自定义控制" forState:UIControlStateNormal];
+            [button setTitle:@"Custom" forState:UIControlStateNormal];
         }
         button.titleLabel.font = [UIFont systemFontOfSize:kFontSizeOfTabButton];
         [button setTitleColor:self.tabItemNormalColor forState:UIControlStateNormal];

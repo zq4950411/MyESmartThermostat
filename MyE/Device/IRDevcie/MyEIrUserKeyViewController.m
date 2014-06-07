@@ -25,6 +25,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if (self.device.typeId.intValue == 5) {
+        self.navigationItem.title = self.device.deviceName;
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&tId=%@",GetRequst(URL_FOR_INSTRUCTIONLIST_VIEW),MainDelegate.houseData.houseId,self.device.deviceId,self.device.tid] andName:@"instructionList"];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -94,7 +98,7 @@
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:string postData:nil delegate:self loaderName:name userDataDictionary:nil];
     NSLog(@"%@",loader.name);
 }
-
+#pragma mark - UITableView dataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [self.instructions.customList count];
 }
@@ -112,5 +116,17 @@
     [controlBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     
     return cell;
+}
+#pragma mark - URL Delegate methods
+-(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    NSLog(@"receive string is %@",string);
+    [HUD hide:YES];
+    if ([name isEqualToString:@"instructionList"]) {
+        if (![string isEqualToString:@"fail"]) {
+            MyEInstructions *instructions = [[MyEInstructions alloc] initWithJSONString:string];
+            self.instructions = instructions;
+            [self.tableView reloadData];
+        }
+    }
 }
 @end

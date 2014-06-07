@@ -13,7 +13,7 @@
 #import "MyEAccountData.h"
 #import "MyETerminalData.h"
 #import "MyEDashboardData.h"
-
+#import "MyEDevicesViewController.h"
 
 @interface MyEHomePanelViewController ()
 - (void)configureView;
@@ -103,14 +103,8 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (IBAction)goThermostat:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"thermostat" bundle:nil];
-    UITabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tab_bar_controller"];
-    // 	温控器所有二级控制页面（Dashboard, Next24, Weekly, etc），标题都采用该温控器的别名。
-
-    vc.title = MainDelegate.terminalData.tName;
-    NSLog(@"MainDelegate.thermostatData.tName = %@", MainDelegate.terminalData.tName);
-    
+- (IBAction)goToDeviceList:(id)sender {
+    MyEDevicesViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"devices"];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

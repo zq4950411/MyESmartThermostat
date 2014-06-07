@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MyEDevicesViewController.h"
+#import "MYEPickerView.h"
 
-@interface MyEDeviceAddOrEditTableViewController : UITableViewController<IQActionSheetPickerView,MyEDataLoaderDelegate,UIAlertViewDelegate>
+@interface MyEDeviceAddOrEditTableViewController : UITableViewController<IQActionSheetPickerView,MyEDataLoaderDelegate,UIAlertViewDelegate,MYEPickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (nonatomic, strong) MyEMainDevice *mainDevice;

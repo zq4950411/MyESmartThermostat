@@ -11,6 +11,9 @@
 @interface MyESocketScheduleAddOrEditViewController (){
     MBProgressHUD *HUD;
     MyESocketSchedule *_newSchedule;
+    MYEPickerView *_picker;
+    NSMutableArray *_startTimeArray;
+    NSMutableArray *_endTimeArray;
 }
 
 @end
@@ -23,11 +26,29 @@
     self.weekBtns.delegate = self;
     _newSchedule = [self.schedule copy]; //复制一个，用于修改内部数据，这样的话不会修改原来的数据
     [self refreshUI];
+    _startTimeArray = [NSMutableArray array];
+    _endTimeArray = [NSMutableArray array];
+    for (int i = 0; i < 48; i++) {
+        [_startTimeArray addObject:[NSString stringWithFormat: @"%@",  [MyEUtil timeStringForHhid:i]]];
+    }
+    for (int i = 1; i < 49; i++) {
+        [_endTimeArray addObject:[NSString stringWithFormat: @"%@",  [MyEUtil timeStringForHhid:i]]];
+    }
+    NSString *imgName = IS_IOS6?@"detailBtn-ios6":@"detailBtn";
+    [self.startTimeBtn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+    [self.startTimeBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
+    [self.endTimeBtn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+    [self.endTimeBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
 }
 
 #pragma mark - IBAction methods
 - (IBAction)setScheduleTime:(UIButton *)sender {
-    
+    if (sender.tag == 301) {
+        _picker = [[MYEPickerView alloc] initWithView:self.view andTag:sender.tag title:@"select startTime" dataSource:_startTimeArray andSelectRow:[_startTimeArray containsObject:sender.currentTitle]?[_startTimeArray indexOfObject:sender.currentTitle]:0];
+    }else
+        _picker = [[MYEPickerView alloc] initWithView:self.view andTag:sender.tag title:@"select endTime" dataSource:_endTimeArray andSelectRow:[_endTimeArray containsObject:sender.currentTitle]?[_endTimeArray indexOfObject:sender.currentTitle]:0];
+    _picker.delegate = self;
+    [_picker showInView:self.view];
 }
 - (IBAction)save:(UIBarButtonItem *)sender {
     if (![_newSchedule.weeks count]) {
@@ -38,7 +59,8 @@
 }
 #pragma mark - private methods
 -(void)refreshUI{
-    [self.timeBtn setTitle:[NSString stringWithFormat:@"%@ - %@",_newSchedule.onTime,_newSchedule.offTime] forState:UIControlStateNormal];
+    [self.startTimeBtn setTitle:[NSString stringWithFormat:@"%@",_newSchedule.onTime] forState:UIControlStateNormal];
+    [self.endTimeBtn setTitle:[NSString stringWithFormat:@"%@",_newSchedule.offTime] forState:UIControlStateNormal];
     self.weekBtns.selectedButtons = _newSchedule.weeks;
 }
 -(void)uploadOrDownloadInfoFromServerWithURL:(NSString *)url andName:(NSString *)name{
@@ -102,5 +124,23 @@
 #pragma mark - MyEWeekBtns Delegate methods
 -(void)weekButtons:(UIView *)weekButtons selectedButtonTag:(NSArray *)buttonTags{
     _newSchedule.weeks = [NSMutableArray arrayWithArray:buttonTags];
+}
+#pragma mark - MYEPickerView delegate methods
+-(void)MYEPickerView:(UIView *)pickerView didSelectTitles:(NSString *)title andRow:(NSInteger)row{
+    UIButton *btn = (UIButton *)[self.view viewWithTag:pickerView.tag];
+    [btn setTitle:title forState:UIControlStateNormal];
+    if (pickerView.tag == 301) {  //start time
+        NSInteger i = [_endTimeArray indexOfObject:self.endTimeBtn.currentTitle];
+        if (i <= row) {
+            [self.endTimeBtn setTitle:_endTimeArray[row] forState:UIControlStateNormal];
+        }
+    }else{
+        NSInteger i = [_startTimeArray indexOfObject:self.startTimeBtn.currentTitle];
+        if (i >= row) {
+            [self.startTimeBtn setTitle:_startTimeArray[row] forState:UIControlStateNormal];
+        }
+    }
+    _newSchedule.onTime = self.startTimeBtn.currentTitle;
+    _newSchedule.offTime = self.endTimeBtn.currentTitle;
 }
 @end

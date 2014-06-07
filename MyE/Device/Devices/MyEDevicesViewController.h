@@ -15,6 +15,7 @@
 #import "MyEHouseData.h"
 #import "SVProgressHUD.h"
 #import "MyEUtil.h"
+#import "MyETerminalData.h"
 @interface MyEDevicesViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,MyEDataLoaderDelegate,EGORefreshTableHeaderDelegate>
 {
     NSIndexPath *_selectedIndexPath;  //当前选定的indexPath
@@ -23,6 +24,8 @@
     NSMutableArray *_devices;
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _isRefreshing;
+    UITapGestureRecognizer *_tableTap;   //这两个手势主要用于排序
+    UILongPressGestureRecognizer *_tableLong;
 }
 
 @property (nonatomic, strong) MyEMainDevice *mainDevice;

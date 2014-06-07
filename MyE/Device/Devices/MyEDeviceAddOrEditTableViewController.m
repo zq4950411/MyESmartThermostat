@@ -12,6 +12,8 @@
 {
     NSMutableArray *_rooms,*_types,*_terminals,*_elcts;
     MBProgressHUD *HUD;
+    MyEDevice *_newDevice;
+    MYEPickerView *_pickerView;
 }
 @end
 
@@ -31,10 +33,8 @@
         if (self.device.typeId.intValue != 6) {
             [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&action=editDevice",GetRequst(URL_FOR_FIND_DEVICE),MainDelegate.houseData.houseId,self.device.deviceId] andName:@"downloadInfo"];
         }else
-            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_INFO),MainDelegate.houseData.houseId,self.device.deviceId] andName:@"downloadSocketInfo"];
-        
+            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_INFO),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadSocketInfo"];
     }
-    //    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&tId=%@",GetRequst(URL_FOR_INSTRUCTIONLIST_VIEW),MainDelegate.houseData.houseId,self.device.deviceId,self.device.tid] andName:@"instruction"];
 }
 
 #pragma mark - private methods
@@ -65,7 +65,7 @@
     }
 }
 -(void)refreshUI{
-    self.nameTextField.text = self.deviceEdit.device.deviceName;
+    self.nameTextField.text = _newDevice.deviceName;
     for (int i = 1; i < 4; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -84,64 +84,72 @@
         }else{
             switch (i) {
                 case 1:
-                    cell.detailTextLabel.text = [self.deviceEdit getRoomNameByRoomId:self.device.locationId.intValue];
+                    cell.detailTextLabel.text = [self.deviceEdit getRoomNameByRoomId:_newDevice.locationId.intValue];
                     break;
                 case 2:
-                {MyEType *t = [self.deviceEdit getTypeByTypeId:[self.deviceEdit.device.typeId intValue]];
-                    cell.detailTextLabel.text = t.typeName;}
+                {
+                    if (self.device.typeId.intValue == 6) {
+                        cell.detailTextLabel.text = @"Socket";
+                    }else{
+                        MyEType *t = [self.deviceEdit getTypeByTypeId:[_newDevice.typeId intValue]];
+                        cell.detailTextLabel.text = t.typeName;
+                    }}
                     break;
                 default:
-                {MyETerminal *t = [self.deviceEdit getTerminalByTid:self.deviceEdit.device.tid];
-                    cell.detailTextLabel.text = t.terminalName;}
+                {
+                    if (self.device.typeId.intValue == 6) {
+                        cell.detailTextLabel.text = _newDevice.tid;
+                    }else{
+                        MyETerminal *t = [self.deviceEdit getTerminalByTid:_newDevice.tid];
+                        cell.detailTextLabel.text = t.terminalName;}}
                     break;
             }
         }
     }
     if (self.device.typeId.intValue == 6) {
-        self.nameTextField.text = self.socketInfo.name;
+        self.nameTextField.text = _newDevice.deviceName;
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%i A",self.socketInfo.maxCurrent];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%i A",_newDevice.maxCurrent];
     }
     [self.tableView reloadData];
 }
 -(void)doThisWhenNeedAlert{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Connect failed! You cann't add or edit device" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    alert.delegate = self;
     [alert show];
 }
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 #pragma mark - IBAction methods
 - (IBAction)save:(UIBarButtonItem *)sender {
-    self.device.deviceName = self.nameTextField.text;
+    _newDevice.deviceName = self.nameTextField.text;
     for (int i =1; i < 4; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         NSString *str = cell.detailTextLabel.text;
         switch (i) {
             case 1:
-                self.device.locationId = [NSString stringWithFormat:@"%li",(long)[self.deviceEdit getRoomIdByRoomName:str]];
-                NSLog(@"%@",self.device.locationId);
+                _newDevice.locationId = [NSString stringWithFormat:@"%li",(long)[self.deviceEdit getRoomIdByRoomName:str]];
+                NSLog(@"%@",_newDevice.locationId);
                 break;
             case 2:
             {MyEType *type = [self.deviceEdit getTypeByTypeName:str];
-                self.device.typeId = [NSString stringWithFormat:@"%li",(long)type.typeId];}
+                _newDevice.typeId = [NSString stringWithFormat:@"%li",(long)type.typeId];}
                 break;
             default:
             {MyETerminal *terminal = [self.deviceEdit getTerminalByTName:str];
-                self.device.tid = terminal.tId;
+                _newDevice.tid = terminal.tId;
             }
                 break;
         }
     }
-    if (self.device.typeId.intValue == 6) {
+    if (self.device.typeId.intValue != 6) {
         SBJsonWriter *writer = [[SBJsonWriter alloc] init];
-        NSString *string = [writer stringWithObject:[self.device jsonDevice:self.device]];
-        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%i&action=%@&deviceMode=%@",GetRequst(URL_FOR_SAVE_DEVICE),MainDelegate.houseData.houseId,self.isAddDevice?0:self.device.deviceId.intValue,self.isAddDevice?@"addDevice":@"editDevice",string] andName:@"addOrEditDevice"];
+        NSString *string = [writer stringWithObject:[_newDevice jsonDevice:_newDevice]];
+        NSLog(@"string is %@",string);
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%i&action=%@&deviceMode=%@",GetRequst(URL_FOR_SAVE_DEVICE),MainDelegate.houseData.houseId,self.isAddDevice?0:_newDevice.deviceId.intValue,self.isAddDevice?@"addDevice":@"editDevice",string] andName:@"addOrEditDevice"];
     }else{
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -150,35 +158,42 @@
             str = [cell.detailTextLabel.text substringToIndex:1];
         }else
             str = [cell.detailTextLabel.text substringToIndex:2];
-        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&aliasName=%@&locationId=%@&maximalCurrent=%@",GetRequst(URL_FOR_SOCKET_SAVEPLUG),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceName,self.device.locationId,str] andName:@"socketEdit"];
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&aliasName=%@&locationId=%@&maximalCurrent=%@",GetRequst(URL_FOR_SOCKET_SAVEPLUG),MainDelegate.houseData.houseId,self.device.tid,_newDevice.deviceName,_newDevice.locationId,str] andName:@"socketEdit"];
     }
 }
-
 #pragma mark - Table view delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     NSString *str = cell.detailTextLabel.text;
+    if (self.nameTextField.editing) {
+        [self.nameTextField endEditing:YES];
+    }
     switch (indexPath.row) {
         case 0:
             [self.nameTextField becomeFirstResponder];
             break;
         case 1: //room
-            [MyEUniversal doThisWhenNeedPickerWithTitle:@"room select" andDelegate:self andTag:1 andArray:@[_rooms] andSelectRow:[_rooms containsObject:str]?@[@([_rooms indexOfObject:str])]:@[@(0)] andViewController:self];
+            _pickerView = [[MYEPickerView alloc] initWithView:self.view andTag:1 title:@"room select" dataSource:_rooms andSelectRow:[_rooms containsObject:str]?[_rooms indexOfObject:str]:0];
             break;
         case 2: //type
             if (!self.isAddDevice) {
                 return;
             }
-            [MyEUniversal doThisWhenNeedPickerWithTitle:@"type select" andDelegate:self andTag:2 andArray:@[_types] andSelectRow:[_types containsObject:str]?@[@([_types indexOfObject:str])]:@[@(0)] andViewController:self];
+            _pickerView = [[MYEPickerView alloc] initWithView:self.view andTag:2 title:@"type select" dataSource:_types andSelectRow:[_types containsObject:str]?[_types indexOfObject:str]:0];
             break;
         case 3:    //tid
-            [MyEUniversal doThisWhenNeedPickerWithTitle:@"terminal select" andDelegate:self andTag:3 andArray:@[_terminals] andSelectRow:[_terminals containsObject:str]?@[@([_terminals indexOfObject:str])]:@[@(0)] andViewController:self];
+            if (self.device.typeId.intValue == 6) {
+                return;
+            }
+            _pickerView = [[MYEPickerView alloc] initWithView:self.view andTag:3 title:@"terminal select" dataSource:_terminals andSelectRow:[_terminals containsObject:str]?[_terminals indexOfObject:str]:0];
             break;
         default:
-            [MyEUniversal doThisWhenNeedPickerWithTitle:@"maxElect select" andDelegate:self andTag:4 andArray:@[_elcts] andSelectRow:@[@(0)] andViewController:self];
+            _pickerView = [[MYEPickerView alloc] initWithView:self.view andTag:4 title:@"maxElect select" dataSource:_elcts andSelectRow:0];
             break;
     }
+    _pickerView.delegate = self;
+    [_pickerView showInView:self.view];
 }
 #pragma mark - URL Delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
@@ -190,14 +205,29 @@
         }else{
             MyEDeviceEdit *edit = [[MyEDeviceEdit alloc] initWithJSONString:string];
             self.deviceEdit = edit;
+            _newDevice = edit.device;  //这里存放的是device数据
+            NSLog(@"_newDevice is %@",_newDevice);
             [self getArraysFromMainData];
             [self refreshUI];
         }
     }
     if ([name isEqualToString:@"downloadSocketInfo"]) {
         if (![string isEqualToString:@"fail"]) {
-            MyESocketInfo *info = [[MyESocketInfo alloc] initWithJSONString:string];
-            self.socketInfo = info;
+            //  {"t_aliasName":"P-67","name":"ee","locationId":0,"maxCurrent":11}
+            NSDictionary *dic = [string JSONValue];
+            _newDevice = [[MyEDevice alloc] init];
+            _newDevice.tid = dic[@"t_aliasName"];
+            _newDevice.deviceName = dic[@"name"];
+            _newDevice.locationId = dic[@"locationId"];
+            _newDevice.maxCurrent = [dic[@"maxCurrent"] intValue];
+            self.deviceEdit = [[MyEDeviceEdit alloc] init];
+            NSMutableArray *roomArray = [self.mainDevice.rooms mutableCopy];
+            for (MyERoom *r in self.mainDevice.rooms) {
+                if (r.roomId == -1) {
+                    [roomArray removeObject:r];
+                }
+            }
+            self.deviceEdit.rooms = roomArray;
             [self getArraysFromMainData];
             [self refreshUI];
         }else
@@ -211,8 +241,10 @@
     }
     if ([name isEqualToString:@"addOrEditDevice"]) {
         if ([string isEqualToString:@"OK"]) {
+            //这里也是使用了一个技巧
+            NSLog(@"index is %i",[self.navigationController.childViewControllers indexOfObject:self]);
             NSLog(@"first vc is %@",self.navigationController.childViewControllers[0]);
-            MyEDevicesViewController *vc = (MyEDevicesViewController *)[self.navigationController childViewControllers][0];
+            MyEDevicesViewController *vc = (MyEDevicesViewController *)[self.navigationController childViewControllers][[self.navigationController.childViewControllers indexOfObject:self]-1];
             vc.needRefresh = YES;
             [self.navigationController popViewControllerAnimated:YES];
         }else if (string.intValue == -500){
@@ -226,10 +258,10 @@
     [self doThisWhenNeedAlert];
 }
 #pragma mark - IQActionSheetPickerView delegate methods
--(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles{
+-(void)MYEPickerView:(UIView *)pickerView didSelectTitles:(NSString *)title andRow:(NSInteger)row{
     NSIndexPath * indexPath = [NSIndexPath indexPathForRow:pickerView.tag inSection:0];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    cell.detailTextLabel.text = titles[0];
+    cell.detailTextLabel.text = title;
     [self.tableView reloadData];
 }
 #pragma mark - UIAlertView delegate methods

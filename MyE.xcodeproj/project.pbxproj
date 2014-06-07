@@ -13,6 +13,10 @@
 		8C23AB2E1924BACF00821596 /* MyEQRScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C23AB2D1924BACF00821596 /* MyEQRScanViewController.m */; };
 		8C23AB301924BDB700821596 /* beep-beep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 8C23AB2F1924BDB700821596 /* beep-beep.aiff */; };
 		8C23AB331924C24600821596 /* MyEHouseAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C23AB321924C24600821596 /* MyEHouseAddViewController.m */; };
+		8C6CB5411941C30C007EECEA /* UController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6CB53F1941C30C007EECEA /* UController.storyboard */; };
+		8C6CB5471941C5E6007EECEA /* MyEUCManualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB5461941C5E6007EECEA /* MyEUCManualViewController.m */; };
+		8C6CB54A1941C7D0007EECEA /* MyEUCInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB5491941C7D0007EECEA /* MyEUCInfo.m */; };
+		8C6CB54D1941E2A3007EECEA /* MyEUCAutoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB54C1941E2A3007EECEA /* MyEUCAutoViewController.m */; };
 		8C722604190610BB0033A78A /* NetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2588CF817B09B9C007ED13C /* NetManager.m */; };
 		8C722607190653E40033A78A /* Device.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C722605190653E40033A78A /* Device.storyboard */; };
 		8C72264B190658990033A78A /* MyEDeviceAddOrEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C72264A190658990033A78A /* MyEDeviceAddOrEditTableViewController.m */; };
@@ -349,6 +353,13 @@
 		8C23AB2F1924BDB700821596 /* beep-beep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "beep-beep.aiff"; sourceTree = "<group>"; };
 		8C23AB311924C24600821596 /* MyEHouseAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEHouseAddViewController.h; sourceTree = "<group>"; };
 		8C23AB321924C24600821596 /* MyEHouseAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEHouseAddViewController.m; sourceTree = "<group>"; };
+		8C6CB5401941C30C007EECEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = UController.storyboard; sourceTree = "<group>"; };
+		8C6CB5451941C5E6007EECEA /* MyEUCManualViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUCManualViewController.h; sourceTree = "<group>"; };
+		8C6CB5461941C5E6007EECEA /* MyEUCManualViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUCManualViewController.m; sourceTree = "<group>"; };
+		8C6CB5481941C7D0007EECEA /* MyEUCInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUCInfo.h; sourceTree = "<group>"; };
+		8C6CB5491941C7D0007EECEA /* MyEUCInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUCInfo.m; sourceTree = "<group>"; };
+		8C6CB54B1941E2A3007EECEA /* MyEUCAutoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUCAutoViewController.h; sourceTree = "<group>"; };
+		8C6CB54C1941E2A3007EECEA /* MyEUCAutoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUCAutoViewController.m; sourceTree = "<group>"; };
 		8C722606190653E40033A78A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Device.storyboard; sourceTree = "<group>"; };
 		8C722649190658990033A78A /* MyEDeviceAddOrEditTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEDeviceAddOrEditTableViewController.h; sourceTree = "<group>"; };
 		8C72264A190658990033A78A /* MyEDeviceAddOrEditTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEDeviceAddOrEditTableViewController.m; sourceTree = "<group>"; };
@@ -968,6 +979,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C6CB5441941C597007EECEA /* UController */ = {
+			isa = PBXGroup;
+			children = (
+				8C6CB5481941C7D0007EECEA /* MyEUCInfo.h */,
+				8C6CB5491941C7D0007EECEA /* MyEUCInfo.m */,
+				8C6CB5451941C5E6007EECEA /* MyEUCManualViewController.h */,
+				8C6CB5461941C5E6007EECEA /* MyEUCManualViewController.m */,
+				8C6CB54B1941E2A3007EECEA /* MyEUCAutoViewController.h */,
+				8C6CB54C1941E2A3007EECEA /* MyEUCAutoViewController.m */,
+			);
+			path = UController;
+			sourceTree = "<group>";
+		};
 		8CA05FDE19078A8D0090A350 /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1697,6 +1721,7 @@
 				C39D1C3419208C540009F2E2 /* thermostat.storyboard */,
 				8CA52F98192307E800D40EDD /* Event.storyboard */,
 				8C23AB291924B7E100821596 /* Setting.storyboard */,
+				8C6CB53F1941C30C007EECEA /* UController.storyboard */,
 			);
 			name = Storyboards;
 			path = MyE/Base.lproj;
@@ -2034,6 +2059,7 @@
 		C3FDB71B18FA672B009B423D /* Device */ = {
 			isa = PBXGroup;
 			children = (
+				8C6CB5441941C597007EECEA /* UController */,
 				8CA06040190912130090A350 /* Socket */,
 				8CA05FDE19078A8D0090A350 /* libs */,
 				C3FDB74118FA672C009B423D /* Devices */,
@@ -2275,6 +2301,7 @@
 				C3FDB6F918FA640B009B423D /* UpAccessory@2x.png in Resources */,
 				B2588D3417B09B9D007ED13C /* blackArrow.png in Resources */,
 				B2588D3517B09B9D007ED13C /* blackArrow@2x.png in Resources */,
+				8C6CB5411941C30C007EECEA /* UController.storyboard in Resources */,
 				B2588D3617B09B9D007ED13C /* blueArrow.png in Resources */,
 				B2588D3717B09B9D007ED13C /* blueArrow@2x.png in Resources */,
 				B2588D3917B09B9D007ED13C /* grayArrow.png in Resources */,
@@ -2449,6 +2476,7 @@
 				C3FB3BCA192DC6460039D052 /* MyEDoughnutView.m in Sources */,
 				B2588D3817B09B9D007ED13C /* EGORefreshTableHeaderView.m in Sources */,
 				B2588D4F17B09B9D007ED13C /* LoadMoreTableFooterView.m in Sources */,
+				8C6CB54D1941E2A3007EECEA /* MyEUCAutoViewController.m in Sources */,
 				C3FDB80418FA82AE009B423D /* MyEAccountData.m in Sources */,
 				8CA060371908A70A0090A350 /* MyEInstructions.m in Sources */,
 				C3FDB80F18FA82AE009B423D /* MyETerminalData.m in Sources */,
@@ -2489,6 +2517,7 @@
 				C3AE7F4F18E14F0C000AA5FC /* MZAppearance.m in Sources */,
 				8CA60FC91935B0B2006F7F06 /* MYEPickerView.m in Sources */,
 				C3FDB4AE18FA403E009B423D /* ASIDataCompressor.m in Sources */,
+				8C6CB54A1941C7D0007EECEA /* MyEUCInfo.m in Sources */,
 				C3F61B1E18E11DAE00DEE477 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				C3FB3BD4192DC6460039D052 /* MyETodayPeriodEditingView.m in Sources */,
 				C3FDB4EB18FA6044009B423D /* MyELoginViewController.m in Sources */,
@@ -2514,6 +2543,7 @@
 				C3FDB4EA18FA6044009B423D /* MyELaunchIntroViewController.m in Sources */,
 				8CB4B552192B46610077CFCB /* MYEWeekButtons.m in Sources */,
 				B2B2577717CC368C003833E6 /* UIViewController+MJPopupViewController.m in Sources */,
+				8C6CB5471941C5E6007EECEA /* MyEUCManualViewController.m in Sources */,
 				C3F61AFF18E1154200DEE477 /* SBJsonStreamParserAccumulator.m in Sources */,
 				8CA0600D1908A2F40090A350 /* MyECurtainControlViewController.m in Sources */,
 				C3FDB4B918FA403E009B423D /* ASICloudFilesContainerXMLParserDelegate.m in Sources */,
@@ -2583,6 +2613,14 @@
 				8C23AB2A1924B7E100821596 /* Base */,
 			);
 			name = Setting.storyboard;
+			sourceTree = "<group>";
+		};
+		8C6CB53F1941C30C007EECEA /* UController.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C6CB5401941C30C007EECEA /* Base */,
+			);
+			name = UController.storyboard;
 			sourceTree = "<group>";
 		};
 		8C722605190653E40033A78A /* Device.storyboard */ = {

@@ -36,6 +36,7 @@
         self.switchStatus = @"";
         self.sortId = @"";
         self.rfStatus = 0;
+        self.maxCurrent = 0;
         return self;
     }
     return nil;
@@ -92,7 +93,7 @@
                 self.locationName = dic[@"locationName"];
         }
         if (dic[@"locationId"]) {
-            self.locationId = dic[@"locationId"];
+            self.locationId = dic[@"locationId"]==[NSNull null]?@"0":dic[@"locationId"];
         }
         //这里需要注意
         self.point = dic[@"point"]==[NSNull null]?0:[dic[@"point"] intValue];
@@ -107,11 +108,12 @@
                           @"deviceName":device.deviceName,
                           @"typeId":@(device.typeId.intValue),
                           @"tid":device.tid,
-                          @"locationId":@(device.typeId.intValue)};
+                          @"locationId":@(device.locationId.intValue)};
+    NSLog(@"dic is %@",dic);
     return dic;
 }
 -(NSString *)description{
-    return [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@ %@ %@",self.deviceId,self.deviceName,self.typeId,self.tid,self.locationId,self.locationName,self.sortId,self.rfStatus];
+    return [NSString stringWithFormat:@"deviceId:%@ name:%@ typeId:%@ tid:%@ locationId:%@ locationName:%@ %@ %@",self.deviceId,self.deviceName,self.typeId,self.tid,self.locationId,self.locationName,self.sortId,self.rfStatus];
 }
 @end
 

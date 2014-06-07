@@ -43,7 +43,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 
     [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_FIND),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
-//    _timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(handleTimer) userInfo:nil repeats:YES];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(handleTimer) userInfo:nil repeats:YES];
 }
 #pragma mark - IBAction methods
 - (IBAction)socketControl:(UIButton *)sender {
@@ -125,9 +125,14 @@
         if (string.intValue == -999) {
             [SVProgressHUD showWithStatus:@"device unlink"];
         }else if (![string isEqualToString:@"fail"]){
-            MyESocketControlInfo *info = [[MyESocketControlInfo alloc] initWithJSONString:string];
-            self.socketControlInfo = info;
-            [self refreshUI];
+            if ([string isEqualToString:@"OK"]) {
+                self.socketControlInfo.switchStatus = 1-self.socketControlInfo.switchStatus;
+                self.socketControlBtn.selected = !self.socketControlBtn.selected;
+                [self handleTimer];  //这里要更新一次数据
+            }
+//            MyESocketControlInfo *info = [[MyESocketControlInfo alloc] initWithJSONString:string];
+//            self.socketControlInfo = info;
+//            [self refreshUI];
 //            self.socketControlInfo.switchStatus = 1-self.socketControlInfo.switchStatus;
 //            self.socketControlBtn.selected = !self.socketControlBtn.selected;
         }else

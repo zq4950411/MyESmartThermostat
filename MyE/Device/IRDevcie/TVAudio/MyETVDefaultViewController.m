@@ -16,9 +16,9 @@
 #pragma mark - life circle methods
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
     _keyBtns = self.controlBtns;
     _initNumber = 200;
+    [super viewDidLoad];
 }
 
 #pragma mark - memory warning methods

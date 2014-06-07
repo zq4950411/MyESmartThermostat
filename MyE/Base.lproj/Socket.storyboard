@@ -321,7 +321,7 @@
             </objects>
             <point key="canvasLocation" x="744" y="534"/>
         </scene>
-        <!--MyE Socket Schedule Add Or Edit View Controller - 时段详情-->
+        <!--MyE Socket Schedule Add Or Edit View Controller - Time set-->
         <scene sceneID="P3X-qi-T7t">
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="ma9-l2-PlB" customClass="MyESocketScheduleAddOrEditViewController" sceneMemberID="viewController">
@@ -334,40 +334,33 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eCa-Td-6RM">
-                                <rect key="frame" x="55" y="45" width="80" height="21"/>
+                                <rect key="frame" x="25" y="53" width="80" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftL-sT-EYp">
-                                <rect key="frame" x="187" y="45" width="73" height="21"/>
+                                <rect key="frame" x="25" y="93" width="73" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARk-5L-1wS">
-                                <rect key="frame" x="37" y="74" width="246" height="30"/>
+                            <button opaque="NO" tag="301" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARk-5L-1wS">
+                                <rect key="frame" x="125" y="49" width="170" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="setScheduleTime:" destination="ma9-l2-PlB" eventType="touchUpInside" id="9XF-vO-FXu"/>
+                                    <action selector="setScheduleTime:" destination="ma9-l2-PlB" eventType="touchUpInside" id="JOQ-7g-obe"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please select the startTime and endTime" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gH-GW-Vcu">
                                 <rect key="frame" x="29" y="20" width="263" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.进程仅在24小时内有效,如果要跨越24：00,还需另外添加 2.结束时刻必须大于开始时刻,默认二者之间差值为半小时" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="BPR-DL-OjX">
-                                <rect key="frame" x="20" y="221" width="280" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -383,10 +376,21 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" tag="302" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4RX-hJ-OmP">
+                                <rect key="frame" x="125" y="89" width="170" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="setScheduleTime:" destination="ma9-l2-PlB" eventType="touchUpInside" id="nVr-1I-T9z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="时段详情" id="9uk-Ta-Fgs">
+                    <navigationItem key="navigationItem" title="Time set" id="9uk-Ta-Fgs">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="MiZ-CY-zBL">
                             <connections>
                                 <action selector="save:" destination="ma9-l2-PlB" id="DtD-nN-MUd"/>
@@ -394,7 +398,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="timeBtn" destination="ARk-5L-1wS" id="RPw-qS-ymc"/>
+                        <outlet property="endTimeBtn" destination="4RX-hJ-OmP" id="T8l-M0-GL5"/>
+                        <outlet property="startTimeBtn" destination="ARk-5L-1wS" id="2hr-vW-cS9"/>
                         <outlet property="weekBtns" destination="v4c-i9-3fA" id="pCX-et-4HY"/>
                     </connections>
                 </viewController>

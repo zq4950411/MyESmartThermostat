@@ -34,6 +34,7 @@
 @property (nonatomic,strong) NSString *locationName;
 @property (nonatomic) NSInteger point; //温控器设置的温度，温控器可用
 @property (nonatomic,strong) NSString *instructionName;
+@property (nonatomic, assign) NSInteger maxCurrent;  //插座可用
 
 @property (nonatomic,assign) BOOL isExpand;
 

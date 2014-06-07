@@ -34,8 +34,14 @@
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = view;
-    
-    _datas = [NSMutableArray arrayWithArray:self.mainDevice.rooms];
+    //这里要将roomName是ALL的房间移除掉，因为这个房间不能编辑
+    NSMutableArray *roomArray = [self.mainDevice.rooms mutableCopy];
+    for (MyERoom *r in self.mainDevice.rooms) {
+        if (r.roomId == -1) {
+            [roomArray removeObject:r];
+        }
+    }
+    _datas = roomArray;
 }
 
 - (void)didReceiveMemoryWarning
@@ -144,12 +150,11 @@
         if (![name isEqualToString:@"fail"]) {
             MyERoom *room = _datas[_selectedIndex.row];
             room.roomName = _roomName;
-            
             [self.tableView reloadData];
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];
     }
-    MyEDevicesViewController *vc = self.navigationController.childViewControllers[0];
+    MyEDevicesViewController *vc = self.navigationController.childViewControllers[[self.navigationController.childViewControllers indexOfObject:self] - 1];  //这里这么做是为了以防万一
     vc.needRefresh = YES;
 
 }

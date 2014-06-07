@@ -24,6 +24,7 @@
 #import "MyESocketManualViewController.h"
 //框架文件
 #import "SWRevealViewController.h"
+#import "MyEIrUserKeyViewController.h"
 
 @implementation MyEDevicesViewController
 
@@ -39,7 +40,7 @@
 -(void) viewDidLoad
 {
     [super viewDidLoad];
-
+    self.navigationController.navigationBar.translucent = NO;
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = view;
@@ -58,7 +59,7 @@
     _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+//    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     //初始化下拉视图
     if (!_refreshHeaderView) {
         EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.tableView.frame.size.width, self.tableView.bounds.size.height)];
@@ -69,6 +70,9 @@
     [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
 
     [self downloadDevicesFromServer];
+    _tableLong = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(beginTableViewEditing:)];
+    [self.tableView addGestureRecognizer:_tableLong];
+
 }
 
 #pragma mark - URL  methods
@@ -136,6 +140,7 @@
         MyEDeviceAddOrEditTableViewController *vc = [story instantiateViewControllerWithIdentifier:@"socketEdit"];
         vc.isAddDevice = NO;
         vc.device = device;
+        vc.mainDevice = self.mainDevice;
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if(device.typeId.intValue == 7)  //通用控制器
@@ -157,9 +162,33 @@
     }
 }
 #pragma mark - private methods
+-(void)beginTableViewEditing:(UILongPressGestureRecognizer *)sender{
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        if (self.tableView.editing) {
+            return;
+        }
+        [self.tableView setEditing:!self.tableView.editing animated:YES];
+        _tableTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnTableView:)];
+        _tableTap.numberOfTapsRequired = 1;
+        [self.tableView removeGestureRecognizer:_tableLong];
+        [self.tableView addGestureRecognizer:_tableTap];
+    }
+}
+// 对于双击和单击事件，不需要对状态进行判断，主要是他这个状态维持的时间很短
+-(void)tapOnTableView:(UITapGestureRecognizer *)sender{
+    if (!self.tableView.editing) {
+        return;
+    }
+    [self.tableView setEditing:!self.tableView.editing animated:YES];
+    [self.tableView removeGestureRecognizer:_tableTap];
+    [self.tableView addGestureRecognizer:_tableLong];
+}
 -(NSString *)getDeviceTypeNameByTypeId:(NSString *)typeId{
     NSString *string = nil;
     switch (typeId.intValue) {
+        case 0:
+            string = @"thermostat";
+            break;
         case 2:
             string = @"tv";
             break;
@@ -182,7 +211,7 @@
             string = @"switch";
             break;
         default:
-            string = @"tv";
+            string = @"";
             break;
     }
     return string;
@@ -358,7 +387,22 @@
         [SVProgressHUD showErrorWithStatus:@"device is not online"];
         return;
     }
-    //2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器  8:开关
+    //0:温控器  2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器  8:开关
+    if (device.typeId.intValue == 0) {
+        for (MyETerminalData *t in MainDelegate.houseData.terminals) {
+            if ([t.tId isEqualToString:device.tid]) {
+                MainDelegate.terminalData = t;
+            }
+        }
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"thermostat" bundle:nil];
+        UITabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tab_bar_controller"];
+        // 	温控器所有二级控制页面（Dashboard, Next24, Weekly, etc），标题都采用该温控器的别名。
+        
+        vc.title = MainDelegate.terminalData.tName;
+        NSLog(@"MainDelegate.thermostatData.tName = %@", MainDelegate.terminalData.tName);
+        
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     if(device.typeId.intValue == 2 || device.typeId.intValue == 3)  //TV  Audio
     {
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"Device" bundle:nil];
@@ -369,7 +413,12 @@
         MyECurtainControlViewController *vc = [[UIStoryboard storyboardWithName:@"Device" bundle:nil] instantiateViewControllerWithIdentifier:@"curtain"];
         vc.device = device;
         [self.navigationController pushViewController:vc animated:YES];
-    }else if (device.typeId.intValue == 6)  //插座
+    }else if (device.typeId.intValue == 5){
+        MyEIrUserKeyViewController *vc = [[UIStoryboard storyboardWithName:@"Device" bundle:nil] instantiateViewControllerWithIdentifier:@"IrUserKeyVC"];
+        vc.device = device;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (device.typeId.intValue == 6)  //插座
     {
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"Socket" bundle:nil];
         UITabBarController *tab = [story instantiateViewControllerWithIdentifier:@"socket"];
@@ -397,38 +446,45 @@
         MyESwitchAutoViewController *switchAutoVC = [[nc1 childViewControllers] objectAtIndex:0];
         switchAutoVC.device = device;
         
-        UINavigationController *nc2 = [[tabBarController childViewControllers] objectAtIndex:2];
-        MyESwitchElecInfoViewController *elecInfoVC = [[nc2 childViewControllers] objectAtIndex:0];
-        elecInfoVC.device = device;
+//        UINavigationController *nc2 = [[tabBarController childViewControllers] objectAtIndex:2];
+//        MyESwitchElecInfoViewController *elecInfoVC = [[nc2 childViewControllers] objectAtIndex:0];
+//        elecInfoVC.device = device;
         [self presentViewController:tabBarController animated:YES completion:nil];
     }
 }
--(BOOL) tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+-(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        _selectedIndexPath = indexPath;
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                            message:@"Deleting this device will also remove all settings associated with it. Are you sure to do so?"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"NO"
+                                                  otherButtonTitles:@"YES", nil];
+        alertView.tag = 100;
+        [alertView show];
+    }
 }
 
 -(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
 }
-
--(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
-                                                            message:@"Deleting this device will also remove all settings associated with it. Are you sure to do so?"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"YES"
-                                                  otherButtonTitles:@"NO"
-                                  , nil];
-        alertView.tag = indexPath.row;
-        [alertView show];
-    }
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    return NO;
 }
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+//-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    return UITableViewCellEditingStyleNone;
+//}
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath{
+    MyEDevice *device = _devices[fromIndexPath.row];
+    [_devices removeObject:device];
+    [_devices insertObject:device atIndex:toIndexPath.row];
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&sortId=%i",GetRequst(URL_FOR_SAVE_SORT),MainDelegate.houseData.houseId,device.deviceId,toIndexPath.row] andName:@"reorder"];
 }
 
 #pragma mark - network delegate methods
@@ -469,6 +525,15 @@
     if ([name isEqualToString:@"switchControl"]) {}
     if ([name isEqualToString:@"universalControl"]) {}
     if ([name isEqualToString:@"socketControl"]) {}
+    if ([name isEqualToString:@"reorder"]) {
+        
+    }
+    if ([name isEqualToString:@"delete"]) {
+        if ([string isEqualToString:@"OK"]) {
+            [_devices removeObjectAtIndex:_selectedIndexPath.row];
+            [self.tableView deleteRowsAtIndexPaths:@[_selectedIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }
     
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
@@ -478,7 +543,10 @@
 #pragma mark - UIAlertView delegate methods
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSLog(@"click button index is %i",buttonIndex);
+    if (alertView.tag == 100 && buttonIndex == 1) {
+        MyEDevice *device = _devices[_selectedIndexPath.row];
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&action=deleteDevice",GetRequst(URL_FOR_SAVE_DEVICE),MainDelegate.houseData.houseId,device.deviceId] andName:@"delete"];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate Methods

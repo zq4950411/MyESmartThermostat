@@ -10,6 +10,15 @@
 
 @implementation MyEDeviceEdit
 
+-(id)init{
+    if (self = [super init]) {
+        self.types = [NSMutableArray array];
+        self.terminals = [NSMutableArray array];
+        self.rooms = [NSMutableArray array];
+        self.device = [[MyEDevice alloc] init];
+    }
+    return self;
+}
 -(MyEDeviceEdit *)initWithJSONString:(NSString *)string{
     NSDictionary *dic = [string JSONValue];
     MyEDeviceEdit *edit = [[MyEDeviceEdit alloc] initWithDic:dic];
@@ -22,7 +31,8 @@
         self.rooms = [NSMutableArray array];
         if (dic[@"deviceMode"] != [NSNull null]) {
             self.device = [[MyEDevice alloc] initWithDic:dic[@"deviceMode"]];
-        }
+        }else
+            self.device = [[MyEDevice alloc] init];
         
         for (NSDictionary *d in dic[@"typeList"]) {
             [self.types addObject:[[MyEType alloc] initWithDic:d]];
@@ -70,7 +80,6 @@
     return nil;
 }
 -(NSInteger)getRoomIdByRoomName:(NSString *)name{
-    NSLog(@"%@",self.rooms);
     for (MyERoom *r in self.rooms) {
         if ([r.roomName isEqualToString:name]) {
             NSLog(@"%i",r.roomId);
