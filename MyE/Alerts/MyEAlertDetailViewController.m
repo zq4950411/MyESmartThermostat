@@ -28,6 +28,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    // 使用下面的语句设置字体， 因为在Storyboard里面设置的字体似乎不管用， http://isobar.logdown.com/posts/183808-uitextview-issues-in-ios6-and-ios7
+    [self.contentTextView setEditable:YES];
+    [self.contentTextView setFont:[UIFont fontWithName:@"Helvetica" size:18]];
+    [self.contentTextView setEditable:NO];
+    
+    self.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    
     [self setReadToServer];
     [self configureView];
 }

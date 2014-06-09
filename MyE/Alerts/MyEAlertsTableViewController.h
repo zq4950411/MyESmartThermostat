@@ -14,8 +14,7 @@ typedef enum {
     ALERT_LOAD_TYPE_DRAG_LOADMORE // drag up to load more
 } ALERT_LOAD_TYPE;
 
-@interface MyEAlertsTableViewController : UITableViewController
-<MyEDataLoaderDelegate,MBProgressHUDDelegate, UIAlertViewDelegate,UITableViewDragLoadDelegate>
+@interface MyEAlertsTableViewController : UITableViewController<MyEDataLoaderDelegate,MBProgressHUDDelegate, UIAlertViewDelegate,UITableViewDragLoadDelegate>
 {
 @private
     MBProgressHUD *HUD;

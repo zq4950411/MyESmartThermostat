@@ -608,7 +608,7 @@
 
             self.holdRunLabel.text = @"Press to Run";
         }
-        [self _addHoldRunButtonForType:1 andHold:theDashboardData.isOvrried];
+        [self _addHoldRunButtonForType:theDashboardData.energyLeaver andHold:theDashboardData.isOvrried];
         
         
         
@@ -780,7 +780,7 @@
                                                 repeats:NO];
 }
 
-// type: 0 -> red, 1 -> green, 2 -> blue
+// 0: 不显示是否节能blue  1:不节能(显示红色)red  2:节能(显示绿色叶子)green
 -(void)_addHoldRunButtonForType:(NSInteger)type andHold:(HoldType)hold
 {
     if (self.holdRunButton) {
@@ -809,9 +809,9 @@
 //    self.holdRunButton.layer.borderWidth=2.0f;
     //    self.holdRunButton.layer.backgroundColor=[UIColor greenColor].CGColor; // 此句会遮住或阻止阴影, 所以注释
     if (hold ==HOLD_TYPE_PERMANENT || hold == HOLD_TYPE_TEMPORARY) {
-        if (type == 0){
+        if (type == 1){
             self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:60.0/255.0 green:30.0/255.0 blue:15.0/255.0 alpha:0.75].CGColor;
-        } else if(type == 1){
+        } else if(type == 2){
             self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:20.0/255.0 green:25.0/255.0 blue:5.0/255.0 alpha:0.75].CGColor;
         }else
             self.holdRunButton.layer.shadowColor = [UIColor colorWithRed:10.0/255.0 green:40.0/255.0 blue:45.0/255.0 alpha:0.75].CGColor;
@@ -842,11 +842,11 @@
     
     // 用一个image做Highlighted背景
     UIGraphicsBeginImageContext(self.holdRunButton.bounds.size);
-    if (type == 0) {
+    if (type == 1) {
         [[UIColor colorWithRed:230.0/255.0 green:125.0/255.0 blue:30.0/255.0 alpha:.50] setFill];
-    }else if( type == 1) {
-        [[UIColor colorWithRed:130.0/255.0 green:190.0/256 blue:60.0/255.0 alpha:0.5] setFill];
     }else if( type == 2) {
+        [[UIColor colorWithRed:130.0/255.0 green:190.0/256 blue:60.0/255.0 alpha:0.5] setFill];
+    }else if( type == 0) {
         [[UIColor colorWithRed:75.0/255.0 green:190.0/255.0 blue:215.0/255.0 alpha:0.5] setFill];
     }
     UIBezierPath* bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height/2.0f -5 startAngle:0 endAngle:2*M_PI clockwise:YES];
@@ -857,11 +857,11 @@
     
     // 用一个image做Normal背景
     UIGraphicsBeginImageContext(self.holdRunButton.bounds.size);
-    if (type == 0) {
+    if (type == 1) {
         [[UIColor colorWithRed:230.0/255.0 green:125.0/255.0 blue:30.0/255.0 alpha:1.0] setFill];
-    }else if( type == 1) {
-        [[UIColor colorWithRed:130.0/255.0 green:190.0/256 blue:60.0/255.0 alpha:1.0] setFill];
     }else if( type == 2) {
+        [[UIColor colorWithRed:130.0/255.0 green:190.0/256 blue:60.0/255.0 alpha:1.0] setFill];
+    }else if( type == 0) {
         [[UIColor colorWithRed:75.0/255.0 green:190.0/255.0 blue:215.0/255.0 alpha:1.0] setFill];
     }
     bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.holdRunButton.bounds.origin.x + self.holdRunButton.bounds.size.width/2.0, self.holdRunButton.bounds.origin.y + self.holdRunButton.bounds.size.height/2.0) radius:self.holdRunButton.bounds.size.height/2.0f -5 startAngle:0 endAngle:2*M_PI clockwise:YES];

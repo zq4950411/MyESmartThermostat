@@ -27,6 +27,7 @@
 @property (nonatomic) NSUInteger humidity;
 @property (nonatomic) NSInteger con_hp;//紧急加热是否允许
 @property (nonatomic) NSInteger aux;//紧急加热是否允许
+@property (nonatomic) NSInteger energyLeaver;// 节能类型
 
 - (MyEDashboardData *)initWithDictionary:(NSDictionary *)dictionary;
 - (MyEDashboardData *)initWithJSONString:(NSString *)jsonString;
