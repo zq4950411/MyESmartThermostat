@@ -26,11 +26,16 @@
 #import "SWRevealViewController.h"
 #import "MyEIrUserKeyViewController.h"
 
+//通用控制器
+#import "MyEUCAutoViewController.h"
+#import "MyEUCManualViewController.h"
+#import "MyEUCConditionViewController.h"
 @implementation MyEDevicesViewController
 
 #pragma mark - life circle methods
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    [self.tableView reloadData];
     if (self.needRefresh) {
         self.needRefresh = NO;
         [self downloadDevicesFromServer];
@@ -143,8 +148,13 @@
         vc.mainDevice = self.mainDevice;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    else if(device.typeId.intValue == 7)  //通用控制器
+    else if(device.typeId.intValue == 7 || device.typeId.intValue == 0)  //通用控制器和温控器
     {
+        MyEDeviceAddOrEditTableViewController *vc = [[UIStoryboard storyboardWithName:@"Device" bundle:nil] instantiateViewControllerWithIdentifier:@"other"];
+        vc.device = device;
+        vc.isAddDevice = NO;
+        vc.mainDevice = self.mainDevice;
+        [self.navigationController pushViewController:vc animated:YES];
     }
     else if(device.typeId.intValue == 8)  //switch
     {
@@ -432,6 +442,17 @@
     }
     else if(device.typeId.intValue == 7)
     {
+        UITabBarController *tab = [[UIStoryboard storyboardWithName:@"UController" bundle:nil] instantiateInitialViewController];
+        UINavigationController *nav = tab.childViewControllers[0];
+        MyEUCManualViewController *vc1 = nav.childViewControllers[0];
+        vc1.device = device;
+        nav = tab.childViewControllers[1];
+        MyEUCAutoViewController *vc2 = nav.childViewControllers[0];
+        vc2.device = device;
+        nav = tab.childViewControllers[2];
+        MyEUCConditionViewController *vc3 = nav.childViewControllers[0];
+        vc3.device = device;
+        [self presentViewController:tab animated:YES completion:nil];
     }
     else if(device.typeId.intValue == 8)
     {
@@ -445,10 +466,6 @@
         UINavigationController *nc1 = [[tabBarController childViewControllers] objectAtIndex:1];
         MyESwitchAutoViewController *switchAutoVC = [[nc1 childViewControllers] objectAtIndex:0];
         switchAutoVC.device = device;
-        
-//        UINavigationController *nc2 = [[tabBarController childViewControllers] objectAtIndex:2];
-//        MyESwitchElecInfoViewController *elecInfoVC = [[nc2 childViewControllers] objectAtIndex:0];
-//        elecInfoVC.device = device;
         [self presentViewController:tabBarController animated:YES completion:nil];
     }
 }

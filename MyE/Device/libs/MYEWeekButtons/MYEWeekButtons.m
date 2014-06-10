@@ -25,6 +25,10 @@
     }
     self.backgroundColor = [UIColor clearColor]; //背景透明
     [self setButtonsInViewWithFrame:rect];
+    [self addObserver:self forKeyPath:@"selectedButtons" options:0 context:NULL];
+}
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    [self changeBtnSelected];
 }
 #pragma mark - add Button In View
 -(void)setButtonsInViewWithFrame:(CGRect)frame{

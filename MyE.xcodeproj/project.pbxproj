@@ -17,6 +17,12 @@
 		8C6CB5471941C5E6007EECEA /* MyEUCManualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB5461941C5E6007EECEA /* MyEUCManualViewController.m */; };
 		8C6CB54A1941C7D0007EECEA /* MyEUCInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB5491941C7D0007EECEA /* MyEUCInfo.m */; };
 		8C6CB54D1941E2A3007EECEA /* MyEUCAutoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB54C1941E2A3007EECEA /* MyEUCAutoViewController.m */; };
+		8C6CB5511942A1E9007EECEA /* MyEUCScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB5501942A1E9007EECEA /* MyEUCScheduleViewController.m */; };
+		8C6CB5561942A214007EECEA /* MyEUCPeriodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB5551942A214007EECEA /* MyEUCPeriodViewController.m */; };
+		8C6CB5591942E33F007EECEA /* MyEUCConditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB5581942E33F007EECEA /* MyEUCConditionViewController.m */; };
+		8C6CB55C194550D2007EECEA /* MyEUCTimeSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB55B194550D2007EECEA /* MyEUCTimeSetViewController.m */; };
+		8C6CB5601945511E007EECEA /* MyEUCWeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB55F1945511E007EECEA /* MyEUCWeatherViewController.m */; };
+		8C6CB5631945514B007EECEA /* MyEUCChannelSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB5621945514B007EECEA /* MyEUCChannelSetViewController.m */; };
 		8C722604190610BB0033A78A /* NetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2588CF817B09B9C007ED13C /* NetManager.m */; };
 		8C722607190653E40033A78A /* Device.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C722605190653E40033A78A /* Device.storyboard */; };
 		8C72264B190658990033A78A /* MyEDeviceAddOrEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C72264A190658990033A78A /* MyEDeviceAddOrEditTableViewController.m */; };
@@ -367,6 +373,18 @@
 		8C6CB5491941C7D0007EECEA /* MyEUCInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUCInfo.m; sourceTree = "<group>"; };
 		8C6CB54B1941E2A3007EECEA /* MyEUCAutoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUCAutoViewController.h; sourceTree = "<group>"; };
 		8C6CB54C1941E2A3007EECEA /* MyEUCAutoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUCAutoViewController.m; sourceTree = "<group>"; };
+		8C6CB54F1942A1E9007EECEA /* MyEUCScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUCScheduleViewController.h; sourceTree = "<group>"; };
+		8C6CB5501942A1E9007EECEA /* MyEUCScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUCScheduleViewController.m; sourceTree = "<group>"; };
+		8C6CB5541942A214007EECEA /* MyEUCPeriodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUCPeriodViewController.h; sourceTree = "<group>"; };
+		8C6CB5551942A214007EECEA /* MyEUCPeriodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUCPeriodViewController.m; sourceTree = "<group>"; };
+		8C6CB5571942E33F007EECEA /* MyEUCConditionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUCConditionViewController.h; sourceTree = "<group>"; };
+		8C6CB5581942E33F007EECEA /* MyEUCConditionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUCConditionViewController.m; sourceTree = "<group>"; };
+		8C6CB55A194550D2007EECEA /* MyEUCTimeSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUCTimeSetViewController.h; sourceTree = "<group>"; };
+		8C6CB55B194550D2007EECEA /* MyEUCTimeSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUCTimeSetViewController.m; sourceTree = "<group>"; };
+		8C6CB55E1945511E007EECEA /* MyEUCWeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUCWeatherViewController.h; sourceTree = "<group>"; };
+		8C6CB55F1945511E007EECEA /* MyEUCWeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUCWeatherViewController.m; sourceTree = "<group>"; };
+		8C6CB5611945514B007EECEA /* MyEUCChannelSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUCChannelSetViewController.h; sourceTree = "<group>"; };
+		8C6CB5621945514B007EECEA /* MyEUCChannelSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUCChannelSetViewController.m; sourceTree = "<group>"; };
 		8C722606190653E40033A78A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Device.storyboard; sourceTree = "<group>"; };
 		8C722649190658990033A78A /* MyEDeviceAddOrEditTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEDeviceAddOrEditTableViewController.h; sourceTree = "<group>"; };
 		8C72264A190658990033A78A /* MyEDeviceAddOrEditTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEDeviceAddOrEditTableViewController.m; sourceTree = "<group>"; };
@@ -1008,6 +1026,18 @@
 				8C6CB5461941C5E6007EECEA /* MyEUCManualViewController.m */,
 				8C6CB54B1941E2A3007EECEA /* MyEUCAutoViewController.h */,
 				8C6CB54C1941E2A3007EECEA /* MyEUCAutoViewController.m */,
+				8C6CB54F1942A1E9007EECEA /* MyEUCScheduleViewController.h */,
+				8C6CB5501942A1E9007EECEA /* MyEUCScheduleViewController.m */,
+				8C6CB5541942A214007EECEA /* MyEUCPeriodViewController.h */,
+				8C6CB5551942A214007EECEA /* MyEUCPeriodViewController.m */,
+				8C6CB5571942E33F007EECEA /* MyEUCConditionViewController.h */,
+				8C6CB5581942E33F007EECEA /* MyEUCConditionViewController.m */,
+				8C6CB55A194550D2007EECEA /* MyEUCTimeSetViewController.h */,
+				8C6CB55B194550D2007EECEA /* MyEUCTimeSetViewController.m */,
+				8C6CB55E1945511E007EECEA /* MyEUCWeatherViewController.h */,
+				8C6CB55F1945511E007EECEA /* MyEUCWeatherViewController.m */,
+				8C6CB5611945514B007EECEA /* MyEUCChannelSetViewController.h */,
+				8C6CB5621945514B007EECEA /* MyEUCChannelSetViewController.m */,
 			);
 			path = UController;
 			sourceTree = "<group>";
@@ -2481,6 +2511,7 @@
 				C395989B18E12CC800E30AFF /* UIImage+FlatUI.m in Sources */,
 				C395989918E12CC800E30AFF /* UIColor+FlatUI.m in Sources */,
 				C3FDB4B218FA403E009B423D /* ASIHTTPRequest.m in Sources */,
+				8C6CB5511942A1E9007EECEA /* MyEUCScheduleViewController.m in Sources */,
 				8CA060131908A2F40090A350 /* MyEIrControlPageViewController.m in Sources */,
 				C39498701919D7F70075ABD3 /* CDCircle.m in Sources */,
 				C3FB3BD2192DC6460039D052 /* MyEThumbModeView.m in Sources */,
@@ -2522,6 +2553,7 @@
 				C3FB3BD3192DC6460039D052 /* MyETodayHoldEditingView.m in Sources */,
 				B2588D2217B09B9D007ED13C /* UITextField+Extention.m in Sources */,
 				C30DBF39194018DF0063AC6D /* DragTableFooterView_ot.m in Sources */,
+				8C6CB5601945511E007EECEA /* MyEUCWeatherViewController.m in Sources */,
 				8CEC64E71921C0DE005953FB /* TemperatureCell.m in Sources */,
 				C3FDB6F618FA640B009B423D /* UNRegistHouseViewController.m in Sources */,
 				C3CB5E88193446A00043440C /* MyEVacationDetailViewController.m in Sources */,
@@ -2534,7 +2566,9 @@
 				C3FDB4BA18FA403E009B423D /* ASICloudFilesObject.m in Sources */,
 				C3F61B0118E1154200DEE477 /* SBJsonStreamParserState.m in Sources */,
 				C3FB3BD9192DC6460039D052 /* MyEWeeklyScheduleViewController.m in Sources */,
+				8C6CB5631945514B007EECEA /* MyEUCChannelSetViewController.m in Sources */,
 				8CA060341908A3BF0090A350 /* SUNSlideSwitchView.m in Sources */,
+				8C6CB55C194550D2007EECEA /* MyEUCTimeSetViewController.m in Sources */,
 				C3FB3BCE192DC6460039D052 /* MyEPeriodInforDoughnutView.m in Sources */,
 				C3FDB7CD18FA672E009B423D /* MyESwitchAutoViewController.m in Sources */,
 				C3FB3BCB192DC6460039D052 /* MyEModePickerView.m in Sources */,
@@ -2572,6 +2606,7 @@
 				C3194BA018E299EA006E3ABE /* UICountingLabel.m in Sources */,
 				C3F61AFC18E1154200DEE477 /* NSObject+SBJson.m in Sources */,
 				B2520A0517C212E100CB56BA /* NSDictionary+JSONNSNull.m in Sources */,
+				8C6CB5561942A214007EECEA /* MyEUCPeriodViewController.m in Sources */,
 				8CEC64E41921C0DE005953FB /* SequentialCell.m in Sources */,
 				C3FB3BCD192DC6460039D052 /* MyEPeriodData.m in Sources */,
 				B2520A0817C216EB00CB56BA /* NSString+Common.m in Sources */,
@@ -2600,6 +2635,7 @@
 				C3194B9818E299EA006E3ABE /* EColumnChartLabel.m in Sources */,
 				C3F61ADE18E1153400DEE477 /* BlockActionSheet.m in Sources */,
 				8CA060101908A2F40090A350 /* MyEIrStudyEditKeyModalViewController.m in Sources */,
+				8C6CB5591942E33F007EECEA /* MyEUCConditionViewController.m in Sources */,
 				C32497461931C10F00109599 /* MyEUsageStat.m in Sources */,
 				C3F61B0418E1154200DEE477 /* SBJsonStreamWriterState.m in Sources */,
 				8CA05FEB1907A8CD0090A350 /* MyERoomsTableViewController.m in Sources */,

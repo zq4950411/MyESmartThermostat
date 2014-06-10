@@ -30,10 +30,12 @@
         [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&action=addDevice",GetRequst(URL_FOR_FIND_DEVICE),MainDelegate.houseData.houseId] andName:@"downloadInfo"];
     }else{
         self.title = @"EDIT";
-        if (self.device.typeId.intValue != 6) {
-            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&action=editDevice",GetRequst(URL_FOR_FIND_DEVICE),MainDelegate.houseData.houseId,self.device.deviceId] andName:@"downloadInfo"];
+        if (self.device.typeId.intValue == 6) {  //插座
+            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_INFO),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadOtherInfo"];
+        }else if(self.device.typeId.intValue == 7 || self.device.typeId.intValue == 0){   //通用控制器或者温控器
+            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@",GetRequst(URL_FOR_UNIVERSAL_CONTROLLER_INFO),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId] andName:@"downloadOtherInfo"];
         }else
-            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_INFO),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadSocketInfo"];
+            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&action=editDevice",GetRequst(URL_FOR_FIND_DEVICE),MainDelegate.houseData.houseId,self.device.deviceId] andName:@"downloadInfo"];
     }
 }
 
@@ -90,6 +92,10 @@
                 {
                     if (self.device.typeId.intValue == 6) {
                         cell.detailTextLabel.text = @"Socket";
+                    }else if(self.device.typeId.intValue == 7){
+                        cell.detailTextLabel.text = @"Universal Controller";
+                    }else if(self.device.typeId.intValue == 0){
+                        cell.detailTextLabel.text = @"Thermostat";
                     }else{
                         MyEType *t = [self.deviceEdit getTypeByTypeId:[_newDevice.typeId intValue]];
                         cell.detailTextLabel.text = t.typeName;
@@ -98,6 +104,10 @@
                 default:
                 {
                     if (self.device.typeId.intValue == 6) {
+                        cell.detailTextLabel.text = _newDevice.tid;
+                    }else if(self.device.typeId.intValue == 7){
+                        cell.detailTextLabel.text = _newDevice.tid;
+                    }else if(self.device.typeId.intValue == 0){
                         cell.detailTextLabel.text = _newDevice.tid;
                     }else{
                         MyETerminal *t = [self.deviceEdit getTerminalByTid:_newDevice.tid];
@@ -124,6 +134,10 @@
 }
 #pragma mark - IBAction methods
 - (IBAction)save:(UIBarButtonItem *)sender {
+    if ([self.nameTextField.text length] < 1 || [self.nameTextField.text length] > 15) {
+        [SVProgressHUD showErrorWithStatus:@"name error!"];
+        return;
+    }
     _newDevice.deviceName = self.nameTextField.text;
     for (int i =1; i < 4; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
@@ -145,12 +159,7 @@
                 break;
         }
     }
-    if (self.device.typeId.intValue != 6) {
-        SBJsonWriter *writer = [[SBJsonWriter alloc] init];
-        NSString *string = [writer stringWithObject:[_newDevice jsonDevice:_newDevice]];
-        NSLog(@"string is %@",string);
-        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%i&action=%@&deviceMode=%@",GetRequst(URL_FOR_SAVE_DEVICE),MainDelegate.houseData.houseId,self.isAddDevice?0:_newDevice.deviceId.intValue,self.isAddDevice?@"addDevice":@"editDevice",string] andName:@"addOrEditDevice"];
-    }else{
+    if (self.device.typeId.intValue == 6) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         NSString *str = nil;
@@ -158,7 +167,14 @@
             str = [cell.detailTextLabel.text substringToIndex:1];
         }else
             str = [cell.detailTextLabel.text substringToIndex:2];
-        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&aliasName=%@&locationId=%@&maximalCurrent=%@",GetRequst(URL_FOR_SOCKET_SAVEPLUG),MainDelegate.houseData.houseId,self.device.tid,_newDevice.deviceName,_newDevice.locationId,str] andName:@"socketEdit"];
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&aliasName=%@&locationId=%@&maximalCurrent=%@",GetRequst(URL_FOR_SOCKET_SAVEPLUG),MainDelegate.houseData.houseId,self.device.tid,_newDevice.deviceName,_newDevice.locationId,str] andName:@"otherEdit"];
+    }else if(self.device.typeId.intValue == 7 || self.device.typeId.intValue == 0){
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&name=%@&locationId=%@",GetRequst(URL_FOR_UNIVERSAL_CONTROLLER_INFO_SAVE),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId,_newDevice.deviceName,_newDevice.locationId] andName:@"otherEdit"];
+    }else{
+        SBJsonWriter *writer = [[SBJsonWriter alloc] init];
+        NSString *string = [writer stringWithObject:[_newDevice jsonDevice:_newDevice]];
+        NSLog(@"string is %@",string);
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%i&action=%@&deviceMode=%@",GetRequst(URL_FOR_SAVE_DEVICE),MainDelegate.houseData.houseId,self.isAddDevice?0:_newDevice.deviceId.intValue,self.isAddDevice?@"addDevice":@"editDevice",string] andName:@"addOrEditDevice"];
     }
 }
 #pragma mark - Table view delegate
@@ -183,7 +199,7 @@
             _pickerView = [[MYEPickerView alloc] initWithView:self.view andTag:2 title:@"type select" dataSource:_types andSelectRow:[_types containsObject:str]?[_types indexOfObject:str]:0];
             break;
         case 3:    //tid
-            if (self.device.typeId.intValue == 6) {
+            if (self.device.typeId.intValue == 6 ||self.device.typeId.intValue == 7 || self.device.typeId.intValue == 0) {
                 return;
             }
             _pickerView = [[MYEPickerView alloc] initWithView:self.view andTag:3 title:@"terminal select" dataSource:_terminals andSelectRow:[_terminals containsObject:str]?[_terminals indexOfObject:str]:0];
@@ -211,7 +227,7 @@
             [self refreshUI];
         }
     }
-    if ([name isEqualToString:@"downloadSocketInfo"]) {
+    if ([name isEqualToString:@"downloadOtherInfo"]) {
         if (![string isEqualToString:@"fail"]) {
             //  {"t_aliasName":"P-67","name":"ee","locationId":0,"maxCurrent":11}
             NSDictionary *dic = [string JSONValue];
@@ -219,7 +235,9 @@
             _newDevice.tid = dic[@"t_aliasName"];
             _newDevice.deviceName = dic[@"name"];
             _newDevice.locationId = dic[@"locationId"];
-            _newDevice.maxCurrent = [dic[@"maxCurrent"] intValue];
+            if (dic[@"maxCurrent"]) {
+                _newDevice.maxCurrent = [dic[@"maxCurrent"] intValue];
+            }
             self.deviceEdit = [[MyEDeviceEdit alloc] init];
             NSMutableArray *roomArray = [self.mainDevice.rooms mutableCopy];
             for (MyERoom *r in self.mainDevice.rooms) {
@@ -233,7 +251,7 @@
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];
     }
-    if ([name isEqualToString:@"socketEdit"]) {
+    if ([name isEqualToString:@"otherEdit"]) {
         if (![string isEqualToString:@"fail"]) {
             [SVProgressHUD showSuccessWithStatus:@"Success!"];
         }else

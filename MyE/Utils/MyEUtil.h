@@ -29,11 +29,11 @@
 //#define URL_FOR_SETTINGS_SAVE @"http://www.myenergydomain.com/setting_save.do"
 
 #define GetServer [ServerUtils getServierIp]
-//#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
+#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
 
 //#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
 
-#define GetRequst(API) [@"http://182.110.138.73:65533" stringByAppendingFormat:@"%@",API]
+//#define GetRequst(API) [@"http://182.110.138.73:65533" stringByAppendingFormat:@"%@",API]
 
 #define URL_FOR_LOGIN @"/user/userJson_login_phone.do"
 #define URL_FOR_ADD_ADDRESS @"/house_add4mobile.do"
@@ -103,6 +103,9 @@
 #define URL_FOR_UNIVERSAL_CONTROLLER_AUTO_SAVE @"/universalcontroller_auto_save.do"
 #define URL_FOR_UNIVERSAL_CONTROLLER_VIEW @"/universalcontroller_view.do"
 #define URL_FOR_UNIVERSAL_CONTROLLER_SAVE @"/universalcontroller_save.do"
+
+#define URL_FOR_UNIVERSAL_CONTROLLER_INFO @"/universalcontroller_getDeive.do"
+#define URL_FOR_UNIVERSAL_CONTROLLER_INFO_SAVE @"/universalcontroller_saveDevice.do"
 
 #define URL_FOR_SCENES_CONDITION_CUSTOM @"/scenes_saveSceneCustomParameter.do"
 #define URL_FOR_SCENES_CONDITION_TIME @"/scenes_saveSceneTimeParameter.do"

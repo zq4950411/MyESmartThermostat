@@ -31,6 +31,20 @@
     [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
 
     [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_UNIVERSAL_CONTROLLER_AUTO_VIEW),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [btn setFrame:CGRectMake(0, 0, 50, 30)];
+    if (!IS_IOS6) {
+        [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+    }else{
+        [btn setBackgroundImage:[UIImage imageNamed:@"back-ios6"] forState:UIControlStateNormal];
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn setTitle:@"Back" forState:UIControlStateNormal];
+    }
+    [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,6 +53,9 @@
 }
 
 #pragma mark - private methods
+-(void)dismissVC{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 -(void)upOrDownloadInfoWithURL:(NSString *)url andName:(NSString *)name{
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:url postData:nil delegate:self loaderName:name userDataDictionary:nil];
     NSLog(@"loader name is %@",loader.name);
@@ -99,11 +116,18 @@
 
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    MyEUCScheduleViewController *vc = segue.destinationViewController;
     if ([segue.identifier isEqualToString:@"add"]) {
-        
+        MyEUCSchedule *schedule = [[MyEUCSchedule alloc] init];
+        vc.schedule = schedule;
+        vc.isAdd = YES;
+        vc.ucAuto = self.ucAuto;
     }
     if ([segue.identifier isEqualToString:@"edit"]) {
-        
+        MyEUCSchedule *schedule = self.ucAuto.lists[[self.tableView indexPathForCell:sender].row];
+        vc.schedule = schedule;
+        vc.isAdd = NO;
+        vc.ucAuto = self.ucAuto;
     }
 }
 

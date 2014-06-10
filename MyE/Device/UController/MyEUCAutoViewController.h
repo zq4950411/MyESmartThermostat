@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MyEUCInfo.h"
 #import "EGORefreshTableHeaderView.h"
+#import "MyEUCScheduleViewController.h"
 @interface MyEUCAutoViewController : UITableViewController<MyEDataLoaderDelegate,EGORefreshTableHeaderDelegate>
 
 @property (nonatomic, weak) MyEDevice *device;
-@property (nonatomic, weak) MyEUCAuto *ucAuto;
+@property (nonatomic, strong) MyEUCAuto *ucAuto;
 @end

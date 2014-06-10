@@ -204,17 +204,28 @@
         // Houselist view controller 从服务器获取最新数据。
         [hlvc downloadModelFromServer ];
         
+#warning 这里在出现以下问题是报错
+        /*
+         2014-06-09 19:23:14.810 MyE[24152:60b] http://www.myenergydomain.com:80/dashboard_view.do?userId=1000100000000000140&houseId=1259&tId=(null)
+         2014-06-09 19:23:14.812 MyE[24152:60b] DashboardDownloader is DashboardDownloader, url is http://www.myenergydomain.com:80/dashboard_view.do?userId=1000100000000000140&houseId=1259&tId=(null)
+         2014-06-09 19:23:17.167 MyE[24152:60b] Succeeded! Received 4 bytes of data
+         2014-06-09 19:23:17.168 MyE[24152:60b] DashboardDownloader string from server is
+         -999
+         2014-06-09 19:23:17.170 MyE[24152:60b] http://www.myenergydomain.com:80/dashboard_view.do?userId=1000100000000000140&houseId=1259&tId=(null)
+         2014-06-09 19:23:17.171 MyE[24152:60b] DashboardDownloader is DashboardDownloader, url is http://www.myenergydomain.com:80/dashboard_view.do?userId=1000100000000000140&houseId=1259&tId=(null)
+         2014-06-09 19:23:17.172 MyE[24152:60b] -[MyEHomePanelViewController accountData]: unrecognized selector sent to instance 0x166e2f20
+         */
         //获取当前正在操作的house的name
-        NSString *currentHouseName = [hlvc.accountData getHouseNameByHouseId:MainDelegate.houseData.houseId];
-        NSString *message;
-        
-        if (respondInt == -999) {
-            message = [NSString stringWithFormat:@"The thermostat of hosue %@ was disconnected.", currentHouseName];
-        } else if (respondInt == -998) {
-            message = [NSString stringWithFormat:@"The thermostat of hosue %@ was set to Remote Control Disabled.", currentHouseName];
-        }
-        
-        [hlvc showAutoDisappearAlertWithTile:@"Alert" message:message delay:10.0f];
+//        NSString *currentHouseName = [hlvc.accountData getHouseNameByHouseId:MainDelegate.houseData.houseId];
+//        NSString *message;
+//        
+//        if (respondInt == -999) {
+//            message = [NSString stringWithFormat:@"The thermostat of hosue %@ was disconnected.", currentHouseName];
+//        } else if (respondInt == -998) {
+//            message = [NSString stringWithFormat:@"The thermostat of hosue %@ was set to Remote Control Disabled.", currentHouseName];
+//        }
+//        
+//        [hlvc showAutoDisappearAlertWithTile:@"Alert" message:message delay:10.0f];
         return NO;
     }
     return YES;

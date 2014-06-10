@@ -30,6 +30,20 @@
     [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
 
     [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_UNIVERSAL_CONTROL_MANUAL_VIEW),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [btn setFrame:CGRectMake(0, 0, 50, 30)];
+    if (!IS_IOS6) {
+        [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+    }else{
+        [btn setBackgroundImage:[UIImage imageNamed:@"back-ios6"] forState:UIControlStateNormal];
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn setTitle:@"Back" forState:UIControlStateNormal];
+    }
+    [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,12 +54,15 @@
 -(void)control:(UISwitch *)sender{
     CGPoint hit = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:hit];
-    [self.manual changeStringAtIndex:indexPath.row byString:sender.isOn?@"1":@"0"];
+    self.manual.channels = [self.manual changeStringAtIndex:indexPath.row byString:sender.isOn?@"1":@"0"];
     [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&channels=%@",GetRequst(URL_FOR_UNIVERSAL_CONTROLLER_MANUAL_SAVE),MainDelegate.houseData.houseId,self.device.tid,[self.manual changeStringAtIndex:indexPath.row byString:sender.isOn?@"1":@"0"]] andName:@"control"];
 }
 -(void)upOrDownloadInfoWithURL:(NSString *)url andName:(NSString *)name{
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:url postData:nil delegate:self loaderName:name userDataDictionary:nil];
     NSLog(@"loader name is %@",loader.name);
+}
+-(void)dismissVC{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

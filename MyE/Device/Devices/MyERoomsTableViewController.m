@@ -101,6 +101,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     _selectedIndex = indexPath;
     MyERoom *room = _datas[indexPath.row];
+    if (room.roomId == 0) {  //这个房间类型名称不能修改
+        return;
+    }
     [self doThisWhenNeedAlertViewWithTag:101 placeHold:room.roomName];
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
