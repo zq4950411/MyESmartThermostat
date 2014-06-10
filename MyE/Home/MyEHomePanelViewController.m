@@ -168,10 +168,7 @@
 #pragma mark private methods
 - (void)configureView
 {
-    // Update the user interface for the detail item.
-    MyEHomePanelData *theDashboardData = self.homeData;
-
-    if (theDashboardData) {
+    if (self.homeData) {
         NSString *imgFileName = [NSString stringWithFormat:@"%@.png",self.homeData.weather];
         UIImage *image = [UIImage imageNamed: imgFileName];
         self.weatherImageView.image = image;
@@ -180,6 +177,10 @@
         self.weatherTemperatureRangeLabel.text = [NSString stringWithFormat:@"%.0f~%.0f\u00B0F", self.homeData.lowTemp, self.homeData.highTemp];
         self.humidityLabel.text = [NSString stringWithFormat:@"%.0f%%RH",self.homeData.indoorHumidity];
         self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.homeData.temperature];
+        if (self.homeData.numDetected > 0) {
+            self.alertsTileLabel.text = [NSString stringWithFormat:@"%i faults detected", (int)self.homeData.numDetected];
+        } else
+            self.alertsTileLabel.text = @"No fault detected";
     }
 }
 // 判定是否服务器相应正常，如果正常返回一些字符串，如果服务器相应为-999/-998，
@@ -212,7 +213,6 @@
         return NO;
     }
     return YES;
-    
 }
 
 @end

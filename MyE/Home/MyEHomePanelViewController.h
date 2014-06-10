@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *weatherTemperatureRangeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *indoorTemperatureLabel;
 @property (weak, nonatomic) IBOutlet UILabel *humidityLabel;
+@property (weak, nonatomic) IBOutlet UILabel *alertsTileLabel;
 
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
