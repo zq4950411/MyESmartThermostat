@@ -38,6 +38,7 @@
 #define URL_FOR_LOGIN @"/user/userJson_login_phone.do"
 #define URL_FOR_ADD_ADDRESS @"/house_add4mobile.do"
 #define URL_FOR_HOUSELIST_VIEW @"/house_findHouseList.do"
+#define URL_FOR_HOMEPANEL_VIEW @"/home_view.do"
 #define URL_FOR_DASHBOARD_VIEW @"/dashboard_view.do"
 #define URL_FOR_TODAY_SCHEDULE_VIEW @"/programToday_view.do"
 #define URL_FOR_TODAY_DEFAULT_SCHEDULE_VIEW @"/programToday_reset.do"

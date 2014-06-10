@@ -502,7 +502,7 @@
     NSLog(@"HouseListDownloader is %@",downloader.name);
 }
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
-    
+    NSLog(@"houselist received string: %@", string);
     if (_isRefreshing) {
         _isRefreshing = NO;
         [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];

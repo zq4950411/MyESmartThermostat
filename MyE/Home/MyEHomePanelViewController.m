@@ -12,7 +12,7 @@
 #import "MyEUsageStatsViewController.h"
 #import "MyEAccountData.h"
 #import "MyETerminalData.h"
-#import "MyEDashboardData.h"
+#import "MyEHomePanelData.h"
 #import "MyEDevicesViewController.h"
 
 @interface MyEHomePanelViewController ()
@@ -117,10 +117,8 @@
     } else
         [HUD show:YES];
     NSString *urlStr = [NSString stringWithFormat:
-                        @"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_DASHBOARD_VIEW),
-                        MainDelegate.accountData.userId,
-                        MainDelegate.houseData.houseId,
-                        MainDelegate.terminalData.tId];
+                        @"%@?houseId=%i",GetRequst(URL_FOR_HOMEPANEL_VIEW),
+                        MainDelegate.houseData.houseId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"DashboardDownloader"  userDataDictionary:nil];
     NSLog(@"DashboardDownloader is %@, url is %@",downloader.name, urlStr);
 }
@@ -136,9 +134,9 @@
         if (![self _processHttpRespondForString:string])
             return;
         
-        MyEDashboardData *dashboardData = [[MyEDashboardData alloc] initWithJSONString:string];
-        if (dashboardData) {
-            [self setDashboardData:dashboardData];
+        MyEHomePanelData *homeData = [[MyEHomePanelData alloc] initWithJSONString:string];
+        if (homeData) {
+            [self setHomeData:homeData];
             [self configureView];
         } else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
@@ -171,17 +169,17 @@
 - (void)configureView
 {
     // Update the user interface for the detail item.
-    MyEDashboardData *theDashboardData = self.dashboardData;
+    MyEHomePanelData *theDashboardData = self.homeData;
 
     if (theDashboardData) {
-        NSString *imgFileName = [NSString stringWithFormat:@"%@.png",self.dashboardData.weather];
+        NSString *imgFileName = [NSString stringWithFormat:@"%@.png",self.homeData.weather];
         UIImage *image = [UIImage imageNamed: imgFileName];
         self.weatherImageView.image = image;
         
-        self.weatherTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.dashboardData.weatherTemp];
-        self.weatherTemperatureRangeLabel.text = [NSString stringWithFormat:@"%.0f~%.0f\u00B0F", self.dashboardData.lowTemp, self.dashboardData.highTemp];
-        self.humidityLabel.text = [NSString stringWithFormat:@"%i%%RH",self.dashboardData.humidity];
-        self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.dashboardData.temperature];
+        self.weatherTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.homeData.weatherTemp];
+        self.weatherTemperatureRangeLabel.text = [NSString stringWithFormat:@"%.0f~%.0f\u00B0F", self.homeData.lowTemp, self.homeData.highTemp];
+        self.humidityLabel.text = [NSString stringWithFormat:@"%.0f%%RH",self.homeData.indoorHumidity];
+        self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.homeData.temperature];
     }
 }
 // 判定是否服务器相应正常，如果正常返回一些字符串，如果服务器相应为-999/-998，
@@ -189,40 +187,28 @@
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
 - (BOOL)_processHttpRespondForString:(NSString *)respondText {
     NSInteger respondInt = [respondText intValue];// 从字符串开始寻找整数，如果碰到字母就结束，如果字符串不能转换成整数，那么此转换结果就是0
-    if (respondInt == -999 || respondInt == -998) {
+    if (respondInt == -999 || respondInt == -998 || respondInt == -994 ) {
         
-        //首先获取Houselist view controller
-        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
-        MyEHouseListViewController *hlvc = [allViewControllers objectAtIndex:0];
-        
-        //下面代码返回到Houselist viiew
-        [self.navigationController popViewControllerAnimated:YES];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        MyEHouseListViewController *hlvc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
+        hlvc.accountData = MainDelegate.accountData;
+        [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+        MainDelegate.window.rootViewController = hlvc;// 用主Navigation VC作为程序的rootViewController
         
         // Houselist view controller 从服务器获取最新数据。
         [hlvc downloadModelFromServer ];
         
-#warning 这里在出现以下问题是报错
-        /*
-         2014-06-09 19:23:14.810 MyE[24152:60b] http://www.myenergydomain.com:80/dashboard_view.do?userId=1000100000000000140&houseId=1259&tId=(null)
-         2014-06-09 19:23:14.812 MyE[24152:60b] DashboardDownloader is DashboardDownloader, url is http://www.myenergydomain.com:80/dashboard_view.do?userId=1000100000000000140&houseId=1259&tId=(null)
-         2014-06-09 19:23:17.167 MyE[24152:60b] Succeeded! Received 4 bytes of data
-         2014-06-09 19:23:17.168 MyE[24152:60b] DashboardDownloader string from server is
-         -999
-         2014-06-09 19:23:17.170 MyE[24152:60b] http://www.myenergydomain.com:80/dashboard_view.do?userId=1000100000000000140&houseId=1259&tId=(null)
-         2014-06-09 19:23:17.171 MyE[24152:60b] DashboardDownloader is DashboardDownloader, url is http://www.myenergydomain.com:80/dashboard_view.do?userId=1000100000000000140&houseId=1259&tId=(null)
-         2014-06-09 19:23:17.172 MyE[24152:60b] -[MyEHomePanelViewController accountData]: unrecognized selector sent to instance 0x166e2f20
-         */
         //获取当前正在操作的house的name
-//        NSString *currentHouseName = [hlvc.accountData getHouseNameByHouseId:MainDelegate.houseData.houseId];
-//        NSString *message;
-//        
-//        if (respondInt == -999) {
-//            message = [NSString stringWithFormat:@"The thermostat of hosue %@ was disconnected.", currentHouseName];
-//        } else if (respondInt == -998) {
-//            message = [NSString stringWithFormat:@"The thermostat of hosue %@ was set to Remote Control Disabled.", currentHouseName];
-//        }
-//        
-//        [hlvc showAutoDisappearAlertWithTile:@"Alert" message:message delay:10.0f];
+        NSString *currentHouseName = MainDelegate.houseData.houseName;
+        NSString *message;
+        
+        if (respondInt == -999) {
+            message = [NSString stringWithFormat:@"The network of house %@ is disconnected.", currentHouseName];
+        } else if (respondInt == -994) {
+            message = [NSString stringWithFormat:@"The gateway of house %@ is disconnected.", currentHouseName];
+        }
+        
+        [hlvc showAutoDisappearAlertWithTile:@"Alert" message:message delay:10.0f];
         return NO;
     }
     return YES;

@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "ACPbutton.h"
-@class MyEDashboardData;
+@class MyEHomePanelData;
 
 @interface MyEHomePanelViewController : UIViewController<MyEDataLoaderDelegate,MBProgressHUDDelegate> {
 
     MBProgressHUD *HUD;
 }
-@property (strong, nonatomic) MyEDashboardData *dashboardData;
+@property (strong, nonatomic) MyEHomePanelData *homeData;
 @property (weak, nonatomic) IBOutlet UIImageView *weatherImageView;
 @property (weak, nonatomic) IBOutlet UILabel *weatherTemperatureLabel;
 @property (weak, nonatomic) IBOutlet UILabel *weatherTemperatureRangeLabel;
