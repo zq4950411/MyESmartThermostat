@@ -197,6 +197,7 @@
 		C395989B18E12CC800E30AFF /* UIImage+FlatUI.m in Sources */ = {isa = PBXBuildFile; fileRef = C395989618E12CC800E30AFF /* UIImage+FlatUI.m */; };
 		C3988D6C193120F8002657F0 /* MyEUsageStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3988D6B193120F8002657F0 /* MyEUsageStatsViewController.m */; };
 		C3988D7019313488002657F0 /* MyEAlertsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3988D6F19313488002657F0 /* MyEAlertsTableViewController.m */; };
+		C39A517E1946A10600801835 /* MyEHomePanelData.m in Sources */ = {isa = PBXBuildFile; fileRef = C39A517D1946A10600801835 /* MyEHomePanelData.m */; };
 		C39D1C3619208C550009F2E2 /* thermostat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C39D1C3419208C540009F2E2 /* thermostat.storyboard */; };
 		C3A1C8211902ED9B001A1F99 /* DictionaryTableViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A1C81F1902ED9B001A1F99 /* DictionaryTableViewViewController.m */; };
 		C3A1C8221902ED9B001A1F99 /* DictionaryTableViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3A1C8201902ED9B001A1F99 /* DictionaryTableViewViewController.xib */; };
@@ -709,6 +710,8 @@
 		C3988D6B193120F8002657F0 /* MyEUsageStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUsageStatsViewController.m; sourceTree = "<group>"; };
 		C3988D6E19313488002657F0 /* MyEAlertsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAlertsTableViewController.h; sourceTree = "<group>"; };
 		C3988D6F19313488002657F0 /* MyEAlertsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAlertsTableViewController.m; sourceTree = "<group>"; };
+		C39A517C1946A10600801835 /* MyEHomePanelData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEHomePanelData.h; sourceTree = "<group>"; };
+		C39A517D1946A10600801835 /* MyEHomePanelData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEHomePanelData.m; sourceTree = "<group>"; };
 		C39D1C3519208C540009F2E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = thermostat.storyboard; sourceTree = "<group>"; };
 		C3A1C81E1902ED9B001A1F99 /* DictionaryTableViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryTableViewViewController.h; sourceTree = "<group>"; };
 		C3A1C81F1902ED9B001A1F99 /* DictionaryTableViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryTableViewViewController.m; sourceTree = "<group>"; };
@@ -2204,6 +2207,8 @@
 				C3FDB7FB18FA82AE009B423D /* Switch */,
 				C3CB5E951936DAA10043440C /* MyEAlert.h */,
 				C3CB5E961936DAA10043440C /* MyEAlert.m */,
+				C39A517C1946A10600801835 /* MyEHomePanelData.h */,
+				C39A517D1946A10600801835 /* MyEHomePanelData.m */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -2636,6 +2641,7 @@
 				8C82DCD51930A4B5006A10E0 /* MyEEventAddOrEditViewController.m in Sources */,
 				C3FDB70918FA652A009B423D /* MyEAppDelegate.m in Sources */,
 				C3F61B2018E11DAE00DEE477 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				C39A517E1946A10600801835 /* MyEHomePanelData.m in Sources */,
 				C3CB5E8A193446A00043440C /* MyEVacationMasterViewController.m in Sources */,
 				C3F61B2618E11E7400DEE477 /* ASDepthModalViewController.m in Sources */,
 				C39498731919D7F70075ABD3 /* CDCircleThumb.m in Sources */,

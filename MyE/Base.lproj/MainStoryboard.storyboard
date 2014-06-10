@@ -1158,13 +1158,13 @@
                                 </userGuides>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="AlertTile" translatesAutoresizingMaskIntoConstraints="NO" id="pEL-sZ-Epo">
-                                        <rect key="frame" x="30" y="20" width="80" height="80"/>
+                                        <rect key="frame" x="10" y="20" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fault Info if any" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjO-fX-Vfv">
-                                        <rect key="frame" x="123" y="31" width="163" height="49"/>
+                                        <rect key="frame" x="98" y="31" width="188" height="49"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1183,6 +1183,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="alertsTileLabel" destination="cjO-fX-Vfv" id="Tmc-Oe-O6c"/>
                         <outlet property="elecUsageTile" destination="5wb-SC-mEH" id="nKj-F7-lNj"/>
                         <outlet property="faultInfoTile" destination="bPB-US-s2d" id="TV0-tn-oLh"/>
                         <outlet property="humidityLabel" destination="emY-cV-eS1" id="plq-nQ-viY"/>
