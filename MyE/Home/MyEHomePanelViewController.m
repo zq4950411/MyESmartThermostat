@@ -188,12 +188,7 @@
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
 - (BOOL)_processHttpRespondForString:(NSString *)respondText {
     NSInteger respondInt = [respondText intValue];// 从字符串开始寻找整数，如果碰到字母就结束，如果字符串不能转换成整数，那么此转换结果就是0
-    if (respondInt == -999 || respondInt == -998) {
-        
-        //首先获取Houselist view controller
-        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
-#warning 这里报错
-        MyEHouseListViewController *hlvc = [allViewControllers objectAtIndex:0];
+    if (respondInt == -999 || respondInt == -998 || respondInt == -994 ) {
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         MyEHouseListViewController *hlvc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
