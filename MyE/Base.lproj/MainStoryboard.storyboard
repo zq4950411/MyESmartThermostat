@@ -1146,13 +1146,13 @@
                                 </userGuides>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="AlertTile" translatesAutoresizingMaskIntoConstraints="NO" id="pEL-sZ-Epo">
-                                        <rect key="frame" x="30" y="20" width="80" height="80"/>
+                                        <rect key="frame" x="10" y="20" width="80" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fault Info if any" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjO-fX-Vfv">
-                                        <rect key="frame" x="123" y="31" width="163" height="49"/>
+                                        <rect key="frame" x="98" y="31" width="188" height="49"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1443,7 +1443,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <tabBarItem key="tabBarItem" tag="4" title="Switch" image="632675ED-75F5-4068-B10D-DBA34896163E" id="Cv9-VA-5iG"/>
+                    <tabBarItem key="tabBarItem" tag="4" title="Switch" image="4F9ABBE7-21A0-4020-9F67-4F22E7F58F0C" id="Cv9-VA-5iG"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hiy-h4-WwN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1747,7 +1747,7 @@
     <resources>
         <image name="20937478-088A-4675-B284-DDCA2AFE20EA" width="28" height="20"/>
         <image name="32264432-17B3-41D0-958C-54E72192F5D8" width="28" height="20"/>
-        <image name="632675ED-75F5-4068-B10D-DBA34896163E" width="30" height="30">
+        <image name="4F9ABBE7-21A0-4020-9F67-4F22E7F58F0C" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
