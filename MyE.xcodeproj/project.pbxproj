@@ -165,8 +165,8 @@
 		C3194BA018E299EA006E3ABE /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C3194B9418E299EA006E3ABE /* UICountingLabel.m */; };
 		C3194BA418E29C5D006E3ABE /* MultiSelectSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C3194BA318E29C5D006E3ABE /* MultiSelectSegmentedControl.m */; };
 		C3194BAB18E93A38006E3ABE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3194BAA18E93A37006E3ABE /* Images.xcassets */; };
-		C31F916D1936F7D400BBE44E /* MyEDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C31F916C1936F7D400BBE44E /* MyEDashboardViewController.m */; };
 		C32497461931C10F00109599 /* MyEUsageStat.m in Sources */ = {isa = PBXBuildFile; fileRef = C32497451931C10F00109599 /* MyEUsageStat.m */; };
+		C327314419454C410010E893 /* MyEDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C327314319454C410010E893 /* MyEDashboardViewController.m */; };
 		C33587D4190452F300959C94 /* MyEHomePanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C33587D3190452F300959C94 /* MyEHomePanelViewController.m */; };
 		C39498701919D7F70075ABD3 /* CDCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = C39498651919D7F70075ABD3 /* CDCircle.m */; };
 		C39498711919D7F70075ABD3 /* CDCircleGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C39498671919D7F70075ABD3 /* CDCircleGestureRecognizer.m */; };
@@ -646,9 +646,10 @@
 		C3194BA218E29C5D006E3ABE /* MultiSelectSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiSelectSegmentedControl.h; sourceTree = "<group>"; };
 		C3194BA318E29C5D006E3ABE /* MultiSelectSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiSelectSegmentedControl.m; sourceTree = "<group>"; };
 		C3194BAA18E93A37006E3ABE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C31F916C1936F7D400BBE44E /* MyEDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEDashboardViewController.m; sourceTree = "<group>"; };
 		C32497441931C10F00109599 /* MyEUsageStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUsageStat.h; sourceTree = "<group>"; };
 		C32497451931C10F00109599 /* MyEUsageStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUsageStat.m; sourceTree = "<group>"; };
+		C327314219454C410010E893 /* MyEDashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEDashboardViewController.h; sourceTree = "<group>"; };
+		C327314319454C410010E893 /* MyEDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEDashboardViewController.m; sourceTree = "<group>"; };
 		C33587D2190452F300959C94 /* MyEHomePanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEHomePanelViewController.h; sourceTree = "<group>"; };
 		C33587D3190452F300959C94 /* MyEHomePanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEHomePanelViewController.m; sourceTree = "<group>"; };
 		C39498641919D7F70075ABD3 /* CDCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDCircle.h; sourceTree = "<group>"; };
@@ -976,7 +977,6 @@
 		C3FDB80318FA82AE009B423D /* MyESwitchManualControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESwitchManualControl.m; sourceTree = "<group>"; };
 		C3FDB88318FA867F009B423D /* MyEPasswordResetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEPasswordResetViewController.h; sourceTree = "<group>"; };
 		C3FDB88418FA867F009B423D /* MyEPasswordResetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEPasswordResetViewController.m; sourceTree = "<group>"; };
-		C3FEF22F1929334700741318 /* MyEDashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEDashboardViewController.h; sourceTree = "<group>"; };
 		C3FEF239192AD2D900741318 /* MyENext24HrsPeriodData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyENext24HrsPeriodData.h; sourceTree = "<group>"; };
 		C3FEF23A192AD2D900741318 /* MyENext24HrsPeriodData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyENext24HrsPeriodData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1588,7 +1588,6 @@
 				C3FDB70818FA652A009B423D /* MyEAppDelegate.m */,
 				C3988D69193120F8002657F0 /* ElecUsage */,
 				C3FDB70A18FA6589009B423D /* CustomViews */,
-				C3FDB71318FA6589009B423D /* Dashboard */,
 				C3FDB82218FA83A8009B423D /* Themostat */,
 				C3FDB71B18FA672B009B423D /* Device */,
 				C3FDB6FE18FA6460009B423D /* More */,
@@ -1654,6 +1653,15 @@
 				C3194BA318E29C5D006E3ABE /* MultiSelectSegmentedControl.m */,
 			);
 			path = MultiSegment;
+			sourceTree = "<group>";
+		};
+		C327314119454C410010E893 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				C327314219454C410010E893 /* MyEDashboardViewController.h */,
+				C327314319454C410010E893 /* MyEDashboardViewController.m */,
+			);
+			path = Dashboard;
 			sourceTree = "<group>";
 		};
 		C33587D11904480000959C94 /* Home */ = {
@@ -2142,15 +2150,6 @@
 			path = CustomViews;
 			sourceTree = "<group>";
 		};
-		C3FDB71318FA6589009B423D /* Dashboard */ = {
-			isa = PBXGroup;
-			children = (
-				C31F916C1936F7D400BBE44E /* MyEDashboardViewController.m */,
-				C3FEF22F1929334700741318 /* MyEDashboardViewController.h */,
-			);
-			path = Dashboard;
-			sourceTree = "<group>";
-		};
 		C3FDB71B18FA672B009B423D /* Device */ = {
 			isa = PBXGroup;
 			children = (
@@ -2266,6 +2265,7 @@
 		C3FDB82218FA83A8009B423D /* Themostat */ = {
 			isa = PBXGroup;
 			children = (
+				C327314119454C410010E893 /* Dashboard */,
 				C3CB5E73193446A00043440C /* Vacation */,
 				C3FB3BA8192DC6460039D052 /* MyEDoughnutView.h */,
 				C3FB3BA9192DC6460039D052 /* MyEDoughnutView.m */,
@@ -2521,6 +2521,7 @@
 				8CA52FA919231D4700D40EDD /* MyEEventDeviceEditViewController.m in Sources */,
 				B2588D0817B09B9C007ED13C /* BaseCustomCell.m in Sources */,
 				B2588D0917B09B9C007ED13C /* BaseView.m in Sources */,
+				C327314419454C410010E893 /* MyEDashboardViewController.m in Sources */,
 				C3194B9D18E299EA006E3ABE /* ELineChartDataModel.m in Sources */,
 				C3FDB50E18FA62A0009B423D /* MyEUtil.m in Sources */,
 				C3FDB70418FA6460009B423D /* MoreViewController.m in Sources */,
@@ -2644,7 +2645,6 @@
 				8CA060191908A3480090A350 /* MyEAudioDefaultViewController.m in Sources */,
 				C3F61B1F18E11DAE00DEE477 /* TPKeyboardAvoidingTableView.m in Sources */,
 				C3F61B0B18E1155500DEE477 /* MBProgressHUD.m in Sources */,
-				C31F916D1936F7D400BBE44E /* MyEDashboardViewController.m in Sources */,
 				B2B2577617CC368C003833E6 /* MJPopupBackgroundView.m in Sources */,
 				C3FDB4D418FA4495009B423D /* Reachability.m in Sources */,
 				C3FDB4EA18FA6044009B423D /* MyELaunchIntroViewController.m in Sources */,

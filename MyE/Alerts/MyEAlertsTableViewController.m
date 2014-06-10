@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "MyEAlert.h"
 #import "MyEAccountData.h"
+#import "MyEHouseData.h"
 #import "MyEAlertDetailViewController.h"
 
 #define ALERT_COUNT_PER_PAGE  20
@@ -75,7 +76,7 @@
                                       target:self
                                       action:@selector(refreshAction)];
     self.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, nil];
-    
+
     [self downloadModelFromServer];
 
 }

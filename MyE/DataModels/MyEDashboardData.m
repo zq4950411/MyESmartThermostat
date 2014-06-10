@@ -58,6 +58,7 @@
         self.humidity = [[dictionary objectForKey:@"humidity"] intValue];
         self.con_hp = [[dictionary objectForKey:@"con_hp"] intValue];
         self.aux = [[dictionary objectForKey:@"aux"] intValue];
+        self.energyLeaver= [[dictionary objectForKey:@"energyLeaver"] intValue];
         return self;
     }
     return nil;
@@ -96,6 +97,7 @@
                           [NSNumber numberWithInt:self.humidity], @"humidity",
                           [NSNumber numberWithInt:self.con_hp], @"con_hp",
                           [NSNumber numberWithInt:self.aux], @"aux",
+                          [NSNumber numberWithInt:self.energyLeaver], @"energyLeaver",
                           nil ];
     return dict;
 }

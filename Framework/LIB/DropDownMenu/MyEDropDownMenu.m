@@ -66,14 +66,14 @@
         table.delegate = self;
         table.dataSource = self;
         table.backgroundColor = [UIColor clearColor];
-        table.separatorStyle = UITableViewCellSeparatorStyleNone;
+        table.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         [table setScrollEnabled:YES];
         if (!goDownDirection) {
             table.frame = CGRectMake(viewSender.frame.origin.x, viewSender.frame.origin.y + viewSender.frame.size.height, 0, self.tableHeight);
-            table.layer.shadowOffset = CGSizeMake(0, -3);
+//            table.layer.shadowOffset = CGSizeMake(0, -1);// 现在不想要阴影
         }else {
             table.frame = CGRectMake(viewSender.frame.origin.x, viewSender.frame.origin.y + viewSender.frame.size.height, self.tableWidth, 0);
-            table.layer.shadowOffset = CGSizeMake(0, 3);
+//            table.layer.shadowOffset = CGSizeMake(0, 1);// 现在不想要阴影
         }
         [UIView animateWithDuration:0.4 animations:^{
             table.frame = CGRectMake(viewSender.frame.origin.x, viewSender.frame.origin.y + viewSender.frame.size.height, self.tableWidth, self.tableHeight);
@@ -120,11 +120,11 @@
 //    ((UIImageView *)cell.backgroundView).image = rowBackground;
     
     UIView *rv = [[UIView alloc] init];
-    rv.backgroundColor = [UIColor colorWithRed:75.0/255.0 green:190.0/255.0 blue:215.0/255.0 alpha:1.0];
+//    rv.backgroundColor = [UIColor colorWithRed:75.0/255.0 green:190.0/255.0 blue:215.0/255.0 alpha:1.0];
     cell.backgroundView = rv;
     
     UIView *sv = [[UIView alloc] init];
-    sv.backgroundColor = [UIColor colorWithRed:75.0/255.0 green:180.0/255.0 blue:200.0/255.0 alpha:1.0];
+//    sv.backgroundColor = [UIColor colorWithRed:75.0/255.0 green:180.0/255.0 blue:200.0/255.0 alpha:1.0];
     cell.selectedBackgroundView = sv;
     
     return cell;
@@ -138,7 +138,7 @@
         cell = [self getCellContentView:CellIdentifier];
         cell.textLabel.font = [UIFont systemFontOfSize:15];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.textColor = [UIColor whiteColor];
+//        cell.textLabel.textColor = [UIColor whiteColor];
     }
     
     if ([self.imgList count] == [self.list count]) {

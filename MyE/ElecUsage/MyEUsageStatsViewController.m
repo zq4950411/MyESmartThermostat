@@ -69,9 +69,6 @@
                                       target:self
                                       action:@selector(refreshAction)];
     self.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, nil];
-    
-    
-
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -110,7 +107,7 @@
     _validTerminals = terminals;
     self.currentTerminalIdx = 0;
     self.terminalNames = [NSMutableArray array];
-    for(MyETerminalData *t in self.validTerminals){
+    for(MyETerminalData *t in _validTerminals){
         [self.terminalNames addObject:t.tName];
     }
     [self.terminalBtn setTitle:_terminalNames[self.currentTerminalIdx] forState:UIControlStateNormal];

@@ -58,11 +58,14 @@
     [self.faultInfoTile setFlatStyleType:ACPButtonOK];
     [self.faultInfoTile setFlatStyle:[UIColor blueColor] andHighlightedColor:[UIColor grayColor]];
     [self.faultInfoTile setBorderStyle:[UIColor clearColor] andInnerColor:[UIColor clearColor] ];
+    
+    self.title = MainDelegate.houseData.houseName;
+
 }
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
+    
     [self downloadModelFromServer];
     
 }
@@ -86,10 +89,6 @@
 - (IBAction)goElecUsage:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     MyEUsageStatsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ElecUsageStat"];
-    
-    // 	温控器所有二级控制页面（Dashboard, Next24, Weekly, etc），标题都采用该温控器的别名。
-    self.title = MainDelegate.terminalData.tName;
-    NSLog(@"MainDelegate.thermostatData.tName = %@", MainDelegate.terminalData.tName);
     vc.fromHome = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -97,8 +96,6 @@
 - (IBAction)goAlerts:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     MyEUsageStatsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"Alerts"];
-
-    NSLog(@"MainDelegate.thermostatData.tName = %@", MainDelegate.terminalData.tName);
     vc.fromHome = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -175,7 +172,7 @@
 {
     // Update the user interface for the detail item.
     MyEDashboardData *theDashboardData = self.dashboardData;
-    
+
     if (theDashboardData) {
         NSString *imgFileName = [NSString stringWithFormat:@"%@.png",self.dashboardData.weather];
         UIImage *image = [UIImage imageNamed: imgFileName];
