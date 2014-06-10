@@ -58,11 +58,24 @@
     [super viewDidLoad];
 
     // 下面使用9宫格可缩放图片作为按钮背景
-    UIImage *buttonBackImage = [UIImage imageNamed:@"buttonbg.png" ];
-    buttonBackImage = [buttonBackImage stretchableImageWithLeftCapWidth:10 topCapHeight:10];
-    [self.loginButton setBackgroundImage:buttonBackImage forState:UIControlStateNormal];
-    
+    UIImage *normalImage = [[UIImage imageNamed:@"control-enable-normal"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+    UIImage *highlightImage = [[UIImage imageNamed:@"control-enable-highlight"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+    [self.loginButton setBackgroundImage:normalImage forState:UIControlStateNormal];
+    [self.loginButton setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
+    [self.loginButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [self.scanBtn setBackgroundImage:normalImage forState:UIControlStateNormal];
+    [self.scanBtn setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
+    [self.scanBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    self.bgView.layer.cornerRadius = 4;
     [self loadSettings];
+    
+//    if (IS_IPHONE5) {
+//        //特别注意，对于iPhone5只有retina屏幕，所以只需要使用@2x的image就可以了
+//        [self.loginImage setImage:[UIImage imageNamed:@"login-568h@2x"]];
+//    }
+    //以下代码为修改placeholder的文字颜色，这种技巧应该多加注意
+    [self.usernameInput setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [self.passwordInput setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
 }
 
 
