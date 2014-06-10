@@ -213,8 +213,8 @@
                 UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Information" 
                                                               message:@"This app is for Smart Home control associated with a property. Please tap OK to go on adding a property to your account before using this app, or tap Cancel to exit."
                                                              delegate:self 
-                                                    cancelButtonTitle:@"Ok"
-                                                    otherButtonTitles:@"Cancel",nil];
+                                                    cancelButtonTitle:@"Cancel"
+                                                    otherButtonTitles:@"OK",nil];
                 alert.tag = 100;
                 [alert show];
             }
@@ -277,9 +277,6 @@
     }
     [HUD hide:YES];
 }
-
-
-
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     
     // inform the user

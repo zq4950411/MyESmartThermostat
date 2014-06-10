@@ -159,6 +159,13 @@
                 break;
         }
     }
+    if (self.isAddDevice) {
+        SBJsonWriter *writer = [[SBJsonWriter alloc] init];
+        NSString *string = [writer stringWithObject:[_newDevice jsonDevice:_newDevice]];
+        NSLog(@"string is %@",string);
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%i&action=addDevice&deviceMode=%@",GetRequst(URL_FOR_SAVE_DEVICE),MainDelegate.houseData.houseId,self.isAddDevice?0:_newDevice.deviceId.intValue,string] andName:@"addOrEditDevice"];
+        return;
+    }
     if (self.device.typeId.intValue == 6) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];

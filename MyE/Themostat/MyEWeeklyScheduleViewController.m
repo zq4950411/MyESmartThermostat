@@ -55,7 +55,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     _applyToDaysSelectionViewShowing = NO;
     _modeEditingViewShowing = NO;
     _periodInforDoughnutViewShowing = NO;
@@ -998,5 +997,4 @@
     return YES;
     
 }
-
 @end

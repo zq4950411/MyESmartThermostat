@@ -1442,7 +1442,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <tabBarItem key="tabBarItem" tag="4" title="Switch" image="6648CCAC-7985-4BBF-8277-69A73A9BD743" id="Cv9-VA-5iG"/>
+                    <tabBarItem key="tabBarItem" tag="4" title="Switch" image="7857D0EB-E3D0-4656-9F6C-7CD46A7EC0BA" id="Cv9-VA-5iG"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hiy-h4-WwN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1571,7 +1571,7 @@
                                     <action selector="changeTerminal:" destination="yye-iA-gYC" eventType="touchUpInside" id="ugh-kp-my6"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7Bc-mg-y7P">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7Bc-mg-y7P">
                                 <rect key="frame" x="12" y="83" width="296" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
@@ -1746,7 +1746,7 @@
     <resources>
         <image name="20937478-088A-4675-B284-DDCA2AFE20EA" width="28" height="20"/>
         <image name="32264432-17B3-41D0-958C-54E72192F5D8" width="28" height="20"/>
-        <image name="6648CCAC-7985-4BBF-8277-69A73A9BD743" width="30" height="30">
+        <image name="7857D0EB-E3D0-4656-9F6C-7CD46A7EC0BA" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

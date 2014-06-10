@@ -19,6 +19,7 @@
 {
     _keyBtns = self.controlBtns;
     _initNumber = 300;
+    
     [super viewDidLoad];  //此处特别要注意，因为此处的super是irDefault，必须在传值完成之后才能调用父类的viewDidLoad方法
 }
 

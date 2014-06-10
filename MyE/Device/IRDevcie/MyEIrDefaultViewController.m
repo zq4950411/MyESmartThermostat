@@ -20,12 +20,36 @@
 {
     [super viewDidLoad];
     self.isControlMode = YES; //初始化为控制模式
+    NSString *normalStr = nil;
+    NSString *highlightStr = nil;
+    NSArray *array = @[@"top",@"left",@"ok",@"right",@"down"];
+    NSInteger start = 0;
+    NSInteger end = 0;
+    if (_initNumber == 200) {   //_initNumber经过了自加操作，此时已经不是最开始的值，所以这里要改变
+        start = 204;end = 208;
+    }else if (_initNumber == 300){
+        start = 305;end = 309;
+    }else{
+        start = 401;end = 405;
+    }
     for (MyEControlBtn *btn in _keyBtns) {
         _initNumber++;
         btn.tag = _initNumber;
         [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
         btn.status = 0;  //这里要对status的值进行初始化
         NSLog(@"%@    %i",btn.currentTitle,btn.tag);
+        if (btn.tag < start || btn.tag > end) {
+            normalStr = @"control-disable-normal";
+            highlightStr = @"control-disable-highlight";
+        }else{
+            normalStr = [NSString stringWithFormat:@"normal-%@",array[btn.tag-start]];
+            highlightStr = [NSString stringWithFormat:@"highlight-%@",array[btn.tag-start]];
+        }
+        NSLog(@"%@  %@",normalStr,highlightStr);
+        [btn setBackgroundImage:[[UIImage imageNamed:normalStr] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+        [btn setBackgroundImage:[[UIImage imageNamed:highlightStr] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateHighlighted];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     }
     [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&tId=%@",GetRequst(URL_FOR_INSTRUCTIONLIST_VIEW),MainDelegate.houseData.houseId,self.device.deviceId,self.device.tid] andName:@"instructionList"];
 }
@@ -66,18 +90,27 @@
     }
 }
 -(void)refreshUI{
-#warning 这里要针对不同的方式做不同的处理
     NSString *normalStr = nil;
     NSString *highlightStr = nil;
+    NSArray *array = @[@"top",@"left",@"ok",@"right",@"down"];
+    NSInteger start = 0;
+    NSInteger end = 0;
+    if (_initNumber == 219) {   //_initNumber经过了自加操作，此时已经不是最开始的值，所以这里要改变
+        start = 204;end = 208;
+    }else if (_initNumber == 313){
+        start = 305;end = 309;
+    }else{
+        start = 401;end = 405;
+    }
     for (MyEControlBtn *btn in _keyBtns) {
-        if (btn.tag < 204 || btn.tag > 208) {
+        if (btn.tag < start || btn.tag > end) {
             normalStr = [NSString stringWithFormat:@"control-%@-normal",btn.status>0?@"enable":@"disable"];
             highlightStr = [NSString stringWithFormat:@"control-%@-highlight",btn.status>0?@"enable":@"disable"];
         }else{
-            //这里要针对不同的btn设计图标
-            normalStr = nil;
-            highlightStr = nil;
+            normalStr = [NSString stringWithFormat:@"%@-%@",btn.status>0?@"non":@"normal",array[btn.tag-start]];
+            highlightStr = [NSString stringWithFormat:@"highlight-%@",array[btn.tag-start]];
         }
+        NSLog(@"%@  %@",normalStr,highlightStr);
         [btn setBackgroundImage:[[UIImage imageNamed:normalStr] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
         [btn setBackgroundImage:[[UIImage imageNamed:highlightStr] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateHighlighted];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

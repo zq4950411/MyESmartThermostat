@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MYEPickerView.h"
 
-@interface MyEHouseAddViewController : UIViewController<MyEDataLoaderDelegate,UIAlertViewDelegate>
+@interface MyEHouseAddViewController : UIViewController<MyEDataLoaderDelegate,UIAlertViewDelegate,MYEPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *txtStreet;
 @property (weak, nonatomic) IBOutlet UITextField *txtCity;
-@property (weak, nonatomic) IBOutlet UITextField *txtState;
 @property (weak, nonatomic) IBOutlet UIButton *bindBtn;
 @property (nonatomic, weak) MyEAccountData *accountData;
+@property (weak, nonatomic) IBOutlet UIButton *stateBtn;
+
 @end

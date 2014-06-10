@@ -37,6 +37,7 @@
 -(NSString *) sendFormAsyRequst:(NSString *) urlString
 {    
     NSDictionary *dic = [self.userInfo objectForKey:REQUET_PARAMS];
+    NSLog(@"dic is %@",dic);
     NSMutableDictionary *params = nil;
     
     if (dic != nil) 
@@ -69,12 +70,12 @@
 	//[sb appendFormat:@"&md5=%@",[sb md5]];
 	
     self.requestURLString = sb;
-    
+    NSLog(@"request url is %@",sb);
     request = [[ASIFormDataRequest requestWithURL:[NSURL URLWithString:sb]] retain];
     
     [request setTimeOutSeconds:15.0];
-    [request setAllowCompressedResponse:NO];
-    [request setUseCookiePersistence:YES];
+//    [request setAllowCompressedResponse:NO];
+//    [request setUseCookiePersistence:YES];
 	[request setRequestMethod:@"POST"];
 	request.delegate = self;
     [(ASIFormDataRequest *)request setPostFormat:ASIMultipartFormDataPostFormat];
@@ -104,6 +105,7 @@
 			}
 		}
 	}
+    
 	[request startAsynchronous];
 	
 	return nil;

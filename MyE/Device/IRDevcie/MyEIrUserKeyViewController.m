@@ -25,6 +25,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.isControlMode = YES;
     if (self.device.typeId.intValue == 5) {
         self.navigationItem.title = self.device.deviceName;
         [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&tId=%@",GetRequst(URL_FOR_INSTRUCTIONLIST_VIEW),MainDelegate.houseData.houseId,self.device.deviceId,self.device.tid] andName:@"instructionList"];
@@ -36,6 +37,18 @@
     [super didReceiveMemoryWarning];
 }
 #pragma mark - IBAction methods
+- (IBAction)changeMode:(UIBarButtonItem *)sender {
+    if ([sender.title isEqualToString:@"Edit"]) {
+        sender.title = @"Done";
+        self.isControlMode = NO;
+        self.view.backgroundColor = [UIColor colorWithRed:0.84 green:0.93 blue:0.95 alpha:1];
+    }else{
+        sender.title = @"Edit";
+        self.isControlMode = YES;
+        self.view.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
+    }
+}
+
 - (IBAction)addNewKey:(UIButton *)sender {
     
 }

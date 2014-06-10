@@ -83,9 +83,6 @@
             [self performSelector:@selector(goToRegister) withObject:nil afterDelay:0.5f];
         }
     }
-    
-    
-    
     //初始化下拉视图
     if (!_refreshHeaderView) {
         EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.tableView.frame.size.width, self.tableView.bounds.size.height)];
@@ -94,7 +91,6 @@
         _refreshHeaderView = view;
     }
     [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -1932,6 +1932,7 @@ static NSOperationQueue *sharedQueue = nil;
 /* ALWAYS CALLED ON MAIN THREAD! */
 - (void)requestStarted
 {
+    
 	if ([self error] || [self mainRequest]) {
 		return;
 	}

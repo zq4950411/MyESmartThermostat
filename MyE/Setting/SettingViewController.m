@@ -16,6 +16,10 @@
 #import "MyEDevice.h"
 #import "SWRevealViewController.h"
 
+@interface SettingViewController(){
+    NSString *_timeZone;
+}
+@end
 @implementation SettingViewController
 
 @synthesize gateway;
@@ -35,9 +39,103 @@
     return nil;
 }
 
-
+-(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    NSLog(@"receive string is %@",string);
+    if ([name isEqualToString:@"downloadInfo"]) {
+        if ([(NSArray *)[string JSONValue] count] > 0)
+        {
+            self.gateway = [GatewayEntity getGateWay:string];
+            [self.tableView reloadData];
+        }
+    }
+    else if ([name isEqualToString:@"edit"])
+    {
+        if ([@"OK" isEqualToString:string])
+        {
+            [SVProgressHUD showSuccessWithStatus:@"Success"];
+            
+//            NSString *controlStat = [[userInfo objectForKey:REQUET_PARAMS] objectForKey:@"controlState"];
+//            NSString *aliasName = [[userInfo objectForKey:REQUET_PARAMS] objectForKey:@"aliasName"];
+//            
+//            MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:currentSelectedIndex];
+//            smart.deviceName = aliasName;
+//            smart.switchStatus = controlStat;
+            
+            [self.tableView reloadData];
+        }
+        else
+        {
+            [SVProgressHUD showSuccessWithStatus:@"Fail"];
+            [self.tableView reloadData];
+        }
+    }
+    else if ([name isEqualToString:@"deleteT"])
+    {
+        if ([@"0" isEqualToString:string])
+        {
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showSuccessWithStatus:@"Success"];
+            
+            [self.gateway.smartDevices safeObjectAtIndex:currentDeleteIndex];
+            [self.tableView reloadData];
+        }
+        else if ([@"2" isEqualToString:string])
+        {
+            [self performSelector:@selector(querryT) withObject:nil afterDelay:2.0f];
+        }
+    }
+    else if ([name isEqualToString:@"findT"])
+    {
+        if ([@"0" isEqualToString:string])
+        {
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showSuccessWithStatus:@"Success"];
+            
+            [self.gateway.smartDevices safeRemovetAtIndex:currentDeleteIndex];
+            [self.tableView reloadData];
+        }
+        else
+        {
+            [self performSelector:@selector(querryT) withObject:nil afterDelay:2.0f];
+        }
+    }
+    else if ([name isEqualToString:@"time"])
+    {
+        if ([@"OK" isEqualToString:string])
+        {
+            [SVProgressHUD showSuccessWithStatus:@"Success"];
+            self.gateway.timeZone = _timeZone;
+//            self.gateway.timeZone = [[userInfo objectForKey:REQUET_PARAMS] valueToStringForKey:@"timeZone"];
+            [self.tableView reloadData];
+        }
+        else
+        {
+            [SVProgressHUD showSuccessWithStatus:@"Fail"];
+            [self.tableView reloadData];
+        }
+    }
+    else if ([name isEqualToString:@"deleteM"])
+    {
+        if ([@"OK" isEqualToString:string])
+        {
+            [SVProgressHUD showSuccessWithStatus:@"Success"];
+            
+            self.gateway = nil;
+            
+            MyEHouseListViewController *houseListVC = (MyEHouseListViewController *)[UIUtils getControllerFromNavViewController:self andClass:[MyEHouseListViewController class]];
+            [houseListVC refreshAction];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else
+        {
+            [SVProgressHUD showSuccessWithStatus:@"Fail"];
+        }
+    }
+}
 -(void) netFinish:(id) jsonString withUserInfo:(NSDictionary *) userInfo andURL:(NSString *) u
 {
+    NSLog(@"%@",jsonString);
     if ([u rangeOfString:SETTING_FIND_GATEWAY].location != NSNotFound)
     {
         if ([(NSArray *)[jsonString JSONValue] count] > 0)
@@ -145,38 +243,34 @@
     }
 }
 
-
-
 -(void) sendGetDatas
 {
     self.isShowLoading = YES;
-    
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
-    [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
-    
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
-    
-    [[NetManager sharedManager] requestWithURL:GetRequst(SETTING_FIND_GATEWAY)
-                                      delegate:self
-                                  withUserInfo:dic];
+//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//    
+//    [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
+//    
+//    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
+//    
+//    [[NetManager sharedManager] requestWithURL:GetRequst(SETTING_FIND_GATEWAY)
+//                                      delegate:self
+//                                  withUserInfo:dic];
+    [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i",GetRequst(SETTING_FIND_GATEWAY),MainDelegate.houseData.houseId] andName:@"downloadInfo"];
 }
-
+-(void)upOrDownloadInfoWithURL:(NSString *)url andName:(NSString *)name{
+    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:url postData:nil delegate:self loaderName:name userDataDictionary:nil];
+    NSLog(@"loader name is %@",loader.name);
+}
 -(void) deleteAction:(UIButton *) sender
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
                                                         message:@"Removing the Gateway will lose programmed info of all associated smart devices. Are you sure to continue?"
                                                        delegate:self
                                               cancelButtonTitle:@"YES"
-                                              otherButtonTitles:@"NO"
-                              , nil];
+                                              otherButtonTitles:@"NO", nil];
     alertView.tag = -1;
     [alertView show];
 }
-
-
-
 -(void) expand:(GatewayDeviceCell *) cell
 {
     NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:0];
@@ -215,14 +309,15 @@
 {
     MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:currentSelectedIndex];
 
-    [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
-    [params setObject:smart.tid forKey:@"tId"];
-    
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
-    
-    [[NetManager sharedManager] requestWithURL:GetRequst(SETTING_EDITT)
-                                      delegate:self
-                                  withUserInfo:dic];
+//    [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
+//    [params setObject:smart.tid forKey:@"tId"];
+//    
+//    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
+//    
+//    [[NetManager sharedManager] requestWithURL:GetRequst(SETTING_EDITT)
+//                                      delegate:self
+//                                  withUserInfo:dic];
+    [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(SETTING_EDITT),MainDelegate.houseData.houseId,smart.tid] andName:@"edit"];
 }
 
 -(void) querryT
@@ -237,19 +332,17 @@
         return;
     }
 
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    
     MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:currentDeleteIndex];
-    
-    [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
-    [params setObject:smart.tid forKey:@"tId"];
-    
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
-    
-    [[NetManager sharedManager] requestWithURL:GetRequst(SETTING_FIND_THERMOSTAT)
-                                      delegate:self
-                                  withUserInfo:dic];
+//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//    [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
+//    [params setObject:smart.tid forKey:@"tId"];
+//    
+//    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
+//    
+//    [[NetManager sharedManager] requestWithURL:GetRequst(SETTING_FIND_THERMOSTAT)
+//                                      delegate:self
+//                                  withUserInfo:dic];
+    [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(SETTING_FIND_THERMOSTAT),MainDelegate.houseData.houseId,smart.tid] andName:@"findT"];
 }
 
 
@@ -278,29 +371,25 @@
     [self editWithString:dic];
 }
 
-
-
 -(void) rowDidSelected:(NSDictionary *) d
 {
     isNeedRefresh = NO;
     
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
-    
-    [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
-    [params setObject:self.gateway.mid forKey:@"mid"];
-    [params setObject:[d objectForKey:@"zoneId"] forKey:@"timeZone"];
-    //[params setObject:[d objectForKey:@"zoneName"] forKey:@"zoneName"];
-    
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
-    
-    [[NetManager sharedManager] requestWithURL:GetRequst(SETTING_SAVETIMEZONE)
-                                      delegate:self
-                                  withUserInfo:dic];
+//    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
+//    
+//    [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
+//    [params setObject:self.gateway.mid forKey:@"mid"];
+//    [params setObject:[d objectForKey:@"zoneId"] forKey:@"timeZone"];
+//    //[params setObject:[d objectForKey:@"zoneName"] forKey:@"zoneName"];
+//    
+//    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
+//    
+//    [[NetManager sharedManager] requestWithURL:GetRequst(SETTING_SAVETIMEZONE)
+//                                      delegate:self
+//                                  withUserInfo:dic];
+    _timeZone = d[@"zoneId"];
+    [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i&mid=%@&timeZone=%@",GetRequst(SETTING_SAVETIMEZONE),MainDelegate.houseData.houseId,self.gateway.mid,[d objectForKey:@"zoneId"]] andName:@"time"];
 }
-
-
-
-
 
 #pragma mark UITextFieldDelegate
 #pragma mark -
@@ -332,15 +421,6 @@
         [self editWithString:dic];
     }
 }
-
-
-
-
-
-
-
-
-
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag == -1)
@@ -349,16 +429,17 @@
         {
             self.isShowLoading = YES;
             
-            NSMutableDictionary *params = [NSMutableDictionary dictionary];
-            
-            [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
-            [params setObject:self.gateway.mid forKey:@"mid"];
-            
-            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
-            
-            [[NetManager sharedManager] requestWithURL:GetRequst(SETTING_DELETE_GATEWAY)
-                                              delegate:self
-                                          withUserInfo:dic];
+//            NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//            
+//            [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
+//            [params setObject:self.gateway.mid forKey:@"mid"];
+//            
+//            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
+//            
+//            [[NetManager sharedManager] requestWithURL:GetRequst(SETTING_DELETE_GATEWAY)
+//                                              delegate:self
+//                                          withUserInfo:dic];
+            [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i&mid=%@",GetRequst(SETTING_DELETE_GATEWAY),MainDelegate.houseData.houseId,self.gateway.mid] andName:@"deleteM"];
         }
     }
     else
@@ -368,18 +449,17 @@
             [SVProgressHUD showWithStatus:@"" maskType:SVProgressHUDMaskTypeClear];
             self.isShowLoading = NO;
             currentDeleteIndex = alertView.tag;
-            
-            NSMutableDictionary *params = [NSMutableDictionary dictionary];
-            [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
-            
-            MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:alertView.tag];
-            [params setObject:smart.tid forKey:@"tId"];
-            
-            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
-            
-            [[NetManager sharedManager] requestWithURL:GetRequst(SETTING_DELETE_T)
-                                              delegate:self
-                                          withUserInfo:dic];
+             MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:alertView.tag];
+//            NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//            [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
+//            [params setObject:smart.tid forKey:@"tId"];
+//            
+//            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
+//            
+//            [[NetManager sharedManager] requestWithURL:GetRequst(SETTING_DELETE_T)
+//                                              delegate:self
+//                                          withUserInfo:dic];
+            [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(SETTING_DELETE_T),MainDelegate.houseData.houseId,smart.tid] andName:@"deleteT"];
         }
     }
 }
@@ -650,7 +730,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

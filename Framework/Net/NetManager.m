@@ -32,11 +32,12 @@ static NetManager *instance;
 
 + (id)sharedManager
 {
+    NSLog(@"instance is %@",instance);
     if (instance == nil)
     {
         instance = [[NetManager alloc] init];
     }
-    
+    NSLog(@"instance is %@",instance);
     return instance;
 }
 
@@ -57,7 +58,7 @@ static NetManager *instance;
 
 - (void) requestWithURL:(NSString *) url delegate:(id<NetManagerDelegate>) delegate withUserInfo:(NSDictionary *) userInfo
 {
-    NSLog(@"%@  %@",url,userInfo);
+    NSLog(@"%@\n%@\n%@",url,delegate,userInfo);
     WSNet *request = [[WSNet alloc] initWithDelegate:self];
     
     request.userInfo = userInfo;

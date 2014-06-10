@@ -11,8 +11,9 @@
 
 #import "GatewayEntity.h"
 #import "GatewayDeviceCell.h"
+#import "MyEDataLoader.h"
 
-@interface SettingViewController : BaseTableViewController<UITableViewDataSource,UITableViewDelegate,GatewayDelegate,UIAlertViewDelegate,UITextFieldDelegate,DictionaryDelegate>
+@interface SettingViewController : BaseTableViewController<UITableViewDataSource,UITableViewDelegate,GatewayDelegate,UIAlertViewDelegate,UITextFieldDelegate,DictionaryDelegate,MyEDataLoaderDelegate,GatewayDelegate>
 {
     GatewayEntity *gateway;
     

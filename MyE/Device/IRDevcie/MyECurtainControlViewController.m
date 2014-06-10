@@ -14,25 +14,29 @@
 
 @implementation MyECurtainControlViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 #pragma mark - life circle methods
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
     _keyBtns = self.controlBtns;
     _initNumber = 400;
+    [super viewDidLoad];
 }
 #pragma mark - memory warning method
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+#pragma mark - IBAction methods
+- (IBAction)editKey:(UIBarButtonItem *)sender {
+    if ([sender.title isEqualToString:@"Edit"]) {
+        sender.title = @"Done";
+        self.isControlMode = NO;
+        self.view.backgroundColor = [UIColor colorWithRed:0.84 green:0.93 blue:0.95 alpha:1];
+    }else{
+        sender.title = @"Edit";
+        self.isControlMode = YES;
+        self.view.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
+    }
 }
 
 @end

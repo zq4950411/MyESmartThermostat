@@ -193,6 +193,7 @@
         
         //首先获取Houselist view controller
         NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+#warning 这里报错
         MyEHouseListViewController *hlvc = [allViewControllers objectAtIndex:0];
         
         //下面代码返回到Houselist viiew
