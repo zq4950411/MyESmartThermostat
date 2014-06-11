@@ -9,7 +9,7 @@
 #import "BaseNetViewController.h"
 #import "ACPButton.h"
 
-@interface RepwdViewController : BaseNetViewController <UITextFieldDelegate>
+@interface RepwdViewController : BaseNetViewController <UITextFieldDelegate,MyEDataLoaderDelegate>
 {
     UITextField *pwd;
     UITextField *nowPwd;

@@ -127,13 +127,6 @@
     if([name isEqualToString:@"DashboardDownloader"]) {
         [HUD hide:YES];
         NSLog(@"DashboardDownloader string from server is \n %@", string);
-        
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
-        // Navigation View Controller跳转到Houselist view。
-        // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
-        if (![self _processHttpRespondForString:string])
-            return;
-        
         MyEHomePanelData *homeData = [[MyEHomePanelData alloc] initWithJSONString:string];
         if (homeData) {
             [self setHomeData:homeData];
@@ -209,11 +202,8 @@
         } else if (respondInt == -994) {
             message = [NSString stringWithFormat:@"The gateway of house %@ is disconnected.", currentHouseName];
         }
-        
-        [hlvc showAutoDisappearAlertWithTile:@"Alert" message:message delay:10.0f];
-        return NO;
     }
-    return YES;
 }
+
 
 @end
