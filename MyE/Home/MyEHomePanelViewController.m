@@ -186,6 +186,7 @@
 // 判定是否服务器相应正常，如果正常返回一些字符串，如果服务器相应为-999/-998，
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
+#warning 这里需要修改
 - (BOOL)_processHttpRespondForString:(NSString *)respondText {
     NSInteger respondInt = [respondText intValue];// 从字符串开始寻找整数，如果碰到字母就结束，如果字符串不能转换成整数，那么此转换结果就是0
     if (respondInt == -999 || respondInt == -998 || respondInt == -994 ) {

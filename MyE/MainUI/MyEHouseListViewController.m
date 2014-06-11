@@ -43,10 +43,6 @@
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     // 隐藏backButton
@@ -96,6 +92,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (self.needRefresh) {
+        self.needRefresh = NO;
+        [self downloadModelFromServer];
+    }
     self.parentViewController.navigationItem.rightBarButtonItems = nil;
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] 
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh 

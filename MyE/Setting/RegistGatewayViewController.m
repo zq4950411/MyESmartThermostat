@@ -383,11 +383,6 @@
     return cell;
 }
 
-
-
-
-
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     id<NSFastEnumeration> results = [info objectForKey: ZBarReaderControllerResults];
@@ -438,18 +433,12 @@
         }
     }
 }
-
-
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 }
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

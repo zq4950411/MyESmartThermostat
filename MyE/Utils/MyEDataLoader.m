@@ -129,8 +129,6 @@
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    // do something with the data
-    // receivedData is declared as a method instance elsewhere
     NSLog(@"Succeeded! Received %d bytes of data",[_receivedData length]);
     if ([_receivedData length] == 0) {
         NSLog(@"数据请求为0");

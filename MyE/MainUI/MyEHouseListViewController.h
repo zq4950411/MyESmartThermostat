@@ -28,6 +28,7 @@
 @property (nonatomic, retain) MyEAccountData *accountData;
 @property (weak, nonatomic) IBOutlet UIButton *rememberHouseIdBtn;
 @property (weak, nonatomic) IBOutlet ACPButton *registerButton;
+@property (nonatomic, assign) BOOL needRefresh;
 
 // 加载持久存储的设置
 -(void)loadSettings;
