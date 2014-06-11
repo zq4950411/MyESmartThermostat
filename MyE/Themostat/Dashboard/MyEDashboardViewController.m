@@ -243,13 +243,7 @@
     if([name isEqualToString:@"DashboardDownloader"]) {
         [HUD hide:YES];
         NSLog(@"DashboardDownloader string from server is \n %@", string);
-        
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
-        // Navigation View Controller跳转到Houselist view。
-        // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
-        if (![self _processHttpRespondForString:string])
-            return;
-        
+       
         MyEDashboardData *dashboardData = [[MyEDashboardData alloc] initWithJSONString:string];
         if (dashboardData) {
             [self setDashboardData:dashboardData]; 
@@ -266,8 +260,7 @@
     if([name isEqualToString:@"DashboardUploader"]) {
         NSLog(@"DashboardUploader upload with result: %@", string);
         
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
-        // Navigation View Controller跳转到Houselist view。
+        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会设置isRemoteControl 变量。
         // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
         if (![self _processHttpRespondForString:string])
             return;
@@ -671,88 +664,14 @@
     
     _isFanControlToolbarViewShowing = !_isFanControlToolbarViewShowing;
 }
-//- (void)_toggleSystemControlToolbarView
-//{
-//    if (_isFanControlToolbarViewShowing) {
-//        [self _toggleFanControlToolbarView];
-//    }
-//    if (self.dashboardData.con_hp == 1) {
-//        self.systemControlEmgHeatingButton.enabled = YES;
-//    } else {
-//        self.systemControlEmgHeatingButton.enabled = NO;
-//    }
-//    
-//    NSInteger offset = [self _getToolbarOffset];
-//    CGRect frame = [self.systemControlToolbarView frame];
-//
-//    frame.origin.x = 0;//不知为何toolbar被右移了一个点, 这里校正一下
-//    if (_isSystemControlToolbarViewShowing) {
-//        frame.origin.y = frame.origin.y+offset;
-//    } else {
-//        frame.origin.y = frame.origin.y-offset;
-//    }
-//
-//    [UIView beginAnimations:nil context:nil];
-//    [UIView setAnimationDuration:0.3];
-//    [self.systemControlToolbarView setFrame:frame];
-//    [UIView commitAnimations];
-//    
-//    _isSystemControlToolbarViewShowing = !_isSystemControlToolbarViewShowing;
-//}
-//- (void)_toggleFanControlToolbarView
-//{
-//    NSInteger offset = [self _getToolbarOffset];
-//    if (_isSystemControlToolbarViewShowing) {
-//        [self _toggleSystemControlToolbarView];
-//    }
-//    
-//    CGRect frame = [self.fanControlToolbarView frame];
-//    NSLog(@"%f  %f  %f  %f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
-//
-//    frame.origin.x = 0;//不知为何toolbar被右移了一个点, 这里校正一下
-//    if (_isFanControlToolbarViewShowing) {
-//        frame.origin.y = frame.origin.y+offset;
-//    } else {
-//        frame.origin.y = frame.origin.y-offset;
-//    }
-//
-//    
-//    [UIView beginAnimations:nil context:nil];
-//    [UIView setAnimationDuration:0.3];
-//    [self.fanControlToolbarView setFrame:frame];
-//    [UIView commitAnimations];
-//    
-//    _isFanControlToolbarViewShowing = !_isFanControlToolbarViewShowing;
-//}
 
 // 判定是否服务器相应正常，如果正常返回一些字符串，如果服务器相应为-999/-998，
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
 - (BOOL)_processHttpRespondForString:(NSString *)respondText {
     NSInteger respondInt = [respondText intValue];// 从字符串开始寻找整数，如果碰到字母就结束，如果字符串不能转换成整数，那么此转换结果就是0
-    if (respondInt == -999 || respondInt == -998) {
-        
-        //首先获取Houselist view controller
-        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
-        MyEHouseListViewController *hlvc = [allViewControllers objectAtIndex:0];
-        
-        //下面代码返回到Houselist viiew
-        [self.navigationController popViewControllerAnimated:YES];
-        
-        // Houselist view controller 从服务器获取最新数据。
-        [hlvc downloadModelFromServer ];
-        
-        //获取当前正在操作的house的name
-        NSString *currentHouseName = [hlvc.accountData getHouseNameByHouseId:self.houseId];
-        NSString *message;
-        
-        if (respondInt == -999) {
-            message = [NSString stringWithFormat:@"The thermostat of hosue %@ was disconnected.", currentHouseName];
-        } else if (respondInt == -998) {
-            message = [NSString stringWithFormat:@"The thermostat of hosue %@ was set to Remote Control Disabled.", currentHouseName];
-        }
-        
-        [hlvc showAutoDisappearAlertWithTile:@"Alert" message:message delay:10.0f];
+    if (respondInt == -998) {
+        self.isRemoteControl = NO;
         return NO;
     } 
     return YES;

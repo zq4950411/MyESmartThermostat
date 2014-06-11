@@ -49,18 +49,29 @@
     // Set the gesture
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
+    [self.indoorInforTile setFlatStyleType:ACPButtonOK];
+    [self.indoorInforTile setFlatStyle:[UIColor lightGrayColor] andHighlightedColor:[UIColor grayColor]];
+    [self.indoorInforTile setBorderStyle:[UIColor clearColor] andInnerColor:[UIColor clearColor] ];
     [self.elecUsageTile setFlatStyleType:ACPButtonOK];
-    [self.elecUsageTile setFlatStyle:[UIColor blueColor] andHighlightedColor:[UIColor grayColor]];
+    [self.elecUsageTile setFlatStyle:[UIColor lightGrayColor] andHighlightedColor:[UIColor grayColor]];
     [self.elecUsageTile setBorderStyle:[UIColor clearColor] andInnerColor:[UIColor clearColor] ];
     [self.thermostatTile setFlatStyleType:ACPButtonOK];
-    [self.thermostatTile setFlatStyle:[UIColor blueColor] andHighlightedColor:[UIColor grayColor]];
+    [self.thermostatTile setFlatStyle:[UIColor lightGrayColor] andHighlightedColor:[UIColor grayColor]];
     [self.thermostatTile setBorderStyle:[UIColor clearColor] andInnerColor:[UIColor clearColor] ];
     [self.faultInfoTile setFlatStyleType:ACPButtonOK];
-    [self.faultInfoTile setFlatStyle:[UIColor blueColor] andHighlightedColor:[UIColor grayColor]];
+    [self.faultInfoTile setFlatStyle:[UIColor lightGrayColor] andHighlightedColor:[UIColor grayColor]];
     [self.faultInfoTile setBorderStyle:[UIColor clearColor] andInnerColor:[UIColor clearColor] ];
     
     self.title = MainDelegate.houseData.houseName;
-
+    
+    
+    self.navigationItem.rightBarButtonItems = nil;
+    
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                      target:self
+                                      action:@selector(refreshAction)];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, nil];
 }
 - (void) viewWillAppear:(BOOL)animated
 {
@@ -86,7 +97,16 @@
 }
 */
 
+- (IBAction)selectThermostatForIndoorInformation:(id)sender {
+    NSArray *ctl = [MainDelegate.houseData connectedThermostatList];
+}
+
 - (IBAction)goElecUsage:(id)sender {
+    if([MainDelegate.houseData terminalsForUsageStats].count == 0)
+    {
+        [SVProgressHUD showSuccessWithStatus:@"No devcie with electricity usage stats."];
+        return;
+    }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     MyEUsageStatsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ElecUsageStat"];
     vc.fromHome = YES;
@@ -105,6 +125,10 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)refreshAction
+{
+    [self downloadModelFromServer];
+}
 #pragma mark -
 #pragma mark URL Loading System methods
 
@@ -117,42 +141,22 @@
     } else
         [HUD show:YES];
     NSString *urlStr = [NSString stringWithFormat:
-                        @"%@?houseId=%i",GetRequst(URL_FOR_HOMEPANEL_VIEW),
-                        MainDelegate.houseData.houseId];
-    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"DashboardDownloader"  userDataDictionary:nil];
-    NSLog(@"DashboardDownloader is %@, url is %@",downloader.name, urlStr);
+                        @"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_HOMEPANEL_VIEW),
+                        MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
+    [MyEDataLoader startLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"HomeDataDownloader"  userDataDictionary:nil];
 }
 
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
-    if([name isEqualToString:@"DashboardDownloader"]) {
+    if([name isEqualToString:@"HomeDataDownloader"]) {
         [HUD hide:YES];
-        NSLog(@"DashboardDownloader string from server is \n %@", string);
+        NSLog(@"HomeDataDownloader string from server is \n %@", string);
         MyEHomePanelData *homeData = [[MyEHomePanelData alloc] initWithJSONString:string];
-        if (homeData) {
-            [self setHomeData:homeData];
-            [self configureView];
-        } else {
-            UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
-                                                          message:@"Communication error. Please try again."
-                                                         delegate:self
-                                                cancelButtonTitle:@"Ok"
-                                                otherButtonTitles:nil];
-            [alert show];
-        }
+        [self setHomeData:homeData];
+        [self configureView];
     }
 }
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
-    UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
-                                                  message:@"Communication error. Please try again."
-                                                 delegate:self
-                                        cancelButtonTitle:@"Ok"
-                                        otherButtonTitles:nil];
-    [alert show];
-    
-    // inform the user
-    NSLog(@"Connection of %@ failed! Error - %@ %@",name,
-          [error localizedDescription],
-          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+    [SVProgressHUD showErrorWithStatus:@"Communication error. Please try again."];
     [HUD hide:YES];
 }
 
@@ -172,7 +176,7 @@
         self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.homeData.temperature];
         if (self.homeData.numDetected > 0) {
             self.alertsTileLabel.text = [NSString stringWithFormat:@"%i New Alerts", (int)self.homeData.numDetected];
-            self.alertsTileImageView.image = [UIImage imageNamed:@"NewAlertTile"];
+            self.alertsTileImageView.image = [UIImage imageNamed:@"Alerts-01"];
         } else{
             self.alertsTileLabel.text = @"No New Alerts";
             self.alertsTileImageView.image = [UIImage imageNamed:@"AlertTile"];

@@ -137,6 +137,7 @@
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     NSLog(@"Succeeded! Received %d bytes of data",[_receivedData length]);
     if ([_receivedData length] == 0) {
         NSLog(@"数据请求为0");

@@ -101,8 +101,20 @@
 
     return nil;
 }
-
-- (NSInteger)countOfConnectedThermostat{// 房子有连接的T的数目。
+// 返回有链接的温控器设备列表
+- (NSArray *)connectedThermostatList
+{
+    NSMutableArray *array = [NSMutableArray array];
+    for (MyETerminalData *t  in self.terminals)
+    {
+        if (t.connection == 0 && t.deviceType == 0)
+        {
+            [array addObject:t];
+        }
+    }
+    return array;
+}
+- (NSInteger)countOfConnectedTerminal{// 房子有连接的T的数目。
     NSInteger count =0;
     for (MyETerminalData *t  in self.terminals) {
         if (t.connection ==0 ) {

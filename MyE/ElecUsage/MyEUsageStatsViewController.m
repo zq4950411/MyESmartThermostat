@@ -358,7 +358,6 @@
 {
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        
         HUD.delegate = self;
     } else
         [HUD show:YES];
