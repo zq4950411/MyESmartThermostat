@@ -7,9 +7,13 @@
 //
 
 #import "MyEDataLoader.h"
+#import "MyEHouseListViewController.h"
 #import <netdb.h>
 #import <SystemConfiguration/SCNetworkReachability.h>
 
+@interface MyEDataLoader (Private)
+- (void)_processHttpRespondForString:(NSString *)respondText;
+@end
 
 @implementation MyEDataLoader
 @synthesize delegate = _delegate;
@@ -97,7 +101,10 @@
     }
     return  nil;
 }
-
++ (void)startLoadingWithURLString:(NSString *)urlString postData:(NSString *)postString delegate:(id <MyEDataLoaderDelegate>)delegate loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    MyEDataLoader *loader= [[MyEDataLoader alloc] initLoadingWithURLString:urlString postData:postString delegate:delegate loaderName:name userDataDictionary:dict];
+    NSLog(@"Loader name is %@", loader.name);
+}
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse
                                                                      *)response
@@ -117,6 +124,7 @@
 }
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     // inform the user
     NSLog(@"Connection failed for %@! Error - %@ %@",
           self.name,
@@ -125,10 +133,11 @@
     if ([self.delegate respondsToSelector:@selector(connection:didFailWithError:loaderName:)]) {
         [self.delegate connection:connection didFailWithError:error loaderName:self.name];
     }
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO; 
+    
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     // do something with the data
     // receivedData is declared as a method instance elsewhere
     NSLog(@"Succeeded! Received %d bytes of data",[_receivedData length]);
@@ -137,12 +146,14 @@
         return;
     }
     NSString *string = [[NSString alloc] initWithData:_receivedData encoding:NSUTF8StringEncoding];
-
+    
+    [self _processHttpRespondForString:string];
+    
     // 如果uploader里面带了用户数据，就调用下面函数把用户数据词典传回去
     if ([self.delegate respondsToSelector:@selector(didReceiveString:loaderName:userDataDictionary:)]) {
         [self.delegate didReceiveString:string loaderName:self.name userDataDictionary:self.userDataDictionary];
     }
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO; 
+    
 }
 -(void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
@@ -160,6 +171,48 @@
         NSLog(@"user name and password is not correct to pass the authentification on www.myenergydomain.com");
     }
 }
-
+#pragma mark -
+#pragma mark private methods
+/* 判定是否服务器相应正常，如果正常返回一些字符串，如果服务器相应为-999/-998，
+// 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
+// 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
+ -999	No Connection，网络连接中断、出现硬件问题、掉电、用户人为插拔
+ -998	表示温控器禁止远程控制
+ -996	用户没有登录，返回登录页面
+ -994	网关离线
+ 
+ */
+- (void)_processHttpRespondForString:(NSString *)respondText {
+    NSInteger respondInt = [respondText intValue];// 从字符串开始寻找整数，如果碰到字母就结束，如果字符串不能转换成整数，那么此转换结果就是0
+    if (respondInt == -999 || respondInt == -998 || respondInt == -994 ) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        MyEHouseListViewController *hlvc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
+        hlvc.accountData = MainDelegate.accountData;
+        [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+        MainDelegate.window.rootViewController = hlvc;// 用主Navigation VC作为程序的rootViewController
+        
+        // Houselist view controller 从服务器获取最新数据。
+        [hlvc downloadModelFromServer ];
+        
+        //获取当前正在操作的house的name
+        NSString *currentHouseName = MainDelegate.houseData.houseName;
+        NSString *message;
+        
+        if (respondInt == -999) {
+            message = [NSString stringWithFormat:@"The network of house %@ is disconnected.", currentHouseName];
+        } else if (respondInt == -994) {
+            message = [NSString stringWithFormat:@"The gateway of house %@ is disconnected.", currentHouseName];
+        }
+        
+        [hlvc showAutoDisappearAlertWithTile:@"Alert" message:message delay:10.0f];
+    }
+    if (respondInt == -996 ) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        MyELoginViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        lvc.accountData = MainDelegate.accountData;
+        [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+        MainDelegate.window.rootViewController = lvc;// 用Login VC作为程序的rootViewController
+    }
+}
 @end
 

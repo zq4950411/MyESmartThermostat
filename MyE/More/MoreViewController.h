@@ -9,7 +9,7 @@
 #import "BaseTableViewController.h"
 #import "CommonCell.h"
 
-@interface MoreViewController : BaseTableViewController <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+@interface MoreViewController : BaseTableViewController <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,MyEDataLoaderDelegate>
 {
     BOOL isSwitch;
     

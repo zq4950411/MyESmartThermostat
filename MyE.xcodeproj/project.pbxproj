@@ -329,7 +329,6 @@
 		C3FDB81518FA82AE009B423D /* MyESwitchAutoControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7FD18FA82AE009B423D /* MyESwitchAutoControl.m */; };
 		C3FDB81718FA82AE009B423D /* MyESwitchInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB80118FA82AE009B423D /* MyESwitchInfo.m */; };
 		C3FDB81818FA82AE009B423D /* MyESwitchManualControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB80318FA82AE009B423D /* MyESwitchManualControl.m */; };
-		C3FDB88518FA867F009B423D /* MyEPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB88418FA867F009B423D /* MyEPasswordResetViewController.m */; };
 		C3FEF23B192AD2D900741318 /* MyENext24HrsPeriodData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FEF23A192AD2D900741318 /* MyENext24HrsPeriodData.m */; };
 /* End PBXBuildFile section */
 
@@ -958,8 +957,6 @@
 		C3FDB80118FA82AE009B423D /* MyESwitchInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESwitchInfo.m; sourceTree = "<group>"; };
 		C3FDB80218FA82AE009B423D /* MyESwitchManualControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESwitchManualControl.h; sourceTree = "<group>"; };
 		C3FDB80318FA82AE009B423D /* MyESwitchManualControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESwitchManualControl.m; sourceTree = "<group>"; };
-		C3FDB88318FA867F009B423D /* MyEPasswordResetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEPasswordResetViewController.h; sourceTree = "<group>"; };
-		C3FDB88418FA867F009B423D /* MyEPasswordResetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEPasswordResetViewController.m; sourceTree = "<group>"; };
 		C3FEF239192AD2D900741318 /* MyENext24HrsPeriodData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyENext24HrsPeriodData.h; sourceTree = "<group>"; };
 		C3FEF23A192AD2D900741318 /* MyENext24HrsPeriodData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyENext24HrsPeriodData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2092,8 +2089,6 @@
 			isa = PBXGroup;
 			children = (
 				8CEC64D01921C0DE005953FB /* Common */,
-				C3FDB88318FA867F009B423D /* MyEPasswordResetViewController.h */,
-				C3FDB88418FA867F009B423D /* MyEPasswordResetViewController.m */,
 				C3FDB6FF18FA6460009B423D /* MoreViewController.h */,
 				C3FDB70018FA6460009B423D /* MoreViewController.m */,
 				C3FDB70118FA6460009B423D /* RepwdViewController.h */,
@@ -2502,7 +2497,6 @@
 				8CA06046190912470090A350 /* MyESocketAutoViewController.m in Sources */,
 				C39498721919D7F70075ABD3 /* CDCircleOverlayView.m in Sources */,
 				B2588D1617B09B9C007ED13C /* SwitchButton.m in Sources */,
-				C3FDB88518FA867F009B423D /* MyEPasswordResetViewController.m in Sources */,
 				C30DBF3B194018DF0063AC6D /* DragTableHeaderView_ot.m in Sources */,
 				8C13F4721946DA0400B52913 /* ASIS3Request.m in Sources */,
 				C3FDB7D018FA672E009B423D /* MyESwitchManualControlViewController.m in Sources */,

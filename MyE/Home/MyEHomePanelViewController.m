@@ -127,13 +127,6 @@
     if([name isEqualToString:@"DashboardDownloader"]) {
         [HUD hide:YES];
         NSLog(@"DashboardDownloader string from server is \n %@", string);
-        
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
-        // Navigation View Controller跳转到Houselist view。
-        // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
-        if (![self _processHttpRespondForString:string])
-            return;
-        
         MyEHomePanelData *homeData = [[MyEHomePanelData alloc] initWithJSONString:string];
         if (homeData) {
             [self setHomeData:homeData];
@@ -178,41 +171,14 @@
         self.humidityLabel.text = [NSString stringWithFormat:@"%.0f%%RH",self.homeData.indoorHumidity];
         self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.homeData.temperature];
         if (self.homeData.numDetected > 0) {
-            self.alertsTileLabel.text = [NSString stringWithFormat:@"%i faults detected", (int)self.homeData.numDetected];
-        } else
-            self.alertsTileLabel.text = @"No fault detected";
-    }
-}
-// 判定是否服务器相应正常，如果正常返回一些字符串，如果服务器相应为-999/-998，
-// 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
-// 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
-- (BOOL)_processHttpRespondForString:(NSString *)respondText {
-    NSInteger respondInt = [respondText intValue];// 从字符串开始寻找整数，如果碰到字母就结束，如果字符串不能转换成整数，那么此转换结果就是0
-    if (respondInt == -999 || respondInt == -998 || respondInt == -994 ) {
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        MyEHouseListViewController *hlvc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
-        hlvc.accountData = MainDelegate.accountData;
-        [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
-        MainDelegate.window.rootViewController = hlvc;// 用主Navigation VC作为程序的rootViewController
-        
-        // Houselist view controller 从服务器获取最新数据。
-        [hlvc downloadModelFromServer ];
-        
-        //获取当前正在操作的house的name
-        NSString *currentHouseName = MainDelegate.houseData.houseName;
-        NSString *message;
-        
-        if (respondInt == -999) {
-            message = [NSString stringWithFormat:@"The network of house %@ is disconnected.", currentHouseName];
-        } else if (respondInt == -994) {
-            message = [NSString stringWithFormat:@"The gateway of house %@ is disconnected.", currentHouseName];
+            self.alertsTileLabel.text = [NSString stringWithFormat:@"%i New Alerts", (int)self.homeData.numDetected];
+            self.alertsTileImageView.image = [UIImage imageNamed:@"NewAlertTile"];
+        } else{
+            self.alertsTileLabel.text = @"No New Alerts";
+            self.alertsTileImageView.image = [UIImage imageNamed:@"AlertTile"];
         }
-        
-        [hlvc showAutoDisappearAlertWithTile:@"Alert" message:message delay:10.0f];
-        return NO;
     }
-    return YES;
 }
+
 
 @end

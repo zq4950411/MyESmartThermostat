@@ -25,13 +25,10 @@
 }
 
 
-
-
--(void) netFinish:(id) jsonString withUserInfo:(NSDictionary *) userInfo andURL:(NSString *) u
-{
-    if ([u rangeOfString:MORE_REPWD].location != NSNotFound)
-    {
-        if ([@"OK" isEqualToString:jsonString])
+-(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    NSLog(@"receive string is %@",string);
+    if ([name isEqualToString:@"reset_password"]) {
+        if ([@"OK" isEqualToString:string])
         {
             [SVProgressHUD showSuccessWithStatus:@"New password saved"];
         }
@@ -39,23 +36,12 @@
         {
             [SVProgressHUD showSuccessWithStatus:@"Error"];
         }
-        
-        //[MainDelegate getLoginView];
+
     }
 }
-
--(void) netError:(id)errorMsg withUserInfo:(NSDictionary *)userInfo andURL:(NSString *) u
-{
-    if ([u rangeOfString:MORE_NOTIFICATION].location != NSNotFound)
-    {
-        
-    }
+- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [SVProgressHUD showErrorWithStatus:@"Resetting password communication Error"];
 }
-
-
-
-
-
 
 
 -(IBAction) ok:(UIButton *) sender
@@ -88,8 +74,7 @@
     }
     
     self.isShowLoading = YES;
-    
-    
+    /* 彭辉原来采用BaseNetViewController的做法， 现在其网络请求出问题了，所以停止使用
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     [params setObject:pwd.text forKey:@"currentPassword"];
@@ -97,10 +82,13 @@
     
     
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:params,REQUET_PARAMS, nil];
-
+    
     [[NetManager sharedManager] requestWithURL:GetRequst(MORE_REPWD)
                                       delegate:self
-                                  withUserInfo:dic];  
+                                  withUserInfo:dic];
+    */
+
+    [MyEDataLoader startLoadingWithURLString:[NSString stringWithFormat:@"%@?currentPassword=%@&newPassword=%@",GetRequst(MORE_REPWD),pwd.text, nowPwd.text] postData:nil delegate:self loaderName:@"reset_password" userDataDictionary:nil];
 }
 
 - (void)viewDidLoad

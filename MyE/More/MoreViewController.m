@@ -7,7 +7,6 @@
 //
 
 #import "MoreViewController.h"
-#import "MyEPasswordResetViewController.h"
 #import "RepwdViewController.h"
 
 #import "MyEAccountData.h"
@@ -38,11 +37,43 @@
 
 
 
--(void) netFinish:(id) jsonString withUserInfo:(NSDictionary *) userInfo andURL:(NSString *) u
-{
-    if ([u rangeOfString:MORE_SAVE_NOTIFICATION].location != NSNotFound)
-    {
-        if ([@"OK" isEqualToString:jsonString])
+//-(void) netFinish:(id) jsonString withUserInfo:(NSDictionary *) userInfo andURL:(NSString *) u
+//{
+//    if ([u rangeOfString:MORE_SAVE_NOTIFICATION].location != NSNotFound)
+//    {
+//        if ([@"OK" isEqualToString:jsonString])
+//        {
+//            isSwitch = !isSwitch;
+//        }
+//        else
+//        {
+//            [self.tableView reloadData];
+//        }
+//    }
+//}
+//
+//-(void) netError:(id)errorMsg withUserInfo:(NSDictionary *)userInfo andURL:(NSString *) u
+//{
+//    if ([u rangeOfString:MORE_NOTIFICATION].location != NSNotFound)
+//    {
+//        
+//    }
+//}
+-(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    NSLog(@"receive string is %@",string);
+    if ([name isEqualToString:@"Getting Notification setting"]) {
+        if ([@"1" isEqualToString:string])
+        {
+            isSwitch = YES;
+        }
+        else if ([@"0" isEqualToString:string])
+        {
+            isSwitch = NO;
+        }
+        [self.tableView reloadData];
+    }
+    if ([name isEqualToString:@"Changing notification setting"]) {
+        if ([@"OK" isEqualToString:string])
         {
             isSwitch = !isSwitch;
         }
@@ -52,22 +83,16 @@
         }
     }
 }
-
--(void) netError:(id)errorMsg withUserInfo:(NSDictionary *)userInfo andURL:(NSString *) u
-{
-    if ([u rangeOfString:MORE_NOTIFICATION].location != NSNotFound)
-    {
-        
-    }
+- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ communication Error", name]];
 }
-
 
 
 -(void) valueChange:(UISwitch *) swch
 {
     self.isShowLoading = YES;
     
-    
+    /*
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     [params setObject:@"0" forKey:@"deviceType"];
@@ -87,13 +112,15 @@
     [[NetManager sharedManager] requestWithURL:GetRequst(MORE_SAVE_NOTIFICATION)
                                       delegate:self
                                   withUserInfo:dic];
+    */
+    [MyEDataLoader startLoadingWithURLString:[NSString stringWithFormat:@"%@?deviceType=0&deviceAlias=%@&notification=%i",GetRequst(MORE_SAVE_NOTIFICATION),[OpenUDID value], swch.isOn?1:0] postData:nil delegate:self loaderName:@"Changing notification setting" userDataDictionary:nil];
 }
 
 -(void) sendGetDatas
 {
     self.isShowLoading = YES;
     
-    
+    /*
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     [params setObject:@"0" forKey:@"deviceType"];
@@ -106,18 +133,10 @@
     [[NetManager sharedManager] requestWithURL:GetRequst(MORE_NOTIFICATION)
                                       delegate:self
                                   withUserInfo:dic];
+     */
+    [MyEDataLoader startLoadingWithURLString:[NSString stringWithFormat:@"%@?deviceType=0&deviceAlias=%@",GetRequst(MORE_NOTIFICATION),[OpenUDID value]] postData:nil delegate:self loaderName:@"Getting Notification setting" userDataDictionary:nil];
 }
 
-
-- (void)prepareForSegue:(UIStoryboardSegue *) segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"Reset"])
-    {
-        MyEPasswordResetViewController *vc = [segue destinationViewController];
-        vc.userId = MainDelegate.accountData.userId;
-        vc.houseId = MainDelegate.houseData.houseId;
-    }
-}
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
