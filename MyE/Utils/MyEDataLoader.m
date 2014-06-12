@@ -138,11 +138,11 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    NSLog(@"Succeeded! Received %d bytes of data",[_receivedData length]);
-    if ([_receivedData length] == 0) {
-        NSLog(@"数据请求为0");
+    if ([_receivedData isEqual:[NSNull null]] || [_receivedData length] == 0) {
+        NSLog(@"请求数据长度为0");
         return;
     }
+    NSLog(@"Succeeded! Received %d bytes of data",[_receivedData length]);
     NSString *string = [[NSString alloc] initWithData:_receivedData encoding:NSUTF8StringEncoding];
     
     [self _processHttpRespondForString:string];
@@ -175,14 +175,13 @@
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
  -999	No Connection，网络连接中断、出现硬件问题、掉电、用户人为插拔
- -998	表示温控器禁止远程控制
  -996	用户没有登录，返回登录页面
  -994	网关离线
  
  */
 - (void)_processHttpRespondForString:(NSString *)respondText {
     NSInteger respondInt = [respondText intValue];// 从字符串开始寻找整数，如果碰到字母就结束，如果字符串不能转换成整数，那么此转换结果就是0
-    if (respondInt == -999 || respondInt == -998 || respondInt == -994 ) {
+    if (respondInt == -999 || respondInt == -994 ) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         MyEHouseListViewController *hlvc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
         hlvc.accountData = MainDelegate.accountData;
