@@ -259,8 +259,7 @@
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"Weekly schedule JSON String from server is \n%@",string);
     if([name isEqualToString:@"WeeklyScheduleDownloader"]) {
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
-        // Navigation View Controller跳转到Houselist view。
+        // 判定是否服务器相应正常，如果服务器相应为-998，那么_processHttpRespondForString函数会返回NO，提示用户并中断操作
         // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
         if (![self _processHttpRespondForString:string])
             return;
@@ -304,8 +303,7 @@
         }
         
     } else if([name isEqualToString:@"WeeklyScheduleUploader"]) {
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
-        // Navigation View Controller跳转到Houselist view。
+        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会返回NO，提示用户并中断操作
         // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
         if (![self _processHttpRespondForString:string])
             return;
@@ -323,8 +321,7 @@
         }
         NSLog(@"WeeklyScheduleUploader result: %@", string);
     } else if([name isEqualToString:@"WeeklyScheduleEditingModeUploader"]) {
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
-        // Navigation View Controller跳转到Houselist view。
+        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会返回NO，提示用户并中断操作
         // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
         if (![self _processHttpRespondForString:string])
             return;
@@ -366,8 +363,7 @@
             [alert show];
         }
     }else if([name isEqualToString:@"WeeklyScheduleNewModeUploader"]) {
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
-        // Navigation View Controller跳转到Houselist view。
+        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会返回NO，提示用户并中断操作
         // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
         if (![self _processHttpRespondForString:string])
             return;
@@ -402,8 +398,7 @@
             [alert show];
         }
     } else if([name isEqualToString:@"WeeklyScheduleDeletingModeUploader"]) {
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
-        // Navigation View Controller跳转到Houselist view。
+        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会返回NO，提示用户并中断操作
         // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
         if (![self _processHttpRespondForString:string])
             return;
@@ -864,29 +859,9 @@
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
 - (BOOL)_processHttpRespondForString:(NSString *)respondText {
     NSInteger respondInt = [respondText intValue];// 从字符串开始寻找整数，如果碰到字母就结束，如果字符串不能转换成整数，那么此转换结果就是0
-    if (respondInt == -999 || respondInt == -998) {
-        
-        //首先获取Houselist view controller
-        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
-        MyEHouseListViewController *hlvc = [allViewControllers objectAtIndex:0];
-        
-        //下面代码返回到Houselist viiew
-        [self.navigationController popViewControllerAnimated:YES];
-        
-        // Houselist view controller 从服务器获取最新数据。
-        [hlvc downloadModelFromServer ];
-        
-        //获取当前正在操作的house的name
-        NSString *currentHouseName = [hlvc.accountData getHouseNameByHouseId:MainDelegate.houseData.houseId];
-        NSString *message;
-        
-        if (respondInt == -999) {
-            message = [NSString stringWithFormat:@"The thermostat of hosue %@ was disconnected now.", currentHouseName];
-        } else if (respondInt == -998) {
-            message = [NSString stringWithFormat:@"The thermostat of hosue %@ was set to Remote Control Disabled.", currentHouseName];
-        }
-        
-        [hlvc showAutoDisappearAlertWithTile:@"Alert" message:message delay:10.0f];
+    if (respondInt == -998) {
+        // 禁止远程操作， 应该提示用户。
+        [SVProgressHUD showErrorWithStatus:@"The thermostat remote control is disabled."];
         return NO;
     }
     return YES;

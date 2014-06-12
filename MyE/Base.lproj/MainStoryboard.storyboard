@@ -937,7 +937,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CIQ-Dl-51D">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CIQ-Dl-51D" customClass="ACPButton">
                                 <rect key="frame" x="141" y="0.0" width="179" height="155"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -961,6 +961,9 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.65800310617469882" green="0.84993881777108438" blue="0.90297910391566261" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="selectThermostatForIndoorInformation:" destination="liH-3f-BIt" eventType="touchUpInside" id="WZc-qo-Rqq"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D2t-j5-wl6">
                                 <rect key="frame" x="0.0" y="0.0" width="135" height="155"/>
@@ -1064,6 +1067,7 @@
                         <outlet property="elecUsageTile" destination="Sph-ZO-bTG" id="KXL-dN-qS1"/>
                         <outlet property="faultInfoTile" destination="OrV-zF-bzT" id="9Pi-j4-c1m"/>
                         <outlet property="humidityLabel" destination="emY-cV-eS1" id="plq-nQ-viY"/>
+                        <outlet property="indoorInforTile" destination="CIQ-Dl-51D" id="YO6-E4-BUR"/>
                         <outlet property="indoorTemperatureLabel" destination="ngR-b4-nOk" id="pb9-vy-Yos"/>
                         <outlet property="sidebarButton" destination="wMU-7Z-uM6" id="aN3-oG-9h3"/>
                         <outlet property="thermostatTile" destination="kZo-8j-XiC" id="uDx-aJ-SEy"/>

@@ -113,7 +113,8 @@
                                       delegate:self
                                   withUserInfo:dic];
     */
-    [MyEDataLoader startLoadingWithURLString:[NSString stringWithFormat:@"%@?deviceType=0&deviceAlias=%@&notification=%i",GetRequst(MORE_SAVE_NOTIFICATION),[OpenUDID value], swch.isOn?1:0] postData:nil delegate:self loaderName:@"Changing notification setting" userDataDictionary:nil];
+    NSString *url = [NSString stringWithFormat:@"%@?deviceType=0&deviceAlias=%@&notification=%i",GetRequst(MORE_SAVE_NOTIFICATION),[OpenUDID value], swch.isOn?1:0];
+    [MyEDataLoader startLoadingWithURLString:url postData:nil delegate:self loaderName:@"Changing notification setting" userDataDictionary:nil];
 }
 
 -(void) sendGetDatas

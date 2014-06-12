@@ -302,8 +302,7 @@
             [alert show];
         }
     } else if([name isEqualToString:@"Next24HrsUseWeeklyDownloader"]) {
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
-        // Navigation View Controller跳转到Houselist view。
+        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会返回NO，提示用户并中断操作
         // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
         if (![self _processHttpRespondForString:string])
             return;
@@ -350,8 +349,7 @@
             }
         }
     } else if ([name isEqualToString:@"Next24HrsScheduleUploader"]) {
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
-        // Navigation View Controller跳转到Houselist view。
+        // 判定是否服务器相应正常，如果服务器相应为-998，那么_processHttpRespondForString函数会返回NO，提示用户并中断操作
         // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
         if (![self _processHttpRespondForString:string])
             return;
@@ -371,15 +369,14 @@
         }
     }
     else if ([name isEqualToString:@"Next24HrsHoldUploader"]) {
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
-        // Navigation View Controller跳转到Houselist view。
+        // 判定是否服务器相应正常，如果服务器相应为-998，那么_processHttpRespondForString函数会返回NO，提示用户并中断操作
         // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
         if (![self _processHttpRespondForString:string])
             return;
         
         if ([string isEqualToString:@"fail"]) {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
-                                                          message:@"Communication error. Please try again."
+                                                          message:@"Server error. Please try again."
                                                          delegate:self
                                                 cancelButtonTitle:@"Ok"
                                                 otherButtonTitles:nil];
@@ -810,34 +807,15 @@
 
 #pragma mark
 #pragma mark 处理服务器异常数据的函数
-// 判定是否服务器相应正常，如果正常返回YES，如果服务器相应为-999/-998，
-// 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
+// 判定是否服务器相应正常，如果正常返回YES，如果服务器相应为-998，
+// 那么函数返回NO，提示用户并中断操作
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
 - (BOOL)_processHttpRespondForString:(NSString *)respondText {
     NSInteger respondInt = [respondText intValue];// 从字符串开始寻找整数，如果碰到字母就结束，如果字符串不能转换成整数，那么此转换结果就是0
-    if (respondInt == -999 || respondInt == -998) {
+    if (respondInt == -998) {
         
-        //首先获取Houselist view controller
-        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
-        MyEHouseListViewController *hlvc = [allViewControllers objectAtIndex:0];
-        
-        //下面代码返回到Houselist viiew
-        [self.navigationController popViewControllerAnimated:YES];
-        
-        // Houselist view controller 从服务器获取最新数据。
-        [hlvc downloadModelFromServer ];
-        
-        //获取当前正在操作的house的name
-        NSString *currentHouseName = [hlvc.accountData getHouseNameByHouseId:MainDelegate.houseData.houseId];
-        NSString *message;
-        
-        if (respondInt == -999) {
-            message = [NSString stringWithFormat:@"The thermostat of hosue %@ was disconnected.", currentHouseName];
-        } else if (respondInt == -998) {
-            message = [NSString stringWithFormat:@"The thermostat of hosue %@ was set to Remote Control Disabled.", currentHouseName];
-        }
-        
-        [hlvc showAutoDisappearAlertWithTile:@"Alert" message:message delay:10.0f];
+       // 禁止远程操作， 应该提示用户。
+        [SVProgressHUD showErrorWithStatus:@"The thermostat remote control is disabled."];
         return NO;
     } 
     return YES;
