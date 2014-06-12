@@ -77,7 +77,7 @@
     [self.view addSubview:readerView];
     //扫描区域计算
     readerView.scanCrop = [self getScanCrop:scanMaskRect readerViewBounds:readerView.bounds];
-
+    
     [readerView start];
 }
 - (void)didReceiveMemoryWarning
@@ -95,8 +95,8 @@
     y = rect.origin.y / readerViewBounds.size.height;
     width = rect.size.width / readerViewBounds.size.width;
     height = rect.size.height / readerViewBounds.size.height;
-//    NSLog(@"%f %f",readerViewBounds.size.width,readerViewBounds.size.height);
-//    NSLog(@"%f  %f  %f  %f",x,y,width,height);
+    //    NSLog(@"%f %f",readerViewBounds.size.width,readerViewBounds.size.height);
+    //    NSLog(@"%f  %f  %f  %f",x,y,width,height);
     return CGRectMake(x, y, width, height);
 }
 - (void)readerView:(ZBarReaderView *)readerView didReadSymbols:(ZBarSymbolSet *)symbols fromImage:(UIImage *)image
@@ -108,13 +108,16 @@
     for (ZBarSymbol *symbol in symbols) {
         if ([symbol.data length] == 30) {
             [self.delegate passMID:[symbol.data substringToIndex:23] andPIN:[symbol.data substringFromIndex:24]];
-         }else{
+        }else{
             [MyEUtil showMessageOn:nil withMessage:@"please scan the code behind the meditor"];
         }
         break;
     }
     [readerView stop];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.jumpFromNav) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else
+        [self dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark - IBAction methods
 - (IBAction)dismissView:(id)sender {

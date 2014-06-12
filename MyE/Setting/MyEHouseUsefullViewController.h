@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MyEAccountData.h"
-
+#import "MyEMediatorRegisterViewController.h"
 @interface MyEHouseUsefullViewController : UITableViewController
-
-@property (nonatomic, weak) MyEAccountData *accountData;
+@property (nonatomic, weak) NSArray *houses;
+@property (nonatomic) NSInteger selectHouseIndex;
 @end

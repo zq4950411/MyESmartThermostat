@@ -18,6 +18,7 @@
 
 @interface SettingViewController(){
     NSString *_timeZone;
+    UISwitch *_currentSwitch;
 }
 @end
 @implementation SettingViewController
@@ -29,9 +30,8 @@
     for (int i = 0; i < self.gateway.timeZones.count; i++)
     {
         NSDictionary *tempDic = [self.gateway.timeZones objectAtIndex:i];
-        
         NSString *tempId = [tempDic valueToStringForKey:@"zoneId"];
-        if ([tempId isEqualToString:zoneId])
+        if (tempId.intValue == zoneId.intValue)
         {
             return [tempDic objectForKey:@"zoneName"];
         }
@@ -57,10 +57,8 @@
 //            NSString *controlStat = [[userInfo objectForKey:REQUET_PARAMS] objectForKey:@"controlState"];
 //            NSString *aliasName = [[userInfo objectForKey:REQUET_PARAMS] objectForKey:@"aliasName"];
 //            
-//            MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:currentSelectedIndex];
-//            smart.deviceName = aliasName;
-//            smart.switchStatus = controlStat;
-            
+            MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:currentSelectedIndex];
+            smart.switchStatus = [NSString stringWithFormat:@"%@",[smart.switchStatus isEqualToString:@"1"]?@"0":@"1"];
             [self.tableView reloadData];
         }
         else
@@ -302,9 +300,6 @@
     [indexPaths addObject:[NSIndexPath indexPathForRow:cell.tag inSection:2]];
     [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
 }
-
-
-
 -(void) editWithString:(NSMutableDictionary *) params
 {
     MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:currentSelectedIndex];
@@ -317,7 +312,7 @@
 //    [[NetManager sharedManager] requestWithURL:GetRequst(SETTING_EDITT)
 //                                      delegate:self
 //                                  withUserInfo:dic];
-    [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(SETTING_EDITT),MainDelegate.houseData.houseId,smart.tid] andName:@"edit"];
+    [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&aliasName=%@&controlState=%i",GetRequst(SETTING_EDITT),MainDelegate.houseData.houseId,smart.tid,smart.deviceName,_currentSwitch.isOn] andName:@"edit"];
 }
 
 -(void) querryT
@@ -348,6 +343,7 @@
 
 -(void) vauleChanged:(UISwitch *) s
 {
+    _currentSwitch = s;
     self.currentSelectedIndex = s.tag;
     
     MyEDevice *smart = [self.gateway.smartDevices safeObjectAtIndex:currentSelectedIndex];
@@ -374,7 +370,7 @@
 -(void) rowDidSelected:(NSDictionary *) d
 {
     isNeedRefresh = NO;
-    
+    NSLog(@"dic is %@",d);
 //    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
 //    
 //    [params setObject:[NSString stringWithFormat:@"%d",MainDelegate.houseData.houseId] forKey:@"houseId"];
@@ -636,7 +632,7 @@
         
         [button setTitle:@"Remove the Gateway" forState:UIControlStateNormal];
         [button setStyleType:ACPButtonOK];
-        button.frame = CGRectMake(10, 0, 280, 44);
+        button.frame = CGRectMake(10, 0, 300, 44);
         [button addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
         
         [cell.contentView addSubview:button];
@@ -685,24 +681,21 @@
         return cell;
     }
 }
-
-
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib
-    
+   
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    if (!IS_IOS6) {
+        self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    }
     isNeedRefresh = YES;
-    NSLog(@"%f    %f",self.tableView.frame.size.height,self.tableView.frame.origin.y);
+//    NSLog(@"%f    %f",self.tableView.frame.size.height,self.tableView.frame.origin.y);
     
     // Change button color
     _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
     
-    // Set the side bar button action. When it's tapped, it'll show up the sidebar.
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
     

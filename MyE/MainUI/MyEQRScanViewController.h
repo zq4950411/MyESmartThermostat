@@ -16,5 +16,6 @@
 @interface MyEQRScanViewController : UIViewController<ZBarReaderViewDelegate>
 
 @property (nonatomic, assign) id <MyEQRScanViewControllerDelegate> delegate;
+@property (nonatomic, assign) BOOL jumpFromNav;
 
 @end

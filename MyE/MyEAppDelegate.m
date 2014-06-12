@@ -55,9 +55,24 @@
                                                                    instantiateViewControllerWithIdentifier: @"MainNavViewController"];
     self.window.rootViewController = controller;// 用主Navigation VC作为程序的rootViewController
 }
-
+//通过指定颜色和尺寸，生成一张该颜色的图片
+- (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
+{
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //http://blog.csdn.net/zhang_red/article/details/21450119
+    
     if (!IS_IOS6) {
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"barImage.png"]  forBarMetrics:UIBarMetricsDefault];   //这个貌似跟位置有关系，之前放在方法最后面竟然没有执行成功，放在这里才算成功了
         [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
@@ -70,6 +85,25 @@
         [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
         [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
         [[UIToolbar appearance] setBarStyle:UIBarStyleBlack];
+    }else{
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
+        [[UINavigationBar appearance] setBackgroundImage:[self imageWithColor:[UIColor blackColor] size:CGSizeMake(1, 44)] forBarMetrics:UIBarMetricsDefault];
+        
+        [[UIBarButtonItem appearance] setBackgroundImage:[UIImage new]
+                                                forState:UIControlStateNormal
+                                              barMetrics:UIBarMetricsDefault];
+        //设置导航栏返回按钮的UI
+        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 18, 0, 0)]
+                                                          forState:UIControlStateNormal
+                                                        barMetrics:UIBarMetricsDefault];
+        [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(5, -2)
+                                                             forBarMetrics:UIBarMetricsDefault];
+        [[UIBarButtonItem appearance] setTitleTextAttributes:
+         @{ UITextAttributeFont: [UIFont systemFontOfSize:17],
+            UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetZero]} forState:UIControlStateNormal];
+        
+        [[UITabBar appearance] setBackgroundImage:[self imageWithColor:[UIColor blackColor] size:CGSizeMake(1, 49)]];
+        [[UITabBar appearance] setSelectionIndicatorImage:[UIImage new]];
     }
 
     // Override point for customization after application launch.

@@ -32,15 +32,9 @@
     [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_UNIVERSAL_CONTROL_MANUAL_VIEW),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
     [btn setFrame:CGRectMake(0, 0, 50, 30)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     if (!IS_IOS6) {
-        [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
         [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
-    }else{
-        [btn setBackgroundImage:[UIImage imageNamed:@"back-ios6"] forState:UIControlStateNormal];
-        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-        btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [btn setTitle:@"Back" forState:UIControlStateNormal];
     }
     [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];

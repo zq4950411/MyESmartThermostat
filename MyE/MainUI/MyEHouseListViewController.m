@@ -22,6 +22,7 @@
 #import "HouseBlankView.h"
 #import "SWRevealViewController.h"
 #import "MyEMainMenuViewController.h"
+#import "MyEMediatorRegisterViewController.h"
 
 @interface MyEHouseListViewController()
 
@@ -126,6 +127,8 @@
     sender.selected = !sender.selected;
 }
 - (IBAction)registerGateway:(ACPButton *)sender {
+    UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Setting" bundle:nil] instantiateViewControllerWithIdentifier:@"mediator"];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - private methods

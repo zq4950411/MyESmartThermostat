@@ -85,10 +85,6 @@
         
         // create the connection with the request and start loading the data
         NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request  delegate:self];  
-        
-        
-        
-        
         if (theConnection) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES; 
             // Create the NSMutableData to hold the received data.
@@ -137,11 +133,16 @@
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSLog(@"Succeeded! Received %d bytes of data",[_receivedData length]);
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    if (_receivedData == (NSData *)[NSNull null]) {
+        NSLog(@"数据为空");
+        return;
+    }
     if ([_receivedData length] == 0) {
         NSLog(@"数据请求为0");
         return;
     }
+    NSLog(@"Succeeded! Received %d bytes of data",[_receivedData length]);
     NSString *string = [[NSString alloc] initWithData:_receivedData encoding:NSUTF8StringEncoding];
     
     [self _processHttpRespondForString:string];

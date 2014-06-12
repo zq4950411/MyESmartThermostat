@@ -205,7 +205,7 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    self.navigationController.navigationBar.translucent = NO;
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.navigationItem.title = @"Account";
     self.tableView.delegate = self;
