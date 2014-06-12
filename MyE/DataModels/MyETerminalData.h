@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MyETerminalData : NSObject
+@interface MyETerminalData : NSObject<NSCopying>
 
 @property (nonatomic, copy) NSString *tName;
 @property (nonatomic, copy) NSString *tId;
@@ -19,6 +19,7 @@
 @property (nonatomic) NSInteger deviceType;
 @property (nonatomic) NSInteger keypad;
 
+- (MyETerminalData *)initWithString:(NSString *)string;
 - (MyETerminalData *)initWithDictionary:(NSDictionary *)dictionary;
 - (NSDictionary *)JSONDictionary;
 

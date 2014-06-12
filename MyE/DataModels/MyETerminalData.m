@@ -9,6 +9,12 @@
 #import "MyETerminalData.h"
 
 @implementation MyETerminalData
+-(MyETerminalData *)initWithString:(NSString *)string{
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSDictionary *dic = [parser objectWithString:string];
+    MyETerminalData *t = [[MyETerminalData alloc] initWithDictionary:dic];
+    return t;
+}
 - (MyETerminalData *)initWithDictionary:(NSDictionary *)dictionary {
     if (self = [super init]) {
         self.tId = [dictionary objectForKey:@"tId"];
