@@ -14,14 +14,12 @@
 #import "MyETerminalData.h"
 #import "MyEHomePanelData.h"
 #import "MyEDevicesViewController.h"
+#import "KxMenu.h"
 
 @interface MyEHomePanelViewController ()
 - (void)configureView;
 
-// 判定是否服务器相应正常，如果正常返回YES，如果服务器相应为-999/-998，
-// 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
-// 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
-- (BOOL)_processHttpRespondForString:(NSString *)respondText;
+- (void)chooseThermostat:(KxMenuItem *) sender;
 @end
 
 @implementation MyEHomePanelViewController
@@ -76,6 +74,22 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    // 处理tId
+    //在NSDefaults里面寻找上次记录的tId， 如果找到，并且在thermostat list里面找到， 就是用它。
+    // 否则从thermostat list里面取得第一个有链接的thermostat
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *tId = [prefs objectForKey:KEY_FOR_THERMOSTATID_HOME_INDOOR_TH];
+    NSInteger index = [MainDelegate.houseData indexInConnectedThermostatListFortId:tId];
+    if(index > -1){
+        self.thermostatId_for_indoor_th = tId;
+        MainDelegate.terminalData = [MainDelegate.houseData getTerminalDataBytId:tId];
+    }
+    else{
+        MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
+        self.thermostatId_for_indoor_th = MainDelegate.terminalData.tId;
+        [prefs setObject:self.thermostatId_for_indoor_th forKey:KEY_FOR_THERMOSTATID_HOME_INDOOR_TH];
+        [prefs synchronize];
+    }
     
     [self downloadModelFromServer];
     
@@ -96,9 +110,57 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (void)chooseThermostat:(KxMenuItem *) sender
+{
+    NSArray *ctl = [MainDelegate.houseData connectedThermostatList];
+    MyETerminalData *the = [ctl objectAtIndex:sender.tag];
+    if (![the.tId isEqualToString:self.thermostatId_for_indoor_th])
+    {
+        MainDelegate.terminalData = the;
+        self.thermostatId_for_indoor_th = MainDelegate.terminalData.tId;
+         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        [prefs setObject:self.thermostatId_for_indoor_th forKey:KEY_FOR_THERMOSTATID_HOME_INDOOR_TH];
+        [prefs synchronize];
+        [self refreshAction];
+    }
+}
 
 - (IBAction)selectThermostatForIndoorInformation:(id)sender {
     NSArray *ctl = [MainDelegate.houseData connectedThermostatList];
+    
+    NSMutableArray *items = [NSMutableArray array];
+    for (int i = 0; i < ctl.count; i++)
+    {
+        MyETerminalData *t = ctl[i];
+        NSString *tname = t.tName;
+        if (tname.length < 15 ) {
+            tname = [NSString stringWithFormat:@"        %@        ", t.tName];
+        }
+        KxMenuItem *item = [KxMenuItem menuItem:tname
+                                          image:nil
+                                         target:self
+                                         action:@selector(chooseThermostat:)];
+        
+        if ([t.tId isEqualToString:self.thermostatId_for_indoor_th])
+        {
+            item.foreColor = [UIColor redColor];
+        }
+        else
+        {
+            item.foreColor = [UIColor whiteColor];
+        }
+        
+        item.tag = i;
+        [items addObject:item];
+    }
+    UIView *tile = (UIView *)sender;
+    if (items.count > 0)
+    {
+        [KxMenu showMenuInView:self.view
+                      fromRect:tile.frame
+                     menuItems:items];
+    }
+
 }
 
 - (IBAction)goElecUsage:(id)sender {
@@ -142,7 +204,7 @@
         [HUD show:YES];
     NSString *urlStr = [NSString stringWithFormat:
                         @"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_HOMEPANEL_VIEW),
-                        MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
+                        MainDelegate.houseData.houseId, self.thermostatId_for_indoor_th];
     [MyEDataLoader startLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"HomeDataDownloader"  userDataDictionary:nil];
 }
 
@@ -173,7 +235,8 @@
         self.weatherTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.homeData.weatherTemp];
         self.weatherTemperatureRangeLabel.text = [NSString stringWithFormat:@"%.0f~%.0f\u00B0F", self.homeData.lowTemp, self.homeData.highTemp];
         self.humidityLabel.text = [NSString stringWithFormat:@"%.0f%%RH",self.homeData.indoorHumidity];
-        self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.homeData.temperature];
+        if(MainDelegate.terminalData)
+            self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.homeData.temperature];
         if (self.homeData.numDetected > 0) {
             self.alertsTileLabel.text = [NSString stringWithFormat:@"%i New Alerts", (int)self.homeData.numDetected];
             self.alertsTileImageView.image = [UIImage imageNamed:@"Alerts-01"];

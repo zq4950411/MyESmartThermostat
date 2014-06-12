@@ -114,6 +114,30 @@
     }
     return array;
 }
+
+// 给定一个tId，返回拥有该tId的温控器在有链接的温控器设备列表里面的序号. 如果没找到， 返回-1
+- (NSInteger)indexInConnectedThermostatListFortId:(NSString *)tId
+{
+    NSArray *thermostatList = [self connectedThermostatList];
+    for (NSInteger i=0; i < thermostatList.count; i++) {
+        MyETerminalData *t = thermostatList[i];
+        if ([t.tId isEqualToString:tId]) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+- (MyETerminalData *)getTerminalDataBytId:(NSString *)tId{
+    for (MyETerminalData *t  in self.terminals)
+    {
+        if ([t.tId isEqualToString:tId])
+        {
+            return t;
+        }
+    }
+}
+
 - (NSInteger)countOfConnectedTerminal{// 房子有连接的T的数目。
     NSInteger count =0;
     for (MyETerminalData *t  in self.terminals) {

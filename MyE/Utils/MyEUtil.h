@@ -159,6 +159,10 @@
 #define KEY_FOR_HOUSE_ID_LAST_VIEWED @"house_id_last_viewed"
 #define KEY_FOR_TID_LAST_VIEWED @"thermostat_id_last_viewed"
 
+// 定义NSDefaults里面用于保存上次在Home面板获取的室内温度所在的温控器
+#define KEY_FOR_THERMOSTATID_HOME_INDOOR_TH @"tId_home_indoor_th"
+
+
 // 定义默认无效颜色为空
 #define DEFAULT_VOID_COLOR [UIColor clearColor]
 #define DEFAULT_LIGHT_UI_COLOR [UIColor colorWithRed:75.0/255.0 green:200.0/255.0 blue:230.0/255.0 alpha:1.0]

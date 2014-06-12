@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "ACPbutton.h"
 @class MyEHomePanelData;
+@class MyETerminalData;
 
 @interface MyEHomePanelViewController : UIViewController<MyEDataLoaderDelegate,MBProgressHUDDelegate> {
 
     MBProgressHUD *HUD;
 }
+@property (copy, nonatomic) NSString *thermostatId_for_indoor_th;// 仅用于显示当前选择的某个温控器的温度， 需要知道该温控器的tId
 @property (strong, nonatomic) MyEHomePanelData *homeData;
 @property (weak, nonatomic) IBOutlet UIImageView *weatherImageView;
 @property (weak, nonatomic) IBOutlet UILabel *weatherTemperatureLabel;
