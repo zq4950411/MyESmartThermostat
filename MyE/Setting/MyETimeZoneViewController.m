@@ -44,7 +44,6 @@
     return 6;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
@@ -58,6 +57,8 @@
 #pragma mark - UITable view delegate methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.timeZone = indexPath.row + 1;
+    MyEMediatorRegisterViewController *vc = self.navigationController.childViewControllers[[self.navigationController.childViewControllers indexOfObject:self] - 1];
+    vc.timeZone = self.timeZone;
     [self.tableView reloadData];
 }
 @end

@@ -14,7 +14,7 @@
                         <viewControllerLayoutGuide type="bottom" id="80s-B5-ZdE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rmv-CJ-ueY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -25,7 +25,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvE-XE-0z7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -150,7 +150,7 @@
             <objects>
                 <navigationController storyboardIdentifier="scanNav" automaticallyAdjustsScrollViewInsets="NO" id="1We-eV-6yv" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KDy-Lt-SmJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="KDy-Lt-SmJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -186,11 +186,11 @@
             <objects>
                 <tableViewController id="oVd-WL-KtG" customClass="MyEMediatorRegisterViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="7Xw-hC-kb2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="4sM-v2-R9e">
-                            <rect key="frame" x="0.0" y="64" width="320" height="156"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="156"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You need M-ID and PIN to register a Smart Gateway.You can find them from the label on the bottom of the Gateway" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="1ZN-dm-13p">
@@ -203,7 +203,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QdO-1W-AkQ" customClass="ACPButton">
                                     <rect key="frame" x="20" y="75" width="280" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <state key="normal" title="Scan the 2D bar code to obtain M-ID and PIN">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -229,10 +229,10 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="5Cu-6b-Ven">
-                            <rect key="frame" x="0.0" y="396" width="320" height="55"/>
+                            <rect key="frame" x="0.0" y="332" width="320" height="55"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIT-L9-AaL" customClass="ACPButton">
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIT-L9-AaL" customClass="ACPButton">
                                     <rect key="frame" x="26" y="13" width="269" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Register Gateway">
@@ -249,7 +249,7 @@
                             <tableViewSection id="ups-Hl-Dc9">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="g3V-Ca-c3r">
-                                        <rect key="frame" x="0.0" y="220" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="156" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g3V-Ca-c3r" id="3vJ-3p-idR">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -261,7 +261,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="87P-VL-dPZ">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="87P-VL-dPZ" customClass="WTReTextField">
                                                     <rect key="frame" x="71" y="7" width="234" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -271,7 +271,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Eft-Mv-ndu">
-                                        <rect key="frame" x="0.0" y="264" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="200" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Eft-Mv-ndu" id="smH-RJ-blf">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -297,7 +297,7 @@
                             <tableViewSection id="rbX-8d-LjT">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="bC8-vU-b2b" detailTextLabel="IYX-Ms-is3" style="IBUITableViewCellStyleValue1" id="d95-0x-KWa">
-                                        <rect key="frame" x="0.0" y="308" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="244" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d95-0x-KWa" id="WvQ-EB-pc6">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -320,11 +320,11 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="hye-3b-g1K" kind="push" id="AC4-ah-NmM"/>
+                                            <segue destination="hye-3b-g1K" kind="push" identifier="house" id="AC4-ah-NmM"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="L3f-Gi-8cw" detailTextLabel="z25-87-dQD" style="IBUITableViewCellStyleValue1" id="9ro-0d-i8A">
-                                        <rect key="frame" x="0.0" y="352" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="288" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9ro-0d-i8A" id="FZx-iM-Cf4">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -347,7 +347,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="KfF-xq-vlK" kind="push" id="Kwg-0n-fck"/>
+                                            <segue destination="KfF-xq-vlK" kind="push" identifier="time" id="Kwg-0n-fck"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -359,22 +359,28 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Register Gateway" id="pKH-Yz-gsu"/>
+                    <connections>
+                        <outlet property="midTxt" destination="87P-VL-dPZ" id="USk-jX-8LC"/>
+                        <outlet property="pinTxt" destination="MR0-Pp-jaG" id="BGH-aL-b1h"/>
+                        <outlet property="regestBtn" destination="wIT-L9-AaL" id="wMg-RM-VaT"/>
+                        <outlet property="scanBtn" destination="QdO-1W-AkQ" id="loC-qd-oej"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="di1-mA-Mb0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1761" y="1150"/>
         </scene>
-        <!--MyE House Usefull View Controller-->
+        <!--MyE House Usefull View Controller - House-->
         <scene sceneID="yjc-W3-WGL">
             <objects>
                 <tableViewController id="hye-3b-g1K" customClass="MyEHouseUsefullViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ZXN-SK-cQC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="qZa-E5-KAk">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qZa-E5-KAk" id="HRW-CC-pie">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -387,23 +393,23 @@
                             <outlet property="delegate" destination="hye-3b-g1K" id="33O-ii-9dL"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ind-nj-EiG"/>
+                    <navigationItem key="navigationItem" title="House" id="ind-nj-EiG"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="94j-ft-6a6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2188" y="935"/>
         </scene>
-        <!--MyE Time Zone View Controller-->
+        <!--MyE Time Zone View Controller - Time Zone-->
         <scene sceneID="j0x-4o-AIe">
             <objects>
                 <tableViewController id="KfF-xq-vlK" customClass="MyETimeZoneViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jxD-iD-rhI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="vZJ-Aw-u0B">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vZJ-Aw-u0B" id="3qc-U6-Jj8">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -416,18 +422,18 @@
                             <outlet property="delegate" destination="KfF-xq-vlK" id="GCp-kn-vMj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="cAd-dg-Mca"/>
+                    <navigationItem key="navigationItem" title="Time Zone" id="cAd-dg-Mca"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Che-FM-eiO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2193" y="1547"/>
+            <point key="canvasLocation" x="2197" y="1577"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Caf-Cd-x54">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f6u-wN-L2R" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mediator" automaticallyAdjustsScrollViewInsets="NO" id="f6u-wN-L2R" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yaJ-7q-NCL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="yaJ-7q-NCL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

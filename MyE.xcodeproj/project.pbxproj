@@ -26,6 +26,8 @@
 		8C13F47F1947EEE200B52913 /* MyEMediatorRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C13F47E1947EEE200B52913 /* MyEMediatorRegisterViewController.m */; };
 		8C13F4841947EF2400B52913 /* MyETimeZoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C13F4831947EF2400B52913 /* MyETimeZoneViewController.m */; };
 		8C13F4871947EF8300B52913 /* MyEHouseUsefullViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C13F4861947EF8300B52913 /* MyEHouseUsefullViewController.m */; };
+		8C13F48E19482A6600B52913 /* WTReParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C13F48B19482A6600B52913 /* WTReParser.m */; };
+		8C13F48F19482A6600B52913 /* WTReTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C13F48D19482A6600B52913 /* WTReTextField.m */; };
 		8C1AC073192F2A8E00A8DEFD /* MyEEventInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1AC072192F2A8E00A8DEFD /* MyEEventInfo.m */; };
 		8C23AB281924A02B00821596 /* iPod Click.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 8C23AB271924A02B00821596 /* iPod Click.aiff */; };
 		8C23AB2B1924B7E100821596 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C23AB291924B7E100821596 /* Setting.storyboard */; };
@@ -397,6 +399,10 @@
 		8C13F4831947EF2400B52913 /* MyETimeZoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETimeZoneViewController.m; sourceTree = "<group>"; };
 		8C13F4851947EF8300B52913 /* MyEHouseUsefullViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEHouseUsefullViewController.h; sourceTree = "<group>"; };
 		8C13F4861947EF8300B52913 /* MyEHouseUsefullViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEHouseUsefullViewController.m; sourceTree = "<group>"; };
+		8C13F48A19482A6600B52913 /* WTReParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTReParser.h; sourceTree = "<group>"; };
+		8C13F48B19482A6600B52913 /* WTReParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTReParser.m; sourceTree = "<group>"; };
+		8C13F48C19482A6600B52913 /* WTReTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTReTextField.h; sourceTree = "<group>"; };
+		8C13F48D19482A6600B52913 /* WTReTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTReTextField.m; sourceTree = "<group>"; };
 		8C1AC071192F2A8E00A8DEFD /* MyEEventInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventInfo.h; sourceTree = "<group>"; };
 		8C1AC072192F2A8E00A8DEFD /* MyEEventInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventInfo.m; sourceTree = "<group>"; };
 		8C23AB271924A02B00821596 /* iPod Click.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "iPod Click.aiff"; sourceTree = "<group>"; };
@@ -1066,6 +1072,17 @@
 			path = S3;
 			sourceTree = "<group>";
 		};
+		8C13F48919482A6600B52913 /* WTReTextField */ = {
+			isa = PBXGroup;
+			children = (
+				8C13F48A19482A6600B52913 /* WTReParser.h */,
+				8C13F48B19482A6600B52913 /* WTReParser.m */,
+				8C13F48C19482A6600B52913 /* WTReTextField.h */,
+				8C13F48D19482A6600B52913 /* WTReTextField.m */,
+			);
+			path = WTReTextField;
+			sourceTree = "<group>";
+		};
 		8C6CB5441941C597007EECEA /* UController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1296,6 +1313,7 @@
 		B2588C2D17B09B9C007ED13C /* LIB */ = {
 			isa = PBXGroup;
 			children = (
+				8C13F48919482A6600B52913 /* WTReTextField */,
 				8C13F4261946DA0400B52913 /* ASIHttpRequest */,
 				C30DBF28194018DE0063AC6D /* UITableViewDragLoad */,
 				C3FB3BA4192C3AA00039D052 /* DropDownMenu */,
@@ -2414,6 +2432,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C13F48F19482A6600B52913 /* WTReTextField.m in Sources */,
 				8C722604190610BB0033A78A /* NetManager.m in Sources */,
 				C3F61AD318DFEE1700DEE477 /* IQActionSheetPickerView.m in Sources */,
 				C3AE7F4118E14D99000AA5FC /* MZFormSheetController.m in Sources */,
@@ -2638,6 +2657,7 @@
 				B25B79E017D198A9009F4E84 /* qrinput.c in Sources */,
 				8C13F4711946DA0400B52913 /* ASIS3ObjectRequest.m in Sources */,
 				C30DBF3D194018DF0063AC6D /* UITableView+DragLoad.m in Sources */,
+				8C13F48E19482A6600B52913 /* WTReParser.m in Sources */,
 				C3FDB7CC18FA672E009B423D /* MyEDelayTimeSetViewController.m in Sources */,
 				8C13F45E1946DA0400B52913 /* ASIDataCompressor.m in Sources */,
 				C3194B9A18E299EA006E3ABE /* EFloatBox.m in Sources */,

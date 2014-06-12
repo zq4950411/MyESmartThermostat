@@ -38,21 +38,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    NSString *imgName = IS_IOS6?@"detailBtn-ios6":@"detailBtn";
+    [self.terminalBtn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+    [self.terminalBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
+
     self.validTerminals = [MainDelegate.houseData terminalsForUsageStats];
     self.currentTerminalIdx = 0;
     usageData= Nil;
-    
-    
-    
     if(!self.fromHome){
         // Change button color
         _sidebarButton.tintColor = [UIColor colorWithWhite:0.3f alpha:0.82f];
-        
         // Set the side bar button action. When it's tapped, it'll show up the sidebar.
         _sidebarButton.target = self.revealViewController;
         _sidebarButton.action = @selector(revealToggle:);
-        
         // Set the gesture
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     } else {
@@ -385,12 +383,9 @@
             for (MyEUsageRecord *r in usageData.powerRecordList) {
                 NSLog(@"dateTime=%@, totalPower=%f W", r.date, r.totalPower/1000.0);
             }
-            
             self.currentPowerLabel.text = [NSString stringWithFormat:@"Current Power: %.1f (W)",usageData.currentPower * 110];
             [self drawChart];
         }
-        
-
     }
 }
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
@@ -438,8 +433,6 @@
             };
         }
     }
-    
-    
 }
 
 - (IBAction)changeTimaeRange:(id)sender {

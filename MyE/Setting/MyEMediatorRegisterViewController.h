@@ -9,6 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "MyEAccountData.h"
 #import "ACPButton.h"
-@interface MyEMediatorRegisterViewController : UITableViewController<MyEDataLoaderDelegate>
+#import "MyEQRScanViewController.h"
+#import "WTReTextField.h"
+@interface MyEMediatorRegisterViewController : UITableViewController<MyEDataLoaderDelegate,MyEQRScanViewControllerDelegate>
 @property (nonatomic, weak) MyEAccountData *accountData;
+@property (nonatomic, assign) NSInteger timeZone;   //这里把这些值写成属性的形式，是为了在nav中更好的传值
+@property (nonatomic, assign) NSInteger selectHouseIndex;
+
+@property (weak, nonatomic) IBOutlet WTReTextField *midTxt;
+@property (weak, nonatomic) IBOutlet UITextField *pinTxt;
+@property (weak, nonatomic) IBOutlet ACPButton *scanBtn;
+@property (weak, nonatomic) IBOutlet ACPButton *regestBtn;
+
 @end

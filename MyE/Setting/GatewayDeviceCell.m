@@ -64,23 +64,23 @@
         
         if (smart.rfStatus.intValue == -1)
         {
-            headImageView.image = [UIImage imageNamed:@"xh0.png"];
+            headImageView.image = [UIImage imageNamed:@"noconnection"];
         }
         else if(smart.rfStatus.intValue == 1)
         {
-            headImageView.image = [UIImage imageNamed:@"xh1.png"];
+            headImageView.image = [UIImage imageNamed:@"signal1"];
         }
         else if(smart.rfStatus.intValue == 2)
         {
-            headImageView.image = [UIImage imageNamed:@"xh2.png"];
+            headImageView.image = [UIImage imageNamed:@"signal2"];
         }
         else if(smart.rfStatus.intValue == 3)
         {
-            headImageView.image = [UIImage imageNamed:@"xh3.png"];
+            headImageView.image = [UIImage imageNamed:@"signal3"];
         }
         else if(smart.rfStatus.intValue == 4)
         {
-            headImageView.image = [UIImage imageNamed:@"xh4.png"];
+            headImageView.image = [UIImage imageNamed:@"signal4"];
         }
         
         if (!smart.isExpand)
@@ -96,7 +96,7 @@
         label22.text = smart.tid;
         aliasTf.text = smart.deviceName;
         
-        //0表示美国温度控制器，1  红外转发器，2 智能插座，3  通用控制器，4 安防设备
+        //0表示美国温度控制器，1  红外转发器，2 智能插座，3  通用控制器，4 安防设备，6智能开关
         if (smart.typeId.intValue == 0)
         {
             self.label41.text = @"Key pad lock";
@@ -114,7 +114,8 @@
         else if(smart.typeId.intValue == 3)
         {
             self.tf.text = @"Sprinkler";
-        }
+        }else if (smart.typeId.intValue == 6)
+            self.tf.text = @"Smart Switch";
         
         [self.swch setOn:![smart.switchStatus boolValue]];
         
@@ -129,8 +130,6 @@
     }
     
     [self.headButton addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
 }
 
 

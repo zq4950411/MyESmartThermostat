@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MyEMediatorRegisterViewController.h"
 @interface MyETimeZoneViewController : UITableViewController
 
-@property (nonatomic, assign) NSInteger timeZone;
+@property (nonatomic) NSInteger timeZone;
 @end

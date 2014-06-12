@@ -34,7 +34,7 @@
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.2f alpha:1.0f];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.15f alpha:0.2f];
     
-    _menuItems = @[@"home", @"devices", @"events", @"usage", @"alerts", @"settings", @"account", @"signout"];
+    _menuItems = @[@"houseList",@"home", @"devices", @"events", @"usage", @"alerts", @"settings", @"account", @"signout"];
 
     self.houseName.text = MainDelegate.houseData.houseName;
 }
@@ -42,14 +42,12 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
     return 1;
 }
 
@@ -158,6 +156,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row == 0) {
+        [self goHouseList];
+    }
+    
     if (self.menuItems.count-1 == indexPath.row) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
@@ -179,7 +181,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     UINavigationController *destViewController = (UINavigationController*)segue.destinationViewController;
     destViewController.title = [[_menuItems objectAtIndex:indexPath.row] capitalizedString];
-    if(self.tableView.indexPathForSelectedRow.row == 3){
+    if(self.tableView.indexPathForSelectedRow.row == 4){
         MyEUsageStatsViewController *dvc = (MyEUsageStatsViewController*)segue.destinationViewController;
         dvc.fromHome = NO;
     }
@@ -206,7 +208,7 @@
 }
 
 
-- (IBAction)goHouseList:(id)sender {
+- (void)goHouseList{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setInteger:-1  forKey:@"defaulthouseid"];
     [prefs synchronize];
