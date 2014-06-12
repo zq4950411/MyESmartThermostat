@@ -68,6 +68,11 @@
     [alert show];
 }
 - (IBAction)addRoom:(UIBarButtonItem *)sender {
+    if ([_datas count] > 10) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"You have enough rooms,so can not add new room!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
     [self doThisWhenNeedAlertViewWithTag:100 placeHold:@""];
 }
 
@@ -102,6 +107,8 @@
     _selectedIndex = indexPath;
     MyERoom *room = _datas[indexPath.row];
     if (room.roomId == 0) {  //这个房间类型名称不能修改
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"This room does not allow rename!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
         return;
     }
     [self doThisWhenNeedAlertViewWithTag:101 placeHold:room.roomName];

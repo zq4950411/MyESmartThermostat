@@ -57,7 +57,9 @@
         [_rooms addObject:r.roomName];
     }
     for (MyEType *t in self.deviceEdit.types) {
-        [_types addObject:t.typeName];
+        if (t.typeId != 8) {
+            [_types addObject:t.typeName];
+        }
     }
     for (MyETerminal *t in self.deviceEdit.terminals) {
         [_terminals addObject:t.terminalName];

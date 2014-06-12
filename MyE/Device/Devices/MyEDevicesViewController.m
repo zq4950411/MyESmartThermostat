@@ -117,11 +117,13 @@
         [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&action=1&switchStatus=%i",GetRequst(URL_FOR_SWITCH_CONTROL),MainDelegate.houseData.houseId,device.tid,device.switchStatus.intValue==1?0:1] andName:@"switchControl"];
     }
     else if (device.typeId.intValue == 7){  //通用控制器
-        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&switchStatus=%i",URL_FOR_UNIVERSAL_CONTROL_MANUEL_CONTROL,MainDelegate.houseData.houseId,device.tid,device.switchStatus.intValue==1?0:1] andName:@"universalControl"];
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&switchStatus=%i",GetRequst(URL_FOR_UNIVERSAL_CONTROL_MANUEL_CONTROL),MainDelegate.houseData.houseId,device.tid,device.switchStatus.intValue==1?0:1] andName:@"universalControl"];
     }
     else if (device.typeId.intValue == 6){  // socket
         [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SMARTUP_PlUG_CONTROL),MainDelegate.houseData.houseId,device.tid] andName:@"socketControl"];
-    }else{
+    }else if(device.typeId.intValue ==0){
+        
+    }else{   //红外设备开关控制
         NSInteger controlValue = 0;
         if (device.typeId.intValue == 2) {
             controlValue = 203;
@@ -197,7 +199,7 @@
     NSString *string = nil;
     switch (typeId.intValue) {
         case 0:
-            string = @"thermostat";
+            string = @"them";
             break;
         case 2:
             string = @"tv";
@@ -244,6 +246,12 @@
 //        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-off",string]];
 //    }
 }
+-(void)chooseRoom:(KxMenuItem *) sender{
+    NSString *roomName = _mainDic.allKeys[sender.tag];
+    [self.roomBtn setTitle:roomName forState:UIControlStateNormal];
+    _devices = [_mainDic[roomName] mutableCopy];
+    [self.tableView reloadData];
+}
 #pragma mark - rooms deta source methods
 -(void)reloadRoomsTableViewContents{
     
@@ -281,7 +289,6 @@
     _mainDic = [NSMutableDictionary dictionary];
     NSMutableArray *array = [NSMutableArray array];
     NSMutableArray *array1 = [NSMutableArray array];
-    [_mainDic setValue:self.mainDevice.devices forKey:@"All"];
     
     for (MyERoom *r in self.mainDevice.rooms) {
         for (MyEDevice *d in self.mainDevice.devices) {
@@ -302,34 +309,57 @@
         array = [NSMutableArray array];
     }
     [_mainDic setValue:array1 forKey:@"unspecified"];
+    [_mainDic setValue:self.mainDevice.devices forKey:@"All"];
+
     NSLog(@"_mainDic is %@",_mainDic);
 }
 #pragma mark - IBAction methods
 - (IBAction)changeRoom:(UIButton *)sender {
-    [self refreshData];
-    if ([sender isSelected]) {   //isSelected 就是selected
-        [UIView animateWithDuration:0.3 animations:^{
-            CGRect frame=_roomsTableView.frame;
-            frame.size.height=1;
-            [_roomsTableView setFrame:frame];
-        } completion:^(BOOL finished){
-            _roomsTableView.hidden = YES;
-            [sender setSelected:NO];
-        }];
-    }else{
-        [UIView animateWithDuration:0.3 animations:^{
-            CGRect frame=_roomsTableView.frame;
-            if ([_mainDic count] < 6 ) {
-                frame.size.height = 35 * _mainDic.count;
-            }else
-                frame.size.height=150;
-            [_roomsTableView setFrame:frame];
-        } completion:^(BOOL finished){
-            _roomsTableView.hidden = NO;
-            [self reloadRoomsTableViewContents];
-            [sender setSelected:YES];
-        }];
+    if (!_mainDic) {
+       [self refreshData];
     }
+    NSMutableArray *items = [NSMutableArray array];
+    for (int i = 0; i < _mainDic.allKeys.count; i++)
+    {
+        KxMenuItem *item = [KxMenuItem menuItem:_mainDic.allKeys[i]
+                                          image:nil
+                                         target:self
+                                         action:@selector(chooseRoom:)];
+        item.foreColor = [UIColor whiteColor];
+        item.tag = i;
+        [items addObject:item];
+    }
+    UIView *tile = (UIView *)sender;
+    if (items.count > 0)
+    {
+        [KxMenu showMenuInView:self.view
+                      fromRect:tile.frame
+                     menuItems:items];
+    }
+
+//    if ([sender isSelected]) {   //isSelected 就是selected
+//        [UIView animateWithDuration:0.3 animations:^{
+//            CGRect frame=_roomsTableView.frame;
+//            frame.size.height=1;
+//            [_roomsTableView setFrame:frame];
+//        } completion:^(BOOL finished){
+//            _roomsTableView.hidden = YES;
+//            [sender setSelected:NO];
+//        }];
+//    }else{
+//        [UIView animateWithDuration:0.3 animations:^{
+//            CGRect frame=_roomsTableView.frame;
+//            if ([_mainDic count] < 6 ) {
+//                frame.size.height = 35 * _mainDic.count;
+//            }else
+//                frame.size.height=150;
+//            [_roomsTableView setFrame:frame];
+//        } completion:^(BOOL finished){
+//            _roomsTableView.hidden = NO;
+//            [self reloadRoomsTableViewContents];
+//            [sender setSelected:YES];
+//        }];
+//    }
 }
 - (IBAction)editRoom:(UIButton *)sender {
     [self refreshData];
@@ -518,7 +548,7 @@
         }else if (![string isEqualToString:@"fail"]){
             MyEMainDevice *main = [[MyEMainDevice alloc] initWithJSONString:string];
             self.mainDevice = main;
-            _devices = main.devices;
+            _devices = self.mainDevice.devices;
             [self.tableView reloadData];
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];

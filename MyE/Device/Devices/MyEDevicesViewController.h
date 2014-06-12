@@ -16,6 +16,7 @@
 #import "SVProgressHUD.h"
 #import "MyEUtil.h"
 #import "MyETerminalData.h"
+#import "KxMenu.h"
 @interface MyEDevicesViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,MyEDataLoaderDelegate,EGORefreshTableHeaderDelegate>
 {
     NSIndexPath *_selectedIndexPath;  //当前选定的indexPath

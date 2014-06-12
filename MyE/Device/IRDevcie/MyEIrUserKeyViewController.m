@@ -50,7 +50,35 @@
 }
 
 - (IBAction)addNewKey:(UIButton *)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Device" bundle:nil];
+    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"IRDeviceStudyEditKeyModal"];
     
+    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
+    
+    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromTop;
+    formSheet.shadowRadius = 2.0;
+    formSheet.shadowOpacity = 0.3;
+    formSheet.presentedFormSheetSize = CGSizeMake(280, 250);
+    formSheet.shouldDismissOnBackgroundViewTap = NO;  //点击背景是否关闭
+    formSheet.shouldCenterVertically = YES;
+    formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
+    
+    formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
+        // Passing data
+        UINavigationController *navController = (UINavigationController *)presentedFSViewController;
+        navController.topViewController.title = @"Key Study";
+        MyEIrStudyEditKeyModalViewController *modalVc = (MyEIrStudyEditKeyModalViewController *)navController.topViewController;
+        modalVc.device = self.device;
+        modalVc.isAddKey = YES;  //这里表示的新增按键
+        modalVc.instruction = [[MyEInstruction alloc] init];
+        [modalVc.learnBtn setTitle:@"Study" forState:UIControlStateNormal];
+        modalVc.validateKeyBtn.enabled = NO;
+        [modalVc viewDidLoad];  //继续执行一遍
+    };
+    formSheet.didDismissCompletionHandler = ^(UIViewController *presentedFSViewController) {
+        [self.tableView reloadData];
+    };
+    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:nil];
 }
 - (IBAction)controlKey:(MyEControlBtn *)sender {
     CGPoint hit = [sender convertPoint:CGPointZero toView:self.tableView];
@@ -86,15 +114,16 @@
     formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
         // Passing data
         UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-        navController.topViewController.title = @"按键学习";
+        navController.topViewController.title = @"Key Study";
         MyEIrStudyEditKeyModalViewController *modalVc = (MyEIrStudyEditKeyModalViewController *)navController.topViewController;
         modalVc.device = self.device;
         
         modalVc.instruction = instruction;
         if (instruction.status > 0) {
-            [modalVc.learnBtn setTitle:@"再学习" forState:UIControlStateNormal];
+            [modalVc.learnBtn setTitle:@"Restudy" forState:UIControlStateNormal];
         }else
             modalVc.validateKeyBtn.enabled = NO;
+        [modalVc viewDidLoad];  //继续执行一遍
     };
     formSheet.didDismissCompletionHandler = ^(UIViewController *presentedFSViewController) {
         [self.tableView reloadData];

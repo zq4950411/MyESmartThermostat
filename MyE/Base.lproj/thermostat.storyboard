@@ -67,90 +67,19 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X3f-oc-Dy8">
-                                <rect key="frame" x="0.0" y="-49" width="320" height="504"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7lo-pV-iZC">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d4j-mz-VqZ">
-                                        <rect key="frame" x="0.0" y="437" width="320" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JaX-Hg-Xhb">
-                                                <rect key="frame" x="30" y="15" width="40" height="40"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" backgroundImage="Tb_Heating01.png">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="changeControlModeToHeatingAction:" destination="wsk-OD-Yur" eventType="touchUpInside" id="2r9-ly-hFR"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9gH-hu-dSR">
-                                                <rect key="frame" x="85" y="15" width="40" height="40"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" backgroundImage="Tb_Cooling01.png">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="changeControlModeToCoolingAction:" destination="wsk-OD-Yur" eventType="touchUpInside" id="nZk-HQ-FT9"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TfN-pM-WUV">
-                                                <rect key="frame" x="140" y="15" width="40" height="40"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" backgroundImage="Tb_AutoRun.png">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="changeControlModeToAutoAction:" destination="wsk-OD-Yur" eventType="touchUpInside" id="4BY-67-Xji"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7X-sV-Bdh">
-                                                <rect key="frame" x="195" y="15" width="40" height="40"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" backgroundImage="Tb_EmgH01.png">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="changeControlModeToEmgHeatingAction:" destination="wsk-OD-Yur" eventType="touchUpInside" id="mwR-bh-uMM"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFV-Bo-Krx">
-                                                <rect key="frame" x="250" y="15" width="40" height="40"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" backgroundImage="Tb_Off.png">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="changeControlModeToOffAction:" destination="wsk-OD-Yur" eventType="touchUpInside" id="Ap7-aV-9go"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="d4j-mz-VqZ" secondAttribute="bottom" id="QFm-0Y-eOx"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="cvu-OR-vPA" appends="YES" id="Hir-1O-k1K"/>
-                                </connections>
-                            </view>
-                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7lo-pV-iZC">
-                                <rect key="frame" x="0.0" y="-49" width="320" height="504"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oos-m2-NAD">
-                                        <rect key="frame" x="0.0" y="437" width="320" height="67"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oos-m2-NAD">
+                                        <rect key="frame" x="0.0" y="410" width="320" height="40"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNW-ff-m2h">
-                                                <rect key="frame" x="113" y="14" width="40" height="40"/>
+                                                <rect key="frame" x="115" y="0.0" width="40" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" backgroundImage="Tb_FanAuto01.png">
+                                                <state key="normal" backgroundImage="Tb_FanAuto01">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -162,9 +91,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uP1-Hv-v8h">
-                                                <rect key="frame" x="168" y="14" width="40" height="40"/>
+                                                <rect key="frame" x="166" y="0.0" width="40" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" backgroundImage="Tb_FanON01.png">
+                                                <state key="normal" backgroundImage="Tb_FanON01">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -173,15 +102,96 @@
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="kAh-i5-BPg"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Oos-m2-NAD" secondAttribute="bottom" id="E4y-Ro-Bad"/>
+                                    <constraint firstAttribute="bottom" secondItem="Oos-m2-NAD" secondAttribute="bottom" constant="5" id="4vq-H4-eLc"/>
+                                    <constraint firstItem="Oos-m2-NAD" firstAttribute="leading" secondItem="7lo-pV-iZC" secondAttribute="leading" id="D2k-ko-drF"/>
+                                    <constraint firstAttribute="trailing" secondItem="Oos-m2-NAD" secondAttribute="trailing" id="E8W-YM-v4C"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="lwn-YZ-ysO" appends="YES" id="eNN-Fo-Cy8"/>
+                                </connections>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3f-oc-Dy8">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d4j-mz-VqZ">
+                                        <rect key="frame" x="0.0" y="410" width="320" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JaX-Hg-Xhb">
+                                                <rect key="frame" x="30" y="0.0" width="40" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" backgroundImage="Tb_Heating01">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="changeControlModeToHeatingAction:" destination="wsk-OD-Yur" eventType="touchUpInside" id="2r9-ly-hFR"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9gH-hu-dSR">
+                                                <rect key="frame" x="85" y="0.0" width="40" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" backgroundImage="Tb_Cooling01">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="changeControlModeToCoolingAction:" destination="wsk-OD-Yur" eventType="touchUpInside" id="nZk-HQ-FT9"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TfN-pM-WUV">
+                                                <rect key="frame" x="140" y="0.0" width="40" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" backgroundImage="Tb_AutoRun">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="changeControlModeToAutoAction:" destination="wsk-OD-Yur" eventType="touchUpInside" id="4BY-67-Xji"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7X-sV-Bdh">
+                                                <rect key="frame" x="195" y="0.0" width="40" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" backgroundImage="Tb_EmgH01">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="changeControlModeToEmgHeatingAction:" destination="wsk-OD-Yur" eventType="touchUpInside" id="mwR-bh-uMM"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFV-Bo-Krx">
+                                                <rect key="frame" x="250" y="0.0" width="40" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" backgroundImage="Tb_OFF">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="changeControlModeToOffAction:" destination="wsk-OD-Yur" eventType="touchUpInside" id="Ap7-aV-9go"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="5tq-Q7-v69"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.5" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="d4j-mz-VqZ" firstAttribute="leading" secondItem="X3f-oc-Dy8" secondAttribute="leading" id="ZNZ-Ec-qj4"/>
+                                    <constraint firstAttribute="trailing" secondItem="d4j-mz-VqZ" secondAttribute="trailing" id="baN-hG-71U"/>
+                                    <constraint firstAttribute="bottom" secondItem="d4j-mz-VqZ" secondAttribute="bottom" constant="5" id="ghv-lL-C6Z"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="cvu-OR-vPA" appends="YES" id="Hir-1O-k1K"/>
                                 </connections>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ou-UL-3Nx">
@@ -191,7 +201,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dnW-jF-9v5">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dnW-jF-9v5">
                                 <rect key="frame" x="0.0" y="410" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -247,16 +257,33 @@
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="QAj-TQ-Ga2"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.95896084337349397" green="0.95920792545180722" blue="0.96105515813253017" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="dnW-jF-9v5" secondAttribute="bottom" constant="5" id="8BI-3q-oDJ"/>
-                            <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="X3f-oc-Dy8" secondAttribute="bottom" id="9IQ-RT-TbP"/>
-                            <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="7lo-pV-iZC" secondAttribute="bottom" id="Vn6-YU-ef8"/>
-                            <constraint firstItem="X3f-oc-Dy8" firstAttribute="top" secondItem="DZS-jh-LHa" secondAttribute="bottom" id="l3s-Bl-PsP"/>
-                            <constraint firstItem="7lo-pV-iZC" firstAttribute="top" secondItem="DZS-jh-LHa" secondAttribute="bottom" id="rxl-Io-sLk"/>
+                            <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="7lo-pV-iZC" secondAttribute="bottom" id="1bP-MS-QsE"/>
+                            <constraint firstItem="X3f-oc-Dy8" firstAttribute="leading" secondItem="4zX-JK-UeN" secondAttribute="leading" id="5r0-fj-NE6"/>
+                            <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="X3f-oc-Dy8" secondAttribute="bottom" id="7nK-HW-Zt6"/>
+                            <constraint firstAttribute="trailing" secondItem="7lo-pV-iZC" secondAttribute="trailing" id="C1y-h3-tYg"/>
+                            <constraint firstItem="X3f-oc-Dy8" firstAttribute="top" secondItem="DZS-jh-LHa" secondAttribute="bottom" id="CLX-hV-P2s"/>
+                            <constraint firstAttribute="trailing" secondItem="7lo-pV-iZC" secondAttribute="trailing" id="I96-XX-W8G"/>
+                            <constraint firstItem="7lo-pV-iZC" firstAttribute="leading" secondItem="4zX-JK-UeN" secondAttribute="leading" id="MsX-Gd-RrV"/>
+                            <constraint firstItem="7lo-pV-iZC" firstAttribute="top" secondItem="DZS-jh-LHa" secondAttribute="bottom" id="RCb-iY-6NN"/>
+                            <constraint firstItem="dnW-jF-9v5" firstAttribute="leading" secondItem="4zX-JK-UeN" secondAttribute="leading" id="RPh-EH-eOO"/>
+                            <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="X3f-oc-Dy8" secondAttribute="bottom" id="SB5-PP-SQV"/>
+                            <constraint firstItem="7lo-pV-iZC" firstAttribute="leading" secondItem="4zX-JK-UeN" secondAttribute="leading" id="Vva-Z0-35P"/>
+                            <constraint firstAttribute="trailing" secondItem="X3f-oc-Dy8" secondAttribute="trailing" id="X5g-EO-hW4"/>
+                            <constraint firstAttribute="trailing" secondItem="dnW-jF-9v5" secondAttribute="trailing" id="ZYz-tz-uVB"/>
+                            <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="dnW-jF-9v5" secondAttribute="bottom" constant="5" id="dkK-DR-TZw"/>
+                            <constraint firstItem="X3f-oc-Dy8" firstAttribute="leading" secondItem="4zX-JK-UeN" secondAttribute="leading" id="jyS-F5-THX"/>
+                            <constraint firstAttribute="trailing" secondItem="X3f-oc-Dy8" secondAttribute="trailing" id="nSa-Eq-cwl"/>
+                            <constraint firstItem="X3f-oc-Dy8" firstAttribute="top" secondItem="DZS-jh-LHa" secondAttribute="bottom" id="oep-QF-Gaf"/>
+                            <constraint firstItem="7lo-pV-iZC" firstAttribute="top" secondItem="DZS-jh-LHa" secondAttribute="bottom" id="rPZ-eg-lCg"/>
+                            <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="7lo-pV-iZC" secondAttribute="bottom" id="u19-RN-jnA"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -324,9 +351,13 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ile-4n-v1z" customClass="ACPButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ile-4n-v1z" customClass="ACPButton">
                                 <rect key="frame" x="20" y="400" width="108" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="108" id="XI0-n4-Ovv"/>
+                                    <constraint firstAttribute="height" constant="37" id="YCB-f1-KGh"/>
+                                </constraints>
                                 <state key="normal" title="Use Weekly">
                                     <color key="titleColor" red="0.29411764709999999" green="0.70588235290000001" blue="0.7843137255" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -335,9 +366,13 @@
                                     <action selector="useWeekly:" destination="dhV-t3-6No" eventType="touchUpInside" id="a7e-hu-5wG"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="roa-yb-5OH" customClass="ACPButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="roa-yb-5OH" customClass="ACPButton">
                                 <rect key="frame" x="192" y="400" width="108" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="108" id="m42-Ri-PZk"/>
+                                    <constraint firstAttribute="height" constant="37" id="rHB-AZ-kPR"/>
+                                </constraints>
                                 <state key="normal" title="Apply">
                                     <color key="titleColor" red="0.29411764709999999" green="0.70588235290000001" blue="0.7843137255" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -371,8 +406,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.95896084339999998" green="0.9592079255" blue="0.96105515809999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="jNJ-Tp-mYf" firstAttribute="top" secondItem="roa-yb-5OH" secondAttribute="bottom" constant="18" id="P8T-f6-mEI"/>
-                            <constraint firstItem="jNJ-Tp-mYf" firstAttribute="top" secondItem="ile-4n-v1z" secondAttribute="bottom" constant="18" id="bWf-RW-6VR"/>
+                            <constraint firstItem="ile-4n-v1z" firstAttribute="leading" secondItem="maU-VY-zKC" secondAttribute="leading" constant="20" id="315-W9-Blt"/>
+                            <constraint firstItem="jNJ-Tp-mYf" firstAttribute="top" secondItem="roa-yb-5OH" secondAttribute="bottom" constant="18" id="4qE-jA-nEX"/>
+                            <constraint firstItem="jNJ-Tp-mYf" firstAttribute="top" secondItem="ile-4n-v1z" secondAttribute="bottom" constant="18" id="5XD-ZE-Jde"/>
+                            <constraint firstAttribute="trailing" secondItem="roa-yb-5OH" secondAttribute="trailing" constant="20" id="QGg-bM-fW0"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -1749,13 +1786,13 @@
     <resources>
         <image name="Ctrl_Cooling01" width="45" height="45"/>
         <image name="Ctrl_FanOn-01" width="45" height="45"/>
-        <image name="Tb_AutoRun.png" width="45" height="45"/>
-        <image name="Tb_Cooling01.png" width="40" height="40"/>
-        <image name="Tb_EmgH01.png" width="40" height="40"/>
-        <image name="Tb_FanAuto01.png" width="40" height="40"/>
-        <image name="Tb_FanON01.png" width="40" height="40"/>
-        <image name="Tb_Heating01.png" width="40" height="40"/>
-        <image name="Tb_Off.png" width="40" height="40"/>
+        <image name="Tb_AutoRun" width="45" height="45"/>
+        <image name="Tb_Cooling01" width="40" height="40"/>
+        <image name="Tb_EmgH01" width="40" height="40"/>
+        <image name="Tb_FanAuto01" width="40" height="40"/>
+        <image name="Tb_FanON01" width="40" height="40"/>
+        <image name="Tb_Heating01" width="40" height="40"/>
+        <image name="Tb_OFF" width="40" height="40"/>
         <image name="Vacation01" width="45" height="45"/>
         <image name="Vacation02" width="45" height="45"/>
         <image name="add" width="30" height="30"/>

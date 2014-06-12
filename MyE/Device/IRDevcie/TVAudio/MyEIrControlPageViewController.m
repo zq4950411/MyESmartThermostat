@@ -34,13 +34,12 @@
     self.slideSwitchView.shadowImage = [UIImage imageNamed:@"red_line_btn.png"];//这里可以认为是九宫格的样式
     self.irUserKeyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"IrUserKeyVC"];
     self.irUserKeyViewController.device = self.device;
+    self.navigationItem.title = self.device.deviceName;
 
     if (self.device.typeId.intValue == 2) {
-        self.navigationItem.title = @"电视控制";
         self.tvDefaultViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TvDefaultVC"];
         self.tvDefaultViewController.device = self.device;
     }else{
-        self.navigationItem.title = @"音响控制";
         self.audioDefaultViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AudioDefaultVC"];
         self.audioDefaultViewController.device = self.device;
     }

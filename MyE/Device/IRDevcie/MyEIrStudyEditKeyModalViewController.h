@@ -15,7 +15,8 @@
     NSInteger studyQueryTimes;
 }
 @property (nonatomic, weak) MyEDevice *device;
-@property (nonatomic, weak) MyEInstruction *instruction;
+@property (nonatomic, strong) MyEInstruction *instruction;
+@property (nonatomic, assign) BOOL isAddKey;
 @property (weak, nonatomic) IBOutlet UITextField *keyNameTextfield;
 
 @property (weak, nonatomic) IBOutlet UIButton *learnBtn;

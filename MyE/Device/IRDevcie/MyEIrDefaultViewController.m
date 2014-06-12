@@ -10,7 +10,6 @@
 #import "MyEIrStudyEditKeyModalViewController.h"
 #import "MyEIrUserKeyViewController.h"
 @interface MyEIrDefaultViewController ()
-
 @end
 
 @implementation MyEIrDefaultViewController
@@ -110,7 +109,7 @@
             normalStr = [NSString stringWithFormat:@"%@-%@",btn.status>0?@"non":@"normal",array[btn.tag-start]];
             highlightStr = [NSString stringWithFormat:@"highlight-%@",array[btn.tag-start]];
         }
-        NSLog(@"%@  %@",normalStr,highlightStr);
+//        NSLog(@"%@  %@",normalStr,highlightStr);
         [btn setBackgroundImage:[[UIImage imageNamed:normalStr] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
         [btn setBackgroundImage:[[UIImage imageNamed:highlightStr] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateHighlighted];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -135,22 +134,23 @@
     formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
         // Passing data
         UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-        navController.topViewController.title = @"按键学习";
+        navController.topViewController.title = @"Key Study";
         MyEIrStudyEditKeyModalViewController *modalVc = (MyEIrStudyEditKeyModalViewController *)navController.topViewController;
         modalVc.device = self.device;
         
-//        MyEInstruction *instruction = [[MyEInstruction alloc] init];
-//        instruction.instructionId = btn.tag - _initNumber; //这里主要是有各种情况，所以这里要这么写
-//        instruction.type = btn.tag;
-//        instruction.name = btn.currentTitle;
-        modalVc.instruction = [self getInstructionByTypeId:btn.tag];
+        MyEInstruction *instruction = [[MyEInstruction alloc] init];
+        instruction.instructionId = btn.tag; //这里主要是有各种情况，所以这里要这么写
+        instruction.type = btn.tag;
+        instruction.name = btn.currentTitle;
+        modalVc.instruction = instruction;
         
         modalVc.keyNameTextfield.enabled = NO;
         modalVc.deleteKeyBtn.enabled = NO;
         if (btn.status > 0) {
-            [modalVc.learnBtn setTitle:@"再学习" forState:UIControlStateNormal];
+            [modalVc.learnBtn setTitle:@"Restudy" forState:UIControlStateNormal];
         }else
             modalVc.validateKeyBtn.enabled = NO;
+        [modalVc viewDidLoad];  //再运行一次这个方法，从而更新UI
     };
     
 //    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {

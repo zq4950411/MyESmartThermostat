@@ -33,8 +33,8 @@
 @implementation MyEInstruction
 -(id)init{
     if (self = [super init]) {
-        self.instructionId = 0;
-        self.type = 0;
+        self.instructionId = -1;  //由接口决定
+        self.type = 2;  //由接口决定
         self.name = @"";
         self.sortId = 0;
         self.status = 0;
@@ -57,6 +57,6 @@
     return nil;
 }
 -(NSString *)description{
-    return [NSString stringWithFormat:@"%@  %i",self.name,self.instructionId];
+    return [NSString stringWithFormat:@"name:%@  instructionId:%i status:%i  type:%i",self.name,self.instructionId,self.status,self.type];
 }
 @end

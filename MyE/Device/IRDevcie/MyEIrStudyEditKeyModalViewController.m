@@ -24,7 +24,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    NSLog(@"%@",self.instruction);
     if (!IS_IOS6) {
         for (UIButton *btn in self.view.subviews) {
             if ([btn isKindOfClass:[UIButton class]] && btn.tag != 100) {
@@ -41,11 +41,13 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - IBAction methods
 - (IBAction)studyKey:(id)sender {
+    if (_isAddKey) {
+        self.instruction.name = self.keyNameTextfield.text;
+    }
     [self customizedHUD];
     [self uploadInfoToServerWithAction:@"record"];
 }
@@ -99,7 +101,7 @@
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor whiteColor];
     label.textAlignment = NSTextAlignmentCenter;
-    
+    HUD.minSize = CGSizeMake(280, 200);
     HUD.customView = label;
     HUD.mode = MBProgressHUDModeCustomView;
 }
@@ -112,7 +114,7 @@
         } else
             [HUD show:YES];
     }
-    NSString * urlStr= [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&name=%@&type=%i&instructionId=%i&deviceId=%@&action=%@",GetRequst(URL_FOR_INSTRUCTION_STUDY),MainDelegate.houseData.houseId,self.device.tid,self.instruction.name,self.instruction.type,self.instruction.instructionId,self.device.deviceId,action];
+    NSString * urlStr= [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&name=%@&type=%i&instructionId=%i&deviceId=%@&action=%@",GetRequst(URL_FOR_INSTRUCTION_STUDY),MainDelegate.houseData.houseId,self.device.tid,_isAddKey?self.instruction.name:@"",self.instruction.type,self.instruction.instructionId,self.device.deviceId,action];
     MyEDataLoader *downloader = [[MyEDataLoader alloc]
                                  initLoadingWithURLString:urlStr
                                  postData:nil
@@ -123,6 +125,7 @@
 
 -(void)queryStudayProgress  //进度查询
 {
+    NSLog(@"query time is %i",studyQueryTimes);
     studyQueryTimes ++;
     
     NSString * urlStr= [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&instructionId=%i",GetRequst(URL_FOR_INSTRUCTION_FIND_RECORD),MainDelegate.houseData.houseId,self.device.tid,self.instruction.instructionId];
@@ -151,9 +154,19 @@
 // 响应下载上传
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"receive string is %@",string);
+    if (string.intValue == -999) {
+        [SVProgressHUD showErrorWithStatus:@"No Connection"];
+    }
     if ([name isEqualToString:@"record"]) {
         if (![string isEqualToString:@"fail"]) {
-            [self queryStudayProgress];
+            if (string.intValue > 0) {
+                if (_isAddKey) {
+                    self.instruction.instructionId = string.intValue;
+                }
+                [self queryStudayProgress];
+            }else if (string.intValue == -500){
+                [MyEUtil showInstructionStatusWithYes:YES andView:self.navigationController.navigationBar andMessage:@"name is existed"];
+            }
         }
     }
     if ([name isEqualToString:@"verify"]) {
@@ -191,7 +204,6 @@
                 self.instruction.status = 0;
             } else {
                 _timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(queryStudayProgress) userInfo:nil repeats:NO];
-                NSLog(@"%@",_timer);
             }
         }
     }

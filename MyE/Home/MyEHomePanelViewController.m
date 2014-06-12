@@ -61,8 +61,6 @@
     [self.faultInfoTile setBorderStyle:[UIColor clearColor] andInnerColor:[UIColor clearColor] ];
     
     self.title = MainDelegate.houseData.houseName;
-    
-    
     self.navigationItem.rightBarButtonItems = nil;
     
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
@@ -160,7 +158,6 @@
                       fromRect:tile.frame
                      menuItems:items];
     }
-
 }
 
 - (IBAction)goElecUsage:(id)sender {
