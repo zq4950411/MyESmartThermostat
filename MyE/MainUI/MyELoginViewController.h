@@ -10,6 +10,7 @@
 #import "MyEDataLoader.h"
 #import "MBProgressHUD.h"
 #import "MyEQRScanViewController.h"
+#import "TableViewWithBlock.h"
 @class MyEAccountData;
 
 @interface MyELoginViewController : UIViewController <UITextFieldDelegate, MyEDataLoaderDelegate, MBProgressHUDDelegate, UIAlertViewDelegate,MyEQRScanViewControllerDelegate> {
@@ -20,12 +21,15 @@
 
 @property (nonatomic, retain) MyEAccountData *accountData;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet TableViewWithBlock *usersTableView;
+@property (weak, nonatomic) IBOutlet UIButton *showBtn;
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameInput;
 @property (weak, nonatomic) IBOutlet UITextField *passwordInput;
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *scanBtn;
+@property (weak, nonatomic) IBOutlet UILabel *versionLbl;
 
 - (IBAction)login:(id)sender;
 

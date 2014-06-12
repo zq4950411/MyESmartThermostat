@@ -694,7 +694,7 @@
 //    NSLog(@"%f    %f",self.tableView.frame.size.height,self.tableView.frame.origin.y);
     
     // Change button color
-    _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
+//    _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
     
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);

@@ -69,10 +69,7 @@
     UIGraphicsEndImageContext();
     return image;
 }
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    //http://blog.csdn.net/zhang_red/article/details/21450119
-    
+-(void)refreshUI{
     if (!IS_IOS6) {
         [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"barImage.png"]  forBarMetrics:UIBarMetricsDefault];   //这个貌似跟位置有关系，之前放在方法最后面竟然没有执行成功，放在这里才算成功了
         [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
@@ -105,8 +102,12 @@
         [[UITabBar appearance] setBackgroundImage:[self imageWithColor:[UIColor blackColor] size:CGSizeMake(1, 49)]];
         [[UITabBar appearance] setSelectionIndicatorImage:[UIImage new]];
     }
-
-    // Override point for customization after application launch.
+}
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    //http://blog.csdn.net/zhang_red/article/details/21450119
+    
+    [self refreshUI];
     sleep(0.01);//让程序休眠n秒，以使Launch image多停留一会。
     
     

@@ -42,7 +42,7 @@
     }
      [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
     
-    _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
+//    _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
     //这里取消掉手势，因为和tableview有些冲突

@@ -18,13 +18,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="QR scan" id="fj9-oq-VpP">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="FmQ-aO-doa">
-                            <connections>
-                                <action selector="dismissView:" destination="Zw2-Mk-mdq" id="mEm-8h-wBm"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="QR scan" id="fj9-oq-VpP"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvE-XE-0z7" userLabel="First Responder" sceneMemberID="firstResponder"/>

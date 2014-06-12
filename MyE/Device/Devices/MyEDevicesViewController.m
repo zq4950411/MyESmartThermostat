@@ -61,7 +61,7 @@
     }
     [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
     //初始化左上角菜单
-    _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
+//    _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
 //    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];

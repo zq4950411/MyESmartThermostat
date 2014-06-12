@@ -692,8 +692,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="condition-weather" width="64" height="64"/>
         <image name="login-select-highlight" width="30" height="30"/>
         <image name="login-select-normal" width="30" height="30"/>
-        <image name="login_textfield_more" width="30" height="18"/>
-        <image name="login_textfield_more_flip" width="30" height="18"/>
+        <image name="login_textfield_more" width="15" height="9"/>
+        <image name="login_textfield_more_flip" width="15" height="9"/>
         <image name="radio_selected" width="16" height="16"/>
         <image name="radio_unselected" width="16" height="16"/>
     </resources>

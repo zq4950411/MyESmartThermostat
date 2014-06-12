@@ -75,10 +75,21 @@
     [readerView addSubview:right];
     [readerView addSubview:bottom];
     [self.view addSubview:readerView];
-    //扫描区域计算
-    readerView.scanCrop = [self getScanCrop:scanMaskRect readerViewBounds:readerView.bounds];
-    
-    [readerView start];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //扫描区域计算
+        readerView.scanCrop = [self getScanCrop:scanMaskRect readerViewBounds:readerView.bounds];
+        [readerView start];
+    });
+    if (!self.jumpFromNav) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [btn setFrame:CGRectMake(0, 0, 50, 30)];
+        [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        if (!IS_IOS6) {
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+        }
+        [btn addTarget:self action:@selector(dismissView) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    }
 }
 - (void)didReceiveMemoryWarning
 {
@@ -120,7 +131,7 @@
         [self dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark - IBAction methods
-- (IBAction)dismissView:(id)sender {
+- (void)dismissView{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

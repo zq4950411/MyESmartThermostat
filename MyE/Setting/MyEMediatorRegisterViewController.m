@@ -39,6 +39,16 @@
     _data = @[@"EST",@"CST",@"MST",@"PST",@"AKST",@"HST"];
     [self downloadModelFromServer];
     [self defineTapGestureRecognizer];
+    if (!self.jumpFromNav) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [btn setFrame:CGRectMake(0, 0, 50, 30)];
+        [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        if (!IS_IOS6) {
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+        }
+        [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,6 +90,9 @@
     }
     _usefullHouses = array;
 }
+-(void)dismissVC{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 #pragma mark - IBAction methods
 - (IBAction)regestMediator:(ACPButton *)sender {
     if ([self.midTxt.text isEqualToString:@""]) {
@@ -111,6 +124,7 @@
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"HouseListDownloader"  userDataDictionary:nil];
     NSLog(@"HouseListDownloader is %@",downloader.name);
 }
+#pragma mark - URL delegate methods
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"houselist received string: %@", string);
     if([name isEqualToString:@"HouseListDownloader"]) {

@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (strong, nonatomic) NSString *deviceTokenStr,*alias; //这个是为消息推送准备的数据
 @property (strong, nonatomic) MyEAccountData *accountData;
 
 // 在进入Thermostat面板时, 会记录下当前选择的房子的Thermostat, 一个Thermostat就是一个Termial

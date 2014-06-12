@@ -47,7 +47,7 @@
     usageData= Nil;
     if(!self.fromHome){
         // Change button color
-        _sidebarButton.tintColor = [UIColor colorWithWhite:0.3f alpha:0.82f];
+//        _sidebarButton.tintColor = [UIColor colorWithWhite:0.3f alpha:0.82f];
         // Set the side bar button action. When it's tapped, it'll show up the sidebar.
         _sidebarButton.target = self.revealViewController;
         _sidebarButton.action = @selector(revealToggle:);

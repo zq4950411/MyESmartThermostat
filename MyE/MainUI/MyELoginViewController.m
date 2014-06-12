@@ -68,7 +68,11 @@
     [self.scanBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     self.bgView.layer.cornerRadius = 4;
     [self loadSettings];
-    
+    if ([[self getUsersFromPlist] count] <= 1) {  //只有当登录的用户至少为两个时，才允许用户切换账户
+        self.showBtn.hidden = YES;
+    }else
+        [self reloadUsersTableViewContents];
+
 //    if (IS_IPHONE5) {
 //        //特别注意，对于iPhone5只有retina屏幕，所以只需要使用@2x的image就可以了
 //        [self.loginImage setImage:[UIImage imageNamed:@"login-568h@2x"]];
@@ -76,6 +80,7 @@
     //以下代码为修改placeholder的文字颜色，这种技巧应该多加注意
     [self.usernameInput setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.passwordInput setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+    self.versionLbl.text = [NSString stringWithFormat:@"Version %@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
 }
 
 
@@ -130,6 +135,86 @@
 
 #pragma mark
 #pragma mark private methods
+-(NSMutableArray *)getUsersFromPlist{
+    NSMutableArray *array = nil;
+    NSString *filePath = [self dataFilePath];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        array = [[NSMutableArray alloc] initWithContentsOfFile:filePath];
+    }else
+        array = [NSMutableArray array];
+    return array;
+}
+-(void)reloadUsersTableViewContents{
+    NSMutableArray *users = [self getUsersFromPlist];
+    [_usersTableView reloadData];
+    [_usersTableView initTableViewDataSourceAndDelegate:^(UITableView *tableView,NSUInteger section){
+        return [users count];
+        
+    } setCellForIndexPathBlock:^(UITableView *tableView,NSIndexPath *indexPath){
+        static NSString *cellIdetifier = @"cell";
+        UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdetifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdetifier];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 35)];
+            label.font = [UIFont systemFontOfSize:15];
+            label.tag = 998;
+            label.textAlignment = NSTextAlignmentCenter;
+            [cell.contentView addSubview:label];
+        }
+        UILabel *label = (UILabel *)[cell.contentView viewWithTag:998];
+        label.text = [users[indexPath.row] objectForKey:@"username"];
+        return cell;
+    } setDidSelectRowBlock:^(UITableView *tableView,NSIndexPath *indexPath){
+        UITableViewCell *cell=(UITableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
+        UILabel *label = (UILabel *)[cell.contentView viewWithTag:998];
+        self.usernameInput.text = label.text;
+        for (NSDictionary *d in users) {
+            if ([d[@"username"] isEqualToString:label.text]) {
+                self.passwordInput.text = d[@"password"];
+            }
+        }
+        
+        [_showBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
+    } beginEditingStyleForRowAtIndexPath :^(UITableView* tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath* indexPath){
+        [users removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [users writeToFile:[self dataFilePath] atomically:YES];
+    }];
+    _usersTableView.tableFooterView = [[UIView alloc] init];
+    [_usersTableView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [_usersTableView.layer setBorderWidth:1];
+}
+- (IBAction)saveUserInfo:(UIButton *)sender {
+    sender.selected = !sender.selected;
+}
+-(NSString *)dataFilePath{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = paths[0];
+    return [documentsDirectory stringByAppendingPathComponent:@"users.plist"];
+}
+-(void)writeUserInfoInPlist{
+    NSMutableArray *array = [self getUsersFromPlist];
+    BOOL canWrite = YES;
+    if ([array count]) {
+        for (NSDictionary *d in [NSArray arrayWithArray:array]) {     //只有不存在的情况下才可以添加
+            if ([d[@"username"] isEqualToString:self.usernameInput.text] &&
+                [d[@"password"] isEqualToString:self.passwordInput.text]) {
+                canWrite = NO;
+                break;
+            }else if ([d[@"username"] isEqualToString:self.usernameInput.text] &&
+                      ![d[@"password"] isEqualToString:self.passwordInput.text]){
+                [d setValue:self.passwordInput.text forKey:@"password"];
+                [array writeToFile:[self dataFilePath] atomically:YES];
+                return;
+            }
+        }
+    }
+    if (canWrite) {
+        [array addObject:@{@"username": self.usernameInput.text,
+                           @"password": self.passwordInput.text}];
+        [array writeToFile:[self dataFilePath] atomically:YES];
+    }
+}
 - (void)keyboardWillShow:(NSNotification *)notification {
     
     /*
@@ -204,7 +289,34 @@
     vc.delegate = self;
     [self presentViewController:nav animated:YES completion:nil];
 }
-
+- (IBAction)showUsers:(UIButton *)sender {
+    if ([sender isSelected]) {   //isSelected 就是selected
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect frame=_usersTableView.frame;
+            frame.size.height=0;
+            [_usersTableView setFrame:frame];
+        } completion:^(BOOL finished){
+            [sender setSelected:NO];
+        }];
+    }else{
+        [UIView animateWithDuration:0.3 animations:^{
+            //            UIImage *openImage=[UIImage imageNamed:@"dropup.png"];
+            //            [_showBtn setImage:openImage forState:UIControlStateNormal];
+            
+            CGRect frame=_usersTableView.frame;
+            
+            NSMutableArray *array = [self getUsersFromPlist];
+            if ([array count] < 6 ) {
+                frame.size.height = 35 * array.count;
+            }else
+                frame.size.height=150;
+            
+            [_usersTableView setFrame:frame];
+        } completion:^(BOOL finished){
+            [sender setSelected:YES];
+        }];
+    }
+}
 - (void)hideKeyboardBeforeResignActive:(NSNotification *)notification{
     [self.usernameInput resignFirstResponder];
     [self.passwordInput resignFirstResponder];
@@ -409,6 +521,7 @@
         [prefs setObject:self.usernameInput.text forKey:@"username"];
         [prefs setObject:self.passwordInput.text forKey:@"password"];
         [prefs setBool:YES forKey:@"rememberme"];
+        [self writeUserInfoInPlist];
     }else {
         [prefs setObject:[NSNumber numberWithBool:NO] forKey:@"rememberme"];
     }

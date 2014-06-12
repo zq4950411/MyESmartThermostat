@@ -128,6 +128,8 @@
 }
 - (IBAction)registerGateway:(ACPButton *)sender {
     UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Setting" bundle:nil] instantiateViewControllerWithIdentifier:@"mediator"];
+    MyEMediatorRegisterViewController *vc = nav.childViewControllers[0];
+    vc.jumpFromNav = NO;
     [self presentViewController:nav animated:YES completion:nil];
 }
 
