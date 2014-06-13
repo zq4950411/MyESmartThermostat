@@ -106,8 +106,16 @@
     self.currentTerminalIdx = 0;
     self.terminalNames = [NSMutableArray array];
     for(MyETerminalData *t in _validTerminals){
+        // 下面三句是修改下面描述的异常的， 该异常折腾了我三天。
+        if ([t.tName isEqual:[NSNull null]]) {
+            t.tName = @"-";
+        }
         [self.terminalNames addObject:t.tName];
     }
+    /* 2014-6-12
+     在三天前的调试中， 碰到一个bug， myenergydomain.com服务器， xyk2或liup两个账号， 共享了同一个房间House623，进入用电统计面板， 一进入就报错误：-[NSNull length]: unrecognized selector sent to instance 0x3b6d1a60。 一进入该面板， 我的app要获取数据， 并且在启动下载的函数打断点， 发现已经启动登录下载downloadModelFromServer()，而在  didReceiveString函数打断点，但抛出异常前还没进入这个函数。有鉴于启动下载但没获得下载字符串就异常了，于是我一直以为是数据下载出问题了， 所以一直在DataLoader类里的各个函数打断点， 想找到数据下载各函数过程有没有什么问题， 一直没结果。 昨天要夏文帮忙， 还是没太多结果， 不过发现此异常和账号有关系， 就只有xyk2或liup两个账号的同一个房间House623进入用电统计有问题，其他没问题。 今天继续请夏文帮忙调试，比如吧异常账号的用电数据房子宜春服务器试图重现， 但仍然没结果。 后来夏文在后台帮我比较该房子的用电数据和其他房子用电数据区别时，还是没发现区别，只是他看那个房子的第一个智能开关设备的信息是，发现其tName是Nul， 此时我才意识到有可能是这个Null值出问题。检查发现登录后下来的数据里面有：{"aliasName":null,"thermostat":0,"deviceType":6,"tId":"06-30-00-00-00-00-00-14"}， 让他修改那个tName给一个值， 再次测试，此异常就没了。 至此确定tName的问题， 并且意识到， 不是数据加载过程DagaLoader类里的异常，而是其他地方用到此NSNull值的tName时发生的异常， 并且碰巧发生在数据加载过程执行之中， 中断了数据加载过程， 使我误以为是数据加载的问题。最后检查发现， tName为NSNull实例并调用其length方法产生异常的地方就行hi下面这一句。
+         解决办法就是把上面准备self.terminalNames数组时， 检查tName， 如果是NSNull， 就用空字符串代替。
+     */
     [self.terminalBtn setTitle:_terminalNames[self.currentTerminalIdx] forState:UIControlStateNormal];
 }
 #pragma mark -
@@ -312,7 +320,7 @@
     y.majorIntervalLength         = CPTDecimalFromDouble(yMax / 5.0);
     y.orthogonalCoordinateDecimal = CPTDecimalFromDouble(0.0);
     y.title                       = @"Usage (kWh)";
-    y.titleOffset                 = 35.0;
+    y.titleOffset                 = 50.0;
     y.titleLocation               = CPTDecimalFromFloat(yMax/2);
     
 }
