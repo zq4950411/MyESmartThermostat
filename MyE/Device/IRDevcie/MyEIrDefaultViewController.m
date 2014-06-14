@@ -35,7 +35,6 @@
         _initNumber++;
         btn.tag = _initNumber;
         [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        btn.status = 0;  //这里要对status的值进行初始化
         NSLog(@"%@    %i",btn.currentTitle,btn.tag);
         if (btn.tag < start || btn.tag > end) {
             normalStr = @"control-disable-normal";
@@ -77,15 +76,15 @@
 }
 -(void)btnClicked:(MyEControlBtn *)btn{
     if (self.isControlMode) {
-        if (btn.status > 0) {
-            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&instructionId=%i",GetRequst(URL_FOR_INSTRUCTION_CONTROL),MainDelegate.houseData.houseId,[self getInstructionIdByTypeId:btn.tag]] andName:@"control"];
+        if (btn.instruction.status > 0) {
+            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&instructionId=%i",GetRequst(URL_FOR_INSTRUCTION_CONTROL),MainDelegate.houseData.houseId,btn.instruction.instructionId] andName:@"control"];
+//            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&instructionId=%i",GetRequst(URL_FOR_INSTRUCTION_CONTROL),MainDelegate.houseData.houseId,[self getInstructionIdByTypeId:btn.tag]] andName:@"control"];
         }else{
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"This Key Has not studied" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alert show];
         }
     }else{
         [self editStudyKey:btn];
-        
     }
 }
 -(void)refreshUI{
@@ -103,10 +102,10 @@
     }
     for (MyEControlBtn *btn in _keyBtns) {
         if (btn.tag < start || btn.tag > end) {
-            normalStr = [NSString stringWithFormat:@"control-%@-normal",btn.status>0?@"enable":@"disable"];
-            highlightStr = [NSString stringWithFormat:@"control-%@-highlight",btn.status>0?@"enable":@"disable"];
+            normalStr = [NSString stringWithFormat:@"control-%@-normal",btn.instruction.status>0?@"enable":@"disable"];
+            highlightStr = [NSString stringWithFormat:@"control-%@-highlight",btn.instruction.status>0?@"enable":@"disable"];
         }else{
-            normalStr = [NSString stringWithFormat:@"%@-%@",btn.status>0?@"non":@"normal",array[btn.tag-start]];
+            normalStr = [NSString stringWithFormat:@"%@-%@",btn.instruction.status>0?@"non":@"normal",array[btn.tag-start]];
             highlightStr = [NSString stringWithFormat:@"highlight-%@",array[btn.tag-start]];
         }
 //        NSLog(@"%@  %@",normalStr,highlightStr);
@@ -122,7 +121,6 @@
     UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"IRDeviceStudyEditKeyModal"];
     
     MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
-    
     formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromTop;
     formSheet.shadowRadius = 2.0;
     formSheet.shadowOpacity = 0.3;
@@ -137,28 +135,21 @@
         navController.topViewController.title = @"Key Study";
         MyEIrStudyEditKeyModalViewController *modalVc = (MyEIrStudyEditKeyModalViewController *)navController.topViewController;
         modalVc.device = self.device;
-        
-        MyEInstruction *instruction = [[MyEInstruction alloc] init];
-        instruction.instructionId = btn.tag; //这里主要是有各种情况，所以这里要这么写
-        instruction.type = btn.tag;
-        instruction.name = btn.currentTitle;
-        modalVc.instruction = instruction;
-        
+        if (btn.instruction==nil) {  //表示这个按键已经学习
+            MyEInstruction *instruction = [[MyEInstruction alloc] init];
+            btn.instruction = instruction;
+            instruction.type = btn.tag;
+            instruction.name = btn.currentTitle;
+        }
+        modalVc.instruction = btn.instruction;
         modalVc.keyNameTextfield.enabled = NO;
         modalVc.deleteKeyBtn.enabled = NO;
-        if (btn.status > 0) {
+        if (btn.instruction.status > 0) {
             [modalVc.learnBtn setTitle:@"Restudy" forState:UIControlStateNormal];
         }else
             modalVc.validateKeyBtn.enabled = NO;
         [modalVc viewDidLoad];  //再运行一次这个方法，从而更新UI
     };
-    
-//    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-//        UINavigationController *navController = (UINavigationController *)formSheetController.presentedFSViewController;
-//        MyEIrStudyEditKeyModalViewController *vc = (MyEIrStudyEditKeyModalViewController *)(navController.topViewController);
-//        vc.keyNameTextfield.text = btn.currentTitle;
-//    }];
-    
     formSheet.didDismissCompletionHandler = ^(UIViewController *presentedFSViewController) {
         [self refreshUI];
     };
@@ -184,7 +175,7 @@
             self.instructions = instructions;
             for (MyEInstruction *i in self.instructions.templateList) {
                 MyEControlBtn *btn = (MyEControlBtn *)[self.view viewWithTag:i.type];
-                btn.status = 1;
+                btn.instruction = i;
             }
             [self refreshUI];
             if (self.device.typeId.intValue == 2 || self.device.typeId.intValue == 3) {
@@ -208,5 +199,7 @@
     }
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"fail"];
 }
 @end

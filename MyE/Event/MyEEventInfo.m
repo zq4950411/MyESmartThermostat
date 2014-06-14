@@ -156,10 +156,10 @@
 }
 -(UIImage *)changeTypeToImage{
     //设备类型：2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器 8:智能开关   0：温控器
-    NSArray *imageArray = @[@"tv-on",@"audio-on",@"curtain-on",@"other-on",@"socket-on",@"universe-on",@"switch-on"];
+    NSArray *imageArray = @[@"tv-on",@"audio-on",@"curtain-on",@"other-on",@"socket-on",@"uc-on",@"switch-on"];
     NSString *imageName = nil;
     if (self.typeId == 0) {
-        imageName = @"";
+        imageName = @"them-on";
     }else
         imageName = imageArray[self.typeId - 2];   //这里的减2是因为电视是从2开始的
     return [UIImage imageNamed:imageName];
@@ -363,7 +363,6 @@
     return time;
 }
 -(NSString *)changeDateToString{
-    
-    return [NSString stringWithFormat:@"%i:%@ %@ %@",self.hour,self.minute == 0? @"00":[NSString stringWithFormat:@"%i",self.minute],self.date,[self.weeks componentsJoinedByString:@","]];
+    return [NSString stringWithFormat:@"%i:%@ %@",self.hour,self.minute == 0? @"00":[NSString stringWithFormat:@"%i",self.minute],self.timeType==1?self.date:[self.weeks componentsJoinedByString:@","]];
 }
 @end

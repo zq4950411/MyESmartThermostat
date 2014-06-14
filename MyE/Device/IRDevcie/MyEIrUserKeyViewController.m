@@ -70,9 +70,11 @@
         MyEIrStudyEditKeyModalViewController *modalVc = (MyEIrStudyEditKeyModalViewController *)navController.topViewController;
         modalVc.device = self.device;
         modalVc.isAddKey = YES;  //这里表示的新增按键
+        modalVc.instructions = self.instructions;
         modalVc.instruction = [[MyEInstruction alloc] init];
         [modalVc.learnBtn setTitle:@"Study" forState:UIControlStateNormal];
         modalVc.validateKeyBtn.enabled = NO;
+        modalVc.deleteKeyBtn.enabled = NO;
         [modalVc viewDidLoad];  //继续执行一遍
     };
     formSheet.didDismissCompletionHandler = ^(UIViewController *presentedFSViewController) {
@@ -117,12 +119,15 @@
         navController.topViewController.title = @"Key Study";
         MyEIrStudyEditKeyModalViewController *modalVc = (MyEIrStudyEditKeyModalViewController *)navController.topViewController;
         modalVc.device = self.device;
-        
+        modalVc.instructions = self.instructions;
         modalVc.instruction = instruction;
         if (instruction.status > 0) {
             [modalVc.learnBtn setTitle:@"Restudy" forState:UIControlStateNormal];
         }else
             modalVc.validateKeyBtn.enabled = NO;
+        if (instruction.type < 2) {
+            modalVc.deleteKeyBtn.enabled = NO;  //只有type=2才可以删除
+        }
         [modalVc viewDidLoad];  //继续执行一遍
     };
     formSheet.didDismissCompletionHandler = ^(UIViewController *presentedFSViewController) {
@@ -170,5 +175,9 @@
             [self.tableView reloadData];
         }
     }
+}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 @end

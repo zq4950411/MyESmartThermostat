@@ -32,7 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self.enterBtn setStyleType:ACPButtonOK];
     scrollView.alignment = SwipeViewAlignmentCenter;
     scrollView.pagingEnabled = YES;
     scrollView.wrapEnabled = NO;

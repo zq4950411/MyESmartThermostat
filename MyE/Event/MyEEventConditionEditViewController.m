@@ -48,7 +48,7 @@
     /*------------初始化数组-----------------*/
     NSMutableArray *array = [NSMutableArray array];
     for (MyETerminalData *t in MainDelegate.houseData.terminals) {
-        if (t.deviceType == 2) {
+        if (t.deviceType == 1) {   //这里的值应是1，表示的是红外设备
             [array addObject:t];
         }
     }
@@ -119,9 +119,12 @@
         }
     }
     [_conditionBtn setTitle:_conditonArray[_selectedIndex1] forState:UIControlStateNormal];
-    MyETerminalData *terminal = _terminals[_selectedIndex2];
-    [_terminalBtn setTitle:terminal.tName forState:UIControlStateNormal];
-    _newCustom.tId = terminal.tId;
+    if ([_terminals count]) {
+        MyETerminalData *terminal = _terminals[_selectedIndex2];
+        [_terminalBtn setTitle:terminal.tName forState:UIControlStateNormal];
+        _newCustom.tId = terminal.tId;
+    }else
+        [_terminalBtn setTitle:@"No terminal" forState:UIControlStateNormal];
     [_relationBtn setTitle:_relationArray[_selectedIndex3] forState:UIControlStateNormal];
     
 }

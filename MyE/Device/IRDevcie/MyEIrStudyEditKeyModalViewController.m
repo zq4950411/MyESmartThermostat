@@ -25,16 +25,20 @@
 {
     [super viewDidLoad];
     NSLog(@"%@",self.instruction);
-    if (!IS_IOS6) {
-        for (UIButton *btn in self.view.subviews) {
-            if ([btn isKindOfClass:[UIButton class]] && btn.tag != 100) {
-                [btn.layer setMasksToBounds:YES];
-                [btn.layer setCornerRadius:5];
-                [btn.layer setBorderWidth:1];
-                [btn.layer setBorderColor:btn.tintColor.CGColor];
-            }
-        }
-    }
+    [self.learnBtn setStyleType:ACPButtonBlue];
+    [self.validateKeyBtn setStyleType:ACPButtonPurple];
+    [self.deleteKeyBtn setStyleType:ACPButtonCancel];
+    [self.cancelBtn setStyleType:ACPButtonOK];
+//    if (!IS_IOS6) {
+//        for (UIButton *btn in self.view.subviews) {
+//            if ([btn isKindOfClass:[UIButton class]] && btn.tag != 100) {
+//                [btn.layer setMasksToBounds:YES];
+//                [btn.layer setCornerRadius:5];
+//                [btn.layer setBorderWidth:1];
+//                [btn.layer setBorderColor:btn.tintColor.CGColor];
+//            }
+//        }
+//    }
     self.keyNameTextfield.text = self.instruction.name;  //这里更改名称
 }
 
@@ -87,9 +91,9 @@
     //设置自动行数与字符换行
     [label setNumberOfLines:0];
     label.lineBreakMode = NSLineBreakByWordWrapping;
-    label.text = @"当智控星屏幕显示Lr--时，请按下遥控器按键进行学习。";
+    label.text = @"Press the button on your remote control to record when the smart remote's screen shows Lr- -";
     
-    UIFont *font = [UIFont fontWithName:@"Arial" size:12];
+    UIFont *font = [UIFont systemFontOfSize:9];
     //设置一个行高上限
     CGSize size = CGSizeMake(320,2000);
     //计算实际frame大小，并将label的frame变成实际大小
@@ -101,8 +105,9 @@
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor whiteColor];
     label.textAlignment = NSTextAlignmentCenter;
-    HUD.minSize = CGSizeMake(280, 200);
+    HUD.minSize = CGSizeMake(220, 100);
     HUD.customView = label;
+    HUD.margin = 5;
     HUD.mode = MBProgressHUDModeCustomView;
 }
 
@@ -114,7 +119,7 @@
         } else
             [HUD show:YES];
     }
-    NSString * urlStr= [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&name=%@&type=%i&instructionId=%i&deviceId=%@&action=%@",GetRequst(URL_FOR_INSTRUCTION_STUDY),MainDelegate.houseData.houseId,self.device.tid,_isAddKey?self.instruction.name:@"",self.instruction.type,self.instruction.instructionId,self.device.deviceId,action];
+    NSString * urlStr= [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&name=%@&type=%i&instructionId=%i&deviceId=%@&action=%@",GetRequst(URL_FOR_INSTRUCTION_STUDY),MainDelegate.houseData.houseId,self.device.tid,self.instruction.name,self.instruction.type,self.instruction.instructionId,self.device.deviceId,action];
     MyEDataLoader *downloader = [[MyEDataLoader alloc]
                                  initLoadingWithURLString:urlStr
                                  postData:nil
@@ -160,24 +165,31 @@
     if ([name isEqualToString:@"record"]) {
         if (![string isEqualToString:@"fail"]) {
             if (string.intValue > 0) {
+                self.instruction.instructionId = string.intValue;
                 if (_isAddKey) {
-                    self.instruction.instructionId = string.intValue;
+                    [self.instructions.customList addObject:self.instruction];  //这时候服务器默认已经添加了这个按键，不管这个按键有没有学习成功
                 }
                 [self queryStudayProgress];
             }else if (string.intValue == -500){
+                [HUD hide:YES];
                 [MyEUtil showInstructionStatusWithYes:YES andView:self.navigationController.navigationBar andMessage:@"name is existed"];
             }
         }
     }
     if ([name isEqualToString:@"verify"]) {
+        [HUD hide:YES];
         if ([string isEqualToString:@"OK"]) {
             [MyEUtil showInstructionStatusWithYes:YES andView:self.navigationController.navigationBar andMessage:@"success"];
         }else
             [MyEUtil showInstructionStatusWithYes:YES andView:self.navigationController.navigationBar andMessage:@"fail"];
     }
     if ([name isEqualToString:@"delete"]) {
+        [HUD hide:YES];
         if ([string isEqualToString:@"OK"]) {
             [SVProgressHUD showSuccessWithStatus:@"sucess"];
+            if ([self.instructions.customList containsObject:self.instruction]) {
+                [self.instructions.customList removeObject:self.instruction];
+            }
             [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
         }else
             [SVProgressHUD showErrorWithStatus:@"fail"];
@@ -200,7 +212,7 @@
                 [_timer invalidate];  //这里要将定时器清空
                 [self sendInstructionStudyTimeout];
                 studyQueryTimes = 0;
-                [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"学习超时，请重新开始!"];
+                [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"Time out! Please restudy"];
                 self.instruction.status = 0;
             } else {
                 _timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(queryStudayProgress) userInfo:nil repeats:NO];
@@ -218,7 +230,7 @@
     NSLog(@"In delegate Connection failed! Error - %@ %@",
           [error localizedDescription],
           [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
-    NSString *msg = @"通信错误，请稍后重试.";
+    NSString *msg = @"fail";
     
     [MyEUtil showSuccessOn:self.navigationController.view withMessage:msg];
     [HUD hide:YES];

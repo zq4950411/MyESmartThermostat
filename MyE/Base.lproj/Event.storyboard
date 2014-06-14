@@ -262,10 +262,10 @@
             </objects>
             <point key="canvasLocation" x="-795" y="-213"/>
         </scene>
-        <!--MyE Event Time Edti View Controller - Time Edit-->
+        <!--MyE Event Time Edit View Controller - Time Edit-->
         <scene sceneID="Qvo-7V-Aes">
             <objects>
-                <viewController storyboardIdentifier="timeEdit" hidesBottomBarWhenPushed="YES" id="7nR-fP-rTM" customClass="MyEEventTimeEdtiViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="timeEdit" hidesBottomBarWhenPushed="YES" id="7nR-fP-rTM" customClass="MyEEventTimeEditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wXl-eD-jjI"/>
                         <viewControllerLayoutGuide type="bottom" id="E63-BL-uLf"/>

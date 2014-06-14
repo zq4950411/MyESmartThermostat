@@ -325,11 +325,6 @@
                                             <action selector="editRoom:" destination="2wp-rY-PyQ" eventType="touchUpInside" id="sSv-De-hl6"/>
                                         </connections>
                                     </button>
-                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="35" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZVz-Ay-wU6" customClass="TableViewWithBlock">
-                                        <rect key="frame" x="75" y="40" width="170" height="1"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.86274509803921573" green="0.86274509803921573" blue="0.86274509803921573" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -360,7 +355,6 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="roomBtn" destination="HLc-Iu-0S0" id="AWS-ic-EYb"/>
-                        <outlet property="roomsTableView" destination="ZVz-Ay-wU6" id="LDX-Fy-voM"/>
                         <outlet property="sidebarButton" destination="AON-nP-f4M" id="Bqo-Pj-78J"/>
                         <outlet property="tableView" destination="6TU-iK-Osi" id="wvM-gD-fCc"/>
                     </connections>
@@ -707,7 +701,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Exit" translatesAutoresizingMaskIntoConstraints="NO" id="qJU-Xv-ojW">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="HouseList" translatesAutoresizingMaskIntoConstraints="NO" id="qJU-Xv-ojW">
                                                     <rect key="frame" x="20" y="3" width="38" height="38"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -1391,7 +1385,7 @@
                                     <outlet property="delegate" destination="hpH-E2-uCn" id="A9W-9x-K7w"/>
                                 </connections>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjh-M7-pLa">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjh-M7-pLa" customClass="ACPButton">
                                 <rect key="frame" x="58" y="438" width="205" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <constraints>
@@ -1689,6 +1683,7 @@
         <image name="Events" width="60" height="60"/>
         <image name="Exit" width="60" height="60"/>
         <image name="Home" width="100" height="100"/>
+        <image name="HouseList" width="60" height="60"/>
         <image name="HouseTile" width="100" height="100"/>
         <image name="Mye" width="120" height="60"/>
         <image name="Settings" width="60" height="60"/>

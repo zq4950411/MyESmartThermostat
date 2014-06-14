@@ -77,7 +77,6 @@
     [self downloadDevicesFromServer];
     _tableLong = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(beginTableViewEditing:)];
     [self.tableView addGestureRecognizer:_tableLong];
-
 }
 
 #pragma mark - URL  methods
@@ -217,7 +216,7 @@
             string = @"socket";
             break;
         case 7:
-            string = @"uControl";
+            string = @"uc";
             break;
         case 8:
             string = @"switch";
@@ -252,39 +251,6 @@
     _devices = [_mainDic[roomName] mutableCopy];
     [self.tableView reloadData];
 }
-#pragma mark - rooms deta source methods
--(void)reloadRoomsTableViewContents{
-    
-    [_roomsTableView reloadData];
-    [_roomsTableView initTableViewDataSourceAndDelegate:^(UITableView *tableView,NSUInteger section){
-        return [_mainDic.allKeys count];
-        
-    } setCellForIndexPathBlock:^(UITableView *tableview,NSIndexPath *indexPath){
-        static NSString *cellIdetifier = @"cell";
-        UITableViewCell *cell=[tableview dequeueReusableCellWithIdentifier:cellIdetifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdetifier];
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableview.frame.size.width, 35)];
-            label.font = [UIFont systemFontOfSize:15];
-            label.tag = 998;
-            label.textAlignment = NSTextAlignmentCenter;
-            [cell.contentView addSubview:label];
-        }
-        UILabel *label = (UILabel *)[cell.contentView viewWithTag:998];
-        label.text = _mainDic.allKeys[indexPath.row];
-        return cell;
-    } setDidSelectRowBlock:^(UITableView *tableview,NSIndexPath *indexPath){
-        UITableViewCell *cell=(UITableViewCell*)[tableview cellForRowAtIndexPath:indexPath];
-        UILabel *label = (UILabel *)[cell.contentView viewWithTag:998];
-        NSArray *array = _mainDic[label.text];
-        _devices = [NSMutableArray arrayWithArray:array];
-        [self.tableView reloadData];
-        [self.roomBtn sendActionsForControlEvents:UIControlEventTouchUpInside];   //这句代码的意思就是说让按钮的方法运行一遍，这个想法不错
-    } beginEditingStyleForRowAtIndexPath :nil];
-    _roomsTableView.tableFooterView = [[UIView alloc] init];
-    [_roomsTableView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [_roomsTableView.layer setBorderWidth:1];
-}
 -(void)refreshData{
     _mainDic = [NSMutableDictionary dictionary];
     NSMutableArray *array = [NSMutableArray array];
@@ -315,9 +281,6 @@
 }
 #pragma mark - IBAction methods
 - (IBAction)changeRoom:(UIButton *)sender {
-    if (!_mainDic) {
-       [self refreshData];
-    }
     NSMutableArray *items = [NSMutableArray array];
     for (int i = 0; i < _mainDic.allKeys.count; i++)
     {
@@ -336,30 +299,6 @@
                       fromRect:tile.frame
                      menuItems:items];
     }
-
-//    if ([sender isSelected]) {   //isSelected 就是selected
-//        [UIView animateWithDuration:0.3 animations:^{
-//            CGRect frame=_roomsTableView.frame;
-//            frame.size.height=1;
-//            [_roomsTableView setFrame:frame];
-//        } completion:^(BOOL finished){
-//            _roomsTableView.hidden = YES;
-//            [sender setSelected:NO];
-//        }];
-//    }else{
-//        [UIView animateWithDuration:0.3 animations:^{
-//            CGRect frame=_roomsTableView.frame;
-//            if ([_mainDic count] < 6 ) {
-//                frame.size.height = 35 * _mainDic.count;
-//            }else
-//                frame.size.height=150;
-//            [_roomsTableView setFrame:frame];
-//        } completion:^(BOOL finished){
-//            _roomsTableView.hidden = NO;
-//            [self reloadRoomsTableViewContents];
-//            [sender setSelected:YES];
-//        }];
-//    }
 }
 - (IBAction)editRoom:(UIButton *)sender {
     [self refreshData];
@@ -548,7 +487,9 @@
         }else if (![string isEqualToString:@"fail"]){
             MyEMainDevice *main = [[MyEMainDevice alloc] initWithJSONString:string];
             self.mainDevice = main;
-            _devices = self.mainDevice.devices;
+            [self refreshData];
+            _devices = _mainDic[self.roomBtn.currentTitle];
+//            _devices = self.mainDevice.devices;
             [self.tableView reloadData];
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];

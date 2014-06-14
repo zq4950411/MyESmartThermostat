@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MyEDevice.h"
+#import "MyEInstructions.h"
+#import "MyEDataLoader.h"
 @interface MyEIrUserKeyViewController : UITableViewController<MyEDataLoaderDelegate>
 
 @property (nonatomic) BOOL isControlMode;

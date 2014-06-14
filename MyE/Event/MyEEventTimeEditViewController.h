@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyEEventTimeEdtiViewController : UIViewController<MYEWeekButtonsDelegate,MyEDataLoaderDelegate>
+@interface MyEEventTimeEditViewController : UIViewController<MYEWeekButtonsDelegate,MyEDataLoaderDelegate>
 
 @property (nonatomic, strong) MyEEventInfo *eventInfo;
 @property (nonatomic, weak) MyEEventDetail *eventDetail;

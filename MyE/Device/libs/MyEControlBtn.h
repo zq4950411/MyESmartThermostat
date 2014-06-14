@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MyEInstructions.h"
 @interface MyEControlBtn : UIButton
-@property (nonatomic) NSInteger status;
+@property (nonatomic, strong) MyEInstruction *instruction;
 @end

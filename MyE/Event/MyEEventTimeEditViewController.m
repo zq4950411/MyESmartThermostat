@@ -6,15 +6,15 @@
 //  Copyright (c) 2014年 MyEnergy Domain. All rights reserved.
 //
 
-#import "MyEEventTimeEdtiViewController.h"
+#import "MyEEventTimeEditViewController.h"
 
-@interface MyEEventTimeEdtiViewController (){
+@interface MyEEventTimeEditViewController (){
     MyEEventConditionTime *_newTime;
 }
 
 @end
 
-@implementation MyEEventTimeEdtiViewController
+@implementation MyEEventTimeEditViewController
 
 #pragma mark - life circle methods
 - (void)viewDidLoad
@@ -60,13 +60,14 @@
     NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
     comps = [calendar components:unitFlags fromDate:self.datePicker.date];
     NSLog(@"%i %i %i %i %i",[comps year],[comps month],[comps day],[comps hour],[comps minute]);
-    if (_newTime.timeType == 1) {  //表示的是日期
-        _newTime.date = [NSString stringWithFormat:@"%i/%i/%i",[comps month],[comps day],[comps year]];
-        NSLog(@"%@",_newTime.date);
-        _newTime.weeks = [NSMutableArray array];
-    }else{
-        _newTime.date = @"";
-    }
+    _newTime.date = [NSString stringWithFormat:@"%i/%i/%i",[comps month],[comps day],[comps year]];
+//    if (_newTime.timeType == 1) {  //表示的是日期
+//        _newTime.date = [NSString stringWithFormat:@"%i/%i/%i",[comps month],[comps day],[comps year]];
+//        NSLog(@"%@",_newTime.date);
+//        _newTime.weeks = [NSMutableArray array];
+//    }else{
+//        _newTime.date = @"";
+//    }
     _newTime.hour = [comps hour];
     _newTime.minute = (int)([comps minute]/10)*10;
     
