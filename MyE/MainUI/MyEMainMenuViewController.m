@@ -12,7 +12,7 @@
 #import "MyEUsageStatsViewController.h"
 
 @interface MyEMainMenuViewController ()
-
+- (void)goHouseList;
 @end
 
 @implementation MyEMainMenuViewController
@@ -162,10 +162,11 @@
     
     if (self.menuItems.count-1 == indexPath.row) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        //                [self presentViewController:vc animated:YES completion:nil];
+        MyELoginViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
         [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
-        MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
+        MainDelegate.window.rootViewController = vc;
+        
+        [MyEDataLoader startLoadingWithURLString:[NSString stringWithFormat:@"%@",GetRequst(URL_FOR_SIGNOUT)] postData:nil delegate:vc loaderName:@"signout" userDataDictionary:nil];
     }
     
 }

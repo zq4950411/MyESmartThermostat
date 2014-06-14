@@ -12,5 +12,4 @@
 @property (nonatomic, strong) NSArray *menuItems;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *houseName;
-- (IBAction)goHouseList:(id)sender;
 @end
