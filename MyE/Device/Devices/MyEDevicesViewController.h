@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TableViewWithBlock.h"
 #import "MyEDataLoader.h"
 #import "EGORefreshTableHeaderView.h"
 #import "MBProgressHUD.h"
@@ -32,7 +31,6 @@
 @property (nonatomic, strong) MyEMainDevice *mainDevice;
 @property (nonatomic) BOOL needRefresh;
 
-@property (weak, nonatomic) IBOutlet TableViewWithBlock *roomsTableView;
 @property (weak, nonatomic) IBOutlet UIButton *roomBtn;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;

@@ -8,7 +8,7 @@
 
 #import "MyEEventAddOrEditViewController.h"
 #import "MyEEventConditionEditViewController.h"
-#import "MyEEventTimeEdtiViewController.h"
+#import "MyEEventTimeEditViewController.h"
 #import "MyEEventDeviceEditViewController.h"
 
 #define newSize CGSizeMake(280, 35*([self.eventDetail.timeConditions count] + [self.eventDetail.customConditions count]));
@@ -159,7 +159,6 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell ;
     if (tableView.tag == 100) {
-        NSLog(@"index:%i  count:%i",indexPath.row,[self.eventDetail.timeConditions count]);
         if (indexPath.row < [self.eventDetail.timeConditions count]) {
             MyEEventConditionTime *time = self.eventDetail.timeConditions[indexPath.row];
             cell = [tableView dequeueReusableCellWithIdentifier:@"timeCell"];
@@ -323,7 +322,7 @@
 #pragma mark - Navigation methods
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"time"] || [segue.identifier isEqualToString:@"timeEdit"]) {
-        MyEEventTimeEdtiViewController *vc = segue.destinationViewController;
+        MyEEventTimeEditViewController *vc = segue.destinationViewController;
         vc.eventDetail = self.eventDetail;
         vc.isAdd = [segue.identifier isEqualToString:@"time"];
         MyEEventConditionTime *time;

@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SwipeView.h"
-
+#import "ACPButton.h"
 @interface MyELaunchIntroViewController : UIViewController<SwipeViewDataSource,SwipeViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet SwipeView *scrollView;
-@property (strong, nonatomic) IBOutlet UIButton *enterBtn;
+@property (strong, nonatomic) IBOutlet ACPButton *enterBtn;
 
 @end

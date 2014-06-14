@@ -262,7 +262,9 @@
     }
     if ([name isEqualToString:@"otherEdit"]) {
         if (![string isEqualToString:@"fail"]) {
-            [SVProgressHUD showSuccessWithStatus:@"Success!"];
+            MyEDevicesViewController *vc = (MyEDevicesViewController *)[self.navigationController childViewControllers][[self.navigationController.childViewControllers indexOfObject:self]-1];
+            vc.needRefresh = YES;
+            [self.navigationController popViewControllerAnimated:YES];
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];
     }

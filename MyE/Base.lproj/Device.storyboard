@@ -133,7 +133,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F2i-tw-foO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6495" y="-6529"/>
+            <point key="canvasLocation" x="-6987" y="-6929"/>
         </scene>
         <!--MyE Rooms Table View Controller - Rooms-->
         <scene sceneID="mgB-yb-thu">
@@ -193,7 +193,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tLu-1m-nz0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6156" y="-6529"/>
+            <point key="canvasLocation" x="-6640" y="-6921"/>
         </scene>
         <!--MyE Curtain Control View Controller - Curtain-->
         <scene sceneID="VMn-Is-UOc">
@@ -268,7 +268,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bsf-Po-0Ee" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5068" y="-5408"/>
+            <point key="canvasLocation" x="-5520" y="-5808"/>
         </scene>
         <!--MyE Ir Control Page View Controller-->
         <scene sceneID="hFi-th-TzC">
@@ -294,7 +294,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t93-3m-kgb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5461" y="-5962"/>
+            <point key="canvasLocation" x="-5913" y="-6362"/>
         </scene>
         <!--MyE Audio Default View Controller - Audio-->
         <scene sceneID="abw-sR-zLY">
@@ -427,7 +427,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HoQ-eN-SDs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5068" y="-5962"/>
+            <point key="canvasLocation" x="-5520" y="-6362"/>
         </scene>
         <!--MyETV Default View Controller-->
         <scene sceneID="7RX-LH-VGC">
@@ -610,7 +610,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rGo-5a-8cK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5068" y="-6521"/>
+            <point key="canvasLocation" x="-5520" y="-6921"/>
         </scene>
         <!--MyE Ir Study Edit Key Modal View Controller-->
         <scene sceneID="DLf-gn-hEr">
@@ -631,7 +631,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXu-OQ-sb8">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXu-OQ-sb8" customClass="ACPButton">
                                 <rect key="frame" x="20" y="65" width="110" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -648,11 +648,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFs-zC-LqU">
+                            <button opaque="NO" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFs-zC-LqU" customClass="ACPButton">
                                 <rect key="frame" x="20" y="110" width="240" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Delete" backgroundImage="deleteBtn">
+                                <state key="normal" title="Delete">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -660,7 +660,7 @@
                                     <action selector="deleteKey:" destination="0Vo-5l-ID7" eventType="touchUpInside" id="tCm-vm-NFo"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ASg-Nc-u3a">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ASg-Nc-u3a" customClass="ACPButton">
                                 <rect key="frame" x="150" y="65" width="110" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -671,7 +671,7 @@
                                     <action selector="validateKey:" destination="0Vo-5l-ID7" eventType="touchUpInside" id="km7-wn-hvD"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tKI-dK-tjL">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tKI-dK-tjL" customClass="ACPButton">
                                 <rect key="frame" x="20" y="156" width="240" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -690,6 +690,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="280" height="250"/>
                     <connections>
+                        <outlet property="cancelBtn" destination="tKI-dK-tjL" id="Z0N-GP-IAr"/>
                         <outlet property="deleteKeyBtn" destination="qFs-zC-LqU" id="QC0-gu-Qdr"/>
                         <outlet property="keyNameTextfield" destination="B5M-Nw-OyB" id="6TO-KM-xAp"/>
                         <outlet property="learnBtn" destination="TXu-OQ-sb8" id="WFh-4w-VFR"/>
@@ -698,90 +699,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ydN-8F-N0b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6052" y="-7960"/>
-        </scene>
-        <!--MyE Ir Device Add Key Modal View Controller-->
-        <scene sceneID="9S2-HM-xmB">
-            <objects>
-                <viewController id="A8N-Xx-rCD" customClass="MyEIrDeviceAddKeyModalViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="i1d-Ia-YZz"/>
-                        <viewControllerLayoutGuide type="bottom" id="u3U-sr-EIr"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="sAi-Af-EAQ">
-                        <rect key="frame" x="0.0" y="44" width="280" height="206"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rK8-u5-hHE">
-                                <rect key="frame" x="40" y="140" width="200" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Ok" backgroundImage="deleteBtn">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="confirmNewKey:" destination="A8N-Xx-rCD" eventType="touchUpInside" id="IZ4-GN-f2H"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter a new key name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frd-58-LVH">
-                                <rect key="frame" x="40" y="20" width="200" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4hb-Ea-dy9">
-                                <rect key="frame" x="40" y="50" width="200" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yAz-kt-BpO">
-                                <rect key="frame" x="40" y="95" width="200" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Cancel" backgroundImage="cancelBtn">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancelEdit:" destination="A8N-Xx-rCD" eventType="touchUpInside" id="9Ar-Tf-R8h"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="v7J-lV-N2B"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="280" height="250"/>
-                    <connections>
-                        <outlet property="keyNameTextfield" destination="4hb-Ea-dy9" id="Dde-GM-rDs"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6UD-3V-75O" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-6052" y="-7296"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="tYC-63-xOZ">
-            <objects>
-                <navigationController storyboardIdentifier="IRDeviceAddNewKeyModal" automaticallyAdjustsScrollViewInsets="NO" id="QM8-HX-Heu" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="OId-MT-vbf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="A8N-Xx-rCD" kind="relationship" relationship="rootViewController" id="0Gx-I1-Z6Y"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5iX-wf-d9E" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-6424" y="-7411"/>
+            <point key="canvasLocation" x="-6600" y="-7460"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="okA-Th-3j3">
@@ -799,7 +717,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dXk-bq-kBo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6424" y="-8075"/>
+            <point key="canvasLocation" x="-6972" y="-7575"/>
         </scene>
         <!--MyE Ir User Key View Controller-->
         <scene sceneID="qYH-W0-JFb">
@@ -865,7 +783,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="erk-L9-db8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5510" y="-7791"/>
+            <point key="canvasLocation" x="-5990" y="-6921"/>
         </scene>
         <!--MyE Device Add Or Edit Table View Controller-->
         <scene sceneID="0j7-8B-H5c">
@@ -1019,7 +937,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G4y-8I-zDc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6495" y="-5975"/>
+            <point key="canvasLocation" x="-6987" y="-6362"/>
         </scene>
         <!--MyE Device Add Or Edit Table View Controller-->
         <scene sceneID="3Sn-pO-QY2">
@@ -1148,13 +1066,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l3s-YK-gMJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6142" y="-5975"/>
+            <point key="canvasLocation" x="-6634" y="-6362"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="cancelBtn" width="280" height="44"/>
-        <image name="deleteBtn" width="280" height="44"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

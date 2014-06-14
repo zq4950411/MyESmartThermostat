@@ -33,7 +33,7 @@
 @implementation MyEInstruction
 -(id)init{
     if (self = [super init]) {
-        self.instructionId = -1;  //由接口决定
+        self.instructionId = -1;  //由接口决定,表示新学习的，(没有则为-1)
         self.type = 2;  //由接口决定
         self.name = @"";
         self.sortId = 0;
