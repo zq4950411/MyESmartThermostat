@@ -160,11 +160,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self hideDropDown:viewSender];
-    self.releseMenu();
     NSLog(@"indexPath.row=%d", indexPath.row);
     if(self.function)
         self.function(indexPath.row);
+    [self hideDropDown:viewSender];
+    self.releseMenu();
+
     
 }
 @end
