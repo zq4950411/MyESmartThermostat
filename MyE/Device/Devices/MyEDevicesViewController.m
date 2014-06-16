@@ -10,7 +10,6 @@
 //switch
 #import "MyESwitchManualControlViewController.h"
 #import "MyESwitchAutoViewController.h"
-#import "MyESwitchElecInfoViewController.h"
 #import "MyESwitchEditViewController.h"
 //tv or audio
 #import "MyEIrControlPageViewController.h"
@@ -301,7 +300,6 @@
     }
 }
 - (IBAction)editRoom:(UIButton *)sender {
-    [self refreshData];
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"Device" bundle:nil];
     MyERoomsTableViewController *vc = [story instantiateViewControllerWithIdentifier:@"roomsVC"];
     vc.mainDic = _mainDic;
@@ -343,7 +341,7 @@
     
     typeImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[self getDeviceTypeNameByTypeId:device.typeId],device.switchStatus.intValue==0?@"off":@"on"]];
     nameLabel.text = device.deviceName;
-    roomLabel.text = device.instructionName;
+    roomLabel.text = [device.locationName isEqualToString:@""]?@"unspecified":device.locationName;
     signal.image = [UIImage imageNamed:device.rfStatus.intValue == -1?@"noconnection":[NSString stringWithFormat:@"signal%i",device.rfStatus.intValue]];
     [btn addTarget:self action:@selector(editDevice:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -455,6 +453,11 @@
 
 -(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
+#warning 这里要做测试
+    MyEDevice *device = _devices[indexPath.row];
+    if (device.typeId.intValue >= 2 && device.typeId.intValue <= 4) {
+        return NO;
+    }
     return YES;
 }
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -463,9 +466,7 @@
 -(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
     return YES;
 }
-//-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return UITableViewCellEditingStyleNone;
-//}
+
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath{
     MyEDevice *device = _devices[fromIndexPath.row];
     [_devices removeObject:device];

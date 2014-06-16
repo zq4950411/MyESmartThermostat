@@ -34,6 +34,7 @@
 		8C23AB2E1924BACF00821596 /* MyEQRScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C23AB2D1924BACF00821596 /* MyEQRScanViewController.m */; };
 		8C23AB301924BDB700821596 /* beep-beep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 8C23AB2F1924BDB700821596 /* beep-beep.aiff */; };
 		8C23AB331924C24600821596 /* MyEHouseAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C23AB321924C24600821596 /* MyEHouseAddViewController.m */; };
+		8C2AED49194E97CB0006154A /* MyEScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AED48194E97CB0006154A /* MyEScheduleCell.m */; };
 		8C6CB5411941C30C007EECEA /* UController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6CB53F1941C30C007EECEA /* UController.storyboard */; };
 		8C6CB5471941C5E6007EECEA /* MyEUCManualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB5461941C5E6007EECEA /* MyEUCManualViewController.m */; };
 		8C6CB54A1941C7D0007EECEA /* MyEUCInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB5491941C7D0007EECEA /* MyEUCInfo.m */; };
@@ -64,6 +65,10 @@
 		8CA0603A1908B46E0090A350 /* MyEControlBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA060391908B46E0090A350 /* MyEControlBtn.m */; };
 		8CA06043190912380090A350 /* MyESocketManualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA06042190912380090A350 /* MyESocketManualViewController.m */; };
 		8CA06046190912470090A350 /* MyESocketAutoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA06045190912470090A350 /* MyESocketAutoViewController.m */; };
+		8CA15903194F138C00495453 /* MyETerminalEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA15902194F138C00495453 /* MyETerminalEditViewController.m */; };
+		8CA15908194F13A600495453 /* MyETerminalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA15907194F13A600495453 /* MyETerminalsViewController.m */; };
+		8CA1590B194F13F300495453 /* MyESettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA1590A194F13F300495453 /* MyESettingsViewController.m */; };
+		8CA1590E194F141000495453 /* MyESettingsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA1590D194F141000495453 /* MyESettingsInfo.m */; };
 		8CA52F9A192307E800D40EDD /* Event.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CA52F98192307E800D40EDD /* Event.storyboard */; };
 		8CA52F9D192318A500D40EDD /* MyEEventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52F9C192318A500D40EDD /* MyEEventListViewController.m */; };
 		8CA52FA319231A0D00D40EDD /* MyEEventConditionEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA219231A0D00D40EDD /* MyEEventConditionEditViewController.m */; };
@@ -313,10 +318,8 @@
 		C3FDB7CC18FA672E009B423D /* MyEDelayTimeSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB78018FA672D009B423D /* MyEDelayTimeSetViewController.m */; };
 		C3FDB7CD18FA672E009B423D /* MyESwitchAutoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB78218FA672D009B423D /* MyESwitchAutoViewController.m */; };
 		C3FDB7CE18FA672E009B423D /* MyESwitchEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB78418FA672D009B423D /* MyESwitchEditViewController.m */; };
-		C3FDB7CF18FA672E009B423D /* MyESwitchElecInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB78618FA672D009B423D /* MyESwitchElecInfoViewController.m */; };
 		C3FDB7D018FA672E009B423D /* MyESwitchManualControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB78818FA672D009B423D /* MyESwitchManualControlViewController.m */; };
 		C3FDB7D118FA672E009B423D /* MyESwitchScheduleSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB78A18FA672D009B423D /* MyESwitchScheduleSettingViewController.m */; };
-		C3FDB7D218FA672E009B423D /* MyESwitchScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB78C18FA672D009B423D /* MyESwitchScheduleViewController.m */; };
 		C3FDB7D618FA7F65009B423D /* ServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7D418FA7F65009B423D /* ServerViewController.m */; };
 		C3FDB7D718FA7F65009B423D /* ServerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB7D518FA7F65009B423D /* ServerViewController.xib */; };
 		C3FDB80418FA82AE009B423D /* MyEAccountData.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB7DA18FA82AE009B423D /* MyEAccountData.m */; };
@@ -412,6 +415,8 @@
 		8C23AB2F1924BDB700821596 /* beep-beep.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "beep-beep.aiff"; sourceTree = "<group>"; };
 		8C23AB311924C24600821596 /* MyEHouseAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEHouseAddViewController.h; sourceTree = "<group>"; };
 		8C23AB321924C24600821596 /* MyEHouseAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEHouseAddViewController.m; sourceTree = "<group>"; };
+		8C2AED47194E97CB0006154A /* MyEScheduleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEScheduleCell.h; sourceTree = "<group>"; };
+		8C2AED48194E97CB0006154A /* MyEScheduleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEScheduleCell.m; sourceTree = "<group>"; };
 		8C6CB5401941C30C007EECEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = UController.storyboard; sourceTree = "<group>"; };
 		8C6CB5451941C5E6007EECEA /* MyEUCManualViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUCManualViewController.h; sourceTree = "<group>"; };
 		8C6CB5461941C5E6007EECEA /* MyEUCManualViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUCManualViewController.m; sourceTree = "<group>"; };
@@ -467,6 +472,14 @@
 		8CA06042190912380090A350 /* MyESocketManualViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketManualViewController.m; sourceTree = "<group>"; };
 		8CA06044190912470090A350 /* MyESocketAutoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESocketAutoViewController.h; sourceTree = "<group>"; };
 		8CA06045190912470090A350 /* MyESocketAutoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketAutoViewController.m; sourceTree = "<group>"; };
+		8CA15901194F138C00495453 /* MyETerminalEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETerminalEditViewController.h; sourceTree = "<group>"; };
+		8CA15902194F138C00495453 /* MyETerminalEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETerminalEditViewController.m; sourceTree = "<group>"; };
+		8CA15906194F13A600495453 /* MyETerminalsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyETerminalsViewController.h; sourceTree = "<group>"; };
+		8CA15907194F13A600495453 /* MyETerminalsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyETerminalsViewController.m; sourceTree = "<group>"; };
+		8CA15909194F13F300495453 /* MyESettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESettingsViewController.h; sourceTree = "<group>"; };
+		8CA1590A194F13F300495453 /* MyESettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESettingsViewController.m; sourceTree = "<group>"; };
+		8CA1590C194F141000495453 /* MyESettingsInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESettingsInfo.h; sourceTree = "<group>"; };
+		8CA1590D194F141000495453 /* MyESettingsInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESettingsInfo.m; sourceTree = "<group>"; };
 		8CA52F99192307E800D40EDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Event.storyboard; sourceTree = "<group>"; };
 		8CA52F9B192318A500D40EDD /* MyEEventListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventListViewController.h; sourceTree = "<group>"; };
 		8CA52F9C192318A500D40EDD /* MyEEventListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventListViewController.m; sourceTree = "<group>"; };
@@ -931,14 +944,10 @@
 		C3FDB78218FA672D009B423D /* MyESwitchAutoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESwitchAutoViewController.m; sourceTree = "<group>"; };
 		C3FDB78318FA672D009B423D /* MyESwitchEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESwitchEditViewController.h; sourceTree = "<group>"; };
 		C3FDB78418FA672D009B423D /* MyESwitchEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESwitchEditViewController.m; sourceTree = "<group>"; };
-		C3FDB78518FA672D009B423D /* MyESwitchElecInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESwitchElecInfoViewController.h; sourceTree = "<group>"; };
-		C3FDB78618FA672D009B423D /* MyESwitchElecInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESwitchElecInfoViewController.m; sourceTree = "<group>"; };
 		C3FDB78718FA672D009B423D /* MyESwitchManualControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESwitchManualControlViewController.h; sourceTree = "<group>"; };
 		C3FDB78818FA672D009B423D /* MyESwitchManualControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESwitchManualControlViewController.m; sourceTree = "<group>"; };
 		C3FDB78918FA672D009B423D /* MyESwitchScheduleSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESwitchScheduleSettingViewController.h; sourceTree = "<group>"; };
 		C3FDB78A18FA672D009B423D /* MyESwitchScheduleSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESwitchScheduleSettingViewController.m; sourceTree = "<group>"; };
-		C3FDB78B18FA672D009B423D /* MyESwitchScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESwitchScheduleViewController.h; sourceTree = "<group>"; };
-		C3FDB78C18FA672D009B423D /* MyESwitchScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESwitchScheduleViewController.m; sourceTree = "<group>"; };
 		C3FDB7D318FA7F65009B423D /* ServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerViewController.h; sourceTree = "<group>"; };
 		C3FDB7D418FA7F65009B423D /* ServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerViewController.m; sourceTree = "<group>"; };
 		C3FDB7D518FA7F65009B423D /* ServerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerViewController.xib; sourceTree = "<group>"; };
@@ -2114,6 +2123,14 @@
 				8C13F4831947EF2400B52913 /* MyETimeZoneViewController.m */,
 				8C13F4851947EF8300B52913 /* MyEHouseUsefullViewController.h */,
 				8C13F4861947EF8300B52913 /* MyEHouseUsefullViewController.m */,
+				8CA15901194F138C00495453 /* MyETerminalEditViewController.h */,
+				8CA15902194F138C00495453 /* MyETerminalEditViewController.m */,
+				8CA15906194F13A600495453 /* MyETerminalsViewController.h */,
+				8CA15907194F13A600495453 /* MyETerminalsViewController.m */,
+				8CA15909194F13F300495453 /* MyESettingsViewController.h */,
+				8CA1590A194F13F300495453 /* MyESettingsViewController.m */,
+				8CA1590C194F141000495453 /* MyESettingsInfo.h */,
+				8CA1590D194F141000495453 /* MyESettingsInfo.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -2185,14 +2202,12 @@
 				C3FDB78218FA672D009B423D /* MyESwitchAutoViewController.m */,
 				C3FDB78318FA672D009B423D /* MyESwitchEditViewController.h */,
 				C3FDB78418FA672D009B423D /* MyESwitchEditViewController.m */,
-				C3FDB78518FA672D009B423D /* MyESwitchElecInfoViewController.h */,
-				C3FDB78618FA672D009B423D /* MyESwitchElecInfoViewController.m */,
 				C3FDB78718FA672D009B423D /* MyESwitchManualControlViewController.h */,
 				C3FDB78818FA672D009B423D /* MyESwitchManualControlViewController.m */,
 				C3FDB78918FA672D009B423D /* MyESwitchScheduleSettingViewController.h */,
 				C3FDB78A18FA672D009B423D /* MyESwitchScheduleSettingViewController.m */,
-				C3FDB78B18FA672D009B423D /* MyESwitchScheduleViewController.h */,
-				C3FDB78C18FA672D009B423D /* MyESwitchScheduleViewController.m */,
+				8C2AED47194E97CB0006154A /* MyEScheduleCell.h */,
+				8C2AED48194E97CB0006154A /* MyEScheduleCell.m */,
 			);
 			path = PowerSwitch;
 			sourceTree = "<group>";
@@ -2463,7 +2478,6 @@
 				C3F61AFE18E1154200DEE477 /* SBJsonStreamParser.m in Sources */,
 				8C13F4701946DA0400B52913 /* ASIS3BucketRequest.m in Sources */,
 				C3CB5E971936DAA10043440C /* MyEAlert.m in Sources */,
-				C3FDB7D218FA672E009B423D /* MyESwitchScheduleViewController.m in Sources */,
 				C3FDB50F18FA62A0009B423D /* ServerUtils.m in Sources */,
 				8C23AB331924C24600821596 /* MyEHouseAddViewController.m in Sources */,
 				C3FDB6F318FA640B009B423D /* RegistGatewayViewController.m in Sources */,
@@ -2509,6 +2523,7 @@
 				C327314419454C410010E893 /* MyEDashboardViewController.m in Sources */,
 				C3194B9D18E299EA006E3ABE /* ELineChartDataModel.m in Sources */,
 				C3FDB50E18FA62A0009B423D /* MyEUtil.m in Sources */,
+				8CA15903194F138C00495453 /* MyETerminalEditViewController.m in Sources */,
 				C3FDB70418FA6460009B423D /* MoreViewController.m in Sources */,
 				C3FDB80E18FA82AE009B423D /* MyEStaycationItemData.m in Sources */,
 				C3AE7F4418E14D99000AA5FC /* UIImage+Additional.m in Sources */,
@@ -2555,6 +2570,7 @@
 				C3FB3BD9192DC6460039D052 /* MyEWeeklyScheduleViewController.m in Sources */,
 				8C6CB5631945514B007EECEA /* MyEUCChannelSetViewController.m in Sources */,
 				8CA060341908A3BF0090A350 /* SUNSlideSwitchView.m in Sources */,
+				8CA1590B194F13F300495453 /* MyESettingsViewController.m in Sources */,
 				8C6CB55C194550D2007EECEA /* MyEUCTimeSetViewController.m in Sources */,
 				C3FB3BCE192DC6460039D052 /* MyEPeriodInforDoughnutView.m in Sources */,
 				C3FDB7CD18FA672E009B423D /* MyESwitchAutoViewController.m in Sources */,
@@ -2583,7 +2599,6 @@
 				B2588D5017B09B9D007ED13C /* OpenUDID.m in Sources */,
 				B2588D6217B09B9D007ED13C /* SVProgressHUD.m in Sources */,
 				C3AE7F4018E14D99000AA5FC /* MZFormSheetBackgroundWindowViewController.m in Sources */,
-				C3FDB7CF18FA672E009B423D /* MyESwitchElecInfoViewController.m in Sources */,
 				8CA52FA319231A0D00D40EDD /* MyEEventConditionEditViewController.m in Sources */,
 				C30DBF3A194018DF0063AC6D /* DragTableGestureObserver_ot.m in Sources */,
 				B2588D8A17B09B9D007ED13C /* Services.m in Sources */,
@@ -2651,12 +2666,14 @@
 				C3FDB81418FA82AE009B423D /* MyEThermostatPeriodData.m in Sources */,
 				C3FDB50D18FA62A0009B423D /* MyEUniversal.m in Sources */,
 				C3CB5E89193446A00043440C /* MyEVacationEditFromStaycationViewController.m in Sources */,
+				8C2AED49194E97CB0006154A /* MyEScheduleCell.m in Sources */,
 				B25B79DE17D198A9009F4E84 /* QRCodeGenerator.m in Sources */,
 				C33587D4190452F300959C94 /* MyEHomePanelViewController.m in Sources */,
 				B25B79DF17D198A9009F4E84 /* qrencode.c in Sources */,
 				B25B79E017D198A9009F4E84 /* qrinput.c in Sources */,
 				8C13F4711946DA0400B52913 /* ASIS3ObjectRequest.m in Sources */,
 				C30DBF3D194018DF0063AC6D /* UITableView+DragLoad.m in Sources */,
+				8CA1590E194F141000495453 /* MyESettingsInfo.m in Sources */,
 				8C13F48E19482A6600B52913 /* WTReParser.m in Sources */,
 				C3FDB7CC18FA672E009B423D /* MyEDelayTimeSetViewController.m in Sources */,
 				8C13F45E1946DA0400B52913 /* ASIDataCompressor.m in Sources */,
@@ -2672,6 +2689,7 @@
 				B25B79E317D198A9009F4E84 /* split.c in Sources */,
 				8C82DCD51930A4B5006A10E0 /* MyEEventAddOrEditViewController.m in Sources */,
 				C3FDB70918FA652A009B423D /* MyEAppDelegate.m in Sources */,
+				8CA15908194F13A600495453 /* MyETerminalsViewController.m in Sources */,
 				C3F61B2018E11DAE00DEE477 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				C39A517E1946A10600801835 /* MyEHomePanelData.m in Sources */,
 				C3CB5E8A193446A00043440C /* MyEVacationMasterViewController.m in Sources */,

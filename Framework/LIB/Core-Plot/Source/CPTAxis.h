@@ -2,7 +2,6 @@
 #import "CPTLayer.h"
 #import "CPTTextStyle.h"
 
-/// @file
 
 @class CPTAxis;
 @class CPTAxisLabel;
@@ -184,9 +183,9 @@ typedef NS_ENUM (NSInteger, CPTAxisLabelingPolicy) {
 #pragma mark -
 
 @interface CPTAxis : CPTLayer
-
 /// @name Axis
 /// @{
+@property (nonatomic, assign) id <CPTAxisDelegate> delegate;
 @property (nonatomic, readwrite, copy) CPTLineStyle *axisLineStyle;
 @property (nonatomic, readwrite, assign) CPTCoordinate coordinate;
 @property (nonatomic, readwrite, assign) NSDecimal labelingOrigin;

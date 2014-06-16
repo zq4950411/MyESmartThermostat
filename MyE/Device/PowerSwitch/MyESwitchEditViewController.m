@@ -18,6 +18,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _room = [[MyERoom alloc] init];
 	self.nameTextField.text = self.device.deviceName;
     self.roomLabel.text = [self.device.locationName isEqualToString:@""]?@"unspecified":self.device.locationName;
     self.terminalID.text = self.device.tid;

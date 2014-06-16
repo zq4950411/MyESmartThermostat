@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MyEScheduleCell.h"
 @interface MyESocketAutoViewController : UITableViewController<MyEDataLoaderDelegate>
 @property (nonatomic, strong) MyEDevice *device;
 @property (nonatomic, strong) MyESocketSchedules *schedules;

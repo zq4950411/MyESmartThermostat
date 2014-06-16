@@ -146,11 +146,11 @@
     }
     if ([name isEqualToString:@"delaySave"]) {
         if (![string isEqualToString:@"fail"]) {
-//            self.timeDelaySetLabel.text = [NSString stringWithFormat:@"%im set",_delayTime];
-//            if (self.socketControlInfo.switchStatus == 1) {
-//                self.timeDelayLabel.text = [NSString stringWithFormat:@"%im left",_delayTime];
-//            }else
-//                self.timeDelayLabel.text = @"";
+            self.timeDelaySetLabel.text = [NSString stringWithFormat:@"%im set",_delayTime];
+            if (self.socketControlInfo.switchStatus == 1) {
+                self.timeDelayLabel.text = [NSString stringWithFormat:@"%im left",_delayTime];
+            }else
+                self.timeDelayLabel.text = @"";
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];
     }

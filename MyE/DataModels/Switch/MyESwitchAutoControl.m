@@ -17,7 +17,6 @@
 }
 -(MyESwitchAutoControl *)initWithDic:(NSDictionary *)dic{
     if (self = [super init]) {
-        self.enable = [dic[@"enable"] intValue];
         self.numChannel = [dic[@"numChannel"] intValue];
         NSMutableArray *schedules = [NSMutableArray array];
         NSArray *array = dic[@"SSList"];
@@ -32,7 +31,17 @@
 @end
 
 @implementation MyESwitchSchedule
-
+-(id)init{
+    if (self = [super init]) {
+        self.scheduleId = 0;
+        self.onTime = @"12:00";
+        self.offTime = @"12:30";
+        self.channels = [NSMutableArray array];
+        self.weeks = [NSMutableArray array];
+        self.runFlag = 1;   //默认是启用的
+    }
+    return self;
+}
 -(MyESwitchSchedule *)initWithString:(NSString *)string{
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     NSDictionary *dic = [parser objectWithString:string];
@@ -60,6 +69,7 @@
                 [weekArray addObject:j];
             }
             self.weeks = weekArray;
+            self.runFlag = [dic[@"runFlag"] intValue];
         }
         return self;
     }
@@ -70,8 +80,9 @@
     copy.scheduleId = self.scheduleId;
     copy.onTime = self.onTime;
     copy.offTime = self.offTime;
-    copy.channels = self.channels;
-    copy.weeks = self.weeks;
+    copy.channels = [self.channels copy];
+    copy.weeks = [self.weeks copy];
+    copy.runFlag = self.runFlag;
     return copy;
 }
 @end

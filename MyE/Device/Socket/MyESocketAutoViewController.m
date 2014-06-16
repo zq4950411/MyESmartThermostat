@@ -69,22 +69,12 @@
     return [self.schedules.schedules count];
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    MyEScheduleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"scheduleCell" forIndexPath:indexPath];
     MyESocketSchedule *schedule = self.schedules.schedules[indexPath.row];
-    NSLog(@"%@",schedule);
-    UILabel *lblTime = (UILabel *)[cell.contentView viewWithTag:200];
-    UISwitch *controlSwitch = (UISwitch *)[cell.contentView viewWithTag:201];
     UIView *view = (UIView *)[cell.contentView viewWithTag:999];
-    lblTime.text = [NSString stringWithFormat:@"%@-%@",schedule.onTime,schedule.offTime];
-    [controlSwitch setOn:schedule.runFlag animated:YES];
-    for (UILabel *lbl in cell.contentView.subviews) {
-        if ([lbl isKindOfClass:[UILabel class]]) {
-            if ([schedule.weeks containsObject:@(lbl.tag - 100)]) {
-                lbl.textColor = [UIColor redColor];
-            }else
-                lbl.textColor = [UIColor blackColor];
-        }
-    }
+    cell.time = [NSString stringWithFormat:@"%@-%@",schedule.onTime,schedule.offTime];
+    cell.isOn = schedule.runFlag == 1?YES:NO;
+    cell.weeks = schedule.weeks;
     view.layer.cornerRadius = 4;
     return cell;
 }

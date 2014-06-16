@@ -26,24 +26,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (!IS_IOS6) {
-        for (UIButton *btn in self.view.subviews) {
-            if ([btn isKindOfClass:[UIButton class]]) {
-                [btn setBackgroundImage:[UIImage imageNamed:@"detailBtn"] forState:UIControlStateNormal];
-                [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
-            }
-        }
-    }else{
-        for (UIButton *btn in self.view.subviews) {
-            if ([btn isKindOfClass:[UIButton class]]) {
-                [btn setBackgroundImage:[UIImage imageNamed:@"detailBtn-ios6"] forState:UIControlStateNormal];
-                [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
-            }
+    NSString *string = IS_IOS6?@"detailBtn-ios6":@"detailBtn";
+    for (UIButton *btn in self.view.subviews) {
+        if ([btn isKindOfClass:[UIButton class]]) {
+            [btn setBackgroundImage:[UIImage imageNamed:string] forState:UIControlStateNormal];
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
         }
     }
-
+    if (self.control.numChannel == 1) {
+        [self.channelSeg removeSegmentAtIndex:1 animated:YES];
+        [self.channelSeg removeSegmentAtIndex:2 animated:YES];
+    }else if(self.control.numChannel == 2){
+        [self.channelSeg removeSegmentAtIndex:2 animated:YES];
+    }
     self.channelSeg.mydelegate = self;
     self.weekSeg.mydelegate = self;
+    
+    _scheduleNew = [self.schedule copy];
+    [self refreshSegment];
+    [self.startBtn setTitle:_schedule.onTime forState:UIControlStateNormal];
+    [self.endBtn setTitle:_schedule.offTime forState:UIControlStateNormal];
+    
     NSMutableArray *array1 = [NSMutableArray array];
     NSMutableArray *array2 = [NSMutableArray array];
     for (int i = 0; i < 24; i++) {
@@ -60,24 +63,6 @@
     }
     _headTimeArray = array1;
     _tailTimeArray = array2;
-    
-    _scheduleNew = [[MyESwitchSchedule alloc] init];
-    if (self.actionType == 1) {  //新增时段
-        self.schedule = [[MyESwitchSchedule alloc] init];
-        [self.startBtn setTitle:@"12:00" forState:UIControlStateNormal];
-        [self.endBtn setTitle:@"12:30" forState:UIControlStateNormal];
-    }else{
-        _scheduleNew = [_schedule copy];
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-        [self.startBtn setTitle:_schedule.onTime forState:UIControlStateNormal];
-        [self.endBtn setTitle:_schedule.offTime forState:UIControlStateNormal];
-        [self refreshSegment];
-        _initArray = @[self.startBtn.currentTitle,self.endBtn.currentTitle,[self changeIndexSetToArrayWithIndexSet:self.channelSeg.selectedSegmentIndexes],[self changeIndexSetToArrayWithIndexSet:self.weekSeg.selectedSegmentIndexes]];   //这里进行初始化，作为比较的基准
-    }
-}
--(void)viewWillDisappear:(BOOL)animated{
-    MyESwitchAutoViewController *vc = self.navigationController.childViewControllers[0];
-    vc.jumpFromSubView = YES;
 }
 - (void)didReceiveMemoryWarning
 {
@@ -96,7 +81,8 @@
 }
 -(void)uploadInfoToServer{
     // 估计这里会有问题，因为数组没有转变为字符串(特别注意这里是怎么样转化为字符串的)
-    [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:[NSString stringWithFormat:@"%@?houseId=%li&tId=%@&deviceId=%i&scheduleId=%li&onTime=%@&offTime=%@&channels=%@&weeks=%@&action=%li",
+    //这里保存时默认是启用进程的
+    [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:[NSString stringWithFormat:@"%@?houseId=%li&tId=%@&deviceId=%i&scheduleId=%li&onTime=%@&offTime=%@&channels=%@&weeks=%@&runFlag=1&action=%li",
                                                            GetRequst(URL_FOR_SWITCH_SCHEDULE_SAVE),
                                                            (long)MainDelegate.houseData.houseId, self.device.tid,[self.device.deviceId intValue],
                                                            (long)_scheduleNew.scheduleId,
@@ -149,13 +135,6 @@
     }
     return YES;
 }
--(void)changeBarBtnEnable{
-    NSArray *array = @[self.startBtn.currentTitle,self.endBtn.currentTitle,[self changeIndexSetToArrayWithIndexSet:self.channelSeg.selectedSegmentIndexes],[self changeIndexSetToArrayWithIndexSet:self.weekSeg.selectedSegmentIndexes]];
-    if (![array isEqualToArray:_initArray]) {
-        self.navigationItem.rightBarButtonItem.enabled = YES;
-    }else
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-}
 -(void)refreshSegment{
     NSMutableIndexSet *channelIndex = [NSMutableIndexSet indexSet];
     NSMutableIndexSet *weekIndex = [NSMutableIndexSet indexSet];
@@ -193,8 +172,6 @@
         [MyEUtil showMessageOn:nil withMessage:@"Start time must be less than the end time"];
         return;
     }
-    _scheduleNew.onTime = self.startBtn.currentTitle;
-    _scheduleNew.offTime = self.endBtn.currentTitle;
     _scheduleNew.channels = [self changeIndexSetToArrayWithIndexSet:self.channelSeg.selectedSegmentIndexes];
     _scheduleNew.weeks = [self changeIndexSetToArrayWithIndexSet:self.weekSeg.selectedSegmentIndexes];
     if ([_scheduleNew.channels count] == 0) {
@@ -205,19 +182,16 @@
         [MyEUtil showMessageOn:nil withMessage:@"Please select at least one day"];
         return;
     }
-    if (![self isValid]) {
-        [MyEUtil showMessageOn:nil withMessage:@"Time period overlap, please adjust time."];
-        return;
-    }
-    if (self.actionType == 1) {
-        _scheduleNew.scheduleId = 0;
-    }
+//    if (![self isValid]) {
+//        [MyEUtil showMessageOn:nil withMessage:@"Time period overlap, please adjust time."];
+//        return;
+//    }
     [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:[NSString stringWithFormat:@"%@?houseId=%li&tId=%@&channels=%@&action=2",GetRequst(URL_FOR_SWITCH_TIME_DELAY),(long)MainDelegate.houseData.houseId, self.device.tid,[_scheduleNew.channels componentsJoinedByString:@","]] andName:@"check"];
 }
 
 #pragma mark - MultiSelectSegmentedControlDelegate methods
 -(void)multiSelect:(MultiSelectSegmentedControl*) multiSelecSegmendedControl didChangeValue:(BOOL) value atIndex: (NSUInteger) index{
-
+    
     NSIndexSet *anIndexSet;
     if (multiSelecSegmendedControl == self.channelSeg) {
         anIndexSet = self.channelSeg.selectedSegmentIndexes;
@@ -227,23 +201,20 @@
     if ([anIndexSet count] == 0) {
         [MyEUtil showMessageOn:self.view withMessage:multiSelecSegmendedControl == self.channelSeg?@"Must select at least one channel":@"Must select at least one day"];
     }
-    if (self.actionType == 2) {
-        [self changeBarBtnEnable];
-    }
 }
 #pragma mark - IQActionSheetPickerView delegate methods
 -(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles{
     if (pickerView.tag == 1) {
         [self.startBtn setTitle:[titles componentsJoinedByString:@":"] forState:UIControlStateNormal];
+        _scheduleNew.onTime = [titles componentsJoinedByString:@":"];
     }else{
         [self.endBtn setTitle:[titles componentsJoinedByString:@":"] forState:UIControlStateNormal];
-    }
-    if (self.actionType == 2) {
-        [self changeBarBtnEnable];
+        _scheduleNew.offTime = [titles componentsJoinedByString:@":"];
     }
 }
 #pragma mark - url delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    NSLog(@"receive string is %@",string);
     [HUD hide:YES];
     if ([name isEqualToString:@"check"]) {
         NSLog(@"check string is %@",string);
@@ -274,19 +245,15 @@
         }
     }
     if ([name isEqualToString:@"scheduleEdit"]) {
-        NSLog(@"scheduleEdit string is %@",string);
-        if (self.actionType == 1) {
-            if ([string length]>0) {
-                self.schedule.scheduleId = _scheduleNew.scheduleId;
-                self.schedule.onTime = _scheduleNew.onTime;
-                self.schedule.offTime = _scheduleNew.offTime;
-                _schedule.weeks = _scheduleNew.weeks;
-                _schedule.channels = _scheduleNew.channels;
-
+        if (string.intValue == -506) {
+            [MyEUtil showMessageOn:nil withMessage:@"Time period overlap, please adjust time."];
+            return;
+        }
+        if (self.actionType == 1) {  //新增进程
+            if (![string isEqualToString:@"fail"]) {
                 MyESwitchSchedule *schedule = [[MyESwitchSchedule alloc] initWithString:string];
-                _schedule.scheduleId = schedule.scheduleId;
-                [self.control.SSList addObject:self.schedule];
-
+                _scheduleNew.scheduleId = schedule.scheduleId;
+                [self.control.SSList addObject:_scheduleNew];
                 [self.navigationController popViewControllerAnimated:YES];
                 NSLog(@"Add new period successfully");
             } else {
@@ -294,11 +261,11 @@
             }
         }else{
             if([string isEqualToString:@"OK"]){
-                self.schedule.scheduleId = _scheduleNew.scheduleId;
-                self.schedule.onTime = _scheduleNew.onTime;
-                self.schedule.offTime = _scheduleNew.offTime;
-                _schedule.weeks = _scheduleNew.weeks;
-                _schedule.channels = _scheduleNew.channels;
+                if ([self.control.SSList containsObject:self.schedule]) {
+                    NSInteger i = [self.control.SSList indexOfObject:self.schedule];
+                    [self.control.SSList removeObject:self.schedule];
+                    [self.control.SSList insertObject:_scheduleNew atIndex:i];
+                }
                 [self.navigationController popViewControllerAnimated:YES];
                 NSLog(@"Edit period successfully");
             }
