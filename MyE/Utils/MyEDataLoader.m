@@ -182,7 +182,7 @@
  */
 - (void)_processHttpRespondForString:(NSString *)respondText {
     NSInteger respondInt = [respondText intValue];// 从字符串开始寻找整数，如果碰到字母就结束，如果字符串不能转换成整数，那么此转换结果就是0
-    if (respondInt == -999 || respondInt == -998 || respondInt == -994 ) {
+    if ( respondInt == -994 ) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         MyEHouseListViewController *hlvc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
         hlvc.accountData = MainDelegate.accountData;
@@ -195,12 +195,8 @@
         //获取当前正在操作的house的name
         NSString *currentHouseName = MainDelegate.houseData.houseName;
         NSString *message;
-        
-        if (respondInt == -999) {
-            message = [NSString stringWithFormat:@"The network of house %@ is disconnected.", currentHouseName];
-        } else if (respondInt == -994) {
-            message = [NSString stringWithFormat:@"The gateway of house %@ is disconnected.", currentHouseName];
-        }
+
+        message = [NSString stringWithFormat:@"The gateway of house %@ is disconnected.", currentHouseName];
         
         [hlvc showAutoDisappearAlertWithTile:@"Alert" message:message delay:10.0f];
     }
@@ -210,6 +206,14 @@
         lvc.accountData = MainDelegate.accountData;
         [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
         MainDelegate.window.rootViewController = lvc;// 用Login VC作为程序的rootViewController
+        [SVProgressHUD showErrorWithStatus:@"Please sign in."];
+    }
+    if (respondInt == -999 ) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
+        [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+        MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
+        [SVProgressHUD showErrorWithStatus:@"Device is disconnected."];
     }
 }
 @end

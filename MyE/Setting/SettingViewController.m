@@ -74,7 +74,8 @@
             [SVProgressHUD dismiss];
             [SVProgressHUD showSuccessWithStatus:@"Success"];
             
-            [self.gateway.smartDevices safeObjectAtIndex:currentDeleteIndex];
+//            [self.gateway.smartDevices safeObjectAtIndex:currentDeleteIndex];
+            [self.gateway.smartDevices safeRemovetAtIndex:currentDeleteIndex];
             [self.tableView reloadData];
         }
         else if ([@"2" isEqualToString:string])
@@ -171,7 +172,8 @@
             [SVProgressHUD dismiss];
             [SVProgressHUD showSuccessWithStatus:@"Success"];
             
-            [self.gateway.smartDevices safeObjectAtIndex:currentDeleteIndex];
+//            [self.gateway.smartDevices safeObjectAtIndex:currentDeleteIndex];
+            [self.gateway.smartDevices safeRemovetAtIndex:currentDeleteIndex];
             [self.tableView reloadData];
         }
         else if ([@"2" isEqualToString:jsonString])

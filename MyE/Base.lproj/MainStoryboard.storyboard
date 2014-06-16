@@ -950,7 +950,7 @@
         <!--MyE Home Panel View Controller - Home-->
         <scene sceneID="zzm-X7-TO9">
             <objects>
-                <viewController id="liH-3f-BIt" customClass="MyEHomePanelViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomePanel" id="liH-3f-BIt" customClass="MyEHomePanelViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jhp-Dh-XiB"/>
                         <viewControllerLayoutGuide type="bottom" id="yEr-nR-RLI"/>

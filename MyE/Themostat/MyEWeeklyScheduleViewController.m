@@ -763,7 +763,9 @@
     UIGraphicsEndImageContext();
     [self.resetButton setBackgroundImage:colorImage forState:UIControlStateHighlighted];
     
-    // 用一个image做Disabled背景
+    
+    /* 暂时不用吧Reset 按钮在Disabled时置灰了。 如果需要置灰， 就启用下面的语句
+     // 用一个image做Disabled背景
     UIGraphicsBeginImageContext(self.resetButton.bounds.size);
     [[UIColor colorWithWhite:0.8 alpha:1.0] setFill];
     bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.resetButton.bounds.origin.x + self.resetButton.bounds.size.width/2.0, self.resetButton.bounds.origin.y) radius:self.resetButton.bounds.size.width/2.0f startAngle:0 endAngle:M_PI clockwise:YES];
@@ -771,6 +773,7 @@
     colorImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     [self.resetButton setBackgroundImage:colorImage forState:UIControlStateDisabled];
+     */
     
     // 用一个image做Normal背景
     UIGraphicsBeginImageContext(self.resetButton.bounds.size);

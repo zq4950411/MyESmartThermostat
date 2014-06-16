@@ -57,8 +57,8 @@
 
         
         self.layer.masksToBounds = NO;
-        self.layer.shadowRadius = 1;
-        self.layer.shadowOpacity = 0.5;
+//        self.layer.shadowRadius = 1;// 现在不要阴影
+//        self.layer.shadowOpacity = 0.5;// 现在不要阴影
         [view.superview addSubview:self];
         
         
@@ -160,11 +160,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self hideDropDown:viewSender];
-    self.releseMenu();
     NSLog(@"indexPath.row=%d", indexPath.row);
     if(self.function)
         self.function(indexPath.row);
+    [self hideDropDown:viewSender];
+    self.releseMenu();
+
     
 }
 @end
