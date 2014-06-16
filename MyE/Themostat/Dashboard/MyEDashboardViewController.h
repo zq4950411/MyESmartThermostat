@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 MyEnergy Domain. All rights reserved.
 //
 #define ANIMATION_DURATION 0.80f
-#define LOAD_DELAY 2.0f
+#define LOAD_DELAY 1.0f
 
 #import <UIKit/UIKit.h>
 #import "MyEDataLoader.h"
@@ -66,7 +66,6 @@ CDCircleDelegate, CDCircleDataSource> {
 @property (weak, nonatomic) IBOutlet UIView *fanControlToolbarView;
 
 
-@property (weak, nonatomic) IBOutlet UILabel *activeProgramLabel;
 @property (weak, nonatomic) IBOutlet UILabel *holdRunLabel;
 
 

@@ -28,7 +28,7 @@
 
 // 定义圆环view外接矩形的左上角远点左边
 #define CIRCLE_ORIGIN_X 40
-#define CIRCLE_ORIGIN_Y 75
+#define CIRCLE_ORIGIN_Y 65
 #define CIRCLE_DIAMETER 240
 
 @interface MyEDashboardViewController ()
@@ -41,7 +41,7 @@
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
 - (BOOL)_processHttpRespondForString:(NSString *)respondText;
 - (void)_holdRunButtionAction;
-- (void)_addHoldRunButtonForType:(NSInteger)type andHold:(HoldType)hold;
+- (void)_redrawHoldRunButton;
 
 
 #pragma mark 触摸圆环使用的变量
@@ -570,25 +570,15 @@
         // 如果是在关闭状态，setpoint就设置为不可访问
         [self.circle setNeedsLayout];
         self.selectedSegment = theDashboardData.setpoint;
+        //	System mode为OFF时，圆环中间的按钮不能再接受点击事件，同时，圆形按钮上的文字更改为OFF（不再显示setpoint）
         if (theDashboardData.controlMode ==5)
         {
             self.circle.userInteractionEnabled = NO;
-
-            self.holdRunButton.hidden = YES;
             self.holdRunLabel.hidden = YES;
-            self.holdRunButton.userInteractionEnabled = NO;
-            
-            self.activeProgramLabel.text = @"None";
         }
         else {
             self.circle.userInteractionEnabled = YES;
-            [self.holdRunButton setTitle:[NSString stringWithFormat:@"%d\u00B0F", theDashboardData.setpoint] forState:UIControlStateNormal];
-
-            self.holdRunButton.hidden = NO;
             self.holdRunLabel.hidden = NO;
-            self.holdRunButton.userInteractionEnabled = YES;
-            
-            self.activeProgramLabel.text = theDashboardData.currentProgram;
         }
         
         //hold(isOvrried)分别对应0(Run), 1(Permanent Hold), 2(Temporary Hold)。
@@ -598,12 +588,9 @@
         }
         else
         {
-
             self.holdRunLabel.text = @"Press to Run";
         }
-        [self _addHoldRunButtonForType:theDashboardData.energyLeaver andHold:theDashboardData.isOvrried];
-        
-        
+        [self _redrawHoldRunButton];
         
         // 这里不需要在每次下载新数据时判定是否Remote NO，否则会产生一种情况：操作中变为Remote No的时候没有提示文字并返回House List，而是直接 disable掉控制面板了. 2012-05-29
         //[self setRemoteControlEnabled:[theDashboardData.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame];
@@ -700,8 +687,12 @@
 }
 
 // 0: 不显示是否节能blue  1:不节能(显示红色)red  2:节能(显示绿色叶子)green
--(void)_addHoldRunButtonForType:(NSInteger)type andHold:(HoldType)hold
+-(void)_redrawHoldRunButton
 {
+    NSInteger type= self.dashboardData.energyLeaver;
+    HoldType hold = self.dashboardData.isOvrried;
+    NSInteger controlMode = self.dashboardData.controlMode;
+    
     if (self.holdRunButton) {
         [self.holdRunButton removeFromSuperview];
         self.holdRunButton = Nil;
@@ -716,12 +707,29 @@
     self.holdRunButton = [UIButton buttonWithType:UIButtonTypeCustom];
     //    [self.holdRunButton setImage:[UIImage imageNamed:@"Micky.png"] forState:UIControlStateNormal];
     [self.holdRunButton addTarget:self action:@selector(_holdRunButtionAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i\u00B0F", self.selectedSegment] forState:UIControlStateNormal];
+    //	System mode为OFF时，圆环中间的按钮不能再接受点击事件，同时，圆形按钮上的文字更改为OFF（不再显示setpoint）
+    if (controlMode ==5)
+    {
+        self.holdRunButton.userInteractionEnabled = NO;
+        self.holdRunButton.enabled = NO;
+        [self.holdRunButton setTitle:@"Off" forState:UIControlStateNormal];
+        [self.holdRunButton setTitle:@"Off" forState:UIControlStateDisabled];
+        [self.holdRunButton setTitle:@"Off" forState:UIControlStateHighlighted];
+        
+    }
+    else {
+        [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i\u00B0F", self.selectedSegment] forState:UIControlStateNormal];
+        [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i\u00B0F", self.selectedSegment] forState:UIControlStateDisabled];
+        [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i\u00B0F", self.selectedSegment] forState:UIControlStateHighlighted];
+        self.holdRunButton.enabled = YES;
+        self.holdRunButton.userInteractionEnabled = YES;
+    }
+
     self.holdRunButton.frame = bounds;//    CGRectMake(100.0, 160.0, 120.0, 120.0);
     self.holdRunButton.clipsToBounds = YES;
     [self.holdRunButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.holdRunButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-    [self.holdRunButton.titleLabel setFont:[UIFont boldSystemFontOfSize:35]];
+    [self.holdRunButton.titleLabel setFont:[UIFont boldSystemFontOfSize:30]];
     
     self.holdRunButton.layer.cornerRadius = 60;//half of the width
 //    self.holdRunButton.layer.borderColor=[UIColor redColor].CGColor;
