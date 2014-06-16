@@ -48,9 +48,9 @@
         // Initialization code
         // Initialization code
         _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - 334, frame.size.width, 334)];
-        [_bottomView setBackgroundColor:[UIColor blackColor]];
+        [_bottomView setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.85]];
         [_bottomView setOpaque:NO];
-        [_bottomView setAlpha:0.75];
+        [_bottomView setAlpha:0.95];
         
         
         _typeOfEditing = ModeEditingViewTypeEditing;
@@ -282,9 +282,9 @@
         [thumbScrollView setIndicatorStyle:UIScrollViewIndicatorStyleWhite];
         
         //thumbScrollView设置边框和阴影
-        [[thumbScrollView layer] setCornerRadius:8];
+        [[thumbScrollView layer] setCornerRadius:0];// 现在扁平化， 不要圆角了
         [[thumbScrollView layer] setShadowOffset:CGSizeMake(2, 2)];
-        [[thumbScrollView layer] setShadowRadius:1];
+        [[thumbScrollView layer] setShadowRadius:0];// 现在扁平化， 不要圆角了
         [[thumbScrollView layer] setShadowOpacity:1];
         [[thumbScrollView layer] setShadowColor:[UIColor cyanColor].CGColor];
         

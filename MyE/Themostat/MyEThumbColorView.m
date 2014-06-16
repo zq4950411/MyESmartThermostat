@@ -27,7 +27,7 @@ float distanceBetweenPoints(CGPoint a, CGPoint b);
         [self setExclusiveTouch:YES];  // block other touches while dragging a thumb view
         _color = color;
         //UIView设置边框
-        [[self layer] setCornerRadius:5];
+        [[self layer] setCornerRadius:0];// 现在扁平化， 不要圆角了
         [[self layer] setBorderWidth:0.0];
         [[self layer] setBorderColor:[UIColor whiteColor].CGColor];
     }

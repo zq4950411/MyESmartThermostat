@@ -421,7 +421,7 @@
                                         <rect key="frame" x="270" y="5" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Edit" image="eidtBtn">
+                                        <state key="normal" title="Edit" image="editBtn">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -443,7 +443,7 @@
                                         <rect key="frame" x="106" y="80" width="110" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Apply">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -458,7 +458,7 @@
                                         <rect key="frame" x="106" y="135" width="110" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Reset">
                                             <color key="titleColor" red="0.27049604669999999" green="0.78431379800000001" blue="0.86315182609999996" alpha="1" colorSpace="deviceRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1762,7 +1762,7 @@
         <image name="Vacation01" width="45" height="45"/>
         <image name="Vacation02" width="45" height="45"/>
         <image name="add" width="30" height="30"/>
-        <image name="eidtBtn" width="30" height="30"/>
+        <image name="editBtn" width="30" height="30"/>
         <image name="pen" width="30" height="30"/>
         <image name="plus" width="30" height="30"/>
         <image name="tab-24hrs-schedule" width="30" height="30"/>

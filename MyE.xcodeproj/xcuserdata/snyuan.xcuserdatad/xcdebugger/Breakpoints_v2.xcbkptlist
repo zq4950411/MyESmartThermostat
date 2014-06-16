@@ -234,12 +234,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyE/Setting/SettingViewController.m"
-            timestampString = "424546147.884474"
+            timestampString = "424587867.097095"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "-didReceiveString:loaderName:userDataDictionary:"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
+            landmarkName = "-netFinish:withUserInfo:andURL:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
