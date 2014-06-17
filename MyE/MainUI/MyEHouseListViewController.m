@@ -17,7 +17,6 @@
 #import "MyEUtil.h"
 #import "SBJson.h"
 
-#import "RegistGatewayViewController.h"
 #import "ASDepthModalViewController.h"
 #import "HouseBlankView.h"
 #import "SWRevealViewController.h"
@@ -211,16 +210,16 @@
     }
     [prefs synchronize];
 }
--(void) registeGateway:(UIButton *) sender
-{
-    RegistGatewayViewController *reg = [[RegistGatewayViewController alloc] init];
-    [self.navigationController pushViewController:reg animated:YES];
-}
--(void) goToRegister
-{
-    RegistGatewayViewController *reg = [[RegistGatewayViewController alloc] init];
-    [self.navigationController pushViewController:reg animated:YES];
-}
+//-(void) registeGateway:(UIButton *) sender
+//{
+//    RegistGatewayViewController *reg = [[RegistGatewayViewController alloc] init];
+//    [self.navigationController pushViewController:reg animated:YES];
+//}
+//-(void) goToRegister
+//{
+//    RegistGatewayViewController *reg = [[RegistGatewayViewController alloc] init];
+//    [self.navigationController pushViewController:reg animated:YES];
+//}
 - (void)refreshAction
 {
     [self downloadModelFromServer];

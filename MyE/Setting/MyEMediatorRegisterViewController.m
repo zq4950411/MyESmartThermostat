@@ -13,7 +13,8 @@
 @interface MyEMediatorRegisterViewController (){
     NSInteger _houseId;
     NSArray *_data;
-    NSArray *_usefullHouses;
+    NSMutableArray *_usefullHouses;
+    MBProgressHUD *HUD;
 }
 
 @end
@@ -70,7 +71,7 @@
     NSIndexPath *houseIndex = [NSIndexPath indexPathForRow:0 inSection:1];
     UITableViewCell *houseCell = [self.tableView cellForRowAtIndexPath:houseIndex];
     if ([_usefullHouses count]) {
-        MyEHouseData *house = _usefullHouses[_selectHouseIndex];
+        MyESettingsHouse *house = _usefullHouses[_selectHouseIndex];
         _houseId = house.houseId;
         houseCell.detailTextLabel.text = house.houseName;
     }else{
@@ -81,33 +82,33 @@
     UITableViewCell *timeZoneCell = [self.tableView cellForRowAtIndexPath:timeZoneIndex];
     timeZoneCell.detailTextLabel.text = _data[_timeZone-1];
 }
--(void)getUsefullHouse{
-    NSMutableArray *array = [NSMutableArray array];
-    for (MyEHouseData *d in self.accountData.houseList) {
-        if ([d.mId isEqualToString:@""]) {
-            [array addObject:d];
-        }
-    }
-    _usefullHouses = array;
-}
+//-(void)getUsefullHouse{
+//    NSMutableArray *array = [NSMutableArray array];
+//    for (MyEHouseData *d in self.accountData.houseList) {
+//        if ([d.mId isEqualToString:@""]) {
+//            [array addObject:d];
+//        }
+//    }
+//    _usefullHouses = array;
+//}
 -(void)dismissVC{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark - IBAction methods
 - (IBAction)regestMediator:(ACPButton *)sender {
     if ([self.midTxt.text isEqualToString:@""]) {
-        [MyEUtil showMessageOn:nil withMessage:@"M-ID is emperty"];
+        [MyEUtil showMessageOn:nil withMessage:@"M-ID is empty"];
         return;
     }
     if ([self.pinTxt.text isEqualToString:@""]) {
-        [MyEUtil showMessageOn:nil withMessage:@"PIN is emperty"];
+        [MyEUtil showMessageOn:nil withMessage:@"PIN is empty"];
         return;
     }
     if (_houseId == -100) {
         [MyEUtil showMessageOn:nil withMessage:@"No House"];
         return;
     }
-    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?mid=%@&pin=%@&associatedProperty=%i&timeZone=%@",GetRequst(SETTING_REGISTER_GATEWAY),self.midTxt.text,self.pinTxt.text,_houseId,_data[_timeZone - 1]] postData:nil delegate:self loaderName:@"regester" userDataDictionary:nil];
+    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?mid=%@&pin=%@&associatedProperty=%i&timeZone=%@",GetRequst(SETTING_REGISTER_GATEWAY),self.midTxt.text,self.pinTxt.text,_houseId,_data[_timeZone - 1]] postData:nil delegate:self loaderName:@"register" userDataDictionary:nil];
     NSLog(@"loader name is %@",loader.name);
 }
 - (IBAction)scanCode:(ACPButton *)sender {
@@ -120,28 +121,38 @@
 #pragma mark URL Loading System methods
 - (void) downloadModelFromServer
 {
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@",GetRequst(URL_FOR_HOUSELIST_VIEW), self.accountData.userId];
-    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"HouseListDownloader"  userDataDictionary:nil];
+    if (HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }else
+        [HUD show:YES];
+    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:GetRequst(SETTING_FIND_NO_GATEWAY) postData:nil delegate:self loaderName:@"houseList"  userDataDictionary:nil];
     NSLog(@"HouseListDownloader is %@",downloader.name);
 }
 #pragma mark - URL delegate methods
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"houselist received string: %@", string);
-    if([name isEqualToString:@"HouseListDownloader"]) {
-        if (![self.accountData updateHouseListByJSONString:string]) {
-            UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
-                                                          message:@"Communication error. Please try again."
-                                                         delegate:self
-                                                cancelButtonTitle:@"Ok"
-                                                otherButtonTitles:nil];
-            [alert show];
-        }else{
-            [self getUsefullHouse];
+    [HUD hide:YES];
+    if([name isEqualToString:@"houseList"]) {
+        if (![string isEqualToString:@"fail"]) {
+            NSDictionary *dic = [string JSONValue];
+            _usefullHouses = [NSMutableArray array];
+            for (NSDictionary *d in dic[@"associateList"]) {
+                [_usefullHouses addObject:[[MyESettingsHouse alloc] initWithDictionary:d]];
+            }
             [self refreshUI];
-        }
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
     }
-    if ([name isEqualToString:@"regester"]) {
-        
+    if ([name isEqualToString:@"register"]) {
+        if ([string isEqualToString:@"OK"]) {
+            if (_jumpFromNav) {
+                MyESettingsViewController *vc = self.navigationController.childViewControllers[[self.navigationController.childViewControllers indexOfObject:self] - 1];
+                vc.needRefresh = YES;
+                [self.navigationController popViewControllerAnimated:YES];
+            }else
+                [self dismissViewControllerAnimated:YES completion:nil];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
     }
 }
 

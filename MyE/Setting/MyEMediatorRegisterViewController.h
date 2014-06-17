@@ -11,6 +11,8 @@
 #import "ACPButton.h"
 #import "MyEQRScanViewController.h"
 #import "WTReTextField.h"
+#import "MyESettingsInfo.h"
+#import "MBProgressHUD.h"
 @interface MyEMediatorRegisterViewController : UITableViewController<MyEDataLoaderDelegate,MyEQRScanViewControllerDelegate>
 @property (nonatomic, weak) MyEAccountData *accountData;
 @property (nonatomic, assign) NSInteger timeZone;   //这里把这些值写成属性的形式，是为了在nav中更好的传值

@@ -28,3 +28,9 @@
 -(UIImage *)changeSignalToImage;
 -(NSString *)changeTypeToString;
 @end
+
+@interface MyESettingsHouse : NSObject
+@property (nonatomic, strong) NSString *houseName;
+@property (nonatomic, assign) NSInteger houseId;
+-(MyESettingsHouse*)initWithDictionary:(NSDictionary *)dic;
+@end

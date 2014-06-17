@@ -69,6 +69,8 @@
 		8CA15908194F13A600495453 /* MyETerminalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA15907194F13A600495453 /* MyETerminalsViewController.m */; };
 		8CA1590B194F13F300495453 /* MyESettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA1590A194F13F300495453 /* MyESettingsViewController.m */; };
 		8CA1590E194F141000495453 /* MyESettingsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA1590D194F141000495453 /* MyESettingsInfo.m */; };
+		8CA15911194FE28700495453 /* MyESettingsAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA15910194FE28700495453 /* MyESettingsAboutViewController.m */; };
+		8CA15914194FEB1700495453 /* MyESettingsPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA15913194FEB1700495453 /* MyESettingsPasswordResetViewController.m */; };
 		8CA52F9A192307E800D40EDD /* Event.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CA52F98192307E800D40EDD /* Event.storyboard */; };
 		8CA52F9D192318A500D40EDD /* MyEEventListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52F9C192318A500D40EDD /* MyEEventListViewController.m */; };
 		8CA52FA319231A0D00D40EDD /* MyEEventConditionEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA219231A0D00D40EDD /* MyEEventConditionEditViewController.m */; };
@@ -77,19 +79,8 @@
 		8CA60FC91935B0B2006F7F06 /* MYEPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA60FC81935B0B2006F7F06 /* MYEPickerView.m */; };
 		8CB4B552192B46610077CFCB /* MYEWeekButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4B551192B46610077CFCB /* MYEWeekButtons.m */; };
 		8CCB090A192241360095EAAD /* MyEIrDefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0909192241360095EAAD /* MyEIrDefaultViewController.m */; };
-		8CCB090C192247610095EAAD /* WeekCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CCB090B192247610095EAAD /* WeekCell.xib */; };
 		8CCB0D541909FF460044B0E5 /* MyESocketInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */; };
 		8CE5860F191E131A00157EE2 /* MyEIrUserKeyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE5860E191E131A00157EE2 /* MyEIrUserKeyViewController.m */; };
-		8CEC64E11921C0DE005953FB /* CommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEC64D21921C0DE005953FB /* CommonCell.m */; };
-		8CEC64E21921C0DE005953FB /* CommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CEC64D31921C0DE005953FB /* CommonCell.xib */; };
-		8CEC64E31921C0DE005953FB /* CommonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CEC64D41921C0DE005953FB /* CommonTableViewCell.xib */; };
-		8CEC64E41921C0DE005953FB /* SequentialCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEC64D61921C0DE005953FB /* SequentialCell.m */; };
-		8CEC64E51921C0DE005953FB /* SequentialCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CEC64D71921C0DE005953FB /* SequentialCell.xib */; };
-		8CEC64E61921C0DE005953FB /* Temperature.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CEC64D81921C0DE005953FB /* Temperature.xib */; };
-		8CEC64E71921C0DE005953FB /* TemperatureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEC64DA1921C0DE005953FB /* TemperatureCell.m */; };
-		8CEC64E81921C0DE005953FB /* TwoDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEC64DC1921C0DE005953FB /* TwoDatePicker.m */; };
-		8CEC64E91921C0DE005953FB /* TwoDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CEC64DD1921C0DE005953FB /* TwoDatePicker.xib */; };
-		8CEC64EA1921C0DE005953FB /* WeekCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEC64DF1921C0DE005953FB /* WeekCell.m */; };
 		8CFF1C04192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFF1C03192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.m */; };
 		B2520A0517C212E100CB56BA /* NSDictionary+JSONNSNull.m in Sources */ = {isa = PBXBuildFile; fileRef = B2520A0417C212E100CB56BA /* NSDictionary+JSONNSNull.m */; };
 		B2520A0817C216EB00CB56BA /* NSString+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = B2520A0717C216EA00CB56BA /* NSString+Common.m */; };
@@ -295,21 +286,6 @@
 		C3FDB50D18FA62A0009B423D /* MyEUniversal.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB50718FA62A0009B423D /* MyEUniversal.m */; };
 		C3FDB50E18FA62A0009B423D /* MyEUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB50918FA62A0009B423D /* MyEUtil.m */; };
 		C3FDB50F18FA62A0009B423D /* ServerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB50B18FA62A0009B423D /* ServerUtils.m */; };
-		C3FDB6EE18FA640B009B423D /* DownAccessory.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB67218FA640B009B423D /* DownAccessory.png */; };
-		C3FDB6EF18FA640B009B423D /* DownAccessory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB67318FA640B009B423D /* DownAccessory@2x.png */; };
-		C3FDB6F018FA640B009B423D /* GatewayDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB67518FA640B009B423D /* GatewayDeviceCell.m */; };
-		C3FDB6F118FA640B009B423D /* GatewayDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB67618FA640B009B423D /* GatewayDeviceCell.xib */; };
-		C3FDB6F218FA640B009B423D /* GatewayEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB67818FA640B009B423D /* GatewayEntity.m */; };
-		C3FDB6F318FA640B009B423D /* RegistGatewayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB67A18FA640B009B423D /* RegistGatewayViewController.m */; };
-		C3FDB6F418FA640B009B423D /* RegistGatewayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB67B18FA640B009B423D /* RegistGatewayViewController.xib */; };
-		C3FDB6F518FA640B009B423D /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB67D18FA640B009B423D /* SettingViewController.m */; };
-		C3FDB6F618FA640B009B423D /* UNRegistHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB67F18FA640B009B423D /* UNRegistHouseViewController.m */; };
-		C3FDB6F718FA640B009B423D /* UNRegistHouseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB68018FA640B009B423D /* UNRegistHouseViewController.xib */; };
-		C3FDB6F818FA640B009B423D /* UpAccessory.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB68118FA640B009B423D /* UpAccessory.png */; };
-		C3FDB6F918FA640B009B423D /* UpAccessory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB68218FA640B009B423D /* UpAccessory@2x.png */; };
-		C3FDB70418FA6460009B423D /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB70018FA6460009B423D /* MoreViewController.m */; };
-		C3FDB70518FA6460009B423D /* RepwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB70218FA6460009B423D /* RepwdViewController.m */; };
-		C3FDB70618FA6460009B423D /* RepwdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3FDB70318FA6460009B423D /* RepwdViewController.xib */; };
 		C3FDB70918FA652A009B423D /* MyEAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB70818FA652A009B423D /* MyEAppDelegate.m */; };
 		C3FDB71718FA6589009B423D /* MyECheckBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB70E18FA6589009B423D /* MyECheckBoxView.m */; };
 		C3FDB7A618FA672D009B423D /* BaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FDB74618FA672C009B423D /* BaseObject.m */; };
@@ -480,6 +456,10 @@
 		8CA1590A194F13F300495453 /* MyESettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESettingsViewController.m; sourceTree = "<group>"; };
 		8CA1590C194F141000495453 /* MyESettingsInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESettingsInfo.h; sourceTree = "<group>"; };
 		8CA1590D194F141000495453 /* MyESettingsInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESettingsInfo.m; sourceTree = "<group>"; };
+		8CA1590F194FE28700495453 /* MyESettingsAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESettingsAboutViewController.h; sourceTree = "<group>"; };
+		8CA15910194FE28700495453 /* MyESettingsAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESettingsAboutViewController.m; sourceTree = "<group>"; };
+		8CA15912194FEB1700495453 /* MyESettingsPasswordResetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESettingsPasswordResetViewController.h; sourceTree = "<group>"; };
+		8CA15913194FEB1700495453 /* MyESettingsPasswordResetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESettingsPasswordResetViewController.m; sourceTree = "<group>"; };
 		8CA52F99192307E800D40EDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Event.storyboard; sourceTree = "<group>"; };
 		8CA52F9B192318A500D40EDD /* MyEEventListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventListViewController.h; sourceTree = "<group>"; };
 		8CA52F9C192318A500D40EDD /* MyEEventListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventListViewController.m; sourceTree = "<group>"; };
@@ -495,26 +475,10 @@
 		8CB4B551192B46610077CFCB /* MYEWeekButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYEWeekButtons.m; sourceTree = "<group>"; };
 		8CCB0908192241360095EAAD /* MyEIrDefaultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIrDefaultViewController.h; sourceTree = "<group>"; };
 		8CCB0909192241360095EAAD /* MyEIrDefaultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIrDefaultViewController.m; sourceTree = "<group>"; };
-		8CCB090B192247610095EAAD /* WeekCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeekCell.xib; sourceTree = "<group>"; };
 		8CCB0D521909FF460044B0E5 /* MyESocketInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESocketInfo.h; sourceTree = "<group>"; };
 		8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketInfo.m; sourceTree = "<group>"; };
 		8CE5860D191E131A00157EE2 /* MyEIrUserKeyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIrUserKeyViewController.h; sourceTree = "<group>"; };
 		8CE5860E191E131A00157EE2 /* MyEIrUserKeyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIrUserKeyViewController.m; sourceTree = "<group>"; };
-		8CEC64D11921C0DE005953FB /* CommonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonCell.h; sourceTree = "<group>"; };
-		8CEC64D21921C0DE005953FB /* CommonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonCell.m; sourceTree = "<group>"; };
-		8CEC64D31921C0DE005953FB /* CommonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommonCell.xib; sourceTree = "<group>"; };
-		8CEC64D41921C0DE005953FB /* CommonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommonTableViewCell.xib; sourceTree = "<group>"; };
-		8CEC64D51921C0DE005953FB /* SequentialCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequentialCell.h; sourceTree = "<group>"; };
-		8CEC64D61921C0DE005953FB /* SequentialCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SequentialCell.m; sourceTree = "<group>"; };
-		8CEC64D71921C0DE005953FB /* SequentialCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SequentialCell.xib; sourceTree = "<group>"; };
-		8CEC64D81921C0DE005953FB /* Temperature.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Temperature.xib; sourceTree = "<group>"; };
-		8CEC64D91921C0DE005953FB /* TemperatureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemperatureCell.h; sourceTree = "<group>"; };
-		8CEC64DA1921C0DE005953FB /* TemperatureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemperatureCell.m; sourceTree = "<group>"; };
-		8CEC64DB1921C0DE005953FB /* TwoDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoDatePicker.h; sourceTree = "<group>"; };
-		8CEC64DC1921C0DE005953FB /* TwoDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoDatePicker.m; sourceTree = "<group>"; };
-		8CEC64DD1921C0DE005953FB /* TwoDatePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwoDatePicker.xib; sourceTree = "<group>"; };
-		8CEC64DE1921C0DE005953FB /* WeekCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeekCell.h; sourceTree = "<group>"; };
-		8CEC64DF1921C0DE005953FB /* WeekCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeekCell.m; sourceTree = "<group>"; };
 		8CFF1C02192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESocketScheduleAddOrEditViewController.h; sourceTree = "<group>"; };
 		8CFF1C03192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketScheduleAddOrEditViewController.m; sourceTree = "<group>"; };
 		B2520A0317C212E100CB56BA /* NSDictionary+JSONNSNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JSONNSNull.h"; sourceTree = "<group>"; };
@@ -906,28 +870,6 @@
 		C3FDB50918FA62A0009B423D /* MyEUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUtil.m; sourceTree = "<group>"; };
 		C3FDB50A18FA62A0009B423D /* ServerUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerUtils.h; sourceTree = "<group>"; };
 		C3FDB50B18FA62A0009B423D /* ServerUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerUtils.m; sourceTree = "<group>"; };
-		C3FDB67218FA640B009B423D /* DownAccessory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DownAccessory.png; sourceTree = "<group>"; };
-		C3FDB67318FA640B009B423D /* DownAccessory@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DownAccessory@2x.png"; sourceTree = "<group>"; };
-		C3FDB67418FA640B009B423D /* GatewayDeviceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GatewayDeviceCell.h; sourceTree = "<group>"; };
-		C3FDB67518FA640B009B423D /* GatewayDeviceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GatewayDeviceCell.m; sourceTree = "<group>"; };
-		C3FDB67618FA640B009B423D /* GatewayDeviceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GatewayDeviceCell.xib; sourceTree = "<group>"; };
-		C3FDB67718FA640B009B423D /* GatewayEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GatewayEntity.h; sourceTree = "<group>"; };
-		C3FDB67818FA640B009B423D /* GatewayEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GatewayEntity.m; sourceTree = "<group>"; };
-		C3FDB67918FA640B009B423D /* RegistGatewayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistGatewayViewController.h; sourceTree = "<group>"; };
-		C3FDB67A18FA640B009B423D /* RegistGatewayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistGatewayViewController.m; sourceTree = "<group>"; };
-		C3FDB67B18FA640B009B423D /* RegistGatewayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistGatewayViewController.xib; sourceTree = "<group>"; };
-		C3FDB67C18FA640B009B423D /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
-		C3FDB67D18FA640B009B423D /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
-		C3FDB67E18FA640B009B423D /* UNRegistHouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UNRegistHouseViewController.h; sourceTree = "<group>"; };
-		C3FDB67F18FA640B009B423D /* UNRegistHouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UNRegistHouseViewController.m; sourceTree = "<group>"; };
-		C3FDB68018FA640B009B423D /* UNRegistHouseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UNRegistHouseViewController.xib; sourceTree = "<group>"; };
-		C3FDB68118FA640B009B423D /* UpAccessory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UpAccessory.png; sourceTree = "<group>"; };
-		C3FDB68218FA640B009B423D /* UpAccessory@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UpAccessory@2x.png"; sourceTree = "<group>"; };
-		C3FDB6FF18FA6460009B423D /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
-		C3FDB70018FA6460009B423D /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
-		C3FDB70118FA6460009B423D /* RepwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepwdViewController.h; sourceTree = "<group>"; };
-		C3FDB70218FA6460009B423D /* RepwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepwdViewController.m; sourceTree = "<group>"; };
-		C3FDB70318FA6460009B423D /* RepwdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepwdViewController.xib; sourceTree = "<group>"; };
 		C3FDB70718FA652A009B423D /* MyEAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAppDelegate.h; sourceTree = "<group>"; };
 		C3FDB70818FA652A009B423D /* MyEAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAppDelegate.m; sourceTree = "<group>"; };
 		C3FDB70D18FA6589009B423D /* MyECheckBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyECheckBoxView.h; sourceTree = "<group>"; };
@@ -1212,30 +1154,6 @@
 			);
 			path = MYEWeekButtons;
 			sourceTree = "<group>";
-		};
-		8CEC64D01921C0DE005953FB /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				8CEC64D11921C0DE005953FB /* CommonCell.h */,
-				8CEC64D21921C0DE005953FB /* CommonCell.m */,
-				8CEC64D31921C0DE005953FB /* CommonCell.xib */,
-				8CEC64D41921C0DE005953FB /* CommonTableViewCell.xib */,
-				8CEC64D51921C0DE005953FB /* SequentialCell.h */,
-				8CEC64D61921C0DE005953FB /* SequentialCell.m */,
-				8CEC64D71921C0DE005953FB /* SequentialCell.xib */,
-				8CEC64D81921C0DE005953FB /* Temperature.xib */,
-				8CEC64D91921C0DE005953FB /* TemperatureCell.h */,
-				8CEC64DA1921C0DE005953FB /* TemperatureCell.m */,
-				8CEC64DB1921C0DE005953FB /* TwoDatePicker.h */,
-				8CEC64DC1921C0DE005953FB /* TwoDatePicker.m */,
-				8CEC64DD1921C0DE005953FB /* TwoDatePicker.xib */,
-				8CEC64DE1921C0DE005953FB /* WeekCell.h */,
-				8CEC64DF1921C0DE005953FB /* WeekCell.m */,
-				8CCB090B192247610095EAAD /* WeekCell.xib */,
-			);
-			name = Common;
-			path = MyE/Device/Common;
-			sourceTree = SOURCE_ROOT;
 		};
 		B2588BEB17B09B9C007ED13C /* Framework */ = {
 			isa = PBXGroup;
@@ -1667,7 +1585,6 @@
 				C3FDB70A18FA6589009B423D /* CustomViews */,
 				C3FDB82218FA83A8009B423D /* Themostat */,
 				C3FDB71B18FA672B009B423D /* Device */,
-				C3FDB6FE18FA6460009B423D /* More */,
 				C3FDB60E18FA640B009B423D /* Event */,
 				C3FDB67118FA640B009B423D /* Setting */,
 				C3FDB7D818FA82AE009B423D /* DataModels */,
@@ -2100,23 +2017,6 @@
 		C3FDB67118FA640B009B423D /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				C3FDB67218FA640B009B423D /* DownAccessory.png */,
-				C3FDB67318FA640B009B423D /* DownAccessory@2x.png */,
-				C3FDB67418FA640B009B423D /* GatewayDeviceCell.h */,
-				C3FDB67518FA640B009B423D /* GatewayDeviceCell.m */,
-				C3FDB67618FA640B009B423D /* GatewayDeviceCell.xib */,
-				C3FDB67718FA640B009B423D /* GatewayEntity.h */,
-				C3FDB67818FA640B009B423D /* GatewayEntity.m */,
-				C3FDB67918FA640B009B423D /* RegistGatewayViewController.h */,
-				C3FDB67A18FA640B009B423D /* RegistGatewayViewController.m */,
-				C3FDB67B18FA640B009B423D /* RegistGatewayViewController.xib */,
-				C3FDB67C18FA640B009B423D /* SettingViewController.h */,
-				C3FDB67D18FA640B009B423D /* SettingViewController.m */,
-				C3FDB67E18FA640B009B423D /* UNRegistHouseViewController.h */,
-				C3FDB67F18FA640B009B423D /* UNRegistHouseViewController.m */,
-				C3FDB68018FA640B009B423D /* UNRegistHouseViewController.xib */,
-				C3FDB68118FA640B009B423D /* UpAccessory.png */,
-				C3FDB68218FA640B009B423D /* UpAccessory@2x.png */,
 				8C13F47D1947EEE200B52913 /* MyEMediatorRegisterViewController.h */,
 				8C13F47E1947EEE200B52913 /* MyEMediatorRegisterViewController.m */,
 				8C13F4821947EF2400B52913 /* MyETimeZoneViewController.h */,
@@ -2131,21 +2031,12 @@
 				8CA1590A194F13F300495453 /* MyESettingsViewController.m */,
 				8CA1590C194F141000495453 /* MyESettingsInfo.h */,
 				8CA1590D194F141000495453 /* MyESettingsInfo.m */,
+				8CA1590F194FE28700495453 /* MyESettingsAboutViewController.h */,
+				8CA15910194FE28700495453 /* MyESettingsAboutViewController.m */,
+				8CA15912194FEB1700495453 /* MyESettingsPasswordResetViewController.h */,
+				8CA15913194FEB1700495453 /* MyESettingsPasswordResetViewController.m */,
 			);
 			path = Setting;
-			sourceTree = "<group>";
-		};
-		C3FDB6FE18FA6460009B423D /* More */ = {
-			isa = PBXGroup;
-			children = (
-				8CEC64D01921C0DE005953FB /* Common */,
-				C3FDB6FF18FA6460009B423D /* MoreViewController.h */,
-				C3FDB70018FA6460009B423D /* MoreViewController.m */,
-				C3FDB70118FA6460009B423D /* RepwdViewController.h */,
-				C3FDB70218FA6460009B423D /* RepwdViewController.m */,
-				C3FDB70318FA6460009B423D /* RepwdViewController.xib */,
-			);
-			path = More;
 			sourceTree = "<group>";
 		};
 		C3FDB70A18FA6589009B423D /* CustomViews */ = {
@@ -2393,14 +2284,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3FDB6EF18FA640B009B423D /* DownAccessory@2x.png in Resources */,
-				8CEC64E51921C0DE005953FB /* SequentialCell.xib in Resources */,
-				C3FDB6F718FA640B009B423D /* UNRegistHouseViewController.xib in Resources */,
-				8CEC64E21921C0DE005953FB /* CommonCell.xib in Resources */,
-				C3FDB6F118FA640B009B423D /* GatewayDeviceCell.xib in Resources */,
-				8CEC64E31921C0DE005953FB /* CommonTableViewCell.xib in Resources */,
-				C3FDB6F418FA640B009B423D /* RegistGatewayViewController.xib in Resources */,
-				C3FDB6F918FA640B009B423D /* UpAccessory@2x.png in Resources */,
 				B2588D3417B09B9D007ED13C /* blackArrow.png in Resources */,
 				B2588D3517B09B9D007ED13C /* blackArrow@2x.png in Resources */,
 				8C6CB5411941C30C007EECEA /* UController.storyboard in Resources */,
@@ -2414,9 +2297,7 @@
 				B2588D6117B09B9D007ED13C /* SVProgressHUD.bundle in Resources */,
 				C3A1C8221902ED9B001A1F99 /* DictionaryTableViewViewController.xib in Resources */,
 				8C23AB301924BDB700821596 /* beep-beep.aiff in Resources */,
-				C3FDB6F818FA640B009B423D /* UpAccessory.png in Resources */,
 				C39D1C3619208C550009F2E2 /* thermostat.storyboard in Resources */,
-				8CEC64E61921C0DE005953FB /* Temperature.xib in Resources */,
 				8CA52F9A192307E800D40EDD /* Event.storyboard in Resources */,
 				8CA05FEE1907E5E70090A350 /* Socket.storyboard in Resources */,
 				8C23AB281924A02B00821596 /* iPod Click.aiff in Resources */,
@@ -2426,14 +2307,10 @@
 				8C23AB2B1924B7E100821596 /* Setting.storyboard in Resources */,
 				C3FDB7D718FA7F65009B423D /* ServerViewController.xib in Resources */,
 				C30DBF3F194018DF0063AC6D /* blueArrow@2x.png in Resources */,
-				C3FDB6EE18FA640B009B423D /* DownAccessory.png in Resources */,
-				C3FDB70618FA6460009B423D /* RepwdViewController.xib in Resources */,
 				C3FDB4E618FA6044009B423D /* HouseBlankView.xib in Resources */,
 				C3F61AAA18DFE64C00DEE477 /* MainStoryboard.storyboard in Resources */,
-				8CCB090C192247610095EAAD /* WeekCell.xib in Resources */,
 				B25B79E517D198A9009F4E84 /* zbar-back.png in Resources */,
 				B25B79E617D198A9009F4E84 /* zbar-help.html in Resources */,
-				8CEC64E91921C0DE005953FB /* TwoDatePicker.xib in Resources */,
 				C30DBF3E194018DF0063AC6D /* blueArrow.png in Resources */,
 				B25B79E717D198A9009F4E84 /* zbar-helpicons.png in Resources */,
 				B25B79E817D198A9009F4E84 /* zbar-samples.png in Resources */,
@@ -2470,7 +2347,6 @@
 				C3CB5E87193446A00043440C /* MyEStaycationTableViewCell.m in Sources */,
 				C3FDB71718FA6589009B423D /* MyECheckBoxView.m in Sources */,
 				C3FB3BD5192DC6460039D052 /* MyETodayPeriodInforView.m in Sources */,
-				C3FDB6F218FA640B009B423D /* GatewayEntity.m in Sources */,
 				C3FDB81318FA82AE009B423D /* MyEThermostatDayData.m in Sources */,
 				C3AE7F4518E14D99000AA5FC /* UIViewController+TargetViewController.m in Sources */,
 				C3FB3BD7192DC6460039D052 /* MyEWeeklyDaySelectionView.m in Sources */,
@@ -2480,15 +2356,12 @@
 				C3CB5E971936DAA10043440C /* MyEAlert.m in Sources */,
 				C3FDB50F18FA62A0009B423D /* ServerUtils.m in Sources */,
 				8C23AB331924C24600821596 /* MyEHouseAddViewController.m in Sources */,
-				C3FDB6F318FA640B009B423D /* RegistGatewayViewController.m in Sources */,
 				8CA05FE819078A8E0090A350 /* UITableView+DelegateBlocks.m in Sources */,
 				C3194B9918E299EA006E3ABE /* EColumnDataModel.m in Sources */,
-				8CEC64EA1921C0DE005953FB /* WeekCell.m in Sources */,
 				C3086C4918FCC1BE0005E0EE /* SWRevealViewController.m in Sources */,
 				C3FDB80718FA82AE009B423D /* MyENext24HrsDayItemData.m in Sources */,
 				C3CB5E86193446A00043440C /* MyEStaycationEditFromVacationViewController.m in Sources */,
 				C3FDB7CE18FA672E009B423D /* MyESwitchEditViewController.m in Sources */,
-				C3FDB6F018FA640B009B423D /* GatewayDeviceCell.m in Sources */,
 				C3F61AE018E1153400DEE477 /* BlockBackground.m in Sources */,
 				8C13F4631946DA0400B52913 /* ASIInputStream.m in Sources */,
 				C3FB3BCC192DC6460039D052 /* MyENext24HrsScheduleViewController.m in Sources */,
@@ -2515,7 +2388,6 @@
 				C39498701919D7F70075ABD3 /* CDCircle.m in Sources */,
 				C3FB3BD2192DC6460039D052 /* MyEThumbModeView.m in Sources */,
 				C3FDB4E818FA6044009B423D /* MyEHouseListDisconnectedCell.m in Sources */,
-				8CEC64E81921C0DE005953FB /* TwoDatePicker.m in Sources */,
 				8CA52FA919231D4700D40EDD /* MyEEventDeviceEditViewController.m in Sources */,
 				B2588D0817B09B9C007ED13C /* BaseCustomCell.m in Sources */,
 				8C13F4651946DA0400B52913 /* ASIWebPageRequest.m in Sources */,
@@ -2524,7 +2396,6 @@
 				C3194B9D18E299EA006E3ABE /* ELineChartDataModel.m in Sources */,
 				C3FDB50E18FA62A0009B423D /* MyEUtil.m in Sources */,
 				8CA15903194F138C00495453 /* MyETerminalEditViewController.m in Sources */,
-				C3FDB70418FA6460009B423D /* MoreViewController.m in Sources */,
 				C3FDB80E18FA82AE009B423D /* MyEStaycationItemData.m in Sources */,
 				C3AE7F4418E14D99000AA5FC /* UIImage+Additional.m in Sources */,
 				B2588D0A17B09B9C007ED13C /* BaseNetViewController.m in Sources */,
@@ -2539,7 +2410,6 @@
 				B2588D1117B09B9C007ED13C /* NSMutableArray+Safe.m in Sources */,
 				8C13F4731946DA0400B52913 /* ASIS3ServiceRequest.m in Sources */,
 				8C13F4621946DA0400B52913 /* ASIHTTPRequest.m in Sources */,
-				C3FDB70518FA6460009B423D /* RepwdViewController.m in Sources */,
 				B2588D1217B09B9C007ED13C /* NSMutableDictionary+Safe.m in Sources */,
 				B2588D1317B09B9C007ED13C /* NSString+NSTimeInterval.m in Sources */,
 				C3FB3BD6192DC6460039D052 /* MyEWeekdayToolbarController.m in Sources */,
@@ -2556,8 +2426,6 @@
 				C30DBF39194018DF0063AC6D /* DragTableFooterView_ot.m in Sources */,
 				8C13F46E1946DA0400B52913 /* ASIS3Bucket.m in Sources */,
 				8C6CB5601945511E007EECEA /* MyEUCWeatherViewController.m in Sources */,
-				8CEC64E71921C0DE005953FB /* TemperatureCell.m in Sources */,
-				C3FDB6F618FA640B009B423D /* UNRegistHouseViewController.m in Sources */,
 				8C13F4611946DA0400B52913 /* ASIFormDataRequest.m in Sources */,
 				C3CB5E88193446A00043440C /* MyEVacationDetailViewController.m in Sources */,
 				B2588D2317B09B9D007ED13C /* UITextField+Shake.m in Sources */,
@@ -2603,6 +2471,7 @@
 				C30DBF3A194018DF0063AC6D /* DragTableGestureObserver_ot.m in Sources */,
 				B2588D8A17B09B9D007ED13C /* Services.m in Sources */,
 				C3CB5E8B193446A00043440C /* MyEVacationTableViewCell.m in Sources */,
+				8CA15914194FEB1700495453 /* MyESettingsPasswordResetViewController.m in Sources */,
 				C3F61AE118E1153400DEE477 /* BlockTextPromptAlertView.m in Sources */,
 				B2588D8B17B09B9D007ED13C /* WSNet.m in Sources */,
 				C395989718E12CC800E30AFF /* FUIButton.m in Sources */,
@@ -2612,7 +2481,6 @@
 				C3F61AFC18E1154200DEE477 /* NSObject+SBJson.m in Sources */,
 				B2520A0517C212E100CB56BA /* NSDictionary+JSONNSNull.m in Sources */,
 				8C6CB5561942A214007EECEA /* MyEUCPeriodViewController.m in Sources */,
-				8CEC64E41921C0DE005953FB /* SequentialCell.m in Sources */,
 				C3FB3BCD192DC6460039D052 /* MyEPeriodData.m in Sources */,
 				B2520A0817C216EB00CB56BA /* NSString+Common.m in Sources */,
 				B2520A0B17C2451600CB56BA /* NSDictionary+Convert.m in Sources */,
@@ -2656,7 +2524,6 @@
 				8C6CB5471941C5E6007EECEA /* MyEUCManualViewController.m in Sources */,
 				C3F61AFF18E1154200DEE477 /* SBJsonStreamParserAccumulator.m in Sources */,
 				8CA0600D1908A2F40090A350 /* MyECurtainControlViewController.m in Sources */,
-				8CEC64E11921C0DE005953FB /* CommonCell.m in Sources */,
 				B25B79DC17D198A9009F4E84 /* bitstream.c in Sources */,
 				C3AE7F4218E14D99000AA5FC /* MZFormSheetSegue.m in Sources */,
 				C3988D7019313488002657F0 /* MyEAlertsTableViewController.m in Sources */,
@@ -2669,6 +2536,7 @@
 				8C2AED49194E97CB0006154A /* MyEScheduleCell.m in Sources */,
 				B25B79DE17D198A9009F4E84 /* QRCodeGenerator.m in Sources */,
 				C33587D4190452F300959C94 /* MyEHomePanelViewController.m in Sources */,
+				8CA15911194FE28700495453 /* MyESettingsAboutViewController.m in Sources */,
 				B25B79DF17D198A9009F4E84 /* qrencode.c in Sources */,
 				B25B79E017D198A9009F4E84 /* qrinput.c in Sources */,
 				8C13F4711946DA0400B52913 /* ASIS3ObjectRequest.m in Sources */,
@@ -2684,7 +2552,6 @@
 				B25B79E117D198A9009F4E84 /* qrspec.c in Sources */,
 				C3FDB7AF18FA672D009B423D /* MyEDevicesViewController.m in Sources */,
 				B25B79E217D198A9009F4E84 /* rscode.c in Sources */,
-				C3FDB6F518FA640B009B423D /* SettingViewController.m in Sources */,
 				C3FDB80C18FA82AE009B423D /* MyEThermostatScheduleData.m in Sources */,
 				B25B79E317D198A9009F4E84 /* split.c in Sources */,
 				8C82DCD51930A4B5006A10E0 /* MyEEventAddOrEditViewController.m in Sources */,

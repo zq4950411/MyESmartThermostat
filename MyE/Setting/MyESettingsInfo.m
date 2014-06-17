@@ -58,3 +58,15 @@
     return array[self.type];
 }
 @end
+
+@implementation MyESettingsHouse
+
+-(MyESettingsHouse *)initWithDictionary:(NSDictionary *)dic{
+    if (self = [super init]) {
+        self.houseName = dic[@"houseName"];
+        self.houseId = [dic[@"houseId"] intValue];
+    }
+    return self;
+}
+
+@end

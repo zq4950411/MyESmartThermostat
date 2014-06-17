@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "SwipeView.h"
 #import "ACPButton.h"
+#import "MyELoginViewController.h"
 @interface MyELaunchIntroViewController : UIViewController<SwipeViewDataSource,SwipeViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet SwipeView *scrollView;
 @property (strong, nonatomic) IBOutlet ACPButton *enterBtn;
+@property (assign, nonatomic) BOOL jumpFromSettingPanel;
 
 @end

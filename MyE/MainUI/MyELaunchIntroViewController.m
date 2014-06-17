@@ -28,7 +28,18 @@
 }
 
 #pragma mark - life Circle
-
+//-(void)viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:YES];
+//    if (self.jumpFromSettingPanel) {
+//        [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    }
+//}
+//-(void)viewDidDisappear:(BOOL)animated{
+//    [super viewDidDisappear:YES];
+//    if (self.jumpFromSettingPanel) {
+//        [self.navigationController setNavigationBarHidden:NO animated:YES];
+//    }
+//}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -42,7 +53,21 @@
     //configure page control
     pageControl.numberOfPages = scrollView.numberOfPages;
     pageControl.defersCurrentPageDisplay = YES;
+    if (self.jumpFromSettingPanel) {
+        [self.enterBtn setTitle:@"Return" forState:UIControlStateNormal];
+    }
 }
+#pragma mark - IBAction methods
+- (IBAction)jumpToVC:(ACPButton *)sender {
+    if (self.jumpFromSettingPanel) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else{
+        MyELoginViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+        MainDelegate.window.rootViewController = vc;
+    }
+}
+
 #pragma mark - scroll dataSource
 - (NSInteger)numberOfItemsInSwipeView:(SwipeView *)swipeView
 {
