@@ -28,10 +28,7 @@
 #define VACATION_UPLOADER_NMAE @"VacationsUploader"
 
 @interface MyEVacationMasterViewController(PrivateMethods)
-// 判定是否服务器相应正常，如果正常返回YES，如果服务器相应为-999/-998，
-// 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
-// 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
-- (BOOL)_processHttpRespondForString:(NSString *)respondText;
+
 @end
 
 @implementation MyEVacationMasterViewController
@@ -200,11 +197,6 @@
     
     NSLog(@"Vacations JSON String from server is \n%@",string);
     if([name isEqualToString:VACATION_DOWNLOADER_NMAE]) {
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
-        // Navigation View Controller跳转到Houselist view。
-        // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
-        if (![self _processHttpRespondForString:string])
-            return;
        
         // 获得today model
         MyEVacationListData *vacationsModel = [[MyEVacationListData alloc] initWithJSONString:string]; 
@@ -226,13 +218,7 @@
             [alert show];
         }
     } else if ([name isEqualToString:VACATION_UPLOADER_NMAE]) {
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会迫使
-        // Navigation View Controller跳转到Houselist view。
-        // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
-        if (![self _processHttpRespondForString:string])
-            return;
-        
-        
+
         NSString *action = [dict objectForKey:@"action"];
         if([action isEqualToString:@"delete"]) {
             //注意删除操作，成功后用程序来更新数据模型和列表view显示，而没有使用直接从服务器下载更新整个数据的办法，
@@ -490,41 +476,7 @@
 	HUD = nil;
 }
 
-#pragma mark -
-#pragma mark private methods
-// 判定是否服务器相应正常，如果正常返回YES，如果服务器相应为-999/-998，
-// 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
-// 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
-- (BOOL)_processHttpRespondForString:(NSString *)respondText {
-    NSInteger respondInt = [respondText intValue];// 从字符串开始寻找整数，如果碰到字母就结束，如果字符串不能转换成整数，那么此转换结果就是0
-    if (respondInt == -999 || respondInt == -998) {
-        
-        //首先获取Houselist view controller
-        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
-        MyEHouseListViewController *hlvc = [allViewControllers objectAtIndex:0];
-        
-        //下面代码返回到Houselist viiew
-        [self.navigationController popViewControllerAnimated:YES];
-        
-        // Houselist view controller 从服务器获取最新数据。
-        [hlvc downloadModelFromServer ];
-        
-        //获取当前正在操作的house的name
-        NSString *currentHouseName = [hlvc.accountData getHouseNameByHouseId:MainDelegate.houseData.houseId];
-        NSString *message;
-        
-        if (respondInt == -999) {
-            message = [NSString stringWithFormat:@"The thermostat of hosue %@ was disconnected.", currentHouseName];
-        } else if (respondInt == -998) {
-            message = [NSString stringWithFormat:@"The thermostat of hosue %@ was set to Remote Control Disabled.", currentHouseName];
-        }
-        
-        [hlvc showAutoDisappearAlertWithTile:@"Alert" message:message delay:10.0f];
-        return NO;
-    } 
-    return YES;
-    
-}
+
 
 
 #pragma mark - UIScrollViewDelegate Methods

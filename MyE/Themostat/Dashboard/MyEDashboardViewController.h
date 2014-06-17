@@ -55,6 +55,7 @@ CDCircleDelegate, CDCircleDataSource> {
 
 
 
+@property (weak, nonatomic) IBOutlet UIView *controlButtonContainer;
 @property (weak, nonatomic) IBOutlet ACPButton *controlModeBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *controlModeImageView;
 @property (weak, nonatomic) IBOutlet UILabel *stageLevelLabel;

@@ -438,7 +438,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="HouseListVC" id="Zas-xh-c6g" customClass="MyEHouseListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="H60-Lm-wKN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="yFa-h3-39w">
@@ -453,19 +453,6 @@
                                     </state>
                                     <connections>
                                         <action selector="registerGateway:" destination="Zas-xh-c6g" eventType="touchUpInside" id="0ya-OG-Qbm"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLr-dy-14L">
-                                    <rect key="frame" x="20" y="11" width="248" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <inset key="imageEdgeInsets" minX="-42" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Remember my choice" image="login-select-normal">
-                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="selected" image="login-select-highlight"/>
-                                    <connections>
-                                        <action selector="rememberChoice:" destination="Zas-xh-c6g" eventType="touchUpInside" id="Stc-PT-DOF"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -574,10 +561,14 @@
                             <outlet property="delegate" destination="Zas-xh-c6g" id="gqk-ix-XkC"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="House List" id="NzQ-Nz-aH9"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="House List" id="NzQ-Nz-aH9">
+                        <barButtonItem key="leftBarButtonItem" image="menu" style="plain" id="OqU-EN-JzZ"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="registerButton" destination="04o-dR-97s" id="Vx2-g1-Lk1"/>
-                        <outlet property="rememberHouseIdBtn" destination="PLr-dy-14L" id="VtK-7q-stM"/>
+                        <outlet property="sidebarButton" destination="OqU-EN-JzZ" id="QeR-7S-Cld"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yZj-8a-4ci" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -639,6 +630,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="Zas-xh-c6g" kind="custom" customClass="SWRevealViewControllerSegue" id="jTm-UN-r1R"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="home" id="eHT-YH-D8D">
                                         <rect key="frame" x="0.0" y="66" width="320" height="44"/>
@@ -1353,7 +1347,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QR3-Ze-zor" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1971" y="-3011"/>
+            <point key="canvasLocation" x="-2177" y="-3209"/>
         </scene>
         <!--MyE Usage Stats View Controller - Usage Stats-->
         <scene sceneID="x5p-84-YHG">
@@ -1613,6 +1607,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ge5-MB-iUp"/>
+        <segue reference="eXC-Z9-ubh"/>
     </inferredMetricsTieBreakers>
 </document>

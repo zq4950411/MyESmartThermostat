@@ -156,9 +156,9 @@
 // 定义App是否加载过的标志Key
 #define KEY_FOR_APP_HAS_LAUNCHED_ONCE @"AppHasLaunchedOnce"
 
-// 定义NSDefaults里面用于保存上次浏览房屋houseId的Key, tId的key
+// 定义NSDefaults里面用于保存上次浏览房屋houseId的Key
 #define KEY_FOR_HOUSE_ID_LAST_VIEWED @"house_id_last_viewed"
-#define KEY_FOR_TID_LAST_VIEWED @"thermostat_id_last_viewed"
+
 
 // 定义NSDefaults里面用于保存上次在Home面板获取的室内温度所在的温控器
 #define KEY_FOR_THERMOSTATID_HOME_INDOOR_TH @"tId_home_indoor_th"
@@ -299,5 +299,10 @@ NSInteger getDaysBetweenDates(NSDate *startDate, NSDate *endDate);
 //将传入的字符串改变成数字，从而利于比较
 + (NSInteger)hhidForTimeString:(NSString *)string;
 + (void)getFrameDetail:(UIView *)view andName:(NSString *)name;
+
+
+//http://stackoverflow.com/questions/2658738/the-simplest-way-to-resize-an-uiimage
++ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
+
 @end
 

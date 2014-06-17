@@ -101,7 +101,7 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.25" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Oos-m2-NAD" secondAttribute="bottom" id="OCM-DW-DuN"/>
+                                    <constraint firstAttribute="bottom" secondItem="Oos-m2-NAD" secondAttribute="bottom" id="zYE-1p-o34"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="lwn-YZ-ysO" appends="YES" id="eNN-Fo-Cy8"/>
@@ -172,7 +172,7 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.25" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="d4j-mz-VqZ" secondAttribute="bottom" id="srQ-Dx-4DJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="d4j-mz-VqZ" secondAttribute="bottom" id="tFT-SE-A7Y"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="cvu-OR-vPA" appends="YES" id="Hir-1O-k1K"/>
@@ -246,11 +246,11 @@
                         <color key="backgroundColor" red="0.95896084337349397" green="0.95920792545180722" blue="0.96105515813253017" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="X3f-oc-Dy8" firstAttribute="top" secondItem="4zX-JK-UeN" secondAttribute="top" id="QaO-dK-X7l"/>
-                            <constraint firstAttribute="bottom" secondItem="7lo-pV-iZC" secondAttribute="bottom" id="VbL-y6-NUH"/>
-                            <constraint firstItem="7lo-pV-iZC" firstAttribute="top" secondItem="4zX-JK-UeN" secondAttribute="top" id="fj2-fQ-5Rc"/>
-                            <constraint firstAttribute="bottom" secondItem="dnW-jF-9v5" secondAttribute="bottom" constant="15" id="lJJ-I5-byQ"/>
-                            <constraint firstAttribute="bottom" secondItem="X3f-oc-Dy8" secondAttribute="bottom" id="rZI-Ad-YQW"/>
+                            <constraint firstAttribute="bottom" secondItem="7lo-pV-iZC" secondAttribute="bottom" id="3kE-0T-chy"/>
+                            <constraint firstAttribute="bottom" secondItem="X3f-oc-Dy8" secondAttribute="bottom" id="HZG-0n-tcZ"/>
+                            <constraint firstAttribute="bottom" secondItem="dnW-jF-9v5" secondAttribute="bottom" constant="15" id="NQH-pX-k7g"/>
+                            <constraint firstItem="7lo-pV-iZC" firstAttribute="top" secondItem="4zX-JK-UeN" secondAttribute="top" id="X5z-oW-47z"/>
+                            <constraint firstItem="X3f-oc-Dy8" firstAttribute="top" secondItem="4zX-JK-UeN" secondAttribute="top" id="gFO-En-3G6"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -258,6 +258,7 @@
                     <navigationItem key="navigationItem" title="Dashboard" id="8JX-Sf-80W"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="controlButtonContainer" destination="dnW-jF-9v5" id="qKS-m0-mAL"/>
                         <outlet property="controlModeBtn" destination="nvq-U1-kBd" id="t5h-eO-kg5"/>
                         <outlet property="controlModeImageView" destination="4bS-Ug-ZmV" id="kXL-sl-xep"/>
                         <outlet property="fanControlAutoButton" destination="BNW-ff-m2h" id="zvm-Mp-WxA"/>

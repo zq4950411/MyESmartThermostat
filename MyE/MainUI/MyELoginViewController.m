@@ -106,32 +106,12 @@
 }
 
 #pragma mark - Navigation methods
+/*
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    MainDelegate.accountData = self.accountData;
-    
-    if ([[segue identifier] isEqualToString:@"go_main_menu"])
-    {
-        MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:0];
-        MainDelegate.houseData = houseData;
-        
-        //在NSDefaults里面记录这次要进入的房屋
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
-        
-        MyETerminalData *thermostatData = [houseData.terminals objectAtIndex:0];// 用该房子的第一个T
-        MainDelegate.terminalData = thermostatData;
-        
-        [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
-        [prefs synchronize];
-     }
-    if ([[segue identifier] isEqualToString:@"ShowHouseList"])
-    {
-        MyEHouseListViewController *hlvc = [[segue destinationViewController] childViewControllers][0];
-        hlvc.accountData = self.accountData;
-    }
+
 }
- //*/
+*/
 
 #pragma mark
 #pragma mark private methods
@@ -331,6 +311,8 @@
         MyEAccountData *anAccountData = [[MyEAccountData alloc] initWithJSONString:string];
         if(anAccountData && anAccountData.loginSuccess)
         {
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
             self.accountData = anAccountData;
             MainDelegate.accountData = self.accountData;
             
@@ -346,49 +328,53 @@
             else if (anAccountData.houseList.count == 1 &&
                        ([(MyEHouseData *)[anAccountData.houseList objectAtIndex:0] isConnected]))
             {
-                MainDelegate.houseData = [anAccountData.houseList objectAtIndex:0];
-                //在NSDefaults里面记录这次要进入的房屋
-                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-                
-                NSString *tid = [prefs objectForKey:KEY_FOR_TID_LAST_VIEWED];
-                for (MyETerminalData *temp in MainDelegate.houseData.terminals)
-                {
-                    if ([tid isEqualToString:temp.tId])
-                    {
-                        MainDelegate.terminalData = temp;
-                        break;
-                    }
-                }
-                if (MainDelegate.terminalData == nil)
-                {
-                    MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
-                }
                 // 如果只有一个带硬件的房子，且硬件在线，则不用在House List停留，直接将该房子选中而进入Dashboard。
                 MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:0];
                 MainDelegate.houseData = houseData;
+                MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
                 
                 //在NSDefaults里面记录这次要进入的房屋
                 [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
+                [prefs synchronize];
                 
                 MyETerminalData *thermostatData = [houseData.terminals objectAtIndex:0];// 用该房子的第一个T
                 MainDelegate.terminalData = thermostatData;
                 
-                [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
-                [prefs synchronize];
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
                 SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
-//                [self presentViewController:vc animated:YES completion:nil];
                 [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
                 MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
             }
             else if (anAccountData.houseList.count >= 1)
             {
+                MyEHouseData *defaultHouseData;
+                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                NSInteger defaultHouseId = [prefs integerForKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
+                
+                
+                if (defaultHouseId > 0) {
+                    defaultHouseData = [self.accountData houseDataByHouseId:defaultHouseId];
+                    if (defaultHouseData.connection!= 0 || defaultHouseData.mId == nil || [defaultHouseData.mId isEqualToString:@"" ] || defaultHouseData.terminals.count == 0)
+                    {//如果偏好里面记录的房子没有连接，或无效， 就用用第一个有效的house初始化defaultHouseData
+                       defaultHouseData = [self.accountData validHouseInListAtIndex:0];
+                    }
+                }else // 如果以前没有浏览并保存过默认的houseId， 就用第一个有效的house
+                    defaultHouseData = [self.accountData validHouseInListAtIndex:0];
+
+                MainDelegate.houseData = defaultHouseData;
+                MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
+                
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-                MyEHouseListViewController *hlvc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
-                hlvc.accountData = self.accountData;
+                SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
+                
                 [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
-                MainDelegate.window.rootViewController = hlvc;// 用主Navigation VC作为程序的rootViewController
-            }           
+                MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
+//                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+//                MyEHouseListViewController *hlvc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
+//                hlvc.accountData = self.accountData;
+//                [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+//                MainDelegate.window.rootViewController = hlvc;// 用主Navigation VC作为程序的rootViewController
+            }
         }
         else
         {
@@ -527,4 +513,5 @@
     }
     [prefs synchronize];
 }
+
 @end

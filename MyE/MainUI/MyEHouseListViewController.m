@@ -25,15 +25,9 @@
 
 @interface MyEHouseListViewController()
 
-// selectedTabIndex变量原来是为SelectedTabBar protocol所定义的，定义在这里，但为了保证在ThermostatListViewController里面程序转移到新的tab后也能记住所进入的tab，就把此变量定义到类声明的地方，以便其他地方也可以访问。
-@property (nonatomic) NSInteger selectedHouseId;
-
 @end
 
 @implementation MyEHouseListViewController
-@synthesize accountData = _accountData;
-@synthesize selectedTabIndex = _selectedTabIndex;
-@synthesize selectedHouseId = _selectedHouseId;
 
 @synthesize registerButton = _registerButton;
 
@@ -51,13 +45,12 @@
     //设置表格的背景
 //    UIColor *bgcolor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgpattern.png"]];
 //    [self.tableView setBackgroundColor:bgcolor];
-    
-    _hasLoadedDefaultHouseId = NO;
+
     
     [self.registerButton setStyleType:ACPButtonOK];
     [self.registerButton addTarget:self action:@selector(registeGateway:) forControlEvents:UIControlEventTouchUpInside];
     
-    if (self.accountData.houseList.count == 0)
+    if (MainDelegate.accountData.houseList.count == 0)
     {
         HouseBlankView *houseBlankView = [[[NSBundle mainBundle] loadNibNamed:@"HouseBlankView" owner:self options:nil] objectAtIndex:0];
         [ASDepthModalViewController presentView:houseBlankView backgroundColor:nil options:ASDepthModalOptionBlur completionHandler:nil];
@@ -65,7 +58,7 @@
     else
     {
         BOOL b = NO;
-        for (MyEHouseData *house in self.accountData.houseList)
+        for (MyEHouseData *house in MainDelegate.accountData.houseList)
         {
             b = [house isValid];
             if (b)
@@ -87,15 +80,20 @@
         _refreshHeaderView = view;
     }
     [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
+    
+    
+    // Set the side bar button action. When it's tapped, it'll show up the sidebar.
+    _sidebarButton.target = self.revealViewController;
+    _sidebarButton.action = @selector(revealToggle:);
+    
+    // Set the gesture
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (self.needRefresh) {
-        self.needRefresh = NO;
-        [self downloadModelFromServer];
-    }
+    [self downloadModelFromServer];
     self.parentViewController.navigationItem.rightBarButtonItems = nil;
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] 
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh 
@@ -113,18 +111,8 @@
         }
     }
 }
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    if(!_hasLoadedDefaultHouseId) {// 如果是第一次出现这个house list 面板，就要从系统偏好里面取得是否由默认的houseId
-        [self loadSettings];// 获取当前存储在系统偏好里的用户默认的houseId
-        _hasLoadedDefaultHouseId = YES;
-    }
-}
+
 #pragma mark - IBAction methods
-- (IBAction)rememberChoice:(UIButton *)sender {
-    sender.selected = !sender.selected;
-}
 - (IBAction)registerGateway:(ACPButton *)sender {
     UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Setting" bundle:nil] instantiateViewControllerWithIdentifier:@"mediator"];
     MyEMediatorRegisterViewController *vc = nav.childViewControllers[0];
@@ -247,14 +235,14 @@
 
     // Return the number of rows in the section.
 //    return [self.accountData countOfHouseList];// 现在不显示没有硬件，或硬件没有连接的房子了
-    NSInteger count = [self.accountData countOfValidHouseList];
+    NSInteger count = [MainDelegate.accountData countOfValidHouseList];
     return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Configure the cell...
-    MyEHouseData *houseDataAtIndex = [self.accountData validHouseInListAtIndex:indexPath.row];
+    MyEHouseData *houseDataAtIndex = [MainDelegate.accountData validHouseInListAtIndex:indexPath.row];
     
     if(houseDataAtIndex.mId.length != 0 && houseDataAtIndex.connection == 0)
     {// 如果房间有M并且至少有一个温控器正常连接
@@ -316,7 +304,7 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSInteger houseIdLastViewed = [prefs integerForKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
     
-    MyEHouseData *houseDataAtIndex = [self.accountData validHouseInListAtIndex:indexPath.row];
+    MyEHouseData *houseDataAtIndex = [MainDelegate.accountData validHouseInListAtIndex:indexPath.row];
     
     if (houseDataAtIndex.houseId == houseIdLastViewed)
     {
@@ -370,64 +358,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-
-    MyETerminalData *thermostatData;
-    MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:indexPath.row];
-    
-//    if(houseData.mId.length != 0 && houseData.connection == 0)
-//    {// 如果房间有M并且至少有一个温控器正常连接
-//        if (houseData.thermostats.count == 0)
-//        { //HouseListConnectedCellRemoteNo
-//            
-//        }
-//        else //HouseListConnectedCellRemoteYes
-//        {
-//            
-//        }
-//    }
-//    // 现在不显示没有硬件，或硬件没有连接的房子了
-//    else // HouseListDisconnectedCell
-//    {
-//    }
-
-    [self saveSettings:houseData.houseId];
-    MainDelegate.houseData = houseData;
-    
-    thermostatData = [houseData firstConnectedThermostat];
-    MainDelegate.terminalData = thermostatData;
+    MainDelegate.houseData = [MainDelegate.accountData validHouseInListAtIndex:indexPath.row];
+    MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
     
     //在NSDefaults里面记录这次要进入的房屋
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *tid = [prefs objectForKey:KEY_FOR_TID_LAST_VIEWED];
-    for (MyETerminalData *temp in MainDelegate.houseData.terminals)
-    {
-        if ([tid isEqualToString:temp.tId])
-        {
-            MainDelegate.terminalData = temp;
-            break;
-        }
-    }
-    if (MainDelegate.terminalData == nil)
-    {
-        MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
-    }
-    
-    //在NSDefaults里面记录这次要进入的房屋
-    [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
-    [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
+    [prefs setInteger:MainDelegate.houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
     [prefs synchronize];
-    
-    if (self.selectedHouseId != houseData.houseId) {
-        self.selectedTabIndex = 0;
-        self.selectedHouseId = houseData.houseId;
-    }
+
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
@@ -435,56 +373,13 @@
     [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
     MainDelegate.window.rootViewController = vc;
 }
+/*
 #pragma mark - Navigation methods
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    MyEHouseData *houseData;
-    MyETerminalData *thermostatData;
-    if ([[segue identifier] isEqualToString:@"ShowMainTabViewRemoteNo"] ||
-        [[segue identifier] isEqualToString:@"ShowMainTabViewRemoteYes"] ||
-        [[segue identifier] isEqualToString:@"ShowMainTabViewRemoteYesConnected"] )
-    {
-
-        houseData = [self.accountData validHouseInListAtIndex:[self.tableView indexPathForSelectedRow].row];
-        [self saveSettings:houseData.houseId];
-    }
-    if([[segue identifier] isEqualToString:@"ShowMainTabViewByDefaultHouseId"] )
-    {
-        houseData = [self.accountData houseDataByHouseId:_defaultHouseId];
-    }
     
-    MainDelegate.houseData = houseData;
-    
-    thermostatData = [houseData firstConnectedThermostat];
-    MainDelegate.terminalData = thermostatData;
-    
-    //在NSDefaults里面记录这次要进入的房屋
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSString *tid = [prefs objectForKey:KEY_FOR_TID_LAST_VIEWED];
-    for (MyETerminalData *temp in MainDelegate.houseData.terminals)
-    {
-        if ([tid isEqualToString:temp.tId])
-        {
-            MainDelegate.terminalData = temp;
-            break;
-        }
-    }
-    if (MainDelegate.terminalData == nil)
-    {
-        MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
-    }
-    
-    //在NSDefaults里面记录这次要进入的房屋
-    [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
-    [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
-    [prefs synchronize];
-
-    if (self.selectedHouseId != houseData.houseId) {
-        self.selectedTabIndex = 0;
-        self.selectedHouseId = houseData.houseId;
-    }
 }
-
+*/
 
 #pragma mark -
 #pragma mark URL Loading System methods
@@ -497,7 +392,7 @@
         } else
             [HUD show:YES];
     }
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@",GetRequst(URL_FOR_HOUSELIST_VIEW), self.accountData.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@",GetRequst(URL_FOR_HOUSELIST_VIEW), MainDelegate.accountData.userId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"HouseListDownloader"  userDataDictionary:nil];
     NSLog(@"HouseListDownloader is %@",downloader.name);
 }
@@ -510,7 +405,7 @@
         [HUD hide:YES];
     }
     if([name isEqualToString:@"HouseListDownloader"]) {
-        if (![self.accountData updateHouseListByJSONString:string]) {
+        if (![MainDelegate.accountData updateHouseListByJSONString:string]) {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
                                                           message:@"Communication error. Please try again."
                                                          delegate:self 
