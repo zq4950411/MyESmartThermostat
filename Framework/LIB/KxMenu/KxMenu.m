@@ -624,8 +624,8 @@ typedef enum {
     // below two lines commented by YY, Now we use a Flat color, 
 //    CGFloat R0 = 0.267, G0 = 0.303, B0 = 0.335;
 //    CGFloat R1 = 0.040, G1 = 0.040, B1 = 0.040;
-    CGFloat R0 = 75.0/255.0, G0 = 190.0/255.0, B0 = 215.0/255.0;
-    CGFloat R1 = 75.0/255.0, G1 = 190.0/255.0, B1 = 215.0/255.0;
+    CGFloat R0 = 50.0/255.0, G0 = 50.0/255.0, B0 = 50.0/255.0;
+    CGFloat R1 = 50.0/255.0, G1 = 50.0/255.0, B1 = 50.0/255.0;
 
     
     UIColor *tintColor = [KxMenu tintColor];

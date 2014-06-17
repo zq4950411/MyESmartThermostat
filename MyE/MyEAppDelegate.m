@@ -274,7 +274,6 @@
         [prefs removeObjectForKey:@"password"];
         [prefs removeObjectForKey:@"rememberme"];
         [prefs removeObjectForKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
-        [prefs removeObjectForKey:@"defaulthouseid"];
     }
     [prefs setInteger:-1 forKey:@"exitcode"]; //设置exitcode为-1，如果程序异常crash，此exitcode就没有机会设置为1
 }

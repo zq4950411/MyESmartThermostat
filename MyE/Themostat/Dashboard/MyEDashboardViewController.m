@@ -22,6 +22,7 @@
 #import "MyETerminalData.h"
 #import "MyEHouseData.h"
 #import "SWRevealViewController.h"
+#import "KxMenu.h"
 
 
 #import "CDCircleOverlayView.h"
@@ -894,14 +895,90 @@
 #pragma mark 插座方法
 - (IBAction)changeControlMode:(id)sender {  
     [self _toggleSystemControlToolbarView];
+    /*
+     1:Heat
+    2:Cool
+    3:Auto
+    4:Emg Heat
+    5:Off
+     */
+//    [self.view bringSubviewToFront:self.controlButtonContainer];
+//    [self.controlButtonContainer sendSubviewToBack:self.fanStatusBtn];
+//     NSMutableArray *items = [NSMutableArray array];
+//    KxMenuItem *item = [KxMenuItem menuItem:@"Heating"
+//                                      image:[UIImage imageNamed:@"Tb_Heating01"]
+//                                     target:self
+//                                     action:@selector(changeControlModeTo:)];
+//    item.tag = 1;[items addObject:item];
+//    
+//    item = [KxMenuItem menuItem:@"Cooling"
+//                                      image:[UIImage imageNamed:@"Tb_Cooling01"]
+//                                     target:self
+//                                     action:@selector(changeControlModeTo:)];
+//    item.tag = 2;[items addObject:item];
+//    
+//    item = [KxMenuItem menuItem:@"Auto Run"
+//                                      image:[UIImage imageNamed:@"Tb_AutoRun"]
+//                                     target:self
+//                                     action:@selector(changeControlModeTo:)];
+//    item.tag = 3;[items addObject:item];
+//    
+//    item = [KxMenuItem menuItem:@"Emergent Heating"
+//                                      image:[UIImage imageNamed:@"Tb_EmgH01"]
+//                                     target:self
+//                                     action:@selector(changeControlModeTo:)];
+//    item.tag = 4;[items addObject:item];
+//    
+//    item = [KxMenuItem menuItem:@"Off"
+//                                      image:[UIImage imageNamed:@"Tb_OFF"]
+//                                     target:self
+//                                     action:@selector(changeControlModeTo:)];
+//    item.tag = 5;[items addObject:item];
+//    
+//    [KxMenu showMenuInView:self.controlButtonContainer
+//                  fromRect:self.controlButtonContainer.frame
+//                 menuItems:items];
 }
-
+- (void)changeControlModeTo:(KxMenuItem *) sender
+{
+    if (self.dashboardData.controlMode != sender.tag) {
+        self.dashboardData.controlMode = sender.tag;
+        [self uploadModelToServer];
+    }
+}
 - (IBAction)changeFanControl:(id)sender {
     [self _toggleFanControlToolbarView];
+    /*
+     0（auto）,1（on）
+     */
+//    [self.view bringSubviewToFront:self.controlButtonContainer];
+//    [self.controlButtonContainer sendSubviewToBack:self.controlModeBtn];
+//    NSMutableArray *items = [NSMutableArray array];
+//    KxMenuItem *item = [KxMenuItem menuItem:@"Auto"
+//                                      image:[MyEUtil imageWithImage:[UIImage imageNamed:@"Tb_FanAuto01"] scaledToSize:CGSizeMake(20,20)]
+//                                     target:self
+//                                     action:@selector(changeFanControlTo:)];
+//    item.tag = 0;[items addObject:item];
+//    
+//    item = [KxMenuItem menuItem:@"On"
+//                          image:[MyEUtil imageWithImage:[UIImage imageNamed:@"Tb_FanON01"] scaledToSize:CGSizeMake(20,20)]
+//                         target:self
+//                         action:@selector(changeFanControlTo:)];
+//    item.tag = 1;[items addObject:item];
+//    [KxMenu showMenuInView:self.controlButtonContainer
+//                  fromRect:self.controlButtonContainer.frame
+//                 menuItems:items];
 }
+//- (void)changeFanControlTo:(KxMenuItem *) sender
+//{
+//    if (self.dashboardData.fan_control != sender.tag) {
+//        self.dashboardData.fan_control = sender.tag;
+//        [self uploadModelToServer];
+//    }
+//}
 
 - (IBAction)changeControlModeToHeatingAction:(id)sender {
-    [self _toggleSystemControlToolbarView];    
+    [self _toggleSystemControlToolbarView];
     if (self.dashboardData.controlMode != 1) {
         self.dashboardData.controlMode = 1;
         [self uploadModelToServer];

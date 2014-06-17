@@ -185,7 +185,6 @@
     if ( respondInt == -994 ) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         MyEHouseListViewController *hlvc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
-        hlvc.accountData = MainDelegate.accountData;
         [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
         MainDelegate.window.rootViewController = hlvc;// 用主Navigation VC作为程序的rootViewController
         

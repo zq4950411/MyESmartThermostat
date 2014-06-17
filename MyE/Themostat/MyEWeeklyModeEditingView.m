@@ -58,7 +58,7 @@
         CGRect bounds = [self bounds];
         
         // create a UIButton
-        CGRect cancelButtonFrame = CGRectMake(10, 5, 70, 30);
+        CGRect cancelButtonFrame = CGRectMake(10, 10, 70, 30);
         UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         cancelButton.frame = cancelButtonFrame;
         [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];

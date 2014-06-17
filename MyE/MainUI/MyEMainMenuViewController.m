@@ -12,7 +12,7 @@
 #import "MyEUsageStatsViewController.h"
 
 @interface MyEMainMenuViewController ()
-- (void)goHouseList;
+//- (void)goHouseList;
 @end
 
 @implementation MyEMainMenuViewController
@@ -156,9 +156,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        [self goHouseList];
-    }
+//    if (indexPath.row == 0) {
+//        [self goHouseList];
+//    }
     
     if (self.menuItems.count-1 == indexPath.row) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
@@ -206,18 +206,5 @@
         
     }
 
-}
-
-
-- (void)goHouseList{
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setInteger:-1  forKey:@"defaulthouseid"];
-    [prefs synchronize];
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    MyEHouseListViewController *hlvc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
-    hlvc.accountData = MainDelegate.accountData;
-    [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
-    MainDelegate.window.rootViewController = hlvc;// 用主Navigation VC作为程序的rootViewController
 }
 @end
