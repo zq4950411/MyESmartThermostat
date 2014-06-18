@@ -34,8 +34,8 @@
 
 @interface MyEDashboardViewController ()
 - (void)configureView;
-- (void)_toggleFanControlToolbarView;
-- (void)_toggleSystemControlToolbarView;
+- (void)_showFanControlToolbarView;
+- (void)_showSystemControlToolbarView;
 
 // 判定是否服务器相应正常，如果正常返回YES，如果服务器相应为-999/-998，
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
@@ -82,8 +82,8 @@
     self.tName = MainDelegate.terminalData.tName;
     self.isRemoteControl = isRC;
     
-    [self.view bringSubviewToFront:self.fanControlToolbarView];
-    [self.view bringSubviewToFront:self.systemControlToolbarView];
+    [self.view bringSubviewToFront:self.fanControlToolbarOverlayView];
+    [self.view bringSubviewToFront:self.systemControlToolbarOverlayView];
     
     
     
@@ -102,8 +102,6 @@
     
    
     _isSetpointChanged = NO;
-    _isSystemControlToolbarViewShowing = NO;
-    _isFanControlToolbarViewShowing = NO;
     
     [self.systemControlEmgHeatingButton setBackgroundImage:[UIImage imageNamed:@"Tb_EmgHDisabled.png"] forState:UIControlStateDisabled];
     [self.systemControlEmgHeatingButton setBackgroundImage:[UIImage imageNamed:@"Tb_EmgH01.png"] forState:UIControlStateNormal];
@@ -275,12 +273,8 @@
 
     }
     // 在从服务器获得数据后，如果哪个子面板还在显示，就隐藏它
-    if (_isSystemControlToolbarViewShowing) {
-        [self _toggleSystemControlToolbarView];
-    }
-    if (_isFanControlToolbarViewShowing) {
-        [self _toggleFanControlToolbarView];
-    }
+    self.systemControlToolbarOverlayView.hidden = YES;
+    self.fanControlToolbarOverlayView.hidden = YES;
 }
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
@@ -620,37 +614,33 @@
     return offset;
 }
 
-- (void)_toggleSystemControlToolbarView{
-    if (_isFanControlToolbarViewShowing) {
-        [self _toggleFanControlToolbarView];
-    }
+- (void)_showSystemControlToolbarView{
+
     if (self.dashboardData.con_hp == 1) {
         self.systemControlEmgHeatingButton.enabled = YES;
     } else {
-        [self.view bringSubviewToFront:self.systemControlToolbarView];
+        [self.view bringSubviewToFront:self.systemControlToolbarOverlayView];
         self.systemControlEmgHeatingButton.enabled = NO;
     }
     
-    if(_isSystemControlToolbarViewShowing){
-        self.systemControlToolbarView.hidden = YES;
-    }else {
-        self.systemControlToolbarView.hidden = NO;
-    }
+
+    self.systemControlToolbarOverlayView.hidden = NO;
+//        CGRect frame = self.systemControlToolbar.frame;
+//        CGRect newFrame = CGRectMake(frame.origin.x, self.systemControlToolbarOverlayView.bounds.size.height - frame.size.height, frame.size.width, frame.size.height);
+//        self.systemControlToolbar.frame = newFrame;
+
     
-    _isSystemControlToolbarViewShowing = !_isSystemControlToolbarViewShowing;
+    [self.view bringSubviewToFront:self.systemControlToolbarOverlayView];
+
 }
-- (void)_toggleFanControlToolbarView{
-    if (_isSystemControlToolbarViewShowing) {
-        [self _toggleSystemControlToolbarView];
-    }
-    if (_isFanControlToolbarViewShowing) {
-        self.fanControlToolbarView.hidden = YES;
-    } else {
-        [self.view bringSubviewToFront:self.fanControlToolbarView];
-        self.fanControlToolbarView.hidden = NO;
-    }
-    
-    _isFanControlToolbarViewShowing = !_isFanControlToolbarViewShowing;
+- (void)_showFanControlToolbarView{
+    [self.view bringSubviewToFront:self.fanControlToolbarOverlayView];
+    self.fanControlToolbarOverlayView.hidden = NO;
+//        CGRect frame = self.systemControlToolbar.frame;
+//        self.fanControlToolbarOverlayView.frame = CGRectMake(frame.origin.x, self.fanControlToolbarOverlayView.bounds.size.height - frame.size.height, frame.size.width, frame.size.height);
+   
+    [self.view bringSubviewToFront:self.fanControlToolbarOverlayView];
+
 }
 
 // 判定是否服务器相应正常，如果正常返回一些字符串，如果服务器相应为-999/-998，
@@ -894,7 +884,7 @@
 #pragma mark
 #pragma mark 插座方法
 - (IBAction)changeControlMode:(id)sender {  
-    [self _toggleSystemControlToolbarView];
+    [self _showSystemControlToolbarView];
     /*
      1:Heat
     2:Cool
@@ -902,8 +892,7 @@
     4:Emg Heat
     5:Off
      */
-//    [self.view bringSubviewToFront:self.controlButtonContainer];
-//    [self.controlButtonContainer sendSubviewToBack:self.fanStatusBtn];
+//    [self.view sendSubviewToBack:self.fanStatusBtn];
 //     NSMutableArray *items = [NSMutableArray array];
 //    KxMenuItem *item = [KxMenuItem menuItem:@"Heating"
 //                                      image:[UIImage imageNamed:@"Tb_Heating01"]
@@ -935,8 +924,8 @@
 //                                     action:@selector(changeControlModeTo:)];
 //    item.tag = 5;[items addObject:item];
 //    
-//    [KxMenu showMenuInView:self.controlButtonContainer
-//                  fromRect:self.controlButtonContainer.frame
+//    [KxMenu showMenuInView:self.controlModeBtn
+//                  fromRect:self.controlModeBtn.frame
 //                 menuItems:items];
 }
 - (void)changeControlModeTo:(KxMenuItem *) sender
@@ -947,12 +936,11 @@
     }
 }
 - (IBAction)changeFanControl:(id)sender {
-    [self _toggleFanControlToolbarView];
+    [self _showFanControlToolbarView];
     /*
      0（auto）,1（on）
      */
-//    [self.view bringSubviewToFront:self.controlButtonContainer];
-//    [self.controlButtonContainer sendSubviewToBack:self.controlModeBtn];
+//    [self.view sendSubviewToBack:self.controlModeBtn];
 //    NSMutableArray *items = [NSMutableArray array];
 //    KxMenuItem *item = [KxMenuItem menuItem:@"Auto"
 //                                      image:[MyEUtil imageWithImage:[UIImage imageNamed:@"Tb_FanAuto01"] scaledToSize:CGSizeMake(20,20)]
@@ -965,8 +953,8 @@
 //                         target:self
 //                         action:@selector(changeFanControlTo:)];
 //    item.tag = 1;[items addObject:item];
-//    [KxMenu showMenuInView:self.controlButtonContainer
-//                  fromRect:self.controlButtonContainer.frame
+//    [KxMenu showMenuInView:self.fanStatusBtn
+//                  fromRect:self.fanStatusBtn.frame
 //                 menuItems:items];
 }
 //- (void)changeFanControlTo:(KxMenuItem *) sender
@@ -978,7 +966,7 @@
 //}
 
 - (IBAction)changeControlModeToHeatingAction:(id)sender {
-    [self _toggleSystemControlToolbarView];
+    self.systemControlToolbarOverlayView.hidden = YES;
     if (self.dashboardData.controlMode != 1) {
         self.dashboardData.controlMode = 1;
         [self uploadModelToServer];
@@ -986,7 +974,7 @@
 }
 
 - (IBAction)changeControlModeToCoolingAction:(id)sender {
-   [self _toggleSystemControlToolbarView];
+   self.systemControlToolbarOverlayView.hidden = YES;
     if (self.dashboardData.controlMode != 2) {
         self.dashboardData.controlMode = 2;
         [self uploadModelToServer];
@@ -994,7 +982,7 @@
 }
 
 - (IBAction)changeControlModeToAutoAction:(id)sender {
-    [self _toggleSystemControlToolbarView];
+    self.systemControlToolbarOverlayView.hidden = YES;
     if (self.dashboardData.controlMode != 3) {
         self.dashboardData.controlMode = 3;
         [self uploadModelToServer];
@@ -1002,21 +990,23 @@
 }
 
 - (IBAction)changeControlModeToEmgHeatingAction:(id)sender {
-    [self _toggleSystemControlToolbarView];    if (self.dashboardData.controlMode != 4) {
+    self.systemControlToolbarOverlayView.hidden = YES;
+    if (self.dashboardData.controlMode != 4) {
         self.dashboardData.controlMode = 4;
         [self uploadModelToServer];
     }
 }
 
 - (IBAction)changeControlModeToOffAction:(id)sender {
-    [self _toggleSystemControlToolbarView];    if (self.dashboardData.controlMode != 5) {
+    self.systemControlToolbarOverlayView.hidden = YES;
+    if (self.dashboardData.controlMode != 5) {
         self.dashboardData.controlMode = 5;
         [self uploadModelToServer];  
     }
 }
 
 - (IBAction)changeFanControlToAuto:(id)sender {
-    [self _toggleFanControlToolbarView];
+    self.fanControlToolbarOverlayView.hidden = YES;
     if (self.dashboardData.fan_control != 0) {
         self.dashboardData.fan_control = 0;
         [self uploadModelToServer];  
@@ -1024,7 +1014,7 @@
 }
 
 - (IBAction)changeFanControlToOn:(id)sender {
-    [self _toggleFanControlToolbarView];
+    self.fanControlToolbarOverlayView.hidden = YES;
     if (self.dashboardData.fan_control != 1) {
         self.dashboardData.fan_control = 1;
         [self uploadModelToServer]; 
@@ -1032,11 +1022,11 @@
 }
 
 - (IBAction)hideSystemControlToolbarView:(id)sender {
-    [self _toggleSystemControlToolbarView];
+    self.systemControlToolbarOverlayView.hidden = YES;
 }
 
 - (IBAction)hideFanControlToolbarView:(id)sender {
-    [self _toggleFanControlToolbarView];
+    self.fanControlToolbarOverlayView.hidden = YES;
 }
 
 - (void)refreshAction

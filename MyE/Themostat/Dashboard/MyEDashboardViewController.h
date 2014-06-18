@@ -35,9 +35,6 @@ CDCircleDelegate, CDCircleDataSource> {
     MBProgressHUD *HUD;
     
     BOOL _isSetpointChanged;
-    
-    BOOL _isSystemControlToolbarViewShowing;
-    BOOL _isFanControlToolbarViewShowing;
 }
 @property (copy, nonatomic) NSString *userId;
 @property (nonatomic) NSInteger houseId;
@@ -54,17 +51,17 @@ CDCircleDelegate, CDCircleDataSource> {
 @property (weak, nonatomic) UILabel *selectedLabelView;
 
 
-
-@property (weak, nonatomic) IBOutlet UIView *controlButtonContainer;
 @property (weak, nonatomic) IBOutlet ACPButton *controlModeBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *controlModeImageView;
 @property (weak, nonatomic) IBOutlet UILabel *stageLevelLabel;
-@property (weak, nonatomic) IBOutlet UIView *systemControlToolbarView;
+@property (weak, nonatomic) IBOutlet UIView *systemControlToolbar;
+@property (weak, nonatomic) IBOutlet UIView *systemControlToolbarOverlayView;
 
 @property (weak, nonatomic) IBOutlet ACPButton *fanStatusBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *fanImageView;
 @property (weak, nonatomic) IBOutlet UILabel *fanStatusLabel;
-@property (weak, nonatomic) IBOutlet UIView *fanControlToolbarView;
+@property (weak, nonatomic) IBOutlet UIView *fanControlToolbar;
+@property (weak, nonatomic) IBOutlet UIView *fanControlToolbarOverlayView;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *holdRunLabel;

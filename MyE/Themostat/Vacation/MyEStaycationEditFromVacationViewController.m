@@ -117,19 +117,19 @@
     
     // 这里用自定义的向左的箭头按钮
     // 下面使用9宫格可缩放图片作为按钮背景
-    UIImage *buttonImage = [UIImage imageNamed:@"backbutton.png"];
-    buttonImage = [buttonImage stretchableImageWithLeftCapWidth:13 topCapHeight:6];
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [backButton setTitle:@" Back" forState:UIControlStateNormal];
-    backButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-    [backButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    backButton.frame = CGRectMake(0, 0, 50, 30);
-    [backButton addTarget:self action:@selector(backToVacationList) 
-         forControlEvents:UIControlEventTouchUpInside];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] 
-                                             initWithCustomView:backButton];
+//    UIImage *buttonImage = [UIImage imageNamed:@"backbutton.png"];
+//    buttonImage = [buttonImage stretchableImageWithLeftCapWidth:13 topCapHeight:6];
+//    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [backButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+//    [backButton setTitle:@" Back" forState:UIControlStateNormal];
+//    backButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+//    [backButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+//    backButton.frame = CGRectMake(0, 0, 50, 30);
+//    [backButton addTarget:self action:@selector(backToVacationList) 
+//         forControlEvents:UIControlEventTouchUpInside];
+//    
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] 
+//                                             initWithCustomView:backButton];
 }
 
 - (void)viewDidUnload

@@ -40,6 +40,64 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nvq-U1-kBd" customClass="ACPButton">
+                                <rect key="frame" x="15" y="400" width="130" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Stage 1 + 2" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6yT-2G-n1V">
+                                        <rect key="frame" x="45" y="10" width="80" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <color key="textColor" red="0.29411764705882354" green="0.74425828313253017" blue="0.8436088102409639" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView contentMode="scaleToFill" fixedFrame="YES" image="Ctrl_Cooling01" translatesAutoresizingMaskIntoConstraints="NO" id="4bS-Ug-ZmV">
+                                        <rect key="frame" x="5" y="5" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="eQU-2U-bQA" appends="YES" id="Th4-JU-53k"/>
+                                        </connections>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Y9t-cT-kwU"/>
+                                    <constraint firstAttribute="width" constant="130" id="pJG-w8-Ohu"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="changeControlMode:" destination="wsk-OD-Yur" eventType="touchUpInside" id="b1I-KS-aEC"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zAa-Vd-qld" customClass="ACPButton">
+                                <rect key="frame" x="175" y="400" width="130" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView contentMode="scaleToFill" fixedFrame="YES" image="Ctrl_FanOn-01" translatesAutoresizingMaskIntoConstraints="NO" id="Uuw-PK-lJl">
+                                        <rect key="frame" x="5" y="5" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="3dH-o3-xXb" appends="YES" id="EQY-1f-337"/>
+                                        </connections>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FanON" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYz-nG-eSl">
+                                        <rect key="frame" x="40" y="10" width="80" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <color key="textColor" red="0.29461596385542171" green="0.74421121987951722" blue="0.8425616528614458" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="IN3-4o-u83"/>
+                                    <constraint firstAttribute="width" constant="130" id="diO-Xa-Om2"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="changeFanControl:" destination="wsk-OD-Yur" eventType="touchUpInside" id="6eC-pO-JwQ"/>
+                                </connections>
+                            </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MAV-yd-csY">
                                 <rect key="frame" x="10" y="0.0" width="300" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -101,7 +159,7 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.25" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Oos-m2-NAD" secondAttribute="bottom" id="zYE-1p-o34"/>
+                                    <constraint firstAttribute="bottom" secondItem="Oos-m2-NAD" secondAttribute="bottom" id="FKM-57-7xD"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="lwn-YZ-ysO" appends="YES" id="eNN-Fo-Cy8"/>
@@ -172,7 +230,7 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.25" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="d4j-mz-VqZ" secondAttribute="bottom" id="tFT-SE-A7Y"/>
+                                    <constraint firstAttribute="bottom" secondItem="d4j-mz-VqZ" secondAttribute="bottom" id="wUU-NC-xKr"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="cvu-OR-vPA" appends="YES" id="Hir-1O-k1K"/>
@@ -185,72 +243,15 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dnW-jF-9v5">
-                                <rect key="frame" x="0.0" y="400" width="320" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nvq-U1-kBd" customClass="ACPButton">
-                                        <rect key="frame" x="15" y="0.0" width="130" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Stage 1 + 2" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6yT-2G-n1V">
-                                                <rect key="frame" x="45" y="10" width="80" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                <color key="textColor" red="0.29411764705882354" green="0.74425828313253017" blue="0.8436088102409639" alpha="1" colorSpace="deviceRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <imageView contentMode="scaleToFill" fixedFrame="YES" image="Ctrl_Cooling01" translatesAutoresizingMaskIntoConstraints="NO" id="4bS-Ug-ZmV">
-                                                <rect key="frame" x="5" y="5" width="30" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <gestureRecognizers/>
-                                                <connections>
-                                                    <outletCollection property="gestureRecognizers" destination="eQU-2U-bQA" appends="YES" id="Th4-JU-53k"/>
-                                                </connections>
-                                            </imageView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="changeControlMode:" destination="wsk-OD-Yur" eventType="touchUpInside" id="b1I-KS-aEC"/>
-                                        </connections>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zAa-Vd-qld" customClass="ACPButton">
-                                        <rect key="frame" x="175" y="0.0" width="130" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <imageView contentMode="scaleToFill" fixedFrame="YES" image="Ctrl_FanOn-01" translatesAutoresizingMaskIntoConstraints="NO" id="Uuw-PK-lJl">
-                                                <rect key="frame" x="5" y="5" width="30" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <gestureRecognizers/>
-                                                <connections>
-                                                    <outletCollection property="gestureRecognizers" destination="3dH-o3-xXb" appends="YES" id="EQY-1f-337"/>
-                                                </connections>
-                                            </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FanON" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYz-nG-eSl">
-                                                <rect key="frame" x="40" y="10" width="80" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                <color key="textColor" red="0.29461596385542171" green="0.74421121987951722" blue="0.8425616528614458" alpha="1" colorSpace="deviceRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="changeFanControl:" destination="wsk-OD-Yur" eventType="touchUpInside" id="6eC-pO-JwQ"/>
-                                        </connections>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.95896084337349397" green="0.95920792545180722" blue="0.96105515813253017" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="7lo-pV-iZC" secondAttribute="bottom" id="3kE-0T-chy"/>
-                            <constraint firstAttribute="bottom" secondItem="X3f-oc-Dy8" secondAttribute="bottom" id="HZG-0n-tcZ"/>
-                            <constraint firstAttribute="bottom" secondItem="dnW-jF-9v5" secondAttribute="bottom" constant="15" id="NQH-pX-k7g"/>
-                            <constraint firstItem="7lo-pV-iZC" firstAttribute="top" secondItem="4zX-JK-UeN" secondAttribute="top" id="X5z-oW-47z"/>
-                            <constraint firstItem="X3f-oc-Dy8" firstAttribute="top" secondItem="4zX-JK-UeN" secondAttribute="top" id="gFO-En-3G6"/>
+                            <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="zAa-Vd-qld" secondAttribute="bottom" constant="15" id="1WA-lf-Pwx"/>
+                            <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="nvq-U1-kBd" secondAttribute="bottom" constant="15" id="RIZ-Ax-H0r"/>
+                            <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="7lo-pV-iZC" secondAttribute="bottom" id="mIu-t5-3Lr"/>
+                            <constraint firstItem="7lo-pV-iZC" firstAttribute="top" secondItem="4zX-JK-UeN" secondAttribute="top" id="txl-18-MUT"/>
+                            <constraint firstItem="kYO-VE-MFS" firstAttribute="top" secondItem="X3f-oc-Dy8" secondAttribute="bottom" id="vSO-si-V4n"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -258,12 +259,12 @@
                     <navigationItem key="navigationItem" title="Dashboard" id="8JX-Sf-80W"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
-                        <outlet property="controlButtonContainer" destination="dnW-jF-9v5" id="qKS-m0-mAL"/>
                         <outlet property="controlModeBtn" destination="nvq-U1-kBd" id="t5h-eO-kg5"/>
                         <outlet property="controlModeImageView" destination="4bS-Ug-ZmV" id="kXL-sl-xep"/>
                         <outlet property="fanControlAutoButton" destination="BNW-ff-m2h" id="zvm-Mp-WxA"/>
                         <outlet property="fanControlOnButton" destination="uP1-Hv-v8h" id="VIG-Oo-lQa"/>
-                        <outlet property="fanControlToolbarView" destination="7lo-pV-iZC" id="PYc-W8-jhD"/>
+                        <outlet property="fanControlToolbar" destination="Oos-m2-NAD" id="peT-p6-U1p"/>
+                        <outlet property="fanControlToolbarOverlayView" destination="7lo-pV-iZC" id="dXM-6v-ATI"/>
                         <outlet property="fanControlToolbarViewTapRecognizer" destination="lwn-YZ-ysO" id="FkH-Ci-BjK"/>
                         <outlet property="fanImageView" destination="Uuw-PK-lJl" id="laP-WY-Uys"/>
                         <outlet property="fanStatusBtn" destination="zAa-Vd-qld" id="HeI-xc-FdY"/>
@@ -276,7 +277,8 @@
                         <outlet property="systemControlEmgHeatingButton" destination="T7X-sV-Bdh" id="0mx-UC-9LA"/>
                         <outlet property="systemControlHeatingButton" destination="JaX-Hg-Xhb" id="yGY-80-03H"/>
                         <outlet property="systemControlOffButton" destination="hFV-Bo-Krx" id="ZwP-a9-iUm"/>
-                        <outlet property="systemControlToolbarView" destination="X3f-oc-Dy8" id="kta-Od-tYT"/>
+                        <outlet property="systemControlToolbar" destination="d4j-mz-VqZ" id="esz-Br-MnX"/>
+                        <outlet property="systemControlToolbarOverlayView" destination="X3f-oc-Dy8" id="y67-he-Udo"/>
                         <outlet property="systemControlToolbarViewTapRecognizer" destination="cvu-OR-vPA" id="65t-oL-vAV"/>
                     </connections>
                 </viewController>
@@ -794,7 +796,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5uk-rP-KWa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1783" y="-1912"/>
+            <point key="canvasLocation" x="1775" y="-1767"/>
         </scene>
         <!--MyE Vacation Master View Controller - Vacation-->
         <scene sceneID="ZGO-2h-F7M">
