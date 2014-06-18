@@ -796,7 +796,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5uk-rP-KWa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1783" y="-1912"/>
+            <point key="canvasLocation" x="1775" y="-1767"/>
         </scene>
         <!--MyE Vacation Master View Controller - Vacation-->
         <scene sceneID="ZGO-2h-F7M">
