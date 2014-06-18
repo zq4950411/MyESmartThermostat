@@ -59,7 +59,7 @@
     NSLog(@"%@",loader.name);
 }
 -(void)doThisWhenNeedAlertViewWithTag:(NSInteger)tag placeHold:(NSString *)text{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"please enter room name" message:nil delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"OK", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please enter room name" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     UITextField *textField = [alert textFieldAtIndex:0];
     textField.text = text;

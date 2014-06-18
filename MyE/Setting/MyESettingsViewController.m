@@ -62,7 +62,11 @@
 }
 - (IBAction)deleteOrBindM:(ACPButton *)sender {
     if ([sender.currentTitle isEqualToString:@"Remove the Gateway"]) {
-        [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i&mid=%@",GetRequst(SETTING_DELETE_GATEWAY),MainDelegate.houseData.houseId,self.info.mid] andName:@"deleteM"];
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"" leftButtonTitle:@"Cancel" rightButtonTitle:@"YES"];
+        alert.rightBlock = ^{
+            [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i&mid=%@",GetRequst(SETTING_DELETE_GATEWAY),MainDelegate.houseData.houseId,self.info.mid] andName:@"deleteM"];
+        };
+        [alert show];
     }else{
         MyEMediatorRegisterViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"registerGateway"];
         vc.jumpFromNav = YES;

@@ -93,6 +93,7 @@
 #pragma mark - private methods
 -(void)beginTableViewEditing:(UILongPressGestureRecognizer *)sender{
     if (sender.state == UIGestureRecognizerStateBegan) {
+        
         if (self.deviceTable.editing) {
             return;
         }

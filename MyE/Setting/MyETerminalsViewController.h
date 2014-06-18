@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "MyESettingsInfo.h"
+#import "MBProgressHUD.h"
+#import "EGORefreshTableHeaderView.h"
 
-@interface MyETerminalsViewController : UITableViewController<MyEDataLoaderDelegate>
+@interface MyETerminalsViewController : UITableViewController<MyEDataLoaderDelegate,EGORefreshTableHeaderDelegate>
 @property (nonatomic, strong) MyESettingsInfo *info;
 
 @end

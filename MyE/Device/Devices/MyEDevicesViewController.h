@@ -24,6 +24,7 @@
     NSMutableArray *_devices;
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _isRefreshing;
+    BOOL _isDelete;  //表示删除模式，此时指定行是不能编辑的
     UITapGestureRecognizer *_tableTap;   //这两个手势主要用于排序
     UILongPressGestureRecognizer *_tableLong;
 }

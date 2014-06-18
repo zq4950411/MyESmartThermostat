@@ -8,7 +8,9 @@
 
 #import "MyESettingsPasswordResetViewController.h"
 
-@interface MyESettingsPasswordResetViewController ()
+@interface MyESettingsPasswordResetViewController (){
+    MBProgressHUD *HUD;
+}
 
 @end
 
@@ -44,6 +46,7 @@
 
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"receive string is %@",string);
+    [HUD hide:YES];
     if ([name isEqualToString:@"reset_password"]) {
         if ([@"OK" isEqualToString:string])
         {
@@ -89,7 +92,10 @@
         
         return;
     }
-
+    if (HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }else
+        [HUD hide:YES];
     [MyEDataLoader startLoadingWithURLString:[NSString stringWithFormat:@"%@?currentPassword=%@&newPassword=%@",GetRequst(MORE_REPWD),_pwd.text, _nowPwd.text] postData:nil delegate:self loaderName:@"reset_password" userDataDictionary:nil];
 }
 @end

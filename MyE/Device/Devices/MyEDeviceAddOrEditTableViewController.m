@@ -136,6 +136,7 @@
 }
 #pragma mark - IBAction methods
 - (IBAction)save:(UIBarButtonItem *)sender {
+    [self.nameTextField resignFirstResponder];
     if ([self.nameTextField.text length] < 1 || [self.nameTextField.text length] > 15) {
         [SVProgressHUD showErrorWithStatus:@"name error!"];
         return;
@@ -261,7 +262,7 @@
             [SVProgressHUD showErrorWithStatus:@"Error!"];
     }
     if ([name isEqualToString:@"otherEdit"]) {
-        if (![string isEqualToString:@"fail"]) {
+        if ([string isEqualToString:@"OK"]) {
             MyEDevicesViewController *vc = (MyEDevicesViewController *)[self.navigationController childViewControllers][[self.navigationController.childViewControllers indexOfObject:self]-1];
             vc.needRefresh = YES;
             [self.navigationController popViewControllerAnimated:YES];

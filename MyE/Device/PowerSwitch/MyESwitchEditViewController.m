@@ -7,7 +7,7 @@
 //
 
 #import "MyESwitchEditViewController.h"
-
+#import "MyEDevicesViewController.h"
 @interface MyESwitchEditViewController ()
 
 @end
@@ -64,6 +64,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 - (IBAction)saveEdit:(UIBarButtonItem *)sender {
+    [self.nameTextField resignFirstResponder];
     if ([self.nameTextField.text length] < 1 || [self.nameTextField.text length] > 10) {
         [MyEUtil showMessageOn:nil withMessage:@"Make sure name length between 1 and 10"];
         return;
@@ -115,6 +116,8 @@
             self.device.deviceName = self.nameTextField.text;
             self.device.locationName = _room.roomName;
             self.device.locationId = [NSString stringWithFormat:@"%i",_room.roomId];
+            MyEDevicesViewController *vc = self.navigationController.childViewControllers[[self.navigationController.childViewControllers indexOfObject:self] - 1];
+            vc.needRefresh = YES;
             [self.navigationController popViewControllerAnimated:YES];
         }else
             [MyEUtil showMessageOn:nil withMessage:@"Failed to upload data"];

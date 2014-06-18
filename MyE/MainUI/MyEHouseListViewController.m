@@ -48,7 +48,7 @@
 
     
     [self.registerButton setStyleType:ACPButtonOK];
-    [self.registerButton addTarget:self action:@selector(registeGateway:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.registerButton addTarget:self action:@selector(registeGateway:) forControlEvents:UIControlEventTouchUpInside];
     
     if (MainDelegate.accountData.houseList.count == 0)
     {
@@ -69,7 +69,7 @@
         
         if (!b)
         {
-            [self performSelector:@selector(goToRegister) withObject:nil afterDelay:0.5f];
+            [self performSelector:@selector(registerGateway:) withObject:nil afterDelay:0.5f];
         }
     }
     //初始化下拉视图
@@ -121,93 +121,6 @@
 }
 
 #pragma mark - private methods
--(void)loadSettings
-{
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    _defaultHouseId = [prefs integerForKey:@"defaulthouseid"];
-    /*
-     当用户在houselist view选择记住一个默认houseId后，就可以每次自动选择该house进入Dashboard面板，
-     但当全部house的Thermostat都断开时，系统也进入Dashboard，然后系统从服务器下载新数据时发现房屋没有连接，
-     就会回退到HouseList，但估计是由于刚刚从HouseList view转入Dashboar view，在事件执行调度顺序上的错误，
-     系统没有回退到HouseList View，而是导航条已经回退了，但下面的内容面板还停留在Dashboard，
-     此时再点击其他面板都异常退出。此时解决办法就是，在houselist面板上，如果所有house都断开时，
-     不允许用默认的houseId进入Dashboard面板。
-     
-     
-    if ( _defaultHouseId > 0 ) {
-        [self performSegueWithIdentifier:@"ShowMainTabViewByDefaultHouseId" sender:self];
-        
-    }
-     */
-    MyEHouseData *defaultHouseData = [self.accountData houseDataByHouseId:_defaultHouseId];
-    if (defaultHouseData.connection == 0 && defaultHouseData.mId != nil && ![defaultHouseData.mId isEqualToString:@""])
-    {
-        if ( defaultHouseData.terminals.count > 0 && [defaultHouseData.mId length] > 0 )
-        {
-            MyEHouseData *houseData;
-            MyETerminalData *thermostatData;
-            houseData = [self.accountData houseDataByHouseId:_defaultHouseId];
-            MainDelegate.houseData = houseData;
-            
-            thermostatData = [houseData firstConnectedThermostat];
-            MainDelegate.terminalData = thermostatData;
-            
-            //在NSDefaults里面记录这次要进入的房屋
-            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-            NSString *tid = [prefs objectForKey:KEY_FOR_TID_LAST_VIEWED];
-            for (MyETerminalData *temp in MainDelegate.houseData.terminals)
-            {
-                if ([tid isEqualToString:temp.tId])
-                {
-                    MainDelegate.terminalData = temp;
-                    break;
-                }
-            }
-            if (MainDelegate.terminalData == nil)
-            {
-                MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
-            }
-            
-            //在NSDefaults里面记录这次要进入的房屋
-            [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
-            [prefs setValue:thermostatData.tId forKey:KEY_FOR_TID_LAST_VIEWED];
-            [prefs synchronize];
-            
-            if (self.selectedHouseId != houseData.houseId) {
-                self.selectedTabIndex = 0;
-                self.selectedHouseId = houseData.houseId;
-            }
-            
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-            SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
-            
-            [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
-            MainDelegate.window.rootViewController = vc;
-            
-        }
-    }
-}
-
--(void)saveSettings:(NSInteger)defaultHouseId
-{
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    if (self.rememberHouseIdBtn.selected) {
-        [prefs setInteger:defaultHouseId  forKey:@"defaulthouseid"];
-    }else {
-        [prefs setInteger:-1  forKey:@"defaulthouseid"];
-    }
-    [prefs synchronize];
-}
-//-(void) registeGateway:(UIButton *) sender
-//{
-//    RegistGatewayViewController *reg = [[RegistGatewayViewController alloc] init];
-//    [self.navigationController pushViewController:reg animated:YES];
-//}
-//-(void) goToRegister
-//{
-//    RegistGatewayViewController *reg = [[RegistGatewayViewController alloc] init];
-//    [self.navigationController pushViewController:reg animated:YES];
-//}
 - (void)refreshAction
 {
     [self downloadModelFromServer];

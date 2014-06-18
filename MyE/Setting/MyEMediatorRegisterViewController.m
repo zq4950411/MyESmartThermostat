@@ -108,6 +108,10 @@
         [MyEUtil showMessageOn:nil withMessage:@"No House"];
         return;
     }
+    if (HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }else
+        [HUD show:YES];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?mid=%@&pin=%@&associatedProperty=%i&timeZone=%@",GetRequst(SETTING_REGISTER_GATEWAY),self.midTxt.text,self.pinTxt.text,_houseId,_data[_timeZone - 1]] postData:nil delegate:self loaderName:@"register" userDataDictionary:nil];
     NSLog(@"loader name is %@",loader.name);
 }

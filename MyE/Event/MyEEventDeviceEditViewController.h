@@ -12,6 +12,7 @@
 #import "MyEUtil.h"
 #import "MyEHouseData.h"
 #import "MYEPickerView.h"
+#import "MBProgressHUD.h"
 @interface MyEEventDeviceEditViewController : UIViewController<MyEDataLoaderDelegate,MYEPickerViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) MyEEventInfo *eventInfo;

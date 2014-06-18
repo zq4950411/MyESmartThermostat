@@ -129,7 +129,7 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I64-fG-9dj">
+                                                <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I64-fG-9dj">
                                                     <rect key="frame" x="15" y="3" width="45" height="45"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -260,7 +260,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JeP-AV-byJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-795" y="-213"/>
+            <point key="canvasLocation" x="-1459" y="-345"/>
         </scene>
         <!--MyE Event Time Edit View Controller - Time Edit-->
         <scene sceneID="Qvo-7V-Aes">
@@ -355,7 +355,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KzK-xJ-R10" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="381" y="-474"/>
+            <point key="canvasLocation" x="-815" y="-898"/>
         </scene>
         <!--MyE Event Condition Edit View Controller-->
         <scene sceneID="73U-zX-AwC">
@@ -472,7 +472,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="otv-CR-2vt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="381" y="92"/>
+            <point key="canvasLocation" x="-807" y="-332"/>
         </scene>
         <!--MyE Event Device Edit View Controller-->
         <scene sceneID="wBZ-Cn-vx0">
@@ -684,7 +684,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tYe-Rc-Xfi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-273" y="104"/>
+            <point key="canvasLocation" x="-807" y="228"/>
         </scene>
     </scenes>
     <resources>
@@ -703,8 +703,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="sgj-89-WeU"/>
-        <segue reference="mDU-Kp-mwo"/>
         <segue reference="sdp-BY-AnP"/>
+        <segue reference="sgj-89-WeU"/>
+        <segue reference="ZaT-8T-th6"/>
     </inferredMetricsTieBreakers>
 </document>

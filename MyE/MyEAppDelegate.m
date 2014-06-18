@@ -7,7 +7,7 @@
 //
 
 #import "MyEAppDelegate.h"
-
+#import "NSString+MD5.h"
 
 #import "MyEHouseListViewController.h"
 #import "MyEDashboardViewController.h"
@@ -110,7 +110,12 @@
     
     [self refreshUI];
     sleep(0.01);//让程序休眠n秒，以使Launch image多停留一会。
-    
+    // Required
+    [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                   UIRemoteNotificationTypeSound |
+                                                   UIRemoteNotificationTypeAlert)];
+    // Required
+    [APService setupWithOption:launchOptions];
     
     /**
      说明与备忘：
@@ -167,10 +172,14 @@
     [prefs setInteger:1  forKey:@"exitcode"]; 
     [prefs synchronize];
     NSLog(@"------------=============applicationDidEnterBackground, exitcode = 1");
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+
 //    /*
 //     Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 //     */
@@ -291,5 +300,46 @@
     [prefs synchronize];
     NSLog(@"------------=============applicationWillTerminate");
 }
+#pragma mark - Notification methods
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"%@",deviceToken);
+    NSString *deviceTokenString = [[[deviceToken description]
+                                    stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]]
+                                   stringByReplacingOccurrencesOfString:@" "
+                                   withString:@""];
+    NSString *alias = [NSString stringWithFormat:@"mye%@",[deviceTokenString MD5]];
+    NSLog(@"%@",alias);
+    self.deviceTokenStr = deviceTokenString;
+    self.alias = alias;
+    [APService setTags:[NSSet setWithObjects:@"myecn", @"MyE", @"smarthome", nil] alias:alias callbackSelector:nil target:nil];
+
+    [APService registerDeviceToken:deviceToken];
+}
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *) error {
+    NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
+}
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    //    NSLog(@"%@",userInfo);
+    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Infomation"
+                                                contentText:userInfo[@"aps"][@"alert"]
+                                            leftButtonTitle:nil
+                                           rightButtonTitle:@"OK"];
+    [alert show];
+
+    [APService handleRemoteNotification:userInfo];
+}
+#ifdef __IPHONE_7_0
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    //    NSLog(@"%@   %@",userInfo,userInfo[@"aps"][@"alert"]);
+    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Infomation"
+                                                contentText:userInfo[@"aps"][@"alert"]
+                                            leftButtonTitle:nil
+                                           rightButtonTitle:@"OK"];
+    [alert show];
+    [APService handleRemoteNotification:userInfo];
+    completionHandler(UIBackgroundFetchResultNoData);
+}
+#endif
 
 @end

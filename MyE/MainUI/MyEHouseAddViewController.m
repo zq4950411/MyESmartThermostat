@@ -23,10 +23,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSString *imgName = IS_IOS6?@"detailBtn-ios6":@"detailBtn";
-    [self.stateBtn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
-    [self.stateBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
-    _data = @[@"NE",@"CA",@"AL",@"AK",@"AZ",@"AR",@"CO",@"CT",@"DE",@"DC",@"FL",@"GA",@"HI",@"ID",@"IL",@"IN",@"IA",@"KS",@"KY",@"LA",@"ME",@"MD",@"MA",@"MI",@"MN",@"MS",@"MO",@"MT",@"NV",@"NH",@"NJ",@"NM",@"NY",@"NC",@"ND",@"OH",@"OK",@"OR",@"PA",@"RI",@"SC",@"SD",@"TN",@"TX",@"UT",@"VT",@"VA",@"WA",@"WV",@"WI",@"WY",@"AS",@"GU",@"MP",@"PR",@"VI"];
+    [self.okBtn setStyleType:ACPButtonOK];
+    _data = @[@"AL",@"AK",@"AS",@"AZ",@"AR",@"CA",@"CO",@"CT",@"DE",@"DC",@"FL",@"GA",@"GU",@"HI",@"IA",@"ID",@"IL",@"IN",@"KS",@"KY",@"LA",@"MA",@"ME",@"MD",@"MI",@"MN",@"MO",@"MP",@"MS",@"MT",@"NC",@"ND",@"NE",@"NH",@"NJ",@"NM",@"NV",@"NY",@"OH",@"OK",@"OR",@"PA",@"PR",@"RI",@"SC",@"SD",@"TN",@"TX",@"UT",@"VA",@"VI",@"VT",@"WA",@"WV",@"WI",@"WY"];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [btn setFrame:CGRectMake(0, 0, 50, 30)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    if (!IS_IOS6) {
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+    }
+    [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,33 +41,37 @@
 }
 #pragma mark - IBAction methods
 - (IBAction)save:(UIButton *)sender {
-    if ([self.stateBtn.currentTitle isEqualToString:@"Please Select Your State"]) {
+    [self.txtStreet resignFirstResponder];
+    [self.txtCity resignFirstResponder];
+    if ([self.lblState.text isEqualToString:@"Press Here To Select Your State"]) {
         [MyEUtil showMessageOn:nil withMessage:@"Please select Your State"];
+        return;
     }
-    for (UITextField *t in self.view.subviews) {
-        if ([t isKindOfClass:[UITextField class]]) {
-            if ([t.text isEqualToString:@""]) {
-                [MyEUtil showMessageOn:nil withMessage:@"Please Enter All Info"];
-                return;
-            }
-        }
+    if ([self.txtCity.text isEqualToString:@""]) {
+        [MyEUtil showMessageOn:nil withMessage:@"Please select your city"];
+        return;
     }
-    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?state=%@&city=%@&street=%@&mediatorBindFlag=%i",GetRequst(URL_FOR_ADD_ADDRESS),self.stateBtn.currentTitle,self.txtCity.text,self.txtStreet.text,self.bindBtn.selected] andName:@"addHouse"];
+    if ([self.txtStreet.text isEqualToString:@""]) {
+        [MyEUtil showMessageOn:nil withMessage:@"Please select your street"];
+        return;
+    }
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?state=%@&city=%@&street=%@&mediatorBindFlag=%i",GetRequst(URL_FOR_ADD_ADDRESS),self.lblState.text,self.txtCity.text,self.txtStreet.text,self.bindBtn.selected] andName:@"addHouse"];
 }
 - (IBAction)bindMediator:(UIButton *)sender {
     sender.selected = !sender.selected;
 }
-- (IBAction)dismissVC:(UIBarButtonItem *)sender {
+- (void)dismissVC{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-- (IBAction)changeState:(UIButton *)sender {
-    if (!_picker) {
-        _picker = [[MYEPickerView alloc] initWithView:self.view andTag:100 title:@"Select State" dataSource:_data andSelectRow:0];
-    }
+#pragma mark - UITableView delegate methods
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.txtStreet resignFirstResponder];
+    [self.txtCity resignFirstResponder];
+    _picker = [[MYEPickerView alloc] initWithView:self.view andTag:100 title:@"Select State" dataSource:_data andSelectRow:[_data containsObject:self.lblState.text]?[_data indexOfObject:self.lblState.text]:0];
     _picker.delegate = self;
     [_picker showInView:self.view];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-
 #pragma mark - url methods
 -(void)uploadOrDownloadInfoFromServerWithURL:(NSString *)string andName:(NSString *)name{
     if (HUD == nil) {
@@ -73,6 +83,8 @@
 }
 #pragma mark - URL Delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    NSLog(@"receive string is %@",string);
+    [HUD hide:YES];
     if ([name isEqualToString:@"addHouse"]) {
         NSInteger i = [MyEUtil getResultFromAjaxString:string];
         if (i == 1) {
@@ -99,11 +111,11 @@
 #pragma mark - UIAlertView delegate methods
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 100 && buttonIndex == 1) {
-        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?state=%@&city=%@&street=%@&mediatorBindFlag=%i",GetRequst(URL_FOR_ADD_ADDRESS),self.stateBtn.currentTitle,self.txtCity.text,self.txtStreet.text,self.bindBtn.selected] andName:@"addHouse"];
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?state=%@&city=%@&street=%@&mediatorBindFlag=%i",GetRequst(URL_FOR_ADD_ADDRESS),self.lblState.text,self.txtCity.text,self.txtStreet.text,self.bindBtn.selected] andName:@"addHouse"];
     }
 }
 #pragma mark - MYEPickerView delegate methods
 -(void)MYEPickerView:(UIView *)pickerView didSelectTitles:(NSString *)title andRow:(NSInteger)row{
-    [self.stateBtn setTitle:title forState:UIControlStateNormal];
+    self.lblState.text = title;
 }
 @end

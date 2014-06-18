@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MBProgressHUD.h"
 @interface MyESettingsPasswordResetViewController : UITableViewController<UITextFieldDelegate,MyEDataLoaderDelegate>
 @property (nonatomic,strong) IBOutlet UITextField *pwd;
 @property (nonatomic,strong) IBOutlet UITextField *nowPwd;

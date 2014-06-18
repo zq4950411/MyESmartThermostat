@@ -50,6 +50,10 @@
 		8C72264B190658990033A78A /* MyEDeviceAddOrEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C72264A190658990033A78A /* MyEDeviceAddOrEditTableViewController.m */; };
 		8C72264E190660CD0033A78A /* MyEDeviceEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C72264D190660CD0033A78A /* MyEDeviceEdit.m */; };
 		8C82DCD51930A4B5006A10E0 /* MyEEventAddOrEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C82DCD41930A4B5006A10E0 /* MyEEventAddOrEditViewController.m */; };
+		8C91F62A19515D0700C285D3 /* libPushSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C91F62919515D0700C285D3 /* libPushSDK.a */; };
+		8C91F62E19515D6A00C285D3 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C91F62D19515D6A00C285D3 /* CoreFoundation.framework */; };
+		8C91F63019515D8100C285D3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C91F62F19515D8100C285D3 /* CoreTelephony.framework */; };
+		8C91F63219515DC000C285D3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C91F63119515DC000C285D3 /* libz.dylib */; };
 		8CA05FE619078A8E0090A350 /* TableViewWithBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA05FE119078A8E0090A350 /* TableViewWithBlock.m */; };
 		8CA05FE719078A8E0090A350 /* UITableView+DataSourceBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA05FE319078A8E0090A350 /* UITableView+DataSourceBlocks.m */; };
 		8CA05FE819078A8E0090A350 /* UITableView+DelegateBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA05FE519078A8E0090A350 /* UITableView+DelegateBlocks.m */; };
@@ -81,6 +85,8 @@
 		8CCB090A192241360095EAAD /* MyEIrDefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0909192241360095EAAD /* MyEIrDefaultViewController.m */; };
 		8CCB0D541909FF460044B0E5 /* MyESocketInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */; };
 		8CE5860F191E131A00157EE2 /* MyEIrUserKeyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE5860E191E131A00157EE2 /* MyEIrUserKeyViewController.m */; };
+		8CF7FB741951640D007725F9 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CF7FB731951640D007725F9 /* PushConfig.plist */; };
+		8CF7FB771951669A007725F9 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7FB761951669A007725F9 /* NSString+MD5.m */; };
 		8CFF1C04192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFF1C03192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.m */; };
 		B2520A0517C212E100CB56BA /* NSDictionary+JSONNSNull.m in Sources */ = {isa = PBXBuildFile; fileRef = B2520A0417C212E100CB56BA /* NSDictionary+JSONNSNull.m */; };
 		B2520A0817C216EB00CB56BA /* NSString+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = B2520A0717C216EA00CB56BA /* NSString+Common.m */; };
@@ -419,6 +425,11 @@
 		8C72264D190660CD0033A78A /* MyEDeviceEdit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEDeviceEdit.m; sourceTree = "<group>"; };
 		8C82DCD31930A4B5006A10E0 /* MyEEventAddOrEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventAddOrEditViewController.h; sourceTree = "<group>"; };
 		8C82DCD41930A4B5006A10E0 /* MyEEventAddOrEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventAddOrEditViewController.m; sourceTree = "<group>"; };
+		8C91F62819515D0700C285D3 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
+		8C91F62919515D0700C285D3 /* libPushSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPushSDK.a; sourceTree = "<group>"; };
+		8C91F62D19515D6A00C285D3 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		8C91F62F19515D8100C285D3 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		8C91F63119515DC000C285D3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8CA05FE019078A8E0090A350 /* TableViewWithBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewWithBlock.h; sourceTree = "<group>"; };
 		8CA05FE119078A8E0090A350 /* TableViewWithBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewWithBlock.m; sourceTree = "<group>"; };
 		8CA05FE219078A8E0090A350 /* UITableView+DataSourceBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+DataSourceBlocks.h"; sourceTree = "<group>"; };
@@ -479,6 +490,9 @@
 		8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketInfo.m; sourceTree = "<group>"; };
 		8CE5860D191E131A00157EE2 /* MyEIrUserKeyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIrUserKeyViewController.h; sourceTree = "<group>"; };
 		8CE5860E191E131A00157EE2 /* MyEIrUserKeyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIrUserKeyViewController.m; sourceTree = "<group>"; };
+		8CF7FB731951640D007725F9 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
+		8CF7FB751951669A007725F9 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "LIB/NSString+MD5.h"; sourceTree = "<group>"; };
+		8CF7FB761951669A007725F9 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+MD5.m"; path = "LIB/NSString+MD5.m"; sourceTree = "<group>"; };
 		8CFF1C02192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESocketScheduleAddOrEditViewController.h; sourceTree = "<group>"; };
 		8CFF1C03192C4F65007934A9 /* MyESocketScheduleAddOrEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESocketScheduleAddOrEditViewController.m; sourceTree = "<group>"; };
 		B2520A0317C212E100CB56BA /* NSDictionary+JSONNSNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JSONNSNull.h"; sourceTree = "<group>"; };
@@ -932,10 +946,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C91F63219515DC000C285D3 /* libz.dylib in Frameworks */,
+				8C91F63019515D8100C285D3 /* CoreTelephony.framework in Frameworks */,
+				8C91F62E19515D6A00C285D3 /* CoreFoundation.framework in Frameworks */,
 				C3FB3C20192F1F700039D052 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				C3F61B2C18E1231B00DEE477 /* Accelerate.framework in Frameworks */,
 				B2BFB9C717F2C5030057E97E /* CoreText.framework in Frameworks */,
 				B25B79F917D1AB75009F4E84 /* CoreMedia.framework in Frameworks */,
+				8C91F62A19515D0700C285D3 /* libPushSDK.a in Frameworks */,
 				B25B79F717D1AAC3009F4E84 /* AudioToolbox.framework in Frameworks */,
 				B25B79F517D1AAA0009F4E84 /* CoreVideo.framework in Frameworks */,
 				B25B79F317D1AA9A009F4E84 /* CoreAudio.framework in Frameworks */,
@@ -1059,6 +1077,15 @@
 			path = UController;
 			sourceTree = "<group>";
 		};
+		8C91F62719515D0700C285D3 /* JPush */ = {
+			isa = PBXGroup;
+			children = (
+				8C91F62819515D0700C285D3 /* APService.h */,
+				8C91F62919515D0700C285D3 /* libPushSDK.a */,
+			);
+			path = JPush;
+			sourceTree = "<group>";
+		};
 		8CA05FDE19078A8D0090A350 /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1158,6 +1185,8 @@
 		B2588BEB17B09B9C007ED13C /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				8CF7FB751951669A007725F9 /* NSString+MD5.h */,
+				8CF7FB761951669A007725F9 /* NSString+MD5.m */,
 				B2588BEC17B09B9C007ED13C /* Base */,
 				B2588BF917B09B9C007ED13C /* Extention */,
 				B2588C2D17B09B9C007ED13C /* LIB */,
@@ -1240,6 +1269,7 @@
 		B2588C2D17B09B9C007ED13C /* LIB */ = {
 			isa = PBXGroup;
 			children = (
+				8C91F62719515D0700C285D3 /* JPush */,
 				8C13F48919482A6600B52913 /* WTReTextField */,
 				8C13F4261946DA0400B52913 /* ASIHttpRequest */,
 				C30DBF28194018DE0063AC6D /* UITableViewDragLoad */,
@@ -1545,6 +1575,9 @@
 		C30E01F214C7A69200011160 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8C91F63119515DC000C285D3 /* libz.dylib */,
+				8C91F62F19515D8100C285D3 /* CoreTelephony.framework */,
+				8C91F62D19515D6A00C285D3 /* CoreFoundation.framework */,
 				8C13F47A1946DD5400B52913 /* libz.1.1.3.dylib */,
 				C3F61B2B18E1231B00DEE477 /* Accelerate.framework */,
 				B2BFB9C617F2C5030057E97E /* CoreText.framework */,
@@ -1604,6 +1637,7 @@
 				C30E01FC14C7A69200011160 /* InfoPlist.strings */,
 				C30E01FF14C7A69200011160 /* main.m */,
 				C30E020114C7A69200011160 /* MyE-Prefix.pch */,
+				8CF7FB731951640D007725F9 /* PushConfig.plist */,
 			);
 			name = "Supporting Files";
 			path = MyE;
@@ -2293,6 +2327,7 @@
 				B2588D3A17B09B9D007ED13C /* grayArrow@2x.png in Resources */,
 				B2588D3B17B09B9D007ED13C /* whiteArrow.png in Resources */,
 				B2588D3C17B09B9D007ED13C /* whiteArrow@2x.png in Resources */,
+				8CF7FB741951640D007725F9 /* PushConfig.plist in Resources */,
 				B2588D5117B09B9D007ED13C /* README.md in Resources */,
 				B2588D6117B09B9D007ED13C /* SVProgressHUD.bundle in Resources */,
 				C3A1C8221902ED9B001A1F99 /* DictionaryTableViewViewController.xib in Resources */,
@@ -2438,6 +2473,7 @@
 				C3FB3BD9192DC6460039D052 /* MyEWeeklyScheduleViewController.m in Sources */,
 				8C6CB5631945514B007EECEA /* MyEUCChannelSetViewController.m in Sources */,
 				8CA060341908A3BF0090A350 /* SUNSlideSwitchView.m in Sources */,
+				8CF7FB771951669A007725F9 /* NSString+MD5.m in Sources */,
 				8CA1590B194F13F300495453 /* MyESettingsViewController.m in Sources */,
 				8C6CB55C194550D2007EECEA /* MyEUCTimeSetViewController.m in Sources */,
 				C3FB3BCE192DC6460039D052 /* MyEPeriodInforDoughnutView.m in Sources */,
@@ -2758,6 +2794,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Framework/LIB/ZBarSDK/ZBarSDK\"",
+					"$(SRCROOT)/Framework/LIB/JPush",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC ";
@@ -2788,6 +2825,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Framework/LIB/ZBarSDK/ZBarSDK\"",
+					"$(SRCROOT)/Framework/LIB/JPush",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC ";

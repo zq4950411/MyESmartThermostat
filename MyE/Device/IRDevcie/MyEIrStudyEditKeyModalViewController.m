@@ -116,8 +116,10 @@
     if (![action isEqualToString:@"record"]) {
         if(HUD == nil) {
             HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        } else
+        } else{
+            HUD.mode = MBProgressHUDModeDeterminate;
             [HUD show:YES];
+        }
     }
     NSString * urlStr= [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&name=%@&type=%i&instructionId=%i&deviceId=%@&action=%@",GetRequst(URL_FOR_INSTRUCTION_STUDY),MainDelegate.houseData.houseId,self.device.tid,self.instruction.name,self.instruction.type,self.instruction.instructionId,self.device.deviceId,action];
     MyEDataLoader *downloader = [[MyEDataLoader alloc]

@@ -58,8 +58,8 @@
     [super viewDidLoad];
 
     // 下面使用9宫格可缩放图片作为按钮背景
-    UIImage *normalImage = [[UIImage imageNamed:@"control-enable-normal"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
-    UIImage *highlightImage = [[UIImage imageNamed:@"control-enable-highlight"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+    UIImage *normalImage = [[UIImage imageNamed:@"login-normal"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+    UIImage *highlightImage = [[UIImage imageNamed:@"login-highlight"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
     [self.loginButton setBackgroundImage:normalImage forState:UIControlStateNormal];
     [self.loginButton setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
     [self.loginButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
@@ -407,7 +407,7 @@
 #pragma mark UIAlertViewDelegate methods
 -(void)alertView:(UIAlertView *)alertView  clickedButtonAtIndex:(int)index
 {
-    if(alertView.tag == 100 && index == 0) {
+    if(alertView.tag == 100 && index == 1) {
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"Setting" bundle:nil];
         UINavigationController *nav = [story instantiateViewControllerWithIdentifier:@"addHouse"];
         [self presentViewController:nav animated:YES completion:nil];

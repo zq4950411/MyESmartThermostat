@@ -105,7 +105,7 @@
     NSString *string = nil;
     MyEEventInfo *event = self.events.scenes[indexPath.row];
     NSLog(@"%@",event);
-    string = event.type == 0?@"conditionCell":@"cell";
+    string = event.type == 1?@"conditionCell":@"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:string forIndexPath:indexPath];
     UIButton *btn = (UIButton *)[cell.contentView viewWithTag:100];
     [btn addTarget:self action:@selector(applyScene:) forControlEvents:UIControlEventTouchUpInside];
