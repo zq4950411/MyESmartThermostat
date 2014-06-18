@@ -42,7 +42,6 @@
     self.layer.shouldRasterize = YES;
     self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     
-    
     RTLabel *label = (RTLabel *)[self viewWithTag:10];
     label.delegate = self;
     label.text = @"This app is for Smart Home control associated with a property. Please visit our <a href='http://www.myenergydomain.com'>website</a> and add a property to your account before using this app.";
