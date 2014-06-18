@@ -860,16 +860,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="~ F" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ngR-b4-nOk">
-                                        <rect key="frame" x="15" y="108" width="70" height="35"/>
+                                        <rect key="frame" x="15" y="108" width="149" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="~ %RH" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emY-cV-eS1">
-                                        <rect key="frame" x="88" y="108" width="76" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -980,7 +973,6 @@
                         <outlet property="alertsTileLabel" destination="Z5n-C6-tYv" id="SeQ-qQ-eYR"/>
                         <outlet property="elecUsageTile" destination="Sph-ZO-bTG" id="KXL-dN-qS1"/>
                         <outlet property="faultInfoTile" destination="OrV-zF-bzT" id="9Pi-j4-c1m"/>
-                        <outlet property="humidityLabel" destination="emY-cV-eS1" id="plq-nQ-viY"/>
                         <outlet property="indoorInforTile" destination="CIQ-Dl-51D" id="YO6-E4-BUR"/>
                         <outlet property="indoorTemperatureLabel" destination="ngR-b4-nOk" id="pb9-vy-Yos"/>
                         <outlet property="sidebarButton" destination="wMU-7Z-uM6" id="aN3-oG-9h3"/>
@@ -1397,7 +1389,7 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Terminals:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5d-dw-WJj">
-                                <rect key="frame" x="25" y="24" width="78" height="21"/>
+                                <rect key="frame" x="20" y="24" width="89" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -1570,7 +1562,7 @@
         <image name="20937478-088A-4675-B284-DDCA2AFE20EA" width="28" height="20"/>
         <image name="32264432-17B3-41D0-958C-54E72192F5D8" width="28" height="20"/>
         <image name="4F9ABBE7-21A0-4020-9F67-4F22E7F58F0C" width="28" height="20"/>
-        <image name="87484745-6EB0-4EB5-9207-E3AB47EE6893" width="40" height="40"/>
+        <image name="87484745-6EB0-4EB5-9207-E3AB47EE6893" width="175" height="175"/>
         <image name="AlertTile" width="100" height="100"/>
         <image name="Alerts" width="100" height="100"/>
         <image name="Alerts-01" width="60" height="60"/>

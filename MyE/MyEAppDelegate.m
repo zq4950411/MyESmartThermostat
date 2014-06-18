@@ -320,22 +320,15 @@
     NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    //    NSLog(@"%@",userInfo);
-    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Infomation"
-                                                contentText:userInfo[@"aps"][@"alert"]
-                                            leftButtonTitle:nil
-                                           rightButtonTitle:@"OK"];
+    NSLog(@"%@",userInfo);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Infomation" message:userInfo[@"aps"][@"alert"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
-
     [APService handleRemoteNotification:userInfo];
 }
 #ifdef __IPHONE_7_0
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    //    NSLog(@"%@   %@",userInfo,userInfo[@"aps"][@"alert"]);
-    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Infomation"
-                                                contentText:userInfo[@"aps"][@"alert"]
-                                            leftButtonTitle:nil
-                                           rightButtonTitle:@"OK"];
+    NSLog(@"%@   %@",userInfo,userInfo[@"aps"][@"alert"]);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Infomation" message:userInfo[@"aps"][@"alert"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [alert show];
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNoData);

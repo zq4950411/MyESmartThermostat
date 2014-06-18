@@ -10,6 +10,8 @@
 
 @interface MyESwitchAutoViewController (){
     NSIndexPath *_selectIndex;
+    EGORefreshTableHeaderView *_refreshHeaderView;
+    BOOL _isRefreshing;
 }
 
 @end
@@ -32,7 +34,13 @@
     }    
     [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-
+    if (!_refreshHeaderView) {
+        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.tableView.frame.size.width, self.tableView.bounds.size.height)];
+        view.delegate = self;
+        [self.tableView addSubview:view];
+        _refreshHeaderView = view;
+    }
+    [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
@@ -119,6 +127,10 @@
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"receive string is %@",string);
     [HUD hide:YES];
+    if (_isRefreshing) {
+        _isRefreshing = NO;
+        [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+    }
     if ([name isEqualToString:@"scheduleEdit"]) {
         if ([string isEqualToString:@"OK"]) {
             MyESwitchSchedule *schedule = self.control.SSList[_selectIndex.row];
@@ -146,6 +158,27 @@
     }
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
+#pragma mark - UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
+    [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+}
+#pragma mark - EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+    _isRefreshing = YES;
+    [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:[NSString stringWithFormat:@"%@?houseId=%li&tId=%@",GetRequst(URL_FOR_SWITCH_SCHEDULE_LIST),(long)MainDelegate.houseData.houseId, self.device.tid] andName:@"scheduleList"];
+}
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+    return [NSDate date]; // should return date data source was last changed
 }
 @end

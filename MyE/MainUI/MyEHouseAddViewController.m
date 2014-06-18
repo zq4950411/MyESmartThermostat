@@ -108,6 +108,10 @@
         }
     }
 }
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
 #pragma mark - UIAlertView delegate methods
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 100 && buttonIndex == 1) {

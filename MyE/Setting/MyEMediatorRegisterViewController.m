@@ -159,7 +159,10 @@
             [SVProgressHUD showErrorWithStatus:@"fail"];
     }
 }
-
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

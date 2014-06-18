@@ -57,14 +57,12 @@
         {
             [SVProgressHUD showSuccessWithStatus:@"Error"];
         }
-        
     }
 }
-- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
-    [SVProgressHUD showErrorWithStatus:@"Resetting password communication Error"];
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
-
-
 -(IBAction) ok:(UIBarButtonItem *) sender
 {
     [self.pwd resignFirstResponder];

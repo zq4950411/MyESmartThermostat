@@ -156,8 +156,10 @@
     }
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
-    NSLog(@"error is %@",[error localizedDescription]);
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
+
 #pragma mark - IQActionSheet delegate methods
 -(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles{
     _delayTime = [[titles[0] substringToIndex:[titles[0] length] == 3?1:2] intValue];

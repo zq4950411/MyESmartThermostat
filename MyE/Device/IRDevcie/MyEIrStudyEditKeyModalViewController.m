@@ -226,16 +226,8 @@
         self.instruction.status = 0;
     }
 }
-- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
-    
-    // inform the user
-    NSLog(@"In delegate Connection failed! Error - %@ %@",
-          [error localizedDescription],
-          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
-    NSString *msg = @"fail";
-    
-    [MyEUtil showSuccessOn:self.navigationController.view withMessage:msg];
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
-
 @end

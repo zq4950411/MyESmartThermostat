@@ -312,7 +312,7 @@
 #pragma mark - UIAlertView delegate methods
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
+    if ([alertView.title isEqualToString:@"Confirm"] && buttonIndex == 0) {
         [self deleteAlertFromServerAtRow:alertView.tag];
     }
     

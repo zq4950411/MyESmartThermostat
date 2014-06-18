@@ -481,14 +481,13 @@
         [alert show];
         return;
     }
-    
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         HUD.delegate = self;
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?username=%@&password=%@&type=1",GetRequst(URL_FOR_LOGIN), self.usernameInput.text, self.passwordInput.text] ;
+    NSString *urlStr = [NSString stringWithFormat:@"%@?username=%@&password=%@&type=1&checkCode=2&deviceType=0&deviceToken=%@&deviceAlias=%@&appVersion=%@",GetRequst(URL_FOR_LOGIN), self.usernameInput.text, self.passwordInput.text,MainDelegate.deviceTokenStr,MainDelegate.alias,[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] ;
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"LoginDownloader" userDataDictionary:nil];
     NSLog(@"downloader.name is  %@ urlStr =  %@",downloader.name, urlStr);
 }

@@ -29,12 +29,20 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qdg-RS-Aei">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qdg-RS-Aei">
                                                     <rect key="frame" x="85" y="7" width="220" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="220" id="igh-6C-HMU"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="Qdg-RS-Aei" secondAttribute="bottom" constant="6" id="O7l-eS-5Ib"/>
+                                                <constraint firstAttribute="trailing" secondItem="Qdg-RS-Aei" secondAttribute="trailing" constant="15" id="YDo-yc-vMU"/>
+                                                <constraint firstItem="Qdg-RS-Aei" firstAttribute="top" secondItem="bkq-Bd-Sc3" secondAttribute="top" constant="7" id="erg-rM-7fK"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="wcu-2v-MiX" detailTextLabel="dNZ-pi-GXr" style="IBUITableViewCellStyleValue1" id="qu4-Q7-0L0">
@@ -149,7 +157,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view tag="99" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fhd-tz-fbd">
+                                        <view tag="1024" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fhd-tz-fbd">
                                             <rect key="frame" x="8" y="4" width="304" height="52"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSO-hp-Sdt">
@@ -202,36 +210,53 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVh-A7-qLo" customClass="MyEControlBtn">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVh-A7-qLo" customClass="MyEControlBtn">
                                 <rect key="frame" x="40" y="54" width="240" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="t54-J9-wKR"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <state key="normal" title="︿">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqW-G8-CMX" customClass="MyEControlBtn">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqW-G8-CMX" customClass="MyEControlBtn">
                                 <rect key="frame" x="120" y="134" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="SKT-Ao-9FD"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <state key="normal" title="||">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Td9-mC-RhB" customClass="MyEControlBtn">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Td9-mC-RhB" customClass="MyEControlBtn">
                                 <rect key="frame" x="40" y="214" width="240" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="YBX-48-omD"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <state key="normal" title="﹀">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3WU-CS-ym7" customClass="MyEControlBtn">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3WU-CS-ym7" customClass="MyEControlBtn">
                                 <rect key="frame" x="200" y="54" width="80" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="F5g-yN-ydu"/>
+                                    <constraint firstAttribute="height" constant="240" id="f0e-q8-8iJ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title="❯||❮">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7uh-Pf-Puo" customClass="MyEControlBtn">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7uh-Pf-Puo" customClass="MyEControlBtn">
                                 <rect key="frame" x="40" y="54" width="80" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="3y9-U1-1MD"/>
+                                    <constraint firstAttribute="width" constant="80" id="ZM8-4O-vCh"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title="❮||❯">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -239,6 +264,21 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Td9-mC-RhB" secondAttribute="trailing" constant="40" id="5TK-Di-mJZ"/>
+                            <constraint firstItem="iqW-G8-CMX" firstAttribute="leading" secondItem="7uh-Pf-Puo" secondAttribute="trailing" id="5r8-rH-lZX"/>
+                            <constraint firstItem="3WU-CS-ym7" firstAttribute="top" secondItem="fca-rL-rhx" secondAttribute="top" constant="54" id="D6V-i7-Mwe"/>
+                            <constraint firstItem="EVh-A7-qLo" firstAttribute="leading" secondItem="fca-rL-rhx" secondAttribute="leading" constant="40" id="FhV-Dv-ofB"/>
+                            <constraint firstItem="Td9-mC-RhB" firstAttribute="leading" secondItem="fca-rL-rhx" secondAttribute="leading" constant="40" id="Fnb-k5-bhD"/>
+                            <constraint firstItem="iqW-G8-CMX" firstAttribute="top" secondItem="EVh-A7-qLo" secondAttribute="bottom" id="Mzq-TL-mlw"/>
+                            <constraint firstAttribute="trailing" secondItem="EVh-A7-qLo" secondAttribute="trailing" constant="40" id="Phz-Bu-E2L"/>
+                            <constraint firstItem="7uh-Pf-Puo" firstAttribute="leading" secondItem="fca-rL-rhx" secondAttribute="leading" constant="40" id="XUd-uy-nsc"/>
+                            <constraint firstItem="7uh-Pf-Puo" firstAttribute="top" secondItem="fca-rL-rhx" secondAttribute="top" constant="54" id="Zgt-JW-Zza"/>
+                            <constraint firstItem="Td9-mC-RhB" firstAttribute="top" secondItem="iqW-G8-CMX" secondAttribute="bottom" id="cQe-8I-8yD"/>
+                            <constraint firstItem="3WU-CS-ym7" firstAttribute="leading" secondItem="iqW-G8-CMX" secondAttribute="trailing" id="gWl-bd-ftx"/>
+                            <constraint firstAttribute="trailing" secondItem="3WU-CS-ym7" secondAttribute="trailing" constant="40" id="lNV-9g-pfb"/>
+                            <constraint firstItem="EVh-A7-qLo" firstAttribute="top" secondItem="fca-rL-rhx" secondAttribute="top" constant="54" id="lsL-B9-GgU"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Curtain" id="c9W-FV-yPq">
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="NOk-xa-RNj">
@@ -298,84 +338,117 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SAw-h0-uQS" customClass="MyEControlBtn">
-                                <rect key="frame" x="11" y="295" width="70" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SAw-h0-uQS" customClass="MyEControlBtn">
+                                <rect key="frame" x="11" y="280" width="70" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="TvR-QG-LUZ"/>
+                                    <constraint firstAttribute="width" constant="70" id="cuO-VQ-g1q"/>
+                                </constraints>
                                 <state key="normal" title="Func1">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufb-3E-Kni" customClass="MyEControlBtn">
-                                <rect key="frame" x="87" y="295" width="70" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufb-3E-Kni" customClass="MyEControlBtn">
+                                <rect key="frame" x="87" y="280" width="70" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Gfv-aO-Q0h"/>
+                                    <constraint firstAttribute="width" constant="70" id="PWr-hp-5s2"/>
+                                </constraints>
                                 <state key="normal" title="Func2">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KdI-3H-mcQ" customClass="MyEControlBtn">
-                                <rect key="frame" x="163" y="295" width="70" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KdI-3H-mcQ" customClass="MyEControlBtn">
+                                <rect key="frame" x="163" y="280" width="70" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="1jx-PY-RLd"/>
+                                    <constraint firstAttribute="height" constant="40" id="7Gi-ha-EQr"/>
+                                </constraints>
                                 <state key="normal" title="Func3">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cr-IR-fvt" customClass="MyEControlBtn">
-                                <rect key="frame" x="239" y="295" width="70" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1cr-IR-fvt" customClass="MyEControlBtn">
+                                <rect key="frame" x="239" y="280" width="70" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="YcY-fd-Rjk"/>
+                                    <constraint firstAttribute="height" constant="40" id="los-gr-gbn"/>
+                                </constraints>
                                 <state key="normal" title="Func4">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3M-kW-i7F" customClass="MyEControlBtn">
-                                <rect key="frame" x="11" y="20" width="70" height="40"/>
+                                <rect key="frame" x="11" y="5" width="70" height="40"/>
                                 <state key="normal" title="--">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cS3-Lq-KrS" customClass="MyEControlBtn">
-                                <rect key="frame" x="87" y="20" width="70" height="40"/>
+                                <rect key="frame" x="87" y="5" width="70" height="40"/>
                                 <state key="normal" title="CD">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nC3-jw-RRV" customClass="MyEControlBtn">
-                                <rect key="frame" x="163" y="20" width="70" height="40"/>
+                                <rect key="frame" x="163" y="5" width="70" height="40"/>
                                 <state key="normal" title="AV">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNc-eS-ifI" customClass="MyEControlBtn">
-                                <rect key="frame" x="239" y="20" width="70" height="40"/>
+                                <rect key="frame" x="239" y="5" width="70" height="40"/>
                                 <state key="normal" title="Mute">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TBS-ju-UXt" customClass="MyEControlBtn">
-                                <rect key="frame" x="55" y="70" width="210" height="70"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TBS-ju-UXt" customClass="MyEControlBtn">
+                                <rect key="frame" x="55" y="55" width="210" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="dau-LC-Dxw"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <state key="normal" title="+">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uvH-SB-7Zp" customClass="MyEControlBtn">
-                                <rect key="frame" x="55" y="210" width="210" height="70"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uvH-SB-7Zp" customClass="MyEControlBtn">
+                                <rect key="frame" x="55" y="195" width="210" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="zPt-1Z-rgR"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <state key="normal" title="-">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lc4-YQ-yIw" customClass="MyEControlBtn">
-                                <rect key="frame" x="195" y="70" width="70" height="210"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lc4-YQ-yIw" customClass="MyEControlBtn">
+                                <rect key="frame" x="195" y="55" width="70" height="210"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="210" id="bHY-7X-74A"/>
+                                    <constraint firstAttribute="width" constant="70" id="nSD-ZG-ive"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <state key="normal" title=">">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wg6-zN-en3" customClass="MyEControlBtn">
-                                <rect key="frame" x="125" y="140" width="70" height="70"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wg6-zN-en3" customClass="MyEControlBtn">
+                                <rect key="frame" x="125" y="125" width="70" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="tNY-rF-Rcs"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="OK">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEd-UO-FNv" customClass="MyEControlBtn">
-                                <rect key="frame" x="55" y="70" width="70" height="210"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEd-UO-FNv" customClass="MyEControlBtn">
+                                <rect key="frame" x="55" y="55" width="70" height="210"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="Iqz-hS-uxr"/>
+                                    <constraint firstAttribute="height" constant="210" id="mIu-1m-XFF"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <state key="normal" title="&lt;">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -383,6 +456,29 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="ufb-3E-Kni" firstAttribute="top" secondItem="YEd-UO-FNv" secondAttribute="bottom" constant="15" id="44o-O7-Ghf"/>
+                            <constraint firstItem="SAw-h0-uQS" firstAttribute="leading" secondItem="obQ-1X-vIP" secondAttribute="leading" constant="11" id="6dE-yG-bxm"/>
+                            <constraint firstItem="wg6-zN-en3" firstAttribute="top" secondItem="TBS-ju-UXt" secondAttribute="bottom" id="Hqj-y4-uRd"/>
+                            <constraint firstItem="uvH-SB-7Zp" firstAttribute="top" secondItem="wg6-zN-en3" secondAttribute="bottom" id="LK1-et-OAu"/>
+                            <constraint firstItem="wg6-zN-en3" firstAttribute="leading" secondItem="YEd-UO-FNv" secondAttribute="trailing" id="PEY-e4-eVN"/>
+                            <constraint firstAttribute="trailing" secondItem="uvH-SB-7Zp" secondAttribute="trailing" constant="55" id="Pte-8A-ean"/>
+                            <constraint firstItem="uvH-SB-7Zp" firstAttribute="leading" secondItem="obQ-1X-vIP" secondAttribute="leading" constant="55" id="Qt7-2D-1OF"/>
+                            <constraint firstAttribute="trailing" secondItem="TBS-ju-UXt" secondAttribute="trailing" constant="55" id="TI2-YP-j0D"/>
+                            <constraint firstItem="lc4-YQ-yIw" firstAttribute="leading" secondItem="wg6-zN-en3" secondAttribute="trailing" id="bZF-ai-xgP"/>
+                            <constraint firstItem="TBS-ju-UXt" firstAttribute="leading" secondItem="obQ-1X-vIP" secondAttribute="leading" constant="55" id="bmD-RF-pZy"/>
+                            <constraint firstItem="YEd-UO-FNv" firstAttribute="leading" secondItem="obQ-1X-vIP" secondAttribute="leading" constant="55" id="c3w-5C-fgh"/>
+                            <constraint firstItem="TBS-ju-UXt" firstAttribute="top" secondItem="obQ-1X-vIP" secondAttribute="top" constant="55" id="cFH-rB-pPc"/>
+                            <constraint firstItem="SAw-h0-uQS" firstAttribute="top" secondItem="YEd-UO-FNv" secondAttribute="bottom" constant="15" id="cKr-IW-n7B"/>
+                            <constraint firstItem="YEd-UO-FNv" firstAttribute="top" secondItem="obQ-1X-vIP" secondAttribute="top" constant="55" id="cwM-74-Hs1"/>
+                            <constraint firstItem="KdI-3H-mcQ" firstAttribute="leading" secondItem="ufb-3E-Kni" secondAttribute="trailing" constant="6" id="dfT-Uj-rh0"/>
+                            <constraint firstItem="1cr-IR-fvt" firstAttribute="leading" secondItem="KdI-3H-mcQ" secondAttribute="trailing" constant="6" id="knv-AH-bbP"/>
+                            <constraint firstItem="ufb-3E-Kni" firstAttribute="leading" secondItem="SAw-h0-uQS" secondAttribute="trailing" constant="6" id="mkH-GK-6lh"/>
+                            <constraint firstItem="KdI-3H-mcQ" firstAttribute="top" secondItem="lc4-YQ-yIw" secondAttribute="bottom" constant="15" id="qNV-Ii-cki"/>
+                            <constraint firstAttribute="trailing" secondItem="lc4-YQ-yIw" secondAttribute="trailing" constant="55" id="vHh-34-p0F"/>
+                            <constraint firstItem="lc4-YQ-yIw" firstAttribute="top" secondItem="obQ-1X-vIP" secondAttribute="top" constant="55" id="z42-fU-PLJ"/>
+                            <constraint firstItem="1cr-IR-fvt" firstAttribute="top" secondItem="lc4-YQ-yIw" secondAttribute="bottom" constant="15" id="znw-wK-mwi"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Audio" id="1La-qC-gGL"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
@@ -419,120 +515,185 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Tr-D3-WjX" customClass="MyEControlBtn">
-                                <rect key="frame" x="15" y="10" width="72" height="40"/>
+                                <rect key="frame" x="15" y="5" width="72" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Set-top">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cnq-uQ-ohh" customClass="MyEControlBtn">
-                                <rect key="frame" x="233" y="10" width="72" height="40"/>
+                                <rect key="frame" x="233" y="5" width="72" height="40"/>
                                 <state key="normal" title="TV">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8sT-cj-dlO" customClass="MyEControlBtn">
-                                <rect key="frame" x="30" y="190" width="80" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8sT-cj-dlO" customClass="MyEControlBtn">
+                                <rect key="frame" x="30" y="185" width="80" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="ODU-E9-7LI"/>
+                                    <constraint firstAttribute="height" constant="40" id="n3I-rx-3tw"/>
+                                </constraints>
                                 <state key="normal" title="1">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g03-Xg-He1" customClass="MyEControlBtn">
-                                <rect key="frame" x="120" y="190" width="80" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g03-Xg-He1" customClass="MyEControlBtn">
+                                <rect key="frame" x="120" y="185" width="80" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="31s-LK-83r"/>
+                                    <constraint firstAttribute="width" constant="80" id="aZO-7S-Mih"/>
+                                </constraints>
                                 <state key="normal" title="2">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IhM-F3-njX" customClass="MyEControlBtn">
-                                <rect key="frame" x="210" y="190" width="80" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IhM-F3-njX" customClass="MyEControlBtn">
+                                <rect key="frame" x="210" y="185" width="80" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="GcK-Cs-BjV"/>
+                                    <constraint firstAttribute="width" constant="80" id="dMs-SB-jEu"/>
+                                </constraints>
                                 <state key="normal" title="3">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="czm-NW-pTO" customClass="MyEControlBtn">
-                                <rect key="frame" x="30" y="233" width="80" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="czm-NW-pTO" customClass="MyEControlBtn">
+                                <rect key="frame" x="30" y="228" width="80" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Mnq-ty-T35"/>
+                                    <constraint firstAttribute="width" constant="80" id="you-Fo-Y3g"/>
+                                </constraints>
                                 <state key="normal" title="4">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agp-Ia-oCd" customClass="MyEControlBtn">
-                                <rect key="frame" x="120" y="233" width="80" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agp-Ia-oCd" customClass="MyEControlBtn">
+                                <rect key="frame" x="120" y="228" width="80" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="3gb-Hc-467"/>
+                                    <constraint firstAttribute="height" constant="40" id="Rlu-U1-ePb"/>
+                                </constraints>
                                 <state key="normal" title="5">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRk-r5-23w" customClass="MyEControlBtn">
-                                <rect key="frame" x="210" y="233" width="80" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRk-r5-23w" customClass="MyEControlBtn">
+                                <rect key="frame" x="210" y="228" width="80" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Ytl-G8-Dqw"/>
+                                    <constraint firstAttribute="width" constant="80" id="aoa-c3-vXc"/>
+                                </constraints>
                                 <state key="normal" title="6">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hhb-cZ-nqg" customClass="MyEControlBtn">
-                                <rect key="frame" x="30" y="276" width="80" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hhb-cZ-nqg" customClass="MyEControlBtn">
+                                <rect key="frame" x="30" y="271" width="80" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="QOT-Zc-qeo"/>
+                                    <constraint firstAttribute="height" constant="40" id="rfp-am-s3a"/>
+                                </constraints>
                                 <state key="normal" title="7">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="toA-LO-fKn" customClass="MyEControlBtn">
-                                <rect key="frame" x="120" y="276" width="80" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="toA-LO-fKn" customClass="MyEControlBtn">
+                                <rect key="frame" x="120" y="271" width="80" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="3UU-Bl-Nm9"/>
+                                    <constraint firstAttribute="width" constant="80" id="yMN-sN-0Is"/>
+                                </constraints>
                                 <state key="normal" title="8">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7S-3Q-VCM" customClass="MyEControlBtn">
-                                <rect key="frame" x="210" y="276" width="80" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m7S-3Q-VCM" customClass="MyEControlBtn">
+                                <rect key="frame" x="210" y="271" width="80" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="04g-cG-OOU"/>
+                                    <constraint firstAttribute="width" constant="80" id="h43-8o-vMX"/>
+                                </constraints>
                                 <state key="normal" title="9">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0RD-1K-xlL" customClass="MyEControlBtn">
-                                <rect key="frame" x="30" y="319" width="80" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0RD-1K-xlL" customClass="MyEControlBtn">
+                                <rect key="frame" x="30" y="314" width="80" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="hwa-P9-TlN"/>
+                                    <constraint firstAttribute="height" constant="40" id="oZy-MQ-qbf"/>
+                                </constraints>
                                 <state key="normal" title="Mute">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dSX-Ap-Sgl" customClass="MyEControlBtn">
-                                <rect key="frame" x="120" y="319" width="80" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dSX-Ap-Sgl" customClass="MyEControlBtn">
+                                <rect key="frame" x="120" y="314" width="80" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="FzX-PZ-d2I"/>
+                                    <constraint firstAttribute="height" constant="40" id="Vxw-MD-EjB"/>
+                                </constraints>
                                 <state key="normal" title="0">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QAE-Fw-cnT" customClass="MyEControlBtn">
-                                <rect key="frame" x="210" y="319" width="80" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QAE-Fw-cnT" customClass="MyEControlBtn">
+                                <rect key="frame" x="210" y="314" width="80" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="2Jw-h6-Iv1"/>
+                                    <constraint firstAttribute="height" constant="40" id="bdm-dM-Jap"/>
+                                </constraints>
                                 <state key="normal" title="Return">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Vm-eU-1aP" customClass="MyEControlBtn">
-                                <rect key="frame" x="135" y="85" width="50" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Vm-eU-1aP" customClass="MyEControlBtn">
+                                <rect key="frame" x="135" y="80" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="zbd-Rj-e0Y"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="OK">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xmn-xh-weD" customClass="MyEControlBtn">
-                                <rect key="frame" x="185" y="35" width="50" height="150"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xmn-xh-weD" customClass="MyEControlBtn">
+                                <rect key="frame" x="185" y="30" width="50" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="kTk-3q-5Zs"/>
+                                    <constraint firstAttribute="height" constant="150" id="u9P-zP-dwB"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title=">">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HLJ-J8-gf6" customClass="MyEControlBtn">
-                                <rect key="frame" x="85" y="35" width="150" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HLJ-J8-gf6" customClass="MyEControlBtn">
+                                <rect key="frame" x="85" y="30" width="150" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="x05-je-HHZ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title="+">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0P-m4-QHq" customClass="MyEControlBtn">
-                                <rect key="frame" x="85" y="35" width="50" height="150"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0P-m4-QHq" customClass="MyEControlBtn">
+                                <rect key="frame" x="85" y="30" width="50" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="2KZ-jw-7h5"/>
+                                    <constraint firstAttribute="height" constant="150" id="rE4-J9-pof"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title="&lt;">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Vf-c2-8C7" customClass="MyEControlBtn">
-                                <rect key="frame" x="85" y="135" width="150" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Vf-c2-8C7" customClass="MyEControlBtn">
+                                <rect key="frame" x="85" y="130" width="150" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="A4h-xF-C6N"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title="-">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -540,6 +701,45 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="QAE-Fw-cnT" firstAttribute="top" secondItem="m7S-3Q-VCM" secondAttribute="bottom" constant="3" id="0Tf-am-GWh"/>
+                            <constraint firstItem="8sT-cj-dlO" firstAttribute="top" secondItem="7Vf-c2-8C7" secondAttribute="bottom" constant="5" id="16r-d3-blg"/>
+                            <constraint firstItem="IhM-F3-njX" firstAttribute="leading" secondItem="g03-Xg-He1" secondAttribute="trailing" constant="10" id="4pC-cH-2xa"/>
+                            <constraint firstItem="toA-LO-fKn" firstAttribute="leading" secondItem="Hhb-cZ-nqg" secondAttribute="trailing" constant="10" id="BJV-cj-18b"/>
+                            <constraint firstItem="0RD-1K-xlL" firstAttribute="top" secondItem="Hhb-cZ-nqg" secondAttribute="bottom" constant="3" id="BXj-fY-vid"/>
+                            <constraint firstItem="R0P-m4-QHq" firstAttribute="top" secondItem="OFw-aB-qh2" secondAttribute="top" constant="30" id="EoT-mw-bhd"/>
+                            <constraint firstItem="R0P-m4-QHq" firstAttribute="leading" secondItem="OFw-aB-qh2" secondAttribute="leading" constant="85" id="HFb-Rc-4vK"/>
+                            <constraint firstItem="g03-Xg-He1" firstAttribute="top" secondItem="7Vf-c2-8C7" secondAttribute="bottom" constant="5" id="J8v-eh-5bF"/>
+                            <constraint firstItem="m7S-3Q-VCM" firstAttribute="leading" secondItem="toA-LO-fKn" secondAttribute="trailing" constant="10" id="JTA-mH-bWT"/>
+                            <constraint firstAttribute="trailing" secondItem="HLJ-J8-gf6" secondAttribute="trailing" constant="85" id="KT7-IS-JnI"/>
+                            <constraint firstItem="dSX-Ap-Sgl" firstAttribute="top" secondItem="toA-LO-fKn" secondAttribute="bottom" constant="3" id="Lhd-Zs-5Nb"/>
+                            <constraint firstItem="Xmn-xh-weD" firstAttribute="top" secondItem="OFw-aB-qh2" secondAttribute="top" constant="30" id="MKI-nl-d3o"/>
+                            <constraint firstItem="7Vf-c2-8C7" firstAttribute="leading" secondItem="OFw-aB-qh2" secondAttribute="leading" constant="85" id="Q86-5o-AJ1"/>
+                            <constraint firstItem="7Vf-c2-8C7" firstAttribute="top" secondItem="3Vm-eU-1aP" secondAttribute="bottom" id="R5F-TY-55k"/>
+                            <constraint firstAttribute="trailing" secondItem="7Vf-c2-8C7" secondAttribute="trailing" constant="85" id="RRP-MI-8zp"/>
+                            <constraint firstItem="czm-NW-pTO" firstAttribute="top" secondItem="8sT-cj-dlO" secondAttribute="bottom" constant="3" id="UEj-cy-Urq"/>
+                            <constraint firstItem="QAE-Fw-cnT" firstAttribute="leading" secondItem="dSX-Ap-Sgl" secondAttribute="trailing" constant="10" id="V3n-9O-apJ"/>
+                            <constraint firstItem="Hhb-cZ-nqg" firstAttribute="leading" secondItem="OFw-aB-qh2" secondAttribute="leading" constant="30" id="Wk8-8I-6Vb"/>
+                            <constraint firstItem="toA-LO-fKn" firstAttribute="top" secondItem="agp-Ia-oCd" secondAttribute="bottom" constant="3" id="YMk-cU-pZu"/>
+                            <constraint firstItem="3Vm-eU-1aP" firstAttribute="top" secondItem="HLJ-J8-gf6" secondAttribute="bottom" id="Yjp-Ra-WWi"/>
+                            <constraint firstItem="HLJ-J8-gf6" firstAttribute="leading" secondItem="OFw-aB-qh2" secondAttribute="leading" constant="85" id="aJd-1B-CE2"/>
+                            <constraint firstItem="IhM-F3-njX" firstAttribute="top" secondItem="7Vf-c2-8C7" secondAttribute="bottom" constant="5" id="bAX-b6-DUN"/>
+                            <constraint firstItem="czm-NW-pTO" firstAttribute="leading" secondItem="OFw-aB-qh2" secondAttribute="leading" constant="30" id="elf-Ic-Pbc"/>
+                            <constraint firstItem="agp-Ia-oCd" firstAttribute="leading" secondItem="czm-NW-pTO" secondAttribute="trailing" constant="10" id="h2W-Ne-2Ks"/>
+                            <constraint firstItem="PRk-r5-23w" firstAttribute="top" secondItem="IhM-F3-njX" secondAttribute="bottom" constant="3" id="had-Ua-W7q"/>
+                            <constraint firstItem="PRk-r5-23w" firstAttribute="leading" secondItem="agp-Ia-oCd" secondAttribute="trailing" constant="10" id="hwq-sQ-sqj"/>
+                            <constraint firstItem="3Vm-eU-1aP" firstAttribute="leading" secondItem="R0P-m4-QHq" secondAttribute="trailing" id="jUs-2b-kGk"/>
+                            <constraint firstAttribute="trailing" secondItem="Xmn-xh-weD" secondAttribute="trailing" constant="85" id="kPb-M8-pdI"/>
+                            <constraint firstItem="Hhb-cZ-nqg" firstAttribute="top" secondItem="czm-NW-pTO" secondAttribute="bottom" constant="3" id="kue-ah-jXx"/>
+                            <constraint firstItem="Xmn-xh-weD" firstAttribute="leading" secondItem="3Vm-eU-1aP" secondAttribute="trailing" id="lxX-Mp-fr6"/>
+                            <constraint firstItem="HLJ-J8-gf6" firstAttribute="top" secondItem="OFw-aB-qh2" secondAttribute="top" constant="30" id="mUV-h5-CqL"/>
+                            <constraint firstItem="dSX-Ap-Sgl" firstAttribute="leading" secondItem="0RD-1K-xlL" secondAttribute="trailing" constant="10" id="mZt-oh-QoB"/>
+                            <constraint firstItem="8sT-cj-dlO" firstAttribute="leading" secondItem="OFw-aB-qh2" secondAttribute="leading" constant="30" id="p0R-hM-Mdj"/>
+                            <constraint firstItem="g03-Xg-He1" firstAttribute="leading" secondItem="8sT-cj-dlO" secondAttribute="trailing" constant="10" id="rYq-wi-t9t"/>
+                            <constraint firstItem="m7S-3Q-VCM" firstAttribute="top" secondItem="PRk-r5-23w" secondAttribute="bottom" constant="3" id="sLi-7s-pAJ"/>
+                            <constraint firstItem="0RD-1K-xlL" firstAttribute="leading" secondItem="OFw-aB-qh2" secondAttribute="leading" constant="30" id="v9Y-gk-PHb"/>
+                            <constraint firstItem="agp-Ia-oCd" firstAttribute="top" secondItem="g03-Xg-He1" secondAttribute="bottom" constant="3" id="xL2-tR-PRe"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fFD-rX-K2l"/>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -582,14 +782,22 @@
                         <rect key="frame" x="0.0" y="44" width="280" height="206"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OkW-ZJ-D0M">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OkW-ZJ-D0M">
                                 <rect key="frame" x="20" y="24" width="68" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="68" id="3ur-Zd-Rrm"/>
+                                    <constraint firstAttribute="height" constant="21" id="hIw-9X-DOS"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXu-OQ-sb8" customClass="ACPButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXu-OQ-sb8" customClass="ACPButton">
                                 <rect key="frame" x="20" y="65" width="110" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="5Uu-Jw-zOQ"/>
+                                    <constraint firstAttribute="width" constant="110" id="ZT1-uc-aP5"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Study">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -598,13 +806,20 @@
                                     <action selector="studyKey:" destination="0Vo-5l-ID7" eventType="touchUpInside" id="aTQ-3n-4zg"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B5M-Nw-OyB">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B5M-Nw-OyB">
                                 <rect key="frame" x="111" y="20" width="149" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="149" id="XW1-Ss-O4X"/>
+                                    <constraint firstAttribute="height" constant="30" id="o4v-CQ-Zoc"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFs-zC-LqU" customClass="ACPButton">
+                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFs-zC-LqU" customClass="ACPButton">
                                 <rect key="frame" x="20" y="110" width="240" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="cni-SZ-MUY"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Delete">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -614,8 +829,12 @@
                                     <action selector="deleteKey:" destination="0Vo-5l-ID7" eventType="touchUpInside" id="tCm-vm-NFo"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ASg-Nc-u3a" customClass="ACPButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ASg-Nc-u3a" customClass="ACPButton">
                                 <rect key="frame" x="150" y="65" width="110" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="022-4q-OGG"/>
+                                    <constraint firstAttribute="width" constant="110" id="YyS-Xn-H51"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Verify">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -624,10 +843,13 @@
                                     <action selector="validateKey:" destination="0Vo-5l-ID7" eventType="touchUpInside" id="km7-wn-hvD"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tKI-dK-tjL" customClass="ACPButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tKI-dK-tjL" customClass="ACPButton">
                                 <rect key="frame" x="20" y="156" width="240" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Yhb-d2-ihB"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Cancel">
+                                <state key="normal" title="Close">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -636,6 +858,22 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="TXu-OQ-sb8" firstAttribute="leading" secondItem="nfB-C2-VGd" secondAttribute="leading" constant="20" id="5NV-aQ-aH9"/>
+                            <constraint firstAttribute="trailing" secondItem="ASg-Nc-u3a" secondAttribute="trailing" constant="20" id="8h9-1d-QBn"/>
+                            <constraint firstItem="tKI-dK-tjL" firstAttribute="top" secondItem="qFs-zC-LqU" secondAttribute="bottom" constant="16" id="Cnm-2j-IJp"/>
+                            <constraint firstAttribute="trailing" secondItem="tKI-dK-tjL" secondAttribute="trailing" constant="20" id="H2p-da-uVq"/>
+                            <constraint firstItem="j88-wQ-gzW" firstAttribute="top" secondItem="tKI-dK-tjL" secondAttribute="bottom" constant="20" id="HvN-Sx-4AO"/>
+                            <constraint firstItem="OkW-ZJ-D0M" firstAttribute="top" secondItem="aAG-Rg-eMJ" secondAttribute="bottom" constant="24" id="JDM-N7-RoM"/>
+                            <constraint firstItem="B5M-Nw-OyB" firstAttribute="top" secondItem="aAG-Rg-eMJ" secondAttribute="bottom" constant="20" id="VwL-5P-EHS"/>
+                            <constraint firstItem="OkW-ZJ-D0M" firstAttribute="leading" secondItem="nfB-C2-VGd" secondAttribute="leading" constant="20" id="ZjW-hD-A5D"/>
+                            <constraint firstItem="qFs-zC-LqU" firstAttribute="top" secondItem="ASg-Nc-u3a" secondAttribute="bottom" constant="15" id="dXU-hx-TQH"/>
+                            <constraint firstAttribute="trailing" secondItem="qFs-zC-LqU" secondAttribute="trailing" constant="20" id="gyw-NK-aP6"/>
+                            <constraint firstAttribute="trailing" secondItem="B5M-Nw-OyB" secondAttribute="trailing" constant="20" id="qlv-ub-acL"/>
+                            <constraint firstItem="qFs-zC-LqU" firstAttribute="top" secondItem="TXu-OQ-sb8" secondAttribute="bottom" constant="15" id="vTz-7p-NYL"/>
+                            <constraint firstItem="tKI-dK-tjL" firstAttribute="leading" secondItem="nfB-C2-VGd" secondAttribute="leading" constant="20" id="vvl-A8-dOQ"/>
+                            <constraint firstItem="qFs-zC-LqU" firstAttribute="leading" secondItem="nfB-C2-VGd" secondAttribute="leading" constant="20" id="zhC-fM-Ofk"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Rpx-s6-eu3"/>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -759,12 +997,20 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N0m-Rd-loc">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N0m-Rd-loc">
                                                     <rect key="frame" x="79" y="7" width="226" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="226" id="WYs-Km-niD"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="N0m-Rd-loc" secondAttribute="bottom" constant="6" id="IrH-Ch-HXB"/>
+                                                <constraint firstAttribute="trailing" secondItem="N0m-Rd-loc" secondAttribute="trailing" constant="15" id="QmQ-zy-bMd"/>
+                                                <constraint firstItem="N0m-Rd-loc" firstAttribute="top" secondItem="6F7-yz-unc" secondAttribute="top" constant="7" id="Zbw-az-QL2"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="CRE-Pd-WAb" detailTextLabel="ccc-lV-byH" style="IBUITableViewCellStyleValue1" id="NTa-nL-rfK">
@@ -910,12 +1156,20 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UCF-oj-dsl">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UCF-oj-dsl">
                                                     <rect key="frame" x="102" y="7" width="203" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="203" id="AQt-MJ-OSs"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="UCF-oj-dsl" secondAttribute="trailing" constant="15" id="FFI-xg-c0I"/>
+                                                <constraint firstAttribute="bottom" secondItem="UCF-oj-dsl" secondAttribute="bottom" constant="6" id="svv-1w-Adj"/>
+                                                <constraint firstItem="UCF-oj-dsl" firstAttribute="top" secondItem="qpo-PZ-8cC" secondAttribute="top" constant="7" id="zkE-gp-vyX"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="4wv-aP-2sr" detailTextLabel="moW-0P-kqR" style="IBUITableViewCellStyleValue1" id="oPj-Rk-brX">

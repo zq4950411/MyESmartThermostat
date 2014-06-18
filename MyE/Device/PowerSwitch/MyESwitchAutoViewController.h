@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MyEScheduleCell.h"
 #import "MyESwitchScheduleSettingViewController.h"
-@interface MyESwitchAutoViewController : UITableViewController<MyEDataLoaderDelegate>{
+#import "EGORefreshTableHeaderView.h"
+
+@interface MyESwitchAutoViewController : UITableViewController<MyEDataLoaderDelegate,EGORefreshTableHeaderDelegate>{
     MBProgressHUD *HUD;
 }
 @property(strong, nonatomic) MyEDevice *device;

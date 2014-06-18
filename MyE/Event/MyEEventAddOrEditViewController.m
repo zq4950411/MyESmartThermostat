@@ -320,6 +320,10 @@
         }
     }
 }
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
 #pragma mark - Navigation methods
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"time"] || [segue.identifier isEqualToString:@"timeEdit"]) {

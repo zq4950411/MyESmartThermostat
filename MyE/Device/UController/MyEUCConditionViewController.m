@@ -181,6 +181,10 @@
         
     }
 }
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
+
 #pragma mark - MYEWeekBtns delegate methods
 -(void)weekButtons:(UIView *)weekButtons selectedButtonTag:(NSArray *)buttonTags{
     self.sequential.weeks = [buttonTags mutableCopy];

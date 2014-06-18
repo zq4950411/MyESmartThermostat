@@ -285,6 +285,11 @@
 //        }
     }
 }
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
+
 #pragma mark - MYEPickerView delegate methods
 -(void)MYEPickerView:(UIView *)pickerView didSelectTitles:(NSString *)title andRow:(NSInteger)row{
     UIButton *btn = (UIButton *)[self.view viewWithTag:pickerView.tag];

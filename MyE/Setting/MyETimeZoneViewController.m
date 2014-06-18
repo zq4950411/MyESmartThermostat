@@ -74,6 +74,6 @@
     }
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
-    [SVProgressHUD showErrorWithStatus:@"fail"];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 @end

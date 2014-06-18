@@ -492,7 +492,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RIn-Mf-54T">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RIn-Mf-54T">
                                                     <rect key="frame" x="251" y="6" width="51" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <connections>
@@ -500,6 +500,9 @@
                                                     </connections>
                                                 </switch>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="RIn-Mf-54T" secondAttribute="trailing" constant="20" id="f2I-0i-sm4"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -927,7 +930,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l0p-O0-Zei" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2565" y="-809"/>
+            <point key="canvasLocation" x="-2593" y="-809"/>
         </scene>
         <!--MyE Terminal Edit View Controller - Edit-->
         <scene sceneID="0cm-Vm-lDj">
@@ -979,13 +982,18 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P4R-TY-6YZ">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P4R-TY-6YZ">
                                                     <rect key="frame" x="260" y="2" width="40" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="gRw-Xr-pGg"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="P4R-TY-6YZ" secondAttribute="trailing" constant="20" id="DRd-ui-Tes"/>
+                                                <constraint firstAttribute="bottom" secondItem="P4R-TY-6YZ" secondAttribute="bottom" constant="1" id="GHL-tu-eMY"/>
+                                                <constraint firstItem="P4R-TY-6YZ" firstAttribute="top" secondItem="NTq-Wk-ZMl" secondAttribute="top" constant="2" id="ciV-Pj-Ndd"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

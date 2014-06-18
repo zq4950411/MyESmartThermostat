@@ -2270,6 +2270,11 @@
 				TargetAttributes = {
 					C30E01EE14C7A69200011160 = {
 						DevelopmentTeam = 4J69VHKV9T;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -2799,7 +2804,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC ";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "916A19EB-9227-4BD2-8673-39E200257E1B";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

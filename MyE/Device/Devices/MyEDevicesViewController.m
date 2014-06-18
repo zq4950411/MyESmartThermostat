@@ -535,7 +535,8 @@
     
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
-    NSLog(@"error is %@",[error localizedDescription]);
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 
 #pragma mark - UIAlertView delegate methods

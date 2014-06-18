@@ -68,6 +68,8 @@
                                       target:self
                                       action:@selector(refreshAction)];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, nil];
+    [self downloadModelFromServer];
+
 }
 - (void) viewWillAppear:(BOOL)animated
 {
@@ -88,9 +90,6 @@
         [prefs setObject:self.thermostatId_for_indoor_th forKey:KEY_FOR_THERMOSTATID_HOME_INDOOR_TH];
         [prefs synchronize];
     }
-    
-    [self downloadModelFromServer];
-    
 }
 - (void)didReceiveMemoryWarning
 {
