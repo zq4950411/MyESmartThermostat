@@ -45,6 +45,7 @@
         self.imgList = [NSArray arrayWithArray:imageList];
         
         UIView *rootView = view.window.subviews[0];
+//        UIView *rootView = view.window.rootViewController.view;
         CGRect rootFrame = rootView.frame;
         self.width = rootFrame.size.width;
         self.height = rootFrame.size.height;
@@ -54,8 +55,9 @@
         if(self.list.count > 5)
             self.tableHeight = 5 * CELL;
         self.frame = CGRectMake(rootFrame.origin.x, rootFrame.origin.y, self.width, self.height);
-
-        
+        if (IS_IOS6) {
+            self.frame = CGRectMake(rootFrame.origin.x, 0, self.width, self.height);
+        }
         self.layer.masksToBounds = NO;
 //        self.layer.shadowRadius = 1;// 现在不要阴影
 //        self.layer.shadowOpacity = 0.5;// 现在不要阴影
@@ -155,6 +157,7 @@
             cell.imageView.image = [imgList objectAtIndex:indexPath.row];
         }
     }
+    cell.contentView.backgroundColor = [UIColor whiteColor];
     [cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
     return cell;
 }
