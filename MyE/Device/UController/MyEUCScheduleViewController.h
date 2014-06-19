@@ -10,6 +10,7 @@
 #import "MyEUCPeriodViewController.h"
 #import "MYEWeekButtons.h"
 #import "MyEDataLoader.h"
+#import "MBProgressHUD.h"
 @interface MyEUCScheduleViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,MYEWeekButtonsDelegate,MyEDataLoaderDelegate>
 @property (nonatomic, weak) MyEDevice *device;
 @property (nonatomic, weak) MyEUCSchedule *schedule;
@@ -17,5 +18,6 @@
 @property (nonatomic, assign) BOOL isAdd;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet MYEWeekButtons *weekBtns;
+@property (weak, nonatomic) IBOutlet MYEWeekButtons *channels;
 
 @end
