@@ -14,11 +14,12 @@
 #import "MyEModePickerView.h"
 #import "MBProgressHUD.h"
 #import "MyEPeriodInforDoughnutView.h"
+#import "MYEWeekButtons.h"
 
 @class MyEThermostatScheduleData;
 @class MyEScheduleModeData;
 @class MyEScheduleViewController;
-@interface MyEWeeklyScheduleViewController : UIViewController<MyEDoughnutViewDelegate, MyEModePickerViewDelegate, MyEWeeklyModeEditingViewDelegate,MyEApplyToDaysSelectionViewDelegate, MyEDataLoaderDelegate, MBProgressHUDDelegate,MyEPeriodInforDoughnutViewDelegate>
+@interface MyEWeeklyScheduleViewController : UIViewController<MyEDoughnutViewDelegate, MyEModePickerViewDelegate, MyEWeeklyModeEditingViewDelegate,MyEApplyToDaysSelectionViewDelegate, MyEDataLoaderDelegate, MBProgressHUDDelegate,MyEPeriodInforDoughnutViewDelegate,MYEWeekButtonsDelegate>
 {
     MyEDoughnutView *_doughnutView;
     
@@ -56,6 +57,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *editModeButton;
 @property (weak, nonatomic) IBOutlet UIView *modeToolContainer;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *weekdaySegmentedControl;
+@property (weak, nonatomic) IBOutlet MYEWeekButtons *weekBtns;
 
 @property (strong, nonatomic) MyEThermostatScheduleData *dataModel;
 @property (strong, nonatomic) MyEThermostatScheduleData *weeklyModelCache;//缓冲数据，用于恢复用户修改Schedule操作的

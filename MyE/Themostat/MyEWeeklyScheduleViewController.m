@@ -55,11 +55,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.weekBtns.delegate = self;
     _applyToDaysSelectionViewShowing = NO;
     _modeEditingViewShowing = NO;
     _periodInforDoughnutViewShowing = NO;
     _hasLoadFromServer = NO;
-    
     // 设置面板背景为一个纯色
     UIColor *bgcolor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
     
@@ -179,7 +179,8 @@
         selectedSegmentIndex = 6;
     }
     [self.weekdaySegmentedControl setSelectedSegmentIndex:selectedSegmentIndex];
-    
+    NSLog(@"%i",selectedSegmentIndex);
+    self.weekBtns.selectedButtons = [@[@(selectedSegmentIndex)] mutableCopy];
 }
 
 #pragma mark -
@@ -974,5 +975,9 @@
     }
     return YES;
     
+}
+#pragma mark - MYEWeekBtns delegate methods
+-(void)weekButtons:(UIView *)weekButtons selectedButtonTag:(NSArray *)buttonTags{
+    self.currentWeekdayId = [buttonTags[0] intValue];
 }
 @end
