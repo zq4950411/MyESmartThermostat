@@ -7,8 +7,11 @@
 //
 
 #import "MyESwitchEditViewController.h"
-
-@interface MyESwitchEditViewController ()
+#import "MyEDevicesViewController.h"
+@interface MyESwitchEditViewController (){
+    EGORefreshTableHeaderView *_refreshHeaderView;
+    BOOL _isRefreshing;
+}
 
 @end
 
@@ -25,6 +28,13 @@
     //下载开关信息
     [self urlLoaderWithUrlString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@",GetRequst(URL_FOR_SWITCH_VIEW),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId] loaderName:@"downloadSwitchInfo"];
     [self defineTapGestureRecognizer];
+    if (!_refreshHeaderView) {
+        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.tableView.frame.size.width, self.tableView.bounds.size.height)];
+        view.delegate = self;
+        [self.tableView addSubview:view];
+        _refreshHeaderView = view;
+    }
+    [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,6 +74,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 - (IBAction)saveEdit:(UIBarButtonItem *)sender {
+    [self.nameTextField resignFirstResponder];
     if ([self.nameTextField.text length] < 1 || [self.nameTextField.text length] > 10) {
         [MyEUtil showMessageOn:nil withMessage:@"Make sure name length between 1 and 10"];
         return;
@@ -99,6 +110,10 @@
 #pragma mark - url delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     [HUD hide:YES];
+    if (_isRefreshing) {
+        _isRefreshing = NO;
+        [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+    }
     if ([name isEqualToString:@"downloadSwitchInfo"]) {
         NSLog(@"download switch string is %@",string);
         if ([string isEqualToString:@"fail"]) {
@@ -115,11 +130,19 @@
             self.device.deviceName = self.nameTextField.text;
             self.device.locationName = _room.roomName;
             self.device.locationId = [NSString stringWithFormat:@"%i",_room.roomId];
+            MyEDevicesViewController *vc = self.navigationController.childViewControllers[[self.navigationController.childViewControllers indexOfObject:self] - 1];
+            vc.needRefresh = YES;
             [self.navigationController popViewControllerAnimated:YES];
         }else
             [MyEUtil showMessageOn:nil withMessage:@"Failed to upload data"];
     }
 }
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
+
+
 -(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles{
     if (pickerView.tag == 1) {
         self.roomLabel.text = titles[0];
@@ -130,5 +153,25 @@
             }
         }
     }
+}
+#pragma mark - UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+}
+#pragma mark - EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+    _isRefreshing = YES;
+    [self urlLoaderWithUrlString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@",GetRequst(URL_FOR_SWITCH_VIEW),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId] loaderName:@"downloadSwitchInfo"];
+}
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+    return [NSDate date]; // should return date data source was last changed
 }
 @end

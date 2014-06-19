@@ -16,26 +16,24 @@
 
 @implementation MyETimeZoneViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.tableView.tableFooterView = [[UIView alloc] init];
     _data = @[@"EST",@"CST",@"MST",@"PST",@"AKST",@"HST"];
+    if (!_jumpFromSettingPanel) {  //如果不是从设置面板过来的话要将右上角的barbutton取消掉
+        self.navigationItem.rightBarButtonItem = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)saveEditor:(UIBarButtonItem *)sender {
+    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&mid=%@&timeZone=%i",GetRequst(SETTING_SAVETIMEZONE),MainDelegate.houseData.houseId,self.info.mid,self.timeZone] postData:nil delegate:self loaderName:@"timeZoneSet" userDataDictionary:nil];
+    NSLog(@"loader name is %@",loader.name);
 }
 
 #pragma mark - Table view data source
@@ -57,8 +55,25 @@
 #pragma mark - UITable view delegate methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.timeZone = indexPath.row + 1;
-    MyEMediatorRegisterViewController *vc = self.navigationController.childViewControllers[[self.navigationController.childViewControllers indexOfObject:self] - 1];
-    vc.timeZone = self.timeZone;
+    if (!_jumpFromSettingPanel) {
+        MyEMediatorRegisterViewController *vc = self.navigationController.childViewControllers[[self.navigationController.childViewControllers indexOfObject:self] - 1];
+        vc.timeZone = self.timeZone;
+    }
     [self.tableView reloadData];
+}
+#pragma mark - URL delegate methods
+-(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    NSLog(@"receive string is %@",string);
+    if ([name isEqualToString:@"timeZoneSet"]) {
+        if ([string isEqualToString:@"OK"]) {
+            MyESettingsViewController *vc = self.navigationController.childViewControllers[[self.navigationController.childViewControllers indexOfObject:self] - 1];
+            vc.info.timeZone = self.timeZone;
+            [self.navigationController popViewControllerAnimated:YES];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
+    }
+}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 @end

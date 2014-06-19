@@ -1625,7 +1625,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zva-Gy-RXL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1835" y="-2482"/>
+            <point key="canvasLocation" x="1783" y="-2541"/>
         </scene>
         <!--MyE Special Days Schedule View Controller - Weekly-->
         <scene sceneID="TJu-Bk-0PX">

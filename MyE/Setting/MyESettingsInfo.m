@@ -37,7 +37,7 @@
 -(MyESettingsTerminal *)initWithDictionary:(NSDictionary *)dic{
     if (self = [super init]) {
         self.tid = dic[@"tid"];
-        self.name = dic[@"aliasName"];
+        self.name = dic[@"aliasName"]== [NSNull null]?@"":dic[@"aliasName"];
         self.signal = [dic[@"rfStatus"] intValue];
         self.type = [dic[@"terminalType"] intValue];
         self.controlState = [dic[@"controlState"] intValue];
@@ -57,4 +57,16 @@
     NSArray *array = @[@"Thermostat",@"Smart Remote",@"Smart Socket",@"Universal Controller",@"Other",@"Other",@"Smart Switch"];
     return array[self.type];
 }
+@end
+
+@implementation MyESettingsHouse
+
+-(MyESettingsHouse *)initWithDictionary:(NSDictionary *)dic{
+    if (self = [super init]) {
+        self.houseName = dic[@"houseName"];
+        self.houseId = [dic[@"houseId"] intValue];
+    }
+    return self;
+}
+
 @end

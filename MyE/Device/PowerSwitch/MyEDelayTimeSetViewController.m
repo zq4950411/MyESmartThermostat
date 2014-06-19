@@ -94,29 +94,36 @@
         }
         
     }
-
 }
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
+#pragma mark - UITableView dataSource methods
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [_tableArray count];
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.accessoryType = UITableViewCellAccessoryNone;
     cell.textLabel.text = _tableArray[indexPath.row];
+    if (indexPath.row == _selectedRow) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
     return cell;
 }
+#pragma mark - UITableView delegate methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     _selectedRow = indexPath.row;
     self.status.delayMinute = indexPath.row+1;
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [tableView reloadData];
 }
-- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath
-{
-    
-    int  row  = [indexPath row];
-    if(row == _selectedRow)
-        return UITableViewCellAccessoryCheckmark;
-    return UITableViewCellAccessoryNone;
-}
+//- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath
+//{
+//    int  row  = [indexPath row];
+//    if(row == _selectedRow)
+//        return UITableViewCellAccessoryCheckmark;
+//    return UITableViewCellAccessoryNone;
+//}
 @end

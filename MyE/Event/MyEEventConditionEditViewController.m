@@ -18,6 +18,7 @@
     NSInteger _selectedIndex4,_selectedIndex5;
     BOOL _isShow; // 用于移动view
     MyEEventConditionCustom *_newCustom;
+    MBProgressHUD *HUD;
 }
 
 @end
@@ -137,6 +138,10 @@
 #pragma mark - IBAction methods
 - (IBAction)save:(UIBarButtonItem *)sender {
     NSLog(@"%@",_newCustom);
+    if (HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }else
+        [HUD show:YES];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&sceneId=%i&tid=%@&id=%i&dataType=%i&parameterType=%i&parameterValue=%i&action=%i",GetRequst(URL_FOR_SCENES_CONDITION_CUSTOM),MainDelegate.houseData.houseId,self.eventInfo.sceneId,(_newCustom.dataType == 1 || _newCustom.dataType == 2)?_newCustom.tId:@"",_newCustom.conditionId,_newCustom.dataType,_newCustom.parameterType,_newCustom.parameterValue,_isAdd?1:2] postData:nil delegate:self loaderName:@"condition" userDataDictionary:nil];
     NSLog(@"loader name is %@",loader.name);
 }
@@ -225,6 +230,7 @@
 #pragma mark - URL delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"receive string is %@",string);
+    [HUD hide:YES];
     if (![string isEqualToString:@"fail"]) {
         if (self.isAdd) {
             NSDictionary *dic = [string JSONValue];
@@ -240,5 +246,9 @@
         [self.navigationController popViewControllerAnimated:YES];
     }else
         [SVProgressHUD showErrorWithStatus:@"fail"];
+}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 @end

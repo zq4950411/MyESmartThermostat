@@ -200,6 +200,6 @@
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     [HUD hide:YES];
-    [SVProgressHUD showErrorWithStatus:@"fail"];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 @end

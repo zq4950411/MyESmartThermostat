@@ -10,6 +10,7 @@
 #import "MyEHouseListViewController.h"
 #import "SWRevealViewController.h"
 #import "MyEUsageStatsViewController.h"
+#import "MyESettingsViewController.h"
 
 @interface MyEMainMenuViewController ()
 //- (void)goHouseList;
@@ -34,7 +35,7 @@
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.2f alpha:1.0f];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.15f alpha:0.2f];
     
-    _menuItems = @[@"houseList",@"home", @"devices", @"events", @"usage", @"alerts", @"settings", @"account", @"signout"];
+    _menuItems = @[@"houseList",@"home", @"devices", @"events", @"usage", @"alerts", @"settings",@"signout"];
 
     self.houseName.text = MainDelegate.houseData.houseName;
 }
@@ -168,7 +169,12 @@
         
         [MyEDataLoader startLoadingWithURLString:[NSString stringWithFormat:@"%@",GetRequst(URL_FOR_SIGNOUT)] postData:nil delegate:vc loaderName:@"signout" userDataDictionary:nil];
     }
-    
+    if (indexPath.row == self.menuItems.count - 2) {
+        MyESettingsViewController *vc = [[UIStoryboard storyboardWithName:@"Setting" bundle:nil] instantiateViewControllerWithIdentifier:@"settings"];
+        UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+        [navController setViewControllers: @[vc] animated: NO ];
+        [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+    }
 }
 
 #pragma mark - Navigation

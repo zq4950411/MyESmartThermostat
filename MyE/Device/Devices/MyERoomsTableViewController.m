@@ -59,7 +59,7 @@
     NSLog(@"%@",loader.name);
 }
 -(void)doThisWhenNeedAlertViewWithTag:(NSInteger)tag placeHold:(NSString *)text{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"please enter room name" message:nil delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"OK", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please enter room name" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     UITextField *textField = [alert textFieldAtIndex:0];
     textField.text = text;
@@ -97,7 +97,8 @@
         i = [array count];
     }
     countLabel.text = [NSString stringWithFormat:@"%li",(long)i];
-    
+    UIView *bgview = (UIView *)[cell.contentView viewWithTag:1024];
+    bgview.layer.cornerRadius = 4;
     return cell;
 }
 
@@ -166,7 +167,10 @@
     }
     MyEDevicesViewController *vc = self.navigationController.childViewControllers[[self.navigationController.childViewControllers indexOfObject:self] - 1];  //这里这么做是为了以防万一
     vc.needRefresh = YES;
-
+}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 #pragma mark - UIAlertView Delegate methods
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

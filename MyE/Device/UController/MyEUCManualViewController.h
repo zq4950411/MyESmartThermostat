@@ -10,7 +10,7 @@
 #import "MyEDataLoader.h"
 #import "MyEUCInfo.h"
 #import "EGORefreshTableHeaderView.h"
-
+#import "MBProgressHUD.h"
 @interface MyEUCManualViewController : UITableViewController<MyEDataLoaderDelegate,EGORefreshTableHeaderDelegate>
 
 @property (nonatomic, weak) MyEDevice *device;

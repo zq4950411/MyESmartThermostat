@@ -17,7 +17,6 @@
 #import "MyEUtil.h"
 #import "SBJson.h"
 
-#import "RegistGatewayViewController.h"
 #import "ASDepthModalViewController.h"
 #import "HouseBlankView.h"
 #import "SWRevealViewController.h"
@@ -49,7 +48,7 @@
 
     
     [self.registerButton setStyleType:ACPButtonOK];
-    [self.registerButton addTarget:self action:@selector(registeGateway:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.registerButton addTarget:self action:@selector(registeGateway:) forControlEvents:UIControlEventTouchUpInside];
     
     if (MainDelegate.accountData.houseList.count == 0)
     {
@@ -70,7 +69,7 @@
         
         if (!b)
         {
-            [self performSelector:@selector(goToRegister) withObject:nil afterDelay:0.5f];
+            [self performSelector:@selector(registerGateway:) withObject:nil afterDelay:0.5f];
         }
     }
     //初始化下拉视图
@@ -122,16 +121,6 @@
 }
 
 #pragma mark - private methods
--(void) registeGateway:(UIButton *) sender
-{
-    RegistGatewayViewController *reg = [[RegistGatewayViewController alloc] init];
-    [self.navigationController pushViewController:reg animated:YES];
-}
--(void) goToRegister
-{
-    RegistGatewayViewController *reg = [[RegistGatewayViewController alloc] init];
-    [self.navigationController pushViewController:reg animated:YES];
-}
 - (void)refreshAction
 {
     [self downloadModelFromServer];

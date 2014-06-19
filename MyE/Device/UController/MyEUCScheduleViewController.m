@@ -94,4 +94,8 @@
     NSLog(@"receive string is %@",string);
 #warning 此处缺少对新增和编辑结果的处理
 }
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
+
 @end

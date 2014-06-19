@@ -40,7 +40,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.tableView.tableFooterView = [[UIView alloc] init];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -312,7 +312,7 @@
 #pragma mark - UIAlertView delegate methods
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
+    if ([alertView.title isEqualToString:@"Confirm"] && buttonIndex == 0) {
         [self deleteAlertFromServerAtRow:alertView.tag];
     }
     

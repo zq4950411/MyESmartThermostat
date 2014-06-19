@@ -10,6 +10,7 @@
 
 @interface MyEEventTimeEditViewController (){
     MyEEventConditionTime *_newTime;
+    MBProgressHUD *HUD;
 }
 
 @end
@@ -70,7 +71,10 @@
 //    }
     _newTime.hour = [comps hour];
     _newTime.minute = (int)([comps minute]/10)*10;
-    
+    if (HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }else
+        [HUD show:YES];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&sceneId=%i&id=%i&timeType=%i&triggerDate=%@&weekly=%@&hour=%i&minute=%i&action=%i",GetRequst(URL_FOR_SCENES_CONDITION_TIME),MainDelegate.houseData.houseId,self.eventInfo.sceneId,_newTime.conditionId,_newTime.timeType,_newTime.date,[_newTime.weeks componentsJoinedByString:@","],_newTime.hour,_newTime.minute,self.isAdd?1:2] postData:nil delegate:self loaderName:@"time" userDataDictionary:nil];
     NSLog(@"loader name is %@",loader.name);
 }
@@ -108,6 +112,7 @@
 #pragma mark - URL delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"recieve string is %@",string);
+    [HUD hide:YES];
     if (![string isEqualToString:@"fail"]) {
         if (self.isAdd) {
             NSDictionary *dic = [string JSONValue];
@@ -123,5 +128,9 @@
         [self.navigationController popViewControllerAnimated:YES];
     }else
         [SVProgressHUD showErrorWithStatus:@"Error!"];
+}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 @end

@@ -124,7 +124,7 @@
 #define SETTING_FIND_GATEWAY @"/setting_findGateways.do"
 #define SETTING_REGISTER_GATEWAY @"/setting_register.do"
 #define SETTING_DELETE_GATEWAY @"/setting_deleteGateways.do"
-
+#define SETTING_FIND_NO_GATEWAY @"/setting_findNoGateways.do"
 #define SETTING_SAVETIMEZONE @"/setting_saveTimeZone.do"
 #define SETTING_EDITT @"/setting_editT.do"
 #define SETTING_DELETE_T @"/setting_deleteT.do"

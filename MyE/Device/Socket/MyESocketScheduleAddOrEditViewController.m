@@ -121,6 +121,10 @@
         }
     }
 }
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
 #pragma mark - MyEWeekBtns Delegate methods
 -(void)weekButtons:(UIView *)weekButtons selectedButtonTag:(NSArray *)buttonTags{
     _newSchedule.weeks = [NSMutableArray arrayWithArray:buttonTags];

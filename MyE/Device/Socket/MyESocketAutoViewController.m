@@ -14,6 +14,8 @@
     MBProgressHUD *HUD;
     NSIndexPath *_deleteIndexPath;  //记录删除的行
     UISwitch *_controlSwitch;  //记录进行控制的switch
+    EGORefreshTableHeaderView *_refreshHeaderView;
+    BOOL _isRefreshing;
 }
 @end
 
@@ -37,6 +39,13 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 
     [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_GET_SCHEDULELIST),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
+    if (!_refreshHeaderView) {
+        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.tableView.frame.size.width, self.tableView.bounds.size.height)];
+        view.delegate = self;
+        [self.tableView addSubview:view];
+        _refreshHeaderView = view;
+    }
+    [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
 }
 #pragma mark - IBAction methods
 - (IBAction)controlChange:(UISwitch *)sender {
@@ -91,6 +100,10 @@
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"receive string is %@",string);
     [HUD hide:YES];
+    if (_isRefreshing) {
+        _isRefreshing = NO;
+        [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+    }
     if ([name isEqualToString:@"downloadInfo"]) {
         if (string.intValue == -999) {
             [SVProgressHUD showWithStatus:@"No Connection"];
@@ -126,7 +139,8 @@
     }
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
-    NSLog(@"%@",[error localizedDescription]);
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 #pragma mark - Navigation methods
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -145,4 +159,25 @@
         vc.isAdd = NO;
     }
 }
+#pragma mark - UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+}
+#pragma mark - EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+    _isRefreshing = YES;
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_GET_SCHEDULELIST),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
+}
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+    return [NSDate date]; // should return date data source was last changed
+}
+
 @end

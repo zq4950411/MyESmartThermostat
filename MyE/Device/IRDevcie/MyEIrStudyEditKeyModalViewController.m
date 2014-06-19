@@ -116,8 +116,10 @@
     if (![action isEqualToString:@"record"]) {
         if(HUD == nil) {
             HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        } else
+        } else{
+            HUD.mode = MBProgressHUDModeDeterminate;
             [HUD show:YES];
+        }
     }
     NSString * urlStr= [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&name=%@&type=%i&instructionId=%i&deviceId=%@&action=%@",GetRequst(URL_FOR_INSTRUCTION_STUDY),MainDelegate.houseData.houseId,self.device.tid,self.instruction.name,self.instruction.type,self.instruction.instructionId,self.device.deviceId,action];
     MyEDataLoader *downloader = [[MyEDataLoader alloc]
@@ -224,16 +226,8 @@
         self.instruction.status = 0;
     }
 }
-- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
-    
-    // inform the user
-    NSLog(@"In delegate Connection failed! Error - %@ %@",
-          [error localizedDescription],
-          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
-    NSString *msg = @"fail";
-    
-    [MyEUtil showSuccessOn:self.navigationController.view withMessage:msg];
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
-
 @end

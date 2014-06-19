@@ -44,6 +44,7 @@
 -(void) viewDidLoad
 {
     [super viewDidLoad];
+    _isDelete = YES;  //这里进行初始化
     self.navigationController.navigationBar.translucent = NO;
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
@@ -60,10 +61,10 @@
     }
     [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
     //初始化左上角菜单
-//    _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
+    //    _sidebarButton.tintColor = [UIColor colorWithWhite:0.36f alpha:0.82f];
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
-//    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    //    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     //初始化下拉视图
     if (!_refreshHeaderView) {
         EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.tableView.frame.size.width, self.tableView.bounds.size.height)];
@@ -72,7 +73,7 @@
         _refreshHeaderView = view;
     }
     [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
-
+    
     [self downloadDevicesFromServer];
     _tableLong = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(beginTableViewEditing:)];
     [self.tableView addGestureRecognizer:_tableLong];
@@ -174,6 +175,7 @@
 #pragma mark - private methods
 -(void)beginTableViewEditing:(UILongPressGestureRecognizer *)sender{
     if (sender.state == UIGestureRecognizerStateBegan) {
+        _isDelete = NO;
         if (self.tableView.editing) {
             return;
         }
@@ -186,6 +188,7 @@
 }
 // 对于双击和单击事件，不需要对状态进行判断，主要是他这个状态维持的时间很短
 -(void)tapOnTableView:(UITapGestureRecognizer *)sender{
+    _isDelete = YES;
     if (!self.tableView.editing) {
         return;
     }
@@ -233,16 +236,16 @@
     //2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器  8:开关
     image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[self getDeviceTypeNameByTypeId:device.typeId],device.switchStatus.intValue == 0 ?@"on":@"off"]];
     device.switchStatus = device.switchStatus.intValue == 0?@"1":@"0";
-//    if (device.switchStatus.intValue == 0)
-//    {
-//        device.switchStatus = @"1";
-//        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-on",string]];
-//    }
-//    else
-//    {
-//        device.switchStatus = @"0";
-//        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-off",string]];
-//    }
+    //    if (device.switchStatus.intValue == 0)
+    //    {
+    //        device.switchStatus = @"1";
+    //        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-on",string]];
+    //    }
+    //    else
+    //    {
+    //        device.switchStatus = @"0";
+    //        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-off",string]];
+    //    }
 }
 -(void)chooseRoom:(KxMenuItem *) sender{
     NSString *roomName = _mainDic.allKeys[sender.tag];
@@ -275,7 +278,7 @@
     }
     [_mainDic setValue:array1 forKey:@"unspecified"];
     [_mainDic setValue:self.mainDevice.devices forKey:@"All"];
-
+    
     NSLog(@"_mainDic is %@",_mainDic);
 }
 #pragma mark - IBAction methods
@@ -341,8 +344,12 @@
     
     typeImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[self getDeviceTypeNameByTypeId:device.typeId],device.switchStatus.intValue==0?@"off":@"on"]];
     nameLabel.text = device.deviceName;
-    roomLabel.text = [device.locationName isEqualToString:@""]?@"unspecified":device.locationName;
-    signal.image = [UIImage imageNamed:device.rfStatus.intValue == -1?@"noconnection":[NSString stringWithFormat:@"signal%i",device.rfStatus.intValue]];
+    roomLabel.text = device.locationName;
+    //    roomLabel.text = [device.locationName isEqualToString:@""]?@"unspecified":device.locationName;
+    if ([device.tid isEqualToString:@""]) {
+        signal.image = [UIImage imageNamed:@"noconnection"];
+    }else
+        signal.image = [UIImage imageNamed:device.rfStatus.intValue == -1?@"signal0":[NSString stringWithFormat:@"signal%i",device.rfStatus.intValue]];
     [btn addTarget:self action:@selector(editDevice:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
@@ -375,7 +382,8 @@
         UITabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tab_bar_controller"];
         // 	温控器所有二级控制页面（Dashboard, Next24, Weekly, etc），标题都采用该温控器的别名。
         
-        vc.title = MainDelegate.terminalData.tName;
+        //        vc.title = MainDelegate.terminalData.tName;
+        vc.title = device.deviceName;
         NSLog(@"MainDelegate.thermostatData.tName = %@", MainDelegate.terminalData.tName);
         
         [self.navigationController pushViewController:vc animated:YES];
@@ -453,10 +461,11 @@
 
 -(BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#warning 这里要做测试
-    MyEDevice *device = _devices[indexPath.row];
-    if (device.typeId.intValue >= 2 && device.typeId.intValue <= 4) {
-        return NO;
+    if (_isDelete) {
+        MyEDevice *device = _devices[indexPath.row];
+        if (device.typeId.intValue < 2 || device.typeId.intValue > 5) {
+            return NO;
+        }
     }
     return YES;
 }
@@ -490,7 +499,7 @@
             self.mainDevice = main;
             [self refreshData];
             _devices = _mainDic[self.roomBtn.currentTitle];
-//            _devices = self.mainDevice.devices;
+            //            _devices = self.mainDevice.devices;
             [self.tableView reloadData];
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];
@@ -526,7 +535,8 @@
     
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
-    NSLog(@"error is %@",[error localizedDescription]);
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 
 #pragma mark - UIAlertView delegate methods

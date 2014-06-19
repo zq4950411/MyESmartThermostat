@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MyESettingsInfo.h"
 #import "MyEDataLoader.h"
+#import "MBProgressHUD.h"
 
 @interface MyETerminalEditViewController : UITableViewController<MyEDataLoaderDelegate>
 @property (nonatomic, strong) MyESettingsTerminal *terminal;

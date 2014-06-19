@@ -8,7 +8,9 @@
 
 #import "MyETerminalEditViewController.h"
 
-@interface MyETerminalEditViewController ()
+@interface MyETerminalEditViewController (){
+    MBProgressHUD *HUD;
+}
 
 @end
 
@@ -30,6 +32,14 @@
 #pragma mark - IBAction methods
 - (IBAction)save:(UIBarButtonItem *)sender {
     [self.nameTxt resignFirstResponder];
+    if ([self.nameTxt.text length] == 0 || [self.nameTxt.text length] > 10) {
+        [MyEUtil showMessageOn:nil withMessage:@"name error!"];
+        return;
+    }
+    if (HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }else
+        [HUD show:YES];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&aliasName=%@&controlState=%i",GetRequst(SETTING_EDITT),MainDelegate.houseData.houseId,self.terminal.tid,self.nameTxt.text,self.controlState.isOn] postData:nil delegate:self loaderName:@"edit" userDataDictionary:nil];
     NSLog(@"loader name is %@",loader.name);
 }
@@ -65,6 +75,7 @@
 
 #pragma mark - MYEDataloader delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    [HUD hide:YES];
     NSLog(@"receive string is %@",string);
     if ([string isEqualToString:@"OK"]) {
         self.terminal.name = self.nameTxt.text;
@@ -72,5 +83,9 @@
         [self.navigationController popViewControllerAnimated:YES];
     }else
         [SVProgressHUD showErrorWithStatus:@"fail"];
+}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 @end

@@ -11,6 +11,7 @@
 @interface MyEUCManualViewController (){
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _isRefreshing;
+    MBProgressHUD *HUD;
 }
 
 @end
@@ -97,6 +98,11 @@
         }
     }
 }
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
+
 #pragma mark - UIScrollViewDelegate Methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

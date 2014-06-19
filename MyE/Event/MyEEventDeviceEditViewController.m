@@ -15,6 +15,7 @@
     MyEInstruction *_instruction;
     MyEEventDeviceInstructions *_instructions;
     NSInteger _selectIndex;
+    MBProgressHUD *HUD;
 }
 
 @end
@@ -42,7 +43,7 @@
     }
     [self.typeBtn setTitle:_deviceType.typeName forState:UIControlStateNormal];
     [self.deviceBtn setTitle:_device.name forState:UIControlStateNormal];
-    self.navigationItem.title = _device.name;
+    self.navigationItem.title = _isAdd?@"Add Device":_device.name;
     [self refreshUI];
     [self checkIfNeedDownloadData];
     
@@ -239,16 +240,25 @@
 
 #pragma mark - URL methods
 -(void)updateDeviceToServerWithString:(NSString *)url andName:(NSString *)name{
+    if (HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }else
+        [HUD show:YES];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:url postData:nil delegate:self loaderName:name userDataDictionary:nil];
     NSLog(@"%@",loader.name);
 }
 -(void)downloadInstructionsWithDeviceId:(NSInteger)deviceId{
+    if (HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }else
+        [HUD show:YES];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&sceneSubId=%i&deviceId=%i&type=%i&action=%@",GetRequst(URL_FOR_SCENES_FIND_DEVICE),MainDelegate.houseData.houseId,_device.sceneSubId,deviceId,_deviceType.typeId==0?1:2,_isAdd?@"addSceneSub":@"editSceneSub"] postData:nil delegate:self loaderName:@"instruction" userDataDictionary:nil];
     NSLog(@"loader name is %@",loader.name);
 }
 #pragma mark - URL Delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"receive string is %@",string);
+    [HUD hide:YES];
     if ([name isEqualToString:@"instruction"]) {
         _instructions = [[MyEEventDeviceInstructions alloc] initWithJsonString:string];
         [self refreshUI];
@@ -275,6 +285,11 @@
 //        }
     }
 }
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
+
 #pragma mark - MYEPickerView delegate methods
 -(void)MYEPickerView:(UIView *)pickerView didSelectTitles:(NSString *)title andRow:(NSInteger)row{
     UIButton *btn = (UIButton *)[self.view viewWithTag:pickerView.tag];

@@ -93,6 +93,7 @@
 #pragma mark - private methods
 -(void)beginTableViewEditing:(UILongPressGestureRecognizer *)sender{
     if (sender.state == UIGestureRecognizerStateBegan) {
+        
         if (self.deviceTable.editing) {
             return;
         }
@@ -318,6 +319,10 @@
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
+}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 #pragma mark - Navigation methods
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
