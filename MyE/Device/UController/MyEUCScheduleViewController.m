@@ -10,6 +10,7 @@
 
 @interface MyEUCScheduleViewController (){
     MyEUCSchedule *_newSchedule;
+    MBProgressHUD *HUD;
 }
 
 @end
@@ -32,6 +33,17 @@
     self.tableView.delegate = self;
     self.weekBtns.selectedButtons = self.schedule.weeks;
     self.weekBtns.delegate = self;
+    self.channels.delegate = self;
+#warning 下面两个方法是最有影响的
+    self.channels.selectedButtons = [[self.schedule.channels componentsSeparatedByString:@""] mutableCopy];
+    NSArray *titles = @[@"1",@"2",@"3",@"4",@"5",@"6"];
+    for (UIButton *btn in self.channels.subviews) {
+        NSLog(@"btn tag is %i",btn.tag);
+        if (btn.tag == 1007) {
+            [btn removeFromSuperview];
+        }
+        [btn setTitle:titles[btn.tag - 1001] forState:UIControlStateNormal];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,6 +64,10 @@
         [MyEUtil showMessageOn:nil withMessage:@"Please add a period"];
         return;
     }
+    if (HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }else
+        [HUD show:YES];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&scheduleId=%i&schedules=%@&action=%@",GetRequst(URL_FOR_UNIVERSAL_CONTROLLER_SAVE_PLUG_SCHEDULE),MainDelegate.houseData.houseId,self.device.tid,_newSchedule.scheduleId,[_newSchedule jsonSchedule],self.isAdd?@"addSchedule":@"editSchedule"] postData:nil delegate:self loaderName:self.isAdd?@"add":@"edit" userDataDictionary:nil];
     NSLog(@"loader name is %@",loader.name);
 }
@@ -71,7 +87,10 @@
 }
 #pragma mark - MYEWeekBtns Delegate methods
 -(void)weekButtons:(UIView *)weekButtons selectedButtonTag:(NSArray *)buttonTags{
-    
+    if (weekButtons.tag == 998) { //channels
+        self.schedule.channels = [buttonTags componentsJoinedByString:@""];
+    }else
+        self.schedule.weeks = [buttonTags mutableCopy];
 }
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -91,6 +110,7 @@
 }
 #pragma mark - URL delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    [HUD hide:YES];
     NSLog(@"receive string is %@",string);
 #warning 此处缺少对新增和编辑结果的处理
 }
