@@ -17,7 +17,7 @@
 @property (nonatomic, copy) NSString *userName;
 @property (nonatomic, copy) NSString *userId;
 @property (nonatomic) BOOL rememberMe;
-@property (nonatomic) BOOL loginSuccess;
+@property (nonatomic, copy) NSString *loginSuccess;
 
 //这里不需要动态房屋列表，而是在从服务器获得数据后一次性生成一个房屋列表并传进来
 //今后如果需要动态增加房屋，就需要像BirdWatching示例那样生成一个动态数组。

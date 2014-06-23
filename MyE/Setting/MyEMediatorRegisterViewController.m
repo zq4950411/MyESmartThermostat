@@ -25,8 +25,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self refreshUI];
-#warning 这里是做测试
-    NSLog(@"time zone is %i  house index is %i",_timeZone,_selectHouseIndex);
 }
 - (void)viewDidLoad
 {
@@ -112,7 +110,7 @@
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }else
         [HUD show:YES];
-    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?mid=%@&pin=%@&associatedProperty=%i&timeZone=%@",GetRequst(SETTING_REGISTER_GATEWAY),self.midTxt.text,self.pinTxt.text,_houseId,_data[_timeZone - 1]] postData:nil delegate:self loaderName:@"register" userDataDictionary:nil];
+    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?mid=%@&pin=%@&associatedProperty=%i&timeZone=%i",GetRequst(SETTING_REGISTER_GATEWAY),self.midTxt.text,self.pinTxt.text,_houseId,_timeZone] postData:nil delegate:self loaderName:@"register" userDataDictionary:nil];
     NSLog(@"loader name is %@",loader.name);
 }
 - (IBAction)scanCode:(ACPButton *)sender {
@@ -182,6 +180,5 @@
 -(void)passMID:(NSString *)mid andPIN:(NSString *)pin{
     self.midTxt.text = mid;
     self.pinTxt.text = pin;
-    [self regestMediator:nil];
 }
 @end

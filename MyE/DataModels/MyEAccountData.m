@@ -32,7 +32,7 @@
     if (self = [super init]) {
         self.userId = [dictionary objectForKey:@"userId"];
         self.userName = [dictionary objectForKey:@"userName"];
-        self.loginSuccess = [[dictionary objectForKey:@"success"] isEqualToString:@"true"];
+        self.loginSuccess = [dictionary objectForKey:@"success"];
         
         NSArray *array = [dictionary objectForKey:@"houses"];
         NSMutableArray *houses = [NSMutableArray array];

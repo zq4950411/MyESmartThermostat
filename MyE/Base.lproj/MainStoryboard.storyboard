@@ -270,7 +270,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Devices" id="9mv-kF-SqR">
-                        <barButtonItem key="leftBarButtonItem" image="menu" style="plain" id="AON-nP-f4M"/>
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="AON-nP-f4M"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="omC-4c-nAW">
                             <connections>
                                 <action selector="addDevice:" destination="2wp-rY-PyQ" id="TxN-go-k0u"/>
@@ -563,7 +563,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="House List" id="NzQ-Nz-aH9">
-                        <barButtonItem key="leftBarButtonItem" image="menu" style="plain" id="OqU-EN-JzZ"/>
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="OqU-EN-JzZ"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
@@ -965,7 +965,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Home" id="cfm-Pa-aKo">
-                        <barButtonItem key="leftBarButtonItem" image="menu" style="plain" id="wMU-7Z-uM6"/>
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="wMU-7Z-uM6"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
@@ -1117,7 +1117,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="oGg-cP-Ga9">
-                        <barButtonItem key="leftBarButtonItem" image="menu" style="plain" id="MXw-TE-geS"/>
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="MXw-TE-geS"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="8lJ-tQ-Ngj">
                             <connections>
                                 <action selector="addNewScene:" destination="M32-6Q-ZCM" id="9c4-9k-hR7"/>
@@ -1405,7 +1405,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Usage Stats" id="70A-OR-Z2Y">
-                        <barButtonItem key="leftBarButtonItem" image="menu" style="plain" id="dc5-OD-ogM"/>
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="dc5-OD-ogM"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
@@ -1475,7 +1475,7 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Alerts" id="hpg-Dj-o7n">
-                        <barButtonItem key="leftBarButtonItem" image="menu" style="plain" id="0fZ-aS-YGo"/>
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="0fZ-aS-YGo"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
@@ -1597,8 +1597,8 @@
         <image name="login-select-highlight" width="30" height="30"/>
         <image name="login-select-normal" width="30" height="30"/>
         <image name="login-username" width="459" height="60"/>
-        <image name="login_textfield_more" width="15" height="9"/>
-        <image name="login_textfield_more_flip" width="15" height="9"/>
+        <image name="login_textfield_more" width="30" height="18"/>
+        <image name="login_textfield_more_flip" width="30" height="18"/>
         <image name="menu" width="28" height="20"/>
         <image name="nomark" width="30" height="30"/>
         <image name="yesmark" width="39" height="31"/>

@@ -108,7 +108,7 @@
                     if (self.device.typeId.intValue == 6) {
                         cell.detailTextLabel.text = @"Socket";
                     }else if(self.device.typeId.intValue == 7){
-                        cell.detailTextLabel.text = @"Universal Controller";
+                        cell.detailTextLabel.text = @"Smart DIY";
                     }else if(self.device.typeId.intValue == 0){
                         cell.detailTextLabel.text = @"Thermostat";
                     }else{

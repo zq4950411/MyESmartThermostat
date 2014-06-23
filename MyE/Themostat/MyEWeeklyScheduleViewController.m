@@ -56,12 +56,13 @@
 {
     [super viewDidLoad];
     self.weekBtns.delegate = self;
+    self.weekBtns.isRadio = YES;
     _applyToDaysSelectionViewShowing = NO;
     _modeEditingViewShowing = NO;
     _periodInforDoughnutViewShowing = NO;
     _hasLoadFromServer = NO;
     // 设置面板背景为一个纯色
-    UIColor *bgcolor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
+//    UIColor *bgcolor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
     
     _modePickerView = [[MyEModePickerView alloc]
                        initWithFrame:CGRectMake((self.modeToolContainer.bounds.size.width - MODE_PICKER_VIEW_WIDTH)*.5,
@@ -174,13 +175,10 @@
     // 设置segmentedController toolbar上的相应按钮被选中
     // weekdayId顺序是:               0-sun, 1-mon, 2-Tue, ..., 6-Sat
     // 调整顺序，segmentedControl顺序是:       0-Mon, 1-Tue, ..., 5-Sat, 6-Sun
-    NSInteger selectedSegmentIndex = currentWeekdayId-1;
-    if (selectedSegmentIndex < 0) {
-        selectedSegmentIndex = 6;
+    if (currentWeekdayId == 0) {
+        currentWeekdayId = 7;
     }
-    [self.weekdaySegmentedControl setSelectedSegmentIndex:selectedSegmentIndex];
-    NSLog(@"%i",selectedSegmentIndex);
-    self.weekBtns.selectedButtons = [@[@(selectedSegmentIndex)] mutableCopy];
+    self.weekBtns.selectedButtons = [@[@(currentWeekdayId)] mutableCopy];
 }
 
 #pragma mark -
@@ -689,17 +687,6 @@
     [self _restoreToLastUnchanged];
 }
 
-- (IBAction)weekdaySegmentedControlValueDidChange:(id)sender {
-    //在本App中，weekdayId顺序是:         0-sun, 1-mon, 2-Tue, ..., 6-Sat
-    // 调整顺序，因为segmentedControl顺序是       0-Mon, 1-Tue, ..., 5-Sat, 6-Sun
-    NSInteger weekdayId = ((UISegmentedControl *)sender).selectedSegmentIndex+1;
-    if (weekdayId >6) {
-        weekdayId = 0;
-    }
-    NSLog(@"selected weekdayId = %i", weekdayId);
-    self.currentWeekdayId = weekdayId;//星期数，0-sun， 1-mon, ..., 6-sat
-}
-
 #pragma mark
 #pragma mark privates methods
 -(void)configureCircleButton
@@ -978,6 +965,11 @@
 }
 #pragma mark - MYEWeekBtns delegate methods
 -(void)weekButtons:(UIView *)weekButtons selectedButtonTag:(NSArray *)buttonTags{
-    self.currentWeekdayId = [buttonTags[0] intValue];
+    NSInteger i = [buttonTags[0] intValue];
+    if (i == 7) {
+        self.currentWeekdayId = 0;
+    }else
+        self.currentWeekdayId = i;
+    NSLog(@"%i",self.currentWeekdayId);
 }
 @end

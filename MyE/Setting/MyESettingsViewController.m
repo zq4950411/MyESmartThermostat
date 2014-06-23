@@ -62,8 +62,12 @@
 }
 - (IBAction)deleteOrBindM:(ACPButton *)sender {
     if ([sender.currentTitle isEqualToString:@"Remove the Gateway"]) {
-        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"" leftButtonTitle:@"Cancel" rightButtonTitle:@"YES"];
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"Do you want to delete this Gateway?" leftButtonTitle:@"Cancel" rightButtonTitle:@"YES"];
         alert.rightBlock = ^{
+            if (HUD == nil) {
+                HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            }else
+                [HUD hide:YES];
             [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i&mid=%@",GetRequst(SETTING_DELETE_GATEWAY),MainDelegate.houseData.houseId,self.info.mid] andName:@"deleteM"];
         };
         [alert show];
@@ -148,7 +152,7 @@
         if (![string isEqualToString:@"fail"]) {
             MyESettingsInfo *info = [[MyESettingsInfo alloc] initWithJsonString:string];
             self.info = info;
-            if ([self.info.mid isEqualToString:@""]) {
+            if ([self.info.mid isEqualToString:@""] || self.info.mid == nil) {
                 _hasGateWay = NO;
             }else
                 _hasGateWay = YES;

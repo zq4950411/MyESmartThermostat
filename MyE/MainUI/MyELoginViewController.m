@@ -307,16 +307,18 @@
 
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"Login account JSON String from server is \n%@",string);
+    [HUD hide:YES];
     if([name isEqualToString:@"LoginDownloader"]) {
         MyEAccountData *anAccountData = [[MyEAccountData alloc] initWithJSONString:string];
-        if(anAccountData && anAccountData.loginSuccess)
+        if(anAccountData && [anAccountData.loginSuccess isEqualToString:@"true"])
         {
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-
             self.accountData = anAccountData;
             MainDelegate.accountData = self.accountData;
             
             if (anAccountData.houseList.count < 1 ){
+                [prefs setObject:self.usernameInput.text forKey:@"user"];
+                [prefs setObject:self.passwordInput.text forKey:@"pass"];//这里记录用户名和密码，以便在注册房子的时候使用到
                 UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Information" 
                                                               message:@"This app is for Smart Home control associated with a property. Please tap OK to go on adding a property to your account before using this app, or tap Cancel to exit."
                                                              delegate:self 
@@ -350,8 +352,6 @@
                 MyEHouseData *defaultHouseData;
                 NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
                 NSInteger defaultHouseId = [prefs integerForKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
-                
-                
                 if (defaultHouseId > 0) {
                     defaultHouseData = [self.accountData houseDataByHouseId:defaultHouseId];
                     if (defaultHouseData.connection!= 0 || defaultHouseData.mId == nil || [defaultHouseData.mId isEqualToString:@"" ] || defaultHouseData.terminals.count == 0)
@@ -363,10 +363,8 @@
 
                 MainDelegate.houseData = defaultHouseData;
                 MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
-                
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
                 SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
-                
                 [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
                 MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
 //                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
@@ -376,8 +374,14 @@
 //                MainDelegate.window.rootViewController = hlvc;// 用主Navigation VC作为程序的rootViewController
             }
         }
-        else
-        {
+        else if(anAccountData && [anAccountData.loginSuccess isEqualToString:@"-1"]){
+            UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Alert"
+                                                          message:@"This gateway has been registed"
+                                                         delegate:nil
+                                                cancelButtonTitle:@"Ok"
+                                                otherButtonTitles:nil];
+            [alert show];
+        }else{
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Login error" 
                                                           message:@"Please check your user name and password and try again."
                                                          delegate:nil 
@@ -386,7 +390,6 @@
             [alert show];
         }
     }
-    [HUD hide:YES];
 }
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     

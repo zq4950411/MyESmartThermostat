@@ -56,7 +56,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *addNewModeButton;
 @property (weak, nonatomic) IBOutlet UIButton *editModeButton;
 @property (weak, nonatomic) IBOutlet UIView *modeToolContainer;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *weekdaySegmentedControl;
 @property (weak, nonatomic) IBOutlet MYEWeekButtons *weekBtns;
 
 @property (strong, nonatomic) MyEThermostatScheduleData *dataModel;
@@ -64,14 +63,12 @@
 
 // 当前选择的模式的id。用于用户手触摸修改sector，或者编辑这个mode。这个值和MyEDoughnutView中的成员变量相同
 @property (nonatomic) NSInteger currentSelectedModeId;
-@property (nonatomic)NSUInteger currentWeekdayId;
+@property (nonatomic) NSUInteger currentWeekdayId;
 
 - (IBAction)editSelectedMode:(id)sender;
 - (IBAction)addNewMode:(id)sender;
 - (IBAction)applyNewSchedule:(id)sender;
 - (IBAction)resetSchedule:(id)sender;
-- (IBAction)weekdaySegmentedControlValueDidChange:(id)sender;
-
 
 
 - (void) downloadModelFromServer;

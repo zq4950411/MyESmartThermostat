@@ -136,6 +136,7 @@
             return t;
         }
     }
+    return nil;
 }
 
 - (NSInteger)countOfConnectedTerminal{// 房子有连接的T的数目。
