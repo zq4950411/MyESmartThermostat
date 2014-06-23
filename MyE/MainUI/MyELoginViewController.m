@@ -325,8 +325,7 @@
                 alert.tag = 100;
                 [alert show];
             }
-            else if (anAccountData.houseList.count == 1 &&
-                       ([(MyEHouseData *)[anAccountData.houseList objectAtIndex:0] isConnected]))
+            else if ([anAccountData countOfValidHouseList] == 1)
             {
                 // 如果只有一个带硬件的房子，且硬件在线，则不用在House List停留，直接将该房子选中而进入Dashboard。
                 MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:0];
@@ -345,7 +344,7 @@
                 [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
                 MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
             }
-            else if ([anAccountData countOfValidHouseList] > 0)
+            else if ([anAccountData countOfValidHouseList] > 1)
             {
                 MyEHouseData *defaultHouseData;
                 NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
