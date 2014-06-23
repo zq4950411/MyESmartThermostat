@@ -345,7 +345,7 @@
                 [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
                 MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
             }
-            else if (anAccountData.houseList.count >= 1 && [anAccountData countOfValidHouseList] > 0)
+            else if ([anAccountData countOfValidHouseList] > 0)
             {
                 MyEHouseData *defaultHouseData;
                 NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
