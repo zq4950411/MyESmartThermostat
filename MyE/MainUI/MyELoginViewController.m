@@ -345,7 +345,7 @@
                 [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
                 MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
             }
-            else if (anAccountData.houseList.count >= 1)
+            else if (anAccountData.houseList.count >= 1 && [anAccountData countOfValidHouseList] > 0)
             {
                 MyEHouseData *defaultHouseData;
                 NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -369,11 +369,10 @@
                 
                 [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
                 MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
-//                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-//                MyEHouseListViewController *hlvc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
-//                hlvc.accountData = self.accountData;
-//                [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
-//                MainDelegate.window.rootViewController = hlvc;// 用主Navigation VC作为程序的rootViewController
+            } else {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+                SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
+                [self presentViewController:vc animated:YES completion:nil];
             }
         }
         else

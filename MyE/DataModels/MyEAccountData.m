@@ -107,7 +107,7 @@
             }
         }
     }
-    return [self.houseList objectAtIndex:theIndex];
+    return nil;
 }
 - (MyEHouseData *)houseDataByHouseId:(NSInteger)houseId {
     for (int i = 0; i < [self.houseList count]; i++) {
