@@ -62,11 +62,17 @@
                                        action:@selector(goHome)];
         self.navigationItem.backBarButtonItem = backButton;
     }
+//    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
+//                                      initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+//                                      target:self
+//                                      action:@selector(refreshAction)];
+//    self.navigationController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, nil];
+    self.parentViewController.navigationItem.rightBarButtonItems = nil;
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                       target:self
                                       action:@selector(refreshAction)];
-    self.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, nil];
+    self.navigationItem.rightBarButtonItem = refreshButton;
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -387,11 +393,11 @@
             [MyEUtil showErrorOn:self.view withMessage:@"Data is not available currently."];
         }else{
             usageData = [[MyEUsageStat alloc] initWithString:string];
-            NSLog(@"当前功率=%f (w), 本期用电量=%f (kWh)", usageData.currentPower * 110.0, usageData.totalPower/1000.0);
+            NSLog(@"当前功率=%f (w), 本期用电量=%f (kWh)", usageData.currentPower, usageData.totalPower);
             for (MyEUsageRecord *r in usageData.powerRecordList) {
-                NSLog(@"dateTime=%@, totalPower=%f W", r.date, r.totalPower/1000.0);
+                NSLog(@"dateTime=%@, 用电量=%f kWh", r.date, r.totalPower);
             }
-            self.currentPowerLabel.text = [NSString stringWithFormat:@"Current Power: %.1f (W)",usageData.currentPower * 110];
+            self.currentPowerLabel.text = [NSString stringWithFormat:@"Current Power: %.1f (W)",usageData.currentPower];
             [self drawChart];
         }
     }

@@ -47,10 +47,10 @@
     if (self) {
         // Initialization code
         // Initialization code
-        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - 334, frame.size.width, 334)];
-        [_bottomView setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.85]];
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - 360, frame.size.width, 360)];
+        [_bottomView setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.90]];
         [_bottomView setOpaque:NO];
-        [_bottomView setAlpha:0.95];
+        [_bottomView setAlpha:0.99];
         
         
         _typeOfEditing = ModeEditingViewTypeEditing;
@@ -130,7 +130,7 @@
         // -[UIPickerView setFrame:]: invalid height value ... pinned to 162.0 
         _setpointPickerView = [[UIPickerView alloc] init];
         _setpointPickerView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-        _setpointPickerView.frame = CGRectMake(70, _bottomView.bounds.size.height - 162, 180, 162);
+        _setpointPickerView.frame = CGRectMake(70, _bottomView.bounds.size.height - 188, 180, 162);
         [_setpointPickerView setDelegate:self];
         [_setpointPickerView setDataSource:self];
         _setpointPickerView.showsSelectionIndicator = YES;

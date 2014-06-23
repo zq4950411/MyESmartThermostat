@@ -19,8 +19,8 @@
 }
 -(MyEUsageStat *)initWithDictionary:(NSDictionary *)dic{
     if (self = [super init]) {
-        self.totalPower = [dic[@"totalPower"] floatValue];
-        self.currentPower = [dic[@"currentPower"] floatValue];
+        self.totalPower = [dic[@"totalPower"] floatValue]/1000.0;
+        self.currentPower = [dic[@"currentPower"] floatValue]*110.0;
         NSMutableArray *powerList = [NSMutableArray array];
         NSArray *array = dic[@"powerRecordList"];
         for (NSDictionary *dict in array) {
@@ -40,8 +40,8 @@
 
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          @(self.totalPower), @"totalPower",
-                            (self.currentPower), @"currentPower",
+                          @(self.totalPower*1000.0), @"totalPower",
+                            (self.currentPower*110), @"currentPower",
                           powerList, @"powerRecordList",
                           nil ];
     return dict;
@@ -70,7 +70,7 @@
 }
 -(MyEUsageRecord *)initWithDictionary:(NSDictionary *)dic{
     if (self = [super init]) {
-        self.totalPower = [dic[@"totalPower"] floatValue];
+        self.totalPower = [dic[@"totalPower"] floatValue]/1000.0;
         if (dic[@"dataTime"]) {
             self.date = dic[@"dataTime"];
         }
@@ -81,7 +81,7 @@
 - (NSDictionary *)JSONDictionary {
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          @(self.totalPower), @"totalPower",
+                          @(self.totalPower*1000.0), @"totalPower",
                           self.date, @"dataTime",
                           nil ];
     return dict;
