@@ -373,7 +373,7 @@
                 MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
             } else {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-                SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
+                MyEHouseListViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
                 [self presentViewController:vc animated:YES completion:nil];
             }
         }
