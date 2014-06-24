@@ -50,7 +50,12 @@
 #define MainDelegate ((MyEAppDelegate *)[[UIApplication sharedApplication] delegate])
 #define MainColor [UIColor colorWithRed:0.27 green:0.78 blue:0.86 alpha:1]
 #define FRAME(frame) NSLog(@"x:%.0f y:%.0f width:%.0f height:%.0f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height)
-//#define NSLog(...) {}
+
+#ifdef __OPTIMIZE__
+# define NSLog(...) {}
+#else
+# define NSLog(...) NSLog(__VA_ARGS__)
+#endif
 
 #ifdef DEBUG
 #define CLog(format, ...) NSLog(format, ## __VA_ARGS__)

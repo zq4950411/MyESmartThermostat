@@ -32,7 +32,7 @@
     if (self = [super init]) {
         self.userId = [dictionary objectForKey:@"userId"];
         self.userName = [dictionary objectForKey:@"userName"];
-        self.loginSuccess = [[dictionary objectForKey:@"success"] isEqualToString:@"true"];
+        self.loginSuccess = [dictionary objectForKey:@"success"];
         
         NSArray *array = [dictionary objectForKey:@"houses"];
         NSMutableArray *houses = [NSMutableArray array];
@@ -105,6 +105,14 @@
             if(theIndex == validCount - 1){
                 return house;
             }
+        }
+    }
+    return nil;
+}
+-(MyEHouseData *)firstValidHouseInList{
+    for (MyEHouseData *house in self.houseList) {
+        if ([house isOnline]) {
+            return house;
         }
     }
     return nil;

@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MyESocketAutoViewController.h"
-#import "MyESocketUsageViewController.h"
-
-@interface MyESocketManualViewController : UIViewController<MyEDataLoaderDelegate,IQActionSheetPickerView,UIAlertViewDelegate>
+#import "MYEPickerView.h"
+@interface MyESocketManualViewController : UIViewController<MyEDataLoaderDelegate,UIAlertViewDelegate,MYEPickerViewDelegate>
 @property(nonatomic, strong) MyEDevice *device;
 @property(nonatomic, strong) MyESocketControlInfo *socketControlInfo;
 

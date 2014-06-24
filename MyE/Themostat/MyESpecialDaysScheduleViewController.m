@@ -26,7 +26,7 @@
 #define TOOBAR_ANIMATION_DURATION 0.5f
 @interface MyESpecialDaysScheduleViewController ()
 -(void)configureCircleButton;
-- (void)_restoreToLastUnchanged;
+//- (void)_restoreToLastUnchanged;
 - (void)_createModeEditingViewIfNecessary;
 - (void)_toggleModeEditingViewWithType:(ModeEditingViewType)typeOfEditing;
 
@@ -75,7 +75,7 @@
     CGRect bounds = self.centerContainerView.bounds;
     
     // 设置面板背景为一个纯色
-    UIColor *bgcolor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
+//    UIColor *bgcolor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
     
     
     float doughnutViewX = bounds.origin.x + (bounds.size.width - WEEKLY_DOUGHNUT_VIEW_SIZE)/2;

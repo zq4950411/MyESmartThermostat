@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MYEPickerView.h"
 #import "ACPButton.h"
+#import "MyEAccountData.h"
+#import "MyELoginViewController.h"
 @interface MyEHouseAddViewController : UITableViewController<MyEDataLoaderDelegate,UIAlertViewDelegate,MYEPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *txtStreet;
 @property (weak, nonatomic) IBOutlet UITextField *txtCity;

@@ -40,7 +40,6 @@
             }
         }        
         self.terminals = thermostats;
-        
         return self;
     }
     return nil;
@@ -69,20 +68,24 @@
     return [[MyEHouseData alloc] initWithDictionary:[self JSONDictionary]];
 }
 
+- (BOOL)isOnline{
+    if([self.mId length] != 0 && self.connection == 0) //|| [self.thermostats count] == 0)
+        return YES;
+    return NO;
+}
 // 判定房子是否有效，标准是房子的M状态必须为0表示M正常链接，T列表不能为空，这样的房子才算有效
 - (BOOL)isValid{
-    if([self.mId length] == 0) //|| [self.thermostats count] == 0)
-        return NO;
-
-    return YES;
+    if ([self.mId length] != 0) {
+        return YES;
+    }
+    return NO;
 }
-
 //判定房子是否连接, 标准是房子是否有M，并且至少有一个T在连接工作，才能键入房子，因为我们的目标是点击进入一个房子后必须有一个T的信息。
 - (BOOL)isConnected{
     if([self.mId length] == 0 || self.connection == 1)
         return NO;
     for (MyETerminalData *t  in self.terminals) {
-        if (t.connection ==0 ) {
+        if (t.connection == 0) {
             return YES;
         }
     }
@@ -118,6 +121,8 @@
 // 给定一个tId，返回拥有该tId的温控器在有链接的温控器设备列表里面的序号. 如果没找到， 返回-1
 - (NSInteger)indexInConnectedThermostatListFortId:(NSString *)tId
 {
+#warning 这里修改了
+    if(!tId) return -1;
     NSArray *thermostatList = [self connectedThermostatList];
     for (NSInteger i=0; i < thermostatList.count; i++) {
         MyETerminalData *t = thermostatList[i];
@@ -136,6 +141,7 @@
             return t;
         }
     }
+    return nil;
 }
 
 - (NSInteger)countOfConnectedTerminal{// 房子有连接的T的数目。

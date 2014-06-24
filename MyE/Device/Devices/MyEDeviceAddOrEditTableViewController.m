@@ -108,23 +108,25 @@
                     if (self.device.typeId.intValue == 6) {
                         cell.detailTextLabel.text = @"Socket";
                     }else if(self.device.typeId.intValue == 7){
-                        cell.detailTextLabel.text = @"Universal Controller";
+                        cell.detailTextLabel.text = @"Smart DIY";
                     }else if(self.device.typeId.intValue == 0){
                         cell.detailTextLabel.text = @"Thermostat";
                     }else{
                         MyEType *t = [self.deviceEdit getTypeByTypeId:[_newDevice.typeId intValue]];
                         cell.detailTextLabel.text = t.typeName;
+                        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
                     }}
                     break;
                 default:
                 {
                     if (self.device.typeId.intValue == 6) {
-                        cell.detailTextLabel.text = _newDevice.tid;
+                        cell.detailTextLabel.text = self.device.tid;
                     }else if(self.device.typeId.intValue == 7){
-                        cell.detailTextLabel.text = _newDevice.tid;
+                        cell.detailTextLabel.text = self.device.tid;
                     }else if(self.device.typeId.intValue == 0){
-                        cell.detailTextLabel.text = _newDevice.tid;
+                        cell.detailTextLabel.text = self.device.tid;
                     }else{
+                        cell.textLabel.text = @"Smart Remote";
                         MyETerminal *t = [self.deviceEdit getTerminalByTid:_newDevice.tid];
                         cell.detailTextLabel.text = t.terminalName;}}
                     break;
@@ -169,7 +171,11 @@
                 _newDevice.typeId = [NSString stringWithFormat:@"%li",(long)type.typeId];}
                 break;
             default:
-            {MyETerminal *terminal = [self.deviceEdit getTerminalByTName:str];
+            {
+                if ([str isEqualToString:@""]) {  //这里也是做了防护措施
+                    return;
+                }
+                MyETerminal *terminal = [self.deviceEdit getTerminalByTName:str];
                 _newDevice.tid = terminal.tId;
             }
                 break;
@@ -222,7 +228,12 @@
             _pickerView = [[MYEPickerView alloc] initWithView:self.view andTag:2 title:@"type select" dataSource:_types andSelectRow:[_types containsObject:str]?[_types indexOfObject:str]:0];
             break;
         case 3:    //tid
-            if (self.device.typeId.intValue == 6 ||self.device.typeId.intValue == 7 || self.device.typeId.intValue == 0) {
+            if (!_isAddDevice) {
+                if (self.device.typeId.intValue == 6 ||self.device.typeId.intValue == 7 || self.device.typeId.intValue == 0) {
+                    return;
+                }
+            }
+            if (![_terminals count]) {  //这里是个保护措施，当终端为零时点击之后没反应
                 return;
             }
             _pickerView = [[MYEPickerView alloc] initWithView:self.view andTag:3 title:@"terminal select" dataSource:_terminals andSelectRow:[_terminals containsObject:str]?[_terminals indexOfObject:str]:0];

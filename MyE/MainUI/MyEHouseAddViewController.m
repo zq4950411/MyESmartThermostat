@@ -39,6 +39,13 @@
 {
     [super didReceiveMemoryWarning];
 }
+#pragma mark - private methods
+-(void)login{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?username=%@&password=%@&type=1&checkCode=2&deviceType=0&deviceToken=%@&deviceAlias=%@&appVersion=%@",GetRequst(URL_FOR_LOGIN), [defaults objectForKey:@"user"], [defaults objectForKey:@"pass"],MainDelegate.deviceTokenStr,MainDelegate.alias,[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] ;
+    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"LoginDownloader" userDataDictionary:nil];
+    NSLog(@"downloader.name is  %@ urlStr =  %@",downloader.name, urlStr);
+}
 #pragma mark - IBAction methods
 - (IBAction)save:(UIButton *)sender {
     [self.txtStreet resignFirstResponder];
@@ -94,17 +101,45 @@
             }else{
                 
             }
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-            MyEHouseListViewController *hlvc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
-            MainDelegate.accountData = self.accountData;
-            [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
-            MainDelegate.window.rootViewController = hlvc;// 用主Navigation VC作为程序的rootViewController
+            [self login];
         }else if (i == -1){
             [MyEUtil showMessageOn:nil withMessage:@"This house does not exist,Please rewrite"];
         }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Add House Failed,Do You Want To Try Again?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
-            alert.tag = 100;
-            [alert show];
+            [SVProgressHUD showErrorWithStatus:@"error!"];
+        }
+    }
+    if([name isEqualToString:@"LoginDownloader"]) {
+        MyEAccountData *anAccountData = [[MyEAccountData alloc] initWithJSONString:string];
+        if(anAccountData && anAccountData.loginSuccess)
+        {
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            self.accountData = anAccountData;
+            MainDelegate.accountData = self.accountData;
+            
+            if (anAccountData.houseList.count == 1 &&
+                     ([(MyEHouseData *)[anAccountData.houseList objectAtIndex:0] isConnected]))
+            {
+                // 如果只有一个带硬件的房子，且硬件在线，则不用在House List停留，直接将该房子选中而进入Dashboard。
+                MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:0];
+                MainDelegate.houseData = houseData;
+                MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
+                
+                //在NSDefaults里面记录这次要进入的房屋
+                [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
+                [prefs synchronize];
+                
+                MyETerminalData *thermostatData = [houseData.terminals objectAtIndex:0];// 用该房子的第一个T
+                MainDelegate.terminalData = thermostatData;
+                
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+                SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
+                [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+                MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
+            }else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Your Gateway is not online, please retry!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                alert.tag = 200;
+                [alert show];
+            }
         }
     }
 }
@@ -116,6 +151,12 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 100 && buttonIndex == 1) {
         [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?state=%@&city=%@&street=%@&mediatorBindFlag=%i",GetRequst(URL_FOR_ADD_ADDRESS),self.lblState.text,self.txtCity.text,self.txtStreet.text,self.bindBtn.selected] andName:@"addHouse"];
+    }
+    if (alertView.tag == 200 && buttonIndex == 0) { //两个Btn的话索引为1，一个btn的话索引为0
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        MyELoginViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+        MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
     }
 }
 #pragma mark - MYEPickerView delegate methods

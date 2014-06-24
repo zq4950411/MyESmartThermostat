@@ -168,8 +168,6 @@
 		C30DBF3B194018DF0063AC6D /* DragTableHeaderView_ot.m in Sources */ = {isa = PBXBuildFile; fileRef = C30DBF30194018DE0063AC6D /* DragTableHeaderView_ot.m */; };
 		C30DBF3C194018DF0063AC6D /* UIScrollView+DragTableSafeAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C30DBF32194018DE0063AC6D /* UIScrollView+DragTableSafeAnimation.m */; };
 		C30DBF3D194018DF0063AC6D /* UITableView+DragLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = C30DBF35194018DE0063AC6D /* UITableView+DragLoad.m */; };
-		C30DBF3E194018DF0063AC6D /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C30DBF37194018DF0063AC6D /* blueArrow.png */; };
-		C30DBF3F194018DF0063AC6D /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C30DBF38194018DF0063AC6D /* blueArrow@2x.png */; };
 		C30E01F414C7A69200011160 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30E01F314C7A69200011160 /* UIKit.framework */; };
 		C30E01F614C7A69200011160 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30E01F514C7A69200011160 /* Foundation.framework */; };
 		C30E01F814C7A69200011160 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30E01F714C7A69200011160 /* CoreGraphics.framework */; };
@@ -646,8 +644,6 @@
 		C30DBF32194018DE0063AC6D /* UIScrollView+DragTableSafeAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+DragTableSafeAnimation.m"; sourceTree = "<group>"; };
 		C30DBF34194018DE0063AC6D /* UITableView+DragLoad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+DragLoad.h"; sourceTree = "<group>"; };
 		C30DBF35194018DE0063AC6D /* UITableView+DragLoad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+DragLoad.m"; sourceTree = "<group>"; };
-		C30DBF37194018DF0063AC6D /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
-		C30DBF38194018DF0063AC6D /* blueArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrow@2x.png"; sourceTree = "<group>"; };
 		C30E01EF14C7A69200011160 /* MyE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30E01F314C7A69200011160 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C30E01F514C7A69200011160 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -908,7 +904,7 @@
 		C3FDB7D418FA7F65009B423D /* ServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerViewController.m; sourceTree = "<group>"; };
 		C3FDB7D518FA7F65009B423D /* ServerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerViewController.xib; sourceTree = "<group>"; };
 		C3FDB7D918FA82AE009B423D /* MyEAccountData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAccountData.h; sourceTree = "<group>"; };
-		C3FDB7DA18FA82AE009B423D /* MyEAccountData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAccountData.m; sourceTree = "<group>"; };
+		C3FDB7DA18FA82AE009B423D /* MyEAccountData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAccountData.m; sourceTree = "<group>"; wrapsLines = 0; };
 		C3FDB7DB18FA82AE009B423D /* MyEDashboardData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEDashboardData.h; sourceTree = "<group>"; };
 		C3FDB7DC18FA82AE009B423D /* MyEDashboardData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEDashboardData.m; sourceTree = "<group>"; };
 		C3FDB7DD18FA82AE009B423D /* MyEHouseData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEHouseData.h; sourceTree = "<group>"; };
@@ -1545,8 +1541,6 @@
 		C30DBF36194018DF0063AC6D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C30DBF37194018DF0063AC6D /* blueArrow.png */,
-				C30DBF38194018DF0063AC6D /* blueArrow@2x.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2346,12 +2340,10 @@
 				C3AE7F0218E13B4D000AA5FC /* Switch.storyboard in Resources */,
 				8C23AB2B1924B7E100821596 /* Setting.storyboard in Resources */,
 				C3FDB7D718FA7F65009B423D /* ServerViewController.xib in Resources */,
-				C30DBF3F194018DF0063AC6D /* blueArrow@2x.png in Resources */,
 				C3FDB4E618FA6044009B423D /* HouseBlankView.xib in Resources */,
 				C3F61AAA18DFE64C00DEE477 /* MainStoryboard.storyboard in Resources */,
 				B25B79E517D198A9009F4E84 /* zbar-back.png in Resources */,
 				B25B79E617D198A9009F4E84 /* zbar-help.html in Resources */,
-				C30DBF3E194018DF0063AC6D /* blueArrow.png in Resources */,
 				B25B79E717D198A9009F4E84 /* zbar-helpicons.png in Resources */,
 				B25B79E817D198A9009F4E84 /* zbar-samples.png in Resources */,
 			);

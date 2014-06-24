@@ -291,10 +291,11 @@ metaModeArray = _metaModeArray;
         }
     }
        
-    if(![self isResultValid])
+    if(![self isResultValid]){
         NSLog(@"[MyEScheduleNext24HrsData updaeDayItemsByPeriods] run error");
-    else
+    }else{
         NSLog(@"[MyEScheduleNext24HrsData updaeDayItemsByPeriods] run ok");
+    }
 }
 
 // 

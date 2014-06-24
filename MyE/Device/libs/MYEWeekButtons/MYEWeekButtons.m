@@ -23,6 +23,9 @@
     if (self.selectedButtons == nil) {
         self.selectedButtons = [NSMutableArray array];
     }
+    if (self.titles == nil) {
+        self.titles = @[@"Mon",@"Tues",@"Wed",@"Thur",@"Fri",@"Sat",@"Sun"];
+    }
     self.backgroundColor = [UIColor clearColor]; //背景透明
     [self setButtonsInViewWithFrame:rect];
     [self addObserver:self forKeyPath:@"selectedButtons" options:0 context:NULL];
@@ -37,7 +40,7 @@
         return ;
     }
     CGFloat hight = frame.size.height;
-    for (int i = 1; i < 8; i++) {
+    for (int i = 1; i < self.titles.count + 1; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.tag = i+1000;
         btn.frame = CGRectMake(hight*(i-1), 0, hight, hight);
@@ -45,8 +48,7 @@
         [btn setBackgroundImage:[UIImage imageNamed:@"weekBtn-select"] forState:UIControlStateSelected];
         [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [btn setTitle:[self setBtnTitleWithTag:btn.tag] forState:UIControlStateNormal];
-//        btn.titleLabel.font = [UIFont systemFontOfSize:14*hight/40];
+        [btn setTitle:self.titles[i - 1] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:14*hight/40];
         [btn addTarget:self action:@selector(didBtnSelected:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
@@ -90,11 +92,21 @@
 #pragma mark - did Click Button
 -(void)didBtnSelected:(UIButton *)btn{
     btn.selected = !btn.selected;
-    if (btn.selected) {
+    if (self.isRadio) {
+        for (UIButton *button in self.subviews) {
+            if (button.selected && button.tag != btn.tag) {
+                button.selected = NO;
+            }
+        }
+        [self.selectedButtons removeAllObjects];
         [self.selectedButtons addObject:@(btn.tag - 1000)];
     }else{
-        if ([self.selectedButtons containsObject:@(btn.tag - 1000)]) {
-            [self.selectedButtons removeObject:@(btn.tag - 1000)];
+        if (btn.selected) {
+            [self.selectedButtons addObject:@(btn.tag - 1000)];
+        }else{
+            if ([self.selectedButtons containsObject:@(btn.tag - 1000)]) {
+                [self.selectedButtons removeObject:@(btn.tag - 1000)];
+            }
         }
     }
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];

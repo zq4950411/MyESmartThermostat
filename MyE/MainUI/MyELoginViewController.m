@@ -307,16 +307,18 @@
 
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"Login account JSON String from server is \n%@",string);
+    [HUD hide:YES];
     if([name isEqualToString:@"LoginDownloader"]) {
         MyEAccountData *anAccountData = [[MyEAccountData alloc] initWithJSONString:string];
-        if(anAccountData && anAccountData.loginSuccess)
+        if(anAccountData && [anAccountData.loginSuccess isEqualToString:@"true"])
         {
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-
             self.accountData = anAccountData;
             MainDelegate.accountData = self.accountData;
             
             if (anAccountData.houseList.count < 1 ){
+                [prefs setObject:self.usernameInput.text forKey:@"user"];
+                [prefs setObject:self.passwordInput.text forKey:@"pass"];//这里记录用户名和密码，以便在注册房子的时候使用到
                 UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Information" 
                                                               message:@"This app is for Smart Home control associated with a property. Please tap OK to go on adding a property to your account before using this app, or tap Cancel to exit."
                                                              delegate:self 
@@ -330,16 +332,16 @@
             else if ([anAccountData countOfValidHouseList] == 1)
             {
                 // 如果只有一个带硬件的房子，且硬件在线，则不用在House List停留，直接将该房子选中而进入Dashboard。
-                MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:0];
-                MainDelegate.houseData = houseData;
+//                MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:0];
+                MainDelegate.houseData = [self.accountData firstValidHouseInList];
                 MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
                 
                 //在NSDefaults里面记录这次要进入的房屋
-                [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
+                [prefs setInteger:MainDelegate.houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
                 [prefs synchronize];
                 
-                MyETerminalData *thermostatData = [houseData.terminals objectAtIndex:0];// 用该房子的第一个T
-                MainDelegate.terminalData = thermostatData;
+//                MyETerminalData *thermostatData = [houseData.terminals objectAtIndex:0];// 用该房子的第一个T
+//                MainDelegate.terminalData = thermostatData;
                 
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
                 SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
@@ -352,8 +354,6 @@
                 MyEHouseData *defaultHouseData;
                 NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
                 NSInteger defaultHouseId = [prefs integerForKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
-                
-                
                 if (defaultHouseId > 0) {
                     defaultHouseData = [self.accountData houseDataByHouseId:defaultHouseId];
                     if (defaultHouseData.connection!= 0 || defaultHouseData.mId == nil || [defaultHouseData.mId isEqualToString:@"" ] || defaultHouseData.terminals.count == 0)
@@ -361,24 +361,30 @@
                        defaultHouseData = [self.accountData validHouseInListAtIndex:0];
                     }
                 }else // 如果以前没有浏览并保存过默认的houseId， 就用第一个有效的house
-                    defaultHouseData = [self.accountData validHouseInListAtIndex:0];
-
+//                    defaultHouseData = [self.accountData validHouseInListAtIndex:0];
+                    defaultHouseData = [self.accountData firstValidHouseInList];
                 MainDelegate.houseData = defaultHouseData;
                 MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
-                
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
                 SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
-                
                 [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
                 MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
             } else {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-                MyEHouseListViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
-                [self presentViewController:vc animated:YES completion:nil];
+                UINavigationController *nav = [storyboard instantiateViewControllerWithIdentifier:@"houseListNav"];
+                MyEHouseListViewController *vc = nav.childViewControllers[0];
+                vc.jumpFromLogin = YES;
+                [self presentViewController:nav animated:YES completion:nil];
             }
         }
-        else
-        {
+        else if(anAccountData && [anAccountData.loginSuccess isEqualToString:@"-1"]){
+            UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Alert"
+                                                          message:@"This gateway has been registed"
+                                                         delegate:nil
+                                                cancelButtonTitle:@"Ok"
+                                                otherButtonTitles:nil];
+            [alert show];
+        }else{
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Login error" 
                                                           message:@"Please check your user name and password and try again."
                                                          delegate:nil 
@@ -387,7 +393,6 @@
             [alert show];
         }
     }
-    [HUD hide:YES];
 }
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     

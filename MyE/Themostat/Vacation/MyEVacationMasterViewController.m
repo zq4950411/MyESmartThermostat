@@ -71,6 +71,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIView *bgView = [[UIView alloc] init];
+    bgView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = bgView;
     //设置面板背景为一个纹理图片
 //    UIColor *bgcolor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgpattern.png"]];
     // 设置面板背景为一个纯色

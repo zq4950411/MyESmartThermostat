@@ -197,7 +197,7 @@
 //        
 //    }
 //    else if([subVS count] == 2){// 在进入TabBarController的任何一个直接子view时，view堆栈的数目是2
-#warning 添加代码, 处理新架构下的Thermostat几个面板的刷新
+//#warning 添加代码, 处理新架构下的Thermostat几个面板的刷新
 //        id vc= [subVS objectAtIndex:1];
 //        if ([vc isKindOfClass:[MyEMainTabBarController class]]) {
 //            MyEMainTabBarController * mtbc = vc;

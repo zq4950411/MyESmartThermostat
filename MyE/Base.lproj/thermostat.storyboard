@@ -480,22 +480,11 @@
                                 <color key="backgroundColor" red="0.91128110890000003" green="1" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                             </view>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="KqB-D4-kKe">
-                                <rect key="frame" x="7" y="14" width="306" height="29"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h8F-sU-LsA" customClass="MYEWeekButtons">
+                                <rect key="frame" x="20" y="8" width="280" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Mon"/>
-                                    <segment title="Tue"/>
-                                    <segment title="Wed"/>
-                                    <segment title="Thu"/>
-                                    <segment title="Fri"/>
-                                    <segment title="Sat"/>
-                                    <segment title="Sun"/>
-                                </segments>
-                                <connections>
-                                    <action selector="weekdaySegmentedControlValueDidChange:" destination="XX0-ez-qnw" eventType="valueChanged" id="DXk-vt-PWI"/>
-                                </connections>
-                            </segmentedControl>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.95896084339999998" green="0.9592079255" blue="0.96105515809999997" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
@@ -511,7 +500,7 @@
                         <outlet property="editModeButton" destination="xo2-Rz-vQx" id="7ha-a0-ys5"/>
                         <outlet property="modeToolContainer" destination="yJ7-pO-ypX" id="ztS-ex-7dI"/>
                         <outlet property="resetButton" destination="HhN-QV-SJF" id="leR-xX-Kdd"/>
-                        <outlet property="weekdaySegmentedControl" destination="KqB-D4-kKe" id="AV8-V4-ujj"/>
+                        <outlet property="weekBtns" destination="h8F-sU-LsA" id="Hxo-Fk-arU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0gi-Yv-Li8" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -34,16 +34,16 @@
     self.weekBtns.selectedButtons = self.schedule.weeks;
     self.weekBtns.delegate = self;
     self.channels.delegate = self;
-#warning 下面两个方法是最有影响的
+    self.channels.titles = @[@"1",@"2",@"3",@"4",@"5",@"6"];
     self.channels.selectedButtons = [[self.schedule.channels componentsSeparatedByString:@""] mutableCopy];
-    NSArray *titles = @[@"1",@"2",@"3",@"4",@"5",@"6"];
-    for (UIButton *btn in self.channels.subviews) {
-        NSLog(@"btn tag is %i",btn.tag);
-        if (btn.tag == 1007) {
-            [btn removeFromSuperview];
-        }
-        [btn setTitle:titles[btn.tag - 1001] forState:UIControlStateNormal];
-    }
+//    NSArray *titles = @[@"1",@"2",@"3",@"4",@"5",@"6"];
+//    for (UIButton *btn in self.channels.subviews) {
+//        NSLog(@"btn tag is %i",btn.tag);
+//        if (btn.tag == 1007) {
+//            [btn removeFromSuperview];
+//        }
+//        [btn setTitle:titles[btn.tag - 1001] forState:UIControlStateNormal];
+//    }
 }
 
 - (void)didReceiveMemoryWarning

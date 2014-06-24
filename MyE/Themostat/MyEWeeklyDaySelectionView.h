@@ -35,7 +35,8 @@
  Protocol for the MyEModeEditingView's delegate.
  */
 @protocol MyEApplyToDaysSelectionViewDelegate <NSObject>
-@required
+#warning 这里这个代理得使用
+@optional
 @property (nonatomic)NSUInteger currentWeekdayId;//当前正在编辑的day的id, 取值对应关系是：0-Sun， 1-Mon, ..., 6-Sat
 - (void) didFinishSelectApplyToDays:(NSArray *)days;
 

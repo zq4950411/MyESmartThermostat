@@ -29,6 +29,20 @@
 #import "MyEUCAutoViewController.h"
 #import "MyEUCManualViewController.h"
 #import "MyEUCConditionViewController.h"
+
+@interface MyEDevicesViewController(){
+    NSArray *_rooms;
+    NSIndexPath *_selectedIndexPath;  //当前选定的indexPath
+    NSMutableDictionary *_mainDic;
+    MBProgressHUD *HUD;
+    NSMutableArray *_devices;
+    EGORefreshTableHeaderView *_refreshHeaderView;
+    BOOL _isRefreshing;
+    BOOL _isDelete;  //表示删除模式，此时指定行是不能编辑的
+    UITapGestureRecognizer *_tableTap;   //这两个手势主要用于排序
+    UILongPressGestureRecognizer *_tableLong;
+}
+@end
 @implementation MyEDevicesViewController
 
 #pragma mark - life circle methods
@@ -40,7 +54,6 @@
         [self downloadDevicesFromServer];
     }
 }
-
 -(void) viewDidLoad
 {
     [super viewDidLoad];
@@ -248,7 +261,7 @@
     //    }
 }
 -(void)chooseRoom:(KxMenuItem *) sender{
-    NSString *roomName = _mainDic.allKeys[sender.tag];
+    NSString *roomName = _rooms[sender.tag];
     [self.roomBtn setTitle:roomName forState:UIControlStateNormal];
     _devices = [_mainDic[roomName] mutableCopy];
     [self.tableView reloadData];
@@ -284,9 +297,17 @@
 #pragma mark - IBAction methods
 - (IBAction)changeRoom:(UIButton *)sender {
     NSMutableArray *items = [NSMutableArray array];
-    for (int i = 0; i < _mainDic.allKeys.count; i++)
+    NSMutableArray *array = [_mainDic.allKeys mutableCopy];
+    [array removeObject:@"All"];
+    [array removeObject:@"unspecified"];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    NSMutableArray *newArray = [[array sortedArrayUsingDescriptors:@[sort]] mutableCopy];
+    [newArray insertObject:@"All" atIndex:0];
+    [newArray insertObject:@"unspecified" atIndex:[newArray count]];
+    _rooms = newArray;
+    for (int i = 0; i < _rooms.count; i++)
     {
-        KxMenuItem *item = [KxMenuItem menuItem:_mainDic.allKeys[i]
+        KxMenuItem *item = [KxMenuItem menuItem:_rooms[i]
                                           image:nil
                                          target:self
                                          action:@selector(chooseRoom:)];
@@ -498,8 +519,12 @@
             MyEMainDevice *main = [[MyEMainDevice alloc] initWithJSONString:string];
             self.mainDevice = main;
             [self refreshData];
-            _devices = _mainDic[self.roomBtn.currentTitle];
-            //            _devices = self.mainDevice.devices;
+            if ([_mainDic.allKeys containsObject:self.roomBtn.currentTitle]) {
+                _devices = _mainDic[self.roomBtn.currentTitle];
+            }else{
+                [self.roomBtn setTitle:@"All" forState:UIControlStateNormal];
+                _devices = _mainDic[@"All"];
+            }
             [self.tableView reloadData];
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];

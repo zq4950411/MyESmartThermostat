@@ -150,8 +150,9 @@
 -(NSArray *)changeStringToInt:(NSString *)title{
     NSArray *array = [NSArray array];
     if (title.length !=5) {
-        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Warning" contentText:@"time is off" leftButtonTitle:nil rightButtonTitle:@"OK"];
-        [alert show];
+        NSLog(@"time is not correct");
+//        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Warning" contentText:@"time is off" leftButtonTitle:nil rightButtonTitle:@"OK"];
+//        [alert show];
         array = @[@1,@1];
     }else{
         NSInteger i = [_headTimeArray indexOfObject:[title substringToIndex:2]];

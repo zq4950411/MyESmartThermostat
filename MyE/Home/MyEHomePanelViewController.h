@@ -12,7 +12,6 @@
 @class MyETerminalData;
 
 @interface MyEHomePanelViewController : UIViewController<MyEDataLoaderDelegate,MBProgressHUDDelegate> {
-
     MBProgressHUD *HUD;
 }
 @property (copy, nonatomic) NSString *thermostatId_for_indoor_th;// 仅用于显示当前选择的某个温控器的温度， 需要知道该温控器的tId

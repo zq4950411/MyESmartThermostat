@@ -18,7 +18,7 @@
     if (self = [super init]) {
         self.mid = dic[@"mid"];
         self.houseName = dic[@"houseName"];
-        self.timeZone = [dic[@"timeZone"] intValue];
+        self.timeZone = dic[@"timeZone"] == nil?1:[dic[@"timeZone"] intValue];
         self.terminals = [NSMutableArray array];
         for (NSDictionary *d in dic[@"smartDevices"]) {
             [self.terminals addObject:[[MyESettingsTerminal alloc] initWithDictionary:d]];
@@ -54,7 +54,7 @@
     return [UIImage imageNamed:str];
 }
 -(NSString *)changeTypeToString{
-    NSArray *array = @[@"Thermostat",@"Smart Remote",@"Smart Socket",@"Universal Controller",@"Other",@"Other",@"Smart Switch"];
+    NSArray *array = @[@"Thermostat",@"Smart Remote",@"Smart Socket",@"Smart DIY",@"Other",@"Other",@"Smart Switch"];
     return array[self.type];
 }
 @end
