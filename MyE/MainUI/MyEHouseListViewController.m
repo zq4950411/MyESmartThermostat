@@ -51,7 +51,7 @@
     
     [self.registerButton setStyleType:ACPButtonOK];
 //    [self.registerButton addTarget:self action:@selector(registeGateway:) forControlEvents:UIControlEventTouchUpInside];
-    
+    //* 这个没用处了*/
     if (MainDelegate.accountData.houseList.count == 0)
     {
         HouseBlankView *houseBlankView = [[[NSBundle mainBundle] loadNibNamed:@"HouseBlankView" owner:self options:nil] objectAtIndex:0];
@@ -68,7 +68,6 @@
                 break;
             }
         }
-        
         if (!b)
         {
             [self performSelector:@selector(registerGateway:) withObject:nil afterDelay:0.5f];

@@ -58,7 +58,7 @@
 }
 #pragma mark - IBAction methods
 - (IBAction)changeNoti:(UISwitch *)sender {
-    [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?deviceType=0&deviceAlias=%@&notification=%i",GetRequst(MORE_SAVE_NOTIFICATION),[OpenUDID value], sender.isOn?1:0] andName:@"set"];
+    [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?deviceType=0&deviceAlias=%@&notification=%i",GetRequst(MORE_SAVE_NOTIFICATION),MainDelegate.alias, sender.isOn?1:0] andName:@"set"];
 }
 - (IBAction)deleteOrBindM:(ACPButton *)sender {
     if ([sender.currentTitle isEqualToString:@"Remove the Gateway"]) {
@@ -92,7 +92,7 @@
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }else
         [HUD show:YES];
-    [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?deviceType=0&deviceAlias=%@",GetRequst(MORE_NOTIFICATION),[OpenUDID value]] andName:@"noti"];
+    [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?deviceType=0&deviceAlias=%@",GetRequst(MORE_NOTIFICATION),MainDelegate.alias] andName:@"noti"];
     [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i",GetRequst(SETTING_FIND_GATEWAY),MainDelegate.houseData.houseId] andName:@"downloadInfo"];
 }
 -(void)upOrDownloadInfoWithURL:(NSString *)url andName:(NSString *)name{
@@ -165,9 +165,11 @@
         if (string.intValue == 1) {
             _nofiStatus = 1;
             [self.notiSwitch setOn:YES animated:YES];
+            [self.tableView reloadData];
         }else if (string.intValue == 0){
             _nofiStatus = 0;
             [self.notiSwitch setOn:NO animated:YES];
+            [self.tableView reloadData];
         }else
             [SVProgressHUD showErrorWithStatus:@"fail"];
     }

@@ -904,7 +904,7 @@
 		C3FDB7D418FA7F65009B423D /* ServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerViewController.m; sourceTree = "<group>"; };
 		C3FDB7D518FA7F65009B423D /* ServerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerViewController.xib; sourceTree = "<group>"; };
 		C3FDB7D918FA82AE009B423D /* MyEAccountData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAccountData.h; sourceTree = "<group>"; };
-		C3FDB7DA18FA82AE009B423D /* MyEAccountData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAccountData.m; sourceTree = "<group>"; wrapsLines = 0; };
+		C3FDB7DA18FA82AE009B423D /* MyEAccountData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAccountData.m; sourceTree = "<group>"; wrapsLines = 1; };
 		C3FDB7DB18FA82AE009B423D /* MyEDashboardData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEDashboardData.h; sourceTree = "<group>"; };
 		C3FDB7DC18FA82AE009B423D /* MyEDashboardData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEDashboardData.m; sourceTree = "<group>"; };
 		C3FDB7DD18FA82AE009B423D /* MyEHouseData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEHouseData.h; sourceTree = "<group>"; };

@@ -81,14 +81,12 @@
     if(index > -1){
         self.thermostatId_for_indoor_th = tId;
         MainDelegate.terminalData = [MainDelegate.houseData getTerminalDataBytId:tId];
-    }
-    else{
+    }else{
         MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
         self.thermostatId_for_indoor_th = MainDelegate.terminalData.tId;
         [prefs setObject:self.thermostatId_for_indoor_th forKey:KEY_FOR_THERMOSTATID_HOME_INDOOR_TH];
         [prefs synchronize];
     }
-#warning 这里修改了
     [self downloadModelFromServer];
 }
 - (void)didReceiveMemoryWarning

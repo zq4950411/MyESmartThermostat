@@ -209,14 +209,13 @@
             [navController setViewControllers: @[dvc] animated: NO ];
             [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
         };
-        
     }
 }
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
     if (self.tableView.indexPathForSelectedRow.row == 4) {
         if([MainDelegate.houseData terminalsForUsageStats].count == 0)
         {
-            [SVProgressHUD showSuccessWithStatus:@"No devcie with electricity usage stats."];
+            [SVProgressHUD showSuccessWithStatus:@"No devcie with electricity usage status."];
             return NO;
         }
     }
