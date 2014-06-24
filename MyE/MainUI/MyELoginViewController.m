@@ -332,16 +332,16 @@
             else if ([anAccountData countOfValidHouseList] == 1)
             {
                 // 如果只有一个带硬件的房子，且硬件在线，则不用在House List停留，直接将该房子选中而进入Dashboard。
-                MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:0];
-                MainDelegate.houseData = houseData;
+//                MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:0];
+                MainDelegate.houseData = [self.accountData firstValidHouseInList];
                 MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
                 
                 //在NSDefaults里面记录这次要进入的房屋
-                [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
+                [prefs setInteger:MainDelegate.houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
                 [prefs synchronize];
                 
-                MyETerminalData *thermostatData = [houseData.terminals objectAtIndex:0];// 用该房子的第一个T
-                MainDelegate.terminalData = thermostatData;
+//                MyETerminalData *thermostatData = [houseData.terminals objectAtIndex:0];// 用该房子的第一个T
+//                MainDelegate.terminalData = thermostatData;
                 
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
                 SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
@@ -361,8 +361,8 @@
                        defaultHouseData = [self.accountData validHouseInListAtIndex:0];
                     }
                 }else // 如果以前没有浏览并保存过默认的houseId， 就用第一个有效的house
-                    defaultHouseData = [self.accountData validHouseInListAtIndex:0];
-
+//                    defaultHouseData = [self.accountData validHouseInListAtIndex:0];
+                    defaultHouseData = [self.accountData firstValidHouseInList];
                 MainDelegate.houseData = defaultHouseData;
                 MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
@@ -371,8 +371,10 @@
                 MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
             } else {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-                SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
-                [self presentViewController:vc animated:YES completion:nil];
+                UINavigationController *nav = [storyboard instantiateViewControllerWithIdentifier:@"houseListNav"];
+                MyEHouseListViewController *vc = nav.childViewControllers[0];
+                vc.jumpFromLogin = YES;
+                [self presentViewController:nav animated:YES completion:nil];
             }
         }
         else if(anAccountData && [anAccountData.loginSuccess isEqualToString:@"-1"]){

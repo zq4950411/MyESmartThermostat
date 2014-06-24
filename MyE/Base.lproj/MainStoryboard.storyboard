@@ -442,11 +442,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="yFa-h3-39w">
-                            <rect key="frame" x="0.0" y="197" width="320" height="102"/>
+                            <rect key="frame" x="0.0" y="197" width="320" height="55"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04o-dR-97s" customClass="ACPButton">
-                                    <rect key="frame" x="20" y="49" width="280" height="35"/>
+                                    <rect key="frame" x="20" y="10" width="280" height="35"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Register a New Gateway">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -837,7 +837,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pkc-dx-iwE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2607" y="-2380"/>
+            <point key="canvasLocation" x="-2595" y="-2584"/>
         </scene>
         <!--MyE Home Panel View Controller - Home-->
         <scene sceneID="zzm-X7-TO9">
@@ -984,7 +984,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lkn-hK-90W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-947" y="-3827"/>
+            <point key="canvasLocation" x="-954" y="-3819"/>
         </scene>
         <!--MyE Event List View Controller - Scene-->
         <scene sceneID="85e-LZ-WLU">
@@ -1339,7 +1339,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QR3-Ze-zor" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2061" y="-3206"/>
+            <point key="canvasLocation" x="-1971" y="-3194"/>
         </scene>
         <!--MyE Usage Stats View Controller - Usage Stats-->
         <scene sceneID="x5p-84-YHG">
@@ -1567,6 +1567,163 @@
             </objects>
             <point key="canvasLocation" x="-515" y="-920"/>
         </scene>
+        <!--MyE House List View Controller - House List-->
+        <scene sceneID="A11-IH-o6T">
+            <objects>
+                <tableViewController storyboardIdentifier="HouseList" id="HJF-4p-rfP" customClass="MyEHouseListViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="4AW-ac-x8N">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="z7F-He-90z">
+                            <rect key="frame" x="0.0" y="197" width="320" height="55"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ttR-TZ-agm" customClass="ACPButton">
+                                    <rect key="frame" x="20" y="10" width="280" height="35"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Register a New Gateway">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="registerGateway:" destination="HJF-4p-rfP" eventType="touchUpInside" id="1zs-DP-53f"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HouseListConnectedCellRemoteYes" id="Ki1-9N-9yZ" customClass="MyEHouseListConnectedCell">
+                                <rect key="frame" x="0.0" y="55" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ki1-9N-9yZ" id="2ln-3b-MhV">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="On5-74-46Q">
+                                            <rect key="frame" x="10" y="11" width="119" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Connected" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wa7-jR-VzN">
+                                            <rect key="frame" x="124" y="10" width="102" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.21960784310000001" green="0.3294117647" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="yesmark" translatesAutoresizingMaskIntoConstraints="NO" id="oFh-aG-g0T">
+                                            <rect key="frame" x="241" y="9" width="31" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="detailTextLabel" destination="wa7-jR-VzN" id="BJZ-dX-O5Z"/>
+                                    <outlet property="textLabel" destination="On5-74-46Q" id="cLK-XT-ZTk"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HouseListConnectedCellRemoteNo" id="cas-ex-VgZ" customClass="MyEHouseListConnectedCell">
+                                <rect key="frame" x="0.0" y="99" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cas-ex-VgZ" id="PNo-vT-dcD">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTS-k7-BIN">
+                                            <rect key="frame" x="10" y="11" width="119" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Connected" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9J-SR-3dw">
+                                            <rect key="frame" x="124" y="10" width="102" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.21960784310000001" green="0.3294117647" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="nomark" translatesAutoresizingMaskIntoConstraints="NO" id="3M7-0R-J5P">
+                                            <rect key="frame" x="244" y="10" width="22" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="detailTextLabel" destination="f9J-SR-3dw" id="aah-Ul-SRe"/>
+                                    <outlet property="textLabel" destination="fTS-k7-BIN" id="2hH-qm-wuL"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HouseListDisconnectedCell" id="k6A-IC-HiJ" customClass="MyEHouseListDisconnectedCell">
+                                <rect key="frame" x="0.0" y="143" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k6A-IC-HiJ" id="SWB-Dq-Ykr">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVX-Ud-d9Q">
+                                            <rect key="frame" x="10" y="11" width="103" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" fixedFrame="YES" text="Disconnected" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Fs-LG-vKr">
+                                            <rect key="frame" x="132" y="11" width="104" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.21960784310000001" green="0.3294117647" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="nomark" translatesAutoresizingMaskIntoConstraints="NO" id="vbQ-XK-osh">
+                                            <rect key="frame" x="244" y="11" width="22" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="detailTextLabel" destination="1Fs-LG-vKr" id="ezf-xk-05o"/>
+                                    <outlet property="textLabel" destination="rVX-Ud-d9Q" id="r3K-R2-yZW"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="HJF-4p-rfP" id="AxW-9r-svc"/>
+                            <outlet property="delegate" destination="HJF-4p-rfP" id="TLg-kq-VEx"/>
+                        </connections>
+                    </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="House List" id="ZKl-02-CZ9"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="registerButton" destination="ttR-TZ-agm" id="uGj-Ug-Jm6"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0GR-Cb-poP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2945" y="-4001"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ODL-1R-xto">
+            <objects>
+                <navigationController storyboardIdentifier="houseListNav" automaticallyAdjustsScrollViewInsets="NO" id="5rJ-ez-bGm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5od-b6-nDg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="HJF-4p-rfP" kind="relationship" relationship="rootViewController" id="tGC-89-3TY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4GT-cC-LDq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3363" y="-4001"/>
+        </scene>
     </scenes>
     <resources>
         <image name="20937478-088A-4675-B284-DDCA2AFE20EA" width="28" height="20"/>
@@ -1609,6 +1766,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="eXC-Z9-ubh"/>
+        <segue reference="ge5-MB-iUp"/>
     </inferredMetricsTieBreakers>
 </document>

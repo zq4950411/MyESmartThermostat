@@ -23,7 +23,9 @@
 #import "MyEMainMenuViewController.h"
 #import "MyEMediatorRegisterViewController.h"
 
-@interface MyEHouseListViewController()
+@interface MyEHouseListViewController(){
+    NSMutableArray *_validHouses;
+}
 
 @end
 
@@ -80,16 +82,27 @@
         _refreshHeaderView = view;
     }
     [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
-    
-    
-    // Set the side bar button action. When it's tapped, it'll show up the sidebar.
-    _sidebarButton.target = self.revealViewController;
-    _sidebarButton.action = @selector(revealToggle:);
-    
-    // Set the gesture
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    if (_jumpFromLogin) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [btn setFrame:CGRectMake(0, 0, 50, 30)];
+        [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        if (!IS_IOS6) {
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+        }
+        [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    }else{
+        // Set the side bar button action. When it's tapped, it'll show up the sidebar.
+        _sidebarButton.target = self.revealViewController;
+        _sidebarButton.action = @selector(revealToggle:);
+        
+        // Set the gesture
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    }
 }
-
+-(void)dismissVC{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -148,15 +161,16 @@
 
     // Return the number of rows in the section.
 //    return [self.accountData countOfHouseList];// 现在不显示没有硬件，或硬件没有连接的房子了
-    NSInteger count = [MainDelegate.accountData countOfValidHouseList];
-    return count;
+//    NSInteger count = [MainDelegate.accountData countOfValidHouseList];
+//    return count;
+    return _validHouses.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Configure the cell...
-    MyEHouseData *houseDataAtIndex = [MainDelegate.accountData validHouseInListAtIndex:indexPath.row];
-    
+//    MyEHouseData *houseDataAtIndex = [MainDelegate.accountData validHouseInListAtIndex:indexPath.row];
+    MyEHouseData *houseDataAtIndex = _validHouses[indexPath.row];
     if(houseDataAtIndex.mId.length != 0 && houseDataAtIndex.connection == 0)
     {// 如果房间有M并且至少有一个温控器正常连接
         if (houseDataAtIndex.terminals.count == 0)
@@ -197,7 +211,6 @@
         cell.textLabel.alpha = 0.439216f; // (1 - alpha) * 255 = 143
         cell.detailTextLabel.alpha = 0.439216f; // (1 - alpha) * 255 = 143
         cell.userInteractionEnabled = NO;
-        
         return cell;
     }
 //    if(houseDataAtIndex.thermostat >= 2)// 如果没有购买温控器，就不显示
@@ -217,8 +230,8 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSInteger houseIdLastViewed = [prefs integerForKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
     
-    MyEHouseData *houseDataAtIndex = [MainDelegate.accountData validHouseInListAtIndex:indexPath.row];
-    
+//    MyEHouseData *houseDataAtIndex = [MainDelegate.accountData validHouseInListAtIndex:indexPath.row];
+    MyEHouseData *houseDataAtIndex = _validHouses[indexPath.row];
     if (houseDataAtIndex.houseId == houseIdLastViewed)
     {
         [cell setBackgroundColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.8 alpha:0.9]];
@@ -271,7 +284,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MainDelegate.houseData = [MainDelegate.accountData validHouseInListAtIndex:indexPath.row];
+    MainDelegate.houseData = _validHouses[indexPath.row];
+//    MainDelegate.houseData = [MainDelegate.accountData validHouseInListAtIndex:indexPath.row];
     MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
     
     //在NSDefaults里面记录这次要进入的房屋
@@ -286,14 +300,6 @@
     [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
     MainDelegate.window.rootViewController = vc;
 }
-/*
-#pragma mark - Navigation methods
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    
-}
-*/
-
 #pragma mark -
 #pragma mark URL Loading System methods
 - (void) downloadModelFromServer
@@ -318,16 +324,28 @@
         [HUD hide:YES];
     }
     if([name isEqualToString:@"HouseListDownloader"]) {
-        if (![MainDelegate.accountData updateHouseListByJSONString:string]) {
-            UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
-                                                          message:@"Communication error. Please try again."
-                                                         delegate:self 
-                                                cancelButtonTitle:@"Ok"
-                                                otherButtonTitles:nil];
-            [alert show];
-        } else {
-            [self.tableView reloadData];//重新加载数据,这一步骤是重要的，用来现实更新后的数据。
-        }
+        if (![string isEqualToString:@"fail"]) {
+            NSArray *array = [string JSONValue];
+            _validHouses = [NSMutableArray array];
+            for (NSDictionary *houseDict in array) {
+                MyEHouseData *houseData = (MyEHouseData *)[[MyEHouseData alloc] initWithDictionary:houseDict];
+                if (![houseData.mId isEqualToString:@""]) {
+                    [_validHouses addObject:houseData];
+                }
+            }
+            [self.tableView reloadData];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
+//        if (![MainDelegate.accountData updateHouseListByJSONString:string]) {
+//            UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
+//                                                          message:@"Communication error. Please try again."
+//                                                         delegate:self 
+//                                                cancelButtonTitle:@"Ok"
+//                                                otherButtonTitles:nil];
+//            [alert show];
+//        } else {
+//            [self.tableView reloadData];//重新加载数据,这一步骤是重要的，用来现实更新后的数据。
+//        }
     }
 }
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{

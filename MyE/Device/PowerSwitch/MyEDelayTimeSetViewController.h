@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
 
-@interface MyEDelayTimeSetViewController : UITableViewController<MyEDataLoaderDelegate>{
+@interface MyEDelayTimeSetViewController : UITableViewController<MyEDataLoaderDelegate,UIAlertViewDelegate>{
     MBProgressHUD *HUD;
     NSMutableArray *_tableArray;
     NSInteger _selectedRow;

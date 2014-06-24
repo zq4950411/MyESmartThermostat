@@ -23,7 +23,7 @@
     [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
-    _timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(downloadInfo) userInfo:nil repeats:YES];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(downloadInfo) userInfo:nil repeats:YES];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];

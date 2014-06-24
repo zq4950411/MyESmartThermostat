@@ -17,17 +17,6 @@
 #import "MyETerminalData.h"
 #import "KxMenu.h"
 @interface MyEDevicesViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,MyEDataLoaderDelegate,EGORefreshTableHeaderDelegate>
-{
-    NSIndexPath *_selectedIndexPath;  //当前选定的indexPath
-    NSMutableDictionary *_mainDic;
-    MBProgressHUD *HUD;
-    NSMutableArray *_devices;
-    EGORefreshTableHeaderView *_refreshHeaderView;
-    BOOL _isRefreshing;
-    BOOL _isDelete;  //表示删除模式，此时指定行是不能编辑的
-    UITapGestureRecognizer *_tableTap;   //这两个手势主要用于排序
-    UILongPressGestureRecognizer *_tableLong;
-}
 
 @property (nonatomic, strong) MyEMainDevice *mainDevice;
 @property (nonatomic) BOOL needRefresh;

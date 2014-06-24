@@ -24,7 +24,7 @@
 }
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @property (weak, nonatomic) IBOutlet ACPButton *registerButton;
-
+@property (assign, nonatomic) BOOL jumpFromLogin;
 - (void)refreshAction;
 - (void)downloadModelFromServer;
 

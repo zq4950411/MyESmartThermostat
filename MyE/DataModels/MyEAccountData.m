@@ -109,6 +109,14 @@
     }
     return nil;
 }
+-(MyEHouseData *)firstValidHouseInList{
+    for (MyEHouseData *house in self.houseList) {
+        if ([house isOnline]) {
+            return house;
+        }
+    }
+    return nil;
+}
 - (MyEHouseData *)houseDataByHouseId:(NSInteger)houseId {
     for (int i = 0; i < [self.houseList count]; i++) {
         MyEHouseData *house = [self.houseList objectAtIndex:i];

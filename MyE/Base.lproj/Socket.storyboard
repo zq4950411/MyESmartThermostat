@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RiA-w6-EOt">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RiA-w6-EOt">
                                 <rect key="frame" x="15" y="20" width="290" height="49"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Power" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRd-Fz-lAM">
@@ -34,9 +34,15 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="Obx-yq-Npu"/>
+                                </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCa-aC-AAz">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCa-aC-AAz">
                                 <rect key="frame" x="70" y="85" width="180" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="E4W-ge-CwK"/>
+                                </constraints>
                                 <state key="normal" image="socketControl-on">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -45,8 +51,11 @@
                                     <action selector="socketControl:" destination="Qla-ED-iXR" eventType="touchUpInside" id="TfU-yM-F2U"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWz-a0-tg1">
-                                <rect key="frame" x="135" y="264" width="50" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWz-a0-tg1">
+                                <rect key="frame" x="135" y="265" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Ofn-HK-6B4"/>
+                                </constraints>
                                 <state key="normal" image="clock-on">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -54,19 +63,42 @@
                                     <action selector="timeDelay:" destination="Qla-ED-iXR" eventType="touchUpInside" id="N8W-Wn-5vU"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D6E-FC-Zpa">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D6E-FC-Zpa">
                                 <rect key="frame" x="203" y="278" width="97" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="X5Y-o5-jGC"/>
+                                    <constraint firstAttribute="width" constant="97" id="bFT-R2-jOk"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8B-Ml-HSf">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8B-Ml-HSf">
                                 <rect key="frame" x="20" y="278" width="97" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="86b-Ab-9jP"/>
+                                    <constraint firstAttribute="width" constant="97" id="SOZ-3R-goA"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="YWz-a0-tg1" firstAttribute="leading" secondItem="8l4-Ea-JlY" secondAttribute="leading" constant="135" id="1a5-aP-89I"/>
+                            <constraint firstItem="G8B-Ml-HSf" firstAttribute="leading" secondItem="8l4-Ea-JlY" secondAttribute="leading" constant="20" id="3z8-S4-Poa"/>
+                            <constraint firstAttribute="trailing" secondItem="RiA-w6-EOt" secondAttribute="trailing" constant="15" id="6PI-zJ-p21"/>
+                            <constraint firstItem="zCa-aC-AAz" firstAttribute="top" secondItem="RiA-w6-EOt" secondAttribute="bottom" constant="16" id="7LV-dD-HpF"/>
+                            <constraint firstItem="G8B-Ml-HSf" firstAttribute="top" secondItem="zCa-aC-AAz" secondAttribute="bottom" constant="13" id="NiF-Dk-9Dk"/>
+                            <constraint firstItem="YWz-a0-tg1" firstAttribute="top" secondItem="zCa-aC-AAz" secondAttribute="bottom" id="Oxc-xJ-Jtd"/>
+                            <constraint firstItem="D6E-FC-Zpa" firstAttribute="top" secondItem="zCa-aC-AAz" secondAttribute="bottom" constant="13" id="Rjv-Tg-ycW"/>
+                            <constraint firstItem="RiA-w6-EOt" firstAttribute="leading" secondItem="8l4-Ea-JlY" secondAttribute="leading" constant="15" id="V2h-aX-RAS"/>
+                            <constraint firstAttribute="trailing" secondItem="YWz-a0-tg1" secondAttribute="trailing" constant="135" id="aG4-Vm-2VD"/>
+                            <constraint firstItem="zCa-aC-AAz" firstAttribute="leading" secondItem="8l4-Ea-JlY" secondAttribute="leading" constant="70" id="cSL-Fj-YgA"/>
+                            <constraint firstItem="RiA-w6-EOt" firstAttribute="top" secondItem="cT0-t4-OU5" secondAttribute="bottom" constant="20" id="mpq-Qy-QnW"/>
+                            <constraint firstAttribute="trailing" secondItem="D6E-FC-Zpa" secondAttribute="trailing" constant="20" id="yFU-oh-Xx0"/>
+                            <constraint firstAttribute="trailing" secondItem="zCa-aC-AAz" secondAttribute="trailing" constant="70" id="yUA-q9-A7v"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Manual Control" id="mpa-av-zd0">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="TrY-7D-RCQ">
@@ -85,7 +117,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TIf-lI-mht" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="679" y="-119"/>
+            <point key="canvasLocation" x="639" y="-119"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="cth-mB-H2u">
@@ -266,7 +298,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EdY-1F-qd5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="744" y="534"/>
+            <point key="canvasLocation" x="639" y="534"/>
         </scene>
         <!--MyE Socket Schedule Add Or Edit View Controller - Time set-->
         <scene sceneID="P3X-qi-T7t">
@@ -345,7 +377,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pst-Xo-Ueq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1190" y="534"/>
+            <point key="canvasLocation" x="1085" y="534"/>
         </scene>
     </scenes>
     <resources>

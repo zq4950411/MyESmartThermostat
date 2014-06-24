@@ -71,13 +71,8 @@
             SBJsonParser *parser = [[SBJsonParser alloc] init];
             NSDictionary *dict = [parser objectWithString:string];
             if([[dict objectForKey:@"isMutex"] intValue] == 1){
-                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"There are conflict in Delay setting and timing setting of current lights, sure to continue?" leftButtonTitle:@"Cancel" rightButtonTitle:@"OK"];
-                alert.rightBlock = ^{
-                    [self doThisToChangeStatus];
-                };
-                alert.leftBlock = ^{
-                    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
-                };
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"There are conflict in Delay setting and timing setting of current lights, sure to continue?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+                alert.tag = 999;
                 [alert show];
             } else [self doThisToChangeStatus];
         } else {
@@ -92,7 +87,6 @@
         }else {
             [MyEUtil showMessageOn:nil withMessage:@"Failed to communicate with server."];
         }
-        
     }
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
@@ -126,4 +120,10 @@
 //        return UITableViewCellAccessoryCheckmark;
 //    return UITableViewCellAccessoryNone;
 //}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 999 && buttonIndex == 1) {
+        [self doThisToChangeStatus];
+    }else
+        [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+}
 @end

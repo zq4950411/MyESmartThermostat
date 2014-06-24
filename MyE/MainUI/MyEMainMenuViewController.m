@@ -211,6 +211,15 @@
         };
         
     }
-
+}
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    if (self.tableView.indexPathForSelectedRow.row == 4) {
+        if([MainDelegate.houseData terminalsForUsageStats].count == 0)
+        {
+            [SVProgressHUD showSuccessWithStatus:@"No devcie with electricity usage stats."];
+            return NO;
+        }
+    }
+    return YES;
 }
 @end

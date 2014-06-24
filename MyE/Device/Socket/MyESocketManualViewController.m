@@ -36,7 +36,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 
     [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_FIND),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(handleTimer) userInfo:nil repeats:YES];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(handleTimer) userInfo:nil repeats:YES];
 }
 #pragma mark - IBAction methods
 - (IBAction)socketControl:(UIButton *)sender {
@@ -47,10 +47,12 @@
     for (int i = 1; i < 61; i++) {
         [array addObject:[NSString stringWithFormat:@"%i m",i]];
     }
-    [MyEUniversal doThisWhenNeedPickerWithTitle:@"time select" andDelegate:self andTag:1 andArray:@[array] andSelectRow:@[@(0)] andViewController:self];
+    MYEPickerView *picker = [[MYEPickerView alloc] initWithView:self.view andTag:100 title:@"Time select" dataSource:array andSelectRow:0];
+    picker.delegate = self;
+    [picker showInView:self.view];
 }
 - (IBAction)refreshData:(UIBarButtonItem *)sender {
-    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_FIND),MainDelegate.houseData.houseId,self.device.deviceId] andName:@"downloadInfo"];
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_FIND),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
 }
 
 #pragma mark - private methods
@@ -136,7 +138,7 @@
             NSDictionary *dic = [string JSONValue];
             if (dic[@"isMutex"]) {
                 if ([dic[@"isMutex"] isEqualToString:@"1"]) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"is Mutex" delegate:self cancelButtonTitle:@"Cancle" otherButtonTitles:@"OK", nil];
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"This plug has been set to an auto mode. To enable the timer, the auto mode will be turned off. Do you want to continue?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
                     [alert show];
                 }else
                     [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&delayMinute=%i",GetRequst(URL_FOR_SOCKET_DELAY_SAVE),MainDelegate.houseData.houseId,self.device.tid,_delayTime] andName:@"delaySave"];
@@ -146,11 +148,12 @@
     }
     if ([name isEqualToString:@"delaySave"]) {
         if (![string isEqualToString:@"fail"]) {
-            self.timeDelaySetLabel.text = [NSString stringWithFormat:@"%im set",_delayTime];
-            if (self.socketControlInfo.switchStatus == 1) {
-                self.timeDelayLabel.text = [NSString stringWithFormat:@"%im left",_delayTime];
-            }else
-                self.timeDelayLabel.text = @"";
+            [self handleTimer];
+//            self.timeDelaySetLabel.text = [NSString stringWithFormat:@"%im set",_delayTime];
+//            if (self.socketControlInfo.switchStatus == 1) {
+//                self.timeDelayLabel.text = [NSString stringWithFormat:@"%im left",_delayTime];
+//            }else
+//                self.timeDelayLabel.text = @"";
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];
     }
@@ -160,9 +163,9 @@
     [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 
-#pragma mark - IQActionSheet delegate methods
--(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles{
-    _delayTime = [[titles[0] substringToIndex:[titles[0] length] == 3?1:2] intValue];
+#pragma mark - MYEPickerView delegate methods
+-(void)MYEPickerView:(UIView *)pickerView didSelectTitles:(NSString *)title andRow:(NSInteger)row{
+    _delayTime = [[title substringToIndex:[title length] == 3?1:2] intValue];
     [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&action=1",GetRequst(URL_FOR_SOCKET_MUTEX_DELAY),MainDelegate.houseData.houseId,self.device.tid] andName:@"delay"];
 }
 #pragma mark - UIAlertView delegate method
