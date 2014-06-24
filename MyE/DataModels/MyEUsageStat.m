@@ -19,8 +19,8 @@
 }
 -(MyEUsageStat *)initWithDictionary:(NSDictionary *)dic{
     if (self = [super init]) {
-        self.totalPower = [dic[@"totalPower"] floatValue]/1000.0;
-        self.currentPower = [dic[@"currentPower"] floatValue]*110.0;
+        self.totalPower = [dic[@"totalPower"] floatValue];
+        self.currentPower = [dic[@"currentPower"] floatValue];
         NSMutableArray *powerList = [NSMutableArray array];
         NSArray *array = dic[@"powerRecordList"];
         for (NSDictionary *dict in array) {
@@ -40,8 +40,8 @@
 
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          @(self.totalPower*1000.0), @"totalPower",
-                            (self.currentPower*110), @"currentPower",
+                          @(self.totalPower), @"totalPower",//其实是总用电量， 单位是kWh
+                          @(self.currentPower), @"currentPower",
                           powerList, @"powerRecordList",
                           nil ];
     return dict;
@@ -70,7 +70,7 @@
 }
 -(MyEUsageRecord *)initWithDictionary:(NSDictionary *)dic{
     if (self = [super init]) {
-        self.totalPower = [dic[@"totalPower"] floatValue]/1000.0;
+        self.totalPower = [dic[@"totalPower"] floatValue];
         if (dic[@"dataTime"]) {
             self.date = dic[@"dataTime"];
         }
@@ -81,7 +81,7 @@
 - (NSDictionary *)JSONDictionary {
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          @(self.totalPower*1000.0), @"totalPower",
+                          @(self.totalPower), @"totalPower",//其实是总用电量， 单位是kWh
                           self.date, @"dataTime",
                           nil ];
     return dict;

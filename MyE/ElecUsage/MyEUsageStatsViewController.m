@@ -236,8 +236,8 @@
     double yMax = 0.0;
     for (int i = 0; i < usageData.powerRecordList.count; i++) {
         MyEUsageRecord *r = usageData.powerRecordList[i];
-        if (yMax < r.totalPower / 1000.) {
-            yMax = r.totalPower / 1000.;
+        if (yMax < r.totalPower) {
+            yMax = r.totalPower;
         }
     }
     if (yMax < 1.0) {
@@ -354,7 +354,7 @@
                 num = @(index + 1);
                 break;
             case CPTBarPlotFieldBarTip:
-                num = @( ur.totalPower/1000. );
+                num = @( ur.totalPower );
                 break;
         }
     }
