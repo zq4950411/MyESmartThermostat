@@ -24,6 +24,7 @@
 - (BOOL)isOnline;
 - (BOOL)isConnected;//判定房子是否连接, 标准是房子是否有M，并且至少有一个T在连接工作，才能键入房子，因为我们的目标是点击进入一个房子后必须有一个T的信息。
 - (MyETerminalData *)firstConnectedThermostat;
+- (NSArray *)thermostatList;// 返回全部控器设备列表
 - (NSArray *)connectedThermostatList;// 返回有链接的温控器设备列表
 - (NSInteger)indexInConnectedThermostatListFortId:(NSString *)tId;// 给定一个tId，返回拥有该tId的温控器在有链接的温控器设备列表里面的序号。如果没找到， 返回-1
 - (MyETerminalData *)getTerminalDataBytId:(NSString *)tId;

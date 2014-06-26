@@ -114,7 +114,7 @@
     if (![the.tId isEqualToString:self.thermostatId_for_indoor_th])
     {
         MainDelegate.terminalData = the;
-        self.thermostatId_for_indoor_th = MainDelegate.terminalData.tId;
+        self.thermostatId_for_indoor_th = the.tId;
          NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         [prefs setObject:self.thermostatId_for_indoor_th forKey:KEY_FOR_THERMOSTATID_HOME_INDOOR_TH];
         [prefs synchronize];
@@ -231,8 +231,15 @@
         self.weatherTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.homeData.weatherTemp];
         self.weatherTemperatureRangeLabel.text = [NSString stringWithFormat:@"%.0f~%.0f\u00B0F", self.homeData.lowTemp, self.homeData.highTemp];
         self.humidityLabel.text = [NSString stringWithFormat:@"%.0f%%RH",self.homeData.indoorHumidity];
-        if(MainDelegate.terminalData)
+        if(MainDelegate.terminalData){//如有在线的温控器
             self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", self.homeData.temperature];
+        }else {
+            if([[MainDelegate.houseData thermostatList] count] > 0){//如果有温控器， 但所有温控器没有在线
+                self.indoorTemperatureLabel.text = @"Thermostat Offline";
+            }else {//如果没有温控器
+                self.indoorTemperatureLabel.text = @"No MyE Thermostat";
+            }
+        }
         if (self.homeData.numDetected > 0) {
             self.alertsTileLabel.text = [NSString stringWithFormat:@"%i New Alerts", (int)self.homeData.numDetected];
             self.alertsTileImageView.image = [UIImage imageNamed:@"Alerts-01"];
