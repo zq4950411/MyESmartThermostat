@@ -774,6 +774,7 @@
     if (!_periodInforDoughnutView) {
         _periodInforDoughnutView = [[MyEPeriodInforDoughnutView alloc] initWithFrame:[self.centerContainerView frame]];
         _periodInforDoughnutView.doughnutViewRadius = NEXT24HRS_DOUGHNUT_VIEW_SIZE / 2;
+        if(IS_IOS6)_periodInforDoughnutView.doughnutCenterOffsetY = -50;
         [_periodInforDoughnutView setDelegate:self];
         [self.view addSubview:_periodInforDoughnutView];
     }
