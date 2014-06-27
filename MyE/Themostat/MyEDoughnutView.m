@@ -487,7 +487,6 @@ typedef enum {
     // 现在要加入hold时段被拖动的情况。
     if ([hold caseInsensitiveCompare:@"none"] != NSOrderedSame) {
         fillColor = [UIColor lightGrayColor];
-        NSLog(@"444444444");
     }
 
     //如果开始的sector id大于当前sector id，表示用户触摸动作跨过了0分界线，需要分两个部分处理
@@ -1127,6 +1126,7 @@ typedef enum {
     // Decide the touch type
     SectorPositionType position = [self _sectorPositionTypeOfSectorId:sectorId];
     
+    /*// today 模块已经不需要了， 后面完全删除。
     if (_scheduleType == SCHEDULE_TYPE_TODAY) {//如果在today模块
         if(sectorId == 0 || (sectorId == NUM_SECTOR - 1 && position != SectorPositionTypeSingle)) {// 如果当前点击在第一个和最后一个sector，就是禁止触摸的模块
             self.sectorTouchType = SectorTouchTypeDisable;
@@ -1142,15 +1142,20 @@ typedef enum {
             }
         }
 
-    } else if (_scheduleType == SCHEDULE_TYPE_NEXT24HRS){ //如果在Next24Hrs模块
+    } else */if (_scheduleType == SCHEDULE_TYPE_NEXT24HRS){ //如果在Next24Hrs模块
         if(sectorId == 0 || (sectorId == NUM_SECTOR - 1 && position != SectorPositionTypeSingle)) {// 如果当前点击在第一个, 或者如果当前点击在最后一个sector，并且该sector不是一个孤立的，就是禁止触摸的模块
             self.sectorTouchType = SectorTouchTypeDisable;
         } else {
             if(position == SectorPositionTypeMiddle ) {//如果当前触摸的sector位于一个时段的中间，就不允许拖动
-                // 原来这里只是赋值SectorTouchTypeDisable, 表示禁止从时段中间开始其触摸, 下载注释了下句, 允许用户从中间开始触摸
+                // 原来这里只是赋值SectorTouchTypeDisable, 表示禁止从时段中间开始其触摸, 现在注释了下句, 并用后面几句代替，允许用户从中间开始触摸， 但不允许在hold的地方进行拖地
 //                self.sectorTouchType = SectorTouchTypeDisable;
-                self.sectorTouchType = SectorTouchTypePainting;
-                self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
+                if([[self.holdArray objectAtIndex:sectorId] caseInsensitiveCompare:@"none"] != NSOrderedSame){
+                    self.sectorTouchType = SectorTouchTypeDisable;
+                }
+                else{
+                    self.sectorTouchType = SectorTouchTypePainting;
+                    self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
+                }
             } else
             if(position == SectorPositionTypeFirst ) {// if the current sector is the first sector of the period
                 self.delegate.currentSelectedModeId = [[self.modeIdArray objectAtIndex:sectorId] intValue];
