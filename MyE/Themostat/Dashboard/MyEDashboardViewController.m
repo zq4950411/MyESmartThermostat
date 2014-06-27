@@ -264,8 +264,8 @@
         if (![self _processHttpRespondForString:string])
             return;
         
-        // 加3秒延迟后再从服务器下载新数据，否则太快下载，Thermostat好像还没真正改变过来，传来的"realControlMode"字段还是上一个状态
-        loadTimer = [NSTimer scheduledTimerWithTimeInterval:3.5f
+        // 加6秒延迟后再从服务器下载新数据，否则太快下载，Thermostat好像还没真正改变过来，传来的"realControlMode"字段还是上一个状态
+        loadTimer = [NSTimer scheduledTimerWithTimeInterval:6.0f
                                                      target:self 
                                                    selector:@selector(downloadModelFromServer) 
                                                    userInfo:nil 

@@ -160,6 +160,12 @@
     if ([name isEqualToString:@"edit"]) {
         if (![name isEqualToString:@"fail"]) {
             MyERoom *room = _datas[_selectedIndex.row];
+            
+            // 首先更新词典的key name
+            NSArray *devices = self.mainDic[room.roomName];
+            [self.mainDic removeObjectForKey:room.roomName];
+            self.mainDic[_roomName] = devices;
+            
             room.roomName = _roomName;
             [self.tableView reloadData];
         }else

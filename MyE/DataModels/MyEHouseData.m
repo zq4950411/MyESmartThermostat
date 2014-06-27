@@ -104,6 +104,18 @@
 
     return nil;
 }
+- (NSArray *)thermostatList// 返回全部控器设备列表
+{
+    NSMutableArray *array = [NSMutableArray array];
+    for (MyETerminalData *t  in self.terminals)
+    {
+        if (t.deviceType == 0)
+        {
+            [array addObject:t];
+        }
+    }
+    return array;
+}
 // 返回有链接的温控器设备列表
 - (NSArray *)connectedThermostatList
 {
