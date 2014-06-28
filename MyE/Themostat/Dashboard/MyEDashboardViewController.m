@@ -129,9 +129,7 @@
         thumb.separatorColor = arcColor;// 使分割线和扇形块颜色一样， 就可以形成一个完全纯色的圆环， 看不到扇形块
         thumb.separatorStyle = CDCircleThumbsSeparatorBasic;// CDCircleThumbsSeparatorNone 会显示一个默认的灰色的分割线。
         thumb.gradientFill = NO;
-        thumb.arcColor = [UIColor colorWithRed:75.0/255.0 green:180.0/255.0 blue:200.0/255.0 alpha:1.0];
-//        thumb.arcColor = [UIColor colorWithRed:120.0/255.0 green:230.0/255.0 blue:240.0/255.0 alpha:1.0];
-
+        thumb.arcColor = arcColor;
 //        thumb.gradientColors = [NSArray arrayWithObjects:(id) [UIColor blackColor].CGColor, (id) [UIColor yellowColor].CGColor, (id) [UIColor blueColor].CGColor, nil];
 //        thumb.colorsLocations = [NSMutableArray arrayWithObjects:[NSNumber numberWithFloat:0.00f], [NSNumber numberWithFloat:0.30f], [NSNumber numberWithFloat:1.00f], nil];
         
