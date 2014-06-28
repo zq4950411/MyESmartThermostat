@@ -216,7 +216,7 @@
 {
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-
+        HUD.opacity = 0.2f;
         HUD.delegate = self;
     } else
         [HUD show:YES];
@@ -224,9 +224,29 @@
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"DashboardDownloader"  userDataDictionary:nil];
     NSLog(@"DashboardDownloader is %@, url is %@",downloader.name, urlStr);
 }
+
+// 准备3秒后请求刷新新数据， 连续刷新3次
+- (void)downloadModelFromServerLater{
+    [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                     target:self
+                                   selector:@selector(downloadModelFromServer)
+                                   userInfo:nil
+                                    repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:2.0f
+                                     target:self
+                                   selector:@selector(downloadModelFromServer)
+                                   userInfo:nil
+                                    repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:3.0f
+                                     target:self
+                                   selector:@selector(downloadModelFromServer)
+                                   userInfo:nil
+                                    repeats:NO];
+}
 - (void)uploadModelToServer {
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        HUD.opacity = 0.2f;
         HUD.delegate = self;
     } else
         [HUD show:YES];
@@ -240,8 +260,8 @@
     loadTimer = nil;
 }
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    [HUD hide:YES];
     if([name isEqualToString:@"DashboardDownloader"]) {
-        [HUD hide:YES];
         NSLog(@"DashboardDownloader string from server is \n %@", string);
        
         MyEDashboardData *dashboardData = [[MyEDashboardData alloc] initWithJSONString:string];
@@ -266,9 +286,9 @@
             return;
         
         // 加6秒延迟后再从服务器下载新数据，否则太快下载，Thermostat好像还没真正改变过来，传来的"realControlMode"字段还是上一个状态
-        loadTimer = [NSTimer scheduledTimerWithTimeInterval:6.0f
+        loadTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f
                                                      target:self 
-                                                   selector:@selector(downloadModelFromServer) 
+                                                   selector:@selector(downloadModelFromServerLater)
                                                    userInfo:nil 
                                                     repeats:NO]; 
 
@@ -886,85 +906,10 @@
 #pragma mark 插座方法
 - (IBAction)changeControlMode:(id)sender {  
     [self _showSystemControlToolbarView];
-    /*
-     1:Heat
-    2:Cool
-    3:Auto
-    4:Emg Heat
-    5:Off
-     */
-//    [self.view sendSubviewToBack:self.fanStatusBtn];
-//     NSMutableArray *items = [NSMutableArray array];
-//    KxMenuItem *item = [KxMenuItem menuItem:@"Heating"
-//                                      image:[UIImage imageNamed:@"Tb_Heating01"]
-//                                     target:self
-//                                     action:@selector(changeControlModeTo:)];
-//    item.tag = 1;[items addObject:item];
-//    
-//    item = [KxMenuItem menuItem:@"Cooling"
-//                                      image:[UIImage imageNamed:@"Tb_Cooling01"]
-//                                     target:self
-//                                     action:@selector(changeControlModeTo:)];
-//    item.tag = 2;[items addObject:item];
-//    
-//    item = [KxMenuItem menuItem:@"Auto Run"
-//                                      image:[UIImage imageNamed:@"Tb_AutoRun"]
-//                                     target:self
-//                                     action:@selector(changeControlModeTo:)];
-//    item.tag = 3;[items addObject:item];
-//    
-//    item = [KxMenuItem menuItem:@"Emergent Heating"
-//                                      image:[UIImage imageNamed:@"Tb_EmgH01"]
-//                                     target:self
-//                                     action:@selector(changeControlModeTo:)];
-//    item.tag = 4;[items addObject:item];
-//    
-//    item = [KxMenuItem menuItem:@"Off"
-//                                      image:[UIImage imageNamed:@"Tb_OFF"]
-//                                     target:self
-//                                     action:@selector(changeControlModeTo:)];
-//    item.tag = 5;[items addObject:item];
-//    
-//    [KxMenu showMenuInView:self.controlModeBtn
-//                  fromRect:self.controlModeBtn.frame
-//                 menuItems:items];
-}
-- (void)changeControlModeTo:(KxMenuItem *) sender
-{
-    if (self.dashboardData.controlMode != sender.tag) {
-        self.dashboardData.controlMode = sender.tag;
-        [self uploadModelToServer];
-    }
 }
 - (IBAction)changeFanControl:(id)sender {
     [self _showFanControlToolbarView];
-    /*
-     0（auto）,1（on）
-     */
-//    [self.view sendSubviewToBack:self.controlModeBtn];
-//    NSMutableArray *items = [NSMutableArray array];
-//    KxMenuItem *item = [KxMenuItem menuItem:@"Auto"
-//                                      image:[MyEUtil imageWithImage:[UIImage imageNamed:@"Tb_FanAuto01"] scaledToSize:CGSizeMake(20,20)]
-//                                     target:self
-//                                     action:@selector(changeFanControlTo:)];
-//    item.tag = 0;[items addObject:item];
-//    
-//    item = [KxMenuItem menuItem:@"On"
-//                          image:[MyEUtil imageWithImage:[UIImage imageNamed:@"Tb_FanON01"] scaledToSize:CGSizeMake(20,20)]
-//                         target:self
-//                         action:@selector(changeFanControlTo:)];
-//    item.tag = 1;[items addObject:item];
-//    [KxMenu showMenuInView:self.fanStatusBtn
-//                  fromRect:self.fanStatusBtn.frame
-//                 menuItems:items];
 }
-//- (void)changeFanControlTo:(KxMenuItem *) sender
-//{
-//    if (self.dashboardData.fan_control != sender.tag) {
-//        self.dashboardData.fan_control = sender.tag;
-//        [self uploadModelToServer];
-//    }
-//}
 
 - (IBAction)changeControlModeToHeatingAction:(id)sender {
     self.systemControlToolbarOverlayView.hidden = YES;
