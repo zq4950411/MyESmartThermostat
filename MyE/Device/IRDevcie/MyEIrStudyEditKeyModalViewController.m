@@ -28,7 +28,7 @@
     [self.learnBtn setStyleType:ACPButtonBlue];
     [self.validateKeyBtn setStyleType:ACPButtonPurple];
     [self.deleteKeyBtn setStyleType:ACPButtonCancel];
-    [self.cancelBtn setStyleType:ACPButtonOK];
+    [self.cancelBtn setStyleType:ACPButtonBlue];
 //    if (!IS_IOS6) {
 //        for (UIButton *btn in self.view.subviews) {
 //            if ([btn isKindOfClass:[UIButton class]] && btn.tag != 100) {

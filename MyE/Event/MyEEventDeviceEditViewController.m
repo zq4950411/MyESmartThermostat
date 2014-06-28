@@ -147,6 +147,9 @@
             [mode setTitle:[_instructions controlModeArray][_instructions.controlMode - 1] forState:UIControlStateNormal];
             [fan setTitle:[_instructions fanMode][_instructions.fan] forState:UIControlStateNormal];
             [point setTitle:[NSString stringWithFormat:@"%i F",_instructions.point] forState:UIControlStateNormal];
+            if (_instructions.controlMode == 5) {
+                self.setpointView.hidden = YES;
+            }
         }
     }else if (_deviceType.typeId == 7 || _deviceType.typeId == 8){
         view = (UIView *)[self.view viewWithTag:202];
@@ -230,7 +233,7 @@
     UIView *view = (UIView *)[cell.contentView viewWithTag:1024];
     view.layer.cornerRadius = 4;
     if (_deviceType.typeId == 8) {
-        label.text = [NSString stringWithFormat:@"Switch %i",indexPath.row + 1];
+        label.text = [NSString stringWithFormat:@"Light %i",indexPath.row + 1];
     }else
         label.text = [NSString stringWithFormat:@"Channel %i",indexPath.row + 1];
     [status setOn:[[_instructions.channel substringWithRange:NSMakeRange(indexPath.row, 1)] isEqualToString:@"1"]?YES:NO animated:YES];
@@ -310,6 +313,10 @@
             _instruction = _instructions.instructions[row];
     }else if (pickerView.tag == 104){
         _instructions.controlMode = row +1;
+        if (_instructions.controlMode == 5) {
+            self.setpointView.hidden = YES;
+        }else
+            self.setpointView.hidden = NO;
     }else if (pickerView.tag == 105){
         _instructions.fan = row;
     }else

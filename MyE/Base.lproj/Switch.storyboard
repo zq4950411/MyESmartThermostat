@@ -306,7 +306,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jUG-6S-okk" customClass="MultiSelectSegmentedControl">
+                            <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jUG-6S-okk" customClass="MultiSelectSegmentedControl">
                                 <rect key="frame" x="20" y="156" width="280" height="29"/>
                                 <segments>
                                     <segment title="Light 1"/>
@@ -314,8 +314,8 @@
                                     <segment title="Light 3"/>
                                 </segments>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="68I-am-61P" customClass="MultiSelectSegmentedControl">
-                                <rect key="frame" x="14" y="225" width="293" height="29"/>
+                            <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="68I-am-61P" customClass="MultiSelectSegmentedControl">
+                                <rect key="frame" x="14" y="234" width="293" height="29"/>
                                 <segments>
                                     <segment title="Mon"/>
                                     <segment title="Tue"/>
@@ -361,7 +361,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please select the weekDay" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrS-HT-lYs">
-                                <rect key="frame" x="20" y="200" width="263" height="17"/>
+                                <rect key="frame" x="20" y="209" width="263" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -372,6 +372,16 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view tag="500" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfa-oW-PMB" customClass="MYEWeekButtons">
+                                <rect key="frame" x="20" y="156" width="280" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view tag="501" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yWB-h3-Nks" customClass="MYEWeekButtons">
+                                <rect key="frame" x="20" y="234" width="280" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -389,8 +399,10 @@
                     <connections>
                         <outlet property="channelSeg" destination="jUG-6S-okk" id="EKR-Bn-tzQ"/>
                         <outlet property="endBtn" destination="fY0-3H-Dly" id="bXH-IL-W3H"/>
+                        <outlet property="lights" destination="qfa-oW-PMB" id="aj1-aR-sAE"/>
                         <outlet property="startBtn" destination="Xut-c6-YLV" id="bZL-dx-Caf"/>
                         <outlet property="weekSeg" destination="68I-am-61P" id="H76-S0-Y1S"/>
+                        <outlet property="weeks" destination="yWB-h3-Nks" id="wuI-Kq-Iy8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HV6-xr-BS0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -476,11 +488,11 @@
             </objects>
             <point key="canvasLocation" x="-1356" y="-1623"/>
         </scene>
-        <!--Navigation Controller - Manual Control-->
+        <!--Navigation Controller - Manual-->
         <scene sceneID="ygH-FB-zqh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="848-3H-rZz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Manual Control" image="tab-socketManualControl" id="r6M-Dt-iTt"/>
+                    <tabBarItem key="tabBarItem" title="Manual" image="tab-socketManualControl" id="r6M-Dt-iTt"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="P0k-gN-Svr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -495,11 +507,11 @@
             </objects>
             <point key="canvasLocation" x="-1721" y="-1623"/>
         </scene>
-        <!--Navigation Controller - Auto Control-->
+        <!--Navigation Controller - Auto-->
         <scene sceneID="Mo4-wi-I7f">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kSN-pu-LcA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Auto Control" image="tab-socketAutoContro" id="7PG-9E-LJh"/>
+                    <tabBarItem key="tabBarItem" title="Auto" image="tab-socketAutoContro" id="7PG-9E-LJh"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="7nw-iw-9Ki">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

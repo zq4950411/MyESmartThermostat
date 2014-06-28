@@ -206,7 +206,7 @@
         }
     }else{
         MyEEventDevice *device = self.eventDetail.devices[indexPath.row];
-        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"Do you want to delete this device?" leftButtonTitle:@"Cancel" rightButtonTitle:@"OK"];
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"Are you sure to remove this device from the event?" leftButtonTitle:@"Cancel" rightButtonTitle:@"YES"];
         alert.rightBlock = ^{
             [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&sceneSubId=%i&sceneId=%i",GetRequst(URL_FOR_SCENES_DELETE_SCENE_DEVICE),MainDelegate.houseData.houseId,device.sceneSubId,self.eventInfo.sceneId] andName:@"deleteDevice"];
         };

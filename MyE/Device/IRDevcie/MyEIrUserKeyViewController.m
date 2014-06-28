@@ -115,13 +115,13 @@
     formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
         // Passing data
         UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-        navController.topViewController.title = @"Key Study";
+        navController.topViewController.title = @"Key Recording";
         MyEIrStudyEditKeyModalViewController *modalVc = (MyEIrStudyEditKeyModalViewController *)navController.topViewController;
         modalVc.device = self.device;
         modalVc.instructions = self.instructions;
         modalVc.instruction = instruction;
         if (instruction.status > 0) {
-            [modalVc.learnBtn setTitle:@"Restudy" forState:UIControlStateNormal];
+            [modalVc.learnBtn setTitle:@"Re-Record" forState:UIControlStateNormal];
         }else
             modalVc.validateKeyBtn.enabled = NO;
         if (instruction.type < 2) {

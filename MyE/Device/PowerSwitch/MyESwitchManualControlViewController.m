@@ -13,6 +13,10 @@
 -(void)viewDidLoad{
 //    [(UICollectionView *)self.view.subviews[0] setDelaysContentTouches:NO];
     self.collectionView.delaysContentTouches = NO;
+    if (HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    [HUD show:YES];
     [self downloadInfo];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
     [btn setFrame:CGRectMake(0, 0, 50, 30)];
@@ -43,10 +47,6 @@
     [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:[NSString stringWithFormat:@"%@?houseId=%li&tId=%@",GetRequst(URL_FOR_SWITCH_FIND_SWITCH_CHANNERL),(long)MainDelegate.houseData.houseId, self.device.tid] andName:@"dowmloadChannelInfo" andDictionary:nil];
 }
 -(void)doThisWhenNeedDownLoadOrUploadInfoWithURLString:(NSString *)url andName:(NSString *)name andDictionary:(NSDictionary *)dic{
-    if (HUD == nil) {
-        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    }
-    [HUD show:YES];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:url postData:nil delegate:self loaderName:name userDataDictionary:dic];
     NSLog(@"%@ is %@",name,loader.name);
 }
@@ -86,6 +86,19 @@
 }
 -(void)dismissVC{
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+-(void)checkIfLightIsOn{
+    BOOL isOn = NO;
+    for (MyESwitchChannelStatus *status in self.control.SCList) {
+        if (status.switchStatus == 1) {
+            isOn = YES;
+            break;
+        }
+    }
+    if (isOn) {
+        self.device.switchStatus = @"1";
+    }else
+        self.device.switchStatus = @"0";
 }
 #pragma mark - collectionViewDataSource
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -195,6 +208,7 @@
             }else{
                 label.text = [NSString stringWithFormat:@"Remain:0 Minute(s)"];
             }
+            [self checkIfLightIsOn];
         } else {
             [MyEUtil showMessageOn:nil withMessage:@"Failed to control the switch"];
         }

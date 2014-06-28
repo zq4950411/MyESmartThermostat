@@ -34,16 +34,23 @@
         }
     }
     if (self.control.numChannel == 1) {
+        self.lights.titles = [@[@"1"] mutableCopy];
         [self.channelSeg removeSegmentAtIndex:1 animated:YES];
         [self.channelSeg removeSegmentAtIndex:2 animated:YES];
     }else if(self.control.numChannel == 2){
+        self.lights.titles = [@[@"1",@"2"] mutableCopy];
         [self.channelSeg removeSegmentAtIndex:2 animated:YES];
-    }
+    }else
+        self.lights.titles = [@[@"1",@"2",@"3"] mutableCopy];
+    self.lights.delegate = self;
+    self.weeks.delegate = self;
     self.channelSeg.mydelegate = self;
     self.weekSeg.mydelegate = self;
     
     _scheduleNew = [self.schedule copy];
-    [self refreshSegment];
+//    [self refreshSegment];
+    self.weeks.selectedButtons = [_scheduleNew.weeks mutableCopy];
+    self.lights.selectedButtons = [_scheduleNew.channels mutableCopy];
     [self.startBtn setTitle:_schedule.onTime forState:UIControlStateNormal];
     [self.endBtn setTitle:_schedule.offTime forState:UIControlStateNormal];
     
@@ -173,8 +180,8 @@
         [MyEUtil showMessageOn:nil withMessage:@"Start time must be less than the end time"];
         return;
     }
-    _scheduleNew.channels = [self changeIndexSetToArrayWithIndexSet:self.channelSeg.selectedSegmentIndexes];
-    _scheduleNew.weeks = [self changeIndexSetToArrayWithIndexSet:self.weekSeg.selectedSegmentIndexes];
+//    _scheduleNew.channels = [self changeIndexSetToArrayWithIndexSet:self.channelSeg.selectedSegmentIndexes];
+//    _scheduleNew.weeks = [self changeIndexSetToArrayWithIndexSet:self.weekSeg.selectedSegmentIndexes];
     if ([_scheduleNew.channels count] == 0) {
         [MyEUtil showMessageOn:nil withMessage:@"Please select at least one light"];
         return;
@@ -203,6 +210,13 @@
         [MyEUtil showMessageOn:self.view withMessage:multiSelecSegmendedControl == self.channelSeg?@"Must select at least one channel":@"Must select at least one day"];
     }
 }
+#pragma mark - MYEWeekBtns delegate methods
+-(void)weekButtons:(UIView *)weekButtons selectedButtonTag:(NSArray *)buttonTags{
+    if (weekButtons.tag == 500) {
+        _scheduleNew.channels = [buttonTags mutableCopy];
+    }else
+        _scheduleNew.weeks = [buttonTags mutableCopy];
+}
 #pragma mark - IQActionSheetPickerView delegate methods
 -(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles{
     if (pickerView.tag == 1) {
@@ -225,7 +239,7 @@
             int isMutex = [[dict objectForKey:@"isMutex"] intValue];
             
             if(isMutex == 1){
-                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"The light has been set dalay control, are you sure to save it?" leftButtonTitle:@"Cancel" rightButtonTitle:@"OK"];
+                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"A timer has been set for this switch. To enable the auto mode, the timer will be disabled. Do you want to continue?" leftButtonTitle:@"NO" rightButtonTitle:@"YES"];
                 alert.rightBlock = ^{
                     //这里也要进行手动控制面板的刷新
                     UINavigationController *nav = self.tabBarController.childViewControllers[0];

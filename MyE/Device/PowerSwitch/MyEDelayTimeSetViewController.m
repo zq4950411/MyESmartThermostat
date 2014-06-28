@@ -71,7 +71,7 @@
             SBJsonParser *parser = [[SBJsonParser alloc] init];
             NSDictionary *dict = [parser objectWithString:string];
             if([[dict objectForKey:@"isMutex"] intValue] == 1){
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"There are conflict in Delay setting and timing setting of current lights, sure to continue?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"This switch has been set to an auto mode. To enable the timer, the auto mode will be turned off. Do you want to continue?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
                 alert.tag = 999;
                 [alert show];
             } else [self doThisToChangeStatus];

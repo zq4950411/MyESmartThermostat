@@ -107,7 +107,7 @@
             [self.deleteMBtn setTitle:@"Remove the Gateway" forState:UIControlStateNormal];
             return 4;
         }else{
-            [self.deleteMBtn setTitle:@"Bind the Gateway" forState:UIControlStateNormal];
+            [self.deleteMBtn setTitle:@"Register a Gateway" forState:UIControlStateNormal];
             return 1;
         }
     };

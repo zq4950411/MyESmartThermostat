@@ -137,7 +137,7 @@
             schedule.runFlag = 1 - schedule.runFlag;
         }else{
             [SVProgressHUD showErrorWithStatus:@"fail"];
-            [self.tableView reloadData];
+            [self.tableView reloadData]; //这个是精髓
         }
     }
     if ([name isEqualToString:@"delete"]) {

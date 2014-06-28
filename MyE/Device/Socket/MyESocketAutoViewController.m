@@ -12,8 +12,7 @@
 @interface MyESocketAutoViewController ()
 {
     MBProgressHUD *HUD;
-    NSIndexPath *_deleteIndexPath;  //记录删除的行
-    UISwitch *_controlSwitch;  //记录进行控制的switch
+    NSIndexPath *_deleteIndexPath;  //记录正在操作（选定和删除）的行
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _isRefreshing;
 }
@@ -25,6 +24,10 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self.tableView reloadData];
+    if (self.needRefresh) {
+        self.needRefresh = NO;
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_GET_SCHEDULELIST),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
+    }
 }
 - (void)viewDidLoad
 {
@@ -49,12 +52,12 @@
 }
 #pragma mark - IBAction methods
 - (IBAction)controlChange:(UISwitch *)sender {
-    _controlSwitch = sender;
     CGPoint hit = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:hit];
+    _deleteIndexPath = indexPath; //这里是借用了这个变量
     NSLog(@"当前选定的行是 %i",indexPath.row);
     MyESocketSchedule *schedule = self.schedules.schedules[indexPath.row];
-    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&scheduleId=%i&onTime=%@&offTime=%@&weeks=%@&runFlag=%i&action=2",GetRequst(URL_FOR_SOCKET_SAVE_PLUG_SCHEDULE),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId,schedule.scheduleId,schedule.onTime,schedule.offTime,[schedule.weeks componentsJoinedByString:@","],_controlSwitch.isOn] andName:@"control"];
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&scheduleId=%i&onTime=%@&offTime=%@&weeks=%@&runFlag=%i&action=2",GetRequst(URL_FOR_SOCKET_SAVE_PLUG_SCHEDULE),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId,schedule.scheduleId,schedule.onTime,schedule.offTime,[schedule.weeks componentsJoinedByString:@","],1-schedule.runFlag] andName:@"control"];
 }
 
 #pragma mark - private methods
@@ -117,16 +120,15 @@
     if ([name isEqualToString:@"control"]) {
         if (string.intValue == -999) {
             [SVProgressHUD showWithStatus:@"No Connection"];
-            [_controlSwitch setOn:!_controlSwitch.isOn animated:YES];   //没有成功的话要将switch还原
         }else if (string.intValue == -501){
             [SVProgressHUD showWithStatus:@"No Schedule"];
-            [_controlSwitch setOn:!_controlSwitch.isOn animated:YES];
         }else if (![string isEqualToString:@"fail"]){
-            
+            MyESocketSchedule *schedule = self.schedules.schedules[_deleteIndexPath.row];
+            schedule.runFlag = 1-schedule.runFlag;
         }else{
             [SVProgressHUD showErrorWithStatus:@"Error!"];
-            [_controlSwitch setOn:!_controlSwitch.isOn animated:YES];
         }
+        [self.tableView reloadData]; //之前是要记录操作的是哪个switch，现在不用担心这个了
     }
     if ([name isEqualToString:@"delete"]) {
         if (string.intValue == -999) {

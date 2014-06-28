@@ -132,7 +132,7 @@
     formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
         // Passing data
         UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-        navController.topViewController.title = @"Key Study";
+        navController.topViewController.title = @"Key Recording";
         MyEIrStudyEditKeyModalViewController *modalVc = (MyEIrStudyEditKeyModalViewController *)navController.topViewController;
         modalVc.device = self.device;
         if (btn.instruction==nil) {  //表示这个按键已经学习
@@ -145,7 +145,7 @@
         modalVc.keyNameTextfield.enabled = NO;
         modalVc.deleteKeyBtn.enabled = NO;
         if (btn.instruction.status > 0) {
-            [modalVc.learnBtn setTitle:@"Restudy" forState:UIControlStateNormal];
+            [modalVc.learnBtn setTitle:@"Re-Record" forState:UIControlStateNormal];
         }else
             modalVc.validateKeyBtn.enabled = NO;
         [modalVc viewDidLoad];  //再运行一次这个方法，从而更新UI

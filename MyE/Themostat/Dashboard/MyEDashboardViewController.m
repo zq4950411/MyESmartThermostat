@@ -129,6 +129,8 @@
         thumb.separatorStyle = CDCircleThumbsSeparatorNone;
         thumb.gradientFill = NO;
         thumb.arcColor = [UIColor colorWithRed:75.0/255.0 green:180.0/255.0 blue:200.0/255.0 alpha:1.0];
+//        thumb.arcColor = [UIColor colorWithRed:120.0/255.0 green:230.0/255.0 blue:240.0/255.0 alpha:1.0];
+
 //        thumb.gradientColors = [NSArray arrayWithObjects:(id) [UIColor blackColor].CGColor, (id) [UIColor yellowColor].CGColor, (id) [UIColor blueColor].CGColor, nil];
 //        thumb.colorsLocations = [NSMutableArray arrayWithObjects:[NSNumber numberWithFloat:0.00f], [NSNumber numberWithFloat:0.30f], [NSNumber numberWithFloat:1.00f], nil];
         

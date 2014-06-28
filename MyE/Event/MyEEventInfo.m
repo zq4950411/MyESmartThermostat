@@ -93,17 +93,24 @@
 -(NSArray *)getDeviceType{
     //设备类型：0：温控器  2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器 8:智能开关
     NSMutableArray *deviceTypes = [NSMutableArray array];
-    NSArray *names = @[@"Thermostat",@"TV",@"Audio",@"Curtain",@"Other",@"Socket",@"DIY",@"Switch"];
-    for (int i = 1; i < 9; i++) {
+//    NSArray *names = @[@"Thermostat",@"TV",@"Audio",@"Curtain",@"Other",@"Plug",@"DIY",@"Switch"];
+//    for (int i = 1; i < 9; i++) {
+//        MyEEventDeviceAdd *add = [[MyEEventDeviceAdd alloc] init];
+//        if (i == 1 ) {
+//            add.typeId = 0;
+//        }else
+//            add.typeId = i;
+//        add.typeName = names[i-1];
+//        [deviceTypes addObject:add];
+//    }
+    NSArray *names = @[@"Thermostat",@"Plug",@"DIY",@"Switch",@"TV",@"Audio",@"Curtain",@"Other"];
+    NSArray *typeIds = @[@"0",@"6",@"7",@"8",@"2",@"3",@"4",@"5"];
+    for (int i = 0; i < 8; i++) {
         MyEEventDeviceAdd *add = [[MyEEventDeviceAdd alloc] init];
-        if (i == 1 ) {
-            add.typeId = 0;
-        }else
-            add.typeId = i;
-        add.typeName = names[i-1];
+        add.typeName = names[i];
+        add.typeId = [typeIds[i] intValue];
         [deviceTypes addObject:add];
     }
-    
     return deviceTypes;
 }
 -(NSArray *)getTypeDevices{
@@ -156,10 +163,10 @@
 }
 -(UIImage *)changeTypeToImage{
     //设备类型：2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器 8:智能开关   0：温控器
-    NSArray *imageArray = @[@"tv-on",@"audio-on",@"curtain-on",@"other-on",@"socket-on",@"uc-on",@"switch-on"];
+    NSArray *imageArray = @[@"tv-off",@"audio-off",@"curtain-off",@"other-off",@"socket-off",@"uc-off",@"switch-off"];
     NSString *imageName = nil;
     if (self.typeId == 0) {
-        imageName = @"them-on";
+        imageName = @"them-off";
     }else
         imageName = imageArray[self.typeId - 2];   //这里的减2是因为电视是从2开始的
     return [UIImage imageNamed:imageName];
@@ -167,7 +174,10 @@
 -(NSString *)getDeviceInstructionName{
     NSArray *controlMode = @[@"Heat",@"Cool",@"Auto",@"EmgHeat",@"OFF"];
     if (self.typeId == 0) {
-        return [NSString stringWithFormat:@"%@ %i",controlMode[self.controlMode - 1],self.point];
+        if (self.controlMode == 5) {
+            return @"OFF";
+        }else
+            return [NSString stringWithFormat:@"%@ %iF",controlMode[self.controlMode - 1],self.point];
     }else if(self.typeId == 6){
         return [self.instructionName isEqualToString:@"1"]?@"ON":@"OFF";
     }else

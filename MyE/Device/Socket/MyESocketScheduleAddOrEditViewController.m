@@ -7,13 +7,15 @@
 //
 
 #import "MyESocketScheduleAddOrEditViewController.h"
-
+#import "MyESocketManualViewController.h"
 @interface MyESocketScheduleAddOrEditViewController (){
     MBProgressHUD *HUD;
     MyESocketSchedule *_newSchedule;
     MYEPickerView *_picker;
     NSMutableArray *_startTimeArray;
     NSMutableArray *_endTimeArray;
+    NSMutableArray *_headTimeArray;
+    NSMutableArray *_tailTimeArray;
 }
 
 @end
@@ -26,31 +28,54 @@
     self.weekBtns.delegate = self;
     _newSchedule = [self.schedule copy]; //复制一个，用于修改内部数据，这样的话不会修改原来的数据
     [self refreshUI];
-    _startTimeArray = [NSMutableArray array];
-    _endTimeArray = [NSMutableArray array];
-    for (int i = 0; i < 48; i++) {
-        [_startTimeArray addObject:[NSString stringWithFormat: @"%@",  [MyEUtil timeStringForHhid:i]]];
-    }
-    for (int i = 1; i < 49; i++) {
-        [_endTimeArray addObject:[NSString stringWithFormat: @"%@",  [MyEUtil timeStringForHhid:i]]];
-    }
+//    _startTimeArray = [NSMutableArray array];
+//    _endTimeArray = [NSMutableArray array];
+//    for (int i = 0; i < 48; i++) {
+//        [_startTimeArray addObject:[NSString stringWithFormat: @"%@",  [MyEUtil timeStringForHhid:i]]];
+//    }
+//    for (int i = 1; i < 49; i++) {
+//        [_endTimeArray addObject:[NSString stringWithFormat: @"%@",  [MyEUtil timeStringForHhid:i]]];
+//    }
     NSString *imgName = IS_IOS6?@"detailBtn-ios6":@"detailBtn";
     [self.startTimeBtn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
     [self.startTimeBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
     [self.endTimeBtn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
     [self.endTimeBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
+    NSMutableArray *array1 = [NSMutableArray array];
+    NSMutableArray *array2 = [NSMutableArray array];
+    for (int i = 0; i < 24; i++) {
+        if (i < 10) {
+            [array1 addObject:[NSString stringWithFormat:@"0%i",i]];
+        }else
+            [array1 addObject:[NSString stringWithFormat:@"%i",i]];
+    }
+    for (int i = 0; i< 6; i++) {
+        if (i == 0) {
+            [array2 addObject:@"00"];
+        }else
+            [array2 addObject:[NSString stringWithFormat:@"%i",i*10]];
+    }
+    _headTimeArray = array1;
+    _tailTimeArray = array2;
 }
 
 #pragma mark - IBAction methods
 - (IBAction)setScheduleTime:(UIButton *)sender {
     if (sender.tag == 301) {
-        _picker = [[MYEPickerView alloc] initWithView:self.view andTag:sender.tag title:@"select startTime" dataSource:_startTimeArray andSelectRow:[_startTimeArray containsObject:sender.currentTitle]?[_startTimeArray indexOfObject:sender.currentTitle]:0];
+        [MyEUniversal doThisWhenNeedPickerWithTitle:@"Start time" andDelegate:self andTag:1 andArray:@[_headTimeArray,_tailTimeArray] andSelectRow:[self changeStringToInt:sender.currentTitle] andViewController:self];
+//        _picker = [[MYEPickerView alloc] initWithView:self.view andTag:sender.tag title:@"select startTime" dataSource:_startTimeArray andSelectRow:[_startTimeArray containsObject:sender.currentTitle]?[_startTimeArray indexOfObject:sender.currentTitle]:0];
     }else
-        _picker = [[MYEPickerView alloc] initWithView:self.view andTag:sender.tag title:@"select endTime" dataSource:_endTimeArray andSelectRow:[_endTimeArray containsObject:sender.currentTitle]?[_endTimeArray indexOfObject:sender.currentTitle]:0];
-    _picker.delegate = self;
-    [_picker showInView:self.view];
+        [MyEUniversal doThisWhenNeedPickerWithTitle:@"End time" andDelegate:self andTag:2 andArray:@[_headTimeArray,_tailTimeArray] andSelectRow:[self changeStringToInt:sender.currentTitle] andViewController:self];
+
+//        _picker = [[MYEPickerView alloc] initWithView:self.view andTag:sender.tag title:@"select endTime" dataSource:_endTimeArray andSelectRow:[_endTimeArray containsObject:sender.currentTitle]?[_endTimeArray indexOfObject:sender.currentTitle]:0];
+//    _picker.delegate = self;
+//    [_picker showInView:self.view];
 }
 - (IBAction)save:(UIBarButtonItem *)sender {
+    if (![self isTimeUsefull]) {
+        [MyEUtil showMessageOn:nil withMessage:@"Start time must be less than the end time"];
+        return;
+    }
     if (![_newSchedule.weeks count]) {
         [MyEUtil showMessageOn:nil withMessage:@"Please select weekDay"];
         return;
@@ -58,6 +83,32 @@
     [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&action=2",GetRequst(URL_FOR_SOCKET_MUTEX_DELAY),MainDelegate.houseData.houseId,self.device.tid] andName:@"check"];
 }
 #pragma mark - private methods
+-(BOOL)isTimeUsefull{
+    NSMutableString *startString = [NSMutableString stringWithString:self.startTimeBtn.currentTitle];
+    NSMutableString *endString = [NSMutableString stringWithString:self.endTimeBtn.currentTitle];
+    NSInteger startTime = [[startString stringByReplacingCharactersInRange:NSMakeRange(2, 1) withString:@"0"] intValue];
+    NSInteger endTime = [[endString stringByReplacingCharactersInRange:NSMakeRange(2, 1) withString:@"0"] intValue];
+    if (startTime >= endTime) {
+        return NO;
+    }
+    return YES;
+}
+
+-(NSArray *)changeStringToInt:(NSString *)title{
+    NSArray *array = [NSArray array];
+    if (title.length !=5) {
+        NSLog(@"time is not correct");
+        //        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Warning" contentText:@"time is off" leftButtonTitle:nil rightButtonTitle:@"OK"];
+        //        [alert show];
+        array = @[@1,@1];
+    }else{
+        NSInteger i = [_headTimeArray indexOfObject:[title substringToIndex:2]];
+        NSInteger j = [_tailTimeArray indexOfObject:[title substringFromIndex:3]];
+        array = @[@(i),@(j)];
+    }
+    return array;
+}
+
 -(void)refreshUI{
     [self.startTimeBtn setTitle:[NSString stringWithFormat:@"%@",_newSchedule.onTime] forState:UIControlStateNormal];
     [self.endTimeBtn setTitle:[NSString stringWithFormat:@"%@",_newSchedule.offTime] forState:UIControlStateNormal];
@@ -110,8 +161,11 @@
             NSDictionary *dic = [string JSONValue];
             NSInteger result = [dic[@"isMutex"] intValue];
             if (result == 1) {
-                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"A timer has been set for this plug. To enable the auto mode, the timer will be disabled. Do you want to continue?" leftButtonTitle:@"Cancel" rightButtonTitle:@"OK"];
+                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"A timer has been set for this plug. To enable the auto mode, the timer will be disabled. Do you want to continue?" leftButtonTitle:@"NO" rightButtonTitle:@"YES"];
                 alert.rightBlock = ^{
+                    UINavigationController *nav = self.tabBarController.childViewControllers[0];
+                    MyESocketManualViewController *vc = nav.childViewControllers[0];
+                    vc.needRefresh = YES;
                     if (HUD == nil) {
                         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                     }else
@@ -137,6 +191,17 @@
 -(void)weekButtons:(UIView *)weekButtons selectedButtonTag:(NSArray *)buttonTags{
     _newSchedule.weeks = [NSMutableArray arrayWithArray:buttonTags];
 }
+#pragma mark - IQActionSheetPickerView delegate methods
+-(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles{
+    if (pickerView.tag == 1) {
+        [self.startTimeBtn setTitle:[titles componentsJoinedByString:@":"] forState:UIControlStateNormal];
+        _newSchedule.onTime = [titles componentsJoinedByString:@":"];
+    }else{
+        [self.endTimeBtn setTitle:[titles componentsJoinedByString:@":"] forState:UIControlStateNormal];
+        _newSchedule.offTime = [titles componentsJoinedByString:@":"];
+    }
+}
+
 #pragma mark - MYEPickerView delegate methods
 -(void)MYEPickerView:(UIView *)pickerView didSelectTitles:(NSString *)title andRow:(NSInteger)row{
     UIButton *btn = (UIButton *)[self.view viewWithTag:pickerView.tag];

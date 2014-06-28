@@ -33,12 +33,15 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     [self changeBtnSelected];
 }
+-(void)dealloc{
+    [self removeObserver:self forKeyPath:@"selectedButtons"];
+}
 #pragma mark - add Button In View
 -(void)setButtonsInViewWithFrame:(CGRect)frame{
-    if (frame.size.width/frame.size.height < 7) {
-        NSLog(@"view的宽度太窄");
-        return ;
-    }
+//    if (frame.size.width/frame.size.height < 7) {
+//        NSLog(@"view的宽度太窄");
+//        return ;
+//    }
     CGFloat hight = frame.size.height;
     for (int i = 1; i < self.titles.count + 1; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

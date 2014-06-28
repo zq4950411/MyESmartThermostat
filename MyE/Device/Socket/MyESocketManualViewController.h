@@ -18,5 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *timeDelayBtn;
 @property (weak, nonatomic) IBOutlet UILabel *timeDelayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeDelaySetLabel;
+@property (nonatomic) BOOL needRefresh;
 
 @end
