@@ -159,7 +159,7 @@
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     MyESwitchChannelStatus *status = self.control.SCList[indexPath.row];
     if (!sender.selected) {
-        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alter" contentText:@"Are you sure to turn off delay setting of current light?" leftButtonTitle:@"Cancel" rightButtonTitle:@"OK"];
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"Are you sure to turn off delay setting of current light?" leftButtonTitle:@"Cancel" rightButtonTitle:@"OK"];
         alert.rightBlock = ^{
             UILabel *delayTimeLabel = (UILabel *)[cell viewWithTag:103];
             UILabel *remainTimeLabel = (UILabel *)[cell viewWithTag:104];

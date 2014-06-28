@@ -92,7 +92,6 @@
     [label setNumberOfLines:0];
     label.lineBreakMode = NSLineBreakByWordWrapping;
     label.text = @"Press the button on your remote control to record when the smart remote's screen shows Lr- -";
-    
     UIFont *font = [UIFont systemFontOfSize:9];
     //设置一个行高上限
     CGSize size = CGSizeMake(320,2000);
@@ -109,6 +108,7 @@
     HUD.customView = label;
     HUD.margin = 5;
     HUD.mode = MBProgressHUDModeCustomView;
+    HUD.opacity = 0.8f;
 }
 
 #pragma mark - URL private methods
@@ -214,7 +214,7 @@
                 [_timer invalidate];  //这里要将定时器清空
                 [self sendInstructionStudyTimeout];
                 studyQueryTimes = 0;
-                [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"Time out! Please restudy"];
+                [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"Time out! Please re-record"];
                 self.instruction.status = 0;
             } else {
                 _timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(queryStudayProgress) userInfo:nil repeats:NO];
