@@ -105,6 +105,8 @@
     
     [self.centerContainerView insertSubview:_doughnutView atIndex:0];
     
+    //self.centerContainerView.backgroundColor = [UIColor colorWithWhite:0.7 alpha:0.6];// fot test
+    
     [self.useWeeklyButton setStyleType:ACPButtonOK];
     [self.useWeeklyButton setStyle:[UIColor clearColor] andBottomColor:[UIColor clearColor]];
     [self.useWeeklyButton setTitleColor:DEFAULT_UI_COLOR forState:UIControlStateNormal];
@@ -774,6 +776,7 @@
     if (!_periodInforDoughnutView) {
         _periodInforDoughnutView = [[MyEPeriodInforDoughnutView alloc] initWithFrame:[self.centerContainerView frame]];
         _periodInforDoughnutView.doughnutViewRadius = NEXT24HRS_DOUGHNUT_VIEW_SIZE / 2;
+//        if(IS_IOS6)_periodInforDoughnutView.doughnutCenterOffsetY = -55;
         [_periodInforDoughnutView setDelegate:self];
         [self.view addSubview:_periodInforDoughnutView];
     }

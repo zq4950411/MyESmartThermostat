@@ -37,7 +37,8 @@
         overlayThumb.layer.position = CGPointMake(CGRectGetWidth(frame)/2, circle.ringWidth/2);
         self.controlPoint = overlayThumb.layer.position;
         [self addSubview:overlayThumb];
-        overlayThumb.arcColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.3f];
+//        overlayThumb.arcColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:0.3f];// 注释此行， 用下面的， 为了不显示此最上端的Thumb
+        overlayThumb.arcColor = [UIColor clearColor];
         self.buttonCenter = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(self.circle.frame));
 
               }

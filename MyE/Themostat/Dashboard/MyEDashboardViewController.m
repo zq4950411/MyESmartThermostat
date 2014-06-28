@@ -119,14 +119,15 @@
     
     // 根据Circle位置,重新定义hold 标签的位置
     CGRect frame = CGRectMake(CIRCLE_ORIGIN_X + (self.circle.ringWidth + 20.0),
-                               CIRCLE_ORIGIN_Y + (self.circle.ringWidth + 60.0),
+                               CIRCLE_ORIGIN_Y + (self.circle.ringWidth + 45.0),
                                self.holdRunLabel.frame.size.width,self.holdRunLabel.frame.size.height);
     self.holdRunLabel.frame = frame;
     
+    UIColor *arcColor = [UIColor colorWithRed:75.0/255.0 green:220.0/255.0 blue:250.0/255.0 alpha:1.0];
     for (CDCircleThumb *thumb in self.circle.thumbs) {
         [thumb.iconView setHighlitedIconColor:[UIColor whiteColor]];
-        thumb.separatorColor = [UIColor colorWithRed:0.08 green:0.8 blue:0.8 alpha:1];
-        thumb.separatorStyle = CDCircleThumbsSeparatorNone;
+        thumb.separatorColor = arcColor;// 使分割线和扇形块颜色一样， 就可以形成一个完全纯色的圆环， 看不到扇形块
+        thumb.separatorStyle = CDCircleThumbsSeparatorBasic;// CDCircleThumbsSeparatorNone 会显示一个默认的灰色的分割线。
         thumb.gradientFill = NO;
         thumb.arcColor = [UIColor colorWithRed:75.0/255.0 green:180.0/255.0 blue:200.0/255.0 alpha:1.0];
 //        thumb.arcColor = [UIColor colorWithRed:120.0/255.0 green:230.0/255.0 blue:240.0/255.0 alpha:1.0];
@@ -595,26 +596,26 @@
     }
 }
 
-- (NSInteger)_getToolbarOffset
-{
-    NSInteger offset = 200;
-    if (IS_IPHONE_5) // for 4 inch screen
-    {
-        if(IS_IOS6)
-            offset = 210;
-        else // iOS 7 and above
-            offset = 95;
-    }
-    else // for 3.5 inch screen
-    {
-        if(IS_IOS6)
-            offset = 300;
-        else // iOS 7 and above
-            offset = 185;
-    }
-
-    return offset;
-}
+//- (NSInteger)_getToolbarOffset
+//{
+//    NSInteger offset = 200;
+//    if (IS_IPHONE_5) // for 4 inch screen
+//    {
+//        if(IS_IOS6)
+//            offset = 210;
+//        else // iOS 7 and above
+//            offset = 95;
+//    }
+//    else // for 3.5 inch screen
+//    {
+//        if(IS_IOS6)
+//            offset = 300;
+//        else // iOS 7 and above
+//            offset = 185;
+//    }
+//
+//    return offset;
+//}
 
 - (void)_showSystemControlToolbarView{
 
@@ -690,7 +691,7 @@
         [self.holdRunButton removeFromSuperview];
         self.holdRunButton = Nil;
     }
-    CGFloat margin = 10.0f;
+    CGFloat margin = 15.0f;// 此中心HoldRunButton外圆到触摸圆环内环直接的空余距离
     CGFloat diameter = CIRCLE_DIAMETER - (self.circle.ringWidth + margin) * 2.0;
     CGRect bounds = CGRectMake(CIRCLE_ORIGIN_X + (self.circle.ringWidth + margin),
                                CIRCLE_ORIGIN_Y + (self.circle.ringWidth + margin),

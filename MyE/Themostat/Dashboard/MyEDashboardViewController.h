@@ -23,7 +23,7 @@
 @class MyETipViewController;
 
 // 定义转多少度算是一步
-#define STEP_DEGREE 30
+#define STEP_DEGREE 10
 
 @interface MyEDashboardViewController : UIViewController
 <MyEDataLoaderDelegate,MBProgressHUDDelegate,
