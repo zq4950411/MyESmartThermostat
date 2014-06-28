@@ -106,6 +106,7 @@ CDCircleDelegate, CDCircleDataSource> {
 
 - (void)refreshAction;
 - (void)downloadModelFromServer;
+- (void)downloadModelFromServerLater;// 准备3秒后请求刷新新数据， 连续刷新3次
 - (void)uploadModelToServer;
 
 #pragma mark
