@@ -242,8 +242,10 @@
             _pickerView = [[MYEPickerView alloc] initWithView:self.view andTag:4 title:@"maxElect select" dataSource:_elcts andSelectRow:0];
             break;
     }
-    _pickerView.delegate = self;
-    [_pickerView showInView:self.view];
+    if (indexPath.row != 0) {
+        _pickerView.delegate = self;
+        [_pickerView showInView:self.view];
+    }
 }
 #pragma mark - URL Delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{

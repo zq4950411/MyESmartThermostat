@@ -291,7 +291,12 @@
     return self;
 }
 -(NSString *)changeDataToString{
-    return [NSString stringWithFormat:@"%@ %@ %i",self.dataTypeDetailArray[self.dataType-1],self.conditionDetailArray[self.parameterType-1],self.parameterValue];
+    NSString *string = nil;
+    if (self.dataType == 1 || self.dataType == 3) {
+        string = @"F";
+    }else
+        string = @"%RH";
+    return [NSString stringWithFormat:@"%@ %@ %i%@",self.dataTypeDetailArray[self.dataType-1],self.conditionDetailArray[self.parameterType-1],self.parameterValue,string];
 }
 -(NSArray *)dataTypeArray{
     return @[@"Indoor Temperature",
@@ -305,10 +310,10 @@
              @"Equal to"];
 }
 -(NSArray *)dataTypeDetailArray{
-    return @[@"Indoor Tem",
-             @"Indoor Hum",
-             @"Outdoor Tem",
-             @"Outdoor Hum"];
+    return @[@"Indoor T",
+             @"Indoor H",
+             @"Outdoor T",
+             @"Outdoor H"];
 }
 -(NSArray *)conditionDetailArray{
     return @[@">",@"<",@"="];

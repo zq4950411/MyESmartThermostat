@@ -232,12 +232,12 @@
                                    selector:@selector(downloadModelFromServer)
                                    userInfo:nil
                                     repeats:NO];
-    [NSTimer scheduledTimerWithTimeInterval:2.0f
+    [NSTimer scheduledTimerWithTimeInterval:2.5f
                                      target:self
                                    selector:@selector(downloadModelFromServer)
                                    userInfo:nil
                                     repeats:NO];
-    [NSTimer scheduledTimerWithTimeInterval:3.0f
+    [NSTimer scheduledTimerWithTimeInterval:4.0f
                                      target:self
                                    selector:@selector(downloadModelFromServer)
                                    userInfo:nil
@@ -286,7 +286,7 @@
             return;
         
         // 加6秒延迟后再从服务器下载新数据，否则太快下载，Thermostat好像还没真正改变过来，传来的"realControlMode"字段还是上一个状态
-        loadTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f
+        loadTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
                                                      target:self 
                                                    selector:@selector(downloadModelFromServerLater)
                                                    userInfo:nil 
