@@ -35,6 +35,7 @@
 		8C23AB301924BDB700821596 /* beep-beep.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 8C23AB2F1924BDB700821596 /* beep-beep.aiff */; };
 		8C23AB331924C24600821596 /* MyEHouseAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C23AB321924C24600821596 /* MyEHouseAddViewController.m */; };
 		8C2AED49194E97CB0006154A /* MyEScheduleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AED48194E97CB0006154A /* MyEScheduleCell.m */; };
+		8C3158931967A476003EE610 /* MyESettingsUsernameResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3158921967A476003EE610 /* MyESettingsUsernameResetViewController.m */; };
 		8C6CB5411941C30C007EECEA /* UController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6CB53F1941C30C007EECEA /* UController.storyboard */; };
 		8C6CB5471941C5E6007EECEA /* MyEUCManualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB5461941C5E6007EECEA /* MyEUCManualViewController.m */; };
 		8C6CB54A1941C7D0007EECEA /* MyEUCInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB5491941C7D0007EECEA /* MyEUCInfo.m */; };
@@ -397,6 +398,8 @@
 		8C23AB321924C24600821596 /* MyEHouseAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEHouseAddViewController.m; sourceTree = "<group>"; };
 		8C2AED47194E97CB0006154A /* MyEScheduleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEScheduleCell.h; sourceTree = "<group>"; };
 		8C2AED48194E97CB0006154A /* MyEScheduleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEScheduleCell.m; sourceTree = "<group>"; };
+		8C3158911967A476003EE610 /* MyESettingsUsernameResetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESettingsUsernameResetViewController.h; sourceTree = "<group>"; };
+		8C3158921967A476003EE610 /* MyESettingsUsernameResetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESettingsUsernameResetViewController.m; sourceTree = "<group>"; };
 		8C6CB5401941C30C007EECEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = UController.storyboard; sourceTree = "<group>"; };
 		8C6CB5451941C5E6007EECEA /* MyEUCManualViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUCManualViewController.h; sourceTree = "<group>"; };
 		8C6CB5461941C5E6007EECEA /* MyEUCManualViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUCManualViewController.m; sourceTree = "<group>"; };
@@ -2063,6 +2066,8 @@
 				8CA15910194FE28700495453 /* MyESettingsAboutViewController.m */,
 				8CA15912194FEB1700495453 /* MyESettingsPasswordResetViewController.h */,
 				8CA15913194FEB1700495453 /* MyESettingsPasswordResetViewController.m */,
+				8C3158911967A476003EE610 /* MyESettingsUsernameResetViewController.h */,
+				8C3158921967A476003EE610 /* MyESettingsUsernameResetViewController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -2591,6 +2596,7 @@
 				C3FDB70918FA652A009B423D /* MyEAppDelegate.m in Sources */,
 				8CA15908194F13A600495453 /* MyETerminalsViewController.m in Sources */,
 				C3F61B2018E11DAE00DEE477 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				8C3158931967A476003EE610 /* MyESettingsUsernameResetViewController.m in Sources */,
 				C39A517E1946A10600801835 /* MyEHomePanelData.m in Sources */,
 				C3CB5E8A193446A00043440C /* MyEVacationMasterViewController.m in Sources */,
 				C3F61B2618E11E7400DEE477 /* ASDepthModalViewController.m in Sources */,

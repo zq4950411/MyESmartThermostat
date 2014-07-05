@@ -10,7 +10,7 @@
 #import "MyEScheduleCell.h"
 #import "MyESwitchScheduleSettingViewController.h"
 #import "EGORefreshTableHeaderView.h"
-
+#import "MyESwitchManualControlViewController.h"
 @interface MyESwitchAutoViewController : UITableViewController<MyEDataLoaderDelegate,EGORefreshTableHeaderDelegate>{
     MBProgressHUD *HUD;
 }

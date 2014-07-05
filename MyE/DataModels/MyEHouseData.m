@@ -89,7 +89,7 @@
             return YES;
         }
     }
-    return NO;
+    return YES;
 }
 
 - (MyETerminalData *)firstConnectedThermostat

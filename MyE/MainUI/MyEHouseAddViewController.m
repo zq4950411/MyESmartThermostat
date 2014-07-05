@@ -33,6 +33,7 @@
     }
     [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    [self defineTapGestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,6 +41,17 @@
     [super didReceiveMemoryWarning];
 }
 #pragma mark - private methods
+-(void)defineTapGestureRecognizer{
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    tapGesture.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapGesture];
+}
+
+-(void)hideKeyboard{
+    [self.txtCity endEditing:YES];
+    [self.txtStreet endEditing:YES];
+}
+
 -(void)login{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *urlStr = [NSString stringWithFormat:@"%@?username=%@&password=%@&type=1&checkCode=2&deviceType=0&deviceToken=%@&deviceAlias=%@&appVersion=%@",GetRequst(URL_FOR_LOGIN), [defaults objectForKey:@"user"], [defaults objectForKey:@"pass"],MainDelegate.deviceTokenStr,MainDelegate.alias,[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] ;

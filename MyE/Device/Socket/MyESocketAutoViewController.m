@@ -123,6 +123,9 @@
         }else if (string.intValue == -501){
             [SVProgressHUD showWithStatus:@"No Schedule"];
         }else if (![string isEqualToString:@"fail"]){
+            UINavigationController *nav = self.tabBarController.childViewControllers[0];
+            MyESocketManualViewController *vc = nav.childViewControllers[0];
+            vc.needRefresh = YES;
             MyESocketSchedule *schedule = self.schedules.schedules[_deleteIndexPath.row];
             schedule.runFlag = 1-schedule.runFlag;
         }else{

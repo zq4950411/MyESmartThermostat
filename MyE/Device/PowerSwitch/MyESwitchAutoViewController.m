@@ -133,7 +133,10 @@
     }
     if ([name isEqualToString:@"scheduleEdit"]) {
         if ([string isEqualToString:@"OK"]) {
-            MyESwitchSchedule *schedule = self.control.SSList[_selectIndex.row];
+            UINavigationController *nav = self.tabBarController.childViewControllers[0];
+            MyESwitchManualControlViewController *vc = nav.childViewControllers[0];
+            vc.needRefresh = YES;
+             MyESwitchSchedule *schedule = self.control.SSList[_selectIndex.row];
             schedule.runFlag = 1 - schedule.runFlag;
         }else{
             [SVProgressHUD showErrorWithStatus:@"fail"];

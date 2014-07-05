@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MyEScheduleCell.h"
 #import "EGORefreshTableHeaderView.h"
+#import "MyESocketManualViewController.h"
 @interface MyESocketAutoViewController : UITableViewController<MyEDataLoaderDelegate,EGORefreshTableHeaderDelegate>
 @property (nonatomic, strong) MyEDevice *device;
 @property (nonatomic, strong) MyESocketSchedules *schedules;

@@ -129,6 +129,7 @@
 #define SETTING_EDITT @"/setting_editT.do"
 #define SETTING_DELETE_T @"/setting_deleteT.do"
 #define SETTING_FIND_THERMOSTAT @"/setting_findThermostat.do"
+#define URL_FOR_SETTINGS_RESET_USERNAME @"/account_saveUser.do"
 
 #define MORE_NOTIFICATION @"/account_findNotification.do"
 #define MORE_SAVE_NOTIFICATION @"/account_saveNotification.do"
