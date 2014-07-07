@@ -544,6 +544,18 @@
         
         self.stageLevelLabel.text = levelString;
         
+        /*// 下面是风扇图片显示的逻辑
+         If (fan_control == 0)//auto
+         {
+         if(fan_status == “On”)
+         使用左上角带Auto文字的风扇转动的图片
+         if(fan_status == “Off”)
+         使用左上角带Auto文字的风扇静止的图片
+         } else (fan_control == 1)//on，此时不管 fan_status，其实它一定是on
+         {
+         使用左上角带On文字的风扇转动的图片
+         }
+         */
         if (theDashboardData.fan_control == 0) {//auto
             if([theDashboardData.fan_status caseInsensitiveCompare:@"on"] == NSOrderedSame) {
                 //===========================注意更新下面图片使用带Auto文字的
@@ -554,9 +566,6 @@
                 self.fanImageView.animationDuration = ANIMATION_DURATION;
                 self.fanImageView.animationRepeatCount = 0;
                 [self.fanImageView startAnimating];
-                
-                self.fanStatusLabel.text = @"Auto";
-                
             } else if([theDashboardData.fan_status caseInsensitiveCompare:@"off"] == NSOrderedSame) {
                 // 展示两种从Bundle中找到图像文件信息装载该图像文件的例子
                 //都用动画后，好像下面这样直接赋值一个静态图片不清作用，还没深入研究why
@@ -569,9 +578,8 @@
                 self.fanImageView.animationDuration = ANIMATION_DURATION;
                 self.fanImageView.animationRepeatCount = 0;
                 [self.fanImageView startAnimating];
-                self.fanStatusLabel.text = @"Off";
             }
-
+            self.fanStatusLabel.text = @"Auto";
         }else if (theDashboardData.fan_control == 1) {//on
             self.fanImageView.animationImages = [NSArray arrayWithObjects:    
                                                  [UIImage imageNamed:@"Ctrl_FanOn-01.png"],
