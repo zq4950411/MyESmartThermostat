@@ -117,6 +117,10 @@
     AVAudioPlayer *player=[[AVAudioPlayer alloc] initWithContentsOfURL:soundUrl error:nil];
     [player play];
     for (ZBarSymbol *symbol in symbols) {
+        if (self.isAddCamera) {
+            [self.delegate passCameraUID:symbol.data];
+            break;
+        }
         if ([symbol.data length] == 30) {
             [self.delegate passMID:[symbol.data substringToIndex:23] andPIN:[symbol.data substringFromIndex:24]];
         }else{

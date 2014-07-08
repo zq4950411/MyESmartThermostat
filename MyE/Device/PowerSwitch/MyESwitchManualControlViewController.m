@@ -151,7 +151,7 @@
     MyESwitchChannelStatus *status = self.control.SCList[indexPath.row];
     _selectedIndex = indexPath;
     NSString *url = [NSString stringWithFormat:@"%@?houseId=%li&tId=%@&id=%li&switchStatus=%li&action=2",GetRequst(URL_FOR_SWITCH_CONTROL),(long)MainDelegate.houseData.houseId, self.device.tid, (long)status.channelId,1-(long)status.switchStatus];
-    [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:url andName:@"controlSwitch"andDictionary:@{@"button": sender,@"status":status}];
+    [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:url andName:@"controlSwitch" andDictionary:@{@"button": sender,@"status": status}];
 }
 - (IBAction)timeControl:(UIButton *)sender {
     UICollectionViewCell *cell = (UICollectionViewCell *)sender.superview.superview;

@@ -10,7 +10,7 @@
 #import "MyESwitchManualControlViewController.h"
 #import "MBProgressHUD.h"
 #import "MyESwitchAutoControl.h"
-@interface MyESwitchScheduleSettingViewController : UIViewController<MultiSelectSegmentedControlDelegate,IQActionSheetPickerView,MyEDataLoaderDelegate,MYEWeekButtonsDelegate,UIAlertViewDelegate>{
+@interface MyESwitchScheduleSettingViewController : UIViewController<IQActionSheetPickerView,MyEDataLoaderDelegate,MYEWeekButtonsDelegate,UIAlertViewDelegate>{
     NSArray *_headTimeArray;
     NSArray *_tailTimeArray;
     MBProgressHUD *HUD;

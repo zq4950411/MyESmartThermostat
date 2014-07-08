@@ -349,7 +349,7 @@ NSInteger getDaysBetweenDates(NSDate *startDate, NSDate *endDate) {
         HUD.yOffset = 150.f;
         HUD.color = bgcolor;
         HUD.cornerRadius = 2;
-        HUD.labelFont = [UIFont systemFontOfSize:13];
+        HUD.labelFont = [UIFont systemFontOfSize:11];
         HUD.removeFromSuperViewOnHide = YES;
         HUD.userInteractionEnabled = NO;
         //        NSLog(@"%@",app.window.subviews);
@@ -385,6 +385,25 @@ NSInteger getDaysBetweenDates(NSDate *startDate, NSDate *endDate) {
 + (void)showMessageOn:(UIView *)view withMessage:(NSString *)message
 {
     [MyEUtil showTextOnlyToastOn:view withMessage:message backgroundColor:nil];
+}
++(void)showThingsSuccessOn:(UIView *)view WithMessage:(NSString *)message andTag:(BOOL)tag{
+    //MyEAppDelegate *app = (MyEAppDelegate *)[UIApplication sharedApplication].delegate;
+    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    HUD.mode = MBProgressHUDModeCustomView;
+    UIImageView *image;
+    if (tag) {
+        image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgYES"]];
+    }else
+        image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"imgNO"]];
+    HUD.customView = image;
+    HUD.labelText = message;
+	//HUD.margin = 30.f;
+    HUD.square = YES;
+    HUD.cornerRadius = 5;
+	HUD.removeFromSuperViewOnHide = YES;
+    if (!tag) {
+        [HUD hide:YES afterDelay:2];
+    }
 }
 +(void)showThingsSuccessOn:(UIView *)view WithMessage:(NSString *)message{
     //MyEAppDelegate *app = (MyEAppDelegate *)[UIApplication sharedApplication].delegate;

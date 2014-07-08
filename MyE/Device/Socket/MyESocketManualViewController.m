@@ -27,7 +27,7 @@
     [super viewWillAppear:YES];
     if (self.needRefresh) {
         self.needRefresh = NO;
-        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_FIND),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%li&tId=%@",GetRequst(URL_FOR_SOCKET_FIND),(long)MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
     }
 }
 - (void)viewDidLoad

@@ -702,7 +702,7 @@
 -(void)_redrawHoldRunButton
 {
     NSInteger type= self.dashboardData.energyLeaver;
-    HoldType hold = self.dashboardData.isOvrried;
+    HoldType hold = (HoldType)self.dashboardData.isOvrried;
     NSInteger controlMode = self.dashboardData.controlMode;
     
     if (self.holdRunButton) {

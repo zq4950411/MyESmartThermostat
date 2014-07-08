@@ -288,6 +288,7 @@ NSInteger getDaysBetweenDates(NSDate *startDate, NSDate *endDate);
 
 // Toast mothod
 //@see http://stackoverflow.com/questions/18680891/displaying-a-message-in-ios-which-have-the-same-functionality-as-toast-in-androi
++(void)showThingsSuccessOn:(UIView *)view WithMessage:(NSString *)message andTag:(BOOL)tag;
 +(void)showThingsSuccessOn:(UIView *)view WithMessage:(NSString *)message;
 + (void)showToastOn:(UIView *)view withMessage:(NSString *)message backgroundColor:(UIColor *)bgColor;
 + (void)showToastOn:(UIView *)view withMessage:(NSString *)message;

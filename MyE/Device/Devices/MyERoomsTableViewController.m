@@ -64,6 +64,7 @@
     UITextField *textField = [alert textFieldAtIndex:0];
     textField.text = text;
     textField.textAlignment = NSTextAlignmentCenter;
+    textField.keyboardType = UIKeyboardTypeASCIICapable;
     alert.tag = tag;
     [alert show];
 }

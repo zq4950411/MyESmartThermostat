@@ -106,7 +106,7 @@
 	CATransition *animation = [CATransition animation];
 	
 	animation.duration = time;
-	animation.timingFunction = UIViewAnimationCurveEaseInOut;
+	animation.timingFunction = (CAMediaTimingFunction *)UIViewAnimationCurveEaseInOut;
 	animation.type = animationName;
 	
 	if (subtype) 

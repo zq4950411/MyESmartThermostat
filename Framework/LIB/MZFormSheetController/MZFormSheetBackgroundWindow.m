@@ -279,7 +279,7 @@ static UIInterfaceOrientationMask const UIInterfaceOrientationMaskFromOrientatio
 
     if ([self.formSheetBackgroundWindowDelegate respondsToSelector:@selector(formSheetBackgroundWindow:didChangeStatusBarToOrientation:)]) {
         NSNumber *orientation = notification.userInfo[UIApplicationStatusBarOrientationUserInfoKey];
-        [self.formSheetBackgroundWindowDelegate formSheetBackgroundWindow:self didChangeStatusBarToOrientation:[orientation integerValue]];
+        [self.formSheetBackgroundWindowDelegate formSheetBackgroundWindow:self didChangeStatusBarToOrientation:(UIInterfaceOrientation)[orientation integerValue]];
     }
 }
 

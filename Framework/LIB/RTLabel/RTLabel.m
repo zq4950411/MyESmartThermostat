@@ -416,8 +416,11 @@
 					//NSLog(@"height %f", height);
 					
 					CGFloat secondaryOffset;
-					double primaryOffset = CTLineGetOffsetForStringIndex(CFArrayGetValueAtIndex(frameLines,i), linkableComponents.position, &secondaryOffset);
-					double primaryOffset2 = CTLineGetOffsetForStringIndex(CFArrayGetValueAtIndex(frameLines,i), linkableComponents.position+linkableComponents.text.length, NULL);
+#warning 注释
+                    double primaryOffset = 1.0;
+					double primaryOffset2 = 1.0;
+//					double primaryOffset = CTLineGetOffsetForStringIndex(CFArrayGetValueAtIndex(frameLines,i), linkableComponents.position, &secondaryOffset);
+//					double primaryOffset2 = CTLineGetOffsetForStringIndex(CFArrayGetValueAtIndex(frameLines,i), linkableComponents.position+linkableComponents.text.length, NULL);
 					//NSLog(@"primary offset %f, secondary offset %f", primaryOffset, secondaryOffset);
 					
 					float button_width = primaryOffset2 - primaryOffset;

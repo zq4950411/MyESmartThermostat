@@ -109,7 +109,8 @@
         }else{
             _isShow = YES;
 //            [self refreshUIWithBool:NO];
-            [self performSelector:@selector(refreshUIWithBool:) withObject:NO afterDelay:1.0f];
+#warning 修改
+            [self performSelector:@selector(refreshUIWithBool:) withObject:nil afterDelay:1.0f];
 //            dispatch_async(dispatch_get_main_queue(), ^{
 //                [self refreshUIWithBool:NO];
 //            });
@@ -155,7 +156,7 @@
 }
 #pragma mark - private methods
 -(void)refreshUIWithBool:(BOOL)yes{
-    if (yes) { //yes值为YES，则是要显示view
+    if (yes) { //yes值为YES，则是要显示view,NO就是不显示
         if (_isShow) {
             return;
         }

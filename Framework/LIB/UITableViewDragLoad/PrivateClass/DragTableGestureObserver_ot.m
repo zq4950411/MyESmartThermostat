@@ -34,7 +34,7 @@
 {
     if ([keyPath isEqualToString:@"pan.state"])
     {
-        UIGestureRecognizerState newState = [change[@"new"] intValue];
+        UIGestureRecognizerState newState = (UIGestureRecognizerState)[change[@"new"] intValue];
         if ([_delegate respondsToSelector:@selector(dragTableGestureStateWillChangeTo:observer:)])
         {
             [_delegate dragTableGestureStateWillChangeTo:newState observer:self];

@@ -11,11 +11,12 @@
 @protocol MyEQRScanViewControllerDelegate <NSObject>
 @optional
 -(void)passMID:(NSString *)mid andPIN:(NSString *)pin;
+-(void)passCameraUID:(NSString *)UID;
 @end
 
 @interface MyEQRScanViewController : UIViewController<ZBarReaderViewDelegate>
 
 @property (nonatomic, assign) id <MyEQRScanViewControllerDelegate> delegate;
 @property (nonatomic, assign) BOOL jumpFromNav;
-
+@property (nonatomic, assign) BOOL isAddCamera;
 @end

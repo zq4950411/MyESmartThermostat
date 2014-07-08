@@ -1008,17 +1008,17 @@
     return index;
 }
 
-- (BOOL)viewOrSuperview:(UIView *)view isKindOfClass:(Class)class
+- (BOOL)viewOrSuperview:(UIView *)view isKindOfClass:(Class)cla
 {
     if (view == nil || view == _scrollView)
     {
         return NO;
     }
-    else if ([view isKindOfClass:class])
+    else if ([view isKindOfClass:cla])
     {
         return YES;
     }
-    return [self viewOrSuperview:view.superview isKindOfClass:class];
+    return [self viewOrSuperview:view.superview isKindOfClass:cla];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gesture shouldReceiveTouch:(UITouch *)touch

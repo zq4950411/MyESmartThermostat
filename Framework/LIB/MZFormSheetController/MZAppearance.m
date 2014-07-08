@@ -62,16 +62,16 @@ static NSMutableDictionary *instanceOfClassesDictionary = nil;
     NSMutableArray *classes = [NSMutableArray array];
     
     // We now need to first set the properties of the superclass
-    for (Class class = [target class];
-         [class isSubclassOfClass:superClass] || class == superClass;
-         class = [class superclass]) {
-        [classes addObject:class];
+    for (Class cla = [target class];
+         [cla isSubclassOfClass:superClass] || cla == superClass;
+         cla = [cla superclass]) {
+        [classes addObject:cla];
     }
     
     NSEnumerator *reverseClasses = [classes reverseObjectEnumerator];
     
-    for (Class class in reverseClasses) {
-        [[MZAppearance appearanceForClass:class] applyInvocationTo:target];
+    for (Class cla in reverseClasses) {
+        [[MZAppearance appearanceForClass:cla] applyInvocationTo:target];
     }
 }
 

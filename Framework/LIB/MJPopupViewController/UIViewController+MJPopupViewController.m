@@ -33,23 +33,24 @@ static NSString *MJPopupViewDismissedKey = @"MJPopupViewDismissed";
 
 static void * const keypath = (void*)&keypath;
 
-- (UIViewController*)mj_popupViewController {
-    return objc_getAssociatedObject(self, kMJPopupViewController);
-}
-
-- (void)setMj_popupViewController:(UIViewController *)mj_popupViewController {
-    objc_setAssociatedObject(self, kMJPopupViewController, mj_popupViewController, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    
-}
-
-- (MJPopupBackgroundView*)mj_popupBackgroundView {
-    return objc_getAssociatedObject(self, kMJPopupBackgroundView);
-}
-
-- (void)setMj_popupBackgroundView:(MJPopupBackgroundView *)mj_popupBackgroundView {
-    objc_setAssociatedObject(self, kMJPopupBackgroundView, mj_popupBackgroundView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    
-}
+#warning 注释
+//- (UIViewController*)mj_popupViewController {
+//    return objc_getAssociatedObject(self, kMJPopupViewController);
+//}
+//
+//- (void)setMj_popupViewController:(UIViewController *)mj_popupViewController {
+//    objc_setAssociatedObject(self, kMJPopupViewController, mj_popupViewController, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//    
+//}
+//
+//- (MJPopupBackgroundView*)mj_popupBackgroundView {
+//    return objc_getAssociatedObject(self, kMJPopupBackgroundView);
+//}
+//
+//- (void)setMj_popupBackgroundView:(MJPopupBackgroundView *)mj_popupBackgroundView {
+//    objc_setAssociatedObject(self, kMJPopupBackgroundView, mj_popupBackgroundView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//    
+//}
 
 - (void)presentPopupViewController:(UIViewController*)popupViewController animationType:(MJPopupViewAnimation)animationType dismissed:(void(^)(void))dismissed
 {
@@ -185,7 +186,7 @@ static void * const keypath = (void*)&keypath;
             case MJPopupViewAnimationSlideLeftRight:
             case MJPopupViewAnimationSlideRightLeft:
             case MJPopupViewAnimationSlideRightRight:
-                [self dismissPopupViewControllerWithanimationType:dismissButton.tag];
+                [self dismissPopupViewControllerWithanimationType:(MJPopupViewAnimation)dismissButton.tag];
                 break;
             default:
                 [self dismissPopupViewControllerWithanimationType:MJPopupViewAnimationFade];
