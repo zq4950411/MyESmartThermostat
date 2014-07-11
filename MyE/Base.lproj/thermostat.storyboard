@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4Rz-pZ-M3x">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4Rz-pZ-M3x">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller - t test-->
+        <!--MyE Themostat Tab Bar Controller - t test-->
         <scene sceneID="2FB-Ym-wbs">
             <objects>
-                <tabBarController storyboardIdentifier="tab_bar_controller" title="t test" definesPresentationContext="YES" id="4Rz-pZ-M3x" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tab_bar_controller" title="t test" definesPresentationContext="YES" id="4Rz-pZ-M3x" customClass="MyEThemostatTabBarController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="cnw-1Z-2GB"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -17,31 +17,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
-                    <connections>
-                        <segue destination="wsk-OD-Yur" kind="relationship" relationship="viewControllers" id="wjI-JF-EMA"/>
-                        <segue destination="dhV-t3-6No" kind="relationship" relationship="viewControllers" id="MVE-s9-FqT"/>
-                        <segue destination="XX0-ez-qnw" kind="relationship" relationship="viewControllers" id="rDb-en-iT8"/>
-                        <segue destination="AEP-kn-uSJ" kind="relationship" relationship="viewControllers" id="zBp-nC-8vb"/>
-                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t4p-ZU-SJb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="24" y="-4112"/>
+            <point key="canvasLocation" x="-1865" y="-5401"/>
         </scene>
         <!--MyE Dashboard View Controller - Thermostat-->
         <scene sceneID="Grl-bh-Noz">
             <objects>
-                <viewController title="Thermostat" id="wsk-OD-Yur" customClass="MyEDashboardViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="dash" title="Thermostat" id="wsk-OD-Yur" customClass="MyEDashboardViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DZS-jh-LHa"/>
                         <viewControllerLayoutGuide type="bottom" id="kYO-VE-MFS"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4zX-JK-UeN">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nvq-U1-kBd" customClass="ACPButton">
-                                <rect key="frame" x="15" y="400" width="130" height="40"/>
+                                <rect key="frame" x="15" y="449" width="130" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Stage 1 + 2" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6yT-2G-n1V">
@@ -70,7 +64,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zAa-Vd-qld" customClass="ACPButton">
-                                <rect key="frame" x="175" y="400" width="130" height="40"/>
+                                <rect key="frame" x="175" y="449" width="130" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView contentMode="scaleToFill" fixedFrame="YES" image="Ctrl_FanOn-01" translatesAutoresizingMaskIntoConstraints="NO" id="Uuw-PK-lJl">
@@ -120,11 +114,11 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7lo-pV-iZC">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oos-m2-NAD">
-                                        <rect key="frame" x="0.0" y="385" width="320" height="70"/>
+                                        <rect key="frame" x="0.0" y="434" width="320" height="70"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNW-ff-m2h">
@@ -169,7 +163,7 @@
                                 </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X3f-oc-Dy8">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="49" width="320" height="455"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d4j-mz-VqZ">
@@ -309,22 +303,22 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="713" y="-4975"/>
+            <point key="canvasLocation" x="-1367" y="-6807"/>
         </scene>
         <!--MyE Next24 Hrs Schedule View Controller - 24 Hours-->
         <scene sceneID="hEH-WZ-xgc">
             <objects>
-                <viewController title="24 Hours" id="dhV-t3-6No" customClass="MyENext24HrsScheduleViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="next" title="24 Hours" id="dhV-t3-6No" customClass="MyENext24HrsScheduleViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pki-gF-fFg"/>
                         <viewControllerLayoutGuide type="bottom" id="jNJ-Tp-mYf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="maU-VY-zKC">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ile-4n-v1z" customClass="ACPButton">
-                                <rect key="frame" x="20" y="400" width="108" height="37"/>
+                                <rect key="frame" x="20" y="449" width="108" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="108" id="XI0-n4-Ovv"/>
@@ -339,7 +333,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="roa-yb-5OH" customClass="ACPButton">
-                                <rect key="frame" x="192" y="400" width="108" height="37"/>
+                                <rect key="frame" x="192" y="449" width="108" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="108" id="m42-Ri-PZk"/>
@@ -400,22 +394,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Es-5y-vY6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="713" y="-4206"/>
+            <point key="canvasLocation" x="-1367" y="-6038"/>
         </scene>
         <!--MyE Weekly Schedule View Controller - Weekly-->
         <scene sceneID="Dsn-GB-0I1">
             <objects>
-                <viewController title="Weekly" id="XX0-ez-qnw" customClass="MyEWeeklyScheduleViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="week" title="Weekly" id="XX0-ez-qnw" customClass="MyEWeeklyScheduleViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dRH-Ud-8wZ"/>
                         <viewControllerLayoutGuide type="bottom" id="BwP-mG-dyU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="OKA-7n-veL">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yJ7-pO-ypX">
-                                <rect key="frame" x="10" y="53" width="300" height="40"/>
+                                <rect key="frame" x="10" y="50" width="300" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N93-Hz-37r">
@@ -453,6 +447,7 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <inset key="titleEdgeInsets" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Apply">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -468,6 +463,7 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
                                         <state key="normal" title="Reset">
                                             <color key="titleColor" red="0.27049604669999999" green="0.78431379800000001" blue="0.86315182609999996" alpha="1" colorSpace="deviceRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -508,7 +504,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0gi-Yv-Li8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="738" y="-3138"/>
+            <point key="canvasLocation" x="-1350" y="-5370"/>
         </scene>
         <!--MyE Staycation Detail View Controller - Staycation Detail-->
         <scene sceneID="DAj-Mt-qVk">
@@ -791,14 +787,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5uk-rP-KWa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1775" y="-1767"/>
+            <point key="canvasLocation" x="-801" y="-3566"/>
         </scene>
         <!--MyE Vacation Master View Controller - Vacation-->
         <scene sceneID="ZGO-2h-F7M">
             <objects>
-                <tableViewController title="Vacation" id="AEP-kn-uSJ" customClass="MyEVacationMasterViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="vacation" title="Vacation" id="AEP-kn-uSJ" customClass="MyEVacationMasterViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="lkD-HB-8m6">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -881,7 +877,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bn5-Mv-CWR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="738" y="-2283"/>
+            <point key="canvasLocation" x="-1350" y="-3943"/>
         </scene>
         <!--MyE Vacation Detail View Controller - Vacation Detail-->
         <scene sceneID="1bI-IT-s1T">
@@ -1111,7 +1107,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Cd-cu-R1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1257" y="-2482"/>
+            <point key="canvasLocation" x="-807" y="-4321"/>
         </scene>
         <!--MyE Vacation Edit From Staycation View Controller - Vacation Detail-->
         <scene sceneID="tux-8R-SJD">
@@ -1339,7 +1335,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="us7-zb-gFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2370" y="-1912"/>
+            <point key="canvasLocation" x="-401" y="-3566"/>
         </scene>
         <!--MyE Staycation Edit From Vacation View Controller - Staycation Detail-->
         <scene sceneID="gzf-JF-bqz">
@@ -1620,7 +1616,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zva-Gy-RXL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1783" y="-2541"/>
+            <point key="canvasLocation" x="-425" y="-4316"/>
         </scene>
         <!--MyE Special Days Schedule View Controller - Weekly-->
         <scene sceneID="TJu-Bk-0PX">
@@ -1631,37 +1627,34 @@
                         <viewControllerLayoutGuide type="bottom" id="v2x-74-r9l"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="20B-Re-WUG">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTo-7D-Lzg">
-                                <rect key="frame" x="5" y="10" width="150" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTo-7D-Lzg">
+                                <rect key="frame" x="20" y="10" width="202" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button">
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="changeDay:" destination="atr-Rb-FZC" eventType="touchUpInside" id="Vxf-PG-g1b"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ge6-Ij-KHZ">
-                                <rect key="frame" x="237" y="10" width="63" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ge6-Ij-KHZ">
+                                <rect key="frame" x="256" y="10" width="44" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Delete">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="deleteCurrentDay:" destination="atr-Rb-FZC" eventType="touchUpInside" id="axo-jO-xAw"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehb-yG-0ez">
-                                <rect key="frame" x="154" y="10" width="75" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Save As">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="saveAsNewDay:" destination="atr-Rb-FZC" eventType="touchUpInside" id="oqP-n1-Y4h"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1S3-Q5-6TM">
@@ -1672,7 +1665,7 @@
                                         <rect key="frame" x="0.0" y="5" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                                        <state key="normal" image="add">
+                                        <state key="normal" image="plus">
                                             <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1687,7 +1680,7 @@
                                         <rect key="frame" x="270" y="5" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Edit" image="pen">
+                                        <state key="normal" title="Edit" image="editBtn">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1706,10 +1699,10 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="6ym-kU-Oa3">
-                                        <rect key="frame" x="107" y="77" width="110" height="110"/>
+                                        <rect key="frame" x="106" y="80" width="110" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <color key="backgroundColor" red="0.29265107299999998" green="0.74337584710000004" blue="0.84243222890000002" alpha="1" colorSpace="deviceRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <inset key="titleEdgeInsets" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Apply Now">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1718,7 +1711,19 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="applyNewSchedule:" destination="atr-Rb-FZC" eventType="touchUpInside" id="kfC-vU-a30"/>
+                                            <action selector="applyNewSchedule:" destination="atr-Rb-FZC" eventType="touchUpInside" id="jGI-XL-866"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hr-nC-hwm">
+                                        <rect key="frame" x="106" y="135" width="110" height="55"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
+                                        <state key="normal" title="Save As">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveAsNewDay:" destination="atr-Rb-FZC" eventType="touchUpInside" id="H6A-4I-FOf"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1733,18 +1738,21 @@
                     <tabBarItem key="tabBarItem" title="Special Days" image="tab-schedule" id="8gU-7N-vX5"/>
                     <navigationItem key="navigationItem" title="Special Days" id="JDN-Pa-HiF"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="addNewModeButton" destination="zg2-wr-TKU" id="Vcv-C3-TGD"/>
                         <outlet property="applyButton" destination="6ym-kU-Oa3" id="HMW-nz-08f"/>
                         <outlet property="centerContainerView" destination="1sk-RP-6Iv" id="lP7-hI-v2p"/>
                         <outlet property="dayBtn" destination="oTo-7D-Lzg" id="eH4-op-GZt"/>
+                        <outlet property="deleteBtn" destination="Ge6-Ij-KHZ" id="6o4-sd-vWF"/>
                         <outlet property="editModeButton" destination="p9u-bG-iqC" id="fMe-1q-1SB"/>
                         <outlet property="modeToolContainer" destination="1S3-Q5-6TM" id="05T-ii-dZt"/>
+                        <outlet property="saveBtn" destination="3hr-nC-hwm" id="435-mP-J9f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2ZO-Ai-jyx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1402" y="-3378"/>
+            <point key="canvasLocation" x="-1350" y="-4670"/>
         </scene>
     </scenes>
     <resources>
@@ -1759,9 +1767,7 @@
         <image name="Tb_OFF" width="40" height="40"/>
         <image name="Vacation01" width="45" height="45"/>
         <image name="Vacation02" width="45" height="45"/>
-        <image name="add" width="30" height="30"/>
         <image name="editBtn" width="30" height="30"/>
-        <image name="pen" width="30" height="30"/>
         <image name="plus" width="30" height="30"/>
         <image name="tab-24hrs-schedule" width="30" height="30"/>
         <image name="tab-doshboard" width="30" height="30"/>

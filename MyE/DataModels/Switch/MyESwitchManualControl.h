@@ -24,6 +24,7 @@
 @property(nonatomic) NSInteger delayStatus;
 @property(nonatomic) NSInteger delayMinute;
 @property(nonatomic) NSInteger remainMinute;
+@property(nonatomic, assign) BOOL disable;
 @property(nonatomic, strong) NSTimer *timer;    //这里创建了一个NSTimer，用以记录当前的倒计时状态，这个要特别注意
 @property(nonatomic) NSInteger timerValue;   //这个表示的是timer的初始时间
 

@@ -22,6 +22,8 @@
 {
     [super viewDidLoad];
     self.weekBtns.delegate = self;
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    _datePicker.locale = locale;
     _newTime = [self.conditionTime copy];
     if (_isAdd) {
         [self changeDatePickerModeAndBtnWithTag:100];
@@ -29,7 +31,7 @@
         if (_newTime.timeType == 1) {
             [self changeDatePickerModeAndBtnWithTag:100];
             NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"MM/dd/yyyy HH:mm"]; // 这里是用大写的 H
+            [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm"]; // 大写H表示24小时制,小写的h表示12小时制
             NSDate *date = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@ %i:%i",_newTime.date,_newTime.hour,_newTime.minute]];
             [self.datePicker setDate:date animated:YES];
         }else{
@@ -92,7 +94,6 @@
             self.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
             self.datePicker.minimumDate = [NSDate date];
             self.datePicker.maximumDate = [[NSDate alloc] initWithTimeIntervalSinceNow:60*60*24*30*2];  //显示两个月之后的日期
-            [self.datePicker setDate:[NSDate date] animated:YES];
             self.datePicker.minuteInterval = 10;
         });
     }else{

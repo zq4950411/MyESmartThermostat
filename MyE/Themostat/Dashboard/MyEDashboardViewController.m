@@ -270,8 +270,8 @@
             _isSetpointChanged = NO;
         } else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
-                                                          message:@"Communication error. Please try again."
-                                                         delegate:self 
+                                                          message:@"Communication error! Please try again."
+                                                         delegate:nil
                                                 cancelButtonTitle:@"Ok"
                                                 otherButtonTitles:nil];
             [alert show];
@@ -300,7 +300,7 @@
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
                                                   message:@"Communication error. Please try again."
-                                                 delegate:self 
+                                                 delegate:nil
                                         cancelButtonTitle:@"Ok"
                                         otherButtonTitles:nil];
     [alert show];

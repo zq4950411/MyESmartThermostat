@@ -50,6 +50,9 @@
 #define URL_FOR_SETTINGS_VIEW @"/setting_view.do"
 #define URL_FOR_USAGE_STATS_VIEW @"/usage_electric_stati.do"
 #define URL_FOR_ALERTS_VIEW @"/setting_get_alert_list.do"
+#define URL_FOR_SPECIAL_DAY @"/specialDay_view.do"
+#define URL_FOR_SPECIAL_DAY_APPLY @"/specialDay_apply.do"
+#define URL_FOR_SPECIAL_DAY_SAVE @"/specialDay_save.do"
 
 #define URL_FOR_DASHBOARD_SAVE @"/dashboard_save.do"
 #define URL_FOR_TODAY_SCHEDULE_SAVE @"/programToday_save.do"

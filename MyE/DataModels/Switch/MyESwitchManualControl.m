@@ -45,6 +45,7 @@
         self.delayStatus = [dic[@"delayStatus"]intValue];
         self.delayMinute = [dic[@"delayMinute"] intValue];
         self.remainMinute = [dic[@"surplusMinute"] intValue];
+        self.disable = [dic[@"disabledStatus"] intValue]==1?YES:NO;
         self.timer = [[NSTimer alloc] init];
         self.timerValue = 0;
         return self;

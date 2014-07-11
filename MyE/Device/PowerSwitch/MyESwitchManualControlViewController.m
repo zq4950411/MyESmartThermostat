@@ -107,13 +107,20 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     MyESwitchChannelStatus *status = self.control.SCList[indexPath.row];
-    UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
+//    UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
     UIButton *switchBtn = (UIButton *)[cell viewWithTag:101];
     UIButton *timeBtn = (UIButton *)[cell viewWithTag:102];
     UILabel *delayTimeLabel = (UILabel *)[cell viewWithTag:103];
     UILabel *remainTimeLabel = (UILabel *)[cell viewWithTag:104];
 //    [_UIArray addObject:@[switchBtn,remainTimeLabel]];
-    titleLabel.text = [NSString stringWithFormat:@"Light %li",(long)indexPath.row+1];
+//    titleLabel.text = [NSString stringWithFormat:@"Light %li",(long)indexPath.row+1];
+    if (status.disable) {
+        switchBtn.enabled = NO;
+        timeBtn.enabled = NO;
+    }else{
+        switchBtn.enabled = YES;
+        timeBtn.enabled = YES;
+    }
     if (status.switchStatus == 1) {
         switchBtn.selected = NO;
         if (status.delayStatus == 1) {
@@ -133,8 +140,8 @@
             timeBtn.selected = NO;
             delayTimeLabel.hidden = NO;
             remainTimeLabel.hidden = NO;
-            delayTimeLabel.text = [NSString stringWithFormat:@"Duration:%li Minute(s)",(long)status.delayMinute];
-            remainTimeLabel.text = [NSString stringWithFormat:@"Remain:0 Minute(s)"];
+//            delayTimeLabel.text = [NSString stringWithFormat:@"Duration:%li Minute(s)",(long)status.delayMinute];
+//            remainTimeLabel.text = [NSString stringWithFormat:@"Remain:0 Minute(s)"];
         }else{
             timeBtn.selected = YES;
             delayTimeLabel.hidden = YES;
@@ -187,6 +194,7 @@
         if (![string isEqualToString:@"fail"]) {
             MyESwitchManualControl *control = [[MyESwitchManualControl alloc] initWithString:string];
             self.control = control;
+            [self checkIfLightIsOn];
             [self.collectionView reloadData];
         }else {
             [MyEUtil showMessageOn:nil withMessage:@"Failed to communicate with server."];

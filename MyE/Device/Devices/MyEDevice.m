@@ -98,6 +98,7 @@
         //这里需要注意
         self.point = dic[@"point"]==[NSNull null]?0:[dic[@"point"] intValue];
         self.instructionName = dic[@"instructionName"]?dic[@"instructionName"]:@"";
+        self.showSpecialDays = dic[@"showSpecialDays"]!=[NSNull null]?[dic[@"showSpecialDays"] boolValue]:NO;
         return self;
     }
     return nil;

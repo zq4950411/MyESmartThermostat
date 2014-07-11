@@ -65,5 +65,6 @@
 #pragma mark - MYEPickerView delegate methods
 -(void)MYEPickerView:(UIView *)pickerView didSelectTitles:(NSString *)title andRow:(NSInteger)row{
     _newChannel.channel = row +1 ;
+    [self.channelBtn setTitle:title forState:UIControlStateNormal];
 }
 @end

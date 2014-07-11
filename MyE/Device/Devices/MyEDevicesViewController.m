@@ -30,6 +30,9 @@
 #import "MyEUCManualViewController.h"
 #import "MyEUCConditionViewController.h"
 
+//温控器
+#import "MyEThemostatTabBarController.h"
+
 @interface MyEDevicesViewController(){
     NSArray *_rooms;
     NSIndexPath *_selectedIndexPath;  //当前选定的indexPath
@@ -400,11 +403,12 @@
             }
         }
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"thermostat" bundle:nil];
-        UITabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tab_bar_controller"];
+        MyEThemostatTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"tab_bar_controller"];
         // 	温控器所有二级控制页面（Dashboard, Next24, Weekly, etc），标题都采用该温控器的别名。
         
         //        vc.title = MainDelegate.terminalData.tName;
         vc.title = device.deviceName;
+        vc.device = device;
         NSLog(@"MainDelegate.thermostatData.tName = %@", MainDelegate.terminalData.tName);
         
         [self.navigationController pushViewController:vc animated:YES];

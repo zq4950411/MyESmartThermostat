@@ -44,19 +44,19 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.cameraList = [NSMutableArray array];
     // 这里的代码可以被替换成从服务器获取camera数据的代码.
-    MyECamera *camera = [[MyECamera alloc] init];
-    camera.UID = @"VSTC134699JBVUB";
-    camera.name = @"Camera";
-    camera.username = @"admin";
-    camera.password = @"888888";
-    [self.cameraList addObject:camera];
-    MyECamera *camera1 = [[MyECamera alloc] init];
-    camera1.UID = @"VSTC323869KTUZJ";
-    camera1.name = @"MovingCamera";
-    camera1.username = @"admin";
-    camera1.password = @"888888";
-    [self.cameraList addObject:camera1];
-    //    [self _loadData];
+//    MyECamera *camera = [[MyECamera alloc] init];
+//    camera.UID = @"VSTC134699JBVUB";
+//    camera.name = @"Camera";
+//    camera.username = @"admin";
+//    camera.password = @"888888";
+//    [self.cameraList addObject:camera];
+//    MyECamera *camera1 = [[MyECamera alloc] init];
+//    camera1.UID = @"VSTC323869KTUZJ";
+//    camera1.name = @"MovingCamera";
+//    camera1.username = @"admin";
+//    camera1.password = @"888888";
+//    [self.cameraList addObject:camera1];
+    [self _loadData];
     
     if (!_refreshHeaderView) {
         EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.tableView.frame.size.width, self.tableView.bounds.size.height)];
@@ -85,8 +85,9 @@
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
     UIBarButtonItem *add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCamera:)];
-    UIBarButtonItem *detail = [[UIBarButtonItem alloc] initWithTitle:@"Detail" style:UIBarButtonItemStylePlain target:self action:@selector(cameraDetailInfo:)];
-    self.navigationItem.rightBarButtonItems = @[add,detail];
+//    UIBarButtonItem *detail = [[UIBarButtonItem alloc] initWithTitle:@"Detail" style:UIBarButtonItemStylePlain target:self action:@selector(cameraDetailInfo:)];
+//    self.navigationItem.rightBarButtonItems = @[add,detail];
+    self.navigationItem.rightBarButtonItem = add;
 }
 
 - (void)didReceiveMemoryWarning
@@ -307,7 +308,7 @@
             [self performSelectorOnMainThread:@selector(endGetCameraStatus) withObject:nil waitUntilDone:YES];
             break;
         case PPPP_STATUS_DEVICE_NOT_ON_LINE:
-            strPPPPStatus = @"NotOnline";
+            strPPPPStatus = @"Offline";
             [self performSelectorOnMainThread:@selector(endGetCameraStatus) withObject:nil waitUntilDone:YES];
             break;
         case PPPP_STATUS_CONNECT_TIMEOUT:

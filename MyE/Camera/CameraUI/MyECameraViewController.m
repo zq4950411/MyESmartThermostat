@@ -356,7 +356,7 @@
             [self getCameraInfo];
             break;
         case PPPP_STATUS_DEVICE_NOT_ON_LINE:
-            strPPPPStatus = @"NotOnline";
+            strPPPPStatus = @"Offline";
             break;
         case PPPP_STATUS_CONNECT_TIMEOUT:
             strPPPPStatus = @"ConnectTimeout";

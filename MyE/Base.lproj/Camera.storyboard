@@ -70,7 +70,6 @@
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" image="video-control-off"/>
                                         <connections>
                                             <action selector="snapImage:" destination="we2-Pz-jeV" eventType="touchUpInside" id="B4S-TF-bDq"/>
                                         </connections>
@@ -412,21 +411,20 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2kr-YV-Bv3">
-                                <rect key="frame" x="90" y="50" width="140" height="70"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="2kr-YV-Bv3">
+                                <rect key="frame" x="75" y="50" width="170" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="局域网扫描">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <state key="normal" title="Scan within Wifi Network"/>
                                 <connections>
                                     <action selector="startSearch" destination="Vi0-Iu-XPJ" eventType="touchUpInside" id="rW2-Au-Ri3"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jbl-bp-HiO">
-                                <rect key="frame" x="90" y="145" width="140" height="70"/>
+                                <rect key="frame" x="75" y="145" width="170" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="二维码扫描">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Scan 2D barcode">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -434,9 +432,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5wF-rF-2j8">
-                                <rect key="frame" x="90" y="240" width="140" height="70"/>
+                                <rect key="frame" x="75" y="240" width="170" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="手动输入">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Register by UID">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1074,7 +1073,7 @@
             </objects>
             <point key="canvasLocation" x="-7156" y="-6081"/>
         </scene>
-        <!--MyE Camera Table View Controller - Video-->
+        <!--MyE Camera Table View Controller - Camera-->
         <scene sceneID="pIi-F7-lVa">
             <objects>
                 <tableViewController storyboardIdentifier="cameras" id="Giu-0o-VQV" customClass="MyECameraTableViewController" sceneMemberID="viewController">
@@ -1116,7 +1115,7 @@
                                                 <action selector="editCamera:" destination="Giu-0o-VQV" eventType="touchUpInside" id="bzF-Dp-BAx"/>
                                             </connections>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="E1E-gs-bvc">
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E1E-gs-bvc">
                                             <rect key="frame" x="15" y="7" width="85" height="55"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" red="0.81763229930000003" green="0.83525319340000004" blue="0.83434078469999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -1139,7 +1138,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="185"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="8aF-Zq-zKU">
+                                        <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8aF-Zq-zKU">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="185"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
@@ -1160,7 +1159,7 @@
                             <outlet property="delegate" destination="Giu-0o-VQV" id="J3n-vV-Wvb"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Video" id="FlY-LK-Grt">
+                    <navigationItem key="navigationItem" title="Camera" id="FlY-LK-Grt">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="2o5-uu-9GH"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
@@ -1176,11 +1175,9 @@
     <resources>
         <image name="DMVideoFullScreen" width="24" height="19"/>
         <image name="back" width="48" height="30"/>
-        <image name="camera" width="48" height="30"/>
         <image name="editBtn" width="30" height="30"/>
         <image name="lock" width="20" height="20"/>
         <image name="menu" width="28" height="20"/>
-        <image name="video-control-off" width="75" height="45"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

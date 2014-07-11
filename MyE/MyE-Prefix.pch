@@ -24,7 +24,6 @@
 #import "MBProgressHUD.h"
 #import "MyEUtil.h"
 #import "MyEUniversal.h"
-#import "NetManager.h"
 #import "MyEHouseData.h"
 #import "MyEDevice.h"
 #import "MyEInstructions.h"

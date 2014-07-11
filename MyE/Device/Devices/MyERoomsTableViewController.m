@@ -117,24 +117,34 @@
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        _selectedIndex = indexPath;
-        MyERoom *room = _datas[indexPath.row];
-        [self editRoomWithAction:@"deteleLocation" andRoomId:room.roomId andRoomName:room.roomName andLoaderName:@"delete"];
-    }
-}
--(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     MyERoom *room = _datas[indexPath.row];
     if (room.roomId == 0) {
-        return NO;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"This room can not delete!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
     }
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     UILabel *countLabel = (UILabel *)[cell.contentView viewWithTag:102];
     if (countLabel.text.integerValue > 0) {
-        return NO;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"This room has devices,you can not delete it!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
     }
-    return YES;
+    _selectedIndex = indexPath;
+    [self editRoomWithAction:@"deteleLocation" andRoomId:room.roomId andRoomName:room.roomName andLoaderName:@"delete"];
 }
+//-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+//    MyERoom *room = _datas[indexPath.row];
+//    if (room.roomId == 0) {
+//        return NO;
+//    }
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    UILabel *countLabel = (UILabel *)[cell.contentView viewWithTag:102];
+//    if (countLabel.text.integerValue > 0) {
+//        return NO;
+//    }
+//    return YES;
+//}
 #pragma mark - URL Delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     [HUD hide:YES];

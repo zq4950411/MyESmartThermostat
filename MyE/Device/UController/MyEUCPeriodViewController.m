@@ -22,6 +22,7 @@
 {
     [super viewDidLoad];
     _newPeriod = [self.period copy];
+    NSLog(@"new period is %@",_newPeriod);
     //更新UI
     NSString *imgName = IS_IOS6?@"detailBtn-ios6":@"detailBtn";
     [self.startTimeBtn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
@@ -55,7 +56,7 @@
     [_picker showInView:self.view];
 }
 - (IBAction)saveEdit:(UIBarButtonItem *)sender {
-#warning 这里需要一个时段重合判断
+//#warning 这里需要一个时段重合判断
     if (self.isAdd) {
         [self.schedule.periods addObject:_newPeriod];
     }else{

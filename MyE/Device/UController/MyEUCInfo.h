@@ -34,6 +34,7 @@
 -(MyEUCSchedule *)initWithDictionary:(NSDictionary *)dic;
 -(NSString *)getWeeks;
 -(NSString *)getChannels;
+-(NSArray *)getChannelArray;
 -(NSString *)jsonSchedule;
 @end
 
@@ -41,6 +42,7 @@
 @property (nonatomic, assign) NSInteger stid;
 @property (nonatomic, assign) NSInteger edid;
 -(MyEUCPeriod *)initWithDictionary:(NSDictionary *)dic;
+-(NSDictionary *)jsonUCPeriod;
 @end
 
 @interface MyEUCSequential : NSObject
@@ -60,4 +62,5 @@
 @property (nonatomic, assign) NSInteger duration;
 @property (nonatomic, assign) NSInteger orderId;
 -(MyEUCChannelInfo *)initWithDictionary:(NSDictionary *)dic;
+-(NSDictionary *)jsonUCChannel;
 @end

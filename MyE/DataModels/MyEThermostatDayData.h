@@ -11,8 +11,7 @@
 
 @interface MyEThermostatDayData : NSObject <NSCopying> 
 @property (nonatomic) NSInteger dayId;
-//title仅用于SpecialDays, Weekly情况, 就用默认的Mon,Tue, Wed.....
-@property (retain, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *name; //name仅用于SpecialDays, Weekly情况, 就用默认的Mon,Tue, Wed.....
 @property (retain, nonatomic) NSMutableArray *periods;
 
 
@@ -20,6 +19,6 @@
 - (MyEThermostatDayData *)initWithJSONString:(NSString *)jsonString;
 
 - (NSDictionary *)JSONDictionary;
-
+-(NSString*)jsonSelf;
 -(void)updatePeriodWithAnother:(MyEThermostatDayData *)another;
 @end

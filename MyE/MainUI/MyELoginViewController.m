@@ -16,7 +16,7 @@
 #import "MyEUtil.h"
 #import "SBJson.h"
 
-#import "ServerViewController.h"
+//#import "ServerViewController.h"
 #import "SWRevealViewController.h"
 
 @implementation MyELoginViewController
@@ -27,11 +27,11 @@
 
 @synthesize accountData = _accountData;
 
--(IBAction) setIp:(UIButton *) sender
-{
-    ServerViewController *sc = [[ServerViewController alloc] init];
-    [self presentViewController:sc animated:YES completion:nil];
-}
+//-(IBAction) setIp:(UIButton *) sender
+//{
+//    ServerViewController *sc = [[ServerViewController alloc] init];
+//    [self presentViewController:sc animated:YES completion:nil];
+//}
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -315,7 +315,6 @@
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             self.accountData = anAccountData;
             MainDelegate.accountData = self.accountData;
-            
             if (anAccountData.houseList.count < 1 ){
                 [prefs setObject:self.usernameInput.text forKey:@"user"];
                 [prefs setObject:self.passwordInput.text forKey:@"pass"];//这里记录用户名和密码，以便在注册房子的时候使用到

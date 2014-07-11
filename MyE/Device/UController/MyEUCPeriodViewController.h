@@ -12,7 +12,7 @@
 @interface MyEUCPeriodViewController : UIViewController<MYEPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *startTimeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *endTimeBtn;
-@property (weak, nonatomic) MyEUCPeriod *period;
+@property (strong, nonatomic) MyEUCPeriod *period;
 @property (weak, nonatomic) MyEUCSchedule *schedule;
 @property (assign, nonatomic) BOOL isAdd;
 @end

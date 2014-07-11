@@ -19,6 +19,10 @@
 @implementation MyEUCAutoViewController
 
 #pragma mark - life circle methods
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self.tableView reloadData];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -116,15 +120,18 @@
     MyEUCScheduleViewController *vc = segue.destinationViewController;
     if ([segue.identifier isEqualToString:@"add"]) {
         MyEUCSchedule *schedule = [[MyEUCSchedule alloc] init];
+        NSLog(@"%@",schedule);
         vc.schedule = schedule;
         vc.isAdd = YES;
         vc.ucAuto = self.ucAuto;
+        vc.device = self.device;
     }
     if ([segue.identifier isEqualToString:@"edit"]) {
         MyEUCSchedule *schedule = self.ucAuto.lists[[self.tableView indexPathForCell:sender].row];
         vc.schedule = schedule;
         vc.isAdd = NO;
         vc.ucAuto = self.ucAuto;
+        vc.device = self.device;
     }
 }
 

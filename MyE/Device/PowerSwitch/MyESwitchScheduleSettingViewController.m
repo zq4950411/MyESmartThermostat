@@ -48,6 +48,7 @@
 //    self.weekSeg.mydelegate = self;
 //    
     _scheduleNew = [self.schedule copy];
+    _scheduleNew.runFlag = 1;
 //    [self refreshSegment];
     self.weeks.selectedButtons = [_scheduleNew.weeks mutableCopy];
     self.lights.selectedButtons = [_scheduleNew.channels mutableCopy];
@@ -285,6 +286,7 @@
     [HUD hide:YES];
     [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
+#pragma mark - UIAlertView Delegate methods
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 900 && buttonIndex == 1) {
         //这里也要进行手动控制面板的刷新
@@ -292,7 +294,6 @@
         MyESwitchManualControlViewController *vc = nav.childViewControllers[0];
         vc.needRefresh = YES;
         [self uploadInfoToServer];
-    }else
-        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 @end

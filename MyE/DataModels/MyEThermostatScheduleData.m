@@ -36,27 +36,46 @@
 - (MyEThermostatScheduleData *)initWithDictionary:(NSDictionary *)dictionary
 {
     _dayItems = [[NSMutableArray alloc] init];
-    self.userId = [dictionary objectForKey:@"userId"];
+    if (dictionary[@"userId"]) {
+        self.userId = [dictionary objectForKey:@"userId"];
+    }
     self.houseId = [dictionary objectForKey:@"houseId"];
     self.locWeb = [dictionary objectForKey:@"locWeb"];
-    self.currentTime = [dictionary objectForKey:@"currentTime"];
-    NSArray *dayItemsInDict = [dictionary objectForKey:@"dayItems"];
-    NSMutableArray *dayItems = [NSMutableArray array];
-    
-    // 注意这里dayId和星期几的对应关系是(按照在dayItems里面传来的顺序排列):6-Sun, 0-Mon, 1-Tue, 2-Wed, 3-Thu, 4-Fri, 5-Sat
-    for (NSDictionary *dayItem in dayItemsInDict) {
-        [dayItems addObject:[[MyEThermostatDayData alloc] initWithDictionary:dayItem]];
+    if (dictionary[@"currentTime"]) {
+        self.currentTime = [dictionary objectForKey:@"currentTime"];
     }
-    self.dayItems = dayItems;
-    
-    NSArray *modesInDict = [dictionary objectForKey:@"modes"];
-    NSMutableArray *metaModeArray = [NSMutableArray array];
-    for (int i = 0; i < [modesInDict count]; i++) {
-        [metaModeArray addObject:[[MyEScheduleModeData alloc] initWithDictionary:[modesInDict objectAtIndex:i]]];
+    if (dictionary[@"dayItems"]) {
+        NSArray *dayItemsInDict = [dictionary objectForKey:@"dayItems"];
+        NSMutableArray *dayItems = [NSMutableArray array];
+        
+        // 注意这里dayId和星期几的对应关系是(按照在dayItems里面传来的顺序排列):6-Sun, 0-Mon, 1-Tue, 2-Wed, 3-Thu, 4-Fri, 5-Sat
+        for (NSDictionary *dayItem in dayItemsInDict) {
+            [dayItems addObject:[[MyEThermostatDayData alloc] initWithDictionary:dayItem]];
+        }
+        self.dayItems = dayItems;
     }
-    
-    self.metaModeArray = metaModeArray;
-    
+    if (dictionary[@"specialId"]) {
+        self.specialId = [dictionary[@"specialId"] intValue] < 1?-1:[dictionary[@"specialId"] intValue];
+//        if ([dictionary[@"specialId"] intValue] < 1) {
+//            MyEThermostatDayData *day = self.dayItems[0];
+//            self.specialId = day.dayId;
+//        }else
+//            self.specialId = [dictionary[@"specialId"] intValue];
+    }
+    if (dictionary[@"modes"]) {
+        NSArray *modesInDict = [dictionary objectForKey:@"modes"];
+        NSMutableArray *metaModeArray = [NSMutableArray array];
+        for (int i = 0; i < [modesInDict count]; i++) {
+            [metaModeArray addObject:[[MyEScheduleModeData alloc] initWithDictionary:[modesInDict objectAtIndex:i]]];
+        }
+        self.metaModeArray = metaModeArray;
+    }
+    if (dictionary[@"specialDaysList"]) {
+        self.specailDayList = [NSMutableArray array];
+        for (NSDictionary *d in dictionary[@"specialDaysList"]) {
+            [self.specailDayList addObject:[[MyESpecialDayDetail alloc] initWithDictionary:d]];
+        }
+    }
     return self;
 }
 
@@ -102,16 +121,25 @@
 
 -(id)copyWithZone:(NSZone *)zone {
     return [[MyEThermostatScheduleData alloc] initWithDictionary:[self JSONDictionary]];
+//    MyEThermostatScheduleData *copy = [[[self class] allocWithZone:zone] init];
+//    copy.houseId = self.houseId;
+//    copy.locWeb = self.locWeb;
+//    copy.specialId = self.specialId;
+//    copy.dayItems = [self.dayItems copy];
+//    copy.specailDayList = [self.specailDayList copy];
+//    copy.metaModeArray = [self.metaModeArray copy];
+//    return copy;
 }
 -(NSString *)description
 {
-    NSMutableString *desc = [NSMutableString stringWithFormat:@"userId = (%@), houseId = %@, locWeb = %@, currentTime = %@,  \ndayItems:\n", _userId, _houseId, _locWeb, _currentTime];
-    for (MyEThermostatDayData *day in self.dayItems)
-        [desc appendString:[NSString stringWithFormat:@"\n{%@}",[day description]]];
-    [desc appendString:@"\nmodes:\n"];
-    for (MyEScheduleModeData *mode in self.metaModeArray)
-        [desc appendString:[mode description]];
-    return desc;
+    return [NSString stringWithFormat:@"houseId:%@ \n locWeb:%@ \n specialId:%i \n dayItems:%@ \n specialDayList:%@ \n modes:%@",self.houseId,self.locWeb,self.specialId,self.dayItems,self.specailDayList,self.metaModeArray];
+//    NSMutableString *desc = [NSMutableString stringWithFormat:@"userId = (%@), houseId = %@, locWeb = %@, currentTime = %@,  \ndayItems:\n", _userId, _houseId, _locWeb, _currentTime];
+//    for (MyEThermostatDayData *day in self.dayItems)
+//        [desc appendString:[NSString stringWithFormat:@"\n{%@}",[day description]]];
+//    [desc appendString:@"\nmodes:\n"];
+//    for (MyEScheduleModeData *mode in self.metaModeArray)
+//        [desc appendString:[mode description]];
+//    return desc;
 }
 
 
@@ -138,6 +166,32 @@
     }
     
     return  modeArray;
+}
+-(NSMutableArray *)modeIdArrayForSpecialDayId:(NSUInteger)dayId{
+    NSMutableArray *modeArray = [NSMutableArray array];
+    for (MyEThermostatDayData *dayItem in self.dayItems) {
+        if (dayItem.dayId == dayId) {
+            int count = [dayItem.periods count];
+            for (int i = 0; i < count; i++) {
+                MyEThermostatPeriodData *period = [dayItem.periods objectAtIndex:i];
+                
+                for (int j = period.stid; j < period.etid; j++) {
+                    
+                    [modeArray addObject:[NSNumber numberWithInt:period.modeId]];
+                }
+            }
+        }
+    }
+//    NSLog(@"mode array is %@",modeArray);
+    return modeArray;
+}
+-(MyEThermostatDayData *)getDayDataByDayId:(NSInteger)dayId{
+    for (MyEThermostatDayData *d in self.dayItems) {
+        if (d.dayId == dayId) {
+            return d;
+        }
+    }
+    return nil;
 }
 -(MyEScheduleModeData *)getModeDataByModeId:(NSInteger)modeId {
     for (NSInteger i = 0; i < [self.metaModeArray count]; i++) {
@@ -167,7 +221,23 @@
     }
     return periods;
 }
-
+- (NSMutableArray *) periodsForSpecialDayId:(NSUInteger)dayId {
+    NSMutableArray *periods = [NSMutableArray array];
+    MyEThermostatDayData *dayItem = [self getDayDataByDayId:dayId];
+    for (MyEThermostatPeriodData *weeklyPeriod in dayItem.periods) {
+        MyENext24HrsPeriodData *todayPeriod = [[MyENext24HrsPeriodData alloc] init];
+        todayPeriod.stid = weeklyPeriod.stid;
+        todayPeriod.etid = weeklyPeriod.etid;
+        MyEScheduleModeData *mode = [self getModeDataByModeId:weeklyPeriod.modeId];
+        if(mode) {
+            todayPeriod.color = mode.color;
+            todayPeriod.heating = mode.heating;
+            todayPeriod.cooling = mode.cooling;
+        }
+        [periods addObject:todayPeriod];
+    }
+    return periods;
+}
 // 根据metaModeArray取得每个mode到颜色的映射词典。创建这个词典的目的是只把modeId及其对应的UIColor对象传递到MyEDoughnutView对象，而不直接把MyEScheduleModeData对象传入，从而保持model和view的尽量分离
 - (NSMutableDictionary *)modeIdColorDictionary
 {
@@ -207,4 +277,42 @@
     }
     return arr;
 }
+-(NSMutableArray *)getDayNames{
+    NSMutableArray *array = [NSMutableArray array];
+    for (MyESpecialDayDetail *d in self.specailDayList) {
+        [array addObject:d.name];
+    }
+    return array;
+}
+-(NSInteger)getDayIdByDayName:(NSString *)name{
+    for (MyESpecialDayDetail *d in self.specailDayList) {
+        if ([d.name isEqualToString:name]) {
+            return d.specialId;
+        }
+    }
+    return 0;
+}
+-(NSString *)getDayNameByDayId:(NSInteger)dayId{
+    for (MyESpecialDayDetail *d in self.specailDayList) {
+        if (d.specialId == dayId) {
+            return d.name;
+        }
+    }
+    return nil;
+}
 @end
+
+@implementation MyESpecialDayDetail
+
+-(MyESpecialDayDetail *)initWithDictionary:(NSDictionary *)dic{
+    if (self = [super init]) {
+        self.specialId = [dic[@"specialId"] intValue];
+        self.name = dic[@"name"];
+    }
+    return self;
+}
+-(NSString *)description{
+    return [NSString stringWithFormat:@"id:%i  name:%@",self.specialId,self.name];
+}
+@end
+

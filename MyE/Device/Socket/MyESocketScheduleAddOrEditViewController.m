@@ -27,6 +27,7 @@
     [super viewDidLoad];
     self.weekBtns.delegate = self;
     _newSchedule = [self.schedule copy]; //复制一个，用于修改内部数据，这样的话不会修改原来的数据
+    _newSchedule.runFlag = 1; //默认不管编辑还是新增都是开启该进程
     [self refreshUI];
 //    _startTimeArray = [NSMutableArray array];
 //    _endTimeArray = [NSMutableArray array];
@@ -125,8 +126,8 @@
 #pragma mark - URL delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"receive string is %@",string);
-    [HUD hide:YES];
     if ([name isEqualToString:@"editSchedule"]) {
+        [HUD hide:YES];
         if ([string isEqualToString:@"-999"]) {
             [SVProgressHUD showErrorWithStatus:@"No Connection"];
         }else if (string.intValue == -506){
@@ -156,6 +157,7 @@
     }
     if ([name isEqualToString:@"check"]) {
         if ([string isEqualToString:@"fail"]) {
+            [HUD hide:YES];
             [SVProgressHUD showErrorWithStatus:@"Error!"];
         }else{
             NSDictionary *dic = [string JSONValue];
@@ -170,7 +172,7 @@
                         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                     }else
                         [HUD show:YES];
-                    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&scheduleId=%i&onTime=%@&offTime=%@&weeks=%@&runFlag=%i&action=%i",GetRequst(URL_FOR_SOCKET_SAVE_PLUG_SCHEDULE),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId,_newSchedule.scheduleId,_newSchedule.onTime,_newSchedule.offTime,[_newSchedule.weeks componentsJoinedByString:@","],_newSchedule.runFlag,self.isAdd?1:2] andName:@"editSchedule"];
+                    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&scheduleId=%i&onTime=%@&offTime=%@&weeks=%@&runFlag=1&action=%i",GetRequst(URL_FOR_SOCKET_SAVE_PLUG_SCHEDULE),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId,_newSchedule.scheduleId,_newSchedule.onTime,_newSchedule.offTime,[_newSchedule.weeks componentsJoinedByString:@","],self.isAdd?1:2] andName:@"editSchedule"];
                 };
                 [alert show];
             }else{
@@ -178,7 +180,7 @@
                     HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 }else
                     [HUD show:YES];
-                [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&scheduleId=%i&onTime=%@&offTime=%@&weeks=%@&runFlag=%i&action=%i",GetRequst(URL_FOR_SOCKET_SAVE_PLUG_SCHEDULE),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId,_newSchedule.scheduleId,_newSchedule.onTime,_newSchedule.offTime,[_newSchedule.weeks componentsJoinedByString:@","],_newSchedule.runFlag,self.isAdd?1:2] andName:@"editSchedule"];
+                [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&scheduleId=%i&onTime=%@&offTime=%@&weeks=%@&runFlag=1&action=%i",GetRequst(URL_FOR_SOCKET_SAVE_PLUG_SCHEDULE),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId,_newSchedule.scheduleId,_newSchedule.onTime,_newSchedule.offTime,[_newSchedule.weeks componentsJoinedByString:@","],self.isAdd?1:2] andName:@"editSchedule"];
             }
         }
     }

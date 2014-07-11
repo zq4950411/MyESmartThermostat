@@ -8,7 +8,9 @@
 
 #import "MyEUCConditionViewController.h"
 
-@interface MyEUCConditionViewController ()
+@interface MyEUCConditionViewController (){
+    MBProgressHUD *HUD;
+}
 
 @end
 
@@ -44,6 +46,10 @@
 
 #pragma mark - private methods
 -(void)upOrDownloadInfoWithURL:(NSString *)url andName:(NSString *)name{
+    if (HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }else
+        [HUD show:YES];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:url postData:nil delegate:self loaderName:name userDataDictionary:nil];
     NSLog(@"loader name is %@",loader.name);
 }
@@ -169,13 +175,15 @@
 #pragma mark - MYEDataloader Delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"receive string is %@",string);
+    [HUD hide:YES];
     if ([name isEqualToString:@"downloadInfo"]) {
         if (![string isEqualToString:@"fail"]) {
             MyEUCSequential *seq = [[MyEUCSequential alloc] initWithJsonString:string];
             self.sequential = seq;
             NSLog(@"%@",self.sequential);
             [self.tableView reloadData];
-        }
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
     }
     if ([name isEqualToString:@"save"]) {
         

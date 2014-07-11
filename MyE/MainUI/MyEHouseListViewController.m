@@ -18,7 +18,7 @@
 #import "SBJson.h"
 
 #import "ASDepthModalViewController.h"
-#import "HouseBlankView.h"
+//#import "HouseBlankView.h"
 #import "SWRevealViewController.h"
 #import "MyEMainMenuViewController.h"
 #import "MyEMediatorRegisterViewController.h"
@@ -52,27 +52,27 @@
     [self.registerButton setStyleType:ACPButtonOK];
 //    [self.registerButton addTarget:self action:@selector(registeGateway:) forControlEvents:UIControlEventTouchUpInside];
     //* 这个没用处了*/
-    if (MainDelegate.accountData.houseList.count == 0)
-    {
-        HouseBlankView *houseBlankView = [[[NSBundle mainBundle] loadNibNamed:@"HouseBlankView" owner:self options:nil] objectAtIndex:0];
-        [ASDepthModalViewController presentView:houseBlankView backgroundColor:nil options:ASDepthModalOptionBlur completionHandler:nil];
-    }
-    else
-    {
-        BOOL b = NO;
-        for (MyEHouseData *house in MainDelegate.accountData.houseList)
-        {
-            b = [house isValid];
-            if (b)
-            {
-                break;
-            }
-        }
-        if (!b)
-        {
-            [self performSelector:@selector(registerGateway:) withObject:nil afterDelay:0.5f];
-        }
-    }
+//    if (MainDelegate.accountData.houseList.count == 0)
+//    {
+//        HouseBlankView *houseBlankView = [[[NSBundle mainBundle] loadNibNamed:@"HouseBlankView" owner:self options:nil] objectAtIndex:0];
+//        [ASDepthModalViewController presentView:houseBlankView backgroundColor:nil options:ASDepthModalOptionBlur completionHandler:nil];
+//    }
+//    else
+//    {
+//        BOOL b = NO;
+//        for (MyEHouseData *house in MainDelegate.accountData.houseList)
+//        {
+//            b = [house isValid];
+//            if (b)
+//            {
+//                break;
+//            }
+//        }
+//        if (!b)
+//        {
+//            [self performSelector:@selector(registerGateway:) withObject:nil afterDelay:0.5f];
+//        }
+//    }
     //初始化下拉视图
     if (!_refreshHeaderView) {
         EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.tableView.frame.size.width, self.tableView.bounds.size.height)];

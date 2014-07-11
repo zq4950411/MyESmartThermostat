@@ -470,6 +470,7 @@
                                             <state key="normal" image="switch-on">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <state key="disabled" image="switch-disable"/>
                                             <state key="selected" image="switch-off"/>
                                             <connections>
                                                 <action selector="switchControl:" destination="ERS-yz-baA" eventType="touchUpInside" id="FCG-eI-sXp"/>
@@ -486,7 +487,7 @@
                                                 <action selector="timeControl:" destination="ERS-yz-baA" eventType="touchUpInside" id="VUY-xd-nvz"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mpU-2N-gO6">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mpU-2N-gO6">
                                             <rect key="frame" x="20" y="101" width="120" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -637,6 +638,7 @@
         <image name="clock-off" width="30" height="30"/>
         <image name="clock-on" width="30" height="30"/>
         <image name="date" width="30" height="30"/>
+        <image name="switch-disable" width="64" height="64"/>
         <image name="switch-off" width="64" height="64"/>
         <image name="switch-on" width="64" height="64"/>
         <image name="tab-socketAutoContro" width="30" height="30"/>
