@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 @class MyEScheduleModeData;
-
+@class MyEThermostatDayData;
 @interface MyEThermostatScheduleData : NSObject <NSCopying> 
 @property (copy, nonatomic) NSString *userId;
 @property (copy, nonatomic) NSString *houseId;
@@ -19,6 +19,9 @@
 @property (weak, nonatomic) NSArray* dayNames;
 //模式数组。在Today模块，这个数组就对应MyEScheduleTodayData的metaModeArray，其元素是MyEScheduleModeData类对象
 @property (retain, nonatomic) NSMutableArray *metaModeArray;
+
+@property (nonatomic, assign) NSInteger specialId;
+@property (nonatomic, strong) NSMutableArray *specailDayList;
 
 - (MyEThermostatScheduleData *)initWithDictionary:(NSDictionary *)dictionary;
 - (MyEThermostatScheduleData *)initWithJSONString:(NSString *)jsonString;
@@ -34,9 +37,12 @@
 // 下面函数作用是取得每个半小时对应的mode的modeId所构成的数组，数组元素是48个
 - (NSMutableArray *) modeIdArrayForDayId:(NSUInteger)dayId;
 
+- (NSMutableArray *) modeIdArrayForSpecialDayId:(NSUInteger)dayId;
+-(MyEThermostatDayData *)getDayDataByDayId:(NSInteger)dayId;
+
 // 下面函数作用是取得给定dayId那一天的由MyETodayPeriodData对象构成的时段数组
 - (NSMutableArray *) periodsForDayId:(NSUInteger)dayId;
-
+- (NSMutableArray *) periodsForSpecialDayId:(NSUInteger)dayId;
 // 给定一个modeId，返回MyEScheduleModeData对象。
 -(MyEScheduleModeData *)getModeDataByModeId:(NSInteger)modeId;
 // 根据metaModeArray取得每个mode到颜色的映射词典。创建这个词典的目的是只把modeId及其对应的UIColor对象传递到MyEDoughnutView对象，而不直接把MyEScheduleModeData对象传入，从而保持model和view的尽量分离
@@ -46,5 +52,16 @@
 - (BOOL) isModeNameInUse:(NSString *)name exceptCurrentModeId:(NSInteger)modeId;
 - (BOOL) isModeColorInUse:(UIColor *)color exceptCurrentModeId:(NSInteger)modeId;
 
+//专门为specialDay指定的方法
+-(NSMutableArray *)getDayNames;
+-(NSInteger)getDayIdByDayName:(NSString *)name;
+-(NSString *)getDayNameByDayId:(NSInteger)dayId;
 
+@end
+
+
+@interface MyESpecialDayDetail : NSObject
+@property (nonatomic, assign) NSInteger specialId;
+@property (nonatomic, copy) NSString *name;
+-(MyESpecialDayDetail *)initWithDictionary:(NSDictionary *)dic;
 @end

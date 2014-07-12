@@ -87,7 +87,7 @@
 - (unsigned)countOfValidHouseList {
     NSInteger count =0;
     for (MyEHouseData *h  in self.houseList) {
-        if ( [h isValid] ) {
+        if ( [h isOnline] ) {
             count ++;
         }
     }

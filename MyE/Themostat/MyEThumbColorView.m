@@ -103,7 +103,7 @@ float distanceBetweenPoints(CGPoint a, CGPoint b);
      // 创建一个亮度更低和一个亮度更高的颜色，作为颜色梯度的首位和中间
      // 根据上述颜色，生成一个颜色相同但亮度更低的
      MyEHSVColorStruct hsv;
-     [_color getHue:&hsv.hue saturation:&hsv.sat brightness:&hsv.val alpha:&hsv.alpha];
+     [_color getHue:(CGFloat *)&hsv.hue saturation:(CGFloat *)&hsv.sat brightness:(CGFloat *)&hsv.val alpha:(CGFloat *)&hsv.alpha];
      UIColor *startEndColor = [UIColor colorWithHue:hsv.hue saturation:hsv.sat brightness:hsv.val * 0.8 alpha:hsv.alpha];
      UIColor *middleColor = [UIColor colorWithHue:hsv.hue saturation:hsv.sat brightness:hsv.val * 1.2 > 1.0 ? 1.0: hsv.val * 1.2 alpha:hsv.alpha];
      

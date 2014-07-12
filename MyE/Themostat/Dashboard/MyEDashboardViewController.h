@@ -25,9 +25,7 @@
 // 定义转多少度算是一步
 #define STEP_DEGREE 10
 
-@interface MyEDashboardViewController : UIViewController
-<MyEDataLoaderDelegate,MBProgressHUDDelegate,
-CDCircleDelegate, CDCircleDataSource> {
+@interface MyEDashboardViewController : UIViewController<MyEDataLoaderDelegate,MBProgressHUDDelegate,CDCircleDelegate, CDCircleDataSource> {
     CALayer *_maskLayer;
     NSTimer *loadTimer;  // Timer used for uploading delay.
 
@@ -63,16 +61,8 @@ CDCircleDelegate, CDCircleDataSource> {
 @property (weak, nonatomic) IBOutlet UIView *fanControlToolbar;
 @property (weak, nonatomic) IBOutlet UIView *fanControlToolbarOverlayView;
 
-
 @property (weak, nonatomic) IBOutlet UILabel *holdRunLabel;
-
-
-
 @property (weak, nonatomic) IBOutlet UILabel *indoorTemperatureLabel;
-
-
-
-
 
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *systemControlToolbarViewTapRecognizer;
 @property (weak, nonatomic) IBOutlet UIButton *systemControlHeatingButton;
@@ -85,7 +75,6 @@ CDCircleDelegate, CDCircleDataSource> {
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *fanControlToolbarViewTapRecognizer;
 @property (weak, nonatomic) IBOutlet UIButton *fanControlAutoButton;
 @property (weak, nonatomic) IBOutlet UIButton *fanControlOnButton;
-
 
 
 // 显示提示信息

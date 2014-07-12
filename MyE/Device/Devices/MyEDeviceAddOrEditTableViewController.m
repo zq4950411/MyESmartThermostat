@@ -38,9 +38,20 @@
         _refreshHeaderView = view;
     }
     [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
+    [self defineTapGestureRecognizer];
 }
 
 #pragma mark - private methods
+-(void)defineTapGestureRecognizer{
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    tapGesture.cancelsTouchesInView = NO;
+    [self.tableView addGestureRecognizer:tapGesture];
+}
+
+-(void)hideKeyboard{
+    [self.nameTextField endEditing:YES];
+}
+
 -(void)downloadInfoFromServer{
     if (self.isAddDevice) {
         [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&action=addDevice",GetRequst(URL_FOR_FIND_DEVICE),MainDelegate.houseData.houseId] andName:@"downloadInfo"];
@@ -95,7 +106,7 @@
                     cell.detailTextLabel.text = _types[0];
                     break;
                 default:
-                    cell.detailTextLabel.text = _terminals[0];
+                    cell.detailTextLabel.text = _terminals.count==0?@"":_terminals[0];
                     break;
             }
         }else{
@@ -172,7 +183,8 @@
                 break;
             default:
             {
-                if ([str isEqualToString:@""]) {  //这里也是做了防护措施
+                if ([str isEqualToString:@""] || str == nil) {  //这里也是做了防护措施
+                    [SVProgressHUD showErrorWithStatus:@"No SmartRemote"];
                     return;
                 }
                 MyETerminal *terminal = [self.deviceEdit getTerminalByTName:str];
@@ -234,6 +246,7 @@
                 }
             }
             if (![_terminals count]) {  //这里是个保护措施，当终端为零时点击之后没反应
+                [SVProgressHUD showErrorWithStatus:@"No SmartRemote"];
                 return;
             }
             _pickerView = [[MYEPickerView alloc] initWithView:self.view andTag:3 title:@"terminal select" dataSource:_terminals andSelectRow:[_terminals containsObject:str]?[_terminals indexOfObject:str]:0];
@@ -242,8 +255,10 @@
             _pickerView = [[MYEPickerView alloc] initWithView:self.view andTag:4 title:@"maxElect select" dataSource:_elcts andSelectRow:0];
             break;
     }
-    _pickerView.delegate = self;
-    [_pickerView showInView:self.view];
+    if (indexPath.row != 0) {
+        _pickerView.delegate = self;
+        [_pickerView showInView:self.view];
+    }
 }
 #pragma mark - URL Delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{

@@ -15,6 +15,7 @@
     MBProgressHUD *HUD;
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _isRefreshing;
+    NSTimer *_timer;
 }
 
 @end
@@ -84,7 +85,7 @@
 #pragma mark - private methods
 -(void)queryDelete{
     _times++;
-    [MyEDataLoader startLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SETTINGS_DELETE_THERMOSTAT_QUERY_STATUS),MainDelegate.houseData.houseId,_deleteTerminal.tid] postData:nil delegate:self loaderName:@"delete" userDataDictionary:nil];
+    [MyEDataLoader startLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SETTINGS_DELETE_THERMOSTAT_QUERY_STATUS),MainDelegate.houseData.houseId,_deleteTerminal.tid] postData:nil delegate:self loaderName:@"query" userDataDictionary:nil];
 }
 #pragma mark - Navigation
 
@@ -112,13 +113,26 @@
             [SVProgressHUD showErrorWithStatus:@"fail"];
         }else if (string.intValue == 2){
             if (_times < 10) {
-                [self queryDelete];
+//                [self queryDelete];
+                _timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(queryDelete) userInfo:nil repeats:NO];
             }else
                 [SVProgressHUD showErrorWithStatus:@"fail"];
         }else if(string.intValue == 0){
             [self.info.terminals removeObjectAtIndex:_selectIndex.row];
             [self.tableView deleteRowsAtIndexPaths:@[_selectIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
+    }
+    if ([name isEqualToString:@"query"]) {
+        if (string.intValue == 0) {
+            [self.info.terminals removeObjectAtIndex:_selectIndex.row];
+            [self.tableView deleteRowsAtIndexPaths:@[_selectIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }else if (string.intValue == 1){
+            if (_times < 10) {
+                _timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(queryDelete) userInfo:nil repeats:NO];
+            }else
+                [SVProgressHUD showErrorWithStatus:@"fail"];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
     }
     if ([name isEqualToString:@"downloadInfo"]) {
         [HUD hide:YES];

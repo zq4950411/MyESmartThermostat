@@ -176,7 +176,9 @@
         [graphTitle addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, lineOne.length)];
         [graphTitle addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(lineOne.length + 1, lineTwo.length)];
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        paragraphStyle.alignment = CPTTextAlignmentCenter;
+        paragraphStyle.alignment = NSTextAlignmentCenter;
+
+//        paragraphStyle.alignment = CPTTextAlignmentCenter;
         [graphTitle addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, graphTitle.length)];
         UIFont *titleFont = [UIFont fontWithName:@"Helvetica-Bold" size:16.0];
         [graphTitle addAttribute:NSFontAttributeName value:titleFont range:NSMakeRange(0, lineOne.length)];

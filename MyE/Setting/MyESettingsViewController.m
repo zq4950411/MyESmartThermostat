@@ -15,7 +15,6 @@
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _isRefreshing;
     BOOL _hasGateWay;  //YES表示网关绑定，NO表示网关解绑
-    NSInteger _nofiStatus;
     MBProgressHUD *HUD;
 }
 
@@ -57,9 +56,6 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark - IBAction methods
-- (IBAction)changeNoti:(UISwitch *)sender {
-    [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?deviceType=0&deviceAlias=%@&notification=%i",GetRequst(MORE_SAVE_NOTIFICATION),MainDelegate.alias, sender.isOn?1:0] andName:@"set"];
-}
 - (IBAction)deleteOrBindM:(ACPButton *)sender {
     if ([sender.currentTitle isEqualToString:@"Remove the Gateway"]) {
         DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"Do you want to delete this Gateway?" leftButtonTitle:@"Cancel" rightButtonTitle:@"YES"];
@@ -80,8 +76,6 @@
 
 #pragma mark - private methods
 -(void)refreshUI{
-    self.userNameLbl.text = MainDelegate.accountData.userName;
-    [self.notiSwitch setOn:YES animated:YES];
     self.terminalCountLbl.text = [NSString stringWithFormat:@"%i",self.info.terminals.count];
     self.midLbl.text = self.info.mid;
     self.houseLbl.text = self.info.houseName;
@@ -92,7 +86,6 @@
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }else
         [HUD show:YES];
-    [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?deviceType=0&deviceAlias=%@",GetRequst(MORE_NOTIFICATION),MainDelegate.alias] andName:@"noti"];
     [self upOrDownloadInfoWithURL:[NSString stringWithFormat:@"%@?houseId=%i",GetRequst(SETTING_FIND_GATEWAY),MainDelegate.houseData.houseId] andName:@"downloadInfo"];
 }
 -(void)upOrDownloadInfoWithURL:(NSString *)url andName:(NSString *)name{
@@ -102,7 +95,7 @@
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 3) {
+    if (section == 1) {
         if (_hasGateWay) {
             [self.deleteMBtn setTitle:@"Remove the Gateway" forState:UIControlStateNormal];
             return 4;
@@ -111,7 +104,7 @@
             return 1;
         }
     };
-    if (section == 4) {
+    if (section == 2) {
         return 2;
     }
     return 1;
@@ -119,14 +112,14 @@
 #pragma mark - UITableView delegate methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 3 && indexPath.row == 3) {
+    if (indexPath.section == 1 && indexPath.row == 3) {
         MyETimeZoneViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"timeZone"];
         vc.timeZone = self.info.timeZone;
         vc.info = self.info;
         vc.jumpFromSettingPanel = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    if (indexPath.section == 4 && indexPath.row == 0) {
+    if (indexPath.section == 2 && indexPath.row == 0) {
         MyELaunchIntroViewController *vc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"launchinfo"];
         vc.jumpFromSettingPanel = YES;
         [self presentViewController:vc animated:YES completion:nil];
@@ -160,26 +153,6 @@
             [self.tableView reloadData];
         }else
             [SVProgressHUD showErrorWithStatus:@"fail"];
-    }
-    if ([name isEqualToString:@"noti"]) {
-        if (string.intValue == 1) {
-            _nofiStatus = 1;
-            [self.notiSwitch setOn:YES animated:YES];
-            [self.tableView reloadData];
-        }else if (string.intValue == 0){
-            _nofiStatus = 0;
-            [self.notiSwitch setOn:NO animated:YES];
-            [self.tableView reloadData];
-        }else
-            [SVProgressHUD showErrorWithStatus:@"fail"];
-    }
-    if ([name isEqualToString:@"set"]) {
-        if ([string isEqualToString:@"OK"]) {
-            _nofiStatus = 1- _nofiStatus;
-        }else{
-            [self.notiSwitch setOn:_nofiStatus animated:YES];
-            [SVProgressHUD showErrorWithStatus:@"fail"];
-        }
     }
     if ([name isEqualToString:@"deleteM"]) {
         if ([string isEqualToString:@"OK"]) {

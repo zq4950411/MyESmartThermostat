@@ -13,7 +13,8 @@
 static const CGFloat kCalculatedContentPadding = 10;
 static const CGFloat kMinimumScrollOffsetPadding = 20;
 
-static const int kStateKey;
+#warning 这里给变量赋值
+static const int kStateKey=0;
 
 #define _UIKeyboardFrameEndUserInfoKey (&UIKeyboardFrameEndUserInfoKey != NULL ? UIKeyboardFrameEndUserInfoKey : @"UIKeyboardBoundsUserInfoKey")
 
@@ -65,7 +66,7 @@ static const int kStateKey;
     
     // Shrink view's inset by the keyboard's height, and scroll to show the text field/view being edited
     [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationCurve:[[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue]];
+    [UIView setAnimationCurve:(UIViewAnimationCurve)[[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue]];
     [UIView setAnimationDuration:[[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue]];
     
     self.contentInset = [self TPKeyboardAvoiding_contentInsetForKeyboard];
@@ -95,7 +96,7 @@ static const int kStateKey;
     
     // Restore dimensions to prior size
     [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationCurve:[[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue]];
+    [UIView setAnimationCurve:(UIViewAnimationCurve)[[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue]];
     [UIView setAnimationDuration:[[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue]];
     
     if ( [self isKindOfClass:[TPKeyboardAvoidingScrollView class]] ) {

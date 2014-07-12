@@ -24,7 +24,10 @@
 #import "MyEDropDownMenu.h"
 
 #define TOOBAR_ANIMATION_DURATION 0.5f
-@interface MyESpecialDaysScheduleViewController ()
+@interface MyESpecialDaysScheduleViewController (){
+    NSMutableArray *_dayNameArray;
+    BOOL _isDelete;  //表示此时是删除
+}
 -(void)configureCircleButton;
 //- (void)_restoreToLastUnchanged;
 - (void)_createModeEditingViewIfNecessary;
@@ -32,7 +35,6 @@
 
 - (void)_createPeriodInforDoughnutViewIfNecessary;
 - (void)_togglePeriodInforDoughnutView;
-- (void)_saveAsNewDayFromDayId:(NSInteger)dayId andNewName:(NSString *)newName;
 
 // 判定是否服务器相应正常，如果正常返回YES，如果服务器相应为-999/-998，
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
@@ -44,15 +46,7 @@
 
 @implementation MyESpecialDaysScheduleViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - life circle methods
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -61,8 +55,10 @@
     _modeEditingViewShowing = NO;
     _periodInforDoughnutViewShowing = NO;
     _hasLoadFromServer = NO;
-    
-    
+    _dayNameArray = [NSMutableArray array];
+    [self configureCircleButton];
+    [self.dayBtn setBackgroundImage:[[UIImage imageNamed:@"detailBtn"]stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+    [self.dayBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
     _modePickerView = [[MyEModePickerView alloc]
                        initWithFrame:CGRectMake((self.modeToolContainer.bounds.size.width - MODE_PICKER_VIEW_WIDTH)*.5,
                                                 2,//self.view.bounds.size.height - MODE_PICKER_VIEW_HEIGHT,
@@ -75,7 +71,7 @@
     CGRect bounds = self.centerContainerView.bounds;
     
     // 设置面板背景为一个纯色
-//    UIColor *bgcolor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
+    //    UIColor *bgcolor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
     
     
     float doughnutViewX = bounds.origin.x + (bounds.size.width - WEEKLY_DOUGHNUT_VIEW_SIZE)/2;
@@ -85,7 +81,7 @@
     
     // 在下载之前，先用样例数据进行初始化
     self.dataModel = [[MyEThermostatScheduleData alloc] initWithJSONString:@"{\"currentTime\":\"4/22/2012 19:35\",\"dayItems\":[{\"dayId\":6,\"name\":\"home1\",\"periods\":[{\"etid\":10,\"modeid\":7183,\"stid\":0},{\"etid\":19,\"modeid\":7180,\"stid\":10},{\"etid\":42,\"modeid\":7181,\"stid\":19},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":0,\"name\":\"home2\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":1,\"name\":\"home3\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":2,\"name\":\"home4\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":3,\"name\":\"home5\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":16},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":4,\"name\":\"home6\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":26,\"modeid\":7180,\"stid\":12},{\"etid\":34,\"modeid\":7182,\"stid\":26},{\"etid\":42,\"modeid\":7181,\"stid\":34},{\"etid\":48,\"modeid\":7183,\"stid\":42}]},{\"dayId\":5,\"name\":\"home7\",\"periods\":[{\"etid\":12,\"modeid\":7183,\"stid\":0},{\"etid\":16,\"modeid\":7180,\"stid\":12},{\"etid\":42,\"modeid\":7181,\"stid\":16},{\"etid\":48,\"modeid\":7183,\"stid\":42}]}],\"houseId\":419,\"modes\":[{\"color\":\"0xffcc66\",\"cooling\":74,\"heating\":70,\"modeName\":\"Rise\",\"modeid\":\"7180\"},{\"color\":\"0x9999ff\",\"cooling\":74,\"heating\":70,\"modeName\":\"Home\",\"modeid\":\"7181\"},{\"color\":\"0xcccccc\",\"cooling\":80,\"heating\":64,\"modeName\":\"Work\",\"modeid\":\"7182\"},{\"color\":\"0x006699\",\"cooling\":78,\"heating\":66,\"modeName\":\"Sleep\",\"modeid\":\"7183\"}],\"userId\":\"1000100000000000317\",\"locWeb\":\"enabled\"}"];
-    self.dataModelCache = [self.dataModel copy];
+//    self.dataModelCache = [self.dataModel copy];
     
     /* 注意，在服务器传递的数据中，dayItem的dayId对应的关系是：0-Mon, 1-Tue, ..., 5-Sat, 6-Sun, 这个在本程序里面没有用到，
      * 但是服务器程序把dayItem的顺序调整成[{6-Sun}, {0-Mon}, {1-Tue}, {2-Wed}, {3-Thu}, {4-Fri}, {5-Sat}]。
@@ -103,10 +99,9 @@
     
     _scheduleChangedByUserTouch = NO;
     
-    [self configureCircleButton];
-
+    //    [self configureCircleButton];
     
-    self.currentDayId = 2;
+//    self.currentDayId = 2;
     
     [self.centerContainerView insertSubview:_doughnutView atIndex:0];
     [self setIsRemoteControl:MainDelegate.terminalData.remote];// 重新调用一次，因为有可能在外部第一次设置isRemoteControl]的时候，调用下面的setIsRemoteControl:函数，但那时候View组件还没加载生成完成，那么就可能不能正确设置subviews的可见性。
@@ -127,10 +122,7 @@
     self.parentViewController.navigationItem.rightBarButtonItem.target = self;
     self.parentViewController.navigationItem.rightBarButtonItem.action = @selector(refreshAction);
     
-    
-//    [self downloadModelFromServer];
-    
-    
+    [self downloadModelFromServer];
 }
 
 - (void)didReceiveMemoryWarning
@@ -140,15 +132,15 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 #pragma mark - Properties setter
 -(void) setIsRemoteControl:(BOOL)isRemoteControl {
     _isRemoteControl = isRemoteControl;
@@ -166,16 +158,14 @@
 // 更新 day选择
 - (void)setCurrentDayId:(NSUInteger)currentDayId {
     _currentDayId = currentDayId;
-    NSMutableArray * modeIdArray = [self.dataModel modeIdArrayForDayId:currentDayId];
+    NSMutableArray * modeIdArray = [self.dataModel modeIdArrayForSpecialDayId:currentDayId];
     [self->_doughnutView updateWithModeIdArray:modeIdArray];
-
-    MyEThermostatDayData *day = self.dataModel.dayItems[currentDayId];
-    [self.dayBtn setTitle:day.name forState:UIControlStateNormal];
+    
+    //    MyEThermostatDayData *day = self.dataModel.dayItems[currentDayId];
+    //    [self.dayBtn setTitle:day.name forState:UIControlStateNormal];
 }
 #pragma mark -
 #pragma mark URL Loading System methods
-
-
 - (void) downloadModelFromServer
 {
     if(HUD == nil) {
@@ -184,25 +174,24 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@",GetRequst(URL_FOR_WEEKLY_SCHEDULE_VIEW), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
-    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"WeeklyScheduleDownloader" userDataDictionary:nil];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SPECIAL_DAY),MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
+    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"downloader" userDataDictionary:nil];
     NSLog(@"%@",downloader.name);
 }
-- (void)uploadModelToServer {
+-(void)saveDayItemWithSpecialDay:(MyEThermostatDayData *)day{
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        HUD.delegate = self;
     } else
         [HUD show:YES];
-    NSDictionary *dict = [self.dataModel JSONDictionary];
-    NSMutableString *body = [NSMutableString stringWithFormat:@"schedule=%@", [dict JSONRepresentation]];
-    NSLog(@"WeeklyScheduleUploader body is \n%@", body);
-    [body replaceOccurrencesOfString:@"\\" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0,[body length])];
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@?userId=%@&houseId=%i&tId=%@&action=saveschedule",GetRequst(URL_FOR_WEEKLY_SCHEDULE_SAVE), MainDelegate.accountData.userId, MainDelegate.houseData.houseId, MainDelegate.terminalData.tId];
-    
-    MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"WeeklyScheduleUploader" userDataDictionary:nil];
-    NSLog(@"WeeklyScheduleUploader is %@",[loader description]);
+    [MyEDataLoader startLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&schedule=%@",GetRequst(URL_FOR_SPECIAL_DAY_SAVE),MainDelegate.houseData.houseId, MainDelegate.terminalData.tId,[day jsonSelf]] postData:nil delegate:self loaderName:@"save" userDataDictionary:nil];
+}
+
+-(void)uploadThingsToServerWithAction:(NSString *)action{  //删除为“delete”,应用为“apply”,取消为“cancel”
+    if(HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    } else
+        [HUD show:YES];
+    [MyEDataLoader startLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&specialId=%i&action=%@",GetRequst(URL_FOR_SPECIAL_DAY_APPLY),MainDelegate.houseData.houseId, MainDelegate.terminalData.tId,self.currentDayId,action] postData:nil delegate:self loaderName:action userDataDictionary:nil];
 }
 - (void)uploadToServerEditingMode:(MyEScheduleModeData *)mode {
     if(HUD == nil) {
@@ -242,6 +231,7 @@
 - (void)uploadToServerNewMode:(MyEScheduleModeData *)mode {
     if(HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        //        HUD.dimBackground = YES;//容易产生灰条
         HUD.delegate = self;
     } else
         [HUD show:YES];
@@ -255,72 +245,92 @@
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:body delegate:self loaderName:@"WeeklyScheduleNewModeUploader" userDataDictionary:nil];
     NSLog(@"WeeklyScheduleNewModeUploader is %@",[loader description]);
 }
-
+#pragma mark - URL Delegate methods
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
-    NSLog(@"Weekly schedule JSON String from server is \n%@",string);
-    if([name isEqualToString:@"WeeklyScheduleDownloader"]) {
+    [HUD hide:YES];
+    NSLog(@"String from server is \n%@",string);
+    if (string.intValue == -999) {
+        [SVProgressHUD showErrorWithStatus:@"No Connection"];
+        return;
+    }
+    if (string.intValue == -998) {
+        [SVProgressHUD showErrorWithStatus:@"Remote NO"];
+        return;
+    }
+    if([name isEqualToString:@"downloader"]) {
         // 判定是否服务器相应正常，如果服务器相应为-998，那么_processHttpRespondForString函数会返回NO，提示用户并中断操作
         // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
         if (![self _processHttpRespondForString:string])
             return;
         
         MyEThermostatScheduleData *weeklyModel = [[MyEThermostatScheduleData alloc] initWithJSONString:string];
+        
+        NSLog(@"%@",weeklyModel);
         if (weeklyModel) {
             self.dataModel = weeklyModel;
-            self.dataModelCache = [self.dataModel copy];//更新缓冲数据模型为最新的数据模型
-            
-            //如果是第一次获取数据，那么_currentDayId就重新计算为当天的星期几，并把view的初始显示设置这个星期几，否则就不计算，下载新数据后view的显示仍然是用户选择的星期几。在本类初始化时会用设备当前时间初始化这个值，但服务器时间和设备时间可能不同，所以需要用服务器时间来在第一次初始化这个值。
-            //if (!_hasLoadFromServer) {//现在每次下载新数据都重新显示今天的Week day，故注释此语句;若要记住上次的选择的week day，就取消此注释
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"MM/dd/yyyy HH:mm"];
-            
-            NSDate *aDate = [dateFormatter dateFromString:self.dataModel.currentTime];
-            
-            NSCalendar *gregorian = [NSCalendar currentCalendar];
-            NSDateComponents *weekDayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:aDate];
-            NSInteger week = [weekDayComponents weekday];//此函数取值1-sun, 2-mon, ..., 7-sat
-            self.currentDayId = week-1;//设置我们这里所用的今天的星期数，0-sun， 1-mon, ..., 6-sat
-            
-            //_hasLoadFromServer = YES;//现在每次下载新数据都重新显示今天的Week day，故注释此语句;若要记住上次的选择的week day，就取消此注释
-            //}//现在每次下载新数据都重新显示今天的Week day，故注释此语句;若要记住上次的选择的week day，就取消此注释
-            
-            NSMutableArray * modeIdArray = [self.dataModel modeIdArrayForDayId:self.currentDayId];
-            [_doughnutView updateWithModeIdArray:modeIdArray];
-            
-            [_modePickerView createOrUpdateThumbScrollViewIfNecessary ];
-            
-            _scheduleChangedByUserTouch = NO;
-            
-            //刷新远程控制的状态。
-            [self setIsRemoteControl:[weeklyModel.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame];
+            if ([self.dataModel.dayItems count]) {
+                if (_isDelete) {  //只有在delete的时候才放弃下面的
+                    [self getCurrentDayId];
+                }else{
+                    if (_currentDayId <= 0) {
+                        [self getCurrentDayId];
+                    }
+                }
+                [self.dayBtn setTitle:[self.dataModel getDayNameByDayId:_currentDayId] forState:UIControlStateNormal];
+                _dayNameArray = [self.dataModel getDayNames];
+                [self refreshUI];
+                [self checkIfCanDelete];
+//                NSMutableArray * modeIdArray = [self.dataModel modeIdArrayForSpecialDayId:self.dataModel.specialId];
+//                NSLog(@"mode id array is %@",modeIdArray);
+//                [_doughnutView updateWithModeIdArray:modeIdArray];
+//                
+//                [_modePickerView createOrUpdateThumbScrollViewIfNecessary ];
+//                
+//                _scheduleChangedByUserTouch = NO;
+                
+                //刷新远程控制的状态。
+                [self setIsRemoteControl:[weeklyModel.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame];
+            }
         } else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:@"Communication error. Please try again."
-                                                         delegate:self
+                                                         delegate:nil
                                                 cancelButtonTitle:@"Ok"
                                                 otherButtonTitles:nil];
             [alert show];
         }
         
-    } else if([name isEqualToString:@"WeeklyScheduleUploader"]) {
-        // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会返回NO，提示用户并中断操作
-        // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
-        if (![self _processHttpRespondForString:string])
-            return;
-        
+    }
+    if ([name isEqualToString:@"delete"]) {
         if ([string isEqualToString:@"OK"]) {
-            _scheduleChangedByUserTouch = NO;
-            self.dataModelCache = [self.dataModel copy];//更新缓冲数据模型为最新的数据模型
-        }  else {
-            UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
-                                                          message:string
-                                                         delegate:self
-                                                cancelButtonTitle:@"Ok"
-                                                otherButtonTitles:nil];
-            [alert show];
-        }
-        NSLog(@"WeeklyScheduleUploader result: %@", string);
-    } else if([name isEqualToString:@"WeeklyScheduleEditingModeUploader"]) {
+            _isDelete = YES;
+            [self downloadModelFromServer];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
+    }
+    if ([name isEqualToString:@"apply"]) {
+        if ([string isEqualToString:@"OK"]) {
+            [self.applyButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
+    }
+    if ([name isEqualToString:@"cancel"]) {
+        if ([string isEqualToString:@"OK"]) {
+            [self.applyButton setTitle:@"Apply Now" forState:UIControlStateNormal];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
+    }
+    if ([name isEqualToString:@"save"]) {
+        if (![string isEqualToString:@"fail"]) {
+            [self changeApplyBtnEnableWithBool:YES];
+            if (![string isEqualToString:@"OK"]) {
+                _currentDayId = string.intValue;
+            }
+            [self downloadModelFromServer];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
+    }
+    if([name isEqualToString:@"WeeklyScheduleEditingModeUploader"]) {
         // 判定是否服务器相应正常，如果服务器相应为-999/-998，那么_processHttpRespondForString函数会返回NO，提示用户并中断操作
         // 如果要中断本层函数执行，必须捕捉_processHttpRespondForString函数返回的NO值，并中断本层函数。
         if (![self _processHttpRespondForString:string])
@@ -344,7 +354,7 @@
                 mode.heating = _editingPendingMode.heating;
                 mode.cooling = _editingPendingMode.cooling;
                 
-                [_doughnutView updateWithModeIdArray:[self.dataModel modeIdArrayForDayId:self.currentDayId]];
+//                [_doughnutView updateWithModeIdArray:[self.dataModel modeIdArrayForSpecialDayId:self.currentWeekdayId]];
                 [_modePickerView createOrUpdateThumbScrollViewIfNecessary];
                 
                 _editingPendingMode = nil;
@@ -357,7 +367,7 @@
         }else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:string
-                                                         delegate:self
+                                                         delegate:nil
                                                 cancelButtonTitle:@"Ok"
                                                 otherButtonTitles:nil];
             [alert show];
@@ -373,7 +383,7 @@
             if(_editingPendingMode) {
                 _editingPendingMode.modeId = resultNumber;//更新新的modeId为resultNumber
                 [self.dataModel.metaModeArray addObject:_editingPendingMode];
-                [_doughnutView updateWithModeIdArray:[self.dataModel modeIdArrayForDayId:self.currentDayId]];
+//                [_doughnutView updateWithModeIdArray:[self.dataModel modeIdArrayForSpecialDayId:self.currentWeekdayId]];
                 [_modePickerView createOrUpdateThumbScrollViewIfNecessary];
                 
                 _editingPendingMode = nil;
@@ -392,7 +402,7 @@
             }
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:msg
-                                                         delegate:self
+                                                         delegate:nil
                                                 cancelButtonTitle:@"Ok"
                                                 otherButtonTitles:nil];
             [alert show];
@@ -416,7 +426,7 @@
                 // 然后删除这个mode
                 [self.dataModel.metaModeArray removeObject:mode];
                 
-                [_doughnutView updateWithModeIdArray:[self.dataModel modeIdArrayForDayId:self.currentDayId]];
+//                [_doughnutView updateWithModeIdArray:[self.dataModel modeIdArrayForSpecialDayId:self.currentWeekdayId]];
                 [_modePickerView createOrUpdateThumbScrollViewIfNecessary];
                 
                 _editingPendingMode = nil;
@@ -428,15 +438,12 @@
         else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:string
-                                                         delegate:self
+                                                         delegate:nil
                                                 cancelButtonTitle:@"Ok"
                                                 otherButtonTitles:nil];
             [alert show];
         }
     }
-    
-    [HUD hide:YES];
-    
     // 在从服务器获得数据后，如果哪个子面板还在显示，就隐藏它
     if (_modeEditingViewShowing) {
         [self _toggleModeEditingViewWithType:ModeEditingViewTypeNew];
@@ -450,7 +457,7 @@
     [HUD hide:YES];
     UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                   message:@"Communication error. Please try again."
-                                                 delegate:self
+                                                 delegate:nil
                                         cancelButtonTitle:@"Ok"
                                         otherButtonTitles:nil];
     [alert show];
@@ -472,8 +479,8 @@
 - (void)didSchecduleChangeWithModeIdArray:(NSArray *)modeIdArray {
     if (modeIdArray != nil) {
         _scheduleChangedByUserTouch = YES;
-        
-        MyEThermostatDayData *dayItem = [self.dataModel.dayItems objectAtIndex:self.currentDayId];
+        [self changeApplyBtnEnableWithBool:NO];
+        MyEThermostatDayData *dayItem = [self.dataModel getDayDataByDayId:_currentDayId];
         [dayItem.periods removeAllObjects] ;
         
         MyEThermostatPeriodData *period = [[MyEThermostatPeriodData alloc] init];
@@ -511,7 +518,7 @@
 // 当用户双击一个Secotr时，表示要修改这个sector所在period的heating/cooling或颜色，把这个sector的序号传递回去
 - (void)didDoubleTapSectorIndex:(NSUInteger)sectorInedx {
     NSLog(@"............in Weekly panel, didDoubleTapSectorIndex");
-    NSMutableArray * modeIdArray = [self.dataModel modeIdArrayForDayId:self.currentDayId];
+    NSMutableArray * modeIdArray = [self.dataModel modeIdArrayForSpecialDayId:self.currentDayId];
     
     self.currentSelectedModeId = [[modeIdArray objectAtIndex:sectorInedx] intValue];
     [self _toggleModeEditingViewWithType:ModeEditingViewTypeEditing];
@@ -637,60 +644,78 @@
     [self _toggleModeEditingViewWithType:ModeEditingViewTypeNew];
 }
 
-- (IBAction)applyNewSchedule:(id)sender {
-#warning  这里添加代码直接处理上传服务器的功能.
-    
+- (IBAction)applyNewSchedule:(UIButton *)sender {
+    if ([sender.currentTitle isEqualToString:@"Apply Now"]) {
+        [self uploadThingsToServerWithAction:@"apply"];
+    }else
+        [self uploadThingsToServerWithAction:@"cancel"];
 }
 
 - (IBAction)changeDay:(id)sender {
-    if ([sender isSelected]) {
-        [self closeMenu];
-        [sender setSelected:NO];
-    } else{
-        [sender setSelected:YES];
-        if(self.dropDown == nil) {
-//            NSArray *arr = [NSArray arrayWithObjects:@"Add tag's comment", @"Tag info", @"Help", @"Languages", @"Home22", @"home33", @"Home32", nil];
-//            NSArray *arrImage = [NSArray arrayWithObjects:[UIImage imageNamed:@"bookmark.png"],
-//                                 [UIImage imageNamed:@"map.png"],
-//                                 [UIImage imageNamed:@"news.png"],
-//                                 [UIImage imageNamed:@"photo.png"], nil];
-            NSArray *arr = self.dataModel.dayNames;
-            self.dropDown = [[MyEDropDownMenu alloc] showDropDown:sender
-                                                  titleList:arr
-                                                  imageList:nil
-                                              directionDown:YES];
-            __weak MyESpecialDaysScheduleViewController *bSelf = self;
-            self.dropDown.function = ^(NSInteger index){
-                NSLog(@"you chose : %d", index);
-                bSelf.currentDayId = index;
-                [bSelf.dayBtn setTitle:arr[index] forState:UIControlStateNormal];
-            };
-            self.dropDown.releseMenu = ^{
-                [bSelf closeMenu];
-                [bSelf.dayBtn setSelected:NO];
-            };
-        }
+//    if ([sender isSelected]) {
+//        [self closeMenu];
+//        [sender setSelected:NO];
+//    } else{
+//        [sender setSelected:YES];
+//        if(self.dropDown == nil) {
+//            //            NSArray *arr = [NSArray arrayWithObjects:@"Add tag's comment", @"Tag info", @"Help", @"Languages", @"Home22", @"home33", @"Home32", nil];
+//            //            NSArray *arrImage = [NSArray arrayWithObjects:[UIImage imageNamed:@"bookmark.png"],
+//            //                                 [UIImage imageNamed:@"map.png"],
+//            //                                 [UIImage imageNamed:@"news.png"],
+//            //                                 [UIImage imageNamed:@"photo.png"], nil];
+////            NSArray *arr = self.dataModel.dayNames;
+//            self.dropDown = [[MyEDropDownMenu alloc] showDropDown:sender
+//                                                        titleList:_dayNameArray
+//                                                        imageList:nil
+//                                                    directionDown:YES];
+//            __weak MyESpecialDaysScheduleViewController *bSelf = self;
+//            self.dropDown.function = ^(NSInteger index){
+//                NSLog(@"you chose : %d", index);
+//                bSelf.currentDayId = [bSelf.dataModel getDayIdByDayName:_dayNameArray[index]];
+//                [bSelf.dayBtn setTitle:_dayNameArray[index] forState:UIControlStateNormal];
+//            };
+//            self.dropDown.releseMenu = ^{
+//                [bSelf closeMenu];
+//                [bSelf.dayBtn setSelected:NO];
+//            };
+//        }
+//    }
+    NSMutableArray *items = [NSMutableArray array];
+    for (int i = 0; i < _dayNameArray.count; i++)
+    {
+        KxMenuItem *item = [KxMenuItem menuItem:_dayNameArray[i]
+                                          image:nil
+                                         target:self
+                                         action:@selector(chooseDay:)];
+        item.foreColor = [UIColor whiteColor];
+        item.tag = i;
+        [items addObject:item];
     }
-    
+    UIView *tile = (UIView *)sender;
+    if (items.count > 0)
+    {
+        [KxMenu showMenuInView:self.view
+                      fromRect:tile.frame
+                     menuItems:items];
+    }
 }
-
 - (IBAction)saveAsNewDay:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please enter new day name" message:nil delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"OK", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     UITextField *textField = [alert textFieldAtIndex:0];
     textField.placeholder = @"New day name";
     textField.textAlignment = NSTextAlignmentCenter;
+    textField.text = self.dayBtn.currentTitle;
+    textField.keyboardType = UIKeyboardTypeASCIICapable;
     alert.tag = 101;
     [alert show];
 }
 
 - (IBAction)deleteCurrentDay:(id)sender {
-    [MyEUtil showMessageOn:self.view withMessage:@"Click deleteCurrentDay"];
-    NSLog(@"deleteCurrentDay");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Are you sure to delete this day?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+    alert.tag = 102;
+    [alert show];
 }
-
-
-
 #pragma mark -
 #pragma mark methods for mode editing view
 - (void)_createModeEditingViewIfNecessary {
@@ -774,13 +799,11 @@
     _modeEditingViewShowing = !_modeEditingViewShowing;
 }
 
-
-
 - (void)_createPeriodInforDoughnutViewIfNecessary {
     if (!_periodInforDoughnutView) {
         _periodInforDoughnutView = [[MyEPeriodInforDoughnutView alloc] initWithFrame:[self.centerContainerView frame]];
         _periodInforDoughnutView.doughnutViewRadius = WEEKLY_DOUGHNUT_VIEW_SIZE / 2;
-//        _periodInforDoughnutView.doughnutCenterOffsetY = 12;
+        //        _periodInforDoughnutView.doughnutCenterOffsetY = 12;
         [_periodInforDoughnutView setDelegate:self];
         [self.view addSubview:_periodInforDoughnutView];
     }
@@ -808,11 +831,8 @@
         _addNewModeButton.alpha = 0.66f;
         _editModeButton.alpha = 0.66f;
         
-        _periodInforDoughnutView.periods = [self.dataModel periodsForDayId:self.currentDayId];
+        _periodInforDoughnutView.periods = [self.dataModel periodsForSpecialDayId:self.currentDayId];
     }
-    
-    
-    
     _periodInforDoughnutViewShowing = !_periodInforDoughnutViewShowing;
 }
 
@@ -822,37 +842,48 @@
 -(void)configureCircleButton
 {
     self.applyButton.clipsToBounds = YES;
-    [self.applyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.applyButton setTitleColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
-    [self.applyButton.titleLabel setFont:[UIFont boldSystemFontOfSize:22]];
-    self.applyButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-    self.applyButton.layer.cornerRadius = self.applyButton.frame.size.height/2;//half of the width
+//    self.applyButton.layer.cornerRadius = self.applyButton.frame.size.height/2;//half of the width
+    
     // 用一个image做Highlighted背景
     UIGraphicsBeginImageContext(self.applyButton.bounds.size);
     [DEFAULT_DARK_UI_COLOR setFill];
-    UIBezierPath* bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.applyButton.bounds.origin.x + self.applyButton.bounds.size.width/2.0, self.applyButton.bounds.origin.y + self.applyButton.bounds.size.height/2.0) radius:self.applyButton.bounds.size.width/2.0f startAngle:0 endAngle:2*M_PI clockwise:YES];
+    UIBezierPath* bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.applyButton.bounds.origin.x + self.applyButton.bounds.size.width/2.0, self.applyButton.bounds.origin.y + self.applyButton.bounds.size.height) radius:self.applyButton.bounds.size.height startAngle:0 endAngle:2*M_PI clockwise:YES];
     [bPath fill];
     UIImage *colorImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     [self.applyButton setBackgroundImage:colorImage forState:UIControlStateHighlighted];
     
-    // 用一个image做Disabled背景
-    UIGraphicsBeginImageContext(self.applyButton.bounds.size);
-    [[UIColor lightGrayColor] setFill];
-    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.applyButton.bounds.origin.x + self.applyButton.bounds.size.width/2.0, self.applyButton.bounds.origin.y + self.applyButton.bounds.size.height/2.0) radius:self.applyButton.bounds.size.width/2.0f startAngle:0 endAngle:2*M_PI clockwise:YES];
-    [bPath fill];
-    colorImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    [self.applyButton setBackgroundImage:colorImage forState:UIControlStateDisabled];
-    
     // 用一个image做Normal背景
     UIGraphicsBeginImageContext(self.applyButton.bounds.size);
     [DEFAULT_UI_COLOR setFill];
-    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.applyButton.bounds.origin.x + self.applyButton.bounds.size.width/2.0, self.applyButton.bounds.origin.y + self.applyButton.bounds.size.height/2.0) radius:self.applyButton.bounds.size.width/2.0f startAngle:0 endAngle:2*M_PI clockwise:YES];
+    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.applyButton.bounds.origin.x + self.applyButton.bounds.size.width/2.0, self.applyButton.bounds.origin.y + self.applyButton.bounds.size.height) radius:self.applyButton.bounds.size.height startAngle:0 endAngle:2*M_PI clockwise:YES];
     [bPath fill];
     colorImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     [self.applyButton setBackgroundImage:colorImage forState:UIControlStateNormal];
+    
+    self.saveBtn.clipsToBounds = YES;
+    [self.saveBtn setTitleColor:DEFAULT_DARK_UI_COLOR forState:UIControlStateNormal];
+    [self.saveBtn setTitleColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
+    [self.saveBtn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    // 用一个image做Highlighted背景
+    UIGraphicsBeginImageContext(self.saveBtn.bounds.size);
+    [DEFAULT_DARK_UI_COLOR setFill];
+    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.saveBtn.bounds.origin.x + self.saveBtn.bounds.size.width/2.0, self.saveBtn.bounds.origin.y) radius:self.saveBtn.bounds.size.width/2.0f startAngle:0 endAngle:M_PI clockwise:YES];
+    [bPath fill];
+    colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.saveBtn setBackgroundImage:colorImage forState:UIControlStateHighlighted];
+    
+    // 用一个image做Normal背景
+    UIGraphicsBeginImageContext(self.saveBtn.bounds.size);
+    [DEFAULT_DARK_UI_COLOR setStroke];
+    bPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.saveBtn.bounds.origin.x + self.saveBtn.bounds.size.width/2.0, self.saveBtn.bounds.origin.y) radius:self.saveBtn.bounds.size.width/2.0f startAngle:0 endAngle:M_PI clockwise:YES];
+    [bPath stroke];
+    colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.saveBtn setBackgroundImage:colorImage forState:UIControlStateNormal];
 }
 // 判定是否服务器相应正常，如果正常返回YES，如果服务器相应为-999/-998，
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
@@ -872,28 +903,63 @@
 {
     [self downloadModelFromServer];
 }
-- (void)_saveAsNewDayFromDayId:(NSInteger)dayId andNewName:(NSString *)newName{
-    MyEThermostatDayData *day = [self.dataModel.dayItems[self.currentDayId] copy];
-    day.name = newName;
-    [self.dataModel.dayItems addObject:day];
-    self.currentDayId = self.dataModel.dayItems.count - 1;
-    [self.dayBtn setTitle:newName forState:UIControlStateNormal];
-}
 
 - (void)closeMenu
 {
     [self.dropDown hideDropDown:self.view];
     self.dropDown = nil;
 }
-
-
+-(void)refreshUI{
+    NSMutableArray * modeIdArray = [self.dataModel modeIdArrayForSpecialDayId:_currentDayId];
+//    NSLog(@"mode id array is %@",modeIdArray);
+    [_doughnutView updateWithModeIdArray:modeIdArray];
+    [_modePickerView createOrUpdateThumbScrollViewIfNecessary ];
+    _scheduleChangedByUserTouch = NO;
+}
+-(void)chooseDay:(KxMenuItem *)sender{
+    NSString *dayName = _dayNameArray[sender.tag];
+    [self.dayBtn setTitle:dayName forState:UIControlStateNormal];
+    _currentDayId = [self.dataModel getDayIdByDayName:dayName];
+    [self checkIfCanDelete];
+    [self changeApplyBtnEnableWithBool:YES];
+    [self refreshUI];
+}
+-(void)checkIfCanDelete{
+    if ([self.dayBtn.currentTitle isEqualToString:@"Staycation"]) {
+        self.deleteBtn.enabled = NO;
+    }else
+        self.deleteBtn.enabled = YES;
+}
+-(void)changeApplyBtnEnableWithBool:(BOOL)flag{
+    if (![self.applyButton.currentTitle isEqualToString:@"Cancel"]) {
+        self.applyButton.enabled = flag;
+    }
+}
+-(void)getCurrentDayId{
+    if (self.dataModel.specialId == -1) {  //说明此时是没有指定specialDay的
+        MyEThermostatDayData *day = self.dataModel.dayItems[0];
+        _currentDayId = day.dayId;
+    }else{
+        [self.applyButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        _currentDayId = self.dataModel.specialId;
+    }
+}
 #pragma mark - UIAlertView Delegate methods
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     NSLog(@"%@",alertView.subviews);
-    UITextField *textField = [alertView textFieldAtIndex:0];
     if (buttonIndex == 1) {
-        if (alertView.tag == 101) {
-            [self _saveAsNewDayFromDayId:self.currentDayId andNewName:textField.text];
+        if (alertView.tag == 101) {  //新增
+            UITextField *textField = [alertView textFieldAtIndex:0];
+            if (textField.text.length < 4 || textField.text.length > 20) {
+                [SVProgressHUD showErrorWithStatus:@"name error!"];
+                return;
+            }
+            MyEThermostatDayData *day = [self.dataModel getDayDataByDayId:_currentDayId];
+            day.name = textField.text;
+            [self saveDayItemWithSpecialDay:day];
+        }
+        if (alertView.tag == 102) {  //删除
+            [self uploadThingsToServerWithAction:@"delete"];
         }
     }
 }

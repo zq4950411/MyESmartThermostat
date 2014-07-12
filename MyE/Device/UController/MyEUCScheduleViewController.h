@@ -13,7 +13,7 @@
 #import "MBProgressHUD.h"
 @interface MyEUCScheduleViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,MYEWeekButtonsDelegate,MyEDataLoaderDelegate>
 @property (nonatomic, weak) MyEDevice *device;
-@property (nonatomic, weak) MyEUCSchedule *schedule;
+@property (nonatomic, strong) MyEUCSchedule *schedule;
 @property (nonatomic, weak) MyEUCAuto *ucAuto;
 @property (nonatomic, assign) BOOL isAdd;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

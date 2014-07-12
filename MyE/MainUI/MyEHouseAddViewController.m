@@ -33,6 +33,7 @@
     }
     [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    [self defineTapGestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,6 +41,17 @@
     [super didReceiveMemoryWarning];
 }
 #pragma mark - private methods
+-(void)defineTapGestureRecognizer{
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    tapGesture.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapGesture];
+}
+
+-(void)hideKeyboard{
+    [self.txtCity endEditing:YES];
+    [self.txtStreet endEditing:YES];
+}
+
 -(void)login{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *urlStr = [NSString stringWithFormat:@"%@?username=%@&password=%@&type=1&checkCode=2&deviceType=0&deviceToken=%@&deviceAlias=%@&appVersion=%@",GetRequst(URL_FOR_LOGIN), [defaults objectForKey:@"user"], [defaults objectForKey:@"pass"],MainDelegate.deviceTokenStr,MainDelegate.alias,[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]] ;
@@ -110,7 +122,7 @@
     }
     if([name isEqualToString:@"LoginDownloader"]) {
         MyEAccountData *anAccountData = [[MyEAccountData alloc] initWithJSONString:string];
-        if(anAccountData && anAccountData.loginSuccess)
+        if(anAccountData && [anAccountData.loginSuccess isEqualToString:@"true"])
         {
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             self.accountData = anAccountData;
@@ -122,24 +134,28 @@
                 // 如果只有一个带硬件的房子，且硬件在线，则不用在House List停留，直接将该房子选中而进入Dashboard。
                 MyEHouseData *houseData = [self.accountData validHouseInListAtIndex:0];
                 MainDelegate.houseData = houseData;
-                MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
+//                MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
                 
                 //在NSDefaults里面记录这次要进入的房屋
                 [prefs setInteger:houseData.houseId forKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
                 [prefs synchronize];
                 
-                MyETerminalData *thermostatData = [houseData.terminals objectAtIndex:0];// 用该房子的第一个T
-                MainDelegate.terminalData = thermostatData;
+//                MyETerminalData *thermostatData = [houseData.terminals objectAtIndex:0];// 用该房子的第一个T
+//                MainDelegate.terminalData = thermostatData;
                 
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
                 SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
                 [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
                 MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
             }else{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Your Gateway is not online, please retry!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Something is wrong, please try again!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 alert.tag = 200;
                 [alert show];
             }
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Login error, please try again!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            alert.tag = 200;
+            [alert show];
         }
     }
 }

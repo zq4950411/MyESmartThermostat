@@ -70,7 +70,7 @@
         }
         self.channels = dic[@"channels"];
         self.periods = [NSMutableArray array];
-        for (NSDictionary *d in dic[@"periodids"]) {
+        for (NSDictionary *d in dic[@"periods"]) {
             [self.periods addObject:[[MyEUCPeriod alloc] initWithDictionary:d]];
         }
     }
@@ -80,16 +80,27 @@
     NSArray *array = @[@"Mon",@"Tues",@"Wed",@"Thur",@"Fri",@"Sat",@"Sun"];
     NSMutableArray *week = [NSMutableArray array];
     for (NSNumber *i in self.weeks) {
-        [week addObject:array[i.intValue]];
+        [week addObject:array[i.intValue-1]];
     }
     NSLog(@"string is %@",[week componentsJoinedByString:@" "]);
     return [week componentsJoinedByString:@" "];
 }
+-(NSArray *)getChannelArray{
+    NSMutableArray *array = [NSMutableArray array];
+    NSString *string = nil;
+    for (int i = 1; i <= self.channels.length; i++) {
+        string = [self.channels substringWithRange:NSMakeRange(i-1, 1)];
+        if (string.intValue == 1) {
+            [array addObject:@(i)];
+        }
+    }
+    return array;
+}
 -(NSString *)getChannels{
     NSMutableArray *array = [NSMutableArray array];
     NSString *string = nil;
-    for (int i = 0; i < self.channels.length; i++) {
-        string = [self.channels substringWithRange:NSMakeRange(i, 1)];
+    for (int i = 1; i <= self.channels.length; i++) {
+        string = [self.channels substringWithRange:NSMakeRange(i-1, 1)];
         if (string.intValue == 1) {
             [array addObject:@(i)];
         }
@@ -99,11 +110,15 @@
 }
 -(NSString *)jsonSchedule{
     SBJsonWriter *writer = [[SBJsonWriter alloc] init];
-    NSDictionary *dic = @{@"periods": self.periods,
+    NSMutableArray *array = [NSMutableArray array];
+    for (MyEUCPeriod *p in self.periods) {
+        [array addObject:[p jsonUCPeriod]];
+    }
+    NSDictionary *dic = @{@"periods": array,
                           @"weekly_day":self.weeks,
                           @"channels":self.channels};
-    NSDictionary *mainDic = @{@"schedules": dic};
-    NSString *string = [writer stringWithObject:mainDic];
+//    NSDictionary *mainDic = @{@"schedules": dic};
+    NSString *string = [writer stringWithObject:dic];
     NSLog(@"string is %@",string);
     return string;
 }
@@ -115,7 +130,11 @@
     schedule.periods = [self.periods mutableCopy];
     return schedule;
 }
+-(NSString *)description{
+    return [NSString stringWithFormat:@"weekDay:%@ \n periods:%@ \n channels:%@",self.weeks,self.periods,self.channels];
+}
 @end
+
 
 @implementation MyEUCPeriod
 -(id)init{
@@ -128,15 +147,21 @@
 -(MyEUCPeriod *)initWithDictionary:(NSDictionary *)dic{
     if (self = [super init]) {
         self.stid = [dic[@"stid"] intValue];
-        self.edid = [dic[@"edid"] intValue];
+        self.edid = [dic[@"etid"] intValue];
     }
     return self;
+}
+-(NSDictionary *)jsonUCPeriod{
+    return @{@"stid": @(self.stid),@"etid":@(self.edid)};
 }
 -(id)copyWithZone:(NSZone *)zone{
     MyEUCPeriod *period = [[[self class] allocWithZone:zone] init];
     period.stid = self.stid;
     period.edid = self.edid;
     return period;
+}
+-(NSString *)description{
+    return [NSString stringWithFormat:@"stid:%i etid:%i",self.stid,self.edid];
 }
 @end
 
@@ -165,13 +190,16 @@
 }
 -(NSString *)jsonSequential{
     SBJsonWriter *writer = [[SBJsonWriter alloc] init];
+    NSMutableArray *array = [NSMutableArray array];
+    for (MyEUCChannelInfo *info in self.sequentialOrder) {
+        [array addObject:[info jsonUCChannel]];
+    }
     NSDictionary *dic = @{@"startTime": self.startTime,
                           @"repeatDays":self.weeks,
                           @"precondition":@(self.preConditon),
                           @"weather_temperature":@(self.temperature),
-                          @"sequentialOrder":self.sequentialOrder};
-    NSDictionary *mainDic = @{@"control": dic};
-    NSString *string = [writer stringWithObject:mainDic];
+                          @"sequentialOrder":array};
+    NSString *string = [writer stringWithObject:dic];
     NSLog(@"string is %@",string);
     return string;
 }
@@ -200,6 +228,11 @@
         self.orderId = [dic[@"orderId"] intValue];
     }
     return self;
+}
+-(NSDictionary *)jsonUCChannel{
+    NSDictionary *dic = @{@"channel": @(self.channel),
+                          @"duration":@(self.duration)};
+    return dic;
 }
 -(id)copyWithZone:(NSZone *)zone{
     MyEUCChannelInfo *info = [[[self class] allocWithZone:zone] init];

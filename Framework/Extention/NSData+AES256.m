@@ -31,19 +31,19 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
     NSMutableData *derivedKey = [NSMutableData dataWithLength:kAlgorithmKeySize];
     
     NSData *salt = [NSData dataWithBytes:saltBuff length:kCCKeySizeAES128];
-    
-    int result = CCKeyDerivationPBKDF(kCCPBKDF2,        // algorithm算法
-                                  password.UTF8String,  // password密码
-                                  password.length,      // passwordLength密码的长度
-                                  salt.bytes,           // salt内容
-                                  salt.length,          // saltLen长度
-                                  kCCPRFHmacAlgSHA1,    // PRF
-                                  kPBKDFRounds,         // rounds循环次数
-                                  derivedKey.mutableBytes, // derivedKey
-                                  derivedKey.length);   // derivedKeyLen derive:出自
-    
-    NSAssert(result == kCCSuccess,
-             @"Unable to create AES key for spassword: %d", result);
+#warning 注释
+//    int result = CCKeyDerivationPBKDF(kCCPBKDF2,        // algorithm算法
+//                                  password.UTF8String,  // password密码
+//                                  password.length,      // passwordLength密码的长度
+//                                  salt.bytes,           // salt内容
+//                                  salt.length,          // saltLen长度
+//                                  kCCPRFHmacAlgSHA1,    // PRF
+//                                  kPBKDFRounds,         // rounds循环次数
+//                                  derivedKey.mutableBytes, // derivedKey
+//                                  derivedKey.length);   // derivedKeyLen derive:出自
+//    
+//    NSAssert(result == kCCSuccess,
+//             @"Unable to create AES key for spassword: %d", result);
     return derivedKey;
 }
 
@@ -117,7 +117,7 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
     static char *decodingTable = NULL;
     if (decodingTable == NULL)
     {
-        decodingTable = malloc(256);
+        decodingTable = (char *)malloc(256);
         if (decodingTable == NULL)
             return nil;
         memset(decodingTable, CHAR_MAX, 256);
@@ -129,7 +129,7 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
     const char *characters = [string cStringUsingEncoding:NSASCIIStringEncoding];
     if (characters == NULL)     //  Not an ASCII string!
         return nil;
-    char *bytes = malloc((([string length] + 3) / 4) * 3);
+    char *bytes = (char *)malloc((([string length] + 3) / 4) * 3);
     if (bytes == NULL)
         return nil;
     NSUInteger length = 0;
@@ -169,7 +169,7 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
             bytes[length++] = (buffer[2] << 6) | buffer[3];
     }
     
-    bytes = realloc(bytes, length);
+    bytes = (char *)realloc(bytes, length);
     return [NSData dataWithBytesNoCopy:bytes length:length];
 }
 
@@ -178,7 +178,7 @@ static Byte ivBuff[]   = {0xA,1,0xB,5,4,0xF,7,9,0x17,3,1,6,8,0xC,0xD,91};
     if ([self length] == 0)
         return @"";
     
-    char *characters = malloc((([self length] + 2) / 3) * 4);
+    char *characters = (char *)malloc((([self length] + 2) / 3) * 4);
     if (characters == NULL)
         return nil;
     NSUInteger length = 0;

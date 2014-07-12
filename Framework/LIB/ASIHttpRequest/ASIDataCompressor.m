@@ -98,7 +98,9 @@
 			if (err) {
 				*err = [[self class] deflateErrorWithCode:status];
 			}
-			return NO;
+#warning 注释
+            return nil;
+//			return NO;
 		}
 	}
 

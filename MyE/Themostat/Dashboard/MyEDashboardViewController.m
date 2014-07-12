@@ -232,12 +232,12 @@
                                    selector:@selector(downloadModelFromServer)
                                    userInfo:nil
                                     repeats:NO];
-    [NSTimer scheduledTimerWithTimeInterval:2.0f
+    [NSTimer scheduledTimerWithTimeInterval:2.5f
                                      target:self
                                    selector:@selector(downloadModelFromServer)
                                    userInfo:nil
                                     repeats:NO];
-    [NSTimer scheduledTimerWithTimeInterval:3.0f
+    [NSTimer scheduledTimerWithTimeInterval:4.0f
                                      target:self
                                    selector:@selector(downloadModelFromServer)
                                    userInfo:nil
@@ -270,8 +270,8 @@
             _isSetpointChanged = NO;
         } else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
-                                                          message:@"Communication error. Please try again."
-                                                         delegate:self 
+                                                          message:@"Communication error! Please try again."
+                                                         delegate:nil
                                                 cancelButtonTitle:@"Ok"
                                                 otherButtonTitles:nil];
             [alert show];
@@ -286,7 +286,7 @@
             return;
         
         // 加6秒延迟后再从服务器下载新数据，否则太快下载，Thermostat好像还没真正改变过来，传来的"realControlMode"字段还是上一个状态
-        loadTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f
+        loadTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
                                                      target:self 
                                                    selector:@selector(downloadModelFromServerLater)
                                                    userInfo:nil 
@@ -300,7 +300,7 @@
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error" 
                                                   message:@"Communication error. Please try again."
-                                                 delegate:self 
+                                                 delegate:nil
                                         cancelButtonTitle:@"Ok"
                                         otherButtonTitles:nil];
     [alert show];
@@ -710,7 +710,7 @@
 -(void)_redrawHoldRunButton
 {
     NSInteger type= self.dashboardData.energyLeaver;
-    HoldType hold = self.dashboardData.isOvrried;
+    HoldType hold = (HoldType)self.dashboardData.isOvrried;
     NSInteger controlMode = self.dashboardData.controlMode;
     
     if (self.holdRunButton) {

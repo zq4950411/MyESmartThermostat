@@ -307,7 +307,7 @@
         } else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:@"Communication error. Please try again."
-                                                         delegate:self
+                                                         delegate:nil
                                                 cancelButtonTitle:@"Ok"
                                                 otherButtonTitles:nil];
             [alert show];
@@ -327,7 +327,7 @@
         }  else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:string
-                                                         delegate:self
+                                                         delegate:nil
                                                 cancelButtonTitle:@"Ok"
                                                 otherButtonTitles:nil];
             [alert show];
@@ -370,7 +370,7 @@
         }else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:string
-                                                         delegate:self
+                                                         delegate:nil
                                                 cancelButtonTitle:@"Ok"
                                                 otherButtonTitles:nil];
             [alert show];
@@ -405,7 +405,7 @@
             }
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:msg
-                                                         delegate:self
+                                                         delegate:nil
                                                 cancelButtonTitle:@"Ok"
                                                 otherButtonTitles:nil];
             [alert show];
@@ -441,7 +441,7 @@
         else {
             UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                           message:string
-                                                         delegate:self
+                                                         delegate:nil
                                                 cancelButtonTitle:@"Ok"
                                                 otherButtonTitles:nil];
             [alert show];
@@ -466,7 +466,7 @@
     [HUD hide:YES];
     UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Error"
                                                   message:@"Communication error. Please try again."
-                                                 delegate:self
+                                                 delegate:nil
                                         cancelButtonTitle:@"Ok"
                                         otherButtonTitles:nil];
     [alert show];

@@ -10,7 +10,7 @@
 #import "MyESwitchManualControlViewController.h"
 #import "MBProgressHUD.h"
 #import "MyESwitchAutoControl.h"
-@interface MyESwitchScheduleSettingViewController : UIViewController<MultiSelectSegmentedControlDelegate,IQActionSheetPickerView,MyEDataLoaderDelegate,MYEWeekButtonsDelegate>{
+@interface MyESwitchScheduleSettingViewController : UIViewController<IQActionSheetPickerView,MyEDataLoaderDelegate,MYEWeekButtonsDelegate,UIAlertViewDelegate>{
     NSArray *_headTimeArray;
     NSArray *_tailTimeArray;
     MBProgressHUD *HUD;
@@ -24,8 +24,8 @@
 @property (nonatomic) NSInteger actionType;  //1表示新增，2表示编辑
 @property (weak, nonatomic) IBOutlet UIButton *startBtn;
 @property (weak, nonatomic) IBOutlet UIButton *endBtn;
-@property (weak, nonatomic) IBOutlet MultiSelectSegmentedControl *channelSeg;
-@property (weak, nonatomic) IBOutlet MultiSelectSegmentedControl *weekSeg;
+//@property (weak, nonatomic) IBOutlet MultiSelectSegmentedControl *channelSeg;
+//@property (weak, nonatomic) IBOutlet MultiSelectSegmentedControl *weekSeg;
 @property (weak, nonatomic) IBOutlet MYEWeekButtons *lights;
 @property (weak, nonatomic) IBOutlet MYEWeekButtons *weeks;
 

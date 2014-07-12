@@ -101,11 +101,11 @@
 		[queryParts addObject:[NSString stringWithFormat:@"max-keys=%i",[self maxResultCount]]];
 	}
 	if ([queryParts count]) {
-		NSString* template = @"%@?%@";
+		NSString *_template = @"%@?%@";
 		if ([[self subResource] length] > 0) {
-			template = @"%@&%@";
+			_template = @"%@&%@";
 		}
-		[self setURL:[NSURL URLWithString:[NSString stringWithFormat:template,baseURL,[queryParts componentsJoinedByString:@"&"]]]];
+		[self setURL:[NSURL URLWithString:[NSString stringWithFormat:_template,baseURL,[queryParts componentsJoinedByString:@"&"]]]];
 	} else {
 		[self setURL:[NSURL URLWithString:baseURL]];
 

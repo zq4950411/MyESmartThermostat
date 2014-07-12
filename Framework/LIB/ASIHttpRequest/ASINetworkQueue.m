@@ -118,7 +118,7 @@
 		
 		ASIHTTPRequest *request = (ASIHTTPRequest *)operation;
 		[request setRequestMethod:@"HEAD"];
-		[request setQueuePriority:10];
+		[request setQueuePriority:(NSOperationQueuePriority)10];
 		[request setShowAccurateProgress:YES];
 		[request setQueue:self];
 		

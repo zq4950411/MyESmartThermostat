@@ -228,8 +228,9 @@ static NSMutableArray *requestsUsingXMLParser = nil;
 	if ([self downloadDestinationPath]) {
 		doc = htmlReadFile([[self downloadDestinationPath] cStringUsingEncoding:NSUTF8StringEncoding], [self encodingName], HTML_PARSE_NONET | HTML_PARSE_NOWARNING | HTML_PARSE_NOERROR);
 	} else {
-		NSData *data = [self responseData];
-		doc = htmlReadMemory([data bytes], (int)[data length], "", [self encodingName], HTML_PARSE_NONET | HTML_PARSE_NOWARNING | HTML_PARSE_NOERROR);
+#warning 
+//		NSData *data = [self responseData];
+//		doc = htmlReadMemory([data bytes], (int)[data length], "", [self encodingName], HTML_PARSE_NONET | HTML_PARSE_NOWARNING | HTML_PARSE_NOERROR);
 	}
     if (doc == NULL) {
 		[self failWithError:[NSError errorWithDomain:NetworkRequestErrorDomain code:101 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Error: unable to parse reponse XML",NSLocalizedDescriptionKey,nil]]];

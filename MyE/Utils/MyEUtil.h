@@ -50,6 +50,9 @@
 #define URL_FOR_SETTINGS_VIEW @"/setting_view.do"
 #define URL_FOR_USAGE_STATS_VIEW @"/usage_electric_stati.do"
 #define URL_FOR_ALERTS_VIEW @"/setting_get_alert_list.do"
+#define URL_FOR_SPECIAL_DAY @"/specialDay_view.do"
+#define URL_FOR_SPECIAL_DAY_APPLY @"/specialDay_apply.do"
+#define URL_FOR_SPECIAL_DAY_SAVE @"/specialDay_save.do"
 
 #define URL_FOR_DASHBOARD_SAVE @"/dashboard_save.do"
 #define URL_FOR_TODAY_SCHEDULE_SAVE @"/programToday_save.do"
@@ -129,6 +132,7 @@
 #define SETTING_EDITT @"/setting_editT.do"
 #define SETTING_DELETE_T @"/setting_deleteT.do"
 #define SETTING_FIND_THERMOSTAT @"/setting_findThermostat.do"
+#define URL_FOR_SETTINGS_RESET_USERNAME @"/account_saveUser.do"
 
 #define MORE_NOTIFICATION @"/account_findNotification.do"
 #define MORE_SAVE_NOTIFICATION @"/account_saveNotification.do"
@@ -287,6 +291,7 @@ NSInteger getDaysBetweenDates(NSDate *startDate, NSDate *endDate);
 
 // Toast mothod
 //@see http://stackoverflow.com/questions/18680891/displaying-a-message-in-ios-which-have-the-same-functionality-as-toast-in-androi
++(void)showThingsSuccessOn:(UIView *)view WithMessage:(NSString *)message andTag:(BOOL)tag;
 +(void)showThingsSuccessOn:(UIView *)view WithMessage:(NSString *)message;
 + (void)showToastOn:(UIView *)view withMessage:(NSString *)message backgroundColor:(UIColor *)bgColor;
 + (void)showToastOn:(UIView *)view withMessage:(NSString *)message;

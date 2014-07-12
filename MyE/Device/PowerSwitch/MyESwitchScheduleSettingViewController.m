@@ -35,19 +35,20 @@
     }
     if (self.control.numChannel == 1) {
         self.lights.titles = [@[@"1"] mutableCopy];
-        [self.channelSeg removeSegmentAtIndex:1 animated:YES];
-        [self.channelSeg removeSegmentAtIndex:2 animated:YES];
+//        [self.channelSeg removeSegmentAtIndex:1 animated:YES];
+//        [self.channelSeg removeSegmentAtIndex:2 animated:YES];
     }else if(self.control.numChannel == 2){
         self.lights.titles = [@[@"1",@"2"] mutableCopy];
-        [self.channelSeg removeSegmentAtIndex:2 animated:YES];
+//        [self.channelSeg removeSegmentAtIndex:2 animated:YES];
     }else
         self.lights.titles = [@[@"1",@"2",@"3"] mutableCopy];
     self.lights.delegate = self;
     self.weeks.delegate = self;
-    self.channelSeg.mydelegate = self;
-    self.weekSeg.mydelegate = self;
-    
+//    self.channelSeg.mydelegate = self;
+//    self.weekSeg.mydelegate = self;
+//    
     _scheduleNew = [self.schedule copy];
+    _scheduleNew.runFlag = 1;
 //    [self refreshSegment];
     self.weeks.selectedButtons = [_scheduleNew.weeks mutableCopy];
     self.lights.selectedButtons = [_scheduleNew.channels mutableCopy];
@@ -142,18 +143,18 @@
     }
     return YES;
 }
--(void)refreshSegment{
-    NSMutableIndexSet *channelIndex = [NSMutableIndexSet indexSet];
-    NSMutableIndexSet *weekIndex = [NSMutableIndexSet indexSet];
-    for (NSNumber *i in _schedule.channels) {
-        [channelIndex addIndex:[i intValue]-1];
-    }
-    for (NSNumber *i in _schedule.weeks) {
-        [weekIndex addIndex:[i intValue]-1];
-    }
-    [self.channelSeg setSelectedSegmentIndexes:channelIndex];
-    [self.weekSeg setSelectedSegmentIndexes:weekIndex];
-}
+//-(void)refreshSegment{
+//    NSMutableIndexSet *channelIndex = [NSMutableIndexSet indexSet];
+//    NSMutableIndexSet *weekIndex = [NSMutableIndexSet indexSet];
+//    for (NSNumber *i in _schedule.channels) {
+//        [channelIndex addIndex:[i intValue]-1];
+//    }
+//    for (NSNumber *i in _schedule.weeks) {
+//        [weekIndex addIndex:[i intValue]-1];
+//    }
+//    [self.channelSeg setSelectedSegmentIndexes:channelIndex];
+//    [self.weekSeg setSelectedSegmentIndexes:weekIndex];
+//}
 -(NSArray *)changeStringToInt:(NSString *)title{
     NSArray *array = [NSArray array];
     if (title.length !=5) {
@@ -197,19 +198,19 @@
     [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:[NSString stringWithFormat:@"%@?houseId=%li&tId=%@&channels=%@&action=2",GetRequst(URL_FOR_SWITCH_TIME_DELAY),(long)MainDelegate.houseData.houseId, self.device.tid,[_scheduleNew.channels componentsJoinedByString:@","]] andName:@"check"];
 }
 
-#pragma mark - MultiSelectSegmentedControlDelegate methods
--(void)multiSelect:(MultiSelectSegmentedControl*) multiSelecSegmendedControl didChangeValue:(BOOL) value atIndex: (NSUInteger) index{
-    
-    NSIndexSet *anIndexSet;
-    if (multiSelecSegmendedControl == self.channelSeg) {
-        anIndexSet = self.channelSeg.selectedSegmentIndexes;
-    }else
-        anIndexSet = self.weekSeg.selectedSegmentIndexes;
-    
-    if ([anIndexSet count] == 0) {
-        [MyEUtil showMessageOn:self.view withMessage:multiSelecSegmendedControl == self.channelSeg?@"Must select at least one channel":@"Must select at least one day"];
-    }
-}
+//#pragma mark - MultiSelectSegmentedControlDelegate methods
+//-(void)multiSelect:(MultiSelectSegmentedControl*) multiSelecSegmendedControl didChangeValue:(BOOL) value atIndex: (NSUInteger) index{
+//    
+//    NSIndexSet *anIndexSet;
+//    if (multiSelecSegmendedControl == self.channelSeg) {
+//        anIndexSet = self.channelSeg.selectedSegmentIndexes;
+//    }else
+//        anIndexSet = self.weekSeg.selectedSegmentIndexes;
+//    
+//    if ([anIndexSet count] == 0) {
+//        [MyEUtil showMessageOn:self.view withMessage:multiSelecSegmendedControl == self.channelSeg?@"Must select at least one channel":@"Must select at least one day"];
+//    }
+//}
 #pragma mark - MYEWeekBtns delegate methods
 -(void)weekButtons:(UIView *)weekButtons selectedButtonTag:(NSArray *)buttonTags{
     if (weekButtons.tag == 500) {
@@ -239,17 +240,8 @@
             int isMutex = [[dict objectForKey:@"isMutex"] intValue];
             
             if(isMutex == 1){
-                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"A timer has been set for this switch. To enable the auto mode, the timer will be disabled. Do you want to continue?" leftButtonTitle:@"NO" rightButtonTitle:@"YES"];
-                alert.rightBlock = ^{
-                    //这里也要进行手动控制面板的刷新
-                    UINavigationController *nav = self.tabBarController.childViewControllers[0];
-                    MyESwitchManualControlViewController *vc = nav.childViewControllers[0];
-                    vc.needRefresh = YES;
-                    [self uploadInfoToServer];
-                };
-                alert.leftBlock = ^{
-                    [self.navigationController popViewControllerAnimated:YES];
-                };
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"A timer has been set for this switch. To enable the auto mode, the timer will be disabled. Do you want to continue?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+                alert.tag = 900;
                 [alert show];
             }else if(isMutex == 2){
                 [self uploadInfoToServer];
@@ -293,5 +285,15 @@
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     [HUD hide:YES];
     [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
+#pragma mark - UIAlertView Delegate methods
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 900 && buttonIndex == 1) {
+        //这里也要进行手动控制面板的刷新
+        UINavigationController *nav = self.tabBarController.childViewControllers[0];
+        MyESwitchManualControlViewController *vc = nav.childViewControllers[0];
+        vc.needRefresh = YES;
+        [self uploadInfoToServer];
+    }
 }
 @end

@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UITableView+DragLoad.h"
 typedef enum {
     ALERT_LOAD_TYPE_INIT,// init load when enter this VC at first time
     ALERT_LOAD_TYPE_PULL_REFRESH, // pull down to refresh
     ALERT_LOAD_TYPE_DRAG_LOADMORE // drag up to load more
 } ALERT_LOAD_TYPE;
 
-@interface MyEAlertsTableViewController : UITableViewController<MyEDataLoaderDelegate,MBProgressHUDDelegate, UIAlertViewDelegate,UITableViewDragLoadDelegate>
+@interface MyEAlertsTableViewController : UITableViewController<MyEDataLoaderDelegate,MBProgressHUDDelegate, UIAlertViewDelegate,EGORefreshTableHeaderDelegate>
 {
 @private
     MBProgressHUD *HUD;
@@ -23,6 +22,9 @@ typedef enum {
 }
 @property (strong, nonatomic) NSMutableArray *alerts;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
+@property (weak, nonatomic) IBOutlet UIButton *refreshBtn;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
+
 @property (assign, nonatomic) BOOL fromHome;
 
 @end

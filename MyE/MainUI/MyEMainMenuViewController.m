@@ -11,7 +11,8 @@
 #import "SWRevealViewController.h"
 #import "MyEUsageStatsViewController.h"
 #import "MyESettingsViewController.h"
-
+#import "MyEAccountViewController.h"
+#import "MyECameraTableViewController.h"
 @interface MyEMainMenuViewController ()
 //- (void)goHouseList;
 @end
@@ -35,7 +36,7 @@
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.2f alpha:1.0f];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.15f alpha:0.2f];
     
-    _menuItems = @[@"houseList",@"home", @"devices", @"events", @"usage", @"alerts", @"settings",@"signout"];
+    _menuItems = @[@"houseList",@"home", @"devices", @"video",@"events", @"usage", @"alerts", @"settings",@"account",@"signout"];
 
     self.houseName.text = MainDelegate.houseData.houseName;
 }
@@ -117,50 +118,27 @@
     return cell;
 }
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (indexPath.row == 0) {
-//        [self goHouseList];
-//    }
-    
+    if (indexPath.row == 3) {   //video
+        MyECameraTableViewController *vc = [[UIStoryboard storyboardWithName:@"Camera" bundle:nil] instantiateViewControllerWithIdentifier:@"cameras"];
+        UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+        [navController setViewControllers: @[vc] animated: NO ];
+        [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated:YES];
+    }
+    if (indexPath.row == 8) {  //account
+        MyEAccountViewController *vc = [[UIStoryboard storyboardWithName:@"Setting" bundle:nil] instantiateViewControllerWithIdentifier:@"account"];
+        UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+        [navController setViewControllers: @[vc] animated: NO ];
+        [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated:YES];
+    }
+    if (indexPath.row == self.menuItems.count - 3) {  //settings
+        MyESettingsViewController *vc = [[UIStoryboard storyboardWithName:@"Setting" bundle:nil] instantiateViewControllerWithIdentifier:@"settings"];
+        UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+        [navController setViewControllers: @[vc] animated: NO ];
+        [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated:YES];
+    }
+
     if (self.menuItems.count-1 == indexPath.row) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         MyELoginViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
@@ -168,12 +146,6 @@
         MainDelegate.window.rootViewController = vc;
         
         [MyEDataLoader startLoadingWithURLString:[NSString stringWithFormat:@"%@",GetRequst(URL_FOR_SIGNOUT)] postData:nil delegate:vc loaderName:@"signout" userDataDictionary:nil];
-    }
-    if (indexPath.row == self.menuItems.count - 2) {
-        MyESettingsViewController *vc = [[UIStoryboard storyboardWithName:@"Setting" bundle:nil] instantiateViewControllerWithIdentifier:@"settings"];
-        UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
-        [navController setViewControllers: @[vc] animated: NO ];
-        [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
     }
 }
 
@@ -188,7 +160,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     UINavigationController *destViewController = (UINavigationController*)segue.destinationViewController;
     destViewController.title = [[_menuItems objectAtIndex:indexPath.row] capitalizedString];
-    if(self.tableView.indexPathForSelectedRow.row == 4){
+    if(self.tableView.indexPathForSelectedRow.row == 5){
         MyEUsageStatsViewController *dvc = (MyEUsageStatsViewController*)segue.destinationViewController;
         dvc.fromHome = NO;
     }
@@ -212,7 +184,7 @@
     }
 }
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
-    if (self.tableView.indexPathForSelectedRow.row == 4) {
+    if (self.tableView.indexPathForSelectedRow.row == 5) {
         if([MainDelegate.houseData terminalsForUsageStats].count == 0)
         {
             [SVProgressHUD showSuccessWithStatus:@"No devcie with electricity usage status."];

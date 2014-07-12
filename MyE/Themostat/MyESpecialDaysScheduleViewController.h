@@ -15,7 +15,7 @@
 #import "MBProgressHUD.h"
 #import "MyEPeriodInforDoughnutView.h"
 #import "TableViewWithBlock.h"
-
+#import "KxMenu.h"
 
 @class MyEThermostatScheduleData;
 @class MyEScheduleModeData;
@@ -53,18 +53,19 @@
 
 @property (weak, nonatomic) IBOutlet UIView *centerContainerView;// 用于容纳Doughnut view的中间view，用于进行touch处理和动画处理而添加的
 @property (weak, nonatomic) IBOutlet UIButton *applyButton;
+@property (weak, nonatomic) IBOutlet UIButton *saveBtn;
+@property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
+
 @property (weak, nonatomic) IBOutlet UIButton *addNewModeButton;
 @property (weak, nonatomic) IBOutlet UIButton *editModeButton;
 @property (weak, nonatomic) IBOutlet UIView *modeToolContainer;
 @property (weak, nonatomic) IBOutlet UIButton *dayBtn;
 
-
 @property (strong, nonatomic) MyEThermostatScheduleData *dataModel;
-@property (strong, nonatomic) MyEThermostatScheduleData *dataModelCache;//缓冲数据，用于恢复用户修改Schedule操作的
 
 // 当前选择的模式的id。用于用户手触摸修改sector，或者编辑这个mode。这个值和MyEDoughnutView中的成员变量相同
 @property (nonatomic) NSInteger currentSelectedModeId;
-@property (nonatomic)NSUInteger currentDayId;
+@property (nonatomic) NSUInteger currentDayId;
 
 - (IBAction)editSelectedMode:(id)sender;
 - (IBAction)addNewMode:(id)sender;
@@ -72,16 +73,5 @@
 - (IBAction)changeDay:(id)sender;
 - (IBAction)saveAsNewDay:(id)sender;
 - (IBAction)deleteCurrentDay:(id)sender;
-
-
-
-
-
-- (void) downloadModelFromServer;
-- (void)uploadModelToServer;
-- (void)uploadToServerNewMode:(MyEScheduleModeData *)mode;
-- (void)uploadToServerEditingMode:(MyEScheduleModeData *)mode;
-- (void)uploadToServerDeletingMode:(MyEScheduleModeData *)mode;
-
 
 @end

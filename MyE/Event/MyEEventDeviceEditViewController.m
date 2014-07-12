@@ -209,7 +209,7 @@
     //6不用
     //7，8编辑时不用，添加时需要
     if ((_deviceType.typeId >= 2 && _deviceType.typeId <= 5) ||
-        (_deviceType.typeId >= 7 && _isAdd) ||
+        (_deviceType.typeId > 7 && _isAdd) ||  //特别注意，此处取消等号，也就是取消了开关，也就是说开关需要下载数据，主要考虑到开关的的禁用状态
         (_deviceType.typeId == 0 && !_isAdd)) {
         [self downloadInstructionsWithDeviceId:_device.deviceId];
     }
@@ -236,7 +236,11 @@
         label.text = [NSString stringWithFormat:@"Light %i",indexPath.row + 1];
     }else
         label.text = [NSString stringWithFormat:@"Channel %i",indexPath.row + 1];
-    [status setOn:[[_instructions.channel substringWithRange:NSMakeRange(indexPath.row, 1)] isEqualToString:@"1"]?YES:NO animated:YES];
+    NSString *string = [_instructions.channel substringWithRange:NSMakeRange(indexPath.row, 1)];
+    if (_deviceType.typeId == 7 && string.intValue == 2) {
+        status.enabled = NO;
+    }
+    [status setOn:[string isEqualToString:@"1"] animated:YES];
     [status addTarget:self action:@selector(changeStatus:) forControlEvents:UIControlEventValueChanged];
     return cell;
 }

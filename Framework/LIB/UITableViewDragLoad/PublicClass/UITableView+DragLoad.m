@@ -117,14 +117,15 @@
 
 @dynamic dragDelegate;
 
+#warning 多个地方有注释
 - (id<UITableViewDragLoadDelegate>)dragDelegate
 {
-    return objc_getAssociatedObject(self, DRAG_DELEGATE_KEY);
+//    return objc_getAssociatedObject(self, DRAG_DELEGATE_KEY);
 }
 
 - (void)setDragDelegate:(id<UITableViewDragLoadDelegate>)dragDelegate refreshDatePermanentKey:(NSString *)refreshDatePermanentKey
 {
-    objc_setAssociatedObject(self, DRAG_DELEGATE_KEY, dragDelegate, OBJC_ASSOCIATION_ASSIGN);
+//    objc_setAssociatedObject(self, DRAG_DELEGATE_KEY, dragDelegate, OBJC_ASSOCIATION_ASSIGN);
     if (dragDelegate)
     {
         [self initSubViewsWithRefreshDatePermanentKey:refreshDatePermanentKey];
@@ -137,27 +138,29 @@
 
 - (BOOL)showRefreshView
 {
-    NSNumber *boolNumber = objc_getAssociatedObject(self, DRAG_SHOULD_SHOW_REFRESH_KEY);
-    return [boolNumber boolValue];
+//    NSNumber *boolNumber = objc_getAssociatedObject(self, DRAG_SHOULD_SHOW_REFRESH_KEY);
+//    return [boolNumber boolValue];
+    return YES;
 }
 
 - (void)setShowRefreshView:(BOOL)shouldShowRefreshView
 {
     NSNumber *boolNumber = [NSNumber numberWithBool:shouldShowRefreshView];
-    objc_setAssociatedObject(self, DRAG_SHOULD_SHOW_REFRESH_KEY, boolNumber, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//    objc_setAssociatedObject(self, DRAG_SHOULD_SHOW_REFRESH_KEY, boolNumber, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     self.dragHeaderView.hidden = !shouldShowRefreshView;
 }
 
 - (BOOL)showLoadMoreView
 {
-    NSNumber *boolNumber = objc_getAssociatedObject(self, DRAG_SHOULD_SHOW_LOAD_MORE_KEY);
-    return [boolNumber boolValue];
+//    NSNumber *boolNumber = objc_getAssociatedObject(self, DRAG_SHOULD_SHOW_LOAD_MORE_KEY);
+//    return [boolNumber boolValue];
+    return YES;
 }
 
 - (void)setShowLoadMoreView:(BOOL)shouldShowLoadMoreView
 {
     NSNumber *boolNumber = [NSNumber numberWithBool:shouldShowLoadMoreView];
-    objc_setAssociatedObject(self, DRAG_SHOULD_SHOW_LOAD_MORE_KEY, boolNumber, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//    objc_setAssociatedObject(self, DRAG_SHOULD_SHOW_LOAD_MORE_KEY, boolNumber, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     self.dragFooterView.hidden = !shouldShowLoadMoreView;
 }
 
@@ -245,35 +248,36 @@
 @dynamic dragFooterView;
 @dynamic gestureObserver;
 
-- (DragTableHeaderView_ot *)dragHeaderView
-{
-    return objc_getAssociatedObject(self, DRAG_HEADER_KEY);
-}
-
-- (void)setDragHeaderView:(DragTableHeaderView_ot *)dragHeaderView
-{
-    objc_setAssociatedObject(self, DRAG_HEADER_KEY, dragHeaderView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (DragTableFooterView_ot *)dragFooterView
-{
-    return objc_getAssociatedObject(self, DRAG_FOOTER_KEY);
-}
-
-- (void)setDragFooterView:(DragTableFooterView_ot *)dragFooterView
-{
-    objc_setAssociatedObject(self, DRAG_FOOTER_KEY, dragFooterView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (DragTableGestureObserver_ot *)gestureObserver
-{
-    return objc_getAssociatedObject(self, DRAG_GESTURE_OBSERVER_KEY);
-}
-
-- (void)setGestureObserver:(DragTableGestureObserver_ot *)gestureObserver
-{
-    objc_setAssociatedObject(self, DRAG_GESTURE_OBSERVER_KEY, gestureObserver, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
+#warning 多处
+//- (DragTableHeaderView_ot *)dragHeaderView
+//{
+//    return objc_getAssociatedObject(self, DRAG_HEADER_KEY);
+//}
+//
+//- (void)setDragHeaderView:(DragTableHeaderView_ot *)dragHeaderView
+//{
+//    objc_setAssociatedObject(self, DRAG_HEADER_KEY, dragHeaderView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//}
+//
+//- (DragTableFooterView_ot *)dragFooterView
+//{
+//    return objc_getAssociatedObject(self, DRAG_FOOTER_KEY);
+//}
+//
+//- (void)setDragFooterView:(DragTableFooterView_ot *)dragFooterView
+//{
+//    objc_setAssociatedObject(self, DRAG_FOOTER_KEY, dragFooterView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//}
+//
+//- (DragTableGestureObserver_ot *)gestureObserver
+//{
+//    return objc_getAssociatedObject(self, DRAG_GESTURE_OBSERVER_KEY);
+//}
+//
+//- (void)setGestureObserver:(DragTableGestureObserver_ot *)gestureObserver
+//{
+//    objc_setAssociatedObject(self, DRAG_GESTURE_OBSERVER_KEY, gestureObserver, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//}
 
 #pragma mark Call Delegate
 

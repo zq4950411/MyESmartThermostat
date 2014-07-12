@@ -63,6 +63,7 @@
     txt.textAlignment = NSTextAlignmentCenter;
     txt.font = [UIFont systemFontOfSize:20];
     txt.text = name;
+    txt.keyboardType = UIKeyboardTypeASCIICapable;
     alert.tag = tag;
     [alert show];
 }

@@ -22,12 +22,10 @@
     return nil;
 }
 
-
-
 - (MyEThermostatDayData *)initWithDictionary:(NSDictionary *)dictionary
 {
     _periods = [[NSMutableArray alloc] init];
-    self.dayId = [[dictionary objectForKey:@"dayId"] intValue];
+    self.dayId = [dictionary objectForKey:@"dayId"]==[NSNull null]?-1:[[dictionary objectForKey:@"dayId"] intValue];
     _name = [dictionary objectForKey:@"name"]?[dictionary objectForKey:@"name"]:@"";
     NSArray *periodsInDict = [dictionary objectForKey:@"periods"];
     NSMutableArray *periods = [NSMutableArray array];
@@ -67,19 +65,37 @@
                           nil ];
     return dict;
 }
+-(NSString *)jsonSelf{
+    SBJsonWriter *writer = [[SBJsonWriter alloc] init];
+    NSMutableArray *array = [NSMutableArray array];
+    for (MyEThermostatPeriodData *d in self.periods) {
+        [array addObject:[d JSONDictionary]];
+    }
+    NSDictionary *dic = @{@"periods": array,
+                          @"specialName":self.name};
+    NSString *str = [writer stringWithObject:dic];
+    NSLog(@"str is %@",str);
+    return str;
+}
 -(id)copyWithZone:(NSZone *)zone {
     return [[MyEThermostatDayData alloc] initWithDictionary:[self JSONDictionary]];
+//    MyEThermostatDayData *copy = [[[self class] allocWithZone:zone] init];
+//    copy.dayId = self.dayId;
+//    copy.name = self.name;
+//    copy.periods = [self.periods copy];
+//    return copy;
 }
 -(void)updatePeriodWithAnother:(MyEThermostatDayData *)another {
     self.periods = [another.periods copy];
 }
 -(NSString *)description
 {
-    NSMutableString *desc = [NSMutableString stringWithFormat:@"\ndayId = %i , name = %@, \nperiods:[",_dayId, self.name];
-    for (MyEThermostatPeriodData *period in self.periods)
-        [desc appendString:[NSString stringWithFormat:@"{\n%@\n}",[period description]]];
-    [desc appendString:@"\n]"];
-    return desc;
+    return [NSString stringWithFormat:@"periods:%@ \n dayId:%i",self.periods,self.dayId];
+//    NSMutableString *desc = [NSMutableString stringWithFormat:@"\ndayId = %i , name = %@, \nperiods:[",_dayId, self.name];
+//    for (MyEThermostatPeriodData *period in self.periods)
+//        [desc appendString:[NSString stringWithFormat:@"{\n%@\n}",[period description]]];
+//    [desc appendString:@"\n]"];
+//    return desc;
 }
 
 @end

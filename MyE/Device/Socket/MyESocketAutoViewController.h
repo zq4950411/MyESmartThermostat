@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MyEScheduleCell.h"
 #import "EGORefreshTableHeaderView.h"
-@interface MyESocketAutoViewController : UITableViewController<MyEDataLoaderDelegate,EGORefreshTableHeaderDelegate>
+#import "MyESocketManualViewController.h"
+@interface MyESocketAutoViewController : UITableViewController<MyEDataLoaderDelegate,EGORefreshTableHeaderDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) MyEDevice *device;
 @property (nonatomic, strong) MyESocketSchedules *schedules;
 @property (nonatomic, assign) BOOL needRefresh;

@@ -681,7 +681,7 @@ static BOOL MZFromSheetControllerIsViewControllerBasedStatusBarAppearance(void) 
 {
     CGRect screenRect = [[notification userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
 
-    if (UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+    if (UIDeviceOrientationIsLandscape((UIDeviceOrientation)[UIApplication sharedApplication].statusBarOrientation)) {
         screenRect.size.height = [UIScreen mainScreen].bounds.size.width - screenRect.size.width;
         screenRect.size.width = [UIScreen mainScreen].bounds.size.height;
     } else {

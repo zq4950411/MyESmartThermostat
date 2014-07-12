@@ -25,15 +25,7 @@
 
 @implementation MyEEventConditionEditViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - lifecircle methods
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -116,7 +108,12 @@
                 _selectedIndex2 = 0;
         }else{
             _isShow = YES;
-            [self refreshUIWithBool:NO];
+//            [self refreshUIWithBool:NO];
+#warning 修改
+            [self performSelector:@selector(refreshUIWithBool:) withObject:nil afterDelay:1.0f];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self refreshUIWithBool:NO];
+//            });
         }
     }
     [_conditionBtn setTitle:_conditonArray[_selectedIndex1] forState:UIControlStateNormal];
@@ -127,7 +124,6 @@
     }else
         [_terminalBtn setTitle:@"No terminal" forState:UIControlStateNormal];
     [_relationBtn setTitle:_relationArray[_selectedIndex3] forState:UIControlStateNormal];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -138,10 +134,6 @@
 #pragma mark - IBAction methods
 - (IBAction)save:(UIBarButtonItem *)sender {
     NSLog(@"%@",_newCustom);
-    if (HUD == nil) {
-        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    }else
-        [HUD show:YES];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&sceneId=%i&tid=%@&id=%i&dataType=%i&parameterType=%i&parameterValue=%i&action=%i",GetRequst(URL_FOR_SCENES_CONDITION_CUSTOM),MainDelegate.houseData.houseId,self.eventInfo.sceneId,(_newCustom.dataType == 1 || _newCustom.dataType == 2)?_newCustom.tId:@"",_newCustom.conditionId,_newCustom.dataType,_newCustom.parameterType,_newCustom.parameterValue,_isAdd?1:2] postData:nil delegate:self loaderName:@"condition" userDataDictionary:nil];
     NSLog(@"loader name is %@",loader.name);
 }
@@ -164,7 +156,7 @@
 }
 #pragma mark - private methods
 -(void)refreshUIWithBool:(BOOL)yes{
-    if (yes) {
+    if (yes) { //yes值为YES，则是要显示view,NO就是不显示
         if (_isShow) {
             return;
         }

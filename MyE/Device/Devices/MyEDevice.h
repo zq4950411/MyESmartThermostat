@@ -33,9 +33,9 @@
 @property (nonatomic,strong) NSString *locationId;
 @property (nonatomic,strong) NSString *locationName;
 @property (nonatomic) NSInteger point; //温控器设置的温度，温控器可用
-@property (nonatomic,strong) NSString *instructionName;
+@property (nonatomic,strong) NSString *instructionName;  //显示指令的名称如：”on”,”off”，通用控制器和开关显示“110000”，“102“，开关的2代表禁用
+@property (nonatomic,assign) BOOL showSpecialDays;  //是否显示SpecialDays,温控器可用
 @property (nonatomic, assign) NSInteger maxCurrent;  //插座可用
-
 @property (nonatomic,assign) BOOL isExpand;
 
 +(NSMutableArray *) devices:(id) json;

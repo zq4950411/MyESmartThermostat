@@ -578,7 +578,7 @@ static NSOperationQueue *sharedQueue = nil;
 		return;
 	}
 	if ([self shouldStreamPostDataFromDisk]) {
-		[[self postBodyWriteStream] write:[data bytes] maxLength:[data length]];
+		[[self postBodyWriteStream] write:(uint8_t*)[data bytes] maxLength:[data length]];
 	} else {
 		[[self postBody] appendData:data];
 	}
@@ -3378,7 +3378,7 @@ static NSOperationQueue *sharedQueue = nil;
 					[[self inflatedFileDownloadOutputStream] open];
 				}
 
-				[[self inflatedFileDownloadOutputStream] write:[inflatedData bytes] maxLength:[inflatedData length]];
+				[[self inflatedFileDownloadOutputStream] write:(uint8_t *)[inflatedData bytes] maxLength:[inflatedData length]];
 			}
 
 			

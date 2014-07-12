@@ -906,7 +906,7 @@ typedef enum {
                 
                 // 根据上述颜色，生成一个颜色相同但亮度更低的
                 MyEHSVColorStruct hsv;
-                [modeColor getHue:&hsv.hue saturation:&hsv.sat brightness:&hsv.val alpha:&hsv.alpha];
+                [modeColor getHue:(CGFloat *)&hsv.hue saturation:(CGFloat *)&hsv.sat brightness:(CGFloat *)&hsv.val alpha:(CGFloat *)&hsv.alpha];
                 realFillColor= [UIColor colorWithHue:hsv.hue saturation:hsv.sat brightness:hsv.val * 0.8 alpha:hsv.alpha];
             }else  if([[self.holdArray objectAtIndex:i] caseInsensitiveCompare:@"none"] != NSOrderedSame)
             {
@@ -1058,7 +1058,7 @@ typedef enum {
 //注意，设置模式数组和模式颜色词典，并开始绘制圆环。modeIdArray是48个modeId元素，表示每个半点的modeId。
 - (void)createViewsWithModeArray:(NSMutableArray *)modeIdArray scheduleType:(NSInteger)type
 {
-    _scheduleType = type;
+    _scheduleType = (ScheduleType)type;
     self.modeIdArray = modeIdArray;
     
     [self _drawContents];

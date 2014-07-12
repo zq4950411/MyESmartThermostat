@@ -13,10 +13,12 @@
 #import "MyEHouseData.h"
 #import "MyEAlertDetailViewController.h"
 
-#define ALERT_COUNT_PER_PAGE  20
+#define ALERT_COUNT_PER_PAGE  10
 
-@interface MyEAlertsTableViewController ()
--(void)goHome;
+@interface MyEAlertsTableViewController (){
+    EGORefreshTableHeaderView *_refreshHeaderView;
+    BOOL _isRefreshing;
+}
 -(void) deleteAlertFromServerAtRow:(NSInteger)row;
 - (void) downloadModelFromServer;
 
@@ -28,54 +30,42 @@
 
 @implementation MyEAlertsTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - life circle methods
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.tableFooterView = [[UIView alloc] init];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [self.tableView setDragDelegate:self refreshDatePermanentKey:@"AlertList"];
-    
     self.alerts = [NSMutableArray array];
-    _pageIndex = -1;
+    _pageIndex = 0;
     _totalCount = 0;
     
-    if(!self.fromHome){
-        // Change button color
-//        _sidebarButton.tintColor = [UIColor colorWithWhite:0.3f alpha:0.82f];
-        
-        // Set the side bar button action. When it's tapped, it'll show up the sidebar.
-        _sidebarButton.target = self.revealViewController;
-        _sidebarButton.action = @selector(revealToggle:);
-        
-        // Set the gesture
-        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-    } else {
-        self.navigationItem.leftBarButtonItem = nil;
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
-                                       initWithTitle: @"Home"
-                                       style:UIBarButtonItemStylePlain
-                                       target:self
-                                       action:@selector(goHome)];
-        self.navigationItem.backBarButtonItem = backButton;
+    _sidebarButton.target = self.revealViewController;
+    _sidebarButton.action = @selector(revealToggle:);
+
+    if (!_refreshHeaderView) {
+        EGORefreshTableHeaderView *refreshView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.tableView.frame.size.width, self.tableView.bounds.size.height)];
+        refreshView.delegate = self;
+        [self.tableView addSubview:refreshView];
+        _refreshHeaderView = refreshView;
     }
-    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
-                                      initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-                                      target:self
-                                      action:@selector(refreshAction)];
-    self.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, nil];
+    [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
+    
+//    if(!self.fromHome){
+//        _sidebarButton.target = self.revealViewController;
+//        _sidebarButton.action = @selector(revealToggle:);
+//    }else {
+//        self.navigationItem.leftBarButtonItem = nil;
+//        UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+//                                       initWithTitle: @"Home"
+//                                       style:UIBarButtonItemStylePlain
+//                                       target:self
+//                                       action:@selector(goHome)];
+//        self.navigationItem.backBarButtonItem = backButton;
+//    }
+//    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
+//                                      initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+//                                      target:self
+//                                      action:@selector(refreshAction)];
+//    self.parentViewController.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:refreshButton, nil];
 
     [self downloadModelFromServer];
 
@@ -83,31 +73,19 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return self.alerts.count;
 }
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"alertCell" forIndexPath:indexPath];
@@ -120,19 +98,7 @@
     isNewLabel.hidden = (alert.new_flag == 0);
     return cell;
 }
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-
-// Override to support editing the table view.
+#pragma mark - UITableView delegate methods
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -145,49 +111,17 @@
         alertView.tag = indexPath.row;
         [alertView show];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 #pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"godetail"]) {
         MyEAlertDetailViewController *vc = segue.destinationViewController;
         NSInteger index = self.tableView.indexPathForSelectedRow.row;
         vc.alert = self.alerts[index];
     }
 }
-
-
-
-- (void)refreshAction
-{
-    [self downloadModelFromServer];
-}
-
 #pragma mark -
 #pragma mark URL Loading System methods
 -(void) deleteAlertFromServerAtRow:(NSInteger)row{
@@ -202,6 +136,22 @@
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"DeleteAlertUploader"  userDataDictionary:@{@"indexPath":indexPath}];
     NSLog(@"DeleteAlertUploader is %@",downloader.name);
 }
+
+- (IBAction)loadMore:(UIButton *)sender {
+    if ([sender.titleLabel.text isEqualToString:@"Load More"]) {
+        [self loadMoreWithBool:YES];
+        [self downloadModelForType:ALERT_LOAD_TYPE_DRAG_LOADMORE withPageIndex:_pageIndex andCount:ALERT_COUNT_PER_PAGE];
+    }
+}
+
+#pragma mark - private methods
+-(void)loadMoreWithBool:(BOOL)flag{
+    self.activity.hidden = !flag;  //flag为YES，表示开始刷新
+    if (flag) {
+        [self.refreshBtn setTitle:@"Loading..." forState:UIControlStateNormal];
+    }else
+        [self.refreshBtn setTitle:@"Load More" forState:UIControlStateNormal];
+}
 // 进入次面板的初次下载
 - (void) downloadModelFromServer
 {
@@ -209,7 +159,6 @@
 }
 -(void) downloadModelForType:(ALERT_LOAD_TYPE)type withPageIndex:(NSInteger)index andCount:(NSInteger)count
 {
-
     if (type == ALERT_LOAD_TYPE_INIT) {
         if(HUD == nil) {
             HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -220,35 +169,41 @@
     
     // 如果是load more, 但已经加载到本地的alert数目和服务器现有的alert数目一样, 就表示全部加载完成了, 直接返回, 不再加载
     if(type == ALERT_LOAD_TYPE_DRAG_LOADMORE){
-        self.tableView.footerLoadingText = @"Loading...";
-        [self.tableView.footerLoadingIndicator startAnimating];
-        self.tableView.footerLoadingIndicator.hidden = NO;
-        if( self.alerts.count >= _totalCount){
-            [self.tableView.footerLoadingIndicator stopAnimating ];
-            self.tableView.footerLoadingIndicator.hidden = YES;
-            
-            self.tableView.footerLoadingText = @"No more data";
-            [self.tableView performSelector:@selector(finishLoadMore) withObject:nil afterDelay:1];
-            return;
-        }
+//        self.tableView.footerLoadingText = @"Loading...";
+//        [self.tableView.footerLoadingIndicator startAnimating];
+//        self.tableView.footerLoadingIndicator.hidden = NO;
+//        if( self.alerts.count >= _totalCount){
+//            [self.tableView.footerLoadingIndicator stopAnimating ];
+//            self.tableView.footerLoadingIndicator.hidden = YES;
+//            
+//            self.tableView.footerLoadingText = @"No more data";
+//            [self.tableView performSelector:@selector(finishLoadMore) withObject:nil afterDelay:1];
+//            return;
+//        }
     }
-    
-    
     NSString *urlStr = [NSString stringWithFormat:@"%@?page_index=%d&page_size=%d",GetRequst(URL_FOR_ALERTS_VIEW),index, count];
-    NSLog(@"urlStr=%@", urlStr);
-    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"AlertsDownloader"  userDataDictionary:@{@"load_type":@(type)}];
-    NSLog(@"AlertsDownloader is %@",downloader.name);
+    [MyEDataLoader startLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"AlertsDownloader" userDataDictionary:@{@"load_type":@(type)}];
 }
+
+#pragma mark - URL Delegate methods
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict
 {
     if([name isEqualToString:@"AlertsDownloader"]) {
         NSInteger load_type = [dict[@"load_type"] integerValue];
         if(load_type == ALERT_LOAD_TYPE_INIT)
             [HUD hide:YES];
-        
+        if (load_type == ALERT_LOAD_TYPE_PULL_REFRESH) {
+            if (_isRefreshing) {
+                _isRefreshing = NO;
+                [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+            }
+        }
         if ([string isEqualToString:@"fail"]) {
+            if ([self.refreshBtn.titleLabel.text isEqualToString:@"Loading..."]) {
+                [self loadMoreWithBool:NO];
+            }
             [SVProgressHUD showErrorWithStatus:@"Alerts data is not available now. Please try later!"];
-        } else {
+        }else{
             NSLog(@"%@",string);
             NSDictionary *dataDic = [string JSONValue];
             if ([dataDic isKindOfClass:[NSDictionary class]])
@@ -257,7 +212,15 @@
                 NSArray *tempArray = [dataDic objectForKey:@"alertList"];
                 switch (load_type) {
                     case ALERT_LOAD_TYPE_INIT:
+                        [self.alerts removeAllObjects];
+                        for (NSDictionary *tempAlert in tempArray){
+                            MyEAlert *alert = [[MyEAlert alloc] initWithDictionary:tempAlert];
+                            [self.alerts addObject:alert];
+                        }
+                            _pageIndex = 1;
+                        break;
                     case ALERT_LOAD_TYPE_PULL_REFRESH:
+                        [self loadMoreWithBool:NO];
                         if(tempArray.count > 0)
                             _pageIndex = 0;
                         [self.alerts removeAllObjects];
@@ -265,22 +228,31 @@
                             MyEAlert *alert = [[MyEAlert alloc] initWithDictionary:tempAlert];
                             [self.alerts addObject:alert];
                         }
-                        [self finishRefresh];
+                        _pageIndex = 1;
+                        if ([self.refreshBtn.titleLabel.text isEqualToString:@"Load More"]) {
+                            [self.refreshBtn setTitle:@"Load More" forState:UIControlStateNormal];
+                        }
                         break;
                     case ALERT_LOAD_TYPE_DRAG_LOADMORE:
-                    default:
+                        if ([self.refreshBtn.titleLabel.text isEqualToString:@"Loading..."]) {
+                            [self loadMoreWithBool:NO];
+                        }
+                        if ([tempArray count]) {
                         for (NSDictionary *tempAlert in tempArray){
                             MyEAlert *alert = [[MyEAlert alloc] initWithDictionary:tempAlert];
                             [self.alerts addObject:alert];
                         }
-                        if(tempArray.count == ALERT_COUNT_PER_PAGE)
+          //              if(tempArray.count == ALERT_COUNT_PER_PAGE)
                             _pageIndex ++;
-                        [self finishLoadMore];
+                        }else
+                            [self.refreshBtn setTitle:@"No more alerts" forState:UIControlStateNormal];
+                        break;
+                    default:
                         break;
                 }
+                [self.tableView reloadData];
             }
         }
-        
     }
     if([name isEqualToString:@"DeleteAlertUploader"]) {
         [HUD hide:YES];
@@ -302,11 +274,12 @@
                                         cancelButtonTitle:@"Ok"
                                         otherButtonTitles:nil];
     [alert show];
-    
-    // inform the user
     NSLog(@"Connection of %@ failed! Error - %@ %@",name,
           [error localizedDescription],
           [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+    if ([self.refreshBtn.titleLabel.text isEqualToString:@"Loading..."]) {
+        [self loadMoreWithBool:NO];
+    }
     [HUD hide:YES];
 }
 #pragma mark - UIAlertView delegate methods
@@ -315,58 +288,28 @@
     if ([alertView.title isEqualToString:@"Confirm"] && buttonIndex == 0) {
         [self deleteAlertFromServerAtRow:alertView.tag];
     }
+}
+#pragma mark - UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-}
-         
-#pragma mark - Private Methods
-
--(void)goHome
-{
-    [self dismissViewControllerAnimated:YES completion:Nil];
+    [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
 }
 
-
-
-#pragma mark - Control datasource
-
-- (void)finishRefresh
-{
-    [self.tableView finishRefresh];
-    [self.tableView reloadData];
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
 }
+#pragma mark - EGORefreshTableHeaderDelegate Methods
 
-- (void)finishLoadMore
-{
-    [self.tableView finishLoadMore];
-    [self.tableView reloadData];
-}
-
-#pragma mark - Drag delegate methods
-
-- (void)dragTableDidTriggerRefresh:(UITableView *)tableView
-{
-    //send refresh request(generally network request) here
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+    _isRefreshing = YES;
     [self downloadModelForType:ALERT_LOAD_TYPE_PULL_REFRESH withPageIndex:0 andCount:ALERT_COUNT_PER_PAGE];
-    
 }
-
-- (void)dragTableRefreshCanceled:(UITableView *)tableView
-{
-    //cancel refresh request(generally network request) here
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(finishRefresh) object:nil];
+-(BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView *)view{
+    return _isRefreshing;
 }
-
-- (void)dragTableDidTriggerLoadMore:(UITableView *)tableView
-{
-    //send load more request(generally network request) here
-
-    [self downloadModelForType:ALERT_LOAD_TYPE_DRAG_LOADMORE withPageIndex:_pageIndex+1 andCount:ALERT_COUNT_PER_PAGE];
-
-}
-
-- (void)dragTableLoadMoreCanceled:(UITableView *)tableView
-{
-    //cancel load more request(generally network request) here
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(finishLoadMore) object:nil];
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+    return [NSDate date];
 }
 @end

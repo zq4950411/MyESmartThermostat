@@ -56,11 +56,18 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:hit];
     _deleteIndexPath = indexPath; //这里是借用了这个变量
     NSLog(@"当前选定的行是 %i",indexPath.row);
-    MyESocketSchedule *schedule = self.schedules.schedules[indexPath.row];
-    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&scheduleId=%i&onTime=%@&offTime=%@&weeks=%@&runFlag=%i&action=2",GetRequst(URL_FOR_SOCKET_SAVE_PLUG_SCHEDULE),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId,schedule.scheduleId,schedule.onTime,schedule.offTime,[schedule.weeks componentsJoinedByString:@","],1-schedule.runFlag] andName:@"control"];
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&action=2",GetRequst(URL_FOR_SOCKET_MUTEX_DELAY),MainDelegate.houseData.houseId,self.device.tid] andName:@"check"];
 }
 
 #pragma mark - private methods
+-(void)uploadThingsToServer{
+    if (HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }else
+        [HUD show:YES];
+    MyESocketSchedule *schedule = self.schedules.schedules[_deleteIndexPath.row];
+    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&scheduleId=%i&onTime=%@&offTime=%@&weeks=%@&runFlag=%i&action=2",GetRequst(URL_FOR_SOCKET_SAVE_PLUG_SCHEDULE),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId,schedule.scheduleId,schedule.onTime,schedule.offTime,[schedule.weeks componentsJoinedByString:@","],1-schedule.runFlag] andName:@"control"];
+}
 -(void)uploadOrDownloadInfoFromServerWithURL:(NSString *)url andName:(NSString *)name{
     if (HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
@@ -85,7 +92,7 @@
     MyESocketSchedule *schedule = self.schedules.schedules[indexPath.row];
     UIView *view = (UIView *)[cell.contentView viewWithTag:999];
     cell.time = [NSString stringWithFormat:@"%@-%@",schedule.onTime,schedule.offTime];
-    cell.isOn = schedule.runFlag == 1?YES:NO;
+    cell.isOn = schedule.runFlag == 1;
     cell.weeks = schedule.weeks;
     view.layer.cornerRadius = 4;
     return cell;
@@ -123,6 +130,9 @@
         }else if (string.intValue == -501){
             [SVProgressHUD showWithStatus:@"No Schedule"];
         }else if (![string isEqualToString:@"fail"]){
+            UINavigationController *nav = self.tabBarController.childViewControllers[0];
+            MyESocketManualViewController *vc = nav.childViewControllers[0];
+            vc.needRefresh = YES;
             MyESocketSchedule *schedule = self.schedules.schedules[_deleteIndexPath.row];
             schedule.runFlag = 1-schedule.runFlag;
         }else{
@@ -138,6 +148,22 @@
             [self.tableView deleteRowsAtIndexPaths:@[_deleteIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];
+    }
+    if ([name isEqualToString:@"check"]) {
+        if ([string isEqualToString:@"fail"]) {
+            [HUD hide:YES];
+            [SVProgressHUD showErrorWithStatus:@"Error!"];
+        }else{
+            NSDictionary *dic = [string JSONValue];
+            NSInteger result = [dic[@"isMutex"] intValue];
+            if (result == 1) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"A timer has been set for this plug. To enable the auto mode, the timer will be disabled. Do you want to continue?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+                alert.tag = 900;
+                [alert show];
+            }else{
+                [self uploadThingsToServer];
+            }
+        }
     }
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
@@ -159,6 +185,15 @@
         vc.schedule = schedule;
         vc.schedules = self.schedules;
         vc.isAdd = NO;
+    }
+}
+#pragma mark - UIAlertView delegate methods
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 900 && buttonIndex == 1) {
+        UINavigationController *nav = self.tabBarController.childViewControllers[0];
+        MyESocketManualViewController *vc = nav.childViewControllers[0];
+        vc.needRefresh = YES;
+        [self uploadThingsToServer];
     }
 }
 #pragma mark - UIScrollViewDelegate Methods

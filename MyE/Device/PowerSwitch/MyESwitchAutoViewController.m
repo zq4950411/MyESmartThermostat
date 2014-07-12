@@ -62,13 +62,7 @@
     _selectIndex = indexPath;
     NSLog(@"index is %i",indexPath.row);
     MyESwitchSchedule *_scheduleNew = self.control.SSList[indexPath.row];
-    [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:[NSString stringWithFormat:@"%@?houseId=%li&tId=%@&deviceId=%i&scheduleId=%li&onTime=%@&offTime=%@&channels=%@&weeks=%@&runFlag=%i&action=2",GetRequst(URL_FOR_SWITCH_SCHEDULE_SAVE),
-                                                           (long)MainDelegate.houseData.houseId, self.device.tid,[self.device.deviceId intValue],
-                                                           (long)_scheduleNew.scheduleId,
-                                                           _scheduleNew.onTime,
-                                                           _scheduleNew.offTime,
-                                                           [_scheduleNew.channels componentsJoinedByString:@","],
-                                                           [_scheduleNew.weeks componentsJoinedByString:@","],sender.isOn] andName:@"scheduleEdit"];
+    [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:[NSString stringWithFormat:@"%@?houseId=%li&tId=%@&channels=%@&action=2",GetRequst(URL_FOR_SWITCH_TIME_DELAY),(long)MainDelegate.houseData.houseId, self.device.tid,[_scheduleNew.channels componentsJoinedByString:@","]] andName:@"check"];
 }
 #pragma mark - private methods
 -(void)dismissVC{
@@ -81,6 +75,16 @@
     [HUD show:YES];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:url postData:nil delegate:self loaderName:name userDataDictionary:nil];
     NSLog(@"%@ is %@",name,loader.name);
+}
+-(void)uploadInfoToServer{
+    MyESwitchSchedule *_scheduleNew = self.control.SSList[_selectIndex.row];
+    [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:[NSString stringWithFormat:@"%@?houseId=%li&tId=%@&deviceId=%i&scheduleId=%li&onTime=%@&offTime=%@&channels=%@&weeks=%@&runFlag=%i&action=2",GetRequst(URL_FOR_SWITCH_SCHEDULE_SAVE),
+                                                           (long)MainDelegate.houseData.houseId, self.device.tid,[self.device.deviceId intValue],
+                                                           (long)_scheduleNew.scheduleId,
+                                                           _scheduleNew.onTime,
+                                                           _scheduleNew.offTime,
+                                                           [_scheduleNew.channels componentsJoinedByString:@","],
+                                                           [_scheduleNew.weeks componentsJoinedByString:@","],1-_scheduleNew.runFlag] andName:@"scheduleEdit"];
 }
 #pragma mark - UITableView delegate methods
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -133,12 +137,15 @@
     }
     if ([name isEqualToString:@"scheduleEdit"]) {
         if ([string isEqualToString:@"OK"]) {
-            MyESwitchSchedule *schedule = self.control.SSList[_selectIndex.row];
+            UINavigationController *nav = self.tabBarController.childViewControllers[0];
+            MyESwitchManualControlViewController *vc = nav.childViewControllers[0];
+            vc.needRefresh = YES;
+             MyESwitchSchedule *schedule = self.control.SSList[_selectIndex.row];
             schedule.runFlag = 1 - schedule.runFlag;
         }else{
             [SVProgressHUD showErrorWithStatus:@"fail"];
-            [self.tableView reloadData]; //这个是精髓
         }
+        [self.tableView reloadData]; //这个是精髓
     }
     if ([name isEqualToString:@"delete"]) {
         if ([string isEqualToString:@"OK"]) {
@@ -156,10 +163,36 @@
             [MyEUtil showMessageOn:nil withMessage:@"Failed to download auto process data"];
         }
     }
+    if ([name isEqualToString:@"check"]) {
+        NSLog(@"check string is %@",string);
+        if (![string isEqualToString:@"fail"]) {
+            SBJsonParser *parser = [[SBJsonParser alloc] init];
+            NSDictionary *dict = [parser objectWithString:string];
+            int isMutex = [[dict objectForKey:@"isMutex"] intValue];
+            
+            if(isMutex == 1){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"A timer has been set for this switch. To enable the auto mode, the timer will be disabled. Do you want to continue?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+                alert.tag = 900;
+                [alert show];
+            }else if(isMutex == 2){
+                [self uploadInfoToServer];
+            }else
+                [MyEUtil showMessageOn:nil withMessage:[NSString stringWithFormat:@"Wrong code:%i from server",isMutex]];
+        }else {
+            [MyEUtil showMessageOn:nil withMessage:@"Failed to communicate with server"];
+        }
+    }
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     [HUD hide:YES];
     [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
+
+#pragma mark - UIAlertView Delegate methods
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 900 && buttonIndex == 1) {
+        [self uploadInfoToServer];
+    }
 }
 #pragma mark - UIScrollViewDelegate Methods
 

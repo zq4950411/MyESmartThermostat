@@ -43,11 +43,12 @@
 {
     self.sortedSegments = nil;
     self.sortedSegments = [NSMutableArray arrayWithArray:self.subviews];
-    [self.sortedSegments sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        CGFloat x1 = ((UIView *)obj1).frame.origin.x;
-        CGFloat x2 = ((UIView *)obj2).frame.origin.x;
-        return (x1 > x2) - (x1 < x2);
-    }];
+#warning 注释
+//    [self.sortedSegments sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+//        CGFloat x1 = ((UIView *)obj1).frame.origin.x;
+//        CGFloat x2 = ((UIView *)obj2).frame.origin.x;
+//        return (x1 > x2) - (x1 < x2);
+//    }];
 }
 
 - (void)selectSegmentsOfSelectedIndexes
