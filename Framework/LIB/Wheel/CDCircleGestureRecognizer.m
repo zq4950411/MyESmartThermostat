@@ -65,9 +65,15 @@
    // circle that represents the rotation gesture.
 
     CDCircle *view = (CDCircle *) [self view];
-   CGPoint center = CGPointMake(CGRectGetMidX([view bounds]), CGRectGetMidY([view bounds]));
-   CGPoint currentTouchPoint = [touch locationInView:view];
-   CGPoint previousTouchPoint = [touch previousLocationInView:view];
+    CGPoint center = CGPointMake(CGRectGetMidX([view bounds]), CGRectGetMidY([view bounds]));
+    CGPoint currentTouchPoint = [touch locationInView:view];
+    CGPoint previousTouchPoint = [touch previousLocationInView:view];
+    
+    // 计算当前触摸点到圆心的距离，如果用户触摸点离开了圆环而是直接到了圆心，并会最终跨越圆心到其他圆环地方，此时我们就不计算选择的角度，否则在靠近圆心的地方旋转会太大
+    CGFloat distance = sqrtf(powf(currentTouchPoint.x-center.x, 2) + powf(currentTouchPoint.y-center.y,2));
+    if(distance < 70)return;
+    
+    
     previousTouchDate = [NSDate date];
     CGFloat angleInRadians = atan2f(currentTouchPoint.y - center.y, currentTouchPoint.x - center.x) - atan2f(previousTouchPoint.y - center.y, previousTouchPoint.x - center.x);
    [self setRotation:angleInRadians];
@@ -77,6 +83,7 @@
     CGFloat direction = [self getTouchAngle:currentTouchPoint] - [self getTouchAngle:previousTouchPoint];
     
     NSInteger degree = (NSInteger)(180.0 * direction / M_PI);// 两次调用之间旋转过的度数
+    if(abs( degree ) < 180)// 限制一次转动的度数，现在会因为异常导致度数跳跃，
     [view.delegate circle:view didMoveDegree:degree];
 //    NSLog(@"touch moved, arc = %f,  旋转的度数=%d", currentTransformAngle, degree);
 
@@ -200,9 +207,9 @@
 - (float)getTouchAngle:(CGPoint)touch {
     
     // Translate into cartesian space with origin at the center of a 320-pixel square
-    // 现在修改成260-pixel的正方形, 就是Circle的外接矩形
-    float x = touch.x - 130;
-    float y = -(touch.y - 130);
+    // 现在修改成240-pixel的正方形, 就是Circle的外接矩形
+    float x = touch.x - 120;
+    float y = -(touch.y - 120);
     
     // Take care not to divide by zero!
     if (y == 0) {

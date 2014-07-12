@@ -622,27 +622,6 @@
     }
 }
 
-//- (NSInteger)_getToolbarOffset
-//{
-//    NSInteger offset = 200;
-//    if (IS_IPHONE_5) // for 4 inch screen
-//    {
-//        if(IS_IOS6)
-//            offset = 210;
-//        else // iOS 7 and above
-//            offset = 95;
-//    }
-//    else // for 3.5 inch screen
-//    {
-//        if(IS_IOS6)
-//            offset = 300;
-//        else // iOS 7 and above
-//            offset = 185;
-//    }
-//
-//    return offset;
-//}
-
 - (void)_showSystemControlToolbarView{
 
     if (self.dashboardData.con_hp == 1) {
@@ -654,20 +633,14 @@
     
 
     self.systemControlToolbarOverlayView.hidden = NO;
-//        CGRect frame = self.systemControlToolbar.frame;
-//        CGRect newFrame = CGRectMake(frame.origin.x, self.systemControlToolbarOverlayView.bounds.size.height - frame.size.height, frame.size.width, frame.size.height);
-//        self.systemControlToolbar.frame = newFrame;
 
-    
     [self.view bringSubviewToFront:self.systemControlToolbarOverlayView];
 
 }
 - (void)_showFanControlToolbarView{
     [self.view bringSubviewToFront:self.fanControlToolbarOverlayView];
     self.fanControlToolbarOverlayView.hidden = NO;
-//        CGRect frame = self.systemControlToolbar.frame;
-//        self.fanControlToolbarOverlayView.frame = CGRectMake(frame.origin.x, self.fanControlToolbarOverlayView.bounds.size.height - frame.size.height, frame.size.width, frame.size.height);
-   
+
     [self.view bringSubviewToFront:self.fanControlToolbarOverlayView];
 
 }
@@ -874,7 +847,7 @@
     NSInteger steps = (NSInteger)(_totalDegree/STEP_DEGREE);
     NSInteger newValue = steps+self.selectedSegment;
     
-    NSLog(@"move代理 累计度数 %d, 累计步: %d, 原来块=%d, newValue=%d", _totalDegree, steps, self.selectedSegment, newValue);
+//    NSLog(@"move代理 累计度数 %d, 累计步: %d, 原来块=%d, newValue=%d", _totalDegree, steps, self.selectedSegment, newValue);
     if (newValue > _maxVal) {
         newValue = _maxVal;
     }
