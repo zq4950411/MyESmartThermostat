@@ -544,6 +544,18 @@
         
         self.stageLevelLabel.text = levelString;
         
+        /*// 下面是风扇图片显示的逻辑
+         If (fan_control == 0)//auto
+         {
+         if(fan_status == “On”)
+         使用左上角带Auto文字的风扇转动的图片
+         if(fan_status == “Off”)
+         使用左上角带Auto文字的风扇静止的图片
+         } else (fan_control == 1)//on，此时不管 fan_status，其实它一定是on
+         {
+         使用左上角带On文字的风扇转动的图片
+         }
+         */
         if (theDashboardData.fan_control == 0) {//auto
             if([theDashboardData.fan_status caseInsensitiveCompare:@"on"] == NSOrderedSame) {
                 //===========================注意更新下面图片使用带Auto文字的
@@ -554,9 +566,6 @@
                 self.fanImageView.animationDuration = ANIMATION_DURATION;
                 self.fanImageView.animationRepeatCount = 0;
                 [self.fanImageView startAnimating];
-                
-                self.fanStatusLabel.text = @"Auto";
-                
             } else if([theDashboardData.fan_status caseInsensitiveCompare:@"off"] == NSOrderedSame) {
                 // 展示两种从Bundle中找到图像文件信息装载该图像文件的例子
                 //都用动画后，好像下面这样直接赋值一个静态图片不清作用，还没深入研究why
@@ -569,9 +578,8 @@
                 self.fanImageView.animationDuration = ANIMATION_DURATION;
                 self.fanImageView.animationRepeatCount = 0;
                 [self.fanImageView startAnimating];
-                self.fanStatusLabel.text = @"Off";
             }
-
+            self.fanStatusLabel.text = @"Auto";
         }else if (theDashboardData.fan_control == 1) {//on
             self.fanImageView.animationImages = [NSArray arrayWithObjects:    
                                                  [UIImage imageNamed:@"Ctrl_FanOn-01.png"],
@@ -614,27 +622,6 @@
     }
 }
 
-//- (NSInteger)_getToolbarOffset
-//{
-//    NSInteger offset = 200;
-//    if (IS_IPHONE_5) // for 4 inch screen
-//    {
-//        if(IS_IOS6)
-//            offset = 210;
-//        else // iOS 7 and above
-//            offset = 95;
-//    }
-//    else // for 3.5 inch screen
-//    {
-//        if(IS_IOS6)
-//            offset = 300;
-//        else // iOS 7 and above
-//            offset = 185;
-//    }
-//
-//    return offset;
-//}
-
 - (void)_showSystemControlToolbarView{
 
     if (self.dashboardData.con_hp == 1) {
@@ -646,20 +633,14 @@
     
 
     self.systemControlToolbarOverlayView.hidden = NO;
-//        CGRect frame = self.systemControlToolbar.frame;
-//        CGRect newFrame = CGRectMake(frame.origin.x, self.systemControlToolbarOverlayView.bounds.size.height - frame.size.height, frame.size.width, frame.size.height);
-//        self.systemControlToolbar.frame = newFrame;
 
-    
     [self.view bringSubviewToFront:self.systemControlToolbarOverlayView];
 
 }
 - (void)_showFanControlToolbarView{
     [self.view bringSubviewToFront:self.fanControlToolbarOverlayView];
     self.fanControlToolbarOverlayView.hidden = NO;
-//        CGRect frame = self.systemControlToolbar.frame;
-//        self.fanControlToolbarOverlayView.frame = CGRectMake(frame.origin.x, self.fanControlToolbarOverlayView.bounds.size.height - frame.size.height, frame.size.width, frame.size.height);
-   
+
     [self.view bringSubviewToFront:self.fanControlToolbarOverlayView];
 
 }
@@ -866,12 +847,19 @@
     NSInteger steps = (NSInteger)(_totalDegree/STEP_DEGREE);
     NSInteger newValue = steps+self.selectedSegment;
     
-    NSLog(@"move代理 累计度数 %d, 累计步: %d, 原来块=%d, newValue=%d", _totalDegree, steps, self.selectedSegment, newValue);
+//    NSLog(@"move代理 累计度数 %d, 累计步: %d, 原来块=%d, newValue=%d", _totalDegree, steps, self.selectedSegment, newValue);
     if (newValue > _maxVal) {
         newValue = _maxVal;
+        [MyEUtil showErrorOn:self.view withMessage:@"Reach to Maximum Setpoint"];
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        AudioServicesPlaySystemSound(1057);
     }
     if (newValue < _minVal) {
         newValue = _minVal;
+        [MyEUtil showErrorOn:self.view withMessage:@"Reach to Minimum Setpoint"];
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        AudioServicesPlaySystemSound(1057);
+
     }
     if(newValue != self.currentVal){
         self.currentVal = newValue;
@@ -882,6 +870,8 @@
         AudioServicesPlaySystemSound(soundID);
     }
     [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i\u00B0F", newValue] forState:UIControlStateNormal];
+    [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i\u00B0F", newValue] forState:UIControlStateDisabled];
+    [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i\u00B0F", newValue] forState:UIControlStateHighlighted];
 }
 -(UIImage *) circle:(CDCircle *)circle iconForThumbAtRow:(NSInteger)row {
 //    NSString *fileString = [[[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:nil] lastObject];
