@@ -56,11 +56,6 @@
     }
     if (dictionary[@"specialId"]) {
         self.specialId = [dictionary[@"specialId"] intValue] < 1?-1:[dictionary[@"specialId"] intValue];
-//        if ([dictionary[@"specialId"] intValue] < 1) {
-//            MyEThermostatDayData *day = self.dayItems[0];
-//            self.specialId = day.dayId;
-//        }else
-//            self.specialId = [dictionary[@"specialId"] intValue];
     }
     if (dictionary[@"modes"]) {
         NSArray *modesInDict = [dictionary objectForKey:@"modes"];
@@ -109,13 +104,13 @@
         [modes addObject:[mode JSONDictionary]];
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          self.userId, @"userId",
-                          self.houseId, @"houseId",
-                          self.locWeb, @"locWeb",
-                          self.currentTime, @"currentTime",
-                          dayItems, @"dayItems",//这里不能把self.dayItems直接放在值的位置，因为其中数组的每个元素没有正确地进行JSON字符串序列化
-                          modes, @"modes",//这里不能把self.metaModeArray直接放在值的位置，因为其中数组的每个元素没有正确地进行JSON字符串序列化
-                          nil ];
+                self.userId, @"userId",
+                self.houseId, @"houseId",
+                self.locWeb, @"locWeb",
+                self.currentTime, @"currentTime",
+                dayItems, @"dayItems",//这里不能把self.dayItems直接放在值的位置，因为其中数组的每个元素没有正确地进行JSON字符串序列化
+                modes, @"modes",//这里不能把self.metaModeArray直接放在值的位置，因为其中数组的每个元素没有正确地进行JSON字符串序列化
+                nil ];
     return dict;
 }
 
@@ -310,6 +305,10 @@
         self.name = dic[@"name"];
     }
     return self;
+}
+-(NSDictionary *)jsonDictionary{
+    return @{@"specialId": @(self.specialId),
+             @"name":self.name};
 }
 -(NSString *)description{
     return [NSString stringWithFormat:@"id:%i  name:%@",self.specialId,self.name];

@@ -64,4 +64,5 @@
 @property (nonatomic, assign) NSInteger specialId;
 @property (nonatomic, copy) NSString *name;
 -(MyESpecialDayDetail *)initWithDictionary:(NSDictionary *)dic;
+-(NSDictionary *)jsonDictionary;
 @end

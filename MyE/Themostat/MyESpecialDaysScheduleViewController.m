@@ -27,6 +27,8 @@
 @interface MyESpecialDaysScheduleViewController (){
     NSMutableArray *_dayNameArray;
     BOOL _isDelete;  //表示此时是删除
+    BOOL _hasChanged;  //表示进程已经发生了变化
+    NSArray *_modeIdArrayOld; //记录原始的modeId
 }
 -(void)configureCircleButton;
 //- (void)_restoreToLastUnchanged;
@@ -121,7 +123,9 @@
     //下面为父容器TabBarController的navigationItem的右边按钮添加一个action处理函数，和上面注释掉语句功能类似，只是不替换为新的button，而是对原有button修改target和action
     self.parentViewController.navigationItem.rightBarButtonItem.target = self;
     self.parentViewController.navigationItem.rightBarButtonItem.action = @selector(refreshAction);
-    
+    if (!self.applyButton.enabled) {
+        self.applyButton.enabled = YES;
+    }
     [self downloadModelFromServer];
 }
 
@@ -280,14 +284,6 @@
                 _dayNameArray = [self.dataModel getDayNames];
                 [self refreshUI];
                 [self checkIfCanDelete];
-//                NSMutableArray * modeIdArray = [self.dataModel modeIdArrayForSpecialDayId:self.dataModel.specialId];
-//                NSLog(@"mode id array is %@",modeIdArray);
-//                [_doughnutView updateWithModeIdArray:modeIdArray];
-//                
-//                [_modePickerView createOrUpdateThumbScrollViewIfNecessary ];
-//                
-//                _scheduleChangedByUserTouch = NO;
-                
                 //刷新远程控制的状态。
                 [self setIsRemoteControl:[weeklyModel.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame];
             }
@@ -310,6 +306,7 @@
     }
     if ([name isEqualToString:@"apply"]) {
         if ([string isEqualToString:@"OK"]) {
+            self.dataModel.specialId = _currentDayId;
             [self.applyButton setTitle:@"Cancel" forState:UIControlStateNormal];
         }else
             [SVProgressHUD showErrorWithStatus:@"fail"];
@@ -322,7 +319,9 @@
     }
     if ([name isEqualToString:@"save"]) {
         if (![string isEqualToString:@"fail"]) {
-            [self changeApplyBtnEnableWithBool:YES];
+            if (_hasChanged) {
+                _hasChanged = NO;
+            }
             if (![string isEqualToString:@"OK"]) {
                 _currentDayId = string.intValue;
             }
@@ -479,7 +478,6 @@
 - (void)didSchecduleChangeWithModeIdArray:(NSArray *)modeIdArray {
     if (modeIdArray != nil) {
         _scheduleChangedByUserTouch = YES;
-        [self changeApplyBtnEnableWithBool:NO];
         MyEThermostatDayData *dayItem = [self.dataModel getDayDataByDayId:_currentDayId];
         [dayItem.periods removeAllObjects] ;
         
@@ -499,6 +497,11 @@
                 period.etid = NUM_SECTOR;
                 [dayItem.periods addObject:period];
             }
+        }
+        if (![modeIdArray isEqualToArray:_modeIdArrayOld]) {
+            _hasChanged = YES;
+        }else{
+            _hasChanged = NO;
         }
         NSLog(@"didSchecduleChangeWithModeIdArray");
     }
@@ -646,12 +649,16 @@
 
 - (IBAction)applyNewSchedule:(UIButton *)sender {
     if ([sender.currentTitle isEqualToString:@"Apply Now"]) {
-        [self uploadThingsToServerWithAction:@"apply"];
+        if (_hasChanged) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Please save the changes before apply" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+        }else
+            [self uploadThingsToServerWithAction:@"apply"];
     }else
         [self uploadThingsToServerWithAction:@"cancel"];
 }
 
-- (IBAction)changeDay:(id)sender {
+- (IBAction)changeDay:(UIButton *)sender {
 //    if ([sender isSelected]) {
 //        [self closeMenu];
 //        [sender setSelected:NO];
@@ -680,24 +687,12 @@
 //            };
 //        }
 //    }
-    NSMutableArray *items = [NSMutableArray array];
-    for (int i = 0; i < _dayNameArray.count; i++)
-    {
-        KxMenuItem *item = [KxMenuItem menuItem:_dayNameArray[i]
-                                          image:nil
-                                         target:self
-                                         action:@selector(chooseDay:)];
-        item.foreColor = [UIColor whiteColor];
-        item.tag = i;
-        [items addObject:item];
-    }
-    UIView *tile = (UIView *)sender;
-    if (items.count > 0)
-    {
-        [KxMenu showMenuInView:self.view
-                      fromRect:tile.frame
-                     menuItems:items];
-    }
+    if (_hasChanged) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"You haven’t saved the changes. If you proceed, all changes will be lost. Are you sure to continue?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+        alert.tag = 103;
+        [alert show];
+    }else
+        [self selectDays];
 }
 - (IBAction)saveAsNewDay:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
@@ -712,7 +707,7 @@
 }
 
 - (IBAction)deleteCurrentDay:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Are you sure to delete this day?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Are you sure to remove this special day schedule?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
     alert.tag = 102;
     [alert show];
 }
@@ -911,17 +906,41 @@
 }
 -(void)refreshUI{
     NSMutableArray * modeIdArray = [self.dataModel modeIdArrayForSpecialDayId:_currentDayId];
+    _modeIdArrayOld = [modeIdArray copy];
 //    NSLog(@"mode id array is %@",modeIdArray);
     [_doughnutView updateWithModeIdArray:modeIdArray];
     [_modePickerView createOrUpdateThumbScrollViewIfNecessary ];
     _scheduleChangedByUserTouch = NO;
 }
+-(void)selectDays{
+    NSMutableArray *items = [NSMutableArray array];
+    for (int i = 0; i < _dayNameArray.count; i++)
+    {
+        KxMenuItem *item = [KxMenuItem menuItem:_dayNameArray[i]
+                                          image:nil
+                                         target:self
+                                         action:@selector(chooseDay:)];
+        item.foreColor = [UIColor whiteColor];
+        item.tag = i;
+        [items addObject:item];
+    }
+    UIView *tile = (UIView *)self.dayBtn;
+    if (items.count > 0)
+    {
+        [KxMenu showMenuInView:self.view
+                      fromRect:tile.frame
+                     menuItems:items];
+    }
+}
 -(void)chooseDay:(KxMenuItem *)sender{
     NSString *dayName = _dayNameArray[sender.tag];
     [self.dayBtn setTitle:dayName forState:UIControlStateNormal];
     _currentDayId = [self.dataModel getDayIdByDayName:dayName];
+    if (_currentDayId == self.dataModel.specialId) {
+        [self.applyButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    }else
+        [self.applyButton setTitle:@"Apply Now" forState:UIControlStateNormal];
     [self checkIfCanDelete];
-    [self changeApplyBtnEnableWithBool:YES];
     [self refreshUI];
 }
 -(void)checkIfCanDelete{
@@ -930,15 +949,11 @@
     }else
         self.deleteBtn.enabled = YES;
 }
--(void)changeApplyBtnEnableWithBool:(BOOL)flag{
-    if (![self.applyButton.currentTitle isEqualToString:@"Cancel"]) {
-        self.applyButton.enabled = flag;
-    }
-}
 -(void)getCurrentDayId{
     if (self.dataModel.specialId == -1) {  //说明此时是没有指定specialDay的
         MyEThermostatDayData *day = self.dataModel.dayItems[0];
         _currentDayId = day.dayId;
+        [self.applyButton setTitle:@"Apply Now" forState:UIControlStateNormal];
     }else{
         [self.applyButton setTitle:@"Cancel" forState:UIControlStateNormal];
         _currentDayId = self.dataModel.specialId;
@@ -960,6 +975,10 @@
         }
         if (alertView.tag == 102) {  //删除
             [self uploadThingsToServerWithAction:@"delete"];
+        }
+        if (alertView.tag == 103) {
+            _hasChanged = NO;
+            [self selectDays];
         }
     }
 }

@@ -61,7 +61,6 @@
                           [NSString stringWithFormat:@"%i",self.dayId], @"dayId",
                           self.name, @"name",
                           periods, @"periods",
-                          
                           nil ];
     return dict;
 }

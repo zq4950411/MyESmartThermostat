@@ -62,7 +62,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *dayBtn;
 
 @property (strong, nonatomic) MyEThermostatScheduleData *dataModel;
-
 // 当前选择的模式的id。用于用户手触摸修改sector，或者编辑这个mode。这个值和MyEDoughnutView中的成员变量相同
 @property (nonatomic) NSInteger currentSelectedModeId;
 @property (nonatomic) NSUInteger currentDayId;
