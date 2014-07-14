@@ -83,9 +83,9 @@
     CGFloat direction = [self getTouchAngle:currentTouchPoint] - [self getTouchAngle:previousTouchPoint];
     
     NSInteger degree = (NSInteger)(180.0 * direction / M_PI);// 两次调用之间旋转过的度数
-    if(abs( degree ) < 180)// 限制一次转动的度数，现在会因为异常导致度数跳跃，
+    if(abs( degree ) < 90)// 限制一次转动的度数，现在会因为异常导致度数跳跃，异常原因似乎是由于计算角度的算法有问题
     [view.delegate circle:view didMoveDegree:degree];
-//    NSLog(@"touch moved, arc = %f,  旋转的度数=%d", currentTransformAngle, degree);
+    NSLog(@"touch moved, arc = %f,  旋转的度数=%d", angleInRadians, degree);
 
     
 }

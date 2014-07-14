@@ -850,9 +850,16 @@
 //    NSLog(@"move代理 累计度数 %d, 累计步: %d, 原来块=%d, newValue=%d", _totalDegree, steps, self.selectedSegment, newValue);
     if (newValue > _maxVal) {
         newValue = _maxVal;
+        [MyEUtil showErrorOn:self.view withMessage:@"Reach to Maximum Setpoint"];
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        AudioServicesPlaySystemSound(1057);
     }
     if (newValue < _minVal) {
         newValue = _minVal;
+        [MyEUtil showErrorOn:self.view withMessage:@"Reach to Minimum Setpoint"];
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        AudioServicesPlaySystemSound(1057);
+
     }
     if(newValue != self.currentVal){
         self.currentVal = newValue;
@@ -863,6 +870,8 @@
         AudioServicesPlaySystemSound(soundID);
     }
     [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i\u00B0F", newValue] forState:UIControlStateNormal];
+    [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i\u00B0F", newValue] forState:UIControlStateDisabled];
+    [self.holdRunButton setTitle:[NSString stringWithFormat:@"%i\u00B0F", newValue] forState:UIControlStateHighlighted];
 }
 -(UIImage *) circle:(CDCircle *)circle iconForThumbAtRow:(NSInteger)row {
 //    NSString *fileString = [[[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:nil] lastObject];
