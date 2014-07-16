@@ -11,6 +11,7 @@
 @interface MyESwitchAutoControl : NSObject
 
 @property(nonatomic) NSInteger numChannel;
+@property(nonatomic, strong) NSMutableArray *channelDisabledStatus;
 @property(nonatomic, strong) NSMutableArray *SSList;
 
 -(MyESwitchAutoControl *)initWithString:(NSString *)string;

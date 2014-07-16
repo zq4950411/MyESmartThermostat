@@ -135,10 +135,10 @@
             [SVProgressHUD showErrorWithStatus:@"fail"];
     }
     if ([name isEqualToString:@"downloadInfo"]) {
-        [HUD hide:YES];
         if (![string isEqualToString:@"fail"]) {
             MyESettingsInfo *info = [[MyESettingsInfo alloc] initWithJsonString:string];
             self.info.terminals = info.terminals;
+            [self.tableView reloadData];
         }else
             [SVProgressHUD showErrorWithStatus:@"fail"];
     }

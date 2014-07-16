@@ -50,7 +50,7 @@
     NSLog(@"Camera %@ SD Status total %d ....",did, total);
     NSString *statusStr = nil;
     if (status == 0) {
-        statusStr = @"No Card Or Need Format";
+        statusStr = @"No SD card or the card needs to be formated";
     }else if (status == 1){
         statusStr = @"End Record";
     }else

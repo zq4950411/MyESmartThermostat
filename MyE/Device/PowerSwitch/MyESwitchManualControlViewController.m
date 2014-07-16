@@ -11,7 +11,7 @@
 @implementation MyESwitchManualControlViewController
 
 -(void)viewDidLoad{
-//    [(UICollectionView *)self.view.subviews[0] setDelaysContentTouches:NO];
+    //    [(UICollectionView *)self.view.subviews[0] setDelaysContentTouches:NO];
     self.collectionView.delaysContentTouches = NO;
     if (HUD == nil) {
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -26,8 +26,6 @@
     }
     [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    
-    _timer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(downloadInfo) userInfo:nil repeats:YES];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
@@ -35,6 +33,7 @@
         self.needRefresh = NO;
         [self downloadInfo];
     }
+    _timer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(downloadInfo) userInfo:nil repeats:YES];
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:YES];
@@ -78,7 +77,7 @@
             if (status.switchStatus == 1) {
             }else
                 remainTimeLabel.text = [NSString stringWithFormat:@"Remain:0 Minute"];
-//            [self.collectionView reloadData];  //这里不能够刷新数据，否则容易造成数据上的错误
+            //            [self.collectionView reloadData];  //这里不能够刷新数据，否则容易造成数据上的错误
         }
     };
     
@@ -107,46 +106,53 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     MyESwitchChannelStatus *status = self.control.SCList[indexPath.row];
-//    UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
+    //    UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
     UIButton *switchBtn = (UIButton *)[cell viewWithTag:101];
     UIButton *timeBtn = (UIButton *)[cell viewWithTag:102];
     UILabel *delayTimeLabel = (UILabel *)[cell viewWithTag:103];
     UILabel *remainTimeLabel = (UILabel *)[cell viewWithTag:104];
-//    [_UIArray addObject:@[switchBtn,remainTimeLabel]];
-//    titleLabel.text = [NSString stringWithFormat:@"Light %li",(long)indexPath.row+1];
-    if (status.disable) {
-        switchBtn.enabled = NO;
-        timeBtn.enabled = NO;
-    }else{
+    //    [_UIArray addObject:@[switchBtn,remainTimeLabel]];
+    //    titleLabel.text = [NSString stringWithFormat:@"Light %li",(long)indexPath.row+1];
+    switchBtn.enabled = NO;
+    timeBtn.enabled = NO;
+    NSLog(@"%@",status);
+    if (!status.disable) {
         switchBtn.enabled = YES;
         timeBtn.enabled = YES;
-    }
-    if (status.switchStatus == 1) {
-        switchBtn.selected = NO;
-        if (status.delayStatus == 1) {
-            timeBtn.selected = NO;
-            delayTimeLabel.hidden = NO;
-            remainTimeLabel.hidden = NO;
-            delayTimeLabel.text = [NSString stringWithFormat:@"Duration:%li Minute(s)",(long)status.delayMinute];
-            remainTimeLabel.text = [NSString stringWithFormat:@"Remain:%li Minute(s)",(long)status.remainMinute];
+        if (status.switchStatus == 1) {
+            switchBtn.selected = NO;
+            if (status.delayStatus == 1) {
+                timeBtn.selected = NO;
+                delayTimeLabel.hidden = NO;
+                remainTimeLabel.hidden = NO;
+                delayTimeLabel.text = [NSString stringWithFormat:@"Duration:%li Minute(s)",(long)status.delayMinute];
+                remainTimeLabel.text = [NSString stringWithFormat:@"Remain:%li Minute(s)",(long)status.remainMinute];
+            }else{
+                timeBtn.selected = YES;
+                delayTimeLabel.hidden = YES;
+                remainTimeLabel.hidden = YES;
+                delayTimeLabel.text = @"";
+                remainTimeLabel.text = @"";
+            }
         }else{
-            timeBtn.selected = YES;
-            delayTimeLabel.hidden = YES;
-            remainTimeLabel.hidden = YES;
+            switchBtn.selected = YES;
+            if (status.delayStatus == 1) {
+                timeBtn.selected = NO;
+                delayTimeLabel.hidden = YES;
+                remainTimeLabel.hidden = YES;
+                //            delayTimeLabel.text = [NSString stringWithFormat:@"Duration:%li Minute(s)",(long)status.delayMinute];
+                //            remainTimeLabel.text = [NSString stringWithFormat:@"Remain:0 Minute(s)"];
+            }else{
+                timeBtn.selected = YES;
+                delayTimeLabel.hidden = YES;
+                remainTimeLabel.hidden = YES;
+            }
         }
     }else{
-        switchBtn.selected = YES;
-        if (status.delayStatus == 1) {
-            timeBtn.selected = NO;
-            delayTimeLabel.hidden = NO;
-            remainTimeLabel.hidden = NO;
-//            delayTimeLabel.text = [NSString stringWithFormat:@"Duration:%li Minute(s)",(long)status.delayMinute];
-//            remainTimeLabel.text = [NSString stringWithFormat:@"Remain:0 Minute(s)"];
-        }else{
-            timeBtn.selected = YES;
-            delayTimeLabel.hidden = YES;
-            remainTimeLabel.hidden = YES;
-        }
+        switchBtn.enabled = NO;
+        timeBtn.enabled = NO;
+        delayTimeLabel.text = @"";
+        remainTimeLabel.text = @"";
     }
     return cell;
 }
@@ -154,7 +160,7 @@
 - (IBAction)switchControl:(UIButton *)sender {
     UICollectionViewCell *cell = (UICollectionViewCell *)sender.superview.superview;
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];   //这里有两个方法来指定当前的collectionView
-//    NSIndexPath *indexPath = [(UICollectionView *)self.view.subviews[0] indexPathForCell:cell];
+    //    NSIndexPath *indexPath = [(UICollectionView *)self.view.subviews[0] indexPathForCell:cell];
     MyESwitchChannelStatus *status = self.control.SCList[indexPath.row];
     _selectedIndex = indexPath;
     NSString *url = [NSString stringWithFormat:@"%@?houseId=%li&tId=%@&id=%li&switchStatus=%li&action=2",GetRequst(URL_FOR_SWITCH_CONTROL),(long)MainDelegate.houseData.houseId, self.device.tid, (long)status.channelId,1-(long)status.switchStatus];
@@ -162,7 +168,7 @@
 }
 - (IBAction)timeControl:(UIButton *)sender {
     UICollectionViewCell *cell = (UICollectionViewCell *)sender.superview.superview;
-//    NSIndexPath *indexPath = [(UICollectionView *)self.view.subviews[0] indexPathForCell:cell];
+    //    NSIndexPath *indexPath = [(UICollectionView *)self.view.subviews[0] indexPathForCell:cell];
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     MyESwitchChannelStatus *status = self.control.SCList[indexPath.row];
     if (!sender.selected) {

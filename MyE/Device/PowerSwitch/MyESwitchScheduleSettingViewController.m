@@ -44,6 +44,7 @@
         self.lights.titles = [@[@"1",@"2",@"3"] mutableCopy];
     self.lights.delegate = self;
     self.weeks.delegate = self;
+    
 //    self.channelSeg.mydelegate = self;
 //    self.weekSeg.mydelegate = self;
 //    
@@ -52,6 +53,8 @@
 //    [self refreshSegment];
     self.weeks.selectedButtons = [_scheduleNew.weeks mutableCopy];
     self.lights.selectedButtons = [_scheduleNew.channels mutableCopy];
+    self.lights.disableArray = self.control.channelDisabledStatus;
+
     [self.startBtn setTitle:_schedule.onTime forState:UIControlStateNormal];
     [self.endBtn setTitle:_schedule.offTime forState:UIControlStateNormal];
     

@@ -18,6 +18,10 @@
 -(MyESwitchAutoControl *)initWithDic:(NSDictionary *)dic{
     if (self = [super init]) {
         self.numChannel = [dic[@"numChannel"] intValue];
+        self.channelDisabledStatus = [NSMutableArray array];
+        for (NSNumber *i in dic[@"channelDisabledStatus"]) {
+            [self.channelDisabledStatus addObject:i];
+        }
         NSMutableArray *schedules = [NSMutableArray array];
         NSArray *array = dic[@"SSList"];
         for (NSDictionary *dict in array) {

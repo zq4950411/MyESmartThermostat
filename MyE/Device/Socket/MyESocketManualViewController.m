@@ -29,6 +29,7 @@
         self.needRefresh = NO;
         [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%li&tId=%@",GetRequst(URL_FOR_SOCKET_FIND),(long)MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
     }
+    _timer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(handleTimer) userInfo:nil repeats:YES];
 }
 - (void)viewDidLoad
 {
@@ -43,7 +44,6 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 
     [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SOCKET_FIND),MainDelegate.houseData.houseId,self.device.tid] andName:@"downloadInfo"];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(handleTimer) userInfo:nil repeats:YES];
 }
 #pragma mark - IBAction methods
 - (IBAction)socketControl:(UIButton *)sender {
@@ -88,10 +88,11 @@
         self.socketControlBtn.selected = YES;
         self.timeDelayBtn.selected = YES;
         self.timeDelayLabel.hidden = YES;
-        self.timeDelaySetLabel.hidden = NO;
-        if (self.socketControlInfo.timeSet > 0) {
-            self.timeDelaySetLabel.text = [NSString stringWithFormat:@"%im set",self.socketControlInfo.timeSet];
-        }
+        self.timeDelaySetLabel.hidden = YES;
+        
+//        if (self.socketControlInfo.timeSet > 0) {
+//            self.timeDelaySetLabel.text = [NSString stringWithFormat:@"%im set",self.socketControlInfo.timeSet];
+//        }
     }
 }
 -(void)uploadOrDownloadInfoFromServerWithURL:(NSString *)url andName:(NSString *)name{
@@ -119,6 +120,7 @@
         if (![string isEqualToString:@"fail"]) {
             MyESocketControlInfo *info = [[MyESocketControlInfo alloc] initWithJSONString:string];
             self.socketControlInfo = info;
+            self.device.switchStatus = [NSString stringWithFormat:@"%i",self.socketControlInfo.switchStatus];
             [self refreshUI];
         } else {
             [SVProgressHUD showErrorWithStatus:@"Error!"];
@@ -132,7 +134,11 @@
                 self.socketControlInfo.switchStatus = 1-self.socketControlInfo.switchStatus;
                 self.device.switchStatus = [NSString stringWithFormat:@"%i",self.socketControlInfo.switchStatus];
                 self.socketControlBtn.selected = !self.socketControlBtn.selected;
-                [self handleTimer];  //这里要更新一次数据
+                if (self.socketControlInfo.switchStatus == 0) {
+                    self.currentPowerLabel.text = @"0 W";
+                }
+                NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(handleTimer) userInfo:nil repeats:NO];
+                NSLog(@"%@",timer);
             }
 //            MyESocketControlInfo *info = [[MyESocketControlInfo alloc] initWithJSONString:string];
 //            self.socketControlInfo = info;

@@ -124,7 +124,7 @@
     formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromTop;
     formSheet.shadowRadius = 2.0;
     formSheet.shadowOpacity = 0.3;
-    formSheet.presentedFormSheetSize = CGSizeMake(280, 250);
+    formSheet.presentedFormSheetSize = CGSizeMake(280.0, 250.0);
     formSheet.shouldDismissOnBackgroundViewTap = NO;  //点击背景是否关闭
     formSheet.shouldCenterVertically = YES;
     formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;

@@ -28,6 +28,9 @@
     }
     self.backgroundColor = [UIColor clearColor]; //背景透明
     [self setButtonsInViewWithFrame:rect];
+    if ([self.disableArray count]) {
+        [self changeBtnDisable];
+    }
     [self addObserver:self forKeyPath:@"selectedButtons" options:0 context:NULL];
 }
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
@@ -49,6 +52,7 @@
         btn.frame = CGRectMake(hight*(i-1), 0, hight, hight);
         [btn setBackgroundImage:[UIImage imageNamed:@"weekBtn-normal"] forState:UIControlStateNormal];
         [btn setBackgroundImage:[UIImage imageNamed:@"weekBtn-select"] forState:UIControlStateSelected];
+        [btn setBackgroundImage:[UIImage imageNamed:@"weekBtn-disable"] forState:UIControlStateDisabled];
         [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [btn setTitle:self.titles[i - 1] forState:UIControlStateNormal];
@@ -141,5 +145,14 @@
 //            }
 //        }
 //    }
+}
+-(void)changeBtnDisable{
+    for (int idx = 1; idx <= self.disableArray.count; idx++) {
+        UIButton *btn = (UIButton *)[self viewWithTag:idx + 1000];
+        NSInteger i = [self.disableArray[idx - 1] intValue];
+        if (i == 1) {
+            btn.enabled = NO;
+        }
+    }
 }
 @end

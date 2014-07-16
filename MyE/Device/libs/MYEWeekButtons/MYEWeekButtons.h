@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSArray *titles; //表示绘制的数目,默认是7
 @property (nonatomic, assign) BOOL isRadio; //是否单选模式
 @property (nonatomic, strong) NSMutableArray *selectedButtons;  //外部传进来的选定的btn
+@property (nonatomic, strong) NSMutableArray *disableArray;  //用于指定哪些按钮是禁用的
 @property (nonatomic, weak) id <MYEWeekButtonsDelegate> delegate;
 
 @end

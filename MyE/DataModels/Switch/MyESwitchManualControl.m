@@ -77,4 +77,7 @@
     }
     return array;
 }
+-(NSString *)description{
+    return [NSString stringWithFormat:@"channelId:%i  switchStatus:%i delayMinute:%i remain:%i disable:%@",self.channelId,self.switchStatus,self.delayMinute,self.remainMinute,self.disable?@"YES":@"NO"];
+}
 @end

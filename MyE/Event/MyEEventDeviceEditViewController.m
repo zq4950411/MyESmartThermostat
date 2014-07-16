@@ -74,7 +74,9 @@
     if (_deviceType.typeId == 0) { //温控器
         tailString = [subString stringByAppendingString:[NSString stringWithFormat:@"controlMode=%i&point=%i&fan=%i",_instructions.controlMode,_instructions.point,_instructions.fan]];
     }else if (_deviceType.typeId == 7 || _deviceType.typeId == 8){  //开关或者是通用控制器
-        tailString = [subString stringByAppendingString:[NSString stringWithFormat:@"channel=%@",_instructions.channel]];
+        NSMutableString *string = [NSMutableString stringWithString:_instructions.channel];
+        [string replaceOccurrencesOfString:@"2" withString:@"0" options:NSCaseInsensitiveSearch range:NSMakeRange(0, string.length)];
+        tailString = [subString stringByAppendingString:[NSString stringWithFormat:@"channel=%@",string]];
     }else
         tailString = [subString stringByAppendingString:[NSString stringWithFormat:@"instructionId=%i",_instruction.instructionId]];
     [self updateDeviceToServerWithString:tailString andName:@"device"];
@@ -209,7 +211,7 @@
     //6不用
     //7，8编辑时不用，添加时需要
     if ((_deviceType.typeId >= 2 && _deviceType.typeId <= 5) ||
-        (_deviceType.typeId > 7 && _isAdd) ||  //特别注意，此处取消等号，也就是取消了开关，也就是说开关需要下载数据，主要考虑到开关的的禁用状态
+        _deviceType.typeId == 8 ||
         (_deviceType.typeId == 0 && !_isAdd)) {
         [self downloadInstructionsWithDeviceId:_device.deviceId];
     }
@@ -220,11 +222,15 @@
     NSLog(@"select row is %i",indexPath.row);
     NSMutableString *string = [NSMutableString stringWithString:_instructions.channel];
     [string replaceCharactersInRange:NSMakeRange(indexPath.row, 1) withString:sender.isOn?@"1":@"0"];
+    [string replaceOccurrencesOfString:@"2" withString:@"0" options:NSCaseInsensitiveSearch range:NSMakeRange(0, string.length)];
     _instructions.channel = string;
 }
 #pragma mark - UITableView dataSource methods
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [_instructions.channel length];
+    if (_deviceType.typeId == 7) {
+        return 6;
+    }else
+        return [_instructions.channel length];
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
@@ -237,11 +243,13 @@
     }else
         label.text = [NSString stringWithFormat:@"Channel %i",indexPath.row + 1];
     NSString *string = [_instructions.channel substringWithRange:NSMakeRange(indexPath.row, 1)];
-    if (_deviceType.typeId == 7 && string.intValue == 2) {
-        status.enabled = NO;
-    }
     [status setOn:[string isEqualToString:@"1"] animated:YES];
-    [status addTarget:self action:@selector(changeStatus:) forControlEvents:UIControlEventValueChanged];
+    status.enabled = NO;
+    if (string.intValue == 2 && _deviceType.typeId == 8) {
+    }else{
+        status.enabled = YES;
+        [status addTarget:self action:@selector(changeStatus:) forControlEvents:UIControlEventValueChanged];
+    }
     return cell;
 }
 
@@ -259,6 +267,7 @@
         HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }else
         [HUD show:YES];
+    [HUD show:YES];
     MyEDataLoader *loader = [[MyEDataLoader alloc] initLoadingWithURLString:[NSString stringWithFormat:@"%@?houseId=%i&sceneSubId=%i&deviceId=%i&type=%i&action=%@",GetRequst(URL_FOR_SCENES_FIND_DEVICE),MainDelegate.houseData.houseId,_device.sceneSubId,deviceId,_deviceType.typeId==0?1:2,_isAdd?@"addSceneSub":@"editSceneSub"] postData:nil delegate:self loaderName:@"instruction" userDataDictionary:nil];
     NSLog(@"loader name is %@",loader.name);
 }

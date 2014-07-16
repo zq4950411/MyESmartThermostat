@@ -42,6 +42,4 @@
 -(void)loadSettings;
 -(void)saveSettings;
 
--(IBAction) setIp:(UIButton *) sender;
-
 @end

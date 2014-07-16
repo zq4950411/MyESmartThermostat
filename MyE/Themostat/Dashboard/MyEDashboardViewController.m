@@ -859,7 +859,6 @@
         [MyEUtil showErrorOn:self.view withMessage:@"Reach to Minimum Setpoint"];
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         AudioServicesPlaySystemSound(1057);
-
     }
     if(newValue != self.currentVal){
         self.currentVal = newValue;

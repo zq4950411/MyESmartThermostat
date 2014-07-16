@@ -891,6 +891,9 @@
             <objects>
                 <navigationController storyboardIdentifier="IRDeviceStudyEditKeyModal" automaticallyAdjustsScrollViewInsets="NO" id="V7v-KG-lGt" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="280" height="250"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="eZ6-A7-lXO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -902,7 +905,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dXk-bq-kBo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6972" y="-7575"/>
+            <point key="canvasLocation" x="-6924" y="-7460"/>
         </scene>
         <!--MyE Ir User Key View Controller-->
         <scene sceneID="qYH-W0-JFb">

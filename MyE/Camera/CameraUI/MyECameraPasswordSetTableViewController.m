@@ -48,7 +48,8 @@
     }
     NSInteger result = _m_PPPPChannelMgt->SetUserPwd((char *)[_camera.UID UTF8String], (char *)[@"" UTF8String], (char *)[@"" UTF8String], (char *)[@"" UTF8String], (char *)[@"" UTF8String], (char *)[_camera.username UTF8String], (char *)[self.Pwdnew1.text UTF8String]);
     if (result == 1) {
-        [MyEUtil showMessageOn:nil withMessage:@"Success"];
+        self.camera.password = self.Pwdnew.text;
+        [MyEUtil showMessageOn:nil withMessage:@"Please restart the camera for the new password to take effect"];
     }else
         [MyEUtil showMessageOn:nil withMessage:@"Fail"];
 }
