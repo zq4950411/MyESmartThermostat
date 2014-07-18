@@ -26,9 +26,39 @@
         for (NSDictionary *d in array) {
             [self.rooms addObject:[[MyERoom alloc] initWithDic:d]];
         }
+//        self.type = [dic[@"loadType"] intValue];
+//        self.powerFactor = [self trimright0:[NSString stringWithFormat:@"%f",[dic[@"powerFactor"] floatValue]]];
         return self;
     }
     return nil;
+}
+//-(NSString *) trimright0:(CLLocationDegrees )param
+//{
+//    NSString *str = [NSString stringWithFormat:@"%f",param];
+-(NSString *) trimright0:(NSString *)str
+{
+    int len = str.length;
+    for (int i = 0; i < len; i++)
+    {
+        if (![str  hasSuffix:@"0"])
+            break;
+        else
+            str = [str substringToIndex:[str length]-1];
+    }
+    if ([str hasSuffix:@"."])//避免像2.0000这样的被解析成2.
+    {
+        return [str substringToIndex:[str length]-1];//s.substring(0, len - i - 1);
+    }
+    else
+    {
+        return str;
+    }
+}
+-(NSArray *)typeArray{
+    return @[@"日光灯/节能灯",@"白炽灯"];
+}
+-(NSString *)changeTypeToString{
+    return [self typeArray][self.type];
 }
 @end
 

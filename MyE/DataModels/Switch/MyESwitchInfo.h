@@ -15,9 +15,13 @@
 @property(nonatomic) NSInteger powerType;
 @property(nonatomic) NSInteger reportTime;
 @property(nonatomic, strong) NSMutableArray *rooms;
+@property(nonatomic, assign) NSInteger type;
+@property(nonatomic, strong) NSString *powerFactor;
 
 -(MyESwitchInfo *)initWithString:(NSString *)string;
 -(MyESwitchInfo *)initWithDic:(NSDictionary *)dic;
+-(NSArray *)typeArray;
+-(NSString *)changeTypeToString;
 
 @end
 

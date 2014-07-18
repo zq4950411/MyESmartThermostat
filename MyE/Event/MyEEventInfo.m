@@ -155,7 +155,7 @@
         self.terminalType = [dic[@"terminalType"] intValue];
         self.instructionName = dic[@"instructionName"] == [NSNull null]? @"":dic[@"instructionName"];
         self.point = dic[@"point"] == [NSNull null]?0:[dic[@"point"] intValue];
-        self.controlMode = dic[@"controlMode"] == [NSNull null]?0:[dic[@"controlMode"] intValue];
+        self.controlMode = (dic[@"controlMode"] == [NSNull null] || [dic[@"controlMode"] intValue] == 0)?1:[dic[@"controlMode"] intValue];
         self.typeId = [dic[@"typeId"] intValue];
         self.deviceId = [dic[@"deviceId"] intValue];
     }

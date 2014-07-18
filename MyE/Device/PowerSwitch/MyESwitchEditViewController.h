@@ -23,5 +23,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *roomLabel;
 @property (weak, nonatomic) IBOutlet UILabel *terminalID;
-
+@property (weak, nonatomic) IBOutlet UILabel *typeLbl;
+@property (weak, nonatomic) IBOutlet UILabel *valueLbl;
 @end

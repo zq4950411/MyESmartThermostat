@@ -2192,32 +2192,19 @@ void CPPPPChannel::PlayProcess()
             NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
             NSData *image = [NSData dataWithBytesNoCopy:pbuf length:videoLen freeWhenDone:YES];
             UIImage *img = [UIImage imageWithData:image];
-            NSLog(@"创建图像 %i",[img retainCount]);
-            NSLog(@"new image %@",img);
-//            [img retain];
+
             ImageNotify(img, untimestamp);
-//            if (_oldImage != img) {
-//                ImageNotify(img, untimestamp);
-//            }else{
-//                [_oldImage release];
+//            if (runFlag == 0) {
+//                runFlag = 1;
 //                _oldImage = nil;
-//            }
-            if (runFlag == 0) {
-                runFlag = 1;
-//                [_oldImage release];
-                _oldImage = nil;
-            }else
-                runFlag = 0;
-            _oldImage = img;
-            NSLog(@"传输完成");
-//            NSLog(@"end image %@",img);
-//            [img release];
-//            NSLog(@"image %@",img);
+//            }else
+//                runFlag = 0;
+//            _oldImage = img;
             [pool release];
         }
         
 //        SAFE_DELETE(pbuf) ;
-        usleep(300000);
+        usleep(150000);
         
     }
     

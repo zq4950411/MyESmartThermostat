@@ -9,21 +9,20 @@
 #import <UIKit/UIKit.h>
 #include "PPPP_API.h"
 #include "PPPPChannelManagement.h"
+
 #import "ImageNotifyProtocol.h"
-#import "SearchCameraResultProtocol.h"
-#import "SearchDVS.h"
 #import "ParamNotifyProtocol.h"
+
 #import "MyECamera.h"
+
 #import "SnapshotProtocol.h"
 
 @interface MyECameraViewController : UIViewController
-<ImageNotifyProtocol,ParamNotifyProtocol,DateTimeProtocol,SdcardScheduleProtocol,WifiParamsProtocol> {
-    CSearchDVS* dvs;
-    /*镜像参数*/
-    int flip;
+<ImageNotifyProtocol,DateTimeProtocol,SdcardScheduleProtocol,ParamNotifyProtocol> {
 }
 @property CPPPPChannelManagement* m_PPPPChannelMgt;
 @property (nonatomic, weak) MyECamera *camera;
+
 @property (nonatomic, strong) UIView *mainPortraitView;
 @property (nonatomic, strong) UIView *mainLandscapeView;
 /*----------------info view---------------------*/
@@ -33,6 +32,9 @@
 
 @property (nonatomic, weak) IBOutlet UIImageView* playView;
 @property (nonatomic, strong) UIImageView *landscapePlayView;
+@property (weak, nonatomic) IBOutlet UIButton *talkBtn;
+@property (weak, nonatomic) IBOutlet UIButton *listenBtn;
+
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *infoLabels;
 
 @end

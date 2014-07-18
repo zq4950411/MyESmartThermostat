@@ -67,7 +67,6 @@
         [alert show];
         return;
     }
-    
     NSLog(@"%i %i %i\n %i type:%i \n%i \n%@\n %i %i %i \n%@",MainDelegate.houseData.houseId,_device.sceneSubId,_eventInfo.sceneId,_device.deviceId,_deviceType.typeId == 0?1:2,_instruction.instructionId,_instructions.channel,_instructions.controlMode,_instructions.point,_instructions.fan,_isAdd?@"add":@"edit");
     NSString *subString = [NSString stringWithFormat:@"%@?houseId=%i&sceneSubId=%i&sceneId=%i&deviceId=%i&type=%i&action=%@&",GetRequst(URL_FOR_SCENES_SAVE_SCENE_DEVICE),MainDelegate.houseData.houseId,_device.sceneSubId,self.eventInfo.sceneId,_device.deviceId,_deviceType.typeId == 0?1:2,_isAdd?@"addSceneSub":@"editSceneSub"];
     NSString *tailString = nil;
