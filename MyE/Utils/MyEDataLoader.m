@@ -12,7 +12,7 @@
 #import <SystemConfiguration/SCNetworkReachability.h>
 
 @interface MyEDataLoader (Private)
-- (void)_processHttpRespondForString:(NSString *)respondText;
+- (BOOL)_processHttpRespondForString:(NSString *)respondText;
 @end
 
 @implementation MyEDataLoader
@@ -144,8 +144,10 @@
     }
     NSLog(@"Succeeded! Received %d bytes of data",[_receivedData length]);
     NSString *string = [[NSString alloc] initWithData:_receivedData encoding:NSUTF8StringEncoding];
-    
-    [self _processHttpRespondForString:string];
+    if([self.name isEqualToString:@"DashboardDownloader"])
+        string = @"-999";
+    if(![self _processHttpRespondForString:string])
+        return ;
     
     // 如果uploader里面带了用户数据，就调用下面函数把用户数据词典传回去
     if ([self.delegate respondsToSelector:@selector(didReceiveString:loaderName:userDataDictionary:)]) {
@@ -171,16 +173,16 @@
 }
 #pragma mark -
 #pragma mark private methods
-/* 判定是否服务器相应正常，如果正常返回一些字符串，如果服务器相应为-999/-998，
+/* 判定是否服务器响应正常，如果正常返回一些字符串，如果服务器相应为-999/-998，
 // 那么函数迫使Navigation View Controller跳转到Houselist view，并返回NO。
 // 如果要中断外层函数执行，必须捕捉此函数返回的NO值，并中断外层函数。
  -999	No Connection，网络连接中断、出现硬件问题、掉电、用户人为插拔
  -998	表示温控器禁止远程控制
  -996	用户没有登录，返回登录页面
  -994	网关离线
- 
+ 服务器响应正常， 返回YES，否则返回NO
  */
-- (void)_processHttpRespondForString:(NSString *)respondText {
+- (BOOL)_processHttpRespondForString:(NSString *)respondText {
     NSInteger respondInt = [respondText intValue];// 从字符串开始寻找整数，如果碰到字母就结束，如果字符串不能转换成整数，那么此转换结果就是0
     if ( respondInt == -994 ) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
@@ -198,6 +200,7 @@
         message = [NSString stringWithFormat:@"The gateway of house %@ is disconnected.", currentHouseName];
         
         [hlvc showAutoDisappearAlertWithTile:@"Alert" message:message delay:10.0f];
+        return NO;
     }
     if (respondInt == -996 ) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
@@ -206,14 +209,22 @@
         [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
         MainDelegate.window.rootViewController = lvc;// 用Login VC作为程序的rootViewController
         [SVProgressHUD showErrorWithStatus:@"Please sign in."];
+        return NO;
     }
     if (respondInt == -999 ) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
-        [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
-        MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+//        SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
+//        [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
+//        MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
+        UIViewController *vc = (UIViewController *)self.delegate;
+        if(vc.navigationController != nil)
+            [vc.navigationController popViewControllerAnimated:YES];
+        else
+            [vc dismissViewControllerAnimated:YES completion:nil];
         [SVProgressHUD showErrorWithStatus:@"Device is disconnected."];
+        return NO;
     }
+    return YES;
 }
 @end
 
