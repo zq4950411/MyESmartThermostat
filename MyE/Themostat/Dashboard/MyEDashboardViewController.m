@@ -263,7 +263,6 @@
     [HUD hide:YES];
     if([name isEqualToString:@"DashboardDownloader"]) {
         NSLog(@"DashboardDownloader string from server is \n %@", string);
-       
         MyEDashboardData *dashboardData = [[MyEDashboardData alloc] initWithJSONString:string];
         if (dashboardData) {
             [self setDashboardData:dashboardData]; 

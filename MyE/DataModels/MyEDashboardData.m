@@ -73,7 +73,7 @@
         MyEDashboardData *dashboardData = [[MyEDashboardData alloc] initWithDictionary:dict];
         return dashboardData;
     }
-    else return nil;
+    return nil;
 }
 
 - (NSDictionary *)JSONDictionary

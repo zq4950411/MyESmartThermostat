@@ -679,7 +679,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <segue destination="2wp-rY-PyQ" kind="custom" customClass="SWRevealViewControllerSegue" id="BJP-cy-0tJ"/>
+                                            <segue destination="2wp-rY-PyQ" kind="custom" identifier="devcies" customClass="SWRevealViewControllerSegue" id="BJP-cy-0tJ"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell tag="103" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="video" id="Dc6-XH-yQ0">
