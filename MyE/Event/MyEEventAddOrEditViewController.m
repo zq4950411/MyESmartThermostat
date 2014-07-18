@@ -142,7 +142,13 @@
         CGFloat x = self.conditionTable.frame.origin.x;
         CGFloat y = self.conditionTable.frame.origin.y;
         CGFloat width = self.conditionTable.contentSize.width;
-        CGFloat height = 35*(self.eventDetail.timeConditions.count + self.eventDetail.customConditions.count);
+        CGFloat height = 0.0;
+        NSInteger i = self.eventDetail.timeConditions.count + self.eventDetail.customConditions.count;
+        if (i > 5) {
+            height = 35*5;
+        }else
+            height = 35*i;
+//        CGFloat height = 35*(self.eventDetail.timeConditions.count + self.eventDetail.customConditions.count);
         CGFloat viewHeight = self.view.bounds.size.height;
         self.conditionTable.alpha = 1;
         self.deviceTable.alpha = 1;
