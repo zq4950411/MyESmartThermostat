@@ -849,13 +849,13 @@
 //    NSLog(@"move代理 累计度数 %d, 累计步: %d, 原来块=%d, newValue=%d", _totalDegree, steps, self.selectedSegment, newValue);
     if (newValue > _maxVal) {
         newValue = _maxVal;
-        [MyEUtil showErrorOn:self.view withMessage:@"Reach to Maximum Setpoint"];
+        [MyEUtil showErrorOn:self.view withMessage:@"Reached the Maximum Setpoint"];
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         AudioServicesPlaySystemSound(1057);
     }
     if (newValue < _minVal) {
         newValue = _minVal;
-        [MyEUtil showErrorOn:self.view withMessage:@"Reach to Minimum Setpoint"];
+        [MyEUtil showErrorOn:self.view withMessage:@"Reached the Minimum Setpoint"];
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         AudioServicesPlaySystemSound(1057);
     }
