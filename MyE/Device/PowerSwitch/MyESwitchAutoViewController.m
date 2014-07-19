@@ -190,8 +190,11 @@
 
 #pragma mark - UIAlertView Delegate methods
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag == 900 && buttonIndex == 1) {
-        [self uploadInfoToServer];
+    if (alertView.tag == 900) {
+        if (buttonIndex == 1) {
+            [self uploadInfoToServer];
+        }else
+            [self.tableView reloadData];
     }
 }
 #pragma mark - UIScrollViewDelegate Methods
