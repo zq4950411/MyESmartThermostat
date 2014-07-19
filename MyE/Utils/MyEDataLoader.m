@@ -144,8 +144,11 @@
     }
     NSLog(@"Succeeded! Received %d bytes of data",[_receivedData length]);
     NSString *string = [[NSString alloc] initWithData:_receivedData encoding:NSUTF8StringEncoding];
-    if([self.name isEqualToString:@"DashboardDownloader"])
-        string = @"-999";
+
+    // below for testing the -999
+    //    if([self.name isEqualToString:@"DashboardDownloader"])
+    //        string = @"-999";
+    
     if(![self _processHttpRespondForString:string])
         return ;
     
