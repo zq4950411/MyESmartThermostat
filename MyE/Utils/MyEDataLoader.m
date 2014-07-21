@@ -144,6 +144,7 @@
     }
     NSLog(@"Succeeded! Received %d bytes of data",[_receivedData length]);
     NSString *string = [[NSString alloc] initWithData:_receivedData encoding:NSUTF8StringEncoding];
+<<<<<<< HEAD
 
     // below for testing the -999
     //    if([self.name isEqualToString:@"DashboardDownloader"])
@@ -151,6 +152,12 @@
     
     if(![self _processHttpRespondForString:string])
         return ;
+=======
+//    if([self.name isEqualToString:@"DashboardDownloader"])
+//        string = @"-999";
+//    if(![self _processHttpRespondForString:string])
+//        return ;
+>>>>>>> 24179eadb7f5d101d6057e03d7cfd0fb3a79d251
     
     // 如果uploader里面带了用户数据，就调用下面函数把用户数据词典传回去
     if ([self.delegate respondsToSelector:@selector(didReceiveString:loaderName:userDataDictionary:)]) {
@@ -220,8 +227,10 @@
 //        [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
 //        MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
         UIViewController *vc = (UIViewController *)self.delegate;
-        if(vc.navigationController != nil)
+        NSLog(@"%@",vc.navigationController);
+        if(vc.navigationController)
             [vc.navigationController popViewControllerAnimated:YES];
+//            [vc.navigationController performSelectorOnMainThread:@selector(popToViewController:animated:) withObject:[NSNumber numberWithBool:YES] waitUntilDone:YES];
         else
             [vc dismissViewControllerAnimated:YES completion:nil];
         [SVProgressHUD showErrorWithStatus:@"Device is disconnected."];

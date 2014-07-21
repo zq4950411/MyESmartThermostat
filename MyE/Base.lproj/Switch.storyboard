@@ -482,7 +482,6 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <state key="selected" image="clock-off"/>
-                                            <state key="highlighted" image="switch-off"/>
                                             <connections>
                                                 <action selector="timeControl:" destination="ERS-yz-baA" eventType="touchUpInside" id="VUY-xd-nvz"/>
                                             </connections>

@@ -43,9 +43,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCm-mX-QNL">
-                                        <rect key="frame" x="266" y="2" width="40" height="40"/>
+                                        <rect key="frame" x="266" y="4" width="35" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="DMVideoFullScreen">
+                                        <state key="normal" backgroundImage="full">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -553,7 +553,7 @@
                                                         <constraint firstAttribute="width" constant="218" id="AwZ-gc-HcB"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -1081,7 +1081,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zSr-HN-adn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6613" y="-3405"/>
+            <point key="canvasLocation" x="-6621" y="-3405"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4LJ-Ik-Y0v">
@@ -1201,7 +1201,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="DMVideoFullScreen" width="24" height="19"/>
         <image name="HandleItemAudio" width="44" height="37"/>
         <image name="HandleItemAudioPress" width="44" height="37"/>
         <image name="HandleItemIRCUT" width="44" height="44"/>
@@ -1219,6 +1218,7 @@
         <image name="QRsearchCamera" width="60" height="63"/>
         <image name="back" width="48" height="30"/>
         <image name="editBtn" width="30" height="30"/>
+        <image name="full" width="40" height="40"/>
         <image name="lock" width="20" height="20"/>
         <image name="menu" width="28" height="20"/>
     </resources>

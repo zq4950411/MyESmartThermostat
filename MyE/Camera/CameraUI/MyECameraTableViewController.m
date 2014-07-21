@@ -69,6 +69,7 @@
     _m_PPPPChannelMgtCondition = [[NSCondition alloc] init];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self initialize];
+        InitAudioSession();
     });
     if ([self.cameraList count]) {
         [self getCameraStatusForTheFirstTime];
@@ -81,7 +82,6 @@
     //                                             selector:@selector(willEnterForeground)
     //                                                 name:UIApplicationWillEnterForegroundNotification
     //                                               object:nil];
-    InitAudioSession();
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
     UIBarButtonItem *add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCamera:)];

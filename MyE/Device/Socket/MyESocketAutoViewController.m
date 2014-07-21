@@ -189,11 +189,11 @@
 }
 #pragma mark - UIAlertView delegate methods
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag == 900 && buttonIndex == 1) {
-        UINavigationController *nav = self.tabBarController.childViewControllers[0];
-        MyESocketManualViewController *vc = nav.childViewControllers[0];
-        vc.needRefresh = YES;
-        [self uploadThingsToServer];
+    if (alertView.tag == 900) {
+        if (buttonIndex == 1) {
+            [self uploadThingsToServer];
+        }else
+            [self.tableView reloadData];
     }
 }
 #pragma mark - UIScrollViewDelegate Methods
