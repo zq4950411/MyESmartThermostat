@@ -144,7 +144,7 @@
     }
     NSLog(@"Succeeded! Received %d bytes of data",[_receivedData length]);
     NSString *string = [[NSString alloc] initWithData:_receivedData encoding:NSUTF8StringEncoding];
-<<<<<<< HEAD
+
 
     // below for testing the -999
     //    if([self.name isEqualToString:@"DashboardDownloader"])
@@ -152,12 +152,7 @@
     
     if(![self _processHttpRespondForString:string])
         return ;
-=======
-//    if([self.name isEqualToString:@"DashboardDownloader"])
-//        string = @"-999";
-//    if(![self _processHttpRespondForString:string])
-//        return ;
->>>>>>> 24179eadb7f5d101d6057e03d7cfd0fb3a79d251
+
     
     // 如果uploader里面带了用户数据，就调用下面函数把用户数据词典传回去
     if ([self.delegate respondsToSelector:@selector(didReceiveString:loaderName:userDataDictionary:)]) {
