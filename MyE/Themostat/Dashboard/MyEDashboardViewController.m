@@ -623,11 +623,34 @@
 
 - (void)_showSystemControlToolbarView{
 
+//    con_hp	控制紧急加热, 取值范围: 0或1,从服务器传来的只读属性,如果是1.可以控制紧急加热图标, 0.不可控制,
+//    现在修改成取0时不显示该按钮， 取1时显示该按钮
     if (self.dashboardData.con_hp == 1) {
-        self.systemControlEmgHeatingButton.enabled = YES;
+//        self.systemControlEmgHeatingButton.enabled = YES;
+        self.systemControlEmgHeatingButton.hidden = NO;
+        CGFloat x = 30;
+        CGFloat y = self.systemControlHeatingButton.frame.origin.y;
+        CGFloat w = self.systemControlHeatingButton.frame.size.width;
+        CGFloat h = self.systemControlHeatingButton.frame.size.height;
+
+        self.systemControlHeatingButton.frame = CGRectMake(x, y, w, h);
+        self.systemControlCoolingButton.frame = CGRectMake(x + 55, y, w, h);
+        self.systemControlAutoButton.frame = CGRectMake(x + 55 * 2, y, w, h);
+        self.systemControlEmgHeatingButton.frame = CGRectMake(x + 55 * 3, y, w, h);
+        self.systemControlOffButton.frame = CGRectMake(x + 55 * 4, y, w, h);
     } else {
         [self.view bringSubviewToFront:self.systemControlToolbarOverlayView];
-        self.systemControlEmgHeatingButton.enabled = NO;
+//        self.systemControlEmgHeatingButton.enabled = NO;
+        self.systemControlEmgHeatingButton.hidden = YES;
+        CGFloat x = 57.5;
+        CGFloat y = self.systemControlHeatingButton.frame.origin.y;
+        CGFloat w = self.systemControlHeatingButton.frame.size.width;
+        CGFloat h = self.systemControlHeatingButton.frame.size.height;
+        
+        self.systemControlHeatingButton.frame = CGRectMake(x, y, w, h);
+        self.systemControlCoolingButton.frame = CGRectMake(x + 55, y, w, h);
+        self.systemControlAutoButton.frame = CGRectMake(x + 55 * 2, y, w, h);
+        self.systemControlOffButton.frame = CGRectMake(x + 55 * 3, y, w, h);
     }
     
 
