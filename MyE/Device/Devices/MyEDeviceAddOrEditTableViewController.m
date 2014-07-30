@@ -94,6 +94,7 @@
 }
 -(void)refreshUI{
     self.nameTextField.text = _newDevice.deviceName;
+    self.acTypeLbl.text = [_device.brand isEqualToString:@""]?@"No IR Code":[NSString stringWithFormat:@"%@-%@",_device.brand,_device.model];
     for (int i = 1; i < 4; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -161,6 +162,13 @@
     [super didReceiveMemoryWarning];
 }
 #pragma mark - IBAction methods
+- (IBAction)EditAcInstruction:(UIButton *)sender {
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"AcInstruction" bundle:nil];
+    MyEInstructionManageViewController *vc = [story instantiateViewControllerWithIdentifier:@"instructionVC"];
+    vc.device = self.device;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (IBAction)save:(UIBarButtonItem *)sender {
     [self.nameTextField resignFirstResponder];
     if ([self.nameTextField.text length] < 1 || [self.nameTextField.text length] > 15) {
@@ -194,10 +202,14 @@
         }
     }
     if (self.isAddDevice) {
-        SBJsonWriter *writer = [[SBJsonWriter alloc] init];
-        NSString *string = [writer stringWithObject:[_newDevice jsonDevice:_newDevice]];
-        NSLog(@"string is %@",string);
-        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%i&action=addDevice&deviceMode=%@",GetRequst(URL_FOR_SAVE_DEVICE),MainDelegate.houseData.houseId,self.isAddDevice?0:_newDevice.deviceId.intValue,string] andName:@"addOrEditDevice"];
+        if (_newDevice.typeId.intValue == 1) {
+            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&id=%@&action=0&name=%@&tId=%@&roomId=%@",GetRequst(URL_FOR_AC_ADD_EDIT_SAVE),MainDelegate.houseData.houseId,_newDevice.deviceId,_newDevice.deviceName,_newDevice.tid,_newDevice.locationId] andName:@"addAC"];
+        }else{
+            SBJsonWriter *writer = [[SBJsonWriter alloc] init];
+            NSString *string = [writer stringWithObject:[_newDevice jsonDevice:_newDevice]];
+            NSLog(@"string is %@",string);
+            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%i&action=addDevice&deviceMode=%@",GetRequst(URL_FOR_SAVE_DEVICE),MainDelegate.houseData.houseId,self.isAddDevice?0:_newDevice.deviceId.intValue,string] andName:@"addOrEditDevice"];
+        }
         return;
     }
     if (self.device.typeId.intValue == 6) {
@@ -211,12 +223,22 @@
         [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&aliasName=%@&locationId=%@&maximalCurrent=%@",GetRequst(URL_FOR_SOCKET_SAVEPLUG),MainDelegate.houseData.houseId,self.device.tid,_newDevice.deviceName,_newDevice.locationId,str] andName:@"otherEdit"];
     }else if(self.device.typeId.intValue == 7 || self.device.typeId.intValue == 0){
         [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&name=%@&locationId=%@",GetRequst(URL_FOR_UNIVERSAL_CONTROLLER_INFO_SAVE),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId,_newDevice.deviceName,_newDevice.locationId] andName:@"otherEdit"];
+    }else if (self.device.typeId.intValue == 1){
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&id=%@&action=1&name=%@&tId=%@&roomId=%@",GetRequst(URL_FOR_AC_ADD_EDIT_SAVE),MainDelegate.houseData.houseId,_newDevice.deviceId,_newDevice.deviceName,_newDevice.tid,_newDevice.locationId] andName:@"editAC"];
     }else{
         SBJsonWriter *writer = [[SBJsonWriter alloc] init];
         NSString *string = [writer stringWithObject:[_newDevice jsonDevice:_newDevice]];
         NSLog(@"string is %@",string);
         [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%i&action=%@&deviceMode=%@",GetRequst(URL_FOR_SAVE_DEVICE),MainDelegate.houseData.houseId,self.isAddDevice?0:_newDevice.deviceId.intValue,self.isAddDevice?@"addDevice":@"editDevice",string] andName:@"addOrEditDevice"];
     }
+}
+
+#pragma mark - UITableView dataSource method
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (self.device.typeId.intValue == 1) {
+        return 2;
+    }
+    return 1;
 }
 #pragma mark - Table view delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -225,6 +247,9 @@
     NSString *str = cell.detailTextLabel.text;
     if (self.nameTextField.editing) {
         [self.nameTextField endEditing:YES];
+    }
+    if (indexPath.section == 1) {
+        return;
     }
     switch (indexPath.row) {
         case 0:
@@ -324,6 +349,32 @@
             [SVProgressHUD showWithStatus:@"device name exist"];
         }else
             [SVProgressHUD showErrorWithStatus:@"Error!"];
+    }
+    if ([name isEqualToString:@"addAC"]) {
+        NSInteger i = [MyEUtil getResultFromAjaxString:string];
+        if (i == 1) {
+            NSDictionary *dic = [string JSONValue];
+            if (dic[@"id"]) {
+                MyEDevicesViewController *vc = (MyEDevicesViewController *)[self.navigationController childViewControllers][[self.navigationController.childViewControllers indexOfObject:self]-1];
+                vc.needRefresh = YES;
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }else if (i == -1){
+            [SVProgressHUD showErrorWithStatus:@"This Smart Remote has an AC"];
+        }else if (i == -2){
+            [SVProgressHUD showErrorWithStatus:@"Device name has existed"];
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"fail"];
+        }
+    }
+    if ([name isEqualToString:@"editAC"]) {
+        NSInteger i = [MyEUtil getResultFromAjaxString:string];
+        if (i == 1) {
+            MyEDevicesViewController *vc = (MyEDevicesViewController *)[self.navigationController childViewControllers][[self.navigationController.childViewControllers indexOfObject:self]-1];
+            vc.needRefresh = YES;
+            [self.navigationController popViewControllerAnimated:YES];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
     }
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{

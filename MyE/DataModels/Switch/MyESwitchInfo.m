@@ -55,7 +55,7 @@
     }
 }
 -(NSArray *)typeArray{
-    return @[@"日光灯/节能灯",@"白炽灯"];
+    return @[@"FL/CFL Lamp",@"Incandescent Lamp"];
 }
 -(NSString *)changeTypeToString{
     return [self typeArray][self.type];

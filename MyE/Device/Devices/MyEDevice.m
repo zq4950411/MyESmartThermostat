@@ -25,7 +25,7 @@
 @synthesize isExpand;
 -(id)init{
     if (self = [super init]) {
-        self.deviceId = @"";
+        self.deviceId = @"0";
         self.deviceName = @"";
         self.locationId = 0;
         self.locationName = @"";
@@ -99,6 +99,12 @@
         self.point = dic[@"point"]==[NSNull null]?0:[dic[@"point"] intValue];
         self.instructionName = dic[@"instructionName"]?dic[@"instructionName"]:@"";
         self.showSpecialDays = dic[@"showSpecialDays"]!=[NSNull null]?[dic[@"showSpecialDays"] boolValue]:NO;
+        //For AC
+        self.isSystemDefined = dic[@"type"]!=[NSNull null]?[dic[@"type"] boolValue]:NO;
+        self.brand = dic[@"brandName"];
+        self.model = dic[@"modulName"];
+        self.brandId = [dic[@"brandId"] intValue];
+        self.modelId = [dic[@"modulId"] intValue];
         return self;
     }
     return nil;
@@ -187,4 +193,35 @@
     return nil;
 }
 
+@end
+
+@implementation MyEDeviceStatus
+-(id)init{
+    if (self = [super init]) {
+        self.powerSwitch = 100;
+        self.temperature = 100;
+        self.humidity = 100;
+        self.windLevel = 100;
+        self.runMode = 100;
+        self.setpoint = 100;
+    }
+    return self;
+}
+-(MyEDeviceStatus *)initWithJSONString:(NSString *)string{
+    NSDictionary *dic = [string JSONValue];
+    MyEDeviceStatus *status = [[MyEDeviceStatus alloc] initWithDic:dic];
+    return status;
+}
+-(MyEDeviceStatus *)initWithDic:(NSDictionary *)dic{
+    //{"temperature":"69","humidity":"11","switchStatus":0,"model":1,"winLevel":0,"temperatureSet":"25","result":1}
+    if (self = [super init]) {
+        self.powerSwitch = [dic[@"switchStatus"] intValue];
+        self.temperature = [dic[@"temperature"] intValue];
+        self.humidity = [dic[@"humidity"] intValue];
+        self.windLevel = [dic[@"winLevel"] intValue];
+        self.setpoint = [dic[@"temperatureSet"] intValue];
+        self.runMode = [dic[@"model"] intValue];
+    }
+    return self;
+}
 @end

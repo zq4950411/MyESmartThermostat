@@ -8,19 +8,13 @@
 
 #import "MyEEditCameraViewController.h"
 #import "MyECameraTableViewController.h"
-@interface MyEEditCameraViewController ()
+@interface MyEEditCameraViewController (){
+    MBProgressHUD *HUD;
+}
 @end
 
 @implementation MyEEditCameraViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 #pragma life circle methods
 - (void)viewDidLoad
 {
@@ -72,8 +66,11 @@
     }
     self.camera.name = self.nameTxt.text;
     self.camera.password = self.passwordTxt.text;
-    MyECameraTableViewController *vc = self.navigationController.childViewControllers[0];
-    vc.needRefresh = YES;
+    if (HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }else
+        [HUD show:YES];
+    [MyEDataLoader startLoadingWithURLString:[NSString stringWithFormat:@"%@?id=%i&did=%@&user=%@&pwd=%@&name=%@&houseId=%i&action=2",GetRequst(URL_FOR_CAMERA_EDIT),_camera.deviceId,_camera.UID,_camera.username,_camera.password,_camera.name,MainDelegate.houseData.houseId] postData:nil delegate:self loaderName:@"edit" userDataDictionary:nil];
 }
 //-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
 //    [self.view endEditing:YES];
@@ -147,5 +144,23 @@
         }else
             [MyEUtil showMessageOn:nil withMessage:@"Error"];
     }
+}
+
+#pragma mark - URL Delegate methods
+-(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    [HUD hide:YES];
+    NSLog(@"receive string is %@",string);
+    if ([name isEqualToString:@"edit"]) {
+        if ([string isEqualToString:@"fail"]) {
+            [SVProgressHUD showErrorWithStatus:@"fail"];
+        }else{
+            MyECameraTableViewController *vc = self.navigationController.childViewControllers[0];
+            vc.needRefresh = YES;
+        }
+    }
+}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 @end

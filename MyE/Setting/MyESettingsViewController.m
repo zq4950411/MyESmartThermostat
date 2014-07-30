@@ -10,6 +10,8 @@
 #import "MyETimeZoneViewController.h"
 #import "MyEMediatorRegisterViewController.h"
 #import "MyELaunchIntroViewController.h"
+#import "MyESubSwitchListViewController.h"
+
 
 @interface MyESettingsViewController (){
     EGORefreshTableHeaderView *_refreshHeaderView;
@@ -80,6 +82,7 @@
     self.midLbl.text = self.info.mid;
     self.houseLbl.text = self.info.houseName;
     self.timeZoneLbl.text = [self.info timeZoneArray][self.info.timeZone - 1];
+    self.subSwitchCount.text = [NSString stringWithFormat:@"%i",self.info.subSwitchList.count];
 }
 -(void)downloadInfoFromServer{
     if (HUD == nil) {
@@ -95,6 +98,10 @@
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section == 0) {
+        if ([self.info.subSwitchList count])
+            return 2;
+    }
     if (section == 1) {
         if (_hasGateWay) {
             [self.deleteMBtn setTitle:@"Remove the Gateway" forState:UIControlStateNormal];
@@ -112,6 +119,11 @@
 #pragma mark - UITableView delegate methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 0 && indexPath.row == 1) {
+        MyESubSwitchListViewController *vc = [[UIStoryboard storyboardWithName:@"settings" bundle:nil] instantiateViewControllerWithIdentifier:@"subSwitch"];
+        vc.info = self.info;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     if (indexPath.section == 1 && indexPath.row == 3) {
         MyETimeZoneViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"timeZone"];
         vc.timeZone = self.info.timeZone;

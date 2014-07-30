@@ -18,6 +18,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    _datePicker.locale = locale;
     NSArray *time = [self.sequential.startTime componentsSeparatedByString:@":"];
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"HH:mm"]; // 大写H表示24小时制,小写的h表示12小时制

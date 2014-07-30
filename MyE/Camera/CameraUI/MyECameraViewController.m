@@ -92,13 +92,16 @@
 
 #pragma mark - Notification methods
 - (void) didEnterBackground{
-//    [_m_PPPPChannelMgtCondition lock];
-//    if (_m_PPPPChannelMgt == NULL) {
-//        [_m_PPPPChannelMgtCondition unlock];
-//        return;
-//    }
-//    _m_PPPPChannelMgt->StopAll();
-//    [_m_PPPPChannelMgtCondition unlock];
+    [_m_PPPPChannelMgtCondition lock];
+    if (_m_PPPPChannelMgt == NULL) {
+        [_m_PPPPChannelMgtCondition unlock];
+        return;
+    }
+    _m_PPPPChannelMgt->StopPPPPAudio([self.camera.UID UTF8String]);
+    _m_PPPPChannelMgt->StopPPPPTalk([self.camera.UID UTF8String]);
+    _m_PPPPChannelMgt->StopPPPPLivestream([self.camera.UID UTF8String]);
+    _m_PPPPChannelMgt->StopAll();
+    [_m_PPPPChannelMgtCondition unlock];
 }
 
 - (void) willEnterForeground{
@@ -307,6 +310,9 @@
         [_m_PPPPChannelMgtCondition unlock];
         return;
     }
+    _m_PPPPChannelMgt->StopPPPPAudio([self.camera.UID UTF8String]);
+    _m_PPPPChannelMgt->StopPPPPTalk([self.camera.UID UTF8String]);
+    _m_PPPPChannelMgt->StopPPPPLivestream([self.camera.UID UTF8String]);
     _m_PPPPChannelMgt->StopAll();
     [_m_PPPPChannelMgtCondition unlock];
     dispatch_async(dispatch_get_main_queue(),^{

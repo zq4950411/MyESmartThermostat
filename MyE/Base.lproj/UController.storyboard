@@ -464,7 +464,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <!--MyEUC Schedule View Controller - Schedule-->
         <scene sceneID="NYa-us-1xr">
             <objects>
-                <viewController id="yRt-U4-paT" customClass="MyEUCScheduleViewController" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="yRt-U4-paT" customClass="MyEUCScheduleViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="P0o-Rd-Otn"/>
                         <viewControllerLayoutGuide type="bottom" id="l3D-Ug-neC"/>
