@@ -20,11 +20,6 @@
 @property (nonatomic) unsigned int fan_control;
 @property (nonatomic, copy) NSString *fan_status;
 @property (nonatomic, copy) NSString *currentProgram;
-@property (nonatomic, copy) NSString *weather;
-@property (nonatomic) float weatherTemp;
-@property (nonatomic) float highTemp;
-@property (nonatomic) float lowTemp;
-@property (nonatomic) NSUInteger humidity;
 @property (nonatomic) NSInteger con_hp;//紧急加热是否允许
 @property (nonatomic) NSInteger aux;//紧急加热是否允许
 @property (nonatomic) NSInteger energyLeaver;// 节能类型

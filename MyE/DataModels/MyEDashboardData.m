@@ -10,7 +10,6 @@
 #import "SBJson.h"
 
 @implementation MyEDashboardData
-@synthesize locWeb = _locWeb, isheatcool = _isheatcool, setpoint = _setpoint, stageLevel = _stageLevel, controlMode = _controlMode, realControlMode = _realControlMode, temperature = _temperature, isOvrried = _isOvrried, fan_control = _fan_control, fan_status = _fan_status, currentProgram = _currentProgram, weather = _weather, weatherTemp = _weatherTemp, highTemp = _highTemp, lowTemp = _lowTemp, humidity = _humidity, con_hp = _con_hp;
 @synthesize aux = _aux;
 //测试用，用默认值构造一个MyEDashboardData对象
 - (id)init {
@@ -26,11 +25,6 @@
         _fan_control = 1;
         _fan_status = @"ON";
         _currentProgram = @"Weekly Program";
-        _weather = @"snow";
-        _weatherTemp = 68.88;
-        _highTemp = 73.33;
-        _lowTemp = 55.55;
-        _humidity = 70;
         _con_hp = 0;
         _aux = 0;
         return self;
@@ -51,11 +45,6 @@
         self.fan_control = [[dictionary objectForKey:@"fan_control"] intValue];
         self.fan_status = [dictionary objectForKey:@"fan_status"];
         self.currentProgram = [dictionary objectForKey:@"currentProgram"];
-        self.weather = [dictionary objectForKey:@"weather"];
-        self.weatherTemp = [[dictionary objectForKey:@"weatherTemp"] floatValue];
-        self.highTemp = [[dictionary objectForKey:@"highTemp"] floatValue];
-        self.lowTemp = [[dictionary objectForKey:@"lowTemp"] floatValue];
-        self.humidity = [[dictionary objectForKey:@"humidity"] intValue];
         self.con_hp = [[dictionary objectForKey:@"con_hp"] intValue];
         self.aux = [[dictionary objectForKey:@"aux"] intValue];
         self.energyLeaver= [[dictionary objectForKey:@"energyLeaver"] intValue];
@@ -90,11 +79,6 @@
                           [NSNumber numberWithInt:self.fan_control], @"fan_control",
                           self.fan_status, @"fan_status",
                           self.currentProgram, @"currentProgram",
-                          self.weather, @"weather",
-                          [NSNumber numberWithFloat:self.weatherTemp], @"weatherTemp",
-                          [NSNumber numberWithFloat:self.highTemp], @"highTemp",
-                          [NSNumber numberWithFloat:self.lowTemp], @"lowTemp",
-                          [NSNumber numberWithInt:self.humidity], @"humidity",
                           [NSNumber numberWithInt:self.con_hp], @"con_hp",
                           [NSNumber numberWithInt:self.aux], @"aux",
                           [NSNumber numberWithInt:self.energyLeaver], @"energyLeaver",
