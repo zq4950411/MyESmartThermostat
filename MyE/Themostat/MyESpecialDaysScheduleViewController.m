@@ -149,13 +149,9 @@
 -(void) setIsRemoteControl:(BOOL)isRemoteControl {
     _isRemoteControl = isRemoteControl;
     if (!isRemoteControl) {
-        self.applyButton.hidden = YES;
-        self.addNewModeButton.hidden = YES;
-        self.editModeButton.hidden = YES;
-    }else {
-        self.applyButton.hidden = NO;
-        self.addNewModeButton.hidden = NO;
-        self.editModeButton.hidden = NO;
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+    } else {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is enabled."];
     }
 }
 
@@ -639,15 +635,30 @@
 #pragma mark
 #pragma mark action methods
 - (IBAction)editSelectedMode:(id)sender {
+    if (!self.isRemoteControl) {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        return;
+    }
+
     [self _toggleModeEditingViewWithType:ModeEditingViewTypeEditing];
 }
 
 - (IBAction)addNewMode:(id)sender {
+    if (!self.isRemoteControl) {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        return;
+    }
+
     // 添加代码处理新增加mode的功能
     [self _toggleModeEditingViewWithType:ModeEditingViewTypeNew];
 }
 
 - (IBAction)applyNewSchedule:(UIButton *)sender {
+    if (!self.isRemoteControl) {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        return;
+    }
+
     if ([sender.currentTitle isEqualToString:@"Apply Now"]) {
         if (_hasChanged) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Please save the changes before apply" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
@@ -695,6 +706,11 @@
         [self selectDays];
 }
 - (IBAction)saveAsNewDay:(id)sender {
+    if (!self.isRemoteControl) {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        return;
+    }
+
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     UITextField *textField = [alert textFieldAtIndex:0];
@@ -707,6 +723,11 @@
 }
 
 - (IBAction)deleteCurrentDay:(id)sender {
+    if (!self.isRemoteControl) {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        return;
+    }
+
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Are you sure to remove this special day schedule?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
     alert.tag = 102;
     [alert show];

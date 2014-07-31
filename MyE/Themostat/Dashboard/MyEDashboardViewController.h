@@ -26,13 +26,15 @@
 #define STEP_DEGREE 10
 
 @interface MyEDashboardViewController : UIViewController<MyEDataLoaderDelegate,MBProgressHUDDelegate,CDCircleDelegate, CDCircleDataSource> {
-    CALayer *_maskLayer;
+    UIView *_maskLayer;
     NSTimer *loadTimer;  // Timer used for uploading delay.
 
 
     MBProgressHUD *HUD;
     
     BOOL _isSetpointChanged;
+    
+    UITapGestureRecognizer *_singleFingerTap;//远程控制禁用时，添加到view上的手势识别器
 }
 @property (copy, nonatomic) NSString *userId;
 @property (nonatomic) NSInteger houseId;
