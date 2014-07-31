@@ -68,6 +68,30 @@
 		8C354454196ACC4100E5A6C2 /* IpCameraClient.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C354453196ACC4100E5A6C2 /* IpCameraClient.strings */; };
 		8C354458196ACF3300E5A6C2 /* MyECamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C354457196ACF3300E5A6C2 /* MyECamera.m */; };
 		8C5168BB196D0FEE00F418CC /* MyEThemostatTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5168BA196D0FEE00F418CC /* MyEThemostatTabBarController.m */; };
+		8C5DBF4719834AB800765F05 /* AcDevice.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C5DBF4319834AB800765F05 /* AcDevice.storyboard */; };
+		8C5DBF4819834AB800765F05 /* AcInstruction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C5DBF4519834AB800765F05 /* AcInstruction.storyboard */; };
+		8C5DBF4F19837F9700765F05 /* MyESubSwitchEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF4C19837F9700765F05 /* MyESubSwitchEditViewController.m */; };
+		8C5DBF5019837F9700765F05 /* MyESubSwitchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF4E19837F9700765F05 /* MyESubSwitchListViewController.m */; };
+		8C5DBF6A19838C7800765F05 /* MyEAutoControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF5519838C7800765F05 /* MyEAutoControlViewController.m */; };
+		8C5DBF6B19838C7800765F05 /* MyEAutoPeriodListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF5719838C7800765F05 /* MyEAutoPeriodListViewController.m */; };
+		8C5DBF6C19838C7800765F05 /* MyEAutoPeriodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF5919838C7800765F05 /* MyEAutoPeriodViewController.m */; };
+		8C5DBF6D19838C7800765F05 /* MyEAutoProcessListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF5B19838C7800765F05 /* MyEAutoProcessListViewController.m */; };
+		8C5DBF6E19838C7800765F05 /* MyEAutoProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF5D19838C7800765F05 /* MyEAutoProcessViewController.m */; };
+		8C5DBF7019838C7800765F05 /* MyEAcEnergySavingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF6119838C7800765F05 /* MyEAcEnergySavingViewController.m */; };
+		8C5DBF7119838C7800765F05 /* MyEACManualControlNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF6319838C7800765F05 /* MyEACManualControlNavController.m */; };
+		8C5DBF7219838C7800765F05 /* MyEAcManualControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF6519838C7800765F05 /* MyEAcManualControlViewController.m */; };
+		8C5DBF7319838C7800765F05 /* MyEAcTempMonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF6719838C7800765F05 /* MyEAcTempMonitorViewController.m */; };
+		8C5DBF7419838C7800765F05 /* MyEAcUserModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF6919838C7800765F05 /* MyEAcUserModelViewController.m */; };
+		8C5DBF8A19838DE500765F05 /* MyEAcBrand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF7719838DE500765F05 /* MyEAcBrand.m */; };
+		8C5DBF8B19838DE500765F05 /* MyEAcBrandsAndModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF7919838DE500765F05 /* MyEAcBrandsAndModels.m */; };
+		8C5DBF8C19838DE500765F05 /* MyEAcComfort.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF7B19838DE500765F05 /* MyEAcComfort.m */; };
+		8C5DBF8D19838DE500765F05 /* MyEAcInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF7D19838DE500765F05 /* MyEAcInstruction.m */; };
+		8C5DBF8E19838DE500765F05 /* MyEAcInstructionSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF7F19838DE500765F05 /* MyEAcInstructionSet.m */; };
+		8C5DBF8F19838DE500765F05 /* MyEAcModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF8119838DE500765F05 /* MyEAcModel.m */; };
+		8C5DBF9019838DE500765F05 /* MyEAcStudyInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF8319838DE500765F05 /* MyEAcStudyInstruction.m */; };
+		8C5DBF9119838DE500765F05 /* MyEAcStudyInstructionList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF8519838DE500765F05 /* MyEAcStudyInstructionList.m */; };
+		8C5DBF9219838DE500765F05 /* MyEAcTempMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF8719838DE500765F05 /* MyEAcTempMonitor.m */; };
+		8C5DBF9319838DE500765F05 /* MyEAcUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5DBF8919838DE500765F05 /* MyEAcUtil.m */; };
 		8C6CB5411941C30C007EECEA /* UController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C6CB53F1941C30C007EECEA /* UController.storyboard */; };
 		8C6CB5471941C5E6007EECEA /* MyEUCManualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB5461941C5E6007EECEA /* MyEUCManualViewController.m */; };
 		8C6CB54A1941C7D0007EECEA /* MyEUCInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6CB5491941C7D0007EECEA /* MyEUCInfo.m */; };
@@ -114,6 +138,20 @@
 		8CA52FA919231D4700D40EDD /* MyEEventDeviceEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA52FA819231D4700D40EDD /* MyEEventDeviceEditViewController.m */; };
 		8CA60FC91935B0B2006F7F06 /* MYEPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CA60FC81935B0B2006F7F06 /* MYEPickerView.m */; };
 		8CB4B552192B46610077CFCB /* MYEWeekButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB4B551192B46610077CFCB /* MYEWeekButtons.m */; };
+		8CBBFE59198620A8005BF0F2 /* MyEAutoControlPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBFE54198620A8005BF0F2 /* MyEAutoControlPeriod.m */; };
+		8CBBFE5A198620A8005BF0F2 /* MyEAutoControlProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBFE56198620A8005BF0F2 /* MyEAutoControlProcess.m */; };
+		8CBBFE5B198620A8005BF0F2 /* MyEAutoControlProcessList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBFE58198620A8005BF0F2 /* MyEAutoControlProcessList.m */; };
+		8CC1AFCC19863FCA008DEA0B /* instructionListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CC1AFBB19863FCA008DEA0B /* instructionListCell.xib */; };
+		8CC1AFCD19863FCA008DEA0B /* MyEAcAddNewBrandAndModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC1AFBD19863FCA008DEA0B /* MyEAcAddNewBrandAndModuleViewController.m */; };
+		8CC1AFCE19863FCA008DEA0B /* MyEAcCustomInstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC1AFBF19863FCA008DEA0B /* MyEAcCustomInstructionViewController.m */; };
+		8CC1AFCF19863FCA008DEA0B /* MyEAcInstructionAutoCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC1AFC119863FCA008DEA0B /* MyEAcInstructionAutoCheckViewController.m */; };
+		8CC1AFD019863FCA008DEA0B /* MyEAcInstructionListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC1AFC319863FCA008DEA0B /* MyEAcInstructionListCell.m */; };
+		8CC1AFD119863FCA008DEA0B /* MyEAcInstructionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC1AFC519863FCA008DEA0B /* MyEAcInstructionListViewController.m */; };
+		8CC1AFD219863FCA008DEA0B /* MyEAcInstructionStudyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC1AFC719863FCA008DEA0B /* MyEAcInstructionStudyViewController.m */; };
+		8CC1AFD319863FCA008DEA0B /* MyEAcStandardInstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC1AFC919863FCA008DEA0B /* MyEAcStandardInstructionViewController.m */; };
+		8CC1AFD419863FCA008DEA0B /* MyEInstructionManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC1AFCB19863FCA008DEA0B /* MyEInstructionManageViewController.m */; };
+		8CC1AFDC19865505008DEA0B /* KAProgressLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC1AFD919865505008DEA0B /* KAProgressLabel.m */; };
+		8CC1AFDD19865505008DEA0B /* TPPropertyAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC1AFDB19865505008DEA0B /* TPPropertyAnimation.m */; };
 		8CCB090A192241360095EAAD /* MyEIrDefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0909192241360095EAAD /* MyEIrDefaultViewController.m */; };
 		8CCB0D541909FF460044B0E5 /* MyESocketInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB0D531909FF460044B0E5 /* MyESocketInfo.m */; };
 		8CE5860F191E131A00157EE2 /* MyEIrUserKeyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE5860E191E131A00157EE2 /* MyEIrUserKeyViewController.m */; };
@@ -564,6 +602,52 @@
 		8C354457196ACF3300E5A6C2 /* MyECamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyECamera.m; sourceTree = "<group>"; };
 		8C5168B9196D0FEE00F418CC /* MyEThemostatTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEThemostatTabBarController.h; sourceTree = "<group>"; };
 		8C5168BA196D0FEE00F418CC /* MyEThemostatTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEThemostatTabBarController.m; sourceTree = "<group>"; };
+		8C5DBF4419834AB800765F05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = AcDevice.storyboard; sourceTree = "<group>"; };
+		8C5DBF4619834AB800765F05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = AcInstruction.storyboard; sourceTree = "<group>"; };
+		8C5DBF4B19837F9700765F05 /* MyESubSwitchEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESubSwitchEditViewController.h; sourceTree = "<group>"; };
+		8C5DBF4C19837F9700765F05 /* MyESubSwitchEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESubSwitchEditViewController.m; sourceTree = "<group>"; };
+		8C5DBF4D19837F9700765F05 /* MyESubSwitchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESubSwitchListViewController.h; sourceTree = "<group>"; };
+		8C5DBF4E19837F9700765F05 /* MyESubSwitchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyESubSwitchListViewController.m; sourceTree = "<group>"; };
+		8C5DBF5419838C7800765F05 /* MyEAutoControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAutoControlViewController.h; sourceTree = "<group>"; };
+		8C5DBF5519838C7800765F05 /* MyEAutoControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAutoControlViewController.m; sourceTree = "<group>"; };
+		8C5DBF5619838C7800765F05 /* MyEAutoPeriodListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAutoPeriodListViewController.h; sourceTree = "<group>"; };
+		8C5DBF5719838C7800765F05 /* MyEAutoPeriodListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAutoPeriodListViewController.m; sourceTree = "<group>"; };
+		8C5DBF5819838C7800765F05 /* MyEAutoPeriodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAutoPeriodViewController.h; sourceTree = "<group>"; };
+		8C5DBF5919838C7800765F05 /* MyEAutoPeriodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAutoPeriodViewController.m; sourceTree = "<group>"; };
+		8C5DBF5A19838C7800765F05 /* MyEAutoProcessListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAutoProcessListViewController.h; sourceTree = "<group>"; };
+		8C5DBF5B19838C7800765F05 /* MyEAutoProcessListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAutoProcessListViewController.m; sourceTree = "<group>"; };
+		8C5DBF5C19838C7800765F05 /* MyEAutoProcessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAutoProcessViewController.h; sourceTree = "<group>"; };
+		8C5DBF5D19838C7800765F05 /* MyEAutoProcessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAutoProcessViewController.m; sourceTree = "<group>"; };
+		8C5DBF6019838C7800765F05 /* MyEAcEnergySavingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcEnergySavingViewController.h; sourceTree = "<group>"; };
+		8C5DBF6119838C7800765F05 /* MyEAcEnergySavingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcEnergySavingViewController.m; sourceTree = "<group>"; };
+		8C5DBF6219838C7800765F05 /* MyEACManualControlNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEACManualControlNavController.h; sourceTree = "<group>"; };
+		8C5DBF6319838C7800765F05 /* MyEACManualControlNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEACManualControlNavController.m; sourceTree = "<group>"; };
+		8C5DBF6419838C7800765F05 /* MyEAcManualControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcManualControlViewController.h; sourceTree = "<group>"; };
+		8C5DBF6519838C7800765F05 /* MyEAcManualControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcManualControlViewController.m; sourceTree = "<group>"; };
+		8C5DBF6619838C7800765F05 /* MyEAcTempMonitorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcTempMonitorViewController.h; sourceTree = "<group>"; };
+		8C5DBF6719838C7800765F05 /* MyEAcTempMonitorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcTempMonitorViewController.m; sourceTree = "<group>"; };
+		8C5DBF6819838C7800765F05 /* MyEAcUserModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcUserModelViewController.h; sourceTree = "<group>"; };
+		8C5DBF6919838C7800765F05 /* MyEAcUserModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcUserModelViewController.m; sourceTree = "<group>"; };
+		8C5DBF7619838DE500765F05 /* MyEAcBrand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcBrand.h; sourceTree = "<group>"; };
+		8C5DBF7719838DE500765F05 /* MyEAcBrand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcBrand.m; sourceTree = "<group>"; };
+		8C5DBF7819838DE500765F05 /* MyEAcBrandsAndModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcBrandsAndModels.h; sourceTree = "<group>"; };
+		8C5DBF7919838DE500765F05 /* MyEAcBrandsAndModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcBrandsAndModels.m; sourceTree = "<group>"; };
+		8C5DBF7A19838DE500765F05 /* MyEAcComfort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcComfort.h; sourceTree = "<group>"; };
+		8C5DBF7B19838DE500765F05 /* MyEAcComfort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcComfort.m; sourceTree = "<group>"; };
+		8C5DBF7C19838DE500765F05 /* MyEAcInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcInstruction.h; sourceTree = "<group>"; };
+		8C5DBF7D19838DE500765F05 /* MyEAcInstruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcInstruction.m; sourceTree = "<group>"; };
+		8C5DBF7E19838DE500765F05 /* MyEAcInstructionSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcInstructionSet.h; sourceTree = "<group>"; };
+		8C5DBF7F19838DE500765F05 /* MyEAcInstructionSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcInstructionSet.m; sourceTree = "<group>"; };
+		8C5DBF8019838DE500765F05 /* MyEAcModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcModel.h; sourceTree = "<group>"; };
+		8C5DBF8119838DE500765F05 /* MyEAcModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcModel.m; sourceTree = "<group>"; };
+		8C5DBF8219838DE500765F05 /* MyEAcStudyInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcStudyInstruction.h; sourceTree = "<group>"; };
+		8C5DBF8319838DE500765F05 /* MyEAcStudyInstruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcStudyInstruction.m; sourceTree = "<group>"; };
+		8C5DBF8419838DE500765F05 /* MyEAcStudyInstructionList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcStudyInstructionList.h; sourceTree = "<group>"; };
+		8C5DBF8519838DE500765F05 /* MyEAcStudyInstructionList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcStudyInstructionList.m; sourceTree = "<group>"; };
+		8C5DBF8619838DE500765F05 /* MyEAcTempMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcTempMonitor.h; sourceTree = "<group>"; };
+		8C5DBF8719838DE500765F05 /* MyEAcTempMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcTempMonitor.m; sourceTree = "<group>"; };
+		8C5DBF8819838DE500765F05 /* MyEAcUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcUtil.h; sourceTree = "<group>"; };
+		8C5DBF8919838DE500765F05 /* MyEAcUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcUtil.m; sourceTree = "<group>"; };
 		8C6CB5401941C30C007EECEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = UController.storyboard; sourceTree = "<group>"; };
 		8C6CB5451941C5E6007EECEA /* MyEUCManualViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEUCManualViewController.h; sourceTree = "<group>"; };
 		8C6CB5461941C5E6007EECEA /* MyEUCManualViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEUCManualViewController.m; sourceTree = "<group>"; };
@@ -649,6 +733,33 @@
 		8CA60FC81935B0B2006F7F06 /* MYEPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYEPickerView.m; sourceTree = "<group>"; };
 		8CB4B550192B46610077CFCB /* MYEWeekButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYEWeekButtons.h; sourceTree = "<group>"; };
 		8CB4B551192B46610077CFCB /* MYEWeekButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYEWeekButtons.m; sourceTree = "<group>"; };
+		8CBBFE53198620A8005BF0F2 /* MyEAutoControlPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAutoControlPeriod.h; sourceTree = "<group>"; };
+		8CBBFE54198620A8005BF0F2 /* MyEAutoControlPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAutoControlPeriod.m; sourceTree = "<group>"; };
+		8CBBFE55198620A8005BF0F2 /* MyEAutoControlProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAutoControlProcess.h; sourceTree = "<group>"; };
+		8CBBFE56198620A8005BF0F2 /* MyEAutoControlProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAutoControlProcess.m; sourceTree = "<group>"; };
+		8CBBFE57198620A8005BF0F2 /* MyEAutoControlProcessList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAutoControlProcessList.h; sourceTree = "<group>"; };
+		8CBBFE58198620A8005BF0F2 /* MyEAutoControlProcessList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAutoControlProcessList.m; sourceTree = "<group>"; };
+		8CC1AFBB19863FCA008DEA0B /* instructionListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = instructionListCell.xib; sourceTree = "<group>"; };
+		8CC1AFBC19863FCA008DEA0B /* MyEAcAddNewBrandAndModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcAddNewBrandAndModuleViewController.h; sourceTree = "<group>"; };
+		8CC1AFBD19863FCA008DEA0B /* MyEAcAddNewBrandAndModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcAddNewBrandAndModuleViewController.m; sourceTree = "<group>"; };
+		8CC1AFBE19863FCA008DEA0B /* MyEAcCustomInstructionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcCustomInstructionViewController.h; sourceTree = "<group>"; };
+		8CC1AFBF19863FCA008DEA0B /* MyEAcCustomInstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcCustomInstructionViewController.m; sourceTree = "<group>"; };
+		8CC1AFC019863FCA008DEA0B /* MyEAcInstructionAutoCheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcInstructionAutoCheckViewController.h; sourceTree = "<group>"; };
+		8CC1AFC119863FCA008DEA0B /* MyEAcInstructionAutoCheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcInstructionAutoCheckViewController.m; sourceTree = "<group>"; };
+		8CC1AFC219863FCA008DEA0B /* MyEAcInstructionListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcInstructionListCell.h; sourceTree = "<group>"; };
+		8CC1AFC319863FCA008DEA0B /* MyEAcInstructionListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcInstructionListCell.m; sourceTree = "<group>"; };
+		8CC1AFC419863FCA008DEA0B /* MyEAcInstructionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcInstructionListViewController.h; sourceTree = "<group>"; };
+		8CC1AFC519863FCA008DEA0B /* MyEAcInstructionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcInstructionListViewController.m; sourceTree = "<group>"; };
+		8CC1AFC619863FCA008DEA0B /* MyEAcInstructionStudyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcInstructionStudyViewController.h; sourceTree = "<group>"; };
+		8CC1AFC719863FCA008DEA0B /* MyEAcInstructionStudyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcInstructionStudyViewController.m; sourceTree = "<group>"; };
+		8CC1AFC819863FCA008DEA0B /* MyEAcStandardInstructionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEAcStandardInstructionViewController.h; sourceTree = "<group>"; };
+		8CC1AFC919863FCA008DEA0B /* MyEAcStandardInstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEAcStandardInstructionViewController.m; sourceTree = "<group>"; };
+		8CC1AFCA19863FCA008DEA0B /* MyEInstructionManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEInstructionManageViewController.h; sourceTree = "<group>"; };
+		8CC1AFCB19863FCA008DEA0B /* MyEInstructionManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEInstructionManageViewController.m; sourceTree = "<group>"; };
+		8CC1AFD819865505008DEA0B /* KAProgressLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KAProgressLabel.h; sourceTree = "<group>"; };
+		8CC1AFD919865505008DEA0B /* KAProgressLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KAProgressLabel.m; sourceTree = "<group>"; };
+		8CC1AFDA19865505008DEA0B /* TPPropertyAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPPropertyAnimation.h; sourceTree = "<group>"; };
+		8CC1AFDB19865505008DEA0B /* TPPropertyAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPPropertyAnimation.m; sourceTree = "<group>"; };
 		8CCB0908192241360095EAAD /* MyEIrDefaultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEIrDefaultViewController.h; sourceTree = "<group>"; };
 		8CCB0909192241360095EAAD /* MyEIrDefaultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEIrDefaultViewController.m; sourceTree = "<group>"; };
 		8CCB0D521909FF460044B0E5 /* MyESocketInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyESocketInfo.h; sourceTree = "<group>"; };
@@ -1420,6 +1531,71 @@
 			path = CameraData;
 			sourceTree = "<group>";
 		};
+		8C5DBF5219838C7800765F05 /* AC */ = {
+			isa = PBXGroup;
+			children = (
+				8CC1AFBA19863FCA008DEA0B /* Acinstruction */,
+				8C5DBF7519838DE500765F05 /* DataModels */,
+				8C5DBF5319838C7800765F05 /* AutoControl */,
+				8C5DBF6219838C7800765F05 /* MyEACManualControlNavController.h */,
+				8C5DBF6319838C7800765F05 /* MyEACManualControlNavController.m */,
+				8C5DBF6419838C7800765F05 /* MyEAcManualControlViewController.h */,
+				8C5DBF6519838C7800765F05 /* MyEAcManualControlViewController.m */,
+				8C5DBF6819838C7800765F05 /* MyEAcUserModelViewController.h */,
+				8C5DBF6919838C7800765F05 /* MyEAcUserModelViewController.m */,
+				8C5DBF6019838C7800765F05 /* MyEAcEnergySavingViewController.h */,
+				8C5DBF6119838C7800765F05 /* MyEAcEnergySavingViewController.m */,
+				8C5DBF6619838C7800765F05 /* MyEAcTempMonitorViewController.h */,
+				8C5DBF6719838C7800765F05 /* MyEAcTempMonitorViewController.m */,
+			);
+			path = AC;
+			sourceTree = "<group>";
+		};
+		8C5DBF5319838C7800765F05 /* AutoControl */ = {
+			isa = PBXGroup;
+			children = (
+				8C5DBF5419838C7800765F05 /* MyEAutoControlViewController.h */,
+				8C5DBF5519838C7800765F05 /* MyEAutoControlViewController.m */,
+				8C5DBF5619838C7800765F05 /* MyEAutoPeriodListViewController.h */,
+				8C5DBF5719838C7800765F05 /* MyEAutoPeriodListViewController.m */,
+				8C5DBF5819838C7800765F05 /* MyEAutoPeriodViewController.h */,
+				8C5DBF5919838C7800765F05 /* MyEAutoPeriodViewController.m */,
+				8C5DBF5A19838C7800765F05 /* MyEAutoProcessListViewController.h */,
+				8C5DBF5B19838C7800765F05 /* MyEAutoProcessListViewController.m */,
+				8C5DBF5C19838C7800765F05 /* MyEAutoProcessViewController.h */,
+				8C5DBF5D19838C7800765F05 /* MyEAutoProcessViewController.m */,
+			);
+			path = AutoControl;
+			sourceTree = "<group>";
+		};
+		8C5DBF7519838DE500765F05 /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+				8CBBFE52198620A8005BF0F2 /* AutoControl */,
+				8C5DBF7619838DE500765F05 /* MyEAcBrand.h */,
+				8C5DBF7719838DE500765F05 /* MyEAcBrand.m */,
+				8C5DBF7819838DE500765F05 /* MyEAcBrandsAndModels.h */,
+				8C5DBF7919838DE500765F05 /* MyEAcBrandsAndModels.m */,
+				8C5DBF7A19838DE500765F05 /* MyEAcComfort.h */,
+				8C5DBF7B19838DE500765F05 /* MyEAcComfort.m */,
+				8C5DBF7C19838DE500765F05 /* MyEAcInstruction.h */,
+				8C5DBF7D19838DE500765F05 /* MyEAcInstruction.m */,
+				8C5DBF7E19838DE500765F05 /* MyEAcInstructionSet.h */,
+				8C5DBF7F19838DE500765F05 /* MyEAcInstructionSet.m */,
+				8C5DBF8019838DE500765F05 /* MyEAcModel.h */,
+				8C5DBF8119838DE500765F05 /* MyEAcModel.m */,
+				8C5DBF8219838DE500765F05 /* MyEAcStudyInstruction.h */,
+				8C5DBF8319838DE500765F05 /* MyEAcStudyInstruction.m */,
+				8C5DBF8419838DE500765F05 /* MyEAcStudyInstructionList.h */,
+				8C5DBF8519838DE500765F05 /* MyEAcStudyInstructionList.m */,
+				8C5DBF8619838DE500765F05 /* MyEAcTempMonitor.h */,
+				8C5DBF8719838DE500765F05 /* MyEAcTempMonitor.m */,
+				8C5DBF8819838DE500765F05 /* MyEAcUtil.h */,
+				8C5DBF8919838DE500765F05 /* MyEAcUtil.m */,
+			);
+			path = DataModels;
+			sourceTree = "<group>";
+		};
 		8C6CB5441941C597007EECEA /* UController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1550,6 +1726,54 @@
 			path = MYEWeekButtons;
 			sourceTree = "<group>";
 		};
+		8CBBFE52198620A8005BF0F2 /* AutoControl */ = {
+			isa = PBXGroup;
+			children = (
+				8CBBFE53198620A8005BF0F2 /* MyEAutoControlPeriod.h */,
+				8CBBFE54198620A8005BF0F2 /* MyEAutoControlPeriod.m */,
+				8CBBFE55198620A8005BF0F2 /* MyEAutoControlProcess.h */,
+				8CBBFE56198620A8005BF0F2 /* MyEAutoControlProcess.m */,
+				8CBBFE57198620A8005BF0F2 /* MyEAutoControlProcessList.h */,
+				8CBBFE58198620A8005BF0F2 /* MyEAutoControlProcessList.m */,
+			);
+			path = AutoControl;
+			sourceTree = "<group>";
+		};
+		8CC1AFBA19863FCA008DEA0B /* Acinstruction */ = {
+			isa = PBXGroup;
+			children = (
+				8CC1AFBB19863FCA008DEA0B /* instructionListCell.xib */,
+				8CC1AFBC19863FCA008DEA0B /* MyEAcAddNewBrandAndModuleViewController.h */,
+				8CC1AFBD19863FCA008DEA0B /* MyEAcAddNewBrandAndModuleViewController.m */,
+				8CC1AFBE19863FCA008DEA0B /* MyEAcCustomInstructionViewController.h */,
+				8CC1AFBF19863FCA008DEA0B /* MyEAcCustomInstructionViewController.m */,
+				8CC1AFC019863FCA008DEA0B /* MyEAcInstructionAutoCheckViewController.h */,
+				8CC1AFC119863FCA008DEA0B /* MyEAcInstructionAutoCheckViewController.m */,
+				8CC1AFC219863FCA008DEA0B /* MyEAcInstructionListCell.h */,
+				8CC1AFC319863FCA008DEA0B /* MyEAcInstructionListCell.m */,
+				8CC1AFC419863FCA008DEA0B /* MyEAcInstructionListViewController.h */,
+				8CC1AFC519863FCA008DEA0B /* MyEAcInstructionListViewController.m */,
+				8CC1AFC619863FCA008DEA0B /* MyEAcInstructionStudyViewController.h */,
+				8CC1AFC719863FCA008DEA0B /* MyEAcInstructionStudyViewController.m */,
+				8CC1AFC819863FCA008DEA0B /* MyEAcStandardInstructionViewController.h */,
+				8CC1AFC919863FCA008DEA0B /* MyEAcStandardInstructionViewController.m */,
+				8CC1AFCA19863FCA008DEA0B /* MyEInstructionManageViewController.h */,
+				8CC1AFCB19863FCA008DEA0B /* MyEInstructionManageViewController.m */,
+			);
+			path = Acinstruction;
+			sourceTree = "<group>";
+		};
+		8CC1AFD719865505008DEA0B /* KAProgressLabel */ = {
+			isa = PBXGroup;
+			children = (
+				8CC1AFD819865505008DEA0B /* KAProgressLabel.h */,
+				8CC1AFD919865505008DEA0B /* KAProgressLabel.m */,
+				8CC1AFDA19865505008DEA0B /* TPPropertyAnimation.h */,
+				8CC1AFDB19865505008DEA0B /* TPPropertyAnimation.m */,
+			);
+			path = KAProgressLabel;
+			sourceTree = "<group>";
+		};
 		B2588BEB17B09B9C007ED13C /* Framework */ = {
 			isa = PBXGroup;
 			children = (
@@ -1601,6 +1825,7 @@
 		B2588C2D17B09B9C007ED13C /* LIB */ = {
 			isa = PBXGroup;
 			children = (
+				8CC1AFD719865505008DEA0B /* KAProgressLabel */,
 				8C91F62719515D0700C285D3 /* JPush */,
 				8C13F48919482A6600B52913 /* WTReTextField */,
 				C3FB3BA4192C3AA00039D052 /* DropDownMenu */,
@@ -2099,6 +2324,8 @@
 		C3F61AA518DFE64C00DEE477 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				8C5DBF4319834AB800765F05 /* AcDevice.storyboard */,
+				8C5DBF4519834AB800765F05 /* AcInstruction.storyboard */,
 				8C354363196A946500E5A6C2 /* Camera.storyboard */,
 				C3AE7F0018E13B4C000AA5FC /* Switch.storyboard */,
 				C3F61AA618DFE64C00DEE477 /* MainStoryboard.storyboard */,
@@ -2300,6 +2527,10 @@
 		C3FDB67118FA640B009B423D /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				8C5DBF4B19837F9700765F05 /* MyESubSwitchEditViewController.h */,
+				8C5DBF4C19837F9700765F05 /* MyESubSwitchEditViewController.m */,
+				8C5DBF4D19837F9700765F05 /* MyESubSwitchListViewController.h */,
+				8C5DBF4E19837F9700765F05 /* MyESubSwitchListViewController.m */,
 				8C13F47D1947EEE200B52913 /* MyEMediatorRegisterViewController.h */,
 				8C13F47E1947EEE200B52913 /* MyEMediatorRegisterViewController.m */,
 				8C13F4821947EF2400B52913 /* MyETimeZoneViewController.h */,
@@ -2338,6 +2569,7 @@
 		C3FDB71B18FA672B009B423D /* Device */ = {
 			isa = PBXGroup;
 			children = (
+				8C5DBF5219838C7800765F05 /* AC */,
 				8C6CB5441941C597007EECEA /* UController */,
 				8CA06040190912130090A350 /* Socket */,
 				8CA05FDE19078A8D0090A350 /* libs */,
@@ -2578,6 +2810,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C5DBF4719834AB800765F05 /* AcDevice.storyboard in Resources */,
 				8C354452196ACC3300E5A6C2 /* Shader.vsh in Resources */,
 				8C354451196ACC3300E5A6C2 /* Shader.fsh in Resources */,
 				B2588D3417B09B9D007ED13C /* blackArrow.png in Resources */,
@@ -2598,6 +2831,7 @@
 				8CA52F9A192307E800D40EDD /* Event.storyboard in Resources */,
 				8CA05FEE1907E5E70090A350 /* Socket.storyboard in Resources */,
 				8C23AB281924A02B00821596 /* iPod Click.aiff in Resources */,
+				8C5DBF4819834AB800765F05 /* AcInstruction.storyboard in Resources */,
 				C3194BAB18E93A38006E3ABE /* Images.xcassets in Resources */,
 				8C354365196A946500E5A6C2 /* Camera.storyboard in Resources */,
 				8C722607190653E40033A78A /* Device.storyboard in Resources */,
@@ -2608,6 +2842,7 @@
 				B25B79E617D198A9009F4E84 /* zbar-help.html in Resources */,
 				B25B79E717D198A9009F4E84 /* zbar-helpicons.png in Resources */,
 				B25B79E817D198A9009F4E84 /* zbar-samples.png in Resources */,
+				8CC1AFCC19863FCA008DEA0B /* instructionListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2618,32 +2853,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CC1AFCE19863FCA008DEA0B /* MyEAcCustomInstructionViewController.m in Sources */,
 				8C354427196ACC3300E5A6C2 /* MyECameraAddNewViewController.m in Sources */,
+				8CC1AFCD19863FCA008DEA0B /* MyEAcAddNewBrandAndModuleViewController.m in Sources */,
+				8C5DBF8B19838DE500765F05 /* MyEAcBrandsAndModels.m in Sources */,
 				8C35442D196ACC3300E5A6C2 /* MyECameraViewController.m in Sources */,
 				8C354429196ACC3300E5A6C2 /* MyECameraLandscapeViewController.m in Sources */,
 				8C13F48F19482A6600B52913 /* WTReTextField.m in Sources */,
 				C3F61AD318DFEE1700DEE477 /* IQActionSheetPickerView.m in Sources */,
+				8C5DBF7119838C7800765F05 /* MyEACManualControlNavController.m in Sources */,
 				C3AE7F4118E14D99000AA5FC /* MZFormSheetController.m in Sources */,
 				C3FDB7D118FA672E009B423D /* MyESwitchScheduleSettingViewController.m in Sources */,
 				C3FDB81818FA82AE009B423D /* MyESwitchManualControl.m in Sources */,
 				C3FDB80518FA82AE009B423D /* MyEDashboardData.m in Sources */,
+				8C5DBF9219838DE500765F05 /* MyEAcTempMonitor.m in Sources */,
 				C3AE7F3F18E14D99000AA5FC /* MZFormSheetBackgroundWindow.m in Sources */,
 				C3FDB81718FA82AE009B423D /* MyESwitchInfo.m in Sources */,
+				8C5DBF6E19838C7800765F05 /* MyEAutoProcessViewController.m in Sources */,
 				8C354431196ACC3300E5A6C2 /* CgiPacket.cpp in Sources */,
 				8CA06043190912380090A350 /* MyESocketManualViewController.m in Sources */,
 				C3CB5E9319344AC70043440C /* MyEVacationListData.m in Sources */,
 				C3F61B0218E1154200DEE477 /* SBJsonStreamWriter.m in Sources */,
 				C30E020014C7A69200011160 /* main.m in Sources */,
+				8CC1AFD119863FCA008DEA0B /* MyEAcInstructionListViewController.m in Sources */,
 				C3A2C09818F39DE500A08D2C /* SwipeView.m in Sources */,
 				C3194B9B18E299EA006E3ABE /* ELine.m in Sources */,
 				C3988D6C193120F8002657F0 /* MyEUsageStatsViewController.m in Sources */,
 				8CCB090A192241360095EAAD /* MyEIrDefaultViewController.m in Sources */,
+				8CC1AFCF19863FCA008DEA0B /* MyEAcInstructionAutoCheckViewController.m in Sources */,
 				8C13F47F1947EEE200B52913 /* MyEMediatorRegisterViewController.m in Sources */,
+				8C5DBF9319838DE500765F05 /* MyEAcUtil.m in Sources */,
 				8C5168BB196D0FEE00F418CC /* MyEThemostatTabBarController.m in Sources */,
 				C3CB5E87193446A00043440C /* MyEStaycationTableViewCell.m in Sources */,
 				C3FDB71718FA6589009B423D /* MyECheckBoxView.m in Sources */,
 				8C354434196ACC3300E5A6C2 /* CameraDBUtils.mm in Sources */,
 				C3FB3BD5192DC6460039D052 /* MyETodayPeriodInforView.m in Sources */,
+				8CC1AFD219863FCA008DEA0B /* MyEAcInstructionStudyViewController.m in Sources */,
 				C3FDB81318FA82AE009B423D /* MyEThermostatDayData.m in Sources */,
 				C3AE7F4518E14D99000AA5FC /* UIViewController+TargetViewController.m in Sources */,
 				C3FB3BD7192DC6460039D052 /* MyEWeeklyDaySelectionView.m in Sources */,
@@ -2656,13 +2901,16 @@
 				C3194B9918E299EA006E3ABE /* EColumnDataModel.m in Sources */,
 				C3086C4918FCC1BE0005E0EE /* SWRevealViewController.m in Sources */,
 				C3FDB80718FA82AE009B423D /* MyENext24HrsDayItemData.m in Sources */,
+				8C5DBF7219838C7800765F05 /* MyEAcManualControlViewController.m in Sources */,
 				C3CB5E86193446A00043440C /* MyEStaycationEditFromVacationViewController.m in Sources */,
 				C3FDB7CE18FA672E009B423D /* MyESwitchEditViewController.m in Sources */,
 				C3F61AE018E1153400DEE477 /* BlockBackground.m in Sources */,
 				C3FB3BCC192DC6460039D052 /* MyENext24HrsScheduleViewController.m in Sources */,
+				8C5DBF8D19838DE500765F05 /* MyEAcInstruction.m in Sources */,
 				C3FB3BD1192DC6460039D052 /* MyEThumbColorView.m in Sources */,
 				8C354443196ACC3300E5A6C2 /* SearchDVS.mm in Sources */,
 				C3FB3BDA192DC6460039D052 /* UISegmentedControl+Extension.m in Sources */,
+				8C5DBF7319838C7800765F05 /* MyEAcTempMonitorViewController.m in Sources */,
 				C3194B9E18E299EA006E3ABE /* EPieChart.m in Sources */,
 				C3F61B0718E1154200DEE477 /* SBJsonWriter.m in Sources */,
 				8C72264B190658990033A78A /* MyEDeviceAddOrEditTableViewController.m in Sources */,
@@ -2688,6 +2936,7 @@
 				8CA52FA919231D4700D40EDD /* MyEEventDeviceEditViewController.m in Sources */,
 				C327314419454C410010E893 /* MyEDashboardViewController.m in Sources */,
 				C3194B9D18E299EA006E3ABE /* ELineChartDataModel.m in Sources */,
+				8CBBFE5B198620A8005BF0F2 /* MyEAutoControlProcessList.m in Sources */,
 				C3FDB50E18FA62A0009B423D /* MyEUtil.m in Sources */,
 				8C35443D196ACC3300E5A6C2 /* PCMPlayer.mm in Sources */,
 				8CA15903194F138C00495453 /* MyETerminalEditViewController.m in Sources */,
@@ -2696,6 +2945,7 @@
 				C3AE7F4418E14D99000AA5FC /* UIImage+Additional.m in Sources */,
 				8C354433196ACC3300E5A6C2 /* APICommon.mm in Sources */,
 				C3FDB7A618FA672D009B423D /* BaseObject.m in Sources */,
+				8C5DBF4F19837F9700765F05 /* MyESubSwitchEditViewController.m in Sources */,
 				C3F61B0318E1154200DEE477 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				C395989A18E12CC800E30AFF /* UIFont+FlatUI.m in Sources */,
 				B2588D0F17B09B9C007ED13C /* NSData+AES256.m in Sources */,
@@ -2718,12 +2968,15 @@
 				B2588D2217B09B9D007ED13C /* UITextField+Extention.m in Sources */,
 				8C35442F196ACC3300E5A6C2 /* MyECameraWIFISetViewController.m in Sources */,
 				8C6CB5601945511E007EECEA /* MyEUCWeatherViewController.m in Sources */,
+				8C5DBF8E19838DE500765F05 /* MyEAcInstructionSet.m in Sources */,
+				8CC1AFD419863FCA008DEA0B /* MyEInstructionManageViewController.m in Sources */,
 				C3CB5E88193446A00043440C /* MyEVacationDetailViewController.m in Sources */,
 				B2588D2317B09B9D007ED13C /* UITextField+Shake.m in Sources */,
 				C3FDB80618FA82AE009B423D /* MyEHouseData.m in Sources */,
 				B2588D2417B09B9D007ED13C /* UIView+Frame.m in Sources */,
 				B2588D2517B09B9D007ED13C /* UIViewExtention.m in Sources */,
 				8CE5860F191E131A00157EE2 /* MyEIrUserKeyViewController.m in Sources */,
+				8C5DBF7019838C7800765F05 /* MyEAcEnergySavingViewController.m in Sources */,
 				C395989818E12CC800E30AFF /* FUISwitch.m in Sources */,
 				C3F61B0118E1154200DEE477 /* SBJsonStreamParserState.m in Sources */,
 				C3FB3BD9192DC6460039D052 /* MyEWeeklyScheduleViewController.m in Sources */,
@@ -2731,6 +2984,7 @@
 				8CA060341908A3BF0090A350 /* SUNSlideSwitchView.m in Sources */,
 				8CF7FB771951669A007725F9 /* NSString+MD5.m in Sources */,
 				8C354435196ACC3300E5A6C2 /* CameraListMgt.mm in Sources */,
+				8CC1AFD319863FCA008DEA0B /* MyEAcStandardInstructionViewController.m in Sources */,
 				8CA1590B194F13F300495453 /* MyESettingsViewController.m in Sources */,
 				8C354444196ACC3300E5A6C2 /* SearchListMgt.mm in Sources */,
 				8C6CB55C194550D2007EECEA /* MyEUCTimeSetViewController.m in Sources */,
@@ -2739,18 +2993,22 @@
 				C3FB3BCB192DC6460039D052 /* MyEModePickerView.m in Sources */,
 				C30DBF26193EE8010063AC6D /* MyEAlertDetailViewController.m in Sources */,
 				8C354432196ACC3300E5A6C2 /* Adpcm.mm in Sources */,
+				8C5DBF7419838C7800765F05 /* MyEAcUserModelViewController.m in Sources */,
 				C39498741919D7F70075ABD3 /* CDIconView.m in Sources */,
 				C3F61B0518E1154200DEE477 /* SBJsonTokeniser.m in Sources */,
 				8CA52F9D192318A500D40EDD /* MyEEventListViewController.m in Sources */,
 				C3F61AFD18E1154200DEE477 /* SBJsonParser.m in Sources */,
 				C3FB3BCA192DC6460039D052 /* MyEDoughnutView.m in Sources */,
+				8CC1AFD019863FCA008DEA0B /* MyEAcInstructionListCell.m in Sources */,
 				B2588D3817B09B9D007ED13C /* EGORefreshTableHeaderView.m in Sources */,
 				B2588D4F17B09B9D007ED13C /* LoadMoreTableFooterView.m in Sources */,
 				8C6CB54D1941E2A3007EECEA /* MyEUCAutoViewController.m in Sources */,
 				C3FDB80418FA82AE009B423D /* MyEAccountData.m in Sources */,
 				8C354438196ACC3300E5A6C2 /* CustomToast.m in Sources */,
 				8CA060371908A70A0090A350 /* MyEInstructions.m in Sources */,
+				8C5DBF6A19838C7800765F05 /* MyEAutoControlViewController.m in Sources */,
 				C3FDB80F18FA82AE009B423D /* MyETerminalData.m in Sources */,
+				8CC1AFDD19865505008DEA0B /* TPPropertyAnimation.m in Sources */,
 				8C13F4841947EF2400B52913 /* MyETimeZoneViewController.m in Sources */,
 				C3194B9518E299EA006E3ABE /* EColor.m in Sources */,
 				8CA05FE619078A8E0090A350 /* TableViewWithBlock.m in Sources */,
@@ -2758,6 +3016,8 @@
 				C3FDB50C18FA62A0009B423D /* MyEDataLoader.m in Sources */,
 				C3F61B1318E11A7B00DEE477 /* RTLabel.m in Sources */,
 				C3CB5E84193446A00043440C /* MyENoAnimationSegue.m in Sources */,
+				8C5DBF8A19838DE500765F05 /* MyEAcBrand.m in Sources */,
+				8C5DBF8C19838DE500765F05 /* MyEAcComfort.m in Sources */,
 				C3F61B1D18E11DAE00DEE477 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				8C35444F196ACC3300E5A6C2 /* PPPPChannel.mm in Sources */,
 				B2588D5017B09B9D007ED13C /* OpenUDID.m in Sources */,
@@ -2779,10 +3039,15 @@
 				B2520A0B17C2451600CB56BA /* NSDictionary+Convert.m in Sources */,
 				C3FDB80D18FA82AE009B423D /* MyESettingsData.m in Sources */,
 				8C13F4871947EF8300B52913 /* MyEHouseUsefullViewController.m in Sources */,
+				8CC1AFDC19865505008DEA0B /* KAProgressLabel.m in Sources */,
 				C3FDB80A18FA82AE009B423D /* MyEScheduleNext24HrsData.m in Sources */,
+				8C5DBF9019838DE500765F05 /* MyEAcStudyInstruction.m in Sources */,
 				C3FB3BCF192DC6460039D052 /* MyESectorView.m in Sources */,
+				8CBBFE59198620A8005BF0F2 /* MyEAutoControlPeriod.m in Sources */,
 				C3FEF23B192AD2D900741318 /* MyENext24HrsPeriodData.m in Sources */,
+				8C5DBF6C19838C7800765F05 /* MyEAutoPeriodViewController.m in Sources */,
 				C3F61B0F18E1195E00DEE477 /* KxMenu.m in Sources */,
+				8C5DBF6B19838C7800765F05 /* MyEAutoPeriodListViewController.m in Sources */,
 				C3AE7F5618E14FF3000AA5FC /* MZTimerLabel.m in Sources */,
 				8CA0601A1908A3480090A350 /* MyETVDefaultViewController.m in Sources */,
 				C3AE7F4F18E14F0C000AA5FC /* MZAppearance.m in Sources */,
@@ -2793,6 +3058,7 @@
 				C3FDB4EB18FA6044009B423D /* MyELoginViewController.m in Sources */,
 				C3FB3BD8192DC6460039D052 /* MyEWeeklyModeEditingView.m in Sources */,
 				B2FC107F17C4FF7100FD5054 /* UIViewController+KNSemiModal.m in Sources */,
+				8CBBFE5A198620A8005BF0F2 /* MyEAutoControlProcess.m in Sources */,
 				B2FC108A17C58C0100FD5054 /* JYTextField.m in Sources */,
 				C3194BA418E29C5D006E3ABE /* MultiSelectSegmentedControl.m in Sources */,
 				B26A127B17C715720094BBB8 /* ACPButton.m in Sources */,
@@ -2810,6 +3076,7 @@
 				C3F61B1F18E11DAE00DEE477 /* TPKeyboardAvoidingTableView.m in Sources */,
 				8C35443A196ACC3300E5A6C2 /* LocalPlayback.mm in Sources */,
 				C3F61B0B18E1155500DEE477 /* MBProgressHUD.m in Sources */,
+				8C5DBF9119838DE500765F05 /* MyEAcStudyInstructionList.m in Sources */,
 				8C35442B196ACC3300E5A6C2 /* MyECameraSDSetViewController.m in Sources */,
 				B2B2577617CC368C003833E6 /* MJPopupBackgroundView.m in Sources */,
 				C3FDB4EA18FA6044009B423D /* MyELaunchIntroViewController.m in Sources */,
@@ -2851,6 +3118,7 @@
 				8C82DCD51930A4B5006A10E0 /* MyEEventAddOrEditViewController.m in Sources */,
 				C3FDB70918FA652A009B423D /* MyEAppDelegate.m in Sources */,
 				8C354439196ACC3300E5A6C2 /* H264Decoder.mm in Sources */,
+				8C5DBF5019837F9700765F05 /* MyESubSwitchListViewController.m in Sources */,
 				8C35443F196ACC3300E5A6C2 /* PicPathDBUtils.mm in Sources */,
 				8CA15908194F13A600495453 /* MyETerminalsViewController.m in Sources */,
 				C3F61B2018E11DAE00DEE477 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
@@ -2866,7 +3134,9 @@
 				C3F61B0618E1154200DEE477 /* SBJsonUTF8Stream.m in Sources */,
 				8CCB0D541909FF460044B0E5 /* MyESocketInfo.m in Sources */,
 				C39498711919D7F70075ABD3 /* CDCircleGestureRecognizer.m in Sources */,
+				8C5DBF6D19838C7800765F05 /* MyEAutoProcessListViewController.m in Sources */,
 				8C354441196ACC3300E5A6C2 /* RecPathDBUtils.mm in Sources */,
+				8C5DBF8F19838DE500765F05 /* MyEAcModel.m in Sources */,
 				C3194B9618E299EA006E3ABE /* EColumn.m in Sources */,
 				8CA0603A1908B46E0090A350 /* MyEControlBtn.m in Sources */,
 				8CA05FE719078A8E0090A350 /* UITableView+DataSourceBlocks.m in Sources */,
@@ -2901,6 +3171,22 @@
 				8C354364196A946500E5A6C2 /* Base */,
 			);
 			name = Camera.storyboard;
+			sourceTree = "<group>";
+		};
+		8C5DBF4319834AB800765F05 /* AcDevice.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C5DBF4419834AB800765F05 /* Base */,
+			);
+			name = AcDevice.storyboard;
+			sourceTree = "<group>";
+		};
+		8C5DBF4519834AB800765F05 /* AcInstruction.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C5DBF4619834AB800765F05 /* Base */,
+			);
+			name = AcInstruction.storyboard;
 			sourceTree = "<group>";
 		};
 		8C6CB53F1941C30C007EECEA /* UController.storyboard */ = {

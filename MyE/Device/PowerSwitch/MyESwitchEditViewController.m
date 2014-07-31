@@ -58,14 +58,14 @@
     }
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            [MyEUniversal doThisWhenNeedPickerWithTitle:@"请选择灯具类型" andDelegate:self andTag:2 andArray:@[[self.switchInfo typeArray]] andSelectRow:@[@(self.switchInfo.type)] andViewController:self];
+            [MyEUniversal doThisWhenNeedPickerWithTitle:@"Bulb Type" andDelegate:self andTag:2 andArray:@[[self.switchInfo typeArray]] andSelectRow:@[@(self.switchInfo.type)] andViewController:self];
         }else{
             if (self.switchInfo.type == 1) {
                 return;
             }
             NSArray *array = @[@"0.5",@"0.55",@"0.6",@"0.65",@"0.7",@"0.75",@"0.8",@"0.85",@"0.9",@"0.95",@"1"];
             NSInteger i = [array containsObject:self.switchInfo.powerFactor]?[array indexOfObject:self.switchInfo.powerFactor]:0;
-            [MyEUniversal doThisWhenNeedPickerWithTitle:@"请选择功率因数" andDelegate:self andTag:3 andArray:@[array] andSelectRow:@[@(i)] andViewController:self];
+            [MyEUniversal doThisWhenNeedPickerWithTitle:@"Power Factor" andDelegate:self andTag:3 andArray:@[array] andSelectRow:@[@(i)] andViewController:self];
         }
     }
 //    if (indexPath.section == 1) {
@@ -91,13 +91,13 @@
         [MyEUtil showMessageOn:nil withMessage:@"Make sure name length between 1 and 10"];
         return;
     }
-    [self urlLoaderWithUrlString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&name=%@&roomId=%i",
+    [self urlLoaderWithUrlString:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&name=%@&roomId=%i&loadType=%i&powerFactor=%@",
                                   GetRequst(URL_FOR_SWITCH_SAVE),
                                   MainDelegate.houseData.houseId,
                                   self.device.tid,
                                   self.device.deviceId,
                                   self.nameTextField.text,
-                                  _room.roomId] loaderName:@"uploadSwitchInfo"];
+                                  _room.roomId,self.switchInfo.type,self.switchInfo.powerFactor] loaderName:@"uploadSwitchInfo"];
 }
 
 #pragma mark - private methods
@@ -133,8 +133,8 @@
         }else{
             MyESwitchInfo *info = [[MyESwitchInfo alloc] initWithString:string];
             self.switchInfo = info;
-//            self.typeLbl.text = [self.switchInfo changeTypeToString];
-//            self.valueLbl.text = self.switchInfo.powerFactor;
+            self.typeLbl.text = [self.switchInfo changeTypeToString];
+            self.valueLbl.text = self.switchInfo.powerFactor;
             [self.tableView reloadData];  //这里一定要记得更新表格
         }
     }
@@ -168,13 +168,13 @@
         }
     }else if(pickerView.tag == 2){
         self.typeLbl.text = titles[0];
-        if ([titles[0] isEqualToString:@"白炽灯"]) {
+        if ([titles[0] isEqualToString:@"Incandescent Lamp"]) {
             self.valueLbl.text = @"1";
             self.switchInfo.powerFactor = @"1";
             self.switchInfo.type = 1;
         }else{
-            self.valueLbl.text = @"0.9";
-            self.switchInfo.powerFactor = @"0.9";
+            self.valueLbl.text = @"0.65";
+            self.switchInfo.powerFactor = @"0.65";
             self.switchInfo.type = 0;
         }
     }else if (pickerView.tag == 3){

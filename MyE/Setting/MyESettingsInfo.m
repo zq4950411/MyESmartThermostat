@@ -23,6 +23,12 @@
         for (NSDictionary *d in dic[@"smartDevices"]) {
             [self.terminals addObject:[[MyESettingsTerminal alloc] initWithDictionary:d]];
         }
+        _subSwitchList = [NSMutableArray array];
+        if (dic[@"subSwitchs"] && dic[@"subSwitchs"] != [NSNull null]) {
+            for (NSDictionary *d in dic[@"subSwitchs"]) {
+                [_subSwitchList addObject:[[MyESettingSubSwitch alloc] initWithDictionary:d]];
+            }
+        }
     }
     return self;
 }
@@ -69,4 +75,23 @@
     return self;
 }
 
+@end
+
+@implementation MyESettingSubSwitch
+
+-(MyESettingSubSwitch *)initWithDictionary:(NSDictionary *)dic{
+    if (self = [super init]) {
+        self.gid = dic[@"gid"];
+        self.tid = dic[@"tid"];
+//        self.mId = dic[@"Mid"];
+        self.name = dic[@"aliasName"];
+        self.mainTid = dic[@"mainTId"];
+        self.signal = [dic[@"rfStatus"] intValue];
+    }
+    return self;
+}
+-(UIImage *)getImage{
+    NSArray *array = @[@"signal0",@"signal1",@"signal2",@"signal3",@"signal4"];
+    return [UIImage imageNamed:array[self.signal]];
+}
 @end

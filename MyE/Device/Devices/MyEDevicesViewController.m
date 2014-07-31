@@ -32,6 +32,11 @@
 
 //温控器
 #import "MyEThemostatTabBarController.h"
+//AC
+#import "MyEAcTempMonitorViewController.h"
+#import "MyEAcEnergySavingViewController.h"
+#import "MyEAutoControlViewController.h"
+#import "MyEACManualControlNavController.h"
 
 @interface MyEDevicesViewController(){
     NSArray *_rooms;
@@ -217,6 +222,9 @@
     switch (typeId.intValue) {
         case 0:
             string = @"them";
+            break;
+        case 1:
+            string = @"ac";
             break;
         case 2:
             string = @"tv";
@@ -413,6 +421,25 @@
         
         [self.navigationController pushViewController:vc animated:YES];
     }
+    if (device.typeId.intValue == 1) {
+//        if ([device.brand isEqualToString:@""]) {
+//            [SVProgressHUD showErrorWithStatus:@"No IR Code"];
+//            return;
+//        }
+        UITabBarController *tab = [[UIStoryboard storyboardWithName:@"AcDevice" bundle:nil] instantiateInitialViewController];
+        MyEACManualControlNavController *nav1 = tab.childViewControllers[0];
+        nav1.device = device;
+        UINavigationController *nav = tab.childViewControllers[1];
+        MyEAutoControlViewController *vc = nav.childViewControllers[0];
+        vc.device = device;
+        nav = tab.childViewControllers[2];
+        MyEAcEnergySavingViewController *energy = nav.childViewControllers[0];
+        energy.device = device;
+        nav = tab.childViewControllers[3];
+        MyEAcTempMonitorViewController *temp = nav.childViewControllers[0];
+        temp.device = device;
+        [self presentViewController:tab animated:YES completion:nil];
+    }
     if(device.typeId.intValue == 2 || device.typeId.intValue == 3)  //TV  Audio
     {
         UIStoryboard *story = [UIStoryboard storyboardWithName:@"Device" bundle:nil];
@@ -488,7 +515,7 @@
 {
     if (_isDelete) {
         MyEDevice *device = _devices[indexPath.row];
-        if (device.typeId.intValue < 2 || device.typeId.intValue > 5) {
+        if (device.typeId.intValue < 1 || device.typeId.intValue > 5) {
             return NO;
         }
     }
@@ -559,7 +586,16 @@
         if ([string isEqualToString:@"OK"]) {
             [_devices removeObjectAtIndex:_selectedIndexPath.row];
             [self.tableView deleteRowsAtIndexPaths:@[_selectedIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        }
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
+    }
+    if ([name isEqualToString:@"deleteAC"]) {
+        NSInteger i = [MyEUtil getResultFromAjaxString:string];
+        if (i == 1) {
+            [_devices removeObjectAtIndex:_selectedIndexPath.row];
+            [self.tableView deleteRowsAtIndexPaths:@[_selectedIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }else
+            [SVProgressHUD showErrorWithStatus:@"fail"];
     }
     
 }
@@ -573,7 +609,10 @@
 {
     if (alertView.tag == 100 && buttonIndex == 1) {
         MyEDevice *device = _devices[_selectedIndexPath.row];
-        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&action=deleteDevice",GetRequst(URL_FOR_SAVE_DEVICE),MainDelegate.houseData.houseId,device.deviceId] andName:@"delete"];
+        if (device.typeId.intValue == 1) {
+            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&id=%@&action=1&name=%@&tId=%@&roomId=%@",GetRequst(URL_FOR_AC_ADD_EDIT_SAVE),MainDelegate.houseData.houseId,device.deviceId,device.deviceName,device.tid,device.locationId] andName:@"deleteAC"];
+        }else
+            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&action=deleteDevice",GetRequst(URL_FOR_SAVE_DEVICE),MainDelegate.houseData.houseId,device.deviceId] andName:@"delete"];
     }
 }
 

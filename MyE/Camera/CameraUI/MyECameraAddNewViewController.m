@@ -7,6 +7,7 @@
 //
 
 #import "MyECameraAddNewViewController.h"
+#import "MyECameraTableViewController.h"
 @interface MyECameraAddNewViewController (){
     NSCondition* _m_PPPPChannelMgtCondition;
     CPPPPChannelManagement* _m_PPPPChannelMgt;
@@ -50,7 +51,6 @@
             }
         }
     }
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,25 +86,29 @@
 }
 -(void)handelTimer{
     [_timer invalidate];
-    [HUD hide:YES];
     if (_canAddNew) {
-        BOOL isNew = NO;
-        if ([self.cameraList count]) {
-            for (MyECamera *c in self.cameraList) {
-                if (![_camera.UID isEqualToString:c.UID]) {
-                    isNew = YES;
-                }
-            }
-        }else
-            isNew = YES;
-        if (isNew) {
-            [MyEUtil showThingsSuccessOn:self.navigationController.view WithMessage:@"Success" andTag:YES];
-            NSLog(@"%@",self.camera);
-            [self.cameraList addObject:self.camera];
-            [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
-        }else
-            [MyEUtil showThingsSuccessOn:self.navigationController.view WithMessage:@"This camera has existed" andTag:NO];
+        HUD.labelText = @"Adding...";
+        [MyEDataLoader startLoadingWithURLString:[NSString stringWithFormat:@"%@?id=%i&did=%@&user=%@&pwd=%@&name=%@&houseId=%i&action=1",GetRequst(URL_FOR_CAMERA_EDIT),_camera.deviceId,_camera.UID,_camera.username,_camera.password,_camera.name,MainDelegate.houseData.houseId] postData:nil delegate:self loaderName:@"add" userDataDictionary:nil];
+
+//        BOOL isNew = NO;
+//        if ([self.cameraList count]) {
+//            for (MyECamera *c in self.cameraList) {
+//                if (![_camera.UID isEqualToString:c.UID]) {
+//                    isNew = YES;
+//                }
+//            }
+//        }else
+//            isNew = YES;
+//        if (isNew) {
+//            
+//            [MyEUtil showThingsSuccessOn:self.navigationController.view WithMessage:@"Success" andTag:YES];
+//            NSLog(@"%@",self.camera);
+//            [self.cameraList addObject:self.camera];
+//            [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+//        }else
+//            [MyEUtil showThingsSuccessOn:self.navigationController.view WithMessage:@"This camera has existed" andTag:NO];
     }else{
+        [HUD hide:YES];
         [MyEUtil showThingsSuccessOn:self.navigationController.view WithMessage:@"Fail" andTag:NO];
     }
 }
@@ -129,6 +133,27 @@
     self.camera.name = self.txtName.text;
     self.camera.UID = self.txtUID.text;
     NSLog(@"%@",self.camera);
+    if ([_camera.username length] == 0)
+    {
+        [MyEUtil showErrorOn:self.navigationController.view withMessage:@"Enter username"];
+        return;
+    }
+    if ([_camera.password length] == 0)
+    {
+        [MyEUtil showErrorOn:self.navigationController.view withMessage:@"Enter password"];
+        return;
+    }
+    if ([_camera.name length] == 0)
+    {
+        [MyEUtil showErrorOn:self.navigationController.view withMessage:@"Enter a name"];
+        return;
+    }
+    if ([_camera.UID length] == 0)
+    {
+        [MyEUtil showErrorOn:self.navigationController.view withMessage:@"Enter UID"];
+        return;
+    }
+
     BOOL isNew = YES;
     for (MyECamera *c in self.cameraList) {
         if ([c.UID isEqualToString:self.camera.UID]) {
@@ -147,7 +172,7 @@
             [self ConnectCam];
         });
     }else
-        [MyEUtil showThingsSuccessOn:self.navigationController.view WithMessage:@"设备已存在" andTag:NO];
+        [MyEUtil showThingsSuccessOn:self.navigationController.view WithMessage:@"This camera has existed" andTag:NO];
 }
 #pragma mark - PPPPStatusDelegate methods
 - (void) PPPPStatus: (NSString*) strDID statusType:(NSInteger) statusType status:(NSInteger) status{
@@ -198,4 +223,28 @@
     HUD.labelText = strPPPPStatus;
 }
 
+#pragma mark - URL Delegate method
+-(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
+    [HUD hide:YES];
+    if ([name isEqualToString:@"add"]) {
+        if ([string isEqualToString:@"Fail"]) {
+            [SVProgressHUD showErrorWithStatus:@"Fail"];
+        }else{
+            NSDictionary *dic = [string JSONValue];
+            if (dic) {
+                NSInteger deviceId = [dic[@"id"] intValue];
+                _camera.deviceId = deviceId;
+                [self.cameraList addObject:self.camera];
+                MyECameraTableViewController *vc = self.navigationController.childViewControllers[0];
+                vc.needRefresh = YES;
+                [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+            }else
+                [SVProgressHUD showErrorWithStatus:@"Fail"];
+        }
+    }
+}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
+    [HUD hide:YES];
+    [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+}
 @end

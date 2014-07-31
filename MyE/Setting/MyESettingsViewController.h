@@ -20,5 +20,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *midLbl;
 @property (weak, nonatomic) IBOutlet UILabel *houseLbl;
 @property (weak, nonatomic) IBOutlet UILabel *timeZoneLbl;
+@property (weak, nonatomic) IBOutlet UILabel *subSwitchCount;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @end
