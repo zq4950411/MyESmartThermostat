@@ -73,7 +73,7 @@
     } else
         [HUD show:YES];
     if (self.device.typeId.intValue == 1) {
-        NSString *urlStr = [NSString stringWithFormat:@"%@?houseId=%i&id=%ld",GetRequst(URL_FOR_AC_DOWNLOAD_AC_AUTO_CONTROL_VIEW),MainDelegate.houseData.houseId,(long)self.device.deviceId];
+        NSString *urlStr = [NSString stringWithFormat:@"%@?houseId=%i&id=%@",GetRequst(URL_FOR_AC_DOWNLOAD_AC_AUTO_CONTROL_VIEW),MainDelegate.houseData.houseId,self.device.deviceId];
         MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:AUTO_CONTROL_PROCESS_DOWNLOADER_NMAE  userDataDictionary:Nil];
         NSLog(@"%@",downloader.name);
     }
@@ -143,7 +143,7 @@
         [self.enableProcessSegmentedControl setSelectedSegmentIndex:1];
     }else{
         [self.enableProcessSegmentedControl setEnabled:YES forSegmentAtIndex:0];
-        [self.enableProcessSegmentedControl setSelectedSegmentIndex:self.processList.enable];
+        [self.enableProcessSegmentedControl setSelectedSegmentIndex:1-self.processList.enable];
     }
 }
 - (void)resetAddNewButtonWithAvailableDays{  //如果进程都添加满了，那么就不允许再添加进程
@@ -194,11 +194,11 @@
         [HUD show:YES];
     
     if (self.device.typeId.intValue == 1) { //空调设备
-        NSString *urlStr = [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%ld&enable=%ld",
+        NSString *urlStr = [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&enable=%ld",
                             GetRequst(URL_FOR_AC_ENABLE_AC_AUTO_PROCESS_SAVE),
                             MainDelegate.houseData.houseId,
                             self.device.tid,
-                            (long)self.device.deviceId,
+                            self.device.deviceId,
                             1-(long)self.enableProcessSegmentedControl.selectedSegmentIndex];
         MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:ENABLE_AUTO_PROCESS_UPLOADER_NMAE  userDataDictionary:Nil];
         NSLog(@"%@",downloader.name);

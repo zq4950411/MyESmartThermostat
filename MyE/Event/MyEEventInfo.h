@@ -71,6 +71,9 @@
 -(NSArray *)pointArray;
 -(NSArray *)controlStatusArray;
 -(NSArray *)fanMode;
+-(NSArray *)ACControlMode;
+-(NSArray *)ACFanMode;
+-(NSArray *)ACPointArray;
 @end
 
 @interface MyEEventConditionCustom : NSObject<NSCopying>

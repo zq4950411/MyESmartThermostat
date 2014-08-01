@@ -679,6 +679,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     </navigationItem>
                     <connections>
                         <outlet property="deviceBtn" destination="N2k-qU-jkL" id="gwX-to-7cH"/>
+                        <outlet property="fanBtn" destination="ngs-GD-gvd" id="Rlj-rd-lvW"/>
+                        <outlet property="fanLbl" destination="ynl-Wb-745" id="zbp-Ie-ahV"/>
                         <outlet property="setpointView" destination="aTm-1T-ZRy" id="219-tl-Pmq"/>
                         <outlet property="tableView" destination="Gdg-vr-eIa" id="y3S-6i-cuF"/>
                         <outlet property="typeBtn" destination="iO2-Bf-l6V" id="t8W-o5-pfT"/>

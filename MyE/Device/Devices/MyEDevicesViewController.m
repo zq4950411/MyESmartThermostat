@@ -422,21 +422,21 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (device.typeId.intValue == 1) {
-//        if ([device.brand isEqualToString:@""]) {
-//            [SVProgressHUD showErrorWithStatus:@"No IR Code"];
-//            return;
-//        }
+        if ([device.brand isEqualToString:@""]) {
+            [SVProgressHUD showErrorWithStatus:@"No IR Code"];
+            return;
+        }
         UITabBarController *tab = [[UIStoryboard storyboardWithName:@"AcDevice" bundle:nil] instantiateInitialViewController];
         MyEACManualControlNavController *nav1 = tab.childViewControllers[0];
         nav1.device = device;
-        UINavigationController *nav = tab.childViewControllers[1];
-        MyEAutoControlViewController *vc = nav.childViewControllers[0];
+        UINavigationController *nav2 = tab.childViewControllers[1];
+        MyEAutoControlViewController *vc = nav2.childViewControllers[0];
         vc.device = device;
-        nav = tab.childViewControllers[2];
-        MyEAcEnergySavingViewController *energy = nav.childViewControllers[0];
+        UINavigationController *nav3 = tab.childViewControllers[2];
+        MyEAcEnergySavingViewController *energy = nav3.childViewControllers[0];
         energy.device = device;
-        nav = tab.childViewControllers[3];
-        MyEAcTempMonitorViewController *temp = nav.childViewControllers[0];
+        UINavigationController *nav4 = tab.childViewControllers[3];
+        MyEAcTempMonitorViewController *temp = nav4.childViewControllers[0];
         temp.device = device;
         [self presentViewController:tab animated:YES completion:nil];
     }

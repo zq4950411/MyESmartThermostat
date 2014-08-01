@@ -103,8 +103,8 @@
 //        add.typeName = names[i-1];
 //        [deviceTypes addObject:add];
 //    }
-    NSArray *names = @[@"Thermostat",@"Plug",@"DIY",@"Switch",@"TV",@"Audio",@"Curtain",@"Other"];
-    NSArray *typeIds = @[@"0",@"6",@"7",@"8",@"2",@"3",@"4",@"5"];
+    NSArray *names = @[@"Thermostat",@"Plug",@"DIY",@"Switch",@"AC",@"TV",@"Audio",@"Curtain",@"Other"];
+    NSArray *typeIds = @[@"0",@"6",@"7",@"8",@"1",@"2",@"3",@"4",@"5"];
     for (int i = 0; i < 8; i++) {
         MyEEventDeviceAdd *add = [[MyEEventDeviceAdd alloc] init];
         add.typeName = names[i];
@@ -163,12 +163,12 @@
 }
 -(UIImage *)changeTypeToImage{
     //设备类型：2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器 8:智能开关   0：温控器
-    NSArray *imageArray = @[@"tv-off",@"audio-off",@"curtain-off",@"other-off",@"socket-off",@"uc-off",@"switch-off"];
+    NSArray *imageArray = @[@"ac-off",@"tv-off",@"audio-off",@"curtain-off",@"other-off",@"socket-off",@"uc-off",@"switch-off",@"",@"",@""];
     NSString *imageName = nil;
     if (self.typeId == 0) {
         imageName = @"them-off";
     }else
-        imageName = imageArray[self.typeId - 2];   //这里的减2是因为电视是从2开始的
+        imageName = imageArray[self.typeId - 1];   //这里的减2是因为电视是从2开始的
     return [UIImage imageNamed:imageName];
 }
 -(NSString *)getDeviceInstructionName{
@@ -180,6 +180,8 @@
             return [NSString stringWithFormat:@"%@ %iF",controlMode[self.controlMode - 1],self.point];
     }else if(self.typeId == 6){
         return [self.instructionName isEqualToString:@"1"]?@"ON":@"OFF";
+    }else if (self.typeId == 1){
+        return @"";
     }else
         return [NSString stringWithFormat:@"%@",self.instructionName];
 }
@@ -222,7 +224,7 @@
         self.point = 55;
         self.fan = 0;
         self.channel = @"";
-        self.controlStatus = 0;
+        self.controlStatus = 1;
         self.instructions = [NSMutableArray array];
     }
     return self;
@@ -251,6 +253,9 @@
     }
     return self;
 }
+-(NSArray *)ACControlMode{
+    return @[@"Auto",@"Heating",@"Cooling",@"Dehumidify",@"Fan Only",@"OFF"];
+}
 -(NSArray *)controlModeArray{
     return @[@"Heat",@"Cool",@"Auto",@"EmgHeat",@"OFF"];
 }
@@ -261,8 +266,18 @@
     }
     return array;
 }
+-(NSArray *)ACPointArray{
+    NSMutableArray *array = [NSMutableArray array];
+    for (int i = 18; i < 31; i++) {
+        [array addObject:[NSString stringWithFormat:@"%i ℃",i]];
+    }
+    return array;
+}
 -(NSArray *)controlStatusArray{
     return @[@"OFF",@"ON"]; //对应了0关1开
+}
+-(NSArray *)ACFanMode{
+    return @[@"Auto",@"Lv1",@"Lv2",@"Lv3"];
 }
 -(NSArray *)fanMode{
     return @[@"Auto",@"ON"];  //0:auto  1:on

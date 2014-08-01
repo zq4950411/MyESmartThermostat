@@ -26,8 +26,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _instructions = [[MyEEventDeviceInstructions alloc] init];
-    _instruction = [[MyEInstruction alloc] init];
+    //    _instructions = [[MyEEventDeviceInstructions alloc] init];
+    //    _instruction = [[MyEInstruction alloc] init];
     if (self.isAdd) {
         _mainArray = [self.eventDetail getTypeDevices];
         _deviceType = _mainArray[0];
@@ -44,12 +44,12 @@
     [self.typeBtn setTitle:_deviceType.typeName forState:UIControlStateNormal];
     [self.deviceBtn setTitle:_device.name forState:UIControlStateNormal];
     self.navigationItem.title = _isAdd?@"Add Device":_device.name;
-    [self refreshUI];
+    //    [self refreshUI];
     [self checkIfNeedDownloadData];
     
-    NSString *imgName = IS_IOS6?@"detailBtn-ios6":@"detailBtn";
     for (UIButton *btn in self.btns) {
-        [btn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+        [btn setBackgroundImage:[[UIImage imageNamed:@"detailBtn"] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+        [btn setBackgroundImage:[[UIImage imageNamed:@"detailBtn-ios6"] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateDisabled];
         [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
     }
 }
@@ -76,6 +76,8 @@
         NSMutableString *string = [NSMutableString stringWithString:_instructions.channel];
         [string replaceOccurrencesOfString:@"2" withString:@"0" options:NSCaseInsensitiveSearch range:NSMakeRange(0, string.length)];
         tailString = [subString stringByAppendingString:[NSString stringWithFormat:@"channel=%@",string]];
+    }else if (_deviceType.typeId == 1 && [_device.instructionName isEqualToString:@"1"]){
+        tailString = [subString stringByAppendingString:[NSString stringWithFormat:@"controlMode=%i&point=%i&fan=%i&instructionId=%i",_instructions.controlMode,_instructions.point,_instructions.fan,_instructions.controlStatus]];
     }else
         tailString = [subString stringByAppendingString:[NSString stringWithFormat:@"instructionId=%i",_instruction.instructionId]];
     [self updateDeviceToServerWithString:tailString andName:@"device"];
@@ -108,13 +110,22 @@
         /*---------开关或通用控制器----------*/
     }else if (sender.tag == 104){
         title = @"SYS Mode";
-        array = [[_instructions controlModeArray] mutableCopy];
+        if (_deviceType.typeId == 1) {
+            array = [[_instructions ACControlMode] mutableCopy];
+        }else
+            array = [[_instructions controlModeArray] mutableCopy];
     }else if (sender.tag == 105){
         title = @"Fan";
-        array = [[_instructions fanMode] mutableCopy];
+        if (_deviceType.typeId == 1) {
+            array = [[_instructions ACFanMode] mutableCopy];
+        }else
+            array = [[_instructions fanMode] mutableCopy];
     }else{
         title = @"Point";
-        array = [[_instructions pointArray] mutableCopy];
+        if (_deviceType.typeId == 1) {
+            array = [[_instructions ACPointArray] mutableCopy];
+        }else
+            array = [[_instructions pointArray] mutableCopy];
     }
     if (![array count]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"This device has no instruction" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -135,21 +146,51 @@
 -(void)refreshUI{
     //注意这里的编号tag值
     UIView *view = nil;
-    if (_deviceType.typeId == 0) {
+    if (_deviceType.typeId == 0 || (_deviceType.typeId == 1 && [_device.instructionName isEqualToString:@"1"])) {
         view = (UIView *)[self.view viewWithTag:203];
         UIButton *mode = (UIButton *)[view viewWithTag:104];
         UIButton *fan = (UIButton *)[view viewWithTag:105];
         UIButton *point = (UIButton *)[view viewWithTag:106];
         if (_isAdd) {
-            [mode setTitle:@"Heat" forState:UIControlStateNormal];
-            [fan setTitle:@"Auto" forState:UIControlStateNormal];
-            [point setTitle:@"55 F" forState:UIControlStateNormal];
+            if (_deviceType.typeId == 1) {
+                [mode setTitle:@"Auto" forState:UIControlStateNormal];
+                [fan setTitle:@"Auto" forState:UIControlStateNormal];
+                [point setTitle:@"25 ℃" forState:UIControlStateNormal];
+                _instructions.controlMode = 0;
+                _instructions.fan = 1;
+                _instructions.point = 25;
+                _instructions.controlStatus = 1;
+            }else{
+                [mode setTitle:@"Heat" forState:UIControlStateNormal];
+                [fan setTitle:@"Auto" forState:UIControlStateNormal];
+                [point setTitle:@"55 F" forState:UIControlStateNormal];
+            }
         }else{
-            [mode setTitle:[_instructions controlModeArray][_instructions.controlMode - 1] forState:UIControlStateNormal];
-            [fan setTitle:[_instructions fanMode][_instructions.fan] forState:UIControlStateNormal];
-            [point setTitle:[NSString stringWithFormat:@"%i F",_instructions.point] forState:UIControlStateNormal];
-            if (_instructions.controlMode == 5) {
-                self.setpointView.hidden = YES;
+            if (_deviceType.typeId == 1) {
+                if (_instructions.controlMode <= 0 || _instructions.controlMode >5) {
+                    _instructions.controlMode = 1;
+                }
+                if (_instructions.point <18 || _instructions.point > 30) {
+                    _instructions.point = 25;
+                }
+                if (_instructions.fan < 0 || _instructions.fan > 3) {
+                    _instructions.fan = 0;
+                }
+                [mode setTitle:[_instructions ACControlMode][_instructions.controlMode - 1] forState:UIControlStateNormal];
+                [fan setTitle:[_instructions ACFanMode][_instructions.fan] forState:UIControlStateNormal];
+                [point setTitle:[NSString stringWithFormat:@"%i ℃",_instructions.point] forState:UIControlStateNormal];
+                if (_instructions.controlStatus == 0) {
+                    self.setpointView.hidden = YES;
+                    self.fanBtn.hidden = YES;
+                    self.fanLbl.hidden = YES;
+                }
+            }else{
+                [mode setTitle:[_instructions controlModeArray][_instructions.controlMode - 1] forState:UIControlStateNormal];
+                [fan setTitle:[_instructions fanMode][_instructions.fan] forState:UIControlStateNormal];
+                [point setTitle:[NSString stringWithFormat:@"%i F",_instructions.point] forState:UIControlStateNormal];
+                if (_instructions.controlMode == 5) {
+                    self.setpointView.hidden = YES;
+                }
             }
         }
     }else if (_deviceType.typeId == 7 || _deviceType.typeId == 8){
@@ -185,14 +226,25 @@
             }else{
                 if ([_instructions.instructions count]) {
                     BOOL hasThis = NO;
-                for (MyEInstruction *instruction in _instructions.instructions) {
-                    if ([instruction.name isEqualToString:_device.instructionName]) {
-                        _instruction = instruction;  //这里也要找到这个instruction
-                        hasThis = YES;
+                    for (MyEInstruction *instruction in _instructions.instructions) {
+                        if (_deviceType.typeId == 1) {
+                            if (instruction.instructionId == _instructions.controlStatus) {
+                                _instruction = instruction;
+                                hasThis = YES;
+                                break;
+                            }
+                        }else{
+                            if ([instruction.name isEqualToString:_device.instructionName]) {
+                                _instruction = instruction;  //这里也要找到这个instruction
+                                hasThis = YES;
+                                break;
+                            }
+                        }
                     }
-                }
                     if (hasThis) {
-                        [btn setTitle:_device.instructionName forState:UIControlStateNormal];
+                        [btn setTitle:_instruction.name forState:UIControlStateNormal];
+
+//                        [btn setTitle:_device.instructionName forState:UIControlStateNormal];
                     }else{
                         _instruction = _instructions.instructions[0];
                         [btn setTitle:_instruction.name forState:UIControlStateNormal];
@@ -205,14 +257,18 @@
     [self.view bringSubviewToFront:view];
 }
 -(void)checkIfNeedDownloadData{
-    //0 编辑时需下载
+    //0,1 编辑时需下载
     //2，3，4，5 什么时候都需要下载
     //6不用
     //7，8编辑时不用，添加时需要
-    if ((_deviceType.typeId >= 2 && _deviceType.typeId <= 5) ||
+    if ((_deviceType.typeId >= 1 && _deviceType.typeId <= 5) ||
         _deviceType.typeId == 8 ||
-        (_deviceType.typeId == 0 && !_isAdd)) {
+        (_deviceType.typeId == 0 && !_isAdd)){
         [self downloadInstructionsWithDeviceId:_device.deviceId];
+    }else{
+        _instructions = [[MyEEventDeviceInstructions alloc] init];
+        _instruction = [[MyEInstruction alloc] init];
+        [self refreshUI];
     }
 }
 -(void)changeStatus:(UISwitch *)sender{
@@ -286,18 +342,18 @@
             [self.navigationController popViewControllerAnimated:YES];
         }else
             [SVProgressHUD showErrorWithStatus:@"fail"];
-//        if (_deviceType.typeId == 0) {
-//            _device.controlMode = _instructions.controlMode;
-//            _device.point = _instructions.point;
-//        }else if (_deviceType.typeId == 7 || _deviceType.typeId == 8){
-//            _device.instructionName = _instructions.channel;
-//        }else
-//            _device.instructionName = _instruction.name;
-//        if (_isAdd) {
-//            [self.eventDetail.devices addObject:_device];
-//            MyEEventAddOrEditViewController *vc = self.navigationController.childViewControllers[1];
-//            vc.needRefresh = YES;
-//        }
+        //        if (_deviceType.typeId == 0) {
+        //            _device.controlMode = _instructions.controlMode;
+        //            _device.point = _instructions.point;
+        //        }else if (_deviceType.typeId == 7 || _deviceType.typeId == 8){
+        //            _device.instructionName = _instructions.channel;
+        //        }else
+        //            _device.instructionName = _instruction.name;
+        //        if (_isAdd) {
+        //            [self.eventDetail.devices addObject:_device];
+        //            MyEEventAddOrEditViewController *vc = self.navigationController.childViewControllers[1];
+        //            vc.needRefresh = YES;
+        //        }
     }
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
@@ -324,14 +380,34 @@
         }else
             _instruction = _instructions.instructions[row];
     }else if (pickerView.tag == 104){
-        _instructions.controlMode = row +1;
-        if (_instructions.controlMode == 5) {
-            self.setpointView.hidden = YES;
-        }else
-            self.setpointView.hidden = NO;
+        if (_deviceType.typeId == 1) {
+            if ([title isEqualToString:@"OFF"]) {
+                _instructions.controlStatus = 0;
+                _instructions.controlMode = 1;
+                self.setpointView.hidden = YES;
+                self.fanLbl.hidden = YES;
+                self.fanBtn.hidden = YES;
+            }else{
+                _instructions.controlStatus = 1;
+                _instructions.controlMode = row + 1;
+                self.setpointView.hidden = NO;
+                self.fanLbl.hidden = NO;
+                self.fanBtn.hidden = NO;
+            }
+        }else{
+            _instructions.controlMode = row +1;
+            if (_instructions.controlMode == 5) {
+                self.setpointView.hidden = YES;
+            }else
+                self.setpointView.hidden = NO;
+        }
     }else if (pickerView.tag == 105){
         _instructions.fan = row;
-    }else
-        _instructions.point = row + 55;
+    }else{
+        if (_deviceType.typeId == 1) {
+            _instructions.point = row + 18;
+        }else
+            _instructions.point = row + 55;
+    }
 }
 @end
