@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyE/Themostat/MyESpecialDaysScheduleViewController.m"
-            timestampString = "427270809.990478"
+            timestampString = "428482504.724147"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "243"
-            endingLineNumber = "243"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
             landmarkName = "-uploadToServerNewMode:"
             landmarkType = "5">
          </BreakpointContent>
@@ -266,12 +266,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyE/Themostat/MyESpecialDaysScheduleViewController.m"
-            timestampString = "427270845.037017"
+            timestampString = "428482504.724147"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
             landmarkName = "-uploadToServerEditingMode:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyE/Themostat/MyENext24HrsScheduleViewController.m"
+            timestampString = "428482504.724147"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
+            landmarkName = "-didReceiveString:loaderName:userDataDictionary:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyE/Themostat/Dashboard/MyEDashboardViewController.m"
+            timestampString = "428481975.107716"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "648"
+            endingLineNumber = "648"
+            landmarkName = "-_processHttpRespondForString:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

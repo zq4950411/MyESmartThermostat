@@ -80,8 +80,7 @@
     self.houseName = MainDelegate.houseData.houseName;
     self.tId = MainDelegate.terminalData.tId;
     self.tName = MainDelegate.terminalData.tName;
-    self.isRemoteControl = isRC;
-    
+   
     [self.view bringSubviewToFront:self.fanControlToolbarOverlayView];
     [self.view bringSubviewToFront:self.systemControlToolbarOverlayView];
     
@@ -137,6 +136,9 @@
     
     [self.view addSubview:self.circle];
     [self.view addSubview:overlay];
+    
+    // make sure setIsRemoteControl is executed after initialize the self.circle widget, in case that remoteControl is disabled, we need to add a Over layer
+    self.isRemoteControl = isRC;
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -339,78 +341,46 @@
     if(!isRemoteControl) {
         // Create the layer if necessary.
         if(!_maskLayer) {
-            _maskLayer = [[CALayer alloc] init];
+            _maskLayer = [[UIView alloc] initWithFrame:self.view.bounds];
             
-            CGRect bounds = self.view.bounds;
-            //create a cglayer and draw the background graphic to it
-            CGContextRef context = MyECreateBitmapContext(bounds.size.width, bounds.size.height);
-            
-            
-            
-            
-            CGContextSaveGState(context);
-            CGContextAddRect(context, bounds);
-            CGContextEOClip(context);
-            
-            
-            CGGradientRef myGradient;
-            CGColorSpaceRef myColorspace;
-            size_t num_locations = 2;
-            CGFloat locations[2] = { 0.0, 1.0 };
-            CGFloat components[8] = { 0.0, 0.0, 0.0, 0.05, // Start color开始颜色位于view矩形中心，
-                0.0, 0.0, 0.0, 0.1 }; // End color
-            myColorspace = CGColorSpaceCreateDeviceRGB();
-            myGradient = CGGradientCreateWithColorComponents (myColorspace, components,
-                                                              locations, num_locations);
-            CGPoint centerPoint;
-            centerPoint.x = bounds.origin.x + bounds.size.width/2;
-            centerPoint.y = bounds.origin.y + bounds.size.height/2;
-            
-            CGContextDrawRadialGradient(context, myGradient, centerPoint, 80, centerPoint, bounds.size.height/2, kCGGradientDrawsAfterEndLocation | kCGGradientDrawsBeforeStartLocation);
-            CGGradientRelease(myGradient);
-            CGColorSpaceRelease (myColorspace);
-            CGContextRestoreGState(context);
-            
-            
-            
-            
-            
-            
-            CGImageRef myMaskImg = CGBitmapContextCreateImage(context);
-            UIImage *layerContents = [UIImage imageWithCGImage:myMaskImg];
-            CGContextRelease(context);
-            CGImageRelease(myMaskImg);
-            
-            CGSize imageSize = layerContents.size;
-            
-            _maskLayer.bounds = CGRectMake(0, 0, imageSize.width, imageSize.height);
-            _maskLayer.contents = (id)layerContents.CGImage;
-            
+            _singleFingerTap =
+            [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                    action:@selector(handleSingleTap:)];
+            [_maskLayer addGestureRecognizer:_singleFingerTap];
         }
         
-        // Add the layer to the view.
-        [self.view.layer addSublayer:_maskLayer];
+        [self.view addSubview:_maskLayer];
         
-        // Center the layer in the view.
-        _maskLayer.position = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
-        
-        self.view.userInteractionEnabled = NO;
+        [self.view bringSubviewToFront:_maskLayer];
+
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
     } else {
-        self.view.userInteractionEnabled = YES;
-        [_maskLayer removeFromSuperlayer];
+        if(_maskLayer)
+            [_maskLayer removeFromSuperview];
+        
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is enabled."];
+        if(_singleFingerTap)
+            [_maskLayer removeGestureRecognizer:_singleFingerTap];
     }
 }
 
 #pragma mark
 #pragma mark private methods
+//The event handling method
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+//    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
+    
+    //Do stuff here...
+    [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+    
+}
 - (void)configureView
 {
     // Update the user interface for the detail item.
     MyEDashboardData *theDashboardData = self.dashboardData;
 
-    //刷新远程控制的状态。
-    self.isRemoteControl = [theDashboardData.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame;
-     self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", theDashboardData.temperature];
+
+    self.indoorTemperatureLabel.text = [NSString stringWithFormat:@"%.0f\u00B0F", theDashboardData.temperature];
     if (theDashboardData) {
         switch (theDashboardData.controlMode) {
             case 1://Heat
@@ -618,6 +588,8 @@
         // 这里不需要在每次下载新数据时判定是否Remote NO，否则会产生一种情况：操作中变为Remote No的时候没有提示文字并返回House List，而是直接 disable掉控制面板了. 2012-05-29
         //[self setRemoteControlEnabled:[theDashboardData.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame];
 
+        //刷新远程控制的状态。需要确保这句在最后一次执行， 以保证Overlayer可以覆盖在holdrunbutton之上
+        self.isRemoteControl = [theDashboardData.locWeb caseInsensitiveCompare:@"enabled"] == NSOrderedSame;
     }
 }
 

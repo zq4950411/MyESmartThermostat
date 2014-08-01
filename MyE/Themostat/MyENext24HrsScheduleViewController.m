@@ -171,13 +171,9 @@
 -(void) setIsRemoteControl:(BOOL)isRemoteControl {
     _isRemoteControl = isRemoteControl;
     if (!isRemoteControl) {
-        self.useWeeklyButton.hidden = YES;
-        self.applyButton.hidden = YES;
-        self.resetButton.hidden = YES;
-    }else {
-        self.applyButton.hidden = NO;
-        self.useWeeklyButton.hidden = NO;
-        self.resetButton.hidden = NO;
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+    } else {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is enabled."];
     }
 }
 
@@ -443,15 +439,27 @@
 #pragma mark -
 #pragma mark action methods
 - (IBAction)applyNewSchedule:(id)sender {
+    if (!self.isRemoteControl) {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        return;
+    }
     // 上传当前最新数据到服务器
     [self uploadModelToServer];
 }
 
 - (IBAction)resetSchedule:(id)sender {
+    if (!self.isRemoteControl) {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        return;
+    }
     [self _restoreToLastUnchanged];
 }
 
 - (IBAction)useWeekly:(id)sender {
+    if (!self.isRemoteControl) {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        return;
+    }
     [self downloadWeeklyModelFromServer];
 }
 

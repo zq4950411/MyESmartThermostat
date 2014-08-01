@@ -159,6 +159,31 @@
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
     NSLog(@"------------=============applicationWillResignActive");
+    
+    /*
+    // 下面是测试整数按位转换成0、1字符串及其逆操作
+    NSInteger yourInt = -2147483641;//你的整数
+    NSMutableString *resultStr = [NSMutableString stringWithString:@""];//转换后的结果字符串
+    NSInteger i,opt;//中间变量
+    for ( i=31; i>=0; i--) {
+        opt = 0x80000000 >> i;
+        if(opt & yourInt){
+            [resultStr appendString:@"1"];
+        } else
+            [resultStr appendString:@"0"];
+    }
+    NSLog(@"----------------resultStr = %@", resultStr);
+    
+    // 下面把上面的resultStr里面的01字符串按二进制位转换成32位整数
+    NSInteger resultInt = 0;// 逆操作后的结果整数
+    for ( i=0; i<32; i++) {
+        if([resultStr characterAtIndex:i] == '1'){
+            opt = 1<<i;
+            resultInt += opt;
+        }
+    }
+    NSLog(@"================resultInt = %d", resultInt);
+     */
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application

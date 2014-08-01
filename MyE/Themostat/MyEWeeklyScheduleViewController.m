@@ -156,13 +156,9 @@
 -(void) setIsRemoteControl:(BOOL)isRemoteControl {
     _isRemoteControl = isRemoteControl;
     if (!isRemoteControl) {
-        self.applyButton.hidden = YES;
-        self.addNewModeButton.hidden = YES;
-        self.editModeButton.hidden = YES;
-    }else {
-        self.applyButton.hidden = NO;
-        self.addNewModeButton.hidden = NO;
-        self.editModeButton.hidden = NO;
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+    } else {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is enabled."];
     }
 }
 
@@ -670,20 +666,40 @@
 #pragma mark
 #pragma mark action methods
 - (IBAction)editSelectedMode:(id)sender {
+    if (!self.isRemoteControl) {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        return;
+    }
+
     [self _toggleModeEditingViewWithType:ModeEditingViewTypeEditing];
 }
 
 - (IBAction)addNewMode:(id)sender {
+    if (!self.isRemoteControl) {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        return;
+    }
+
     // 添加代码处理新增加mode的功能
     [self _toggleModeEditingViewWithType:ModeEditingViewTypeNew];
 }
 
 - (IBAction)applyNewSchedule:(id)sender {
+    if (!self.isRemoteControl) {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        return;
+    }
+
     [self _toggleApplyToDaysSelectionView];
     
 }
 
 - (IBAction)resetSchedule:(id)sender {
+    if (!self.isRemoteControl) {
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        return;
+    }
+
     [self _restoreToLastUnchanged];
 }
 
