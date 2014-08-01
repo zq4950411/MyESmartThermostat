@@ -19,7 +19,9 @@
 #define AC_AUTO_VALIDATE_PERIOD_UPLOADER_NMAE @"AcAutoControlPeriodValidateInstructionUploader"
 
 
-@interface MyEAutoPeriodViewController ()
+@interface MyEAutoPeriodViewController (){
+    MyEAcInstructionSet *_instructionSet;
+}
 
 @end
 
@@ -57,6 +59,7 @@
             }
         }
     }
+    [self downloadInstructionSetFromServer];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -106,16 +109,17 @@
     [UIView commitAnimations];
     
     buttonTag = 1;
+    self.pickerView.delegate = self;
+    self.pickerView.dataSource = self;
     [self.pickerView reloadAllComponents];
     if(device.isSystemDefined){
         [self.pickerView selectRow:self.period.runMode - 1 inComponent:0 animated:YES];
         [self.pickerView selectRow:self.period.setpoint - 18 inComponent:1 animated:YES];
         [self.pickerView selectRow:self.period.windLevel inComponent:2 animated:YES];
     } else {
-        NSInteger index = [self.device.acInstructionSet indexOfInstructionInOnListWithRunMode:self.period.runMode andSetpoint:self.period.setpoint andWindLevel:self.period.windLevel];
+        NSInteger index = [_instructionSet indexOfInstructionInOnListWithRunMode:self.period.runMode andSetpoint:self.period.setpoint andWindLevel:self.period.windLevel];
         [self.pickerView selectRow:index inComponent:0 animated:YES];
     }
-
 }
 
 - (IBAction)hidePicker:(id)sender {
@@ -179,7 +183,7 @@
                 return 4;
             }
         }else{
-            return [self.device.acInstructionSet countOfInstructionInOnList];
+            return [_instructionSet countOfInstructionInOnList];
         }
     }
 
@@ -223,8 +227,8 @@
                 label.text = [NSString stringWithFormat: @"%@", [MyEAcUtil getStringForWindLevel:row]];
             }
         } else {
-            MyEAcInstruction *instruction = [self.device.acInstructionSet instructionInOnListAtIndex:row];
-            label.text = [NSString stringWithFormat:@"%@,          %@,          %@",
+            MyEAcInstruction *instruction = [_instructionSet instructionInOnListAtIndex:row];
+            label.text = [NSString stringWithFormat:@"%@,     %@,     %@",
                     [MyEAcUtil getStringForRunMode:instruction.runMode],
                     [MyEAcUtil getStringForSetpoint:instruction.setpoint],
                     [MyEAcUtil getStringForWindLevel:instruction.windLevel]];
@@ -326,7 +330,7 @@
                                                [MyEAcUtil getStringForWindLevel:self.period.windLevel]]
                                      forState:UIControlStateNormal];
          }else{
-             MyEAcInstruction *instruction = [self.device.acInstructionSet instructionInOnListAtIndex:row];
+             MyEAcInstruction *instruction = [_instructionSet instructionInOnListAtIndex:row];
              self.period.runMode = instruction.runMode;
              self.period.setpoint = instruction.setpoint;
              self.period.windLevel = instruction.windLevel;
@@ -403,7 +407,19 @@
                                  userDataDictionary:Nil];
     NSLog(@"%@",downloader.name);
 }
-
+- (void) downloadInstructionSetFromServer
+{
+    if(HUD == nil) {
+        HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        HUD.delegate = self;
+    } else
+        [HUD show:YES];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@?tId=%@&moduleId=%i&houseId=%i",GetRequst(URL_FOR_USER_AC_INSTRUCTION_SET_VIEW), self.device.tid, self.device.modelId,MainDelegate.houseData.houseId];
+    MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"AC_INSTRUCTION_SET_DOWNLOADER_NMAE"  userDataDictionary:nil];
+    NSLog(@"%@",downloader.name);
+}
+#pragma mark - URL Delegate method
 // 响应下载上传
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     [HUD hide:YES];
@@ -444,6 +460,14 @@
                 [self.navigationController popViewControllerAnimated:YES];
 
             };
+        }
+    }
+    if([name isEqualToString:@"AC_INSTRUCTION_SET_DOWNLOADER_NMAE"]) {
+        if ([MyEUtil getResultFromAjaxString:string] != 1) {
+            [SVProgressHUD showErrorWithStatus:@"fail"];
+        } else{
+            NSLog(@"ajax json = %@", string);
+            _instructionSet = [[MyEAcInstructionSet alloc] initWithJSONString:string];
         }
     }
 }

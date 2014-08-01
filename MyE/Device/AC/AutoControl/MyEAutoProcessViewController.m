@@ -245,12 +245,12 @@
     NSString *dataString = [writer stringWithObject:[self.process JSONDictionary]];
     
     if (self.device.typeId.intValue == 1) {
-        NSString *urlStr = [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&id=%ld&deviceId=%ld&action=%ld&data=%@",
+        NSString *urlStr = [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&id=%li&deviceId=%@&action=%ld&data=%@",
                             GetRequst(URL_FOR_AC_UPLOAD_AC_AUTO_PROCESS_SAVE),
                             MainDelegate.houseData.houseId,
                             self.device.tid,
                             (long)self.process.pId,
-                            (long)self.device.deviceId,
+                            self.device.deviceId,
                             (long)action,
                             dataString];
         NSLog(@"json string for uploading Process is :\n %@", urlStr);

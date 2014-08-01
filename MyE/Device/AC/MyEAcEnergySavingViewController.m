@@ -188,10 +188,10 @@
     } else
         [HUD show:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@?tId=%@&id=%ld&houseId=%i",
+    NSString *urlStr = [NSString stringWithFormat:@"%@?tId=%@&id=%@&houseId=%i",
                         GetRequst(URL_FOR_AC_COMFORT_VIEW),
                         self.device.tid,
-                        (long)self.device.deviceId,MainDelegate.houseData.houseId];
+                        self.device.deviceId,MainDelegate.houseData.houseId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc]
                                  initLoadingWithURLString:urlStr
                                  postData:nil delegate:self

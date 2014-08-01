@@ -25,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *btns;
 @property (weak, nonatomic) IBOutlet UIView *setpointView;
+@property (weak, nonatomic) IBOutlet UILabel *fanLbl;
+@property (weak, nonatomic) IBOutlet UIButton *fanBtn;
 
 
 @end

@@ -80,8 +80,9 @@
     static NSString *CellIdentifier = @"AcAutoControlProcessCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     MyEAutoControlProcess *process = [self.processList.mainArray objectAtIndex:indexPath.row];
-    [cell.textLabel setText:process.name];
-    NSString *dayString = @"星期：";
+//    [cell.textLabel setText:process.name];
+    cell.textLabel.text = [NSString stringWithFormat:@"Program%i",indexPath.row];
+    NSString *dayString = @"Week：";
     for (NSNumber *day in process.days) {
         dayString = [NSString stringWithFormat:@"%@ %@", dayString, day];
     }
@@ -105,12 +106,12 @@
         SBJsonWriter *writer = [[SBJsonWriter alloc] init];
         NSString *dataString = [writer stringWithObject:[process JSONDictionary]];
         if (self.device.typeId.intValue == 1){
-            NSString *urlStr = [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&id=%ld&deviceId=%ld&action=2&data=%@",
+            NSString *urlStr = [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&id=%ld&deviceId=%@&action=2&data=%@",
                                 GetRequst(URL_FOR_AC_UPLOAD_AC_AUTO_PROCESS_SAVE),
                                 MainDelegate.houseData.houseId,
                                 self.device.tid,
                                 (long)process.pId,
-                                (long)parentVC.device.deviceId,
+                                parentVC.device.deviceId,
                                 dataString];
             MyEDataLoader *downloader = [[MyEDataLoader alloc]
                                          initLoadingWithURLString:urlStr
