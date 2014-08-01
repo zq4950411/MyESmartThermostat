@@ -156,9 +156,9 @@
 -(void) setIsRemoteControl:(BOOL)isRemoteControl {
     _isRemoteControl = isRemoteControl;
     if (!isRemoteControl) {
-        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote controls from internet has been disabled."];
     } else {
-        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is enabled."];
+//        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is enabled."];
     }
 }
 
@@ -667,7 +667,7 @@
 #pragma mark action methods
 - (IBAction)editSelectedMode:(id)sender {
     if (!self.isRemoteControl) {
-        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote controls from internet has been disabled."];
         return;
     }
 
@@ -676,7 +676,7 @@
 
 - (IBAction)addNewMode:(id)sender {
     if (!self.isRemoteControl) {
-        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote controls from internet has been disabled."];
         return;
     }
 
@@ -686,7 +686,7 @@
 
 - (IBAction)applyNewSchedule:(id)sender {
     if (!self.isRemoteControl) {
-        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote controls from internet has been disabled."];
         return;
     }
 
@@ -696,7 +696,7 @@
 
 - (IBAction)resetSchedule:(id)sender {
     if (!self.isRemoteControl) {
-        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote controls from internet has been disabled."];
         return;
     }
 
@@ -973,7 +973,7 @@
     NSInteger respondInt = [respondText intValue];// 从字符串开始寻找整数，如果碰到字母就结束，如果字符串不能转换成整数，那么此转换结果就是0
     if (respondInt == -998) {
         // 禁止远程操作， 应该提示用户。
-        [SVProgressHUD showErrorWithStatus:@"The thermostat remote control is disabled."];
+        [SVProgressHUD showErrorWithStatus:@"he remote control of thermostat is disabled."];
         return NO;
     }
     return YES;

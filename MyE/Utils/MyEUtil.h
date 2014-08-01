@@ -29,9 +29,9 @@
 //#define URL_FOR_SETTINGS_SAVE @"http://www.myenergydomain.com/setting_save.do"
 
 #define GetServer [ServerUtils getServierIp]
-//#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
+#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
 
-#define GetRequst(API) [@"http://192.168.0.73:65500" stringByAppendingFormat:@"%@",API]
+//#define GetRequst(API) [@"http://192.168.0.73:65500" stringByAppendingFormat:@"%@",API]
 
 //#define GetRequst(API) [@"http://182.110.124.250:65533" stringByAppendingFormat:@"%@",API]
 
