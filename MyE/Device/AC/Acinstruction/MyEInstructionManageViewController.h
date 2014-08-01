@@ -12,4 +12,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *brandLabel;
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 @property (strong, nonatomic) MyEDevice *device;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *IRCodeSeg;
+
 @end

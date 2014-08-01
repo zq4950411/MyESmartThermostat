@@ -24,6 +24,13 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = @"IR Code Library";
+    if (IS_IOS6) {
+        self.IRCodeSeg.layer.borderColor = MainColor.CGColor;
+        self.IRCodeSeg.layer.borderWidth = 1.0f;
+        self.IRCodeSeg.layer.cornerRadius = 4.0f;
+        self.IRCodeSeg.layer.masksToBounds = YES;
+    }
+
     if (![self.device.brand isEqualToString:@""]) {
         self.brandLabel.text = [NSString stringWithFormat:@"%@   %@",self.device.brand,self.device.model];
     }else{

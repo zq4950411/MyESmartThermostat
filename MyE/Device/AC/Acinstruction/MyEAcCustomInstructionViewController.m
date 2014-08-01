@@ -29,10 +29,12 @@
                     [btn setBackgroundImage:[UIImage imageNamed:@"detailBtn"] forState:UIControlStateNormal];
                     [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
                 }else if (btn.tag != 1000 && btn.tag != 1001){
-                    btn.layer.masksToBounds = YES;
-                    btn.layer.cornerRadius = 4;
-                    btn.layer.borderColor = btn.tintColor.CGColor;
-                    btn.layer.borderWidth = 1;
+                    if (!IS_IOS6) {
+                        btn.layer.masksToBounds = YES;
+                        btn.layer.cornerRadius = 4;
+                        btn.layer.borderColor = btn.tintColor.CGColor;
+                        btn.layer.borderWidth = 1.0f;
+                    }
                 }
             }
         }

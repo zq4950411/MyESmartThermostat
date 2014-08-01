@@ -90,18 +90,28 @@
                                                 forState:UIControlStateNormal
                                               barMetrics:UIBarMetricsDefault];
         //设置导航栏返回按钮的UI
-        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 18, 0, 0)]
-                                                          forState:UIControlStateNormal
-                                                        barMetrics:UIBarMetricsDefault];
+        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 18, 0, 0)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
         [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(5, -2)
                                                              forBarMetrics:UIBarMetricsDefault];
-        [[UIBarButtonItem appearance] setTitleTextAttributes:
-         @{ UITextAttributeFont: [UIFont systemFontOfSize:17],
-            UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetZero]} forState:UIControlStateNormal];
+        [[UIBarButtonItem appearance] setTitleTextAttributes: @{ UITextAttributeFont: [UIFont systemFontOfSize:17], UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetZero]} forState:UIControlStateNormal];
         
         [[UITabBar appearance] setBackgroundImage:[self imageWithColor:[UIColor blackColor] size:CGSizeMake(1, 49)]];
         [[UITabBar appearance] setSelectionIndicatorImage:[UIImage new]];
+        [[UITabBarItem appearance] setTitleTextAttributes:
+         @{ UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0, 0)],
+            UITextAttributeTextColor: [UIColor whiteColor]} forState:UIControlStateSelected];
         [[UIToolbar appearance] setBackgroundImage:[self imageWithColor:[UIColor blackColor] size:CGSizeMake(1, 49)] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+        
+        //iOS6
+        [[UISegmentedControl appearance] setBackgroundImage:[self imageWithColor:MainColor size:CGSizeMake(1, 29)] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+        
+        [[UISegmentedControl appearance] setBackgroundImage:[self imageWithColor:[UIColor whiteColor] size:CGSizeMake(1, 29)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        
+        [[UISegmentedControl appearance] setDividerImage:[self imageWithColor:MainColor size:CGSizeMake(1, 29)] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+        
+        [[UISegmentedControl appearance] setTitleTextAttributes:@{UITextAttributeTextColor: MainColor, UITextAttributeFont: [UIFont systemFontOfSize:14],UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0, 0)]} forState:UIControlStateNormal];
+        
+        [[UISegmentedControl appearance] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor whiteColor],UITextAttributeFont: [UIFont systemFontOfSize:14],UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0, 0)]} forState:UIControlStateSelected];
     }
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

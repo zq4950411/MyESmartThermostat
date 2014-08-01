@@ -237,10 +237,14 @@
     return label;
 }
 -(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
-    if (component == 0) {
-        return 110;
+    if (buttonTag == 0) {
+        return 150;
     }else{
-        return 105;
+        if (component == 0) {
+            return 120;
+        }else{
+            return 95;
+        }
     }
 }
 //-(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
