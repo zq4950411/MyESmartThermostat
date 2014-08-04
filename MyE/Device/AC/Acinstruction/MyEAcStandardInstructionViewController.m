@@ -30,54 +30,47 @@
         self.view.frame = CGRectMake(0, 0, 320, 393);
     }else
         self.view.frame = CGRectMake(0, 0, 320, 305);
-
-    _brandDownloadTimes = 0;
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-//    [btn setFrame:CGRectMake(0, 0, 50, 30)];
-//    if (!IS_IOS6) {
-//        [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-//        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
-//    }else{
-//        [btn setBackgroundImage:[UIImage imageNamed:@"back-ios6"] forState:UIControlStateNormal];
-//        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-//        btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-//        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    }
-//    [btn setTitle:@"返回" forState:UIControlStateNormal];
-//    [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-
     
-//    self.navigationController.navigationBar.topItem.title = @"自学习库";
-//    self.navigationController.topViewController.title = @"标准库";
-//    vc.navigationController.navigationBar.topItem.title = @"标准库";
+    _brandDownloadTimes = 0;
+    //    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    //    [btn setFrame:CGRectMake(0, 0, 50, 30)];
+    //    if (!IS_IOS6) {
+    //        [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    //        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
+    //    }else{
+    //        [btn setBackgroundImage:[UIImage imageNamed:@"back-ios6"] forState:UIControlStateNormal];
+    //        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    //        btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+    //        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //    }
+    //    [btn setTitle:@"返回" forState:UIControlStateNormal];
+    //    [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
+    //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+    
+    //    self.navigationController.navigationBar.topItem.title = @"自学习库";
+    //    self.navigationController.topViewController.title = @"标准库";
+    //    vc.navigationController.navigationBar.topItem.title = @"标准库";
     [self downloadAcBrandsAndModules];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didEnterBackground)
                                                  name:UIApplicationDidEnterBackgroundNotification
                                                object:nil];
-//    if (!IS_IOS6) {
-        for (UIButton *btn in self.view.subviews) {
-            if ([btn isKindOfClass:[UIButton class]]) {
-                if (btn.tag == 100 || btn.tag == 101) {
-                    [btn setBackgroundImage:[UIImage imageNamed:@"detailBtn"] forState:UIControlStateNormal];
-                    [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
-                }else{
-                btn.layer.masksToBounds = YES;
-                btn.layer.cornerRadius = 4;
-                btn.layer.borderColor = btn.tintColor.CGColor;
-                btn.layer.borderWidth = 1;
+    for (UIButton *btn in self.view.subviews) {
+        if ([btn isKindOfClass:[UIButton class]]) {
+            if (btn.tag == 100 || btn.tag == 101) {
+                [btn setBackgroundImage:[UIImage imageNamed:@"detailBtn"] forState:UIControlStateNormal];
+                [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
+            }else{
+                if (!IS_IOS6) {
+                    btn.layer.masksToBounds = YES;
+                    btn.layer.cornerRadius = 4;
+                    btn.layer.borderColor = btn.tintColor.CGColor;
+                    btn.layer.borderWidth = 1;
                 }
             }
         }
-//    }else{
-//        for (UIButton *btn in self.view.subviews) {
-//            if (btn.tag == 100 || btn.tag == 101) {
-//                [btn setBackgroundImage:[UIImage imageNamed:@"detailBtn-ios6"] forState:UIControlStateNormal];
-//                [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
-//            }
-//        }
-//    }
+    }
 }
 
 #pragma mark - private methods
@@ -185,8 +178,8 @@
 }
 -(void)cancelAcInit{
     [UIApplication sharedApplication].idleTimerDisabled = NO;
-//    //写这个是为了取消初始化点击后，后台不在进行请求
-//    requestCircles = 4;
+    //    //写这个是为了取消初始化点击后，后台不在进行请求
+    //    requestCircles = 4;
     [timer invalidate]; //取消初始化的时候就把timer注销掉
     HUD.mode = MBProgressHUDModeIndeterminate;
     HUD.detailsLabelText = @"正在取消初始化";
@@ -210,12 +203,12 @@
             [HUD hide:YES];
             [UIApplication sharedApplication].idleTimerDisabled = NO;
             HUD.detailsLabelText = @"进度查询失败!";
-//            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"初始化进度查询失败"];
+            //            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"初始化进度查询失败"];
         }else{
             SBJsonParser *parser = [[SBJsonParser alloc] init];
             NSDictionary *dic = [parser objectWithString:string];
             float progress = [dic[@"progress"] floatValue];
-
+            
             if (progress == 0) {
                 HUD.detailsLabelText = @"正在查询进度...";
             }else{
@@ -231,7 +224,7 @@
                 }else{
                     [timer invalidate];
                     [cancelButton removeFromSuperview];
-//#warning 这里添加一个下载失败的笑脸图案
+                    //#warning 这里添加一个下载失败的笑脸图案
                     HUD.detailsLabelText = @"空调初始化失败";
                     [UIApplication sharedApplication].idleTimerDisabled = NO;
                     [self defineTapGestureRecognizerOnWindow];
@@ -247,7 +240,7 @@
                     HUD.mode = MBProgressHUDModeCustomView;
                     HUD.detailsLabelText = @"空调初始化完成";
                     [self defineTapGestureRecognizerOnWindow];
-//                    [HUD hide:YES afterDelay:2];
+                    //                    [HUD hide:YES afterDelay:2];
                     self.device.brand = brandBtn.titleLabel.text;
                     self.device.model = modelBtn.titleLabel.text;
                     self.device.brandId = [brandIdArray[[brandNameArray indexOfObject:brandBtn.titleLabel.text]] integerValue];
@@ -282,7 +275,7 @@
                 [self doThisWhenAcInit];
             }else{
                 HUD.detailsLabelText = @"空调初始化失败";
-//                [MyEUtil showMessageOn:self.navigationController.view withMessage:@"空调初始化失败"];
+                //                [MyEUtil showMessageOn:self.navigationController.view withMessage:@"空调初始化失败"];
                 [cancelButton removeFromSuperview];
                 [UIApplication sharedApplication].idleTimerDisabled = NO;
                 [HUD hide:YES afterDelay:2];
@@ -323,7 +316,7 @@
             }
         }
     }
-
+    
     if([name isEqualToString:@"downloadAcBrandsAndModules"]) {
         [HUD hide:YES];
         NSLog(@"downloadAcBrandsAndModules JSON String from server is \n%@",string);
@@ -355,15 +348,15 @@
         }else{
             MyEAcBrandsAndModels *ac = [[MyEAcBrandsAndModels alloc] initWithJSONString:string];
             self.brandsAndModels = ac;
-//            MyEAcBrand *brand = self.brandsAndModules.sysAcBrands[0];
-//            NSLog(@"%@",brand.brandName);
+            //            MyEAcBrand *brand = self.brandsAndModules.sysAcBrands[0];
+            //            NSLog(@"%@",brand.brandName);
             //这里需要注意的时tab之间传值时，不能在viewwillapper里面传值，这时候值的传递有问题，应该在接收到值的时候传值
-//            UINavigationController *nav = [self.tabBarController viewControllers][1];
+            //            UINavigationController *nav = [self.tabBarController viewControllers][1];
             
-//            UINavigationController *nav = [self.tabBarController viewControllers][1];
-//            MyEAcCustomInstructionViewController *custom = (MyEAcCustomInstructionViewController *)[nav viewControllers][0];
-//            custom.brandsAndModels = self.brandsAndModels;
-//            custom.device = self.device;
+            //            UINavigationController *nav = [self.tabBarController viewControllers][1];
+            //            MyEAcCustomInstructionViewController *custom = (MyEAcCustomInstructionViewController *)[nav viewControllers][0];
+            //            custom.brandsAndModels = self.brandsAndModels;
+            //            custom.device = self.device;
             //向同一级别的customInstructionVC传值
             [self.delegate passValue:self.brandsAndModels];
             
@@ -504,21 +497,21 @@
     MYEPickerView *picker = [[MYEPickerView alloc] initWithView:self.view andTag:1 title:@"Brand" dataSource:brandNameArray andSelectRow:[brandNameArray containsObject:sender.currentTitle]?[brandNameArray indexOfObject:brandBtn.titleLabel.text]:0];
     picker.delegate = self;
     [picker showInView:self.view];
-//    [MyEUniversal doThisWhenNeedPickerWithTitle:@"请选择空调品牌" andDelegate:self andTag:1 andArray:brandNameArray andSelectRow:[brandNameArray indexOfObject:brandBtn.titleLabel.text] andViewController:self];
-//    pickerTag = 1;
-//    [self ViewAnimation:pickerContainer willHidden:NO];
-//    [picker reloadAllComponents];
-//    [picker selectRow:[brandNameArray indexOfObject:brandBtn.titleLabel.text] inComponent:0 animated:YES];
+    //    [MyEUniversal doThisWhenNeedPickerWithTitle:@"请选择空调品牌" andDelegate:self andTag:1 andArray:brandNameArray andSelectRow:[brandNameArray indexOfObject:brandBtn.titleLabel.text] andViewController:self];
+    //    pickerTag = 1;
+    //    [self ViewAnimation:pickerContainer willHidden:NO];
+    //    [picker reloadAllComponents];
+    //    [picker selectRow:[brandNameArray indexOfObject:brandBtn.titleLabel.text] inComponent:0 animated:YES];
 }
 - (IBAction)modelBtnPress:(UIButton *)sender {
     MYEPickerView *picker = [[MYEPickerView alloc] initWithView:self.view andTag:2 title:@"Module" dataSource:modelNameArray andSelectRow:[modelNameArray containsObject:sender.currentTitle]?[modelNameArray indexOfObject:modelBtn.titleLabel.text]:0];
     picker.delegate = self;
     [picker showInView:self.view];
-//    [MyEUniversal doThisWhenNeedPickerWithTitle:@"请选择遥控器型号" andDelegate:self andTag:2 andArray:modelNameArray andSelectRow:[modelNameArray indexOfObject:modelBtn.titleLabel.text] andViewController:self];
-//    pickerTag = 2;
-//    [self ViewAnimation:pickerContainer willHidden:NO];
-//    [picker reloadAllComponents];
-//    [picker selectRow:[modelNameArray indexOfObject:modelBtn.titleLabel.text] inComponent:0 animated:YES];
+    //    [MyEUniversal doThisWhenNeedPickerWithTitle:@"请选择遥控器型号" andDelegate:self andTag:2 andArray:modelNameArray andSelectRow:[modelNameArray indexOfObject:modelBtn.titleLabel.text] andViewController:self];
+    //    pickerTag = 2;
+    //    [self ViewAnimation:pickerContainer willHidden:NO];
+    //    [picker reloadAllComponents];
+    //    [picker selectRow:[modelNameArray indexOfObject:modelBtn.titleLabel.text] inComponent:0 animated:YES];
 }
 
 - (IBAction)check:(UIButton *)sender {
@@ -530,7 +523,7 @@
     formSheet.shadowRadius = 2.0;
     formSheet.shadowOpacity = 0.3;
     formSheet.shouldDismissOnBackgroundViewTap = NO;
-//    formSheet.shouldCenterVerticallyWhenKeyboardAppears = YES;
+    //    formSheet.shouldCenterVerticallyWhenKeyboardAppears = YES;
     formSheet.presentedFormSheetSize = CGSizeMake(290, 350); //指定弹出视图的高度和宽度
     //    formSheet.shouldMoveToTopWhenKeyboardAppears = NO;
     
@@ -554,10 +547,10 @@
         vc.brandIdIndex = [brandNameArray indexOfObject:brandBtn.titleLabel.text];
         vc.moduleIdIndex = [modelNameArray indexOfObject:modelBtn.titleLabel.text];
         vc.startIndex = vc.moduleIdIndex;  //这里对startIndex进行赋值
-//        NSLog(@"%i %i",vc.brandIdIndex,vc.moduleIdIndex);
-
-//        vc.brandLabel.text = brandNameArray[0];
-//        vc.modelLabel.text = modelNameArray[0];
+        //        NSLog(@"%i %i",vc.brandIdIndex,vc.moduleIdIndex);
+        
+        //        vc.brandLabel.text = brandNameArray[0];
+        //        vc.modelLabel.text = modelNameArray[0];
     };
     formSheet.didDismissCompletionHandler = ^(UIViewController *presentedFSViewController){
         UINavigationController *navController = (UINavigationController *)presentedFSViewController;
@@ -569,7 +562,7 @@
         [self.brandBtn setTitle:vc.brandLabel.text forState:UIControlStateNormal];
         [self.modelBtn setTitle:vc.modelLabel.text forState:UIControlStateNormal];
     };
-
+    
     [self mz_presentFormSheetController:formSheet animated:YES completionHandler:nil];
 }
 - (IBAction)AcInit:(UIButton *)sender {
@@ -587,7 +580,7 @@
         [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         //    cancelButton.backgroundColor = [UIColor redColor];
         //    cancelButton.tintColor = [UIColor whiteColor];
-
+        
         //在这里对这些值进行初始化
         requestCircles = 0;
         requestTimes = 0;
@@ -604,13 +597,13 @@
         
         [HUD show:YES];
         [self.view.window addSubview:cancelButton];
-//#warning    //这里使用的异步进程处理方式，以免阻塞主进程
+        //#warning    //这里使用的异步进程处理方式，以免阻塞主进程
         double delayInSeconds = 2.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             /*----------这个是在下载进度的时候使用的，不过先在此处准备好--------------*/
             progressLabel = [[KAProgressLabel alloc] initWithFrame:CGRectMake(0, 0, 90, 90)];
-
+            
             progressLabel.backgroundColor = [UIColor clearColor];
             progressLabel.progressLabelVCBlock = ^(KAProgressLabel *label, CGFloat progress) {
                 dispatch_async(dispatch_get_main_queue(), ^{

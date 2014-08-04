@@ -15,7 +15,7 @@
 @end
 
 @implementation MyEAcEnergySavingViewController
-@synthesize device, comfort = _comfort,picker,pickerViewContainer;
+@synthesize device, comfort = _comfort;
 
 #pragma mark - life circle methods
 - (void)viewDidLoad
@@ -34,11 +34,10 @@
     }
     [btn addTarget:self action:@selector(dismissVC) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-
+    
     
     [self downloadComfortDataFromServer];
     UIView *view1 = [self.view viewWithTag:200];
-    UIView *view2 = [self.view viewWithTag:201];
     for (UIView *v in self.view.subviews) {
         if (v.tag == 200 || v.tag == 201) {
             v.layer.masksToBounds = YES;
@@ -47,77 +46,14 @@
             v.layer.cornerRadius = 4;
         }
     }
-        for (UIButton *btn in view1.subviews) {
-            if ([btn isKindOfClass:[UIButton class]]) {
-                [btn setBackgroundImage:[UIImage imageNamed:@"detailBtn"] forState:UIControlStateNormal];
-                [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
-            }
+    for (UIButton *btn in view1.subviews) {
+        if ([btn isKindOfClass:[UIButton class]]) {
+            [btn setBackgroundImage:[UIImage imageNamed:@"detailBtn"] forState:UIControlStateNormal];
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
         }
-        for (UIButton *btn in view2.subviews) {
-            if ([btn isKindOfClass:[UIButton class]]) {
-                btn.layer.masksToBounds = YES;
-                btn.layer.borderWidth = 1;
-                btn.layer.borderColor = btn.tintColor.CGColor;
-                btn.layer.cornerRadius = 4;
-            }
-        }
-    /*----------------------------------定义picker--------------------------------------------*/
-    if (IS_IOS6) {
-        pickerViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, screenHigh, screenwidth, 260)];
-        picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, screenwidth, 216)];
-    }else{
-        pickerViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, screenHigh, screenwidth, 260)];
-        picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, screenwidth, 216)];
     }
-    
-    UIToolbar *tool = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenwidth, 44)];
-    tool.barStyle = UIBarStyleBlackOpaque;
-    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"OK" style:UIBarButtonItemStyleBordered target:self action:@selector(save)];
-    UIBarButtonItem *one = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    tool.items = @[one,save];
-    picker.delegate = self;
-    picker.dataSource = self;
-    picker.backgroundColor = [UIColor colorWithRed:215 green:236 blue:241 alpha:1];
-    picker.showsSelectionIndicator = YES;
-    [pickerViewContainer addSubview:tool];
-    [pickerViewContainer addSubview:picker];
-    [self.view bringSubviewToFront:pickerViewContainer];
-    [self.view addSubview:pickerViewContainer];
-    /*----------------------------------定义picker--------------------------------------------*/
-    [self defineTapGestureRecognizer];
 }
 #pragma mark - private methods
--(void)defineTapGestureRecognizer{
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
-    tapGesture.cancelsTouchesInView = NO;
-    [self.view addGestureRecognizer:tapGesture];
-}
-
--(void)hideKeyboard{
-    [self ViewAnimation:pickerViewContainer willHidden:YES];
-}
-//使用block实现动画效果
-- (void)ViewAnimation:(UIView*)view willHidden:(BOOL)hidden {
-    [UIView animateWithDuration:0.3 animations:^{
-        if (hidden) {
-            view.frame = CGRectMake(0, screenHigh, screenwidth, 260);
-        } else {
-            [view setHidden:hidden];
-            if (IS_IOS6) {
-                view.frame = CGRectMake(0, screenHigh-44-20-260, screenwidth, 260);
-            }else{
-                view.frame = CGRectMake(0, screenHigh-44-10-260-44-10, screenwidth, 260);
-            }
-        }
-    } completion:^(BOOL finished) {
-        [view setHidden:hidden];
-        //        [self.tool setHidden:!hidden];
-    }];
-}
--(void)save{
-    [self ViewAnimation:pickerViewContainer willHidden:YES];
-}
-
 -(void)_refreshUI
 {
     [self.comfortFlagSwitch setOn:self.comfort.comfortFlag animated:YES ];
@@ -127,31 +63,31 @@
     }else
         [self.riseTimeBtn setTitle:@"0:00" forState:UIControlStateNormal];
     if (self.comfort.comfortSleepTime) {
-       [self.sleepTimeBtn setTitle:self.comfort.comfortSleepTime forState:UIControlStateNormal];
+        [self.sleepTimeBtn setTitle:self.comfort.comfortSleepTime forState:UIControlStateNormal];
     }else
         [self.sleepTimeBtn setTitle:@"0:00" forState:UIControlStateNormal];
 }
 
 -(void)setBtnTitle{
-//    NSString *provinceName,*cityName;
-//    MyEProvinceAndCity *provinceAndCity = [[MyEProvinceAndCity alloc] init];
-//    for (MyEProvince *p in provinceAndCity.provinceAndCity) {
-//        NSLog(@"%@",p.provinceName);
-//        if ([p.provinceId isEqualToString:self.comfort.provinceId]) {
-//            provinceName = p.provinceName;
-//            for (MyECity *c in p.cities) {
-//                if ([c.cityId isEqualToString:self.comfort.cityId]) {
-//                    cityName = c.cityName;
-//                    break;
-//                }
-//            }
-//            break;   //break的必要性，这个可以加快程序的运行
-//        }
-//    }
-//    //这里特别值得注意，btn在enable未被选中的前提下，不允许修改btn的title
-//    UIView *view = (UIView *)[self.view viewWithTag:201];
-//    UIButton *btn = (UIButton *)[view viewWithTag:100];
-//    [btn setTitle:[NSString stringWithFormat:@"%@ %@",provinceName,cityName] forState:UIControlStateNormal];
+    //    NSString *provinceName,*cityName;
+    //    MyEProvinceAndCity *provinceAndCity = [[MyEProvinceAndCity alloc] init];
+    //    for (MyEProvince *p in provinceAndCity.provinceAndCity) {
+    //        NSLog(@"%@",p.provinceName);
+    //        if ([p.provinceId isEqualToString:self.comfort.provinceId]) {
+    //            provinceName = p.provinceName;
+    //            for (MyECity *c in p.cities) {
+    //                if ([c.cityId isEqualToString:self.comfort.cityId]) {
+    //                    cityName = c.cityName;
+    //                    break;
+    //                }
+    //            }
+    //            break;   //break的必要性，这个可以加快程序的运行
+    //        }
+    //    }
+    //    //这里特别值得注意，btn在enable未被选中的前提下，不允许修改btn的title
+    //    UIView *view = (UIView *)[self.view viewWithTag:201];
+    //    UIButton *btn = (UIButton *)[view viewWithTag:100];
+    //    [btn setTitle:[NSString stringWithFormat:@"%@ %@",provinceName,cityName] forState:UIControlStateNormal];
 }
 - (void)decideIfComfortChanged
 {
@@ -247,34 +183,14 @@
 }
 
 - (IBAction)riseTimeAction:(UIButton *)sender {
-    // Show UIPickerView
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:0.3];
-//    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-//    if ([UIScreen mainScreen].scale == 2.f && screenHeight == 568.0f) {
-//        self.pickerViewContainer.frame = CGRectMake(0, 257, 320, 261);
-//    } else{
-//        self.pickerViewContainer.frame = CGRectMake(0, 169, 320, 261);
-//    }
-//    [UIView commitAnimations];
-    [self ViewAnimation:pickerViewContainer willHidden:NO];
-    buttonTag = 0;
-    [self.picker selectRow:[_timeArray containsObject:sender.currentTitle]?[_timeArray indexOfObject:sender.currentTitle]:0 inComponent:0 animated:YES];
+    MYEPickerView *picker = [[MYEPickerView alloc] initWithView:self.view andTag:0 title:@"Rise Time" dataSource:_timeArray andSelectRow:[_timeArray containsObject:sender.currentTitle]?[_timeArray indexOfObject:sender.currentTitle]:0];
+    picker.delegate = self;
+    [picker showInView:self.view];
 }
 - (IBAction)sleepTimeAction:(UIButton *)sender {
-//    // Show UIPickerView
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:0.3];
-//    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-//    if ([UIScreen mainScreen].scale == 2.f && screenHeight == 568.0f) {
-//        self.pickerViewContainer.frame = CGRectMake(0, 257, 320, 261);
-//    } else{
-//        self.pickerViewContainer.frame = CGRectMake(0, 120, 320, 261);
-//    }
-//    [UIView commitAnimations];
-    [self ViewAnimation:pickerViewContainer willHidden:NO];
-    buttonTag = 1;
-    [self.picker selectRow:[_timeArray containsObject:sender.currentTitle]?[_timeArray indexOfObject:sender.currentTitle]:0 inComponent:0 animated:YES];
+    MYEPickerView *picker = [[MYEPickerView alloc] initWithView:self.view andTag:1 title:@"Sleep Time" dataSource:_timeArray andSelectRow:[_timeArray containsObject:sender.currentTitle]?[_timeArray indexOfObject:sender.currentTitle]:0];
+    picker.delegate = self;
+    [picker showInView:self.view];
 }
 
 - (IBAction)saveComfortAction:(UIBarButtonItem *)sender {
@@ -290,47 +206,26 @@
                         self.comfort.comfortRiseTime,
                         self.comfort.comfortSleepTime];
     MyEDataLoader *uploader = [[MyEDataLoader alloc]
-                                 initLoadingWithURLString:urlStr
-                                 postData:nil delegate:self
-                                 loaderName:AC_COMFORT_UPLOADER_NMAE
-                                 userDataDictionary:nil];
+                               initLoadingWithURLString:urlStr
+                               postData:nil delegate:self
+                               loaderName:AC_COMFORT_UPLOADER_NMAE
+                               userDataDictionary:nil];
     NSLog(@"%@",uploader.name);
 }
 
 //    [self.mainContainer setFrame:CGRectMake(self.mainContainer.frame.origin.x, 0, self.mainContainer.frame.size.width, self.mainContainer.frame.size.height)];
 
-
-#pragma mark -
-#pragma mark UIPickerViewDelegate Protocol and UIPickerViewDataSource Method
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return 48;
-}
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, [pickerView rowSizeForComponent:0].width, [pickerView rowSizeForComponent:0].height)];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.font = [UIFont boldSystemFontOfSize:20];
-    
-    //这句代码添加之后，整个视图看上去好看多了，主要是label本身是白色的背景
-    label.backgroundColor = [UIColor clearColor];
-    label.text = _timeArray[row];
-  //  label.text = [NSString stringWithFormat: @"%@",  [MyEUtil timeStringForHhid:row]];
-    return label;
-}
--(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
-    return 40;
-}
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    if (buttonTag == 0) {
-        self.comfort.comfortRiseTime = [NSString stringWithFormat: @"%@",  [MyEUtil timeStringForHhid:row]];
-    }else {
-        self.comfort.comfortSleepTime = [NSString stringWithFormat: @"%@",  [MyEUtil timeStringForHhid:row]];
-    }
+#pragma mark - MYEPickerView delegate method
+-(void)MYEPickerView:(UIView *)pickerView didSelectTitles:(NSString *)title andRow:(NSInteger)row{
+//    if (pickerView.tag == 0) {
+//        self.comfort.comfortRiseTime = [NSString stringWithFormat: @"%@",  [MyEUtil timeStringForHhid:row]];
+//    }else {
+//        self.comfort.comfortSleepTime = [NSString stringWithFormat: @"%@",  [MyEUtil timeStringForHhid:row]];
+//    }
+    if (pickerView.tag == 0) {
+        self.comfort.comfortRiseTime = title;
+    }else
+        self.comfort.comfortSleepTime = title;
     [self _refreshUI];
     [self decideIfComfortChanged];
 }

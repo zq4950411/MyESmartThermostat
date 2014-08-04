@@ -38,9 +38,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSString *imgName = IS_IOS6?@"detailBtn-ios6":@"detailBtn";
-    [self.terminalBtn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+    [self.terminalBtn setBackgroundImage:[[UIImage imageNamed:@"detailBtn"] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
     [self.terminalBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
+    if (IS_IOS6) {
+        self.timeRangeSegment.layer.borderColor = MainColor.CGColor;
+        self.timeRangeSegment.layer.borderWidth = 1.0f;
+        self.timeRangeSegment.layer.cornerRadius = 4.0f;
+        self.timeRangeSegment.layer.masksToBounds = YES;
+    }
 
     self.validTerminals = [MainDelegate.houseData terminalsForUsageStats];
     self.currentTerminalIdx = 0;
