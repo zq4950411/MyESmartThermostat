@@ -1117,6 +1117,7 @@ typedef enum {
 - (void)handleTouchBeganAtLocation:(CGPoint)touchLocation sectorId:(uint)sectorId {
     // 如果当前不允许远程控制，那么直接返回
     if (!self.delegate.isRemoteControl) {
+        [MyEUtil showMessageOn:self withMessage:@"The remote controls from internet has been disabled."];
         return;
     }
     
