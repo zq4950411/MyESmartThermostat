@@ -688,8 +688,7 @@
     CGRect bounds = CGRectMake(CIRCLE_ORIGIN_X + (self.circle.ringWidth + margin),
                                CIRCLE_ORIGIN_Y + (self.circle.ringWidth + margin),
                                diameter,diameter);
-    NSLog(@"x=%f, y=%f, w=%f, h=%f", self.circle.bounds.origin.x, self.circle.bounds.origin.y, bounds.size.width, bounds
-.size.height);
+//    NSLog(@"x=%f, y=%f, w=%f, h=%f", self.circle.bounds.origin.x, self.circle.bounds.origin.y, bounds.size.width, bounds.size.height);
     self.holdRunButton = [UIButton buttonWithType:UIButtonTypeCustom];
     //    [self.holdRunButton setImage:[UIImage imageNamed:@"Micky.png"] forState:UIControlStateNormal];
     [self.holdRunButton addTarget:self action:@selector(_holdRunButtionAction) forControlEvents:UIControlEventTouchUpInside];
