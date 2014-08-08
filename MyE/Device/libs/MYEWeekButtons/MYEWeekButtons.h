@@ -20,6 +20,7 @@
 @property (nonatomic, assign) BOOL isRadio; //是否单选模式
 @property (nonatomic, strong) NSMutableArray *selectedButtons;  //外部传进来的选定的btn
 @property (nonatomic, strong) NSMutableArray *disableArray;  //用于指定哪些按钮是禁用的
+@property (nonatomic, strong) NSArray *unselectedBtns;
 @property (nonatomic, weak) id <MYEWeekButtonsDelegate> delegate;
 
 @end

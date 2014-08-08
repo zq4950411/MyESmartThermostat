@@ -218,9 +218,11 @@
         self.powerSwitch = [dic[@"switchStatus"] intValue];
         self.temperature = [dic[@"temperature"] intValue];
         self.humidity = [dic[@"humidity"] intValue];
-        self.windLevel = [dic[@"winLevel"] intValue];
+        self.windLevel = [dic[@"windLevel"] intValue];
         self.setpoint = [dic[@"temperatureSet"] intValue];
         self.runMode = [dic[@"model"] intValue];
+        self.tempMornitorEnabled = [dic[@"temperatureRangeFlag"] intValue];
+        self.acAutoRunEnabled = [dic[@"autoRunAcFlag"] intValue];
     }
     return self;
 }

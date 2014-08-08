@@ -29,9 +29,9 @@
 //#define URL_FOR_SETTINGS_SAVE @"http://www.myenergydomain.com/setting_save.do"
 
 #define GetServer [ServerUtils getServierIp]
-//#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
+#define GetRequst(API) [@"http://www.myenergydomain.com:80" stringByAppendingFormat:@"%@",API]
 
-#define GetRequst(API) [@"http://192.168.0.73:65500" stringByAppendingFormat:@"%@",API]
+//#define GetRequst(API) [@"http://192.168.0.80:4000" stringByAppendingFormat:@"%@",API]
 
 //#define GetRequst(API) [@"http://182.110.124.250:65533" stringByAppendingFormat:@"%@",API]
 
@@ -162,6 +162,8 @@
 /*--------------------------CAMERA-----------------------------------*/
 #define URL_FOR_CAMERA_LIST @"/ipcamera_ipcamera_view.do"
 #define URL_FOR_CAMERA_EDIT @"/ipcamera_ipcamera_save.do"
+
+
 /*--------------------------AC-----------------------------------*/
 #define URL_FOR_AC_TEMPERATURE_HUMIDITY_VIEW @"/ac_device_status_view.do"
 #define URL_FOR_AC_CONTROL_SAVE @"/ac_manual_control.do"
@@ -169,7 +171,7 @@
 #define URL_FOR_AC_DOWNLOAD_AC_AUTO_CONTROL_VIEW @"/ac_auto_control_view.do"
 #define URL_FOR_AC_UPLOAD_AC_AUTO_PROCESS_SAVE @"/ac_auto_control_save.do"
 #define URL_FOR_AC_ENABLE_AC_AUTO_PROCESS_SAVE @"/ac_auto_control_enable_save.do"
-#define URL_FOR_AC_PERIOD_VALIDATE_INSTRUCTION @"/validACInstruction.do"
+#define URL_FOR_AC_PERIOD_VALIDATE_INSTRUCTION @"/ac_validACInstruction.do"
 #define URL_FOR_AC_INIT @"/ac_device_init.do"
 #define URL_FOR_AC_FEEDBACK_TONE_SWITCH @"/ac_FeedbackToneSwitch.do"
 
@@ -193,7 +195,7 @@
 #define URL_FOR_AC_INSTRUCTION_STUDY_FEEDBACK @"/ac_instruction_study_view.do"
 #define URL_FOR_AC_INSTRUCTION_VALIDATE @"/ac_instruction_study_validate.do"
 #define URL_FOR_AC_AUTO_CHECK_MODULE @"/ac_autoChkModule.do"
-#define URL_FOR_COMMAND_SEND_TIMEOUT @"/sendTimeoutCommand.do"
+#define URL_FOR_COMMAND_SEND_TIMEOUT @"/ac_sendTimeoutCommand.do"
 
 // 定义App是否加载过的标志Key
 #define KEY_FOR_APP_HAS_LAUNCHED_ONCE @"AppHasLaunchedOnce"

@@ -46,7 +46,7 @@
         self.name = dic[@"aliasName"]== [NSNull null]?@"":dic[@"aliasName"];
         self.signal = [dic[@"rfStatus"] intValue];
         self.type = [dic[@"terminalType"] intValue];
-        self.controlState = [dic[@"controlState"] intValue];
+        self.controlState = dic[@"controlState"]==[NSNull null]?0:[dic[@"controlState"] intValue];
     }
     return self;
 }
@@ -92,6 +92,9 @@
 }
 -(UIImage *)getImage{
     NSArray *array = @[@"signal0",@"signal1",@"signal2",@"signal3",@"signal4"];
+    if (self.signal == -1) {
+        return [UIImage imageNamed:@"noconnection"];
+    }
     return [UIImage imageNamed:array[self.signal]];
 }
 @end

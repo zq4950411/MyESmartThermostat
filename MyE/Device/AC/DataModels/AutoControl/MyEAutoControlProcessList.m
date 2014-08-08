@@ -72,7 +72,9 @@
             continue;
         }
         for (NSNumber *day in process.days) {
-            [array addObject:[day copy]];
+            if (![array containsObject:day]) {
+                [array addObject:[day copy]];
+            }
         }
     }
     return array;

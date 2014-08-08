@@ -40,7 +40,12 @@
     [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
     [self defineTapGestureRecognizer];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    if (_device.typeId.intValue == 1) {
+        [self refreshUI];
+    }
+}
 #pragma mark - private methods
 -(void)defineTapGestureRecognizer{
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
@@ -94,7 +99,7 @@
 }
 -(void)refreshUI{
     self.nameTextField.text = _newDevice.deviceName;
-    self.acTypeLbl.text = [_device.brand isEqualToString:@""]?@"No IR Code":[NSString stringWithFormat:@"%@-%@",_device.brand,_device.model];
+    self.acTypeLbl.text = [_device.brand isEqualToString:@""]?@"No IR Code":[NSString stringWithFormat:@"%@/%@",_device.brand,_device.model];
     for (int i = 1; i < 4; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -266,7 +271,7 @@
             break;
         case 3:    //tid
             if (!_isAddDevice) {
-                if (self.device.typeId.intValue == 6 ||self.device.typeId.intValue == 7 || self.device.typeId.intValue == 0) {
+                if (self.device.typeId.intValue == 6 ||self.device.typeId.intValue == 7 || self.device.typeId.intValue == 0 || _device.typeId.intValue == 1) {
                     return;
                 }
             }

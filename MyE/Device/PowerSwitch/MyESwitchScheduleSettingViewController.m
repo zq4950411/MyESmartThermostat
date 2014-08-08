@@ -13,23 +13,13 @@
 @end
 
 @implementation MyESwitchScheduleSettingViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - life circle method
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSString *string = IS_IOS6?@"detailBtn-ios6":@"detailBtn";
     for (UIButton *btn in self.view.subviews) {
         if ([btn isKindOfClass:[UIButton class]]) {
-            [btn setBackgroundImage:[UIImage imageNamed:string] forState:UIControlStateNormal];
+            [btn setBackgroundImage:[UIImage imageNamed:@"detailBtn"] forState:UIControlStateNormal];
             [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
         }
     }

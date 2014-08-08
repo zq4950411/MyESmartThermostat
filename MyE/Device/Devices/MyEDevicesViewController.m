@@ -610,7 +610,7 @@
     if (alertView.tag == 100 && buttonIndex == 1) {
         MyEDevice *device = _devices[_selectedIndexPath.row];
         if (device.typeId.intValue == 1) {
-            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&id=%@&action=1&name=%@&tId=%@&roomId=%@",GetRequst(URL_FOR_AC_ADD_EDIT_SAVE),MainDelegate.houseData.houseId,device.deviceId,device.deviceName,device.tid,device.locationId] andName:@"deleteAC"];
+            [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&id=%@&action=2&name=%@&tId=%@&roomId=%@",GetRequst(URL_FOR_AC_ADD_EDIT_SAVE),MainDelegate.houseData.houseId,device.deviceId,device.deviceName,device.tid,device.locationId] andName:@"deleteAC"];
         }else
             [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&action=deleteDevice",GetRequst(URL_FOR_SAVE_DEVICE),MainDelegate.houseData.houseId,device.deviceId] andName:@"delete"];
     }

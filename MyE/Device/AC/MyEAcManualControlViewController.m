@@ -14,7 +14,7 @@
 #define AC_TEMPERATURE_HUMIDITY_DOWNLOADER_NMAE @"AcTemperatureHumidityDownloader"
 
 @interface MyEAcManualControlViewController (){
-    NSInteger _humidity,_temperature,_runmode,_switchStatus,_windLevel,_temperatureSet;
+    NSInteger _humidity,_temperature,_runmode,_switchStatus,_windLevel,_temperatureSet,_instructionMode;
     MyEDeviceStatus *_status;
 }
 
@@ -80,7 +80,7 @@
 - (void) downloadTemperatureHumidityFromServer
 {
     // this is a dumb download, don't add progress indicator or spinner here
-    NSString *urlStr = [NSString stringWithFormat:@"%@?id=%@tId=%@&houseId=%i",GetRequst(URL_FOR_AC_TEMPERATURE_HUMIDITY_VIEW),device.deviceId,device.tid,MainDelegate.houseData.houseId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@?id=%@&tId=%@&houseId=%i",GetRequst(URL_FOR_AC_TEMPERATURE_HUMIDITY_VIEW),device.deviceId,device.tid,MainDelegate.houseData.houseId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:AC_TEMPERATURE_HUMIDITY_DOWNLOADER_NMAE  userDataDictionary:nil];
     NSLog(@"%@",downloader.name);
 }
@@ -113,12 +113,24 @@
             _humidity = [[dict objectForKey:@"humidity"] intValue];
             _switchStatus = [dict[@"switchStatus"] intValue];
             _runmode = [dict[@"model"] intValue];
-            if (_runmode == 0) {
-                NSLog(@"模式错误");
-            }
-            _windLevel = [dict[@"winLevel"] intValue];
+            _windLevel = [dict[@"windLevel"] intValue];
             _temperatureSet = [dict[@"temperatureSet"] intValue];
+            _instructionMode = [dict[@"ventilationFlag"] intValue];
             _status = [[MyEDeviceStatus alloc] init];
+            NSInteger i = [dict[@"temperatureRangeFlag"] intValue];
+            NSInteger j = [dict[@"autoRunAcFlag"] intValue];
+            UINavigationController *nav2 = self.tabBarController.childViewControllers[1];
+            UINavigationController *nav3 = self.tabBarController.childViewControllers[2];
+
+            if (i == 1) {
+                nav3.tabBarItem.enabled = NO;
+            }else
+                nav3.tabBarItem.enabled = YES;
+            
+            if (j == 1) {
+                nav2.tabBarItem.enabled = NO;
+            }else
+                nav2.tabBarItem.enabled = YES;
             [self refreshUI];
         }
     }
@@ -141,7 +153,7 @@
 //            _status.runMode = [dic[@"runMode"] intValue];
 //            _status.windLevel = [dic[@"windLevel"] intValue];
 //            _status.setpoint = [dic[@"setpoint"] intValue];
-            [MyEUtil showMessageOn:nil withMessage:@"该指令未学习，启用自动补全功能"];
+            [MyEUtil showMessageOn:nil withMessage:@"The instruction are not learning, enable auto-complete function"];
         }
     }
 }
@@ -188,10 +200,10 @@
     if (_status.powerSwitch == 0) {
         return;
     }
-    if (_status.tempMornitorEnabled == 1 && [temperatureLabel.text intValue] >= _status.acTmax) {
-        [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"超出温度监控最高温度"];
-        return;
-    }
+//    if (_status.tempMornitorEnabled == 1 && [temperatureLabel.text intValue] >= _status.acTmax) {
+//        [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"超出温度监控最高温度"];
+//        return;
+//    }
 
     //获取当前的温度
     NSInteger i = _status.setpoint;
@@ -213,10 +225,10 @@
     if (_status.powerSwitch == 0) {
         return;
     }
-    if (_status.tempMornitorEnabled == 1 && [temperatureLabel.text intValue] <= _status.acTmin) {
-        [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"低于温度监控最低温度"];
-        return;
-    }
+//    if (_status.tempMornitorEnabled == 1 && [temperatureLabel.text intValue] <= _status.acTmin) {
+//        [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"低于温度监控最低温度"];
+//        return;
+//    }
     NSInteger i = _status.setpoint;
     --i;
     _status.setpoint = i;
@@ -238,7 +250,7 @@
     }
     NSInteger i = _status.runMode;
     i ++;
-    if (device.instructionMode == 1) {
+    if (_instructionMode == 1) {
         if (i > 5) {
             i = 1;
         }

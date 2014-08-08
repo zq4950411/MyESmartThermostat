@@ -24,10 +24,9 @@
     _newPeriod = [self.period copy];
     NSLog(@"new period is %@",_newPeriod);
     //更新UI
-    NSString *imgName = IS_IOS6?@"detailBtn-ios6":@"detailBtn";
-    [self.startTimeBtn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+    [self.startTimeBtn setBackgroundImage:[[UIImage imageNamed:@"detailBtn"] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
     [self.startTimeBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
-    [self.endTimeBtn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+    [self.endTimeBtn setBackgroundImage:[[UIImage imageNamed:@"detailBtn"] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
     [self.endTimeBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
     //更改btn的title
     [self.startTimeBtn setTitle:[MyEUtil timeStringForHhid:_newPeriod.stid] forState:UIControlStateNormal];

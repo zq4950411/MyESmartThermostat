@@ -22,7 +22,7 @@
 @property (nonatomic, assign) NSInteger selectRow;
 @property (nonatomic, strong) UIPickerView *pickerView;
 @property (nonatomic, strong) NSArray *data;
-
+@property (nonatomic, assign) BOOL isHigh;
 -(MYEPickerView *)initWithView:(UIView *)view andTag:(NSInteger)tag title:(NSString *)title dataSource:(NSArray *)data andSelectRow:(NSInteger)row;
 
 -(void)showInView:(UIView *)view;

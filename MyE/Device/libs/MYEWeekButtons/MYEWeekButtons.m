@@ -31,6 +31,9 @@
     if ([self.disableArray count]) {
         [self changeBtnDisable];
     }
+    if ([self.unselectedBtns count]) {
+        [self changeBtnUnselect];
+    }
     [self addObserver:self forKeyPath:@"selectedButtons" options:0 context:NULL];
 }
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
@@ -153,6 +156,12 @@
         if (i == 1) {
             btn.enabled = NO;
         }
+    }
+}
+-(void)changeBtnUnselect{
+    for (NSNumber *i in self.unselectedBtns) {
+        UIButton *btn = (UIButton *)[self viewWithTag:(i.intValue + 1000)];
+        btn.enabled = NO;
     }
 }
 @end

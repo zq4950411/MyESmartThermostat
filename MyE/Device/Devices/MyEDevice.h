@@ -63,6 +63,7 @@
 @property (nonatomic, assign) NSInteger temperature;
 //以下三个字段表示的是空调温度监控的相关信息
 @property (nonatomic, assign) NSInteger tempMornitorEnabled;
+@property (nonatomic, assign) NSInteger acAutoRunEnabled;
 @property (nonatomic, assign) NSInteger acTmin;
 @property (nonatomic, assign) NSInteger acTmax;
 

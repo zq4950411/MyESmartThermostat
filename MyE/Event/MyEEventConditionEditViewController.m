@@ -32,9 +32,8 @@
     _newCustom = [self.conditionCustom copy];
     self.navigationItem.title = _isAdd?@"New Condition":@"Condition Edit";
     NSLog(@"%@",_newCustom);
-    NSString *imgName = IS_IOS6?@"detailBtn-ios6":@"detailBtn";
     for (UIButton *btn in self.btns) {
-        [btn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+        [btn setBackgroundImage:[[UIImage imageNamed:@"detailBtn"] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
         [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
     }
     

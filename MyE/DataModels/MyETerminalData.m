@@ -21,7 +21,7 @@
         self.tName = [dictionary objectForKey:@"aliasName"];
         self.connection = [[dictionary objectForKey:@"thermostat"] intValue];
         self.deviceType = [[dictionary objectForKey:@"deviceType"] intValue];
-        self.keypad = [[dictionary objectForKey:@"keypad"] intValue];
+        self.keypad = dictionary[@"keypad"] == [NSNull null]?0:[[dictionary objectForKey:@"keypad"] intValue];
         
         //remote = 0表示禁止远程控制，1表示允许远程控制。（只有当thermostat=0 和1时才有remote的值,thermostat=2是没有硬件，就没有返回remote的值了
         if (self.connection == 0 || self.connection == 1) {

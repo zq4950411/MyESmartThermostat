@@ -334,13 +334,24 @@
     _speed += data.length;
     [self performSelectorOnMainThread:@selector(refreshImage:) withObject:image waitUntilDone:YES];
 }
-//- (void) YUVNotify: (Byte*) yuv length:(int)length width: (int) width height:(int)height timestamp:(unsigned int)timestamp DID:(NSString *)did{
-////    UIImage* image = [APICommon YUV420ToImage:yuv width:width height:height];
-//    [self performSelector:@selector(refreshImage:) withObject:[APICommon YUV420ToImage:yuv width:width height:height]];
-//}
-//- (void) H264Data: (Byte*) h264Frame length: (int) length type: (int) type timestamp: (NSInteger) timestamp{
-//    
-//}
+- (void) YUVNotify: (Byte*) yuv length:(int)length width: (int) width height:(int)height timestamp:(unsigned int)timestamp DID:(NSString *)did{
+    if ([self.playView.subviews count]) {
+        [self performSelectorOnMainThread:@selector(hideHUD) withObject:nil waitUntilDone:YES];
+    }
+    UIImage* image = [APICommon YUV420ToImage:yuv width:width height:height];
+    NSData *data = UIImageJPEGRepresentation(image, 1.0);
+    _speed += data.length;
+    [self performSelector:@selector(refreshImage:) withObject:image];
+}
+- (void) H264Data: (Byte*) h264Frame length: (int) length type: (int) type timestamp: (NSInteger) timestamp{
+    if ([self.playView.subviews count]) {
+        [self performSelectorOnMainThread:@selector(hideHUD) withObject:nil waitUntilDone:YES];
+    }
+    UIImage* image = [UIImage imageWithData:[[NSData alloc] initWithBytes:h264Frame length:length]];
+    NSData *data = UIImageJPEGRepresentation(image, 1.0);
+    _speed += data.length;
+    [self performSelector:@selector(refreshImage:) withObject:image];
+}
 #pragma mark - PPPPStatusDelegate methods
 - (void) PPPPStatus: (NSString*) strDID statusType:(NSInteger) statusType status:(NSInteger) status{
     NSString* strPPPPStatus;

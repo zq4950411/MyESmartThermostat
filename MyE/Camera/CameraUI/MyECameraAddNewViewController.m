@@ -235,7 +235,8 @@
                 NSInteger deviceId = [dic[@"id"] intValue];
                 _camera.deviceId = deviceId;
                 [self.cameraList addObject:self.camera];
-                MyECameraTableViewController *vc = self.navigationController.childViewControllers[0];
+                NSInteger i = [self.navigationController.childViewControllers indexOfObject:self];
+                MyECameraTableViewController *vc = self.navigationController.childViewControllers[i - 1];
                 vc.needRefresh = YES;
                 [self mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
             }else

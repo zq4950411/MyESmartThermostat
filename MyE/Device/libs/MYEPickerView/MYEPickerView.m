@@ -114,9 +114,21 @@
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 0;
     label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont boldSystemFontOfSize:20];
     label.text = _data[row];
+    NSInteger i = label.text.length;
+    if (i > 80) {
+        label.font = [UIFont systemFontOfSize:11];
+    }else if(i > 25){
+        label.font = [UIFont systemFontOfSize:13];
+    }else
+        label.font = [UIFont boldSystemFontOfSize:20];
     return label;
+}
+-(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
+    if (_isHigh) {
+        return 44;
+    }else
+        return 33;
 }
 #pragma mark - UIPickerView delegate
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{

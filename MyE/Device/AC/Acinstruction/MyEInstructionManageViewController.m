@@ -32,7 +32,7 @@
     }
 
     if (![self.device.brand isEqualToString:@""]) {
-        self.brandLabel.text = [NSString stringWithFormat:@"%@   %@",self.device.brand,self.device.model];
+        self.brandLabel.text = [NSString stringWithFormat:@"%@ / %@",self.device.brand,self.device.model];
     }else{
         self.brandLabel.text = @"Specify the IR Code set for the AC";
     }

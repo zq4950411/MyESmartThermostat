@@ -55,6 +55,7 @@
     }
 //    self.daySegmentedControl.mydelegate = self;
     self.weekDay.delegate = self;
+    self.weekDay.unselectedBtns = [self.unavailableDays mutableCopy];
     self.weekDay.selectedButtons = self.process.days;
 }
 
@@ -180,17 +181,17 @@
 #pragma mark - IBAction methods
 - (IBAction)saveProcessAction:(id)sender {
     if([self.process.periods count] == 0){
-        [MyEUtil showMessageOn:self.view withMessage:@"进程必须至少有一个时段"];
+        [MyEUtil showMessageOn:self.view withMessage:@"please add a period"];
         return;
     }
     if([self.process.days count] == 0){
-        [MyEUtil showMessageOn:self.view withMessage:@"进程必须至少应用到某一天"];
+        [MyEUtil showMessageOn:self.view withMessage:@"please select weekday"];
         return;
     }
     if([ self.process isValid])
         [self uploadProcessToServerAndReturn];
     else
-        [MyEUtil showMessageOn:self.view withMessage:@"进程无效，请确保时段没有重叠"];
+        [MyEUtil showMessageOn:self.view withMessage:@"Process invalid, make sure there is no overlap period"];
     
 }
 - (IBAction)saveAndReturnAction:(id)sender {

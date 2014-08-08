@@ -28,18 +28,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-    //    [btn setFrame:CGRectMake(0, 0, 50, 30)];
-    //    if (!IS_IOS6) {
-    //        [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    //        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
-    //    }else{
-    //        [btn setBackgroundImage:[UIImage imageNamed:@"back-ios6"] forState:UIControlStateNormal];
-    //        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-    //        btn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-    //        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    //        [btn setTitle:@"返回" forState:UIControlStateNormal];
-    //    }
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
     [btn setFrame:CGRectMake(0, 0, 50, 30)];
     [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
@@ -55,7 +43,6 @@
         self.enableProcessSegmentedControl.layer.masksToBounds = YES;
     }
     [self downloadProcessListFromServer];
-    //    [self.parentViewController setTitle:[NSString stringWithFormat:@"%@-自动控制", self.device.name]];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -199,10 +186,9 @@
         [HUD show:YES];
     
     if (self.device.typeId.intValue == 1) { //空调设备
-        NSString *urlStr = [NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&enable=%ld",
+        NSString *urlStr = [NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&enable=%ld",
                             GetRequst(URL_FOR_AC_ENABLE_AC_AUTO_PROCESS_SAVE),
                             MainDelegate.houseData.houseId,
-                            self.device.tid,
                             self.device.deviceId,
                             1-(long)self.enableProcessSegmentedControl.selectedSegmentIndex];
         MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:ENABLE_AUTO_PROCESS_UPLOADER_NMAE  userDataDictionary:Nil];

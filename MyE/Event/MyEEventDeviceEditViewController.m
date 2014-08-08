@@ -183,6 +183,7 @@
                     self.setpointView.hidden = YES;
                     self.fanBtn.hidden = YES;
                     self.fanLbl.hidden = YES;
+                    [mode setTitle:@"OFF" forState:UIControlStateNormal];
                 }
             }else{
                 [mode setTitle:[_instructions controlModeArray][_instructions.controlMode - 1] forState:UIControlStateNormal];

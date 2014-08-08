@@ -207,12 +207,12 @@
             if (failureTimes < 5) {
                 [self autoCheckInstructionWithModuleId:[moduleIdArray[moduleIdIndex] integerValue]];
             }else{
-                [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"自动匹配指令发送失败"];
+                [MyEUtil showInstructionStatusWithYes:NO andView:self.navigationController.navigationBar andMessage:@"Fail"];
             }
         }else if([MyEUtil getResultFromAjaxString:string] == 1){
             if (manualSendInstruction) {
                 manualSendInstruction = NO;
-                [MyEUtil showInstructionStatusWithYes:YES andView:self.navigationController.navigationBar andMessage:@"指令发送成功"];
+                [MyEUtil showInstructionStatusWithYes:YES andView:self.navigationController.navigationBar andMessage:@"Success"];
             }else{
                 if (!autoCheckStop) {
                     if (_roundTimes < 2) {
@@ -224,7 +224,7 @@
                         self.stopBtn.enabled = NO;
                         self.cancelBtn.enabled = YES;
                         autoCheckStop = YES;
-                        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"该品牌的所有型号已匹配了 2 遍,如果空调仍没有反应,请点击[返回],切换到[自学习]进行指令学习" leftButtonTitle:nil rightButtonTitle:@"知道了"];
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"All models of the brand has matched 2 times, if the AC is still no response, please click Cancel switch to User Defined Set panel" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                         [alert show];
                     }
                 }

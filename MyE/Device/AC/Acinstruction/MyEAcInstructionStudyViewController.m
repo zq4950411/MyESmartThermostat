@@ -51,11 +51,15 @@
 //    if (!IS_IOS6) {
         for (UIButton *btn in self.view.subviews) {
             if ([btn isKindOfClass:[UIButton class]]) {
-                if (btn.tag == 100 || btn.tag == 101) {
-                    btn.layer.masksToBounds = YES;
-                    btn.layer.cornerRadius = 5;
-                    btn.layer.borderColor = btn.tintColor.CGColor;
-                    btn.layer.borderWidth = 1;
+                if (btn.tag == 101) {
+                    if (!IS_IOS6) {
+                        btn.layer.masksToBounds = YES;
+                        btn.layer.cornerRadius = 4;
+                        btn.layer.borderColor = btn.tintColor.CGColor;
+                        btn.layer.borderWidth = 1;
+                    }
+                }else if (btn.tag == 100){
+                    
                 }else{
                     [btn setBackgroundImage:[UIImage imageNamed:@"detailBtn"] forState:UIControlStateNormal];
                     [btn setBackgroundImage:[UIImage imageNamed:@"detailBtn-ios6"] forState:UIControlStateDisabled];
@@ -347,7 +351,7 @@
 //    } else
 //        [HUD show:YES];
     NSString * urlStr= [NSString stringWithFormat:@"%@?tId=%@&studyId=%li&houseId=%i",
-                        GetRequst(URL_FOR_INSTRUCTION_TIME_OUT),
+                        GetRequst(URL_FOR_COMMAND_SEND_TIMEOUT),
                         self.device.tid,(long)instruction.instructionId,MainDelegate.houseData.houseId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc]
                                  initLoadingWithURLString:urlStr
@@ -367,9 +371,9 @@
             return;
         }
         if ([MyEUtil getResultFromAjaxString:string] == 2) {
-            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"空调指令已存在，请重新添加"];
+            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"Instruction has existed"];
         }else if([MyEUtil getResultFromAjaxString:string] == -1){
-            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"空调指令编辑出错"];
+            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"Error"];
         }else{
             //此时指令添加或者编辑成功
             if (jumpFromBarBtn) {
@@ -393,12 +397,12 @@
         }
         if ([MyEUtil getResultFromAjaxString:string] == -2) {
             [HUD hide:YES];
-            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"空调指令已存在，请重新添加"];
+            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"Instruction has existed"];
             return;
         }
         if ([MyEUtil getResultFromAjaxString:string] != 1) {
             [HUD hide:YES];
-            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"空调指令学习时发生错误"];
+            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"Error"];
         }else{
             SBJsonParser *parser = [[SBJsonParser alloc] init];
             NSDictionary *dic = [parser objectWithString:string];
@@ -425,8 +429,8 @@
             [HUD hide:YES];
             self.checkBtn.enabled = YES;
 //  #warning 这里建议修改studyBtn的背景色，以区分学习和未学习。这里必须要以背景图片的形式处理，因为
-            [self.studyBtn setTitle:@"再学习" forState:UIControlStateNormal]; //这里要更新button的title，从而让用户更为直观的明确
-            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"空调指令学习成功"];
+            [self.studyBtn setTitle:@"re-record" forState:UIControlStateNormal]; //这里要更新button的title，从而让用户更为直观的明确
+            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"Success"];
         }else{
             if (studyQueryTimes < 7) {
                 //这里的timer是不重复的，运行之后就自动停下来了。这种处理问题的思路跟直接一个全局timer是不同的，这里这种思路考虑的出发点就是此处有一个特征值，也就是studyQueryTimes用来处理事件变化次数
@@ -435,20 +439,27 @@
             }else{
                 [self sendInstructionStudyTimeout];
                 [HUD hide:YES];
-                [MyEUtil showMessageOn:self.navigationController.view withMessage:@"学习超时，请重试"];
+                [MyEUtil showMessageOn:self.navigationController.view withMessage:@"Time out"];
             }
         }
     }
     if ([name isEqualToString:@"studyTimeOut"]) {
         NSLog(@"studyTimeOut string is %@",string);
-        instruction.status = 0;
+        if (jumpFromBarBtn) {
+            if (![self.list.instructionList containsObject:instruction]) {
+                instruction.status = 0;
+                [self.list.instructionList addObject:instruction];
+            }
+        }else{
+            instruction.status = 0;
+        }
     }
     if ([name isEqualToString:@"instructionValidate"]) {
         NSLog(@"instructionValidate string is %@",string);
         if ([MyEUtil getResultFromAjaxString:string] != 1) {
-            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"校验指令发送失败"];
+            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"Fail"];
         }else{
-            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"校验指令发送成功"];
+            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"Success"];
         }
     }
 }

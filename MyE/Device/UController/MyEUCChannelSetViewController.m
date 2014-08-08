@@ -29,8 +29,7 @@
     }
     [self.channelBtn setTitle:[NSString stringWithFormat:@"Channel %i",_newChannel.channel] forState:UIControlStateNormal];
     self.durationTxt.text = [NSString stringWithFormat:@"%i",_newChannel.duration];
-    NSString *imgName = IS_IOS6?@"detailBtn-ios6":@"detailBtn";
-    [self.channelBtn setBackgroundImage:[[UIImage imageNamed:imgName] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+    [self.channelBtn setBackgroundImage:[[UIImage imageNamed:@"detailBtn"] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
     [self.channelBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
 }
 

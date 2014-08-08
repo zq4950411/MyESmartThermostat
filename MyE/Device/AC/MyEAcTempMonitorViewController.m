@@ -131,43 +131,42 @@
         NSLog(@"AC_TEMP_MONITOR_UPLOADER_NMAE string is %@",string);
         if ([MyEUtil getResultFromAjaxString:string] == -3) {
             [MyEUniversal doThisWhenUserLogOutWithVC:self];
-            //           [MyEUtil showErrorOn:self.navigationController.view withMessage:@"用户会话超时，需要重新登录！"];
         } else if ([MyEUtil getResultFromAjaxString:string] != 1) {
             [SVProgressHUD showErrorWithStatus:@"fail"];
             self.acTempMonitor = [_acTempMonitor_copy copy];// revert the value
         } else  {
             _acTempMonitor_copy = [self.acTempMonitor copy];// clone the backup data
-            
-            //这个才是正确的逻辑，用于指定正确的值
-            if (self.enableTempMonitorSwitch.isOn) {
-                if (self.enableAcAutoRunSwitch.isOn) {
-                    self.device.status.tempMornitorEnabled = 1;
-                }else
-                    self.device.status.tempMornitorEnabled = 0;
-            }else{
-                self.device.status.tempMornitorEnabled = 0;
-            }
-            //            self.device.status.tempMornitorEnabled = self.acTempMonitor.monitorFlag?1:0;
-            self.device.status.acTmin = self.acTempMonitor.minTemp;
-            self.device.status.acTmax = self.acTempMonitor.maxTemp;
+//            
+//            //这个才是正确的逻辑，用于指定正确的值
+//            if (self.enableTempMonitorSwitch.isOn) {
+//                if (self.enableAcAutoRunSwitch.isOn) {
+//                    self.device.status.tempMornitorEnabled = 1;
+//                }else
+//                    self.device.status.tempMornitorEnabled = 0;
+//            }else{
+//                self.device.status.tempMornitorEnabled = 0;
+//            }
+//            //            self.device.status.tempMornitorEnabled = self.acTempMonitor.monitorFlag?1:0;
+//            self.device.status.acTmin = self.acTempMonitor.minTemp;
+//            self.device.status.acTmax = self.acTempMonitor.maxTemp;
         }
     }
     [self decideIfComfortChanged];
-    if (!self.device.isSystemDefined) {
-        return;
-    }
+//    if (!self.device.isSystemDefined) {
+//        return;
+//    }
     //只有enableAcAutoRunSwitch开启的时候才能限制tabbar的点击
-    if (self.enableTempMonitorSwitch.isOn && self.enableAcAutoRunSwitch.isOn) {
-        UINavigationController *nav1 = [self.tabBarController childViewControllers][1];
-        UINavigationController *nav2 = [self.tabBarController childViewControllers][2];
-        nav1.tabBarItem.enabled = NO;
+    UINavigationController *nav1 = [self.tabBarController childViewControllers][1];
+    UINavigationController *nav2 = [self.tabBarController childViewControllers][2];
+
+    if (self.enableTempMonitorSwitch.isOn) {
         nav2.tabBarItem.enabled = NO;
-    }else{
-        UINavigationController *nav1 = [self.tabBarController childViewControllers][1];
-        UINavigationController *nav2 = [self.tabBarController childViewControllers][2];
-        nav1.tabBarItem.enabled = YES;
+    }else
         nav2.tabBarItem.enabled = YES;
-    }
+    if (self.enableAcAutoRunSwitch.isOn){
+        nav1.tabBarItem.enabled = NO;
+    }else
+        nav1.tabBarItem.enabled = YES;
 }
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     [HUD hide:YES];
@@ -212,6 +211,9 @@
 - (IBAction)tempMonitorSwitchChanged:(UISwitch *)sender {
     self.acTempMonitor.monitorFlag = self.enableTempMonitorSwitch.on;
     self.overlayView.hidden = self.acTempMonitor.monitorFlag;
+    if (!self.enableTempMonitorSwitch.isOn) {
+        [self.enableAcAutoRunSwitch setOn:NO];
+    }
     [self decideIfComfortChanged];
 }
 

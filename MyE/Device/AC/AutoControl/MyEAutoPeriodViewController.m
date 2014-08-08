@@ -44,7 +44,7 @@
 	// Do any additional setup after loading the view.
     [self.timePeriodBtn setTitle:[NSString stringWithFormat:@"%@       -        %@", [self.period startTimeString], [self.period endTimeString]] forState:UIControlStateNormal ];
 
-    [self.instructionButton setTitle:[NSString stringWithFormat:@"%@,          %@,          %@",
+    [self.instructionButton setTitle:[NSString stringWithFormat:@"%@,   %@,   %@",
                                        [MyEAcUtil getStringForRunMode:self.period.runMode],
                                        [MyEAcUtil getStringForSetpoint:self.period.setpoint],
                                        [MyEAcUtil getStringForWindLevel:self.period.windLevel]]
@@ -59,7 +59,9 @@
             }
         }
     }
-    [self downloadInstructionSetFromServer];
+    if (!self.device.isSystemDefined) {
+        [self downloadInstructionSetFromServer];
+    }
 }
 - (void)didReceiveMemoryWarning
 {
@@ -445,14 +447,14 @@
             replaced_windLevel =[[result_dict objectForKey:@"windLevel"] intValue];
             
             NSString *messageString = [NSString stringWithFormat:
-                                       @"所选择的指令不存在，系统为您选择一个相近的指令：(%@,%@,%@)，您确定用这个指令吗？",
+                                       @"The instruction you set does not exist,do you want (%@,%@,%@)？",
                                        [MyEAcUtil getStringForRunMode:replaced_runMode],
                                        [MyEAcUtil getStringForSetpoint:replaced_setpoint],
                                        [MyEAcUtil getStringForWindLevel:replaced_windLevel]];
-            DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"指令验证"
+            DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert"
                                                         contentText:messageString
-                                                    leftButtonTitle:@"取消"
-                                                   rightButtonTitle:@"确定"];
+                                                    leftButtonTitle:@"Cancel"
+                                                   rightButtonTitle:@"OK"];
             [alert show];
             alert.rightBlock=^{
                 self.period.runMode = replaced_runMode;

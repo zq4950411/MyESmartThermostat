@@ -65,7 +65,7 @@
 }
 #pragma mark - NSLog methods
 -(NSString *)description{
-    return [NSString stringWithFormat:@"name:%@  UID:%@  userName:%@  password:%@",self.name,self.UID,self.username,self.password];
+    return [NSString stringWithFormat:@"name:%@  UID:%@  userName:%@  password:%@ status:%@ online:%@",self.name,self.UID,self.username,self.password,_status,_isOnline?@"YES":@"NO"];
 }
 @end
 

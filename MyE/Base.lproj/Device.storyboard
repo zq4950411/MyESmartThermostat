@@ -149,8 +149,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xa8-h2-6IM">
-                                                    <rect key="frame" x="41" y="7" width="245" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xa8-h2-6IM">
+                                                    <rect key="frame" x="37" y="7" width="246" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="IR Code Library">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -160,6 +160,12 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Xa8-h2-6IM" firstAttribute="top" secondItem="saT-r4-deA" secondAttribute="top" constant="7" id="NZ3-JY-6ab"/>
+                                                <constraint firstAttribute="bottom" secondItem="Xa8-h2-6IM" secondAttribute="bottom" constant="6" id="Pre-08-BBW"/>
+                                                <constraint firstAttribute="trailing" secondItem="Xa8-h2-6IM" secondAttribute="trailing" constant="37" id="bDc-Jh-MHp"/>
+                                                <constraint firstItem="Xa8-h2-6IM" firstAttribute="leading" secondItem="saT-r4-deA" secondAttribute="leading" constant="37" id="c0j-Tp-e7H"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>

@@ -12,6 +12,7 @@
 #import "MyEAcUtil.h"
 @interface MyEAcUserModelViewController : UITableViewController<MyEDataLoaderDelegate,MBProgressHUDDelegate>{
     MBProgressHUD *HUD;
+    MBProgressHUD *statusHUD;
     NSTimer *timerToRefreshTemperatureAndHumidity;
 }
 @property (nonatomic, weak) MyEAccountData *accountData;

@@ -59,7 +59,7 @@
     for (UIButton *btn in self.view.subviews) {
         if ([btn isKindOfClass:[UIButton class]]) {
             if (btn.tag == 100 || btn.tag == 101) {
-                [btn setBackgroundImage:[UIImage imageNamed:@"detailBtn"] forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"detailBtn-long"] forState:UIControlStateNormal];
                 [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
             }else{
                 if (!IS_IOS6) {
@@ -86,7 +86,7 @@
     //特别注意此处对于label内容更新的处理
     for (UILabel *l in self.view.superview.superview.subviews) {
         if ([l isKindOfClass:[UILabel class]] && l.tag == 100) {
-            l.text = @"空调未初始化";
+            l.text = @"Specify the IR Code set for the AC controls";
         }
     }
 }
@@ -133,12 +133,12 @@
         requestCircles ++;
         requestTimes = 0;
     }
-    NSString *urlStr = [NSString stringWithFormat:@"%@?id=%li&action=1&brandId=%i&moduleId=%@&tId=%@",
+    NSString *urlStr = [NSString stringWithFormat:@"%@?id=%@&action=1&brandId=%i&moduleId=%@&tId=%@&houseId=%i",
                         GetRequst(URL_FOR_AC_INIT),
-                        (long)self.device.deviceId,
+                        self.device.deviceId,
                         [brandIdArray[[brandNameArray indexOfObject:brandBtn.titleLabel.text]] intValue],
                         modelIdArray[[modelNameArray indexOfObject:modelBtn.titleLabel.text]],
-                        self.device.tid];
+                        self.device.tid,MainDelegate.houseData.houseId];
     
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"checkAcInitProgress" userDataDictionary:nil];
     NSLog(@"%@",downloader.name);
@@ -156,9 +156,9 @@
     NSLog(@"%@",downloader.name);
 }
 -(void)doThisWhenAcInit{
-    NSString *urlStr = [NSString stringWithFormat:@"%@?id=%li&action=0&brandId=%i&moduleId=%@&tId=%@&houseId=%i",
+    NSString *urlStr = [NSString stringWithFormat:@"%@?id=%@&action=0&brandId=%i&moduleId=%@&tId=%@&houseId=%i",
                         GetRequst(URL_FOR_AC_INIT),
-                        (long)self.device.deviceId,
+                        self.device.deviceId,
                         [brandIdArray[[brandNameArray indexOfObject:brandBtn.titleLabel.text]] intValue],
                         modelIdArray[[modelNameArray indexOfObject:modelBtn.titleLabel.text]],
                         self.device.tid,MainDelegate.houseData.houseId];
@@ -168,7 +168,7 @@
 }
 -(void)areYouSureTocancelAcInit{
     DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert"
-                                                contentText:@"此操作将终止空调初始化，你确定继续么？"
+                                                contentText:@"Are you sure to stop the downloading of the AC IR Code?"
                                             leftButtonTitle:@"NO"
                                            rightButtonTitle:@"YES"];
     [alert show];
@@ -182,8 +182,8 @@
     //    requestCircles = 4;
     [timer invalidate]; //取消初始化的时候就把timer注销掉
     HUD.mode = MBProgressHUDModeIndeterminate;
-    HUD.detailsLabelText = @"正在取消初始化";
-    NSString *urlStr = [NSString stringWithFormat:@"%@?id=%li&action=2&brandId=%i&moduleId=%@&tId=%@",GetRequst(URL_FOR_AC_INIT), (long)self.device.deviceId,[brandIdArray[[brandNameArray indexOfObject:brandBtn.titleLabel.text]] intValue],modelIdArray[[modelNameArray indexOfObject:modelBtn.titleLabel.text]],self.device.tid];
+    HUD.detailsLabelText = @"Stopping...";
+    NSString *urlStr = [NSString stringWithFormat:@"%@?id=%@&action=2&brandId=%i&moduleId=%@&tId=%@&houseId=%i",GetRequst(URL_FOR_AC_INIT),self.device.deviceId,[brandIdArray[[brandNameArray indexOfObject:brandBtn.titleLabel.text]] intValue],modelIdArray[[modelNameArray indexOfObject:modelBtn.titleLabel.text]],self.device.tid,MainDelegate.houseData.houseId];
     
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"cancelAcInit" userDataDictionary:nil];
     NSLog(@"%@",downloader.name);
@@ -202,7 +202,8 @@
         if ([MyEUtil getResultFromAjaxString:string] != 1) {
             [HUD hide:YES];
             [UIApplication sharedApplication].idleTimerDisabled = NO;
-            HUD.detailsLabelText = @"进度查询失败!";
+            HUD.detailsLabelText = @"Fail to query!";
+            [cancelButton removeFromSuperview];
             //            [MyEUtil showMessageOn:self.navigationController.view withMessage:@"初始化进度查询失败"];
         }else{
             SBJsonParser *parser = [[SBJsonParser alloc] init];
@@ -210,7 +211,7 @@
             float progress = [dic[@"progress"] floatValue];
             
             if (progress == 0) {
-                HUD.detailsLabelText = @"正在查询进度...";
+                HUD.detailsLabelText = @"Querying...";
             }else{
                 HUD.customView = progressLabel;
                 HUD.mode = MBProgressHUDModeCustomView;
@@ -225,7 +226,7 @@
                     [timer invalidate];
                     [cancelButton removeFromSuperview];
                     //#warning 这里添加一个下载失败的笑脸图案
-                    HUD.detailsLabelText = @"空调初始化失败";
+                    HUD.detailsLabelText = @"Download failed";
                     [UIApplication sharedApplication].idleTimerDisabled = NO;
                     [self defineTapGestureRecognizerOnWindow];
                 }
@@ -238,7 +239,7 @@
                     [cancelButton removeFromSuperview];
                     HUD.customView = imageView;
                     HUD.mode = MBProgressHUDModeCustomView;
-                    HUD.detailsLabelText = @"空调初始化完成";
+                    HUD.detailsLabelText = @"Success";
                     [self defineTapGestureRecognizerOnWindow];
                     //                    [HUD hide:YES afterDelay:2];
                     self.device.brand = brandBtn.titleLabel.text;
@@ -246,11 +247,10 @@
                     self.device.brandId = [brandIdArray[[brandNameArray indexOfObject:brandBtn.titleLabel.text]] integerValue];
                     self.device.modelId = [modelIdArray[[modelNameArray indexOfObject:modelBtn.titleLabel.text]] integerValue];
                     self.device.isSystemDefined = YES;
-                    self.device.status.powerSwitch = 0;
                     //特别注意此处对于label内容更新的处理
                     for (UILabel *l in self.view.superview.superview.subviews) {
                         if ([l isKindOfClass:[UILabel class]] && l.tag == 100) {
-                            l.text = [NSString stringWithFormat:@"%@   %@",brandBtn.titleLabel.text,modelBtn.titleLabel.text];;
+                            l.text = [NSString stringWithFormat:@"%@ / %@",brandBtn.titleLabel.text,modelBtn.titleLabel.text];;
                         }
                     }
                 }
@@ -274,14 +274,14 @@
             if (acInitFailureTimes < 5) {
                 [self doThisWhenAcInit];
             }else{
-                HUD.detailsLabelText = @"空调初始化失败";
+                HUD.detailsLabelText = @"Download failed";
                 //                [MyEUtil showMessageOn:self.navigationController.view withMessage:@"空调初始化失败"];
                 [cancelButton removeFromSuperview];
                 [UIApplication sharedApplication].idleTimerDisabled = NO;
                 [HUD hide:YES afterDelay:2];
             }
         }else{
-            HUD.detailsLabelText = @"查询初始化进度";
+            HUD.detailsLabelText = @"Querying...";
             requestTimes = 0;
             progressLast = 0;
             [self checkAcInitProgress];
@@ -295,13 +295,13 @@
             return;
         }
         if ([MyEUtil getResultFromAjaxString:string] != 1) {
-            HUD.detailsLabelText = @"初始化取消失败";
+            HUD.detailsLabelText = @"Stop Failed";
             [HUD hide:YES afterDelay:2];
             [cancelButton removeFromSuperview];
         }else{
             HUD.customView = imageView;
             HUD.mode = MBProgressHUDModeCustomView;
-            HUD.detailsLabelText = @"初始化取消成功";
+            HUD.detailsLabelText = @"Stop Successed";
             [HUD hide:YES afterDelay:2];
             [cancelButton removeFromSuperview];
             self.device.brand = @"";
@@ -311,7 +311,7 @@
             //特别注意此处对于label内容更新的处理
             for (UILabel *l in self.view.superview.superview.subviews) {
                 if ([l isKindOfClass:[UILabel class]] && l.tag == 100) {
-                    l.text = @"空调未初始化";
+                    l.text = @"Specify the IR Code set for the AC";
                 }
             }
         }
@@ -329,7 +329,7 @@
             _brandDownloadTimes++;
             MyEInstructionManageViewController *vc = (MyEInstructionManageViewController *)self.view.superview.superview.nextResponder;
             if (_brandDownloadTimes < 3) {
-                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"未能成功下载空调品牌数据，是否再次请求下载？" leftButtonTitle:@"取消" rightButtonTitle:@"下载"];
+                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"Failed To download the AC IR Code,do you want to retry?" leftButtonTitle:@"NO" rightButtonTitle:@"YES"];
                 [alert show];
                 alert.leftBlock = ^{
                     [vc.navigationController popViewControllerAnimated:YES];
@@ -339,7 +339,7 @@
                 };
             }else{
                 _brandDownloadTimes = 0;
-                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"空调指令库下载失败，此时您不能继续进行操作，请返回上级" leftButtonTitle:nil rightButtonTitle:@"知道了"];
+                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"Unable to download the AC IR Code,please pop up" leftButtonTitle:nil rightButtonTitle:@"OK"];
                 [alert show];
                 alert.rightBlock = ^{
                     [vc.navigationController popViewControllerAnimated:YES];
@@ -504,7 +504,8 @@
     //    [picker selectRow:[brandNameArray indexOfObject:brandBtn.titleLabel.text] inComponent:0 animated:YES];
 }
 - (IBAction)modelBtnPress:(UIButton *)sender {
-    MYEPickerView *picker = [[MYEPickerView alloc] initWithView:self.view andTag:2 title:@"Module" dataSource:modelNameArray andSelectRow:[modelNameArray containsObject:sender.currentTitle]?[modelNameArray indexOfObject:modelBtn.titleLabel.text]:0];
+    MYEPickerView *picker = [[MYEPickerView alloc] initWithView:self.view andTag:2 title:@"Model" dataSource:modelNameArray andSelectRow:[modelNameArray containsObject:sender.currentTitle]?[modelNameArray indexOfObject:modelBtn.titleLabel.text]:0];
+    picker.isHigh = YES;
     picker.delegate = self;
     [picker showInView:self.view];
     //    [MyEUniversal doThisWhenNeedPickerWithTitle:@"请选择遥控器型号" andDelegate:self andTag:2 andArray:modelNameArray andSelectRow:[modelNameArray indexOfObject:modelBtn.titleLabel.text] andViewController:self];
@@ -566,14 +567,14 @@
     [self mz_presentFormSheetController:formSheet animated:YES completionHandler:nil];
 }
 - (IBAction)AcInit:(UIButton *)sender {
-    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"现在开始下载所选型号控制码，如果之前已下载则会覆盖，确定开始么？" leftButtonTitle:@"取消" rightButtonTitle:@"确定"];
+    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"Are you sure to download this IR Code?" leftButtonTitle:@"NO" rightButtonTitle:@"YES"];
     [alert show];
     alert.rightBlock = ^{
         [UIApplication sharedApplication].idleTimerDisabled = YES;
         /*---------------初始化cancelBtn---------------*/
         cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         cancelButton.frame = CGRectMake(60, screenHigh-20-44-44, 200, 40);
-        [cancelButton setTitle:@"取消初始化" forState:UIControlStateNormal];
+        [cancelButton setTitle:@"Stop" forState:UIControlStateNormal];
         [cancelButton addTarget:self action:@selector(areYouSureTocancelAcInit) forControlEvents:UIControlEventTouchUpInside];
         cancelButton.userInteractionEnabled = YES;
         [cancelButton setBackgroundImage:[UIImage imageNamed:@"deleteBtn"] forState:UIControlStateNormal];
@@ -587,7 +588,7 @@
         
         HUD = [[MBProgressHUD alloc] initWithView:self.view.window];
         [self.view.window addSubview:HUD];
-        HUD.detailsLabelText = @"正在初始化...";
+        HUD.detailsLabelText = @"downloading...";
         HUD.dimBackground = YES; //增加背景灰度
         HUD.margin = 10;
         HUD.opacity = 0.6;

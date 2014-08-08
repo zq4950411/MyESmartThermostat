@@ -68,11 +68,10 @@
 }
 - (void) downloadTemperatureHumidityFromServer
 {
-    if(HUD == nil) {
-        HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        HUD.delegate = self;
+    if(statusHUD == nil) {
+        statusHUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     } else
-        [HUD show:YES];
+        [statusHUD show:YES];
 
     NSString *urlStr = [NSString stringWithFormat:@"%@?tId=%@&id=%@&houseId=%i",GetRequst(URL_FOR_AC_TEMPERATURE_HUMIDITY_VIEW), self.device.tid,self.device.deviceId,MainDelegate.houseData.houseId];
     MyEDataLoader *downloader = [[MyEDataLoader alloc] initLoadingWithURLString:urlStr postData:nil delegate:self loaderName:@"acStatus"  userDataDictionary:nil];
@@ -160,8 +159,8 @@
 #pragma mark - URL delegate methods
 // 响应下载上传
 - (void) didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
-    [HUD hide:YES];
     if([name isEqualToString:@"acStatus"]) {
+        [statusHUD hide:YES];
         NSLog(@"ajax json = %@", string);
         if ([MyEUtil getResultFromAjaxString:string] == -3) {
             [MyEUniversal doThisWhenUserLogOutWithVC:self];
@@ -176,10 +175,21 @@
 //            self.tempLabel.text = [NSString stringWithFormat:@"%li℃",(long)self.device.status.temperature];
 //            self.humidityLabel.text = [NSString stringWithFormat:@"%li%%",(long)self.device.status.humidity];
             _status = [[MyEDeviceStatus alloc] initWithJSONString:string];
+            UINavigationController *nav2 = self.tabBarController.childViewControllers[1];
+            UINavigationController *nav3 = self.tabBarController.childViewControllers[2];
+            if (_status.tempMornitorEnabled == 1) {
+                nav3.tabBarItem.enabled = NO;
+            }else
+                nav3.tabBarItem.enabled = YES;
+            if (_status.acAutoRunEnabled == 1) {
+                nav2.tabBarItem.enabled = NO;
+            }else
+                nav2.tabBarItem.enabled = YES;
             [self refreshUI];
         }
     }
     if([name isEqualToString:@"AC_INSTRUCTION_SET_DOWNLOADER_NMAE"]) {
+        [HUD hide:YES];
         if ([MyEUtil getResultFromAjaxString:string] != 1) {
             [SVProgressHUD showErrorWithStatus:@"fail"];
         } else{
@@ -191,6 +201,7 @@
         }
     }
     if([name isEqualToString:AC_CONTROL_UPLOADER_NMAE]) {
+        [HUD hide:YES];
         NSLog(@"ajax json = %@", string);
         if ([MyEUtil getResultFromAjaxString:string] != 1 && [MyEUtil getResultFromAjaxString:string] != 2) {
         } else{
@@ -200,7 +211,6 @@
             _status.windLevel = [[dict objectForKey:@"windLevel"] intValue];
         }
     }
-    [HUD hide:YES];
 }
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     [HUD hide:YES];

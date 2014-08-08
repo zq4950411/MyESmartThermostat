@@ -58,6 +58,14 @@
 
 #pragma mark - IBAction methods
 - (IBAction)save:(UIButton *)sender {
+    if ([self.brandName.text isEqualToString:@""]) {
+        [SVProgressHUD showErrorWithStatus:@"please enter brand name"];
+        return;
+    }
+    if ([self.moduleName.text isEqualToString:@""]) {
+        [SVProgressHUD showErrorWithStatus:@"Please enter model name"];
+        return;
+    }
 // 这里需要对输入的名称进行判断，当然，只是对用户新增的内容进行判断
     for (NSString *s in self.modelNameArray) {
         if ([self.moduleName.text isEqualToString:s]) {
@@ -138,7 +146,7 @@
     if([name isEqualToString:@"editBrandAndModule"]) {
         NSLog(@"ajax json = %@", string);
         if ([MyEUtil getResultFromAjaxString:string] != 1) {
-            [MyEUtil showErrorOn:self.navigationController.view withMessage:@"编辑空调品牌和型号发生错误！"];
+            [SVProgressHUD showErrorWithStatus:@"fail"];
         } else{
             [self mz_dismissFormSheetControllerAnimated:YES completionHandler:^(MZFormSheetController *formSheetController) {
             }];
