@@ -171,9 +171,9 @@
 -(void) setIsRemoteControl:(BOOL)isRemoteControl {
     _isRemoteControl = isRemoteControl;
     if (!isRemoteControl) {
-        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote controls from internet has been disabled."];
     } else {
-        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is enabled."];
+//        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is enabled."];
     }
 }
 
@@ -440,7 +440,7 @@
 #pragma mark action methods
 - (IBAction)applyNewSchedule:(id)sender {
     if (!self.isRemoteControl) {
-        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote controls from internet has been disabled."];
         return;
     }
     // 上传当前最新数据到服务器
@@ -449,7 +449,7 @@
 
 - (IBAction)resetSchedule:(id)sender {
     if (!self.isRemoteControl) {
-        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote controls from internet has been disabled."];
         return;
     }
     [self _restoreToLastUnchanged];
@@ -457,7 +457,7 @@
 
 - (IBAction)useWeekly:(id)sender {
     if (!self.isRemoteControl) {
-        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote controls from internet has been disabled."];
         return;
     }
     [self downloadWeeklyModelFromServer];
@@ -818,7 +818,7 @@
     if (respondInt == -998) {
         
        // 禁止远程操作， 应该提示用户。
-        [SVProgressHUD showErrorWithStatus:@"The thermostat remote control is disabled."];
+        [SVProgressHUD showErrorWithStatus:@"The remote controls from internet has been disabled."];
         return NO;
     } 
     return YES;

@@ -335,7 +335,6 @@
     // Update the view.
     self.holdRunButton.enabled = isRemoteControl;
     
-//    self.setpointPickerView.alpha = isRemoteControl ? 1.0 : 0.77;
     self.controlModeImageView.alpha = isRemoteControl ? 1.0 : 0.77;
     self.fanImageView.alpha = isRemoteControl ? 1.0 : 0.77;
     if(!isRemoteControl) {
@@ -353,12 +352,12 @@
         
         [self.view bringSubviewToFront:_maskLayer];
 
-        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+        [MyEUtil showMessageOn:self.view withMessage:@"The remote controls from internet has been disabled."];
     } else {
         if(_maskLayer)
             [_maskLayer removeFromSuperview];
         
-        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is enabled."];
+//        [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is enabled."];
         if(_singleFingerTap)
             [_maskLayer removeGestureRecognizer:_singleFingerTap];
     }
@@ -371,7 +370,7 @@
 //    CGPoint location = [recognizer locationInView:[recognizer.view superview]];
     
     //Do stuff here...
-    [MyEUtil showMessageOn:self.view withMessage:@"The remote control of thermostat is disabled."];
+    [MyEUtil showMessageOn:self.view withMessage:@"The remote controls from internet has been disabled."];
     
 }
 - (void)configureView
@@ -689,8 +688,7 @@
     CGRect bounds = CGRectMake(CIRCLE_ORIGIN_X + (self.circle.ringWidth + margin),
                                CIRCLE_ORIGIN_Y + (self.circle.ringWidth + margin),
                                diameter,diameter);
-    NSLog(@"x=%f, y=%f, w=%f, h=%f", self.circle.bounds.origin.x, self.circle.bounds.origin.y, bounds.size.width, bounds
-.size.height);
+//    NSLog(@"x=%f, y=%f, w=%f, h=%f", self.circle.bounds.origin.x, self.circle.bounds.origin.y, bounds.size.width, bounds.size.height);
     self.holdRunButton = [UIButton buttonWithType:UIButtonTypeCustom];
     //    [self.holdRunButton setImage:[UIImage imageNamed:@"Micky.png"] forState:UIControlStateNormal];
     [self.holdRunButton addTarget:self action:@selector(_holdRunButtionAction) forControlEvents:UIControlEventTouchUpInside];

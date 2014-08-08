@@ -201,22 +201,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MyE/Themostat/Vacation/MyEVacationMasterViewController.m"
-            timestampString = "424668720.484507"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "-refreshAction:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "MyE/DataModels/MyEThermostatPeriodData.m"
             timestampString = "423297458.362054"
             startingColumnNumber = "9223372036854775807"
@@ -288,22 +272,6 @@
             startingLineNumber = "257"
             endingLineNumber = "257"
             landmarkName = "-didReceiveString:loaderName:userDataDictionary:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyE/Themostat/Dashboard/MyEDashboardViewController.m"
-            timestampString = "428481975.107716"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "648"
-            endingLineNumber = "648"
-            landmarkName = "-_processHttpRespondForString:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
