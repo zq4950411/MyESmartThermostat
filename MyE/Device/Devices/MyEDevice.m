@@ -105,6 +105,7 @@
         self.model = dic[@"modulName"];
         self.brandId = [dic[@"brandId"] intValue];
         self.modelId = [dic[@"modulId"] intValue];
+        self.instructionMode = 0;
         return self;
     }
     return nil;

@@ -34,7 +34,7 @@
 @property (nonatomic, assign) NSInteger modelId; //空调型号
 @property (nonatomic, assign) NSInteger brandId;
 @property (nonatomic, strong) NSString *brand,*model;
-@property (nonatomic, assign) MyEAcInstructionSet *acInstructionSet;
+//@property (nonatomic, assign) MyEAcInstructionSet *acInstructionSet;
 
 +(NSMutableArray *) devices:(id) json;
 -(MyEDevice *)initWithDic:(NSDictionary *)dic;

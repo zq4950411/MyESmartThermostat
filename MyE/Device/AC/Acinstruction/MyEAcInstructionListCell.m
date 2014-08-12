@@ -32,7 +32,7 @@
 }
 -(void)setPower:(NSInteger)p{
     switch (p) {
-        case 0:
+        case 1:
             powerLabel.text = @"ON";
             break;
         default:

@@ -111,7 +111,7 @@ static NSString *string = @"cell";
 
     MyEAcInstructionListCell *cell = [tableView dequeueReusableCellWithIdentifier:string];
     if (indexPath.row == 0) {
-        cell.orderLabel.text = @"Index";
+        cell.orderLabel.text = @"";
         cell.powerLabel.text = @"On/Off";
         cell.modeLabel.text = @"System";
         cell.windLevelLabel.text = @"Fan";

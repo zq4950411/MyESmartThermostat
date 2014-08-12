@@ -212,7 +212,7 @@
         }else if([MyEUtil getResultFromAjaxString:string] == 1){
             if (manualSendInstruction) {
                 manualSendInstruction = NO;
-                [MyEUtil showInstructionStatusWithYes:YES andView:self.navigationController.navigationBar andMessage:@"Success"];
+//                [MyEUtil showInstructionStatusWithYes:YES andView:self.navigationController.navigationBar andMessage:@"Send Successfully"];
             }else{
                 if (!autoCheckStop) {
                     if (_roundTimes < 2) {

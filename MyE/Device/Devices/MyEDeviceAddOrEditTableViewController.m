@@ -270,11 +270,11 @@
             _pickerView = [[MYEPickerView alloc] initWithView:self.view andTag:2 title:@"type select" dataSource:_types andSelectRow:[_types containsObject:str]?[_types indexOfObject:str]:0];
             break;
         case 3:    //tid
-            if (!_isAddDevice) {
-                if (self.device.typeId.intValue == 6 ||self.device.typeId.intValue == 7 || self.device.typeId.intValue == 0 || _device.typeId.intValue == 1) {
-                    return;
-                }
-            }
+//            if (!_isAddDevice) {
+//                if ((self.device.typeId.intValue == 6 ||self.device.typeId.intValue == 7 || self.device.typeId.intValue == 0 || _device.typeId.intValue == 1) && ![_device.tid isEqualToString:@""]) {
+//                    return;
+//                }
+//            }
             if (![_terminals count]) {  //这里是个保护措施，当终端为零时点击之后没反应
                 [SVProgressHUD showErrorWithStatus:@"No SmartRemote"];
                 return;

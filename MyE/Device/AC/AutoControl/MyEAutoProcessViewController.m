@@ -188,7 +188,7 @@
         [MyEUtil showMessageOn:self.view withMessage:@"please select weekday"];
         return;
     }
-    if([ self.process isValid])
+    if([self.process isValid])
         [self uploadProcessToServerAndReturn];
     else
         [MyEUtil showMessageOn:self.view withMessage:@"Process invalid, make sure there is no overlap period"];

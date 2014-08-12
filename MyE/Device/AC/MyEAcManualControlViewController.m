@@ -116,6 +116,7 @@
             _windLevel = [dict[@"windLevel"] intValue];
             _temperatureSet = [dict[@"temperatureSet"] intValue];
             _instructionMode = [dict[@"ventilationFlag"] intValue];
+            self.device.instructionMode = _instructionMode;
             _status = [[MyEDeviceStatus alloc] init];
             NSInteger i = [dict[@"temperatureRangeFlag"] intValue];
             NSInteger j = [dict[@"autoRunAcFlag"] intValue];
@@ -298,7 +299,7 @@
     }
     if (_status.humidity != _humidity) {
         _status.humidity = _humidity;
-        [homeHumidityLabel setText:[NSString stringWithFormat:@"%li%%", (long)_status.humidity]];
+        [homeHumidityLabel setText:[NSString stringWithFormat:@"%li%%RH", (long)_status.humidity]];
     }
     if (_status.temperature != _temperature) {
         _status.temperature = _temperature;
