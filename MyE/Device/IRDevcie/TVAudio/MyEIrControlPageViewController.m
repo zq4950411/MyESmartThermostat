@@ -35,7 +35,6 @@
     self.irUserKeyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"IrUserKeyVC"];
     self.irUserKeyViewController.device = self.device;
     self.navigationItem.title = self.device.deviceName;
-
     if (self.device.typeId.intValue == 2) {
         self.tvDefaultViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TvDefaultVC"];
         self.tvDefaultViewController.device = self.device;

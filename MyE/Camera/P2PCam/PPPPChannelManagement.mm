@@ -137,14 +137,10 @@ void CPPPPChannelManagement::StopAll()
                 return;
             }
             memset(m_PPPPChannel[i].szDID, 0, sizeof(m_PPPPChannel[i].szDID));
-            NSLog(@"0011");
-            SAFE_DELETE(m_PPPPChannel[i].pPPPPChannel);
-            NSLog(@"0012");
-            SAFE_DELETE(m_PPPPChannel[i].pVideoBuf);
-            NSLog(@"0013");
-            //SAFE_DELETE(m_PPPPChannel[i].pEglDisplay);            
+//            SAFE_DELETE(m_PPPPChannel[i].pPPPPChannel);
+//            SAFE_DELETE(m_PPPPChannel[i].pVideoBuf);
+            //SAFE_DELETE(m_PPPPChannel[i].pEglDisplay);
             m_PPPPChannel[i].bValid = 0;
-            NSLog(@"0014");
         }
     }  
     

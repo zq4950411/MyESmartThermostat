@@ -120,7 +120,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:hit];
     _selectedIndexPath = indexPath;
     MyEDevice *device = _devices[indexPath.row];
-    if (device.typeId.intValue == 4 || device.typeId.intValue == 5) {
+    if (device.typeId.intValue == 0 || device.typeId.intValue == 1) {
         return;
     }
     if ([device.tid isEqualToString:@""]) {
@@ -141,8 +141,6 @@
     }
     else if (device.typeId.intValue == 6){  // socket
         [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@",GetRequst(URL_FOR_SMARTUP_PlUG_CONTROL),MainDelegate.houseData.houseId,device.tid] andName:@"socketControl"];
-    }else if(device.typeId.intValue ==0){
-        
     }else{   //红外设备开关控制
         NSInteger controlValue = 0;
         if (device.typeId.intValue == 2) {
@@ -150,7 +148,7 @@
         }else if(device.typeId.intValue == 3){
             controlValue = 301;
         }else
-            controlValue = device.switchStatus.intValue==1?0:1;
+            controlValue = 1 - device.switchStatus.intValue==1;
         [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&deviceId=%@&switchStatus=%i",GetRequst(URL_FOR_IRDEVICE_CONTROL),MainDelegate.houseData.houseId,device.deviceId,controlValue] andName:@"irDeviceControl"];
     }
 }

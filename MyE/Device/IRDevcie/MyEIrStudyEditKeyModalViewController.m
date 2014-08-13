@@ -169,7 +169,9 @@
             if (string.intValue > 0) {
                 self.instruction.instructionId = string.intValue;
                 if (_isAddKey) {
-                    [self.instructions.customList addObject:self.instruction];  //这时候服务器默认已经添加了这个按键，不管这个按键有没有学习成功
+                    if (![self.instructions.customList containsObject:self.instruction]) {
+                        [self.instructions.customList addObject:self.instruction];  //这时候服务器默认已经添加了这个按键，不管这个按键有没有学习成功
+                    }
                 }
                 [self queryStudayProgress];
             }else if (string.intValue == -500){

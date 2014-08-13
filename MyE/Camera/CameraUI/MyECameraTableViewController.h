@@ -12,12 +12,9 @@
 #import "PPPPChannelManagement.h"
 #import "EGORefreshTableHeaderView.h"
 
-@interface MyECameraTableViewController : UITableViewController <SnapshotProtocol,EGORefreshTableHeaderDelegate,MyEDataLoaderDelegate,PPPPStatusProtocol>{
-    MBProgressHUD *HUD;
-}
+@interface MyECameraTableViewController : UITableViewController <SnapshotProtocol,EGORefreshTableHeaderDelegate,MyEDataLoaderDelegate,PPPPStatusProtocol>
 
 @property (nonatomic, retain) NSMutableArray *cameraList;
-@property (nonatomic) BOOL needRefresh;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 

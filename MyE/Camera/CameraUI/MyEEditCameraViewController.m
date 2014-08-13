@@ -24,7 +24,8 @@
     self.passwordTxt.text = self.camera.password;
     self.nameTxt.delegate = self;
     self.passwordTxt.delegate = self;
-    [self defineTapGestureRecognizer];
+    self.nameTxt.inputAccessoryView = nil;
+    self.passwordTxt.inputAccessoryView = nil;
 }
 - (void)didReceiveMemoryWarning
 {
@@ -33,16 +34,6 @@
 
 }
 #pragma mark - private methods
--(void)defineTapGestureRecognizer{
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
-    tapGesture.cancelsTouchesInView = NO;
-    [self.view addGestureRecognizer:tapGesture];
-}
--(void)hideKeyboard{
-    [self.nameTxt endEditing:YES];
-    [self.passwordTxt endEditing:YES];
-}
-
 -(void) saveCamera
 {
     if ([self.nameTxt.text length] == 0)
@@ -154,8 +145,8 @@
         if ([string isEqualToString:@"fail"]) {
             [SVProgressHUD showErrorWithStatus:@"fail"];
         }else{
-            MyECameraTableViewController *vc = self.navigationController.childViewControllers[0];
-            vc.needRefresh = YES;
+//            MyECameraTableViewController *vc = self.navigationController.childViewControllers[0];
+//            vc.needRefresh = YES;
         }
     }
 }

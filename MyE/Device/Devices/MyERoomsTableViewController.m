@@ -150,7 +150,7 @@
     [HUD hide:YES];
     NSLog(@"receive string is %@",string);
     if ([name isEqualToString:@"delete"]) {
-        if (![string isEqualToString:@"fail"]) {
+        if (![string isEqualToString:@"Fail"]) {
             [_datas removeObjectAtIndex:_selectedIndex.row];
             [self.tableView deleteRowsAtIndexPaths:@[_selectedIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
         }else
@@ -159,7 +159,7 @@
     if ([name isEqualToString:@"add"]) {
         if (string.intValue == 502) {
             [SVProgressHUD showWithStatus:@"room count above 30"];
-        }else if (![string isEqualToString:@"fail"]){
+        }else if (![string isEqualToString:@"Fail"]){
             MyERoom *room = [[MyERoom alloc] init];
             room.roomName = _roomName;
             room.roomId = string.intValue;
@@ -169,7 +169,7 @@
             [SVProgressHUD showErrorWithStatus:@"Error!"];
     }
     if ([name isEqualToString:@"edit"]) {
-        if (![name isEqualToString:@"fail"]) {
+        if (![name isEqualToString:@"Fail"]) {
             MyERoom *room = _datas[_selectedIndex.row];
             
             // 首先更新词典的key name

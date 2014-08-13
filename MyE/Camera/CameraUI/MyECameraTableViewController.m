@@ -24,6 +24,7 @@
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _isRefreshing;
     NSIndexPath *_selectedIndex;
+    MBProgressHUD *HUD;
 }
 @end
 
@@ -31,10 +32,11 @@
 
 #pragma mark - life circle methods
 -(void)viewWillAppear:(BOOL)animated{
-    [self.tableView reloadData];
-    if (self.needRefresh) {
-        self.needRefresh = NO;
-        [self getCameraStatus];
+    [super viewWillAppear:YES];
+    [self getCameraStatus];
+    if (IS_IOS6) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
     }
 }
 - (void)viewDidLoad
@@ -66,8 +68,6 @@
     [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
     
     _m_PPPPChannelMgtCondition = [[NSCondition alloc] init];
-    _m_PPPPChannelMgt = new CPPPPChannelManagement();
-    _m_PPPPChannelMgt->pCameraViewController = self;
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self initialize];
@@ -125,6 +125,9 @@
         [self performSelector:@selector(endGetCameraStatus) withObject:nil afterDelay:0.3];
         return;
     }
+    _m_PPPPChannelMgt = new CPPPPChannelManagement();
+    _m_PPPPChannelMgt->pCameraViewController = self;
+
     for (MyECamera *c in _cameraList) {
         [self ConnectCamWithCamera:c];  //这里不需要截图，只需要获取状态就可以了
         _m_PPPPChannelMgt->SetSnapshotDelegate((char*)[c.UID UTF8String], self);
@@ -145,7 +148,10 @@
         [_m_PPPPChannelMgtCondition unlock];
         return;
     }
-    _m_PPPPChannelMgt->Start([camera.UID UTF8String], [camera.username UTF8String], [camera.password UTF8String]);
+    NSInteger i = _m_PPPPChannelMgt->Start([camera.UID UTF8String], [camera.username UTF8String], [camera.password UTF8String]);
+    if (i == 0) {
+        [self performSelector:@selector(endGetCameraStatus) withObject:nil afterDelay:0.3];
+    }
     [_m_PPPPChannelMgtCondition unlock];
 }
 
@@ -344,13 +350,15 @@
     if ([name isEqualToString:@"download"]) {
         if (![string isEqualToString:@"fail"]) {
             NSArray *array = [string JSONValue];
-            _cameraList = [NSMutableArray array];
+            [_cameraList removeAllObjects];
             for (NSDictionary *d in array) {
                 [_cameraList addObject:[[MyECamera alloc] initWithDictionary:d]];
             }
             if (_cameraList.count) {
                 [self getCameraStatus];
             }
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"Fail"];
         }
     }
     if ([name isEqualToString:@"edit"]) {

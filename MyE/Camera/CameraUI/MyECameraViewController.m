@@ -13,6 +13,7 @@
 #import "PPPPDefine.h"
 #import "obj_common.h"
 #import "cmdhead.h"
+
 #import "MyECameraLandscapeViewController.h"
 
 #define deg2rad (M_PI/180.0)
@@ -24,6 +25,7 @@
     CPPPPChannel *_cameraChannel;
     NSTimer *_timerForSpeed,*_timerForDate;
     NSInteger _seconds,_timeZone,_speed,_secondsFromNow;
+    MyECameraLandscapeViewController *_vc;
 }
 @property (nonatomic, retain) NSCondition* m_PPPPChannelMgtCondition;
 @end
@@ -31,13 +33,24 @@
 @implementation MyECameraViewController
 
 #pragma mark - life circle methods
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:YES];
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     [_timerForDate invalidate];
     [_timerForSpeed invalidate];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
+    _m_PPPPChannelMgt->SetDateTimeDelegate((char*)[_camera.UID UTF8String], nil);
+    _m_PPPPChannelMgt->SetSDcardScheduleDelegate((char*)[_camera.UID UTF8String], nil);
+}
+//- (void) viewDidLayoutSubviews {
+//    CGRect viewBounds = self.view.bounds;
+//    CGFloat topBarOffset = self.topLayoutGuide.length;
+//    viewBounds.origin.y = topBarOffset * -1;
+//    self.view.bounds = viewBounds;
+//}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,6 +60,13 @@
         [self prefersStatusBarHidden];
         [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
     }
+    if (IS_IOS6) {
+        self.actionSeg.layer.borderColor = MainColor.CGColor;
+        self.actionSeg.layer.borderWidth = 1.0f;
+        self.actionSeg.layer.cornerRadius = 4.0f;
+        self.actionSeg.layer.masksToBounds = YES;
+    }
+
     _m_PPPPChannelMgtCondition = [[NSCondition alloc] init];
     _m_PPPPChannelMgt = new CPPPPChannelManagement();
     _m_PPPPChannelMgt->pCameraViewController = self;
@@ -60,7 +80,7 @@
                                              selector:@selector(willEnterForeground)
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeUserInterface) name:UIDeviceOrientationDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeUserInterface) name:UIDeviceOrientationDidChangeNotification object:nil];
 
 //    for (UIButton *btn in self.actionView.subviews) {
 //        [btn setBackgroundImage:[[UIImage imageNamed:@"control-enable-normal"] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
@@ -71,12 +91,13 @@
     [self refreshUIWithArray:@[@0,_camera.name]];
    
     //初始化各个方向的view
-    MyECameraLandscapeViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"landscape"];
-    vc.m_PPPPChannelMgt = _m_PPPPChannelMgt;
-    self.mainLandscapeView = vc.view;
+    _vc = [self.storyboard instantiateViewControllerWithIdentifier:@"landscape"];
+    _vc.m_PPPPChannelMgt = _m_PPPPChannelMgt;
+    _vc.camera = _camera;
+    self.mainLandscapeView = _vc.view;
     self.mainPortraitView = self.view;
-    UIImageView *image = (UIImageView *)[self.mainLandscapeView viewWithTag:100];
-    [self addGestureOnImageView:image];
+//    UIImageView *image = (UIImageView *)[self.mainLandscapeView viewWithTag:100];
+    [self addGestureOnImageView:self.mainLandscapeView];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showFullScreenView:)];
     tap.numberOfTapsRequired = 2;
     [_playView addGestureRecognizer:tap];
@@ -92,16 +113,17 @@
 
 #pragma mark - Notification methods
 - (void) didEnterBackground{
-    [_m_PPPPChannelMgtCondition lock];
-    if (_m_PPPPChannelMgt == NULL) {
-        [_m_PPPPChannelMgtCondition unlock];
-        return;
-    }
-    _m_PPPPChannelMgt->StopPPPPAudio([self.camera.UID UTF8String]);
-    _m_PPPPChannelMgt->StopPPPPTalk([self.camera.UID UTF8String]);
-    _m_PPPPChannelMgt->StopPPPPLivestream([self.camera.UID UTF8String]);
-    _m_PPPPChannelMgt->StopAll();
-    [_m_PPPPChannelMgtCondition unlock];
+//    [_m_PPPPChannelMgtCondition lock];
+//    if (_m_PPPPChannelMgt == NULL) {
+//        [_m_PPPPChannelMgtCondition unlock];
+//        return;
+//    }
+//    _m_PPPPChannelMgt->StopPPPPAudio([self.camera.UID UTF8String]);
+//    _m_PPPPChannelMgt->StopPPPPTalk([self.camera.UID UTF8String]);
+//    _m_PPPPChannelMgt->StopPPPPLivestream([self.camera.UID UTF8String]);
+//    _m_PPPPChannelMgt->StopAll();
+//    [_m_PPPPChannelMgtCondition unlock];
+    [self _stopCamera];
 }
 
 - (void) willEnterForeground{
@@ -111,7 +133,7 @@
 }
 
 #pragma mark - private methods
--(void)addGestureOnImageView:(UIImageView *)image{
+-(void)addGestureOnImageView:(UIView *)image{
     UISwipeGestureRecognizer *recognizer;
     recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
@@ -126,9 +148,9 @@
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
     [image addGestureRecognizer:recognizer];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endShowFullScreenView)];
-    tap.numberOfTapsRequired = 2;
-    [image addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endShowFullScreenView)];
+//    tap.numberOfTapsRequired = 2;
+//    [image addGestureRecognizer:tap];
 }
 -(void)changeUserInterface{
     UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
@@ -188,6 +210,21 @@
 -(void)hideHUD{
     [HUD hide:YES];
 }
+-(void)getCameraInfo{
+    //设置代理
+    _m_PPPPChannelMgt->SetDateTimeDelegate((char*)[_camera.UID UTF8String], self);
+    _m_PPPPChannelMgt->SetSDcardScheduleDelegate((char*)[_camera.UID UTF8String], self);
+    
+    //获取具体的值
+    _m_PPPPChannelMgt->PPPPSetSystemParams((char*)[_camera.UID UTF8String], MSG_TYPE_GET_PARAMS, NULL, 0);
+    _m_PPPPChannelMgt->PPPPSetSystemParams((char*)[self.camera.UID UTF8String], MSG_TYPE_GET_RECORD, NULL, 0);
+}
+-(void)popUpTop{
+    [self _stopCamera];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    //    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(void)refreshUIWithArray:(NSArray *)array{
     UILabel *label = self.infoLabels[[array[0] intValue]];
     NSString *info = array[1];
@@ -279,6 +316,7 @@
     _m_PPPPChannelMgt->SetSDcardScheduleDelegate((char*)[_camera.UID UTF8String], self);
     
     //获取具体的值
+    _m_PPPPChannelMgt->GetCGI([_camera.UID UTF8String], CGI_IEGET_CAM_PARAMS);
     _m_PPPPChannelMgt->PPPPSetSystemParams((char*)[_camera.UID UTF8String], MSG_TYPE_GET_PARAMS, NULL, 0);
     _m_PPPPChannelMgt->PPPPSetSystemParams((char*)[self.camera.UID UTF8String], MSG_TYPE_GET_RECORD, NULL, 0);
     [self performSelectorOnMainThread:@selector(startTimerToGetStatus) withObject:nil waitUntilDone:YES];
@@ -312,7 +350,7 @@
     }
     _m_PPPPChannelMgt->StopPPPPAudio([self.camera.UID UTF8String]);
     _m_PPPPChannelMgt->StopPPPPTalk([self.camera.UID UTF8String]);
-    _m_PPPPChannelMgt->StopPPPPLivestream([self.camera.UID UTF8String]);
+//    _m_PPPPChannelMgt->StopPPPPLivestream([self.camera.UID UTF8String]);
     _m_PPPPChannelMgt->StopAll();
     [_m_PPPPChannelMgtCondition unlock];
     dispatch_async(dispatch_get_main_queue(),^{
@@ -399,7 +437,7 @@
 - (void) refreshImage:(UIImage*)image{
     if (image != nil) {
         dispatch_async(dispatch_get_main_queue(),^{
-            if ([self.view isEqual:self.mainLandscapeView]) {
+            if ([self.view.subviews containsObject:self.mainLandscapeView]) {
                 UIImageView *imageV = (UIImageView *)[self.mainLandscapeView viewWithTag:100];
                 imageV.image = nil;
                 imageV.image = image;
@@ -438,29 +476,39 @@
 #pragma mark - ParamNotifyProtocol
 - (void) ParamNotify: (int) paramType params:(void*) params{
     if (paramType == CGI_IEGET_CAM_PARAMS) {
-//        PSTRU_CAMERA_PARAM param = (PSTRU_CAMERA_PARAM) params;
-////        flip = param->flip;
+        PSTRU_CAMERA_PARAM param = (PSTRU_CAMERA_PARAM) params;
+        _cameraParam = [[MyECameraParam alloc] init];
+        _cameraParam.resolution = param->resolution;
+        _cameraParam.bright = param->bright;
+        _cameraParam.contrast = param->contrast;
+        _cameraParam.mode = param->mode;
+        _cameraParam.flip = param->flip;
+        _vc.cameraParam = _cameraParam;
+        NSLog(@"%@",_cameraParam);
     }
 }
 #pragma mark - IBAction Methods
 -(void)endShowFullScreenView{
     if (_isLandscape) {
         _isLandscape = NO;
-        self.view=self.mainPortraitView;
-        self.view.transform=CGAffineTransformMakeRotation(deg2rad*(0));
-        self.view.bounds=CGRectMake(0.0, 0.0, 320.0, 480.0);
+        [self.mainLandscapeView removeFromSuperview];
+//        self.view=self.mainPortraitView;
+//        self.view.transform=CGAffineTransformMakeRotation(deg2rad*(0));
+//        self.view.bounds=CGRectMake(0.0, 0.0, 320.0, 480.0);
     }
 }
 - (IBAction)showFullScreenView:(UIButton *)sender {
     _isLandscape = !_isLandscape;
     if (_isLandscape) {
-        self.view=self.mainLandscapeView;
-        self.view.transform=CGAffineTransformMakeRotation(deg2rad*(90));
-        self.view.bounds=CGRectMake(0.0, 0.0, 480.0, 320.0);
+        [self.view addSubview:self.mainLandscapeView];
+//        self.view=self.mainLandscapeView;
+//        self.view.transform=CGAffineTransformMakeRotation(deg2rad*(90));
+//        self.view.bounds=CGRectMake(0.0, 0.0, 480.0, 320.0);
     }else{
-        self.view=self.mainPortraitView;
-        self.view.transform=CGAffineTransformMakeRotation(deg2rad*(0));
-        self.view.bounds=CGRectMake(0.0, 0.0, 320.0, 480.0);
+        [self.mainLandscapeView removeFromSuperview];
+//        self.view=self.mainPortraitView;
+//        self.view.transform=CGAffineTransformMakeRotation(deg2rad*(0));
+//        self.view.bounds=CGRectMake(0.0, 0.0, 320.0, 480.0);
     }
 }
 - (IBAction)popUp:(UIButton *)sender {

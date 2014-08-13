@@ -27,6 +27,8 @@
 @synthesize terminalData = _terminalData;
 @synthesize houseData = _houseData;
 
+
+#pragma mark - private methods
 -(BOOL) isRemember
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -113,7 +115,19 @@
         
         [[UISegmentedControl appearance] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor whiteColor],UITextAttributeFont: [UIFont systemFontOfSize:14],UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0, 0)]} forState:UIControlStateSelected];
     }
+    UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.window.bounds.size.width, 38.0f)];
+    UIBarButtonItem *spaceBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *doneBarItem = [[UIBarButtonItem alloc] initWithTitle:@"Done"                                                                    style:UIBarButtonItemStyleDone target:self action:@selector(resignKeyboard:)];
+    [keyboardToolbar setItems:[NSArray arrayWithObjects:spaceBarItem, doneBarItem, nil]];
+    [UITextField appearance].inputAccessoryView = keyboardToolbar;
 }
+- (void)resignKeyboard:(id)sender
+{
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+}
+
+#pragma mark - application delegate methods
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //http://blog.csdn.net/zhang_red/article/details/21450119
