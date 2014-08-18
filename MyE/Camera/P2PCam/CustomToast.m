@@ -12,7 +12,7 @@
 @implementation CustomToast
 
 + (void)__show : (UIView*) aView {
-    [UIView beginAnimations:@"show" context:(void *)aView];
+    [UIView beginAnimations:@"show" context:aView];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDuration:0.2f];
     [UIView setAnimationDidStopSelector:@selector(__animationDidStop:__finished:__context:)];
@@ -26,7 +26,7 @@
 }
 
 + (void)__hideThread : (UIView*) aView {
-    [UIView beginAnimations:@"hide" context:(void *)aView];
+    [UIView beginAnimations:@"hide" context:aView];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDuration:0.8f];
     [UIView setAnimationDidStopSelector:@selector(__animationDidStop:__finished:__context:)];
@@ -35,10 +35,11 @@
 }
 
 + (void)__animationDidStop:(NSString *)animationID __finished:(NSNumber *)finished __context:(void *)context {
-    UIView *aView = (__bridge UIView*)context;
+    UIView *aView = (UIView*)context;
     if ([animationID isEqualToString:@"hide"]) {
         //NSLog(@"hide....");
         [aView removeFromSuperview];
+        [aView release];
     }
     else if ([animationID isEqualToString:@"show"]) {
         // NSLog(@"show...");

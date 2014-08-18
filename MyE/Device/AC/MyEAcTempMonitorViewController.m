@@ -152,21 +152,20 @@
         }
     }
     [self decideIfComfortChanged];
-//    if (!self.device.isSystemDefined) {
-//        return;
-//    }
+    if (!self.device.isSystemDefined) {
+        return;
+    }
     //只有enableAcAutoRunSwitch开启的时候才能限制tabbar的点击
     UINavigationController *nav1 = [self.tabBarController childViewControllers][1];
     UINavigationController *nav2 = [self.tabBarController childViewControllers][2];
 
-    if (self.enableTempMonitorSwitch.isOn) {
+    if (self.enableTempMonitorSwitch.isOn && self.enableAcAutoRunSwitch.isOn) {
         nav2.tabBarItem.enabled = NO;
-    }else
-        nav2.tabBarItem.enabled = YES;
-    if (self.enableAcAutoRunSwitch.isOn){
         nav1.tabBarItem.enabled = NO;
-    }else
+    }else{
         nav1.tabBarItem.enabled = YES;
+        nav2.tabBarItem.enabled = YES;
+    }
 }
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     [HUD hide:YES];
@@ -176,7 +175,17 @@
 -(void)_refreshUI
 {
     [self.enableTempMonitorSwitch setOn:self.acTempMonitor.monitorFlag animated:YES ];
-    [self.enableAcAutoRunSwitch setOn:self.acTempMonitor.autoRunFlag animated:YES ];
+    if (!self.device.isSystemDefined) {
+        [self.enableAcAutoRunSwitch setOn:NO];
+        self.enableAcAutoRunSwitch.enabled = NO;
+    }else{
+        if (self.enableTempMonitorSwitch.isOn) {
+            [self.enableAcAutoRunSwitch setOn:self.acTempMonitor.autoRunFlag animated:YES];
+        }else
+            [self.enableAcAutoRunSwitch setOn:NO];
+    }
+
+//    [self.enableAcAutoRunSwitch setOn:self.acTempMonitor.autoRunFlag animated:YES ];
     //这里增加了限制条件，因为有时候数据的显示超出了设定范围
     if (self.acTempMonitor.minTemp > 18) {
         [self.lowTemBtn setTitle:[NSString stringWithFormat:@"18℃"] forState:UIControlStateNormal];

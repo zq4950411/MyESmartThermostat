@@ -21,6 +21,11 @@
 @implementation MyECameraAddNewViewController
 
 #pragma mark - life circle methods
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
+    [self didEnterBackground];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -59,6 +64,16 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark - private methods
+- (void) didEnterBackground{
+    [_m_PPPPChannelMgtCondition lock];
+    if (_m_PPPPChannelMgt == NULL) {
+        [_m_PPPPChannelMgtCondition unlock];
+        return;
+    }
+    _m_PPPPChannelMgt->StopAll();
+    [_m_PPPPChannelMgtCondition unlock];
+}
+
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
@@ -222,7 +237,9 @@
     NSLog(@"PPPPStatus  %@",strPPPPStatus);
     HUD.labelText = strPPPPStatus;
 }
+-(void)SnapshotNotify:(NSString *)strDID data:(char *)data length:(int)length{
 
+}
 #pragma mark - URL Delegate method
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     [HUD hide:YES];

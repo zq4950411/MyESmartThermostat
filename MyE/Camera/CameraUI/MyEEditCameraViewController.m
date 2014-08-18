@@ -10,6 +10,8 @@
 #import "MyECameraTableViewController.h"
 @interface MyEEditCameraViewController (){
     MBProgressHUD *HUD;
+    BOOL _isPushSub;
+    NSCondition* _m_PPPPChannelMgtCondition;
 }
 @end
 
@@ -26,12 +28,50 @@
     self.passwordTxt.delegate = self;
     self.nameTxt.inputAccessoryView = nil;
     self.passwordTxt.inputAccessoryView = nil;
+    _m_PPPPChannelMgtCondition = [[NSCondition alloc] init];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didEnterBackground)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willEnterForeground)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
+    if (!_isPushSub) {
+        _isPushSub = NO;
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    }
 }
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+#pragma mark - Notification methods
+- (void) didEnterBackground{
+    [_m_PPPPChannelMgtCondition lock];
+    if (_m_PPPPChannelMgt == NULL) {
+        [_m_PPPPChannelMgtCondition unlock];
+        return;
+    }
+    _m_PPPPChannelMgt->StopAll();
+    [_m_PPPPChannelMgtCondition unlock];
+}
 
+- (void) willEnterForeground{
+    [_m_PPPPChannelMgtCondition lock];
+    if (_m_PPPPChannelMgt == NULL) {
+        [_m_PPPPChannelMgtCondition unlock];
+        return;
+    }
+    _m_PPPPChannelMgt->StopAll();
+    _m_PPPPChannelMgt->Start([_camera.UID UTF8String], [self.camera.username UTF8String], [self.camera.password UTF8String]);
+    [_m_PPPPChannelMgtCondition unlock];
+    
 }
 #pragma mark - private methods
 -(void) saveCamera

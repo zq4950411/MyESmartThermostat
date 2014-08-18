@@ -22,7 +22,7 @@
 typedef void (*PlaybackAudioBufferCallback)(void *inUserData,AudioQueueRef inAQ,
                            AudioQueueBufferRef buffer);
 
-class CPCMPlayer
+class CPCMPlayer 
 {    
 public:
     CPCMPlayer(PlaybackAudioBufferCallback BuffCallback, void *param);

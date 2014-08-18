@@ -51,8 +51,7 @@
 - (void)__animationDidStop:(NSString *)animationID __finished:(NSNumber *)finished __context:(void *)context {
     if ([animationID isEqualToString:@"hide"]) {
         [self removeFromSuperview];
-#warning 注释
-//        self = nil;
+        self = nil;
     }
     else if ([animationID isEqualToString:@"show"]) {
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(__hide) userInfo:nil repeats:NO];
@@ -71,10 +70,7 @@
     textLabel.textColor = RGB(255, 255, 255);
     textLabel.numberOfLines = 0;
     textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    CGSize sz = [text sizeWithFont:textLabel.font
-                 constrainedToSize:CGSizeMake(width - 20.0f, 9999.0f)
-                     lineBreakMode:textLabel.lineBreakMode];
-    
+    CGSize sz = [text sizeWithFont:textLabel.font constrainedToSize:CGSizeMake(width - 20.0f, 9999.0f) lineBreakMode:textLabel.lineBreakMode];
     CGRect tmpRect;
     tmpRect.size.width = width;
     tmpRect.size.height = MAX(sz.height + 20.0f, 38.0f);

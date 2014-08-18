@@ -571,12 +571,14 @@
         }
         else
         {
+            MyEDevice *device = _devices[_selectedIndexPath.row];
+            if (device.typeId.intValue >= 2 && device.typeId.intValue < 6) {
+                [SVProgressHUD showErrorWithStatus:@"Error,make sure ON/OFF has been recorded"];
+                return;
+            }
             [SVProgressHUD showErrorWithStatus:@"Error!"];
         }
     }
-    if ([name isEqualToString:@"switchControl"]) {}
-    if ([name isEqualToString:@"universalControl"]) {}
-    if ([name isEqualToString:@"socketControl"]) {}
     if ([name isEqualToString:@"reorder"]) {
         
     }

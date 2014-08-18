@@ -118,21 +118,24 @@
             _instructionMode = [dict[@"ventilationFlag"] intValue];
             self.device.instructionMode = _instructionMode;
             _status = [[MyEDeviceStatus alloc] init];
-            NSInteger i = [dict[@"temperatureRangeFlag"] intValue];
-            NSInteger j = [dict[@"autoRunAcFlag"] intValue];
+            [self refreshUI];
             UINavigationController *nav2 = self.tabBarController.childViewControllers[1];
             UINavigationController *nav3 = self.tabBarController.childViewControllers[2];
 
-            if (i == 1) {
+            if (!self.device.isSystemDefined) {
                 nav3.tabBarItem.enabled = NO;
-            }else
-                nav3.tabBarItem.enabled = YES;
+                return;
+            }
+            NSInteger i = [dict[@"temperatureRangeFlag"] intValue];
+            NSInteger j = [dict[@"autoRunAcFlag"] intValue];
             
-            if (j == 1) {
+            if (i == 1 && j == 1) {
                 nav2.tabBarItem.enabled = NO;
-            }else
+                nav3.tabBarItem.enabled = NO;
+            }else{
                 nav2.tabBarItem.enabled = YES;
-            [self refreshUI];
+                nav3.tabBarItem.enabled = YES;
+            }
         }
     }
     if ([name isEqualToString:@"sendInstructionToServer"]) {

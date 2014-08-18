@@ -24,8 +24,9 @@
     MBProgressHUD *HUD;
     CPPPPChannel *_cameraChannel;
     NSTimer *_timerForSpeed,*_timerForDate;
-    NSInteger _seconds,_timeZone,_speed,_secondsFromNow;
+    NSInteger _seconds,_timeZone,_secondsFromNow;
     MyECameraLandscapeViewController *_vc;
+    UIActivityIndicatorView *_acter;
 }
 @property (nonatomic, retain) NSCondition* m_PPPPChannelMgtCondition;
 @end
@@ -36,21 +37,14 @@
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-    [_timerForDate invalidate];
-    [_timerForSpeed invalidate];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:YES];
     _m_PPPPChannelMgt->SetDateTimeDelegate((char*)[_camera.UID UTF8String], nil);
     _m_PPPPChannelMgt->SetSDcardScheduleDelegate((char*)[_camera.UID UTF8String], nil);
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
-//- (void) viewDidLayoutSubviews {
-//    CGRect viewBounds = self.view.bounds;
-//    CGFloat topBarOffset = self.topLayoutGuide.length;
-//    viewBounds.origin.y = topBarOffset * -1;
-//    self.view.bounds = viewBounds;
-//}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -68,9 +62,7 @@
     }
 
     _m_PPPPChannelMgtCondition = [[NSCondition alloc] init];
-    _m_PPPPChannelMgt = new CPPPPChannelManagement();
     _m_PPPPChannelMgt->pCameraViewController = self;
-    InitAudioSession();
     [self _startAll];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didEnterBackground)
@@ -110,29 +102,35 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 #pragma mark - Notification methods
 - (void) didEnterBackground{
-//    [_m_PPPPChannelMgtCondition lock];
-//    if (_m_PPPPChannelMgt == NULL) {
-//        [_m_PPPPChannelMgtCondition unlock];
-//        return;
-//    }
-//    _m_PPPPChannelMgt->StopPPPPAudio([self.camera.UID UTF8String]);
-//    _m_PPPPChannelMgt->StopPPPPTalk([self.camera.UID UTF8String]);
-//    _m_PPPPChannelMgt->StopPPPPLivestream([self.camera.UID UTF8String]);
-//    _m_PPPPChannelMgt->StopAll();
-//    [_m_PPPPChannelMgtCondition unlock];
     [self _stopCamera];
 }
 
 - (void) willEnterForeground{
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self _startAll];
+        [self _initialize];
+        InitAudioSession();
     });
+    [self _startAll];
 }
 
 #pragma mark - private methods
+-(void)hideHUD{
+    [_acter removeFromSuperview];
+}
+-(void)initActivity{
+    _acter = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [_acter startAnimating];
+    if ([self.view.subviews containsObject:self.mainLandscapeView]) {
+        UIImageView *image = (UIImageView *)[self.mainLandscapeView viewWithTag:100];
+        _acter.center = image.center;
+        [image addSubview:_acter];
+    }else{
+        _acter.center = self.playView.center;
+        [self.playView addSubview:_acter];
+    }
+}
 -(void)addGestureOnImageView:(UIView *)image{
     UISwipeGestureRecognizer *recognizer;
     recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
@@ -199,17 +197,6 @@
             break;
     }
 }
-//-(void)getCameraInfo{
-//    _m_PPPPChannelMgt->SetDateTimeDelegate((char*)[_camera.UID UTF8String], self);
-//    _m_PPPPChannelMgt->SetSDcardScheduleDelegate((char*)[_camera.UID UTF8String], self);
-//    _m_PPPPChannelMgt->SetWifiParamDelegate((char*)[_camera.UID UTF8String], self);
-//    
-//    _m_PPPPChannelMgt->PPPPSetSystemParams((char*)[_camera.UID UTF8String], MSG_TYPE_GET_PARAMS, NULL, 0);
-//    _m_PPPPChannelMgt->PPPPSetSystemParams((char*)[self.camera.UID UTF8String], MSG_TYPE_GET_RECORD, NULL, 0);
-//}
--(void)hideHUD{
-    [HUD hide:YES];
-}
 -(void)getCameraInfo{
     //设置代理
     _m_PPPPChannelMgt->SetDateTimeDelegate((char*)[_camera.UID UTF8String], self);
@@ -253,8 +240,8 @@
 }
 -(void)getSpeed{
     //    NSLog(@"%i Kb/s",_speed/1024/3);
-    [self refreshUIWithArray:@[@(4),[NSString stringWithFormat:@"%i KB/s",_speed/1024/3]]];
-    _speed = 0;
+    [self refreshUIWithArray:@[@(4),[NSString stringWithFormat:@"%i KB/s",MainDelegate.dataLength/1024/3]]];
+    MainDelegate.dataLength = 0;
 }
 
 #pragma mark UIScreenEdgePanGesture methods
@@ -279,10 +266,7 @@
 #pragma mark - camera control methods
 
 - (void)_startAll {
-    if (HUD == nil) {
-        HUD = [MBProgressHUD showHUDAddedTo:self.playView animated:YES];
-    }
-    [HUD show:YES];
+    [self initActivity];
     [self _connectCam];
 }
 - (void)_initialize{
@@ -314,7 +298,7 @@
     //设置代理
     _m_PPPPChannelMgt->SetDateTimeDelegate((char*)[_camera.UID UTF8String], self);
     _m_PPPPChannelMgt->SetSDcardScheduleDelegate((char*)[_camera.UID UTF8String], self);
-    
+    MainDelegate.dataLength = 0;
     //获取具体的值
     _m_PPPPChannelMgt->GetCGI([_camera.UID UTF8String], CGI_IEGET_CAM_PARAMS);
     _m_PPPPChannelMgt->PPPPSetSystemParams((char*)[_camera.UID UTF8String], MSG_TYPE_GET_PARAMS, NULL, 0);
@@ -348,9 +332,9 @@
         [_m_PPPPChannelMgtCondition unlock];
         return;
     }
-    _m_PPPPChannelMgt->StopPPPPAudio([self.camera.UID UTF8String]);
-    _m_PPPPChannelMgt->StopPPPPTalk([self.camera.UID UTF8String]);
-//    _m_PPPPChannelMgt->StopPPPPLivestream([self.camera.UID UTF8String]);
+    [_timerForDate invalidate];
+    [_timerForSpeed invalidate];
+    
     _m_PPPPChannelMgt->StopAll();
     [_m_PPPPChannelMgtCondition unlock];
     dispatch_async(dispatch_get_main_queue(),^{
@@ -365,29 +349,14 @@
 }
 #pragma mark - ImageNotifyProtocol methods
 - (void) ImageNotify: (UIImage *)image timestamp: (NSInteger)timestamp DID:(NSString *)did{
-    if ([self.playView.subviews count]) {
-        [self performSelectorOnMainThread:@selector(hideHUD) withObject:nil waitUntilDone:YES];
-    }
-    NSData *data = UIImageJPEGRepresentation(image, 1.0);
-    _speed += data.length;
-    [self performSelectorOnMainThread:@selector(refreshImage:) withObject:image waitUntilDone:YES];
+    [self performSelector:@selector(refreshImage:) withObject:image];
 }
 - (void) YUVNotify: (Byte*) yuv length:(int)length width: (int) width height:(int)height timestamp:(unsigned int)timestamp DID:(NSString *)did{
-    if ([self.playView.subviews count]) {
-        [self performSelectorOnMainThread:@selector(hideHUD) withObject:nil waitUntilDone:YES];
-    }
     UIImage* image = [APICommon YUV420ToImage:yuv width:width height:height];
-    NSData *data = UIImageJPEGRepresentation(image, 1.0);
-    _speed += data.length;
     [self performSelector:@selector(refreshImage:) withObject:image];
 }
 - (void) H264Data: (Byte*) h264Frame length: (int) length type: (int) type timestamp: (NSInteger) timestamp{
-    if ([self.playView.subviews count]) {
-        [self performSelectorOnMainThread:@selector(hideHUD) withObject:nil waitUntilDone:YES];
-    }
     UIImage* image = [UIImage imageWithData:[[NSData alloc] initWithBytes:h264Frame length:length]];
-    NSData *data = UIImageJPEGRepresentation(image, 1.0);
-    _speed += data.length;
     [self performSelector:@selector(refreshImage:) withObject:image];
 }
 #pragma mark - PPPPStatusDelegate methods
@@ -439,9 +408,15 @@
         dispatch_async(dispatch_get_main_queue(),^{
             if ([self.view.subviews containsObject:self.mainLandscapeView]) {
                 UIImageView *imageV = (UIImageView *)[self.mainLandscapeView viewWithTag:100];
+                if ([imageV.subviews containsObject:_acter]) {
+                    [self performSelectorOnMainThread:@selector(hideHUD) withObject:nil waitUntilDone:YES];
+                }
                 imageV.image = nil;
                 imageV.image = image;
             }else{
+                if ([_playView.subviews containsObject:_acter]) {
+                    [self performSelectorOnMainThread:@selector(hideHUD) withObject:nil waitUntilDone:YES];
+                }
                 _playView.image = nil;
                 _playView.image = image;
             }
@@ -498,18 +473,19 @@
     }
 }
 - (IBAction)showFullScreenView:(UIButton *)sender {
-    _isLandscape = !_isLandscape;
-    if (_isLandscape) {
-        [self.view addSubview:self.mainLandscapeView];
-//        self.view=self.mainLandscapeView;
-//        self.view.transform=CGAffineTransformMakeRotation(deg2rad*(90));
-//        self.view.bounds=CGRectMake(0.0, 0.0, 480.0, 320.0);
-    }else{
-        [self.mainLandscapeView removeFromSuperview];
-//        self.view=self.mainPortraitView;
-//        self.view.transform=CGAffineTransformMakeRotation(deg2rad*(0));
-//        self.view.bounds=CGRectMake(0.0, 0.0, 320.0, 480.0);
-    }
+    [self.view addSubview:self.mainLandscapeView];
+//    _isLandscape = !_isLandscape;
+//    if (_isLandscape) {
+//        [self.view addSubview:self.mainLandscapeView];
+////        self.view=self.mainLandscapeView;
+////        self.view.transform=CGAffineTransformMakeRotation(deg2rad*(90));
+////        self.view.bounds=CGRectMake(0.0, 0.0, 480.0, 320.0);
+//    }else{
+//        [self.mainLandscapeView removeFromSuperview];
+////        self.view=self.mainPortraitView;
+////        self.view.transform=CGAffineTransformMakeRotation(deg2rad*(0));
+////        self.view.bounds=CGRectMake(0.0, 0.0, 320.0, 480.0);
+//    }
 }
 - (IBAction)popUp:(UIButton *)sender {
     [self _stopCamera];
@@ -575,11 +551,11 @@
 }
 
 -(void)SnapshotNotify:(NSString *)strDID data:(char *)data length:(int)length{
-    UIGraphicsBeginImageContext(_playView.bounds.size);
-    [_playView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *temp = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    UIImageWriteToSavedPhotosAlbum(temp, nil, nil, nil);
+//    UIGraphicsBeginImageContext(_playView.bounds.size);
+//    [_playView.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    UIImage *temp = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    UIImageWriteToSavedPhotosAlbum(temp, nil, nil, nil);
 }
 
 @end

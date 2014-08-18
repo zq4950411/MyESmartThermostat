@@ -25,6 +25,7 @@
     BOOL _isRefreshing;
     NSIndexPath *_selectedIndex;
     MBProgressHUD *HUD;
+    BOOL _jumpToSubControllers;
 }
 @end
 
@@ -38,7 +39,25 @@
         [[UIApplication sharedApplication] setStatusBarHidden:YES];
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didEnterBackground)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willEnterForeground)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
+    if (!_jumpToSubControllers) {  //如果是跳转到子控制器，则只是
+        _jumpToSubControllers = NO;
+        [self didEnterBackground];
+    }
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -68,6 +87,7 @@
     [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
     
     _m_PPPPChannelMgtCondition = [[NSCondition alloc] init];
+    _m_PPPPChannelMgt = new CPPPPChannelManagement();
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self initialize];
@@ -125,14 +145,16 @@
         [self performSelector:@selector(endGetCameraStatus) withObject:nil afterDelay:0.3];
         return;
     }
-    _m_PPPPChannelMgt = new CPPPPChannelManagement();
+    _jumpToSubControllers = NO;
     _m_PPPPChannelMgt->pCameraViewController = self;
-
+    [self didEnterBackground];  //这里要将所有的都断开，然后再进行连接
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
     for (MyECamera *c in _cameraList) {
         [self ConnectCamWithCamera:c];  //这里不需要截图，只需要获取状态就可以了
-        _m_PPPPChannelMgt->SetSnapshotDelegate((char*)[c.UID UTF8String], self);
         _m_PPPPChannelMgt->Snapshot([c.UID UTF8String]);
     }
+    });
 }
 - (void)initialize{
     PPPP_Initialize((char*)[@"EBGBEMBMKGJMGAJPEIGIFKEGHBMCHMJHCKBMBHGFBJNOLCOLCIEBHFOCCHKKJIKPBNMHLHCPPFMFADDFIINOIABFMH" UTF8String]);
@@ -141,17 +163,11 @@
 }
 - (void)ConnectCamWithCamera:(MyECamera *)camera{
     [_m_PPPPChannelMgtCondition lock];
-    //    camera.m_PPPPChannelMgt = new CPPPPChannelManagement();
-    //    camera.m_PPPPChannelMgt->pCameraViewController = self;
-    
     if (_m_PPPPChannelMgt == NULL) {
         [_m_PPPPChannelMgtCondition unlock];
         return;
     }
-    NSInteger i = _m_PPPPChannelMgt->Start([camera.UID UTF8String], [camera.username UTF8String], [camera.password UTF8String]);
-    if (i == 0) {
-        [self performSelector:@selector(endGetCameraStatus) withObject:nil afterDelay:0.3];
-    }
+    _m_PPPPChannelMgt->Start([camera.UID UTF8String], [camera.username UTF8String], [camera.password UTF8String]);
     [_m_PPPPChannelMgtCondition unlock];
 }
 
@@ -174,6 +190,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:hit];
     MyECamera *c = self.cameraList[indexPath.row];
     NSLog(@"%i",indexPath.row);
+    _jumpToSubControllers = YES;
     MyEEditCameraViewController *viewController = [[UIStoryboard storyboardWithName:@"Camera" bundle:nil] instantiateViewControllerWithIdentifier:@"edit"];
     viewController.camera = c;
     viewController.m_PPPPChannelMgt = _m_PPPPChannelMgt;
@@ -194,8 +211,11 @@
 - (void) willEnterForeground{
     dispatch_async(dispatch_get_main_queue(), ^{
         [self initialize];
+        InitAudioSession();
     });
-    [self getCameraStatus];
+    if (self.cameraList.count) {
+        [self getCameraStatus];
+    }
 }
 #pragma mark - Table view data source
 
@@ -231,8 +251,11 @@
         [MyEUtil showMessageOn:nil withMessage:@"Not online"];
         return;
     }
+    _jumpToSubControllers = YES;
     MyECameraViewController *viewController = [[UIStoryboard storyboardWithName:@"Camera" bundle:nil] instantiateViewControllerWithIdentifier:@"cameraInfo"];
     viewController.camera = camera;
+    viewController.m_PPPPChannelMgt = _m_PPPPChannelMgt;
+
     viewController.modalPresentationStyle = UIModalPresentationNone;
     viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:viewController animated:YES completion:nil];
@@ -302,9 +325,9 @@
         }
     }
     if (_isRefreshing) {
-        [self performSelectorOnMainThread:@selector(endGetCameraStatus) withObject:nil waitUntilDone:YES];
+        [self performSelectorOnMainThread:@selector(endGetCameraStatus) withObject:nil waitUntilDone:NO];
     }
-    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 -(void)SnapshotNotify:(NSString *)strDID data:(char *)data length:(int)length{
     NSLog(@"receive image");
@@ -319,9 +342,9 @@
     }
     //    [self _saveData];
     if (_isRefreshing) {
-        [self performSelectorOnMainThread:@selector(endGetCameraStatus) withObject:nil waitUntilDone:YES];
+        [self performSelectorOnMainThread:@selector(endGetCameraStatus) withObject:nil waitUntilDone:NO];
     }
-    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 #pragma mark - UIScrollViewDelegate Methods
 

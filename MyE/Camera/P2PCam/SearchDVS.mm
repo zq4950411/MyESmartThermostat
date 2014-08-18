@@ -243,6 +243,7 @@ void CSearchDVS::ReceiveProcess()
             OnMessageProc(szBuffer, bytes, pStr);
         }
     }
+    
 }
 
 void CSearchDVS::GetNetParam(PBCASTPARAM pstParam)
@@ -299,7 +300,7 @@ void CSearchDVS::ProcMessage(short sCmdID, unsigned short nMessageLen, char *psz
 
 void CSearchDVS::OnMessageProc(char *pszBuffer, int iBufferSize,  char *pszIp)
 {
-    printf("OnMessageProc...\n");
+     printf("OnMessageProc...\n");
     short st = *((short*)pszBuffer);
     if(st != STARTCODE)
         return;

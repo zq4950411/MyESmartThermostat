@@ -16,7 +16,7 @@
 @interface MyEAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (assign, nonatomic) NSInteger dataLength; //用于摄像头传输时的速度
 @property (strong, nonatomic) NSString *deviceTokenStr,*alias; //这个是为消息推送准备的数据
 @property (strong, nonatomic) MyEAccountData *accountData;
 

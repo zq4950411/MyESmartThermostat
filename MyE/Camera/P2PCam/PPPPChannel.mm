@@ -2122,8 +2122,7 @@ void CPPPPChannel::StopVideoPlay()
 }
 
 void CPPPPChannel::PlayProcess()
-{
-    int runFlag = 1;
+{ 
     CH264Decoder *pH264Decoder = new CH264Decoder();//创建h264的解码库
     while(m_bPlayThreadRuning)
     {
@@ -2156,12 +2155,7 @@ void CPPPPChannel::PlayProcess()
         //NSLog(@"get one frame");
         if(ENUM_VIDEO_MODE_H264 == m_EnumVideoMode)
         {
-            
-
-            
             NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-            
-            
             int yuvlen = 0;
             int nWidth = 0;
             int nHeight = 0;
@@ -2173,6 +2167,8 @@ void CPPPPChannel::PlayProcess()
                     
                     if (nRec>0) {
                          YUVNotify(pYUVBuffer, yuvlen, nWidth, nHeight, untimestamp);
+                        MainDelegate.dataLength += yuvlen/10;
+
                     }
                 
                     delete pYUVBuffer;
@@ -2181,30 +2177,30 @@ void CPPPPChannel::PlayProcess()
 
             }
 
-            
             H264DataNotify((unsigned char*)pbuf, videoLen, videohead.frametype, untimestamp);
-            
+            MainDelegate.dataLength += videoLen/10;
+
             [pool release];
-            SAFE_DELETE(pbuf) ;
-        }
+            
+            
+        }      
         else /* JPEG */
         {
             NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-            NSData *image = [NSData dataWithBytesNoCopy:pbuf length:videoLen freeWhenDone:YES];
-            UIImage *img = [UIImage imageWithData:image];
-
+            NSData *image = [[NSData alloc] initWithBytes:pbuf length:videoLen];
+            UIImage *img = [[UIImage alloc] initWithData:image];  
             ImageNotify(img, untimestamp);
-//            if (runFlag == 0) {
-//                runFlag = 1;
-//                _oldImage = nil;
-//            }else
-//                runFlag = 0;
-//            _oldImage = img;
+#warning 这里新增了摄像头图片长度
+            MainDelegate.dataLength += image.length;
+            [img release];
+            [image release];
+            
             [pool release];
+            
         }
         
-//        SAFE_DELETE(pbuf) ;
-        usleep(150000);
+        SAFE_DELETE(pbuf) ;         
+        usleep(10000);       
         
     }
     
@@ -2236,9 +2232,7 @@ void CPPPPChannel::YUVNotify(unsigned char *yuv, int len, int width, int height,
 void CPPPPChannel::ImageNotify(UIImage *image, unsigned int timestamp)
 {
     [m_PlayViewAVDataDelegateLock lock];
-    if (image != nil) {
-        [m_PlayViewImageNotifyDelegate ImageNotify:image timestamp:timestamp DID:[NSString stringWithUTF8String:szDID]];
-    }
+    [m_PlayViewImageNotifyDelegate ImageNotify:image timestamp:timestamp DID:[NSString stringWithUTF8String:szDID]];
     [m_PlayViewAVDataDelegateLock unlock];
 
 }
@@ -2579,9 +2573,7 @@ int CPPPPChannel::SetWifi(int enable, char *szSSID, int channel, int mode, int a
     return SetSystemParams(MSG_TYPE_SET_WIFI, (char*)&wifiParams, sizeof(wifiParams));
 
 }
-void CPPPPChannel::SetSnapshotDelegate(id delegate){
-    m_CameraViewSnapshotDelegate = delegate;
-}
+
 void CPPPPChannel::SetUserPwdParamsDelegate(id delegate)
 {
     [m_UserPwdParamsLock lock];

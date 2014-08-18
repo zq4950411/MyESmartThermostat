@@ -18,7 +18,7 @@
 #import "SnapshotProtocol.h"
 
 @interface MyECameraViewController : UIViewController
-<ImageNotifyProtocol,DateTimeProtocol,SdcardScheduleProtocol,ParamNotifyProtocol> {
+<ImageNotifyProtocol,DateTimeProtocol,SdcardScheduleProtocol,ParamNotifyProtocol,SnapshotProtocol> {
 }
 @property CPPPPChannelManagement* m_PPPPChannelMgt;
 @property (nonatomic, weak) MyECamera *camera;

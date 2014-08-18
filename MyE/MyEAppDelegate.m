@@ -217,10 +217,10 @@
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
     // 防御性编程，如果程序正常转到后台或由用户退出，就把exitcode设置为1
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setInteger:1  forKey:@"exitcode"]; 
-    [prefs synchronize];
-    NSLog(@"------------=============applicationDidEnterBackground, exitcode = 1");
+//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+//    [prefs setInteger:1  forKey:@"exitcode"]; 
+//    [prefs synchronize];
+//    NSLog(@"------------=============applicationDidEnterBackground, exitcode = 1");
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 
 }
@@ -316,24 +316,24 @@
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
-    NSLog(@"----------===================applicationDidBecomeActive, exitcode = -1");
-    
-    //想显示记录下来的被迫退出的原因，仅用于调试
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    // exitcode < 1表示上次程序正常转到后台，直至退出。如果程序是异常crash，就没有机会把exitcode设置为1
-    BOOL exitcode = [prefs boolForKey:@"exitcode"];
-    
-    if (exitcode != 1) {
-        // 表示程序上一次退出时是在前台异常crash，没有机会把appInActiveSinceLastExit变量设置为1
-        // 这里就把所有上次保存的东西删除，使得程序像初始化一样运行
-        
-        [prefs removeObjectForKey:@"username"]; 
-        [prefs removeObjectForKey:@"password"];
-        [prefs removeObjectForKey:@"rememberme"];
-        [prefs removeObjectForKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
-    }
-    [prefs setInteger:-1 forKey:@"exitcode"]; //设置exitcode为-1，如果程序异常crash，此exitcode就没有机会设置为1
+//    NSLog(@"----------===================applicationDidBecomeActive, exitcode = -1");
+//    
+//    //想显示记录下来的被迫退出的原因，仅用于调试
+//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+//    
+//    // exitcode < 1表示上次程序正常转到后台，直至退出。如果程序是异常crash，就没有机会把exitcode设置为1
+//    BOOL exitcode = [prefs boolForKey:@"exitcode"];
+//    
+//    if (exitcode != 1) {
+//        // 表示程序上一次退出时是在前台异常crash，没有机会把appInActiveSinceLastExit变量设置为1
+//        // 这里就把所有上次保存的东西删除，使得程序像初始化一样运行
+//        
+//        [prefs removeObjectForKey:@"username"]; 
+//        [prefs removeObjectForKey:@"password"];
+//        [prefs removeObjectForKey:@"rememberme"];
+//        [prefs removeObjectForKey:KEY_FOR_HOUSE_ID_LAST_VIEWED];
+//    }
+//    [prefs setInteger:-1 forKey:@"exitcode"]; //设置exitcode为-1，如果程序异常crash，此exitcode就没有机会设置为1
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -344,10 +344,10 @@
      See also applicationDidEnterBackground:.
      */
     // 防御性编程，如果程序正常转到后台或由用户退出，就把exitcode设置为1
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setInteger:1  forKey:@"exitcode"]; 
-    [prefs synchronize];
-    NSLog(@"------------=============applicationWillTerminate");
+//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+//    [prefs setInteger:1  forKey:@"exitcode"]; 
+//    [prefs synchronize];
+//    NSLog(@"------------=============applicationWillTerminate");
 }
 #pragma mark - Notification methods
 

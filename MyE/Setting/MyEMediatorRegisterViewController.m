@@ -29,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.midTxt.pattern = @"^([0-9a-zA-Z]{2}(?:-)){7}[0-9a-zA-Z]{2}$";
+    self.midTxt.pattern = @"^([0-9a-fA-F]{2}(?:-)){7}[0-9a-fA-F]{2}$";
     [self.scanBtn setStyleType:ACPButtonOK];
     [self.regestBtn setStyleType:ACPButtonOK];
     self.accountData = MainDelegate.accountData;
