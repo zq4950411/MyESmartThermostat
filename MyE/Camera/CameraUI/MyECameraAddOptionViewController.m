@@ -207,7 +207,9 @@
 }
 #pragma mark - QRScan delegate methods
 -(void)passCameraUID:(NSString *)UID{
-    self.camera.UID = UID;
+    NSMutableString *str = [UID mutableCopy];
+    [str replaceOccurrencesOfString:@"-" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, UID.length)];
+    self.camera.UID = str;
     [self presentVCToAddDeviceWithTag:2];
 }
 

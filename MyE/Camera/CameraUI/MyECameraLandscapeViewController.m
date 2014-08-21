@@ -104,7 +104,7 @@
     }
     NSData *data = UIImageJPEGRepresentation(image, 1);
     _dataLength += data.length;
-    [self performSelectorOnMainThread:@selector(updateSliderValue) withObject:nil waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(updateSliderValue) withObject:nil waitUntilDone:NO];
 }
 -(void)addGestureOnControlView{
     UISwipeGestureRecognizer *recognizer;

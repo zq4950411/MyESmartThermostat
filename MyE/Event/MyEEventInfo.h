@@ -46,7 +46,7 @@
 @property (nonatomic, assign) NSInteger controlMode;  //温控器当前设定状态(温控器可用，表示控制状态1：heat，2：cool，3：auto，4：emgHeat，5：off。
 @property (nonatomic, assign) NSInteger point;  //温控器当前设定的温度(温控器可用) 55-90
 @property (nonatomic, assign) NSInteger typeId; //设备类型：2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器 8:智能开关   0：温控器
-
+@property (nonatomic, assign) NSInteger isSystemDefined;
 -(MyEEventDevice *)initWithDictionary:(NSDictionary *)dic;
 -(UIImage *)changeTypeToImage;
 -(NSString *)getDeviceInstructionName;

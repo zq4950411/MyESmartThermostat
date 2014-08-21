@@ -76,7 +76,7 @@
         NSMutableString *string = [NSMutableString stringWithString:_instructions.channel];
         [string replaceOccurrencesOfString:@"2" withString:@"0" options:NSCaseInsensitiveSearch range:NSMakeRange(0, string.length)];
         tailString = [subString stringByAppendingString:[NSString stringWithFormat:@"channel=%@",string]];
-    }else if (_deviceType.typeId == 1 && [_device.instructionName isEqualToString:@"1"]){
+    }else if (_deviceType.typeId == 1 && _device.isSystemDefined == 1){
         tailString = [subString stringByAppendingString:[NSString stringWithFormat:@"controlMode=%i&point=%i&fan=%i&instructionId=%i",_instructions.controlMode,_instructions.point,_instructions.fan,_instructions.controlStatus]];
     }else
         tailString = [subString stringByAppendingString:[NSString stringWithFormat:@"instructionId=%i",_instruction.instructionId]];
@@ -146,7 +146,7 @@
 -(void)refreshUI{
     //注意这里的编号tag值
     UIView *view = nil;
-    if (_deviceType.typeId == 0 || (_deviceType.typeId == 1 && [_device.instructionName isEqualToString:@"1"])) {
+    if (_deviceType.typeId == 0 || (_deviceType.typeId == 1 && _device.isSystemDefined == 1)) {
         view = (UIView *)[self.view viewWithTag:203];
         UIButton *mode = (UIButton *)[view viewWithTag:104];
         UIButton *fan = (UIButton *)[view viewWithTag:105];

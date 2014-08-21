@@ -56,7 +56,7 @@
     }else
         statusStr = @"Recording...";
     _contents = @[[NSString stringWithFormat:@"%i",total],[NSString stringWithFormat:@"%i",remain],statusStr];
-    [self performSelectorOnMainThread:@selector(refreshUI) withObject:nil waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(refreshUI) withObject:nil waitUntilDone:NO];
 }
 - (void) SnapshotNotify: (NSString*) strDID data:(char*) data length:(int) length{
     NSLog(@"UID:%@ length:%i",strDID,length);

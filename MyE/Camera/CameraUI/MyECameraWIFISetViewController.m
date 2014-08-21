@@ -126,7 +126,7 @@
     if (!hasOne && wifi.name.length > 0) {
         [_data addObject:wifi];
     }
-    [self performSelectorOnMainThread:@selector(endRefresh) withObject:nil waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(endRefresh) withObject:nil waitUntilDone:NO];
     /**
      *  Set Wifi
      *

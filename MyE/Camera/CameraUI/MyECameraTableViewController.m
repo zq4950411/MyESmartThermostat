@@ -235,6 +235,10 @@
     imgMain.image = [UIImage imageWithContentsOfFile:camera.imagePath];
     UILabel *lblStatus = (UILabel *)[cell.contentView viewWithTag:3];
     lblStatus.text = camera.status;
+    UIActivityIndicatorView *act = (UIActivityIndicatorView *)[cell.contentView viewWithTag:100];
+    [act startAnimating];
+    act.hidden = ![camera.imagePath isEqualToString:@""];
+
     UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:11];
     if (camera.isOnline) {
         imageView.image = [UIImage imageNamed:@"signal4"];
@@ -322,6 +326,9 @@
         if ([c.UID isEqualToString:strDID]) {
             c.status = strPPPPStatus;
             c.isOnline = isOnline;
+            if (status > 2) {
+                c.imagePath = @"noImage";
+            }
         }
     }
     if (_isRefreshing) {

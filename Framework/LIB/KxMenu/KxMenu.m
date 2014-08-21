@@ -128,8 +128,8 @@ const CGFloat kArrowSize = 12.f;
     __strong id target = self.target;
     
     if (target && [target respondsToSelector:_action]) {
-        
-        [target performSelectorOnMainThread:_action withObject:self waitUntilDone:YES];
+#warning 这里将YES 改为NO
+        [target performSelectorOnMainThread:_action withObject:self waitUntilDone:NO];
     }
 }
 

@@ -303,7 +303,7 @@
     _m_PPPPChannelMgt->GetCGI([_camera.UID UTF8String], CGI_IEGET_CAM_PARAMS);
     _m_PPPPChannelMgt->PPPPSetSystemParams((char*)[_camera.UID UTF8String], MSG_TYPE_GET_PARAMS, NULL, 0);
     _m_PPPPChannelMgt->PPPPSetSystemParams((char*)[self.camera.UID UTF8String], MSG_TYPE_GET_RECORD, NULL, 0);
-    [self performSelectorOnMainThread:@selector(startTimerToGetStatus) withObject:nil waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(startTimerToGetStatus) withObject:nil waitUntilDone:NO];
 }
 /*---------------------AUDIO---------------------------*/
 - (void)_startAudio{
@@ -399,7 +399,7 @@
             break;
     }
     NSLog(@"PPPPStatus  %@",strPPPPStatus);
-    [self performSelectorOnMainThread:@selector(refreshUIWithArray:) withObject:@[@1,strPPPPStatus] waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(refreshUIWithArray:) withObject:@[@1,strPPPPStatus] waitUntilDone:NO];
 }
 
 //refreshImage
@@ -409,13 +409,13 @@
             if ([self.view.subviews containsObject:self.mainLandscapeView]) {
                 UIImageView *imageV = (UIImageView *)[self.mainLandscapeView viewWithTag:100];
                 if ([imageV.subviews containsObject:_acter]) {
-                    [self performSelectorOnMainThread:@selector(hideHUD) withObject:nil waitUntilDone:YES];
+                    [self performSelectorOnMainThread:@selector(hideHUD) withObject:nil waitUntilDone:NO];
                 }
                 imageV.image = nil;
                 imageV.image = image;
             }else{
                 if ([_playView.subviews containsObject:_acter]) {
-                    [self performSelectorOnMainThread:@selector(hideHUD) withObject:nil waitUntilDone:YES];
+                    [self performSelectorOnMainThread:@selector(hideHUD) withObject:nil waitUntilDone:NO];
                 }
                 _playView.image = nil;
                 _playView.image = image;
@@ -439,14 +439,14 @@
 
 #pragma mark - SdcardScheduleProtocol
 -(void)sdcardScheduleParams:(NSString *)did Tota:(int)total/*SD卡总容量*/  RemainCap:(int)remain/*SD卡剩余容量*/ SD_status:(int)status/*1:停止录像 2:正在录像 0:未检测到卡*/ Cover:(int) cover_enable/*0:不自动覆盖1:自动覆盖 */ TimeLength:(int)timeLength/*录像时长*/ FixedTimeRecord:(int)ftr_enable/*0:未开启实时录像 1:开启实时录像*/ RecordSize:(int)recordSize/*录像总容量*/ record_schedule_sun_0:(int) record_schedule_sun_0 record_schedule_sun_1:(int) record_schedule_sun_1 record_schedule_sun_2:(int) record_schedule_sun_2 record_schedule_mon_0:(int) record_schedule_mon_0 record_schedule_mon_1:(int) record_schedule_mon_1 record_schedule_mon_2:(int) record_schedule_mon_2 record_schedule_tue_0:(int) record_schedule_tue_0 record_schedule_tue_1:(int) record_schedule_tue_1 record_schedule_tue_2:(int) record_schedule_tue_2 record_schedule_wed_0:(int) record_schedule_wed_0 record_schedule_wed_1:(int) record_schedule_wed_1 record_schedule_wed_2:(int) record_schedule_wed_2 record_schedule_thu_0:(int) record_schedule_thu_0 record_schedule_thu_1:(int) record_schedule_thu_1 record_schedule_thu_2:(int) record_schedule_thu_2 record_schedule_fri_0:(int) record_schedule_fri_0 record_schedule_fri_1:(int) record_schedule_fri_1 record_schedule_fri_2:(int) record_schedule_fri_2 record_schedule_sat_0:(int) record_schedule_sat_0 record_schedule_sat_1:(int) record_schedule_sat_1 record_schedule_sat_2:(int) record_schedule_sat_2{
-    [self performSelectorOnMainThread:@selector(refreshUIWithArray:) withObject:@[@3,total==0?@"No SD card or the card needs to be formated":[NSString stringWithFormat:@"%iM/%iM",remain,total]] waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(refreshUIWithArray:) withObject:@[@3,total==0?@"No SD card or the card needs to be formated":[NSString stringWithFormat:@"%iM/%iM",remain,total]] waitUntilDone:NO];
 //    NSLog(@"Camera %@ SD Status total %d ....",did, total);
 }
 
 #pragma mark - Wifi Param Protocol
 - (void) WifiParams: (NSString*)strDID enable:(NSInteger)enable ssid:(NSString*)strSSID channel:(NSInteger)channel mode:(NSInteger)mode authtype:(NSInteger)authtype encryp:(NSInteger)encryp keyformat:(NSInteger)keyformat defkey:(NSInteger)defkey strKey1:(NSString*)strKey1 strKey2:(NSString*)strKey2 strKey3:(NSString*)strKey3 strKey4:(NSString*)strKey4 key1_bits:(NSInteger)key1_bits key2_bits:(NSInteger)key2_bits key3_bits:(NSInteger)key3_bits key4_bits:(NSInteger)key4_bits wpa_psk:(NSString*)wpa_psk{
 //    NSLog(@"Camera WifiParams.....strDID: %@, enable:%d, ssid:%@, channel:%d, mode:%d, authtype:%d, encryp:%d, keyformat:%d, defkey:%d, strKey1:%@, strKey2:%@, strKey3:%@, strKey4:%@, key1_bits:%d, key2_bits:%d, key3_bits:%d, key4_bits:%d, wap_psk:%@", strDID, enable, strSSID, channel, mode, authtype, encryp, keyformat, defkey, strKey1, strKey2, strKey3, strKey4, key1_bits, key2_bits, key3_bits, key4_bits, wpa_psk);
-    [self performSelectorOnMainThread:@selector(refreshUIWithArray:) withObject:@[@4,[strSSID isEqualToString:@"ChinaNet"]?@"Network Cable":strSSID] waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(refreshUIWithArray:) withObject:@[@4,[strSSID isEqualToString:@"ChinaNet"]?@"Network Cable":strSSID] waitUntilDone:NO];
 }
 #pragma mark - ParamNotifyProtocol
 - (void) ParamNotify: (int) paramType params:(void*) params{

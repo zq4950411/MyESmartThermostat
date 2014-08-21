@@ -145,6 +145,7 @@
         self.controlMode = 1;
         self.typeId = 0;
         self.deviceId = 0;
+        self.isSystemDefined = 0;
     }
     return self;
 }
@@ -158,6 +159,7 @@
         self.controlMode = (dic[@"controlMode"] == [NSNull null] || [dic[@"controlMode"] intValue] == 0)?1:[dic[@"controlMode"] intValue];
         self.typeId = [dic[@"typeId"] intValue];
         self.deviceId = [dic[@"deviceId"] intValue];
+        self.isSystemDefined = dic[@"isSystemDefined"] == [NSNull null]?0:[dic[@"isSystemDefined"] intValue];
     }
     return self;
 }
@@ -181,9 +183,9 @@
     }else if(self.typeId == 6){
         return [self.instructionName isEqualToString:@"1"]?@"ON":@"OFF";
     }else if (self.typeId == 1){
-        return @"";
+        return self.instructionName;
     }else
-        return [NSString stringWithFormat:@"%@",self.instructionName];
+        return self.instructionName;
 }
 -(id)copyWithZone:(NSZone *)zone{
     MyEEventDevice *device = [[[self class] allocWithZone:zone] init];
