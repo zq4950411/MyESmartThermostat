@@ -30,7 +30,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    NSMutableArray *sortDescriptors = [NSMutableArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"stid" ascending:YES]];
+    [self.periodList sortUsingDescriptors:sortDescriptors ];
+
     [self.tableView reloadData];
     
 }

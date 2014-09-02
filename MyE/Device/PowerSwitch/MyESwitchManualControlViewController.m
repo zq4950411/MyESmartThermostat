@@ -104,81 +104,90 @@
     return [self.control.SCList count];  //这里就是按照有多少通道就新建多少item，没有将数据写死，有助于以后的修改
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    MYESwitchCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     MyESwitchChannelStatus *status = self.control.SCList[indexPath.row];
-    //    UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
-    UIButton *switchBtn = (UIButton *)[cell viewWithTag:101];
-    UIButton *timeBtn = (UIButton *)[cell viewWithTag:102];
-    UILabel *delayTimeLabel = (UILabel *)[cell viewWithTag:103];
-    UILabel *remainTimeLabel = (UILabel *)[cell viewWithTag:104];
-    //    [_UIArray addObject:@[switchBtn,remainTimeLabel]];
-    //    titleLabel.text = [NSString stringWithFormat:@"Light %li",(long)indexPath.row+1];
-    switchBtn.enabled = NO;
-    timeBtn.enabled = NO;
-    NSLog(@"%@",status);
-    if (!status.disable) {
-        switchBtn.enabled = YES;
-        timeBtn.enabled = YES;
-        if (status.switchStatus == 1) {
-            switchBtn.selected = NO;
-            if (status.delayStatus == 1) {
-                timeBtn.selected = NO;
-                delayTimeLabel.hidden = NO;
-                remainTimeLabel.hidden = NO;
-                delayTimeLabel.text = [NSString stringWithFormat:@"Duration:%li Minute(s)",(long)status.delayMinute];
-                remainTimeLabel.text = [NSString stringWithFormat:@"Remain:%li Minute(s)",(long)status.remainMinute];
-            }else{
-                timeBtn.selected = YES;
-                delayTimeLabel.hidden = YES;
-                remainTimeLabel.hidden = YES;
-                delayTimeLabel.text = @"";
-                remainTimeLabel.text = @"";
-            }
-        }else{
-            switchBtn.selected = YES;
-            if (status.delayStatus == 1) {
-                timeBtn.selected = NO;
-                delayTimeLabel.hidden = YES;
-                remainTimeLabel.hidden = YES;
-                //            delayTimeLabel.text = [NSString stringWithFormat:@"Duration:%li Minute(s)",(long)status.delayMinute];
-                //            remainTimeLabel.text = [NSString stringWithFormat:@"Remain:0 Minute(s)"];
-            }else{
-                timeBtn.selected = YES;
-                delayTimeLabel.hidden = YES;
-                remainTimeLabel.hidden = YES;
-            }
-        }
-    }else{
-        switchBtn.enabled = NO;
-        timeBtn.enabled = NO;
-        delayTimeLabel.text = @"";
-        remainTimeLabel.text = @"";
+    if (cell.switchBtn.isLoading) {
+        [cell.switchBtn hide];
     }
+    cell.disable = status.disable;
+    cell.lightOn = status.switchStatus;
+    cell.timeOn = status.delayStatus;
+    cell.timeSet = [NSString stringWithFormat:@"Duration:%li Minute(s)",(long)status.delayMinute];
+    cell.timeDelay = [NSString stringWithFormat:@"Remain:%li Minute(s)",(long)status.remainMinute];
+//    //    UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
+//    UIButton *switchBtn = (UIButton *)[cell viewWithTag:101];
+//    UIButton *timeBtn = (UIButton *)[cell viewWithTag:102];
+//    UILabel *delayTimeLabel = (UILabel *)[cell viewWithTag:103];
+//    UILabel *remainTimeLabel = (UILabel *)[cell viewWithTag:104];
+//    //    [_UIArray addObject:@[switchBtn,remainTimeLabel]];
+//    //    titleLabel.text = [NSString stringWithFormat:@"Light %li",(long)indexPath.row+1];
+//    switchBtn.enabled = NO;
+//    timeBtn.enabled = NO;
+//    NSLog(@"%@",status);
+//    if (!status.disable) {
+//        switchBtn.enabled = YES;
+//        timeBtn.enabled = YES;
+//        if (status.switchStatus == 1) {
+//            switchBtn.selected = NO;
+//            if (status.delayStatus == 1) {
+//                timeBtn.selected = NO;
+//                delayTimeLabel.hidden = NO;
+//                remainTimeLabel.hidden = NO;
+//                delayTimeLabel.text = [NSString stringWithFormat:@"Duration:%li Minute(s)",(long)status.delayMinute];
+//                remainTimeLabel.text = [NSString stringWithFormat:@"Remain:%li Minute(s)",(long)status.remainMinute];
+//            }else{
+//                timeBtn.selected = YES;
+//                delayTimeLabel.hidden = YES;
+//                remainTimeLabel.hidden = YES;
+//                delayTimeLabel.text = @"";
+//                remainTimeLabel.text = @"";
+//            }
+//        }else{
+//            switchBtn.selected = YES;
+//            if (status.delayStatus == 1) {
+//                timeBtn.selected = NO;
+//                delayTimeLabel.hidden = YES;
+//                remainTimeLabel.hidden = YES;
+//                //            delayTimeLabel.text = [NSString stringWithFormat:@"Duration:%li Minute(s)",(long)status.delayMinute];
+//                //            remainTimeLabel.text = [NSString stringWithFormat:@"Remain:0 Minute(s)"];
+//            }else{
+//                timeBtn.selected = YES;
+//                delayTimeLabel.hidden = YES;
+//                remainTimeLabel.hidden = YES;
+//            }
+//        }
+//    }else{
+//        switchBtn.enabled = NO;
+//        timeBtn.enabled = NO;
+//        delayTimeLabel.text = @"";
+//        remainTimeLabel.text = @"";
+//    }
     return cell;
 }
 #pragma mark - IBActionMethods
-- (IBAction)switchControl:(UIButton *)sender {
-    UICollectionViewCell *cell = (UICollectionViewCell *)sender.superview.superview;
+- (IBAction)switchControl:(MYEActiveBtn *)sender {
+    [sender show];
+    MYESwitchCell *cell = (MYESwitchCell *)sender.superview.superview;
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];   //这里有两个方法来指定当前的collectionView
     //    NSIndexPath *indexPath = [(UICollectionView *)self.view.subviews[0] indexPathForCell:cell];
     MyESwitchChannelStatus *status = self.control.SCList[indexPath.row];
     _selectedIndex = indexPath;
     NSString *url = [NSString stringWithFormat:@"%@?houseId=%li&tId=%@&id=%li&switchStatus=%li&action=2",GetRequst(URL_FOR_SWITCH_CONTROL),(long)MainDelegate.houseData.houseId, self.device.tid, (long)status.channelId,1-(long)status.switchStatus];
-    [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:url andName:@"controlSwitch" andDictionary:@{@"button": sender,@"status": status}];
+    [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:url andName:@"controlSwitch" andDictionary:@{@"status": status}];
 }
 - (IBAction)timeControl:(UIButton *)sender {
-    UICollectionViewCell *cell = (UICollectionViewCell *)sender.superview.superview;
+    MYESwitchCell *cell = (MYESwitchCell *)sender.superview.superview;
     //    NSIndexPath *indexPath = [(UICollectionView *)self.view.subviews[0] indexPathForCell:cell];
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     MyESwitchChannelStatus *status = self.control.SCList[indexPath.row];
     if (!sender.selected) {
         DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"Are you sure to turn off delay setting of current light?" leftButtonTitle:@"Cancel" rightButtonTitle:@"OK"];
         alert.rightBlock = ^{
-            UILabel *delayTimeLabel = (UILabel *)[cell viewWithTag:103];
-            UILabel *remainTimeLabel = (UILabel *)[cell viewWithTag:104];
-            delayTimeLabel.hidden = YES;
-            remainTimeLabel.hidden = YES;
-            sender.selected = YES;
+//            UILabel *delayTimeLabel = (UILabel *)[cell viewWithTag:103];
+//            UILabel *remainTimeLabel = (UILabel *)[cell viewWithTag:104];
+//            delayTimeLabel.hidden = YES;
+//            remainTimeLabel.hidden = YES;
+//            sender.selected = YES;
             status.delayStatus = 0;
             [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:[NSString stringWithFormat:@"%@?houseId=%li&tId=%@&allChannel=%@",GetRequst(URL_FOR_SWITCH_TIME_DELAY_SAVE),(long)MainDelegate.houseData.houseId, self.device.tid,[[MyESwitchChannelStatus alloc] jsonStringWithStatus:status]] andName:@"powerOffDelayTime" andDictionary:nil];
         };
@@ -201,30 +210,33 @@
             MyESwitchManualControl *control = [[MyESwitchManualControl alloc] initWithString:string];
             self.control = control;
             [self checkIfLightIsOn];
-            [self.collectionView reloadData];
+            
         }else {
-            [MyEUtil showMessageOn:nil withMessage:@"Failed to communicate with server."];
+            [SVProgressHUD showErrorWithStatus:@"Fail"];
         }
     }
     if ([name isEqualToString:@"controlSwitch"]) {
         NSLog(@"controlSwitch string is %@",string);
         if (![string isEqualToString:@"fail"]) {
-            UIButton *btn = (UIButton *)dict[@"button"];
-            btn.selected = !btn.selected;
-            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:_selectedIndex];
-            UILabel *label = (UILabel *)[cell viewWithTag:104];
+//            UIButton *btn = (UIButton *)dict[@"button"];
+//            btn.selected = !btn.selected;
+//            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:_selectedIndex];
+//            UILabel *label = (UILabel *)[cell viewWithTag:104];
             MyESwitchChannelStatus *status = (MyESwitchChannelStatus *)dict[@"status"];
             status.switchStatus = 1 - status.switchStatus;
             if (status.switchStatus == 1) {
-                if (status.delayStatus == 1) {
-                    label.text = [NSString stringWithFormat:@"Remain:%i Minute(s)",status.delayMinute];
-                }
-            }else{
-                label.text = [NSString stringWithFormat:@"Remain:0 Minute(s)"];
+                status.remainMinute = status.delayMinute;
             }
+//            if (status.switchStatus == 1) {
+//                if (status.delayStatus == 1) {
+//                    label.text = [NSString stringWithFormat:@"Remain:%i Minute(s)",status.delayMinute];
+//                }
+//            }else{
+//                label.text = [NSString stringWithFormat:@"Remain:0 Minute(s)"];
+//            }
             [self checkIfLightIsOn];
         } else {
-            [MyEUtil showMessageOn:nil withMessage:@"Failed to control the switch"];
+            [SVProgressHUD showErrorWithStatus:@"Fail"];
         }
     }
     if ([name isEqualToString:@"powerOffDelayTime"]) {
@@ -232,12 +244,14 @@
         if ([string isEqualToString:@"OK"]) {
             
         } else {
-            [MyEUtil showMessageOn:nil withMessage:@"Failed to communicate with server."];
+            [SVProgressHUD showErrorWithStatus:@"Fail"];
         }
     }
+    [self.collectionView reloadData];
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{
     [HUD hide:YES];
     [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
+    [self.collectionView reloadData];
 }
 @end

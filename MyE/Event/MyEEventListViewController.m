@@ -8,6 +8,7 @@
 
 #import "MyEEventListViewController.h"
 #import "MyEEventAddOrEditViewController.h"
+#import "MyEEventDetailViewController.h"
 @interface MyEEventListViewController (){
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _isRefreshing;
@@ -127,7 +128,8 @@
 #pragma mark - UITableView delegate methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    MyEEventAddOrEditViewController *vc = [[UIStoryboard storyboardWithName:@"Event" bundle:nil] instantiateViewControllerWithIdentifier:@"event"];
+//    MyEEventAddOrEditViewController *vc = [[UIStoryboard storyboardWithName:@"Event" bundle:nil] instantiateViewControllerWithIdentifier:@"event"];
+    MyEEventDetailViewController *vc = [[UIStoryboard storyboardWithName:@"Event" bundle:nil] instantiateViewControllerWithIdentifier:@"eventDetail"];
     vc.eventInfo = self.events.scenes[indexPath.row];
     vc.isAdd = NO;
     [self.navigationController pushViewController:vc animated:YES];

@@ -163,4 +163,8 @@
         self.saveBtn.enabled = YES;
     }
 }
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self.view endEditing:YES];
+    return YES;
+}
 @end

@@ -39,6 +39,11 @@
     }
     [_refreshHeaderView refreshLastUpdatedDate];   //更新最新时间
     [self defineTapGestureRecognizer];
+    if (_irCodeBtn && !IS_IOS6) {
+        _irCodeBtn.layer.cornerRadius = 4;
+        _irCodeBtn.layer.borderWidth = 1.0f;
+        _irCodeBtn.layer.borderColor = _irCodeBtn.tintColor.CGColor;
+    }
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
@@ -270,11 +275,13 @@
             _pickerView = [[MYEPickerView alloc] initWithView:self.view andTag:2 title:@"type select" dataSource:_types andSelectRow:[_types containsObject:str]?[_types indexOfObject:str]:0];
             break;
         case 3:    //tid
-//            if (!_isAddDevice) {
-//                if ((self.device.typeId.intValue == 6 ||self.device.typeId.intValue == 7 || self.device.typeId.intValue == 0 || _device.typeId.intValue == 1) && ![_device.tid isEqualToString:@""]) {
-//                    return;
-//                }
-//            }
+            //2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器, 8:智能开关
+             if ((self.device.typeId.intValue == 0 ||self.device.typeId.intValue == 6 || self.device.typeId.intValue == 7 || _device.typeId.intValue == 8)) {
+                    return;
+            }
+            if (!_isAddDevice && self.device.typeId.intValue == 1) {
+                return;
+            }
             if (![_terminals count]) {  //这里是个保护措施，当终端为零时点击之后没反应
                 [SVProgressHUD showErrorWithStatus:@"No SmartRemote"];
                 return;

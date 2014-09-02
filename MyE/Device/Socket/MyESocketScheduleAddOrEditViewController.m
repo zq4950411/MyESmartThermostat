@@ -141,9 +141,10 @@
                 NSUInteger index = 0;
                 if ([self.schedules.schedules containsObject:self.schedule]) {
                     index = [self.schedules.schedules indexOfObject:self.schedule];
+                    [self.schedules.schedules removeObjectAtIndex:index];
+                    [self.schedules.schedules insertObject:_newSchedule atIndex:index];
                 }
-                [self.schedules.schedules removeObjectAtIndex:index];
-                [self.schedules.schedules insertObject:_newSchedule atIndex:index];
+
 //                //这里特别注意，不能直接copy变量，只能一个一个的赋值
 //                self.schedule.onTime = _newSchedule.onTime;
 //                self.schedule.offTime = _newSchedule.offTime;
@@ -162,17 +163,8 @@
             NSDictionary *dic = [string JSONValue];
             NSInteger result = [dic[@"isMutex"] intValue];
             if (result == 1) {
-                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Alert" contentText:@"A timer has been set for this plug. To enable the auto mode, the timer will be disabled. Do you want to continue?" leftButtonTitle:@"NO" rightButtonTitle:@"YES"];
-                alert.rightBlock = ^{
-                    UINavigationController *nav = self.tabBarController.childViewControllers[0];
-                    MyESocketManualViewController *vc = nav.childViewControllers[0];
-                    vc.needRefresh = YES;
-                    if (HUD == nil) {
-                        HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                    }else
-                        [HUD show:YES];
-                    [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&scheduleId=%i&onTime=%@&offTime=%@&weeks=%@&runFlag=1&action=%i",GetRequst(URL_FOR_SOCKET_SAVE_PLUG_SCHEDULE),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId,_newSchedule.scheduleId,_newSchedule.onTime,_newSchedule.offTime,[_newSchedule.weeks componentsJoinedByString:@","],self.isAdd?1:2] andName:@"editSchedule"];
-                };
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"A timer has been set for this plug. To enable the auto mode, the timer will be disabled. Do you want to continue?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+                alert.tag = 100;
                 [alert show];
             }else{
                 if (HUD == nil) {
@@ -220,5 +212,20 @@
     }
     _newSchedule.onTime = self.startTimeBtn.currentTitle;
     _newSchedule.offTime = self.endTimeBtn.currentTitle;
+}
+
+#pragma mark - UIAlertView delegate method
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 100 && buttonIndex == 1) {
+        UINavigationController *nav = self.tabBarController.childViewControllers[0];
+        MyESocketManualViewController *vc = nav.childViewControllers[0];
+        vc.needRefresh = YES;
+        if (HUD == nil) {
+            HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        }else
+            [HUD show:YES];
+        _newSchedule.runFlag = 1;   //保存的时候进程的启用状态肯定为1，不能为0
+        [self uploadOrDownloadInfoFromServerWithURL:[NSString stringWithFormat:@"%@?houseId=%i&tId=%@&deviceId=%@&scheduleId=%i&onTime=%@&offTime=%@&weeks=%@&runFlag=%i&action=%i",GetRequst(URL_FOR_SOCKET_SAVE_PLUG_SCHEDULE),MainDelegate.houseData.houseId,self.device.tid,self.device.deviceId,_newSchedule.scheduleId,_newSchedule.onTime,_newSchedule.offTime,[_newSchedule.weeks componentsJoinedByString:@","],_newSchedule.runFlag,self.isAdd?1:2] andName:@"editSchedule"];
+    }
 }
 @end

@@ -394,6 +394,9 @@
 //    }
     return time;
 }
+-(NSString *)description{
+    return [NSString stringWithFormat:@"date:%@ hour:%i minute:%i weeks:%@",self.date,self.hour,self.minute,[self.weeks componentsJoinedByString:@","]];
+}
 -(NSString *)changeDateToString{
     return [NSString stringWithFormat:@"%i:%@ %@",self.hour,self.minute == 0? @"00":[NSString stringWithFormat:@"%i",self.minute],self.timeType==1?self.date:[self.weeks componentsJoinedByString:@","]];
 }

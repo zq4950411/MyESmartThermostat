@@ -24,9 +24,6 @@
         for (NSDictionary *d in dic[@"customOrderList"]) {
             [self.customList addObject:[[MyEInstruction alloc] initWithDic:d]];
         }
-        for (int i=0;i < 40; i++) {
-            [self.customList addObject:[[MyEInstruction alloc] init]];
-        }
         return self;
     }
     return nil;

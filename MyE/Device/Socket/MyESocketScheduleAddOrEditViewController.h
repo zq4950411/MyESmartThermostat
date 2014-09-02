@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MYEPickerView.h"
 
-@interface MyESocketScheduleAddOrEditViewController : UIViewController<MYEWeekButtonsDelegate,MyEDataLoaderDelegate,MYEPickerViewDelegate,IQActionSheetPickerView>
+@interface MyESocketScheduleAddOrEditViewController : UIViewController<MYEWeekButtonsDelegate,MyEDataLoaderDelegate,MYEPickerViewDelegate,IQActionSheetPickerView,UIAlertViewDelegate>
 
 @property (nonatomic, strong) MyEDevice *device;
 @property (nonatomic, strong) MyESocketSchedules *schedules;

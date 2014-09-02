@@ -31,7 +31,8 @@
         if (_newTime.timeType == 1) {
             [self changeDatePickerModeAndBtnWithTag:100];
             NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm"]; // 大写H表示24小时制,小写的h表示12小时制
+            [dateFormatter setDateFormat:@"MM/dd/yyyy HH:mm"]; // 大写H表示24小时制,小写的h表示12小时制
+            NSLog(@"%@",_newTime);
             NSDate *date = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@ %i:%i",_newTime.date,_newTime.hour,_newTime.minute]];
             [self.datePicker setDate:date animated:YES];
         }else{

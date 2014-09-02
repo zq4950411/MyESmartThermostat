@@ -67,6 +67,8 @@
 //        //特别注意，对于iPhone5只有retina屏幕，所以只需要使用@2x的image就可以了
 //        [self.loginImage setImage:[UIImage imageNamed:@"login-568h@2x"]];
 //    }
+    self.usernameInput.delegate = self;
+    self.passwordInput.delegate = self;
     //以下代码为修改placeholder的文字颜色，这种技巧应该多加注意
     [self.usernameInput setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.passwordInput setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];

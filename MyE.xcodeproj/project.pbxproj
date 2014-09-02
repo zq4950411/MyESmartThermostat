@@ -106,6 +106,9 @@
 		8C72264B190658990033A78A /* MyEDeviceAddOrEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C72264A190658990033A78A /* MyEDeviceAddOrEditTableViewController.m */; };
 		8C72264E190660CD0033A78A /* MyEDeviceEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C72264D190660CD0033A78A /* MyEDeviceEdit.m */; };
 		8C82DCD51930A4B5006A10E0 /* MyEEventAddOrEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C82DCD41930A4B5006A10E0 /* MyEEventAddOrEditViewController.m */; };
+		8C85CDA919B00A00000AF89C /* MYEActiveBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C85CDA619B00A00000AF89C /* MYEActiveBtn.m */; };
+		8C85CDAA19B00A00000AF89C /* MYESwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C85CDA819B00A00000AF89C /* MYESwitchCell.m */; };
+		8C85CDAF19B02AB0000AF89C /* MyEEventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C85CDAE19B02AB0000AF89C /* MyEEventDetailViewController.m */; };
 		8C91F62A19515D0700C285D3 /* libPushSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C91F62919515D0700C285D3 /* libPushSDK.a */; };
 		8C91F62E19515D6A00C285D3 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C91F62D19515D6A00C285D3 /* CoreFoundation.framework */; };
 		8C91F63019515D8100C285D3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C91F62F19515D8100C285D3 /* CoreTelephony.framework */; };
@@ -171,7 +174,6 @@
 		B2588BE617B09A19007ED13C /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B2588BE517B09A19007ED13C /* libz.1.2.5.dylib */; };
 		B2588BE817B09A26007ED13C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2588BE717B09A26007ED13C /* CFNetwork.framework */; };
 		B2588BEA17B09A30007ED13C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2588BE917B09A30007ED13C /* MobileCoreServices.framework */; };
-		B2588D0F17B09B9C007ED13C /* NSData+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = B2588C0017B09B9C007ED13C /* NSData+AES256.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B2588D1017B09B9C007ED13C /* NSDictionary+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = B2588C0217B09B9C007ED13C /* NSDictionary+Extention.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B2588D1117B09B9C007ED13C /* NSMutableArray+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = B2588C0417B09B9C007ED13C /* NSMutableArray+Safe.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B2588D1217B09B9C007ED13C /* NSMutableDictionary+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = B2588C0617B09B9C007ED13C /* NSMutableDictionary+Safe.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -672,6 +674,12 @@
 		8C72264D190660CD0033A78A /* MyEDeviceEdit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEDeviceEdit.m; sourceTree = "<group>"; };
 		8C82DCD31930A4B5006A10E0 /* MyEEventAddOrEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventAddOrEditViewController.h; sourceTree = "<group>"; };
 		8C82DCD41930A4B5006A10E0 /* MyEEventAddOrEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventAddOrEditViewController.m; sourceTree = "<group>"; };
+		8C85CDA519B00A00000AF89C /* MYEActiveBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYEActiveBtn.h; sourceTree = "<group>"; };
+		8C85CDA619B00A00000AF89C /* MYEActiveBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYEActiveBtn.m; sourceTree = "<group>"; };
+		8C85CDA719B00A00000AF89C /* MYESwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYESwitchCell.h; sourceTree = "<group>"; };
+		8C85CDA819B00A00000AF89C /* MYESwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYESwitchCell.m; sourceTree = "<group>"; };
+		8C85CDAD19B02AB0000AF89C /* MyEEventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEEventDetailViewController.h; sourceTree = "<group>"; };
+		8C85CDAE19B02AB0000AF89C /* MyEEventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEEventDetailViewController.m; sourceTree = "<group>"; };
 		8C91F62819515D0700C285D3 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
 		8C91F62919515D0700C285D3 /* libPushSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPushSDK.a; sourceTree = "<group>"; };
 		8C91F62D19515D6A00C285D3 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -785,8 +793,6 @@
 		B2588BE517B09A19007ED13C /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		B2588BE717B09A26007ED13C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B2588BE917B09A30007ED13C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		B2588BFF17B09B9C007ED13C /* NSData+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+AES256.h"; sourceTree = "<group>"; };
-		B2588C0017B09B9C007ED13C /* NSData+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+AES256.m"; sourceTree = "<group>"; };
 		B2588C0117B09B9C007ED13C /* NSDictionary+Extention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extention.h"; sourceTree = "<group>"; };
 		B2588C0217B09B9C007ED13C /* NSDictionary+Extention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extention.m"; sourceTree = "<group>"; };
 		B2588C0317B09B9C007ED13C /* NSMutableArray+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Safe.h"; sourceTree = "<group>"; };
@@ -1621,12 +1627,16 @@
 		8CA05FDE19078A8D0090A350 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				8C85CDA519B00A00000AF89C /* MYEActiveBtn.h */,
+				8C85CDA619B00A00000AF89C /* MYEActiveBtn.m */,
+				8C85CDA719B00A00000AF89C /* MYESwitchCell.h */,
+				8C85CDA819B00A00000AF89C /* MYESwitchCell.m */,
+				8CA060381908B46E0090A350 /* MyEControlBtn.h */,
+				8CA060391908B46E0090A350 /* MyEControlBtn.m */,
 				8CA60FC61935B0B2006F7F06 /* MYEPickerView */,
 				8CB4B54F192B46610077CFCB /* MYEWeekButtons */,
 				8CA0602A1908A3BF0090A350 /* SUNSlideSwitchView */,
 				8CA05FDF19078A8E0090A350 /* dropDownTableView */,
-				8CA060381908B46E0090A350 /* MyEControlBtn.h */,
-				8CA060391908B46E0090A350 /* MyEControlBtn.m */,
 			);
 			path = libs;
 			sourceTree = "<group>";
@@ -1782,8 +1792,6 @@
 				B2520A0417C212E100CB56BA /* NSDictionary+JSONNSNull.m */,
 				B2520A0917C2451600CB56BA /* NSDictionary+Convert.h */,
 				B2520A0A17C2451600CB56BA /* NSDictionary+Convert.m */,
-				B2588BFF17B09B9C007ED13C /* NSData+AES256.h */,
-				B2588C0017B09B9C007ED13C /* NSData+AES256.m */,
 				B2588C0117B09B9C007ED13C /* NSDictionary+Extention.h */,
 				B2588C0217B09B9C007ED13C /* NSDictionary+Extention.m */,
 				B2588C0317B09B9C007ED13C /* NSMutableArray+Safe.h */,
@@ -2508,6 +2516,8 @@
 				8CA52FA519231A3000D40EDD /* MyEEventTimeEditViewController.m */,
 				8CA52FA719231D4700D40EDD /* MyEEventDeviceEditViewController.h */,
 				8CA52FA819231D4700D40EDD /* MyEEventDeviceEditViewController.m */,
+				8C85CDAD19B02AB0000AF89C /* MyEEventDetailViewController.h */,
+				8C85CDAE19B02AB0000AF89C /* MyEEventDetailViewController.m */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -2935,7 +2945,6 @@
 				8C39C75A199F5E980029C8BF /* Adpcm.mm in Sources */,
 				C3F61B0318E1154200DEE477 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				C395989A18E12CC800E30AFF /* UIFont+FlatUI.m in Sources */,
-				B2588D0F17B09B9C007ED13C /* NSData+AES256.m in Sources */,
 				8CA52FA619231A3000D40EDD /* MyEEventTimeEditViewController.m in Sources */,
 				B2588D1017B09B9C007ED13C /* NSDictionary+Extention.m in Sources */,
 				B2588D1117B09B9C007ED13C /* NSMutableArray+Safe.m in Sources */,
@@ -2944,6 +2953,7 @@
 				C3FB3BD6192DC6460039D052 /* MyEWeekdayToolbarController.m in Sources */,
 				8C354362196A910A00E5A6C2 /* MyEAccountViewController.m in Sources */,
 				C3AE7F5218E14F3F000AA5FC /* NSInvocation+Copy.m in Sources */,
+				8C85CDAA19B00A00000AF89C /* MYESwitchCell.m in Sources */,
 				8CA06046190912470090A350 /* MyESocketAutoViewController.m in Sources */,
 				C39498721919D7F70075ABD3 /* CDCircleOverlayView.m in Sources */,
 				B2588D1617B09B9C007ED13C /* SwitchButton.m in Sources */,
@@ -3019,6 +3029,7 @@
 				C3F61AFC18E1154200DEE477 /* NSObject+SBJson.m in Sources */,
 				B2520A0517C212E100CB56BA /* NSDictionary+JSONNSNull.m in Sources */,
 				8C6CB5561942A214007EECEA /* MyEUCPeriodViewController.m in Sources */,
+				8C85CDA919B00A00000AF89C /* MYEActiveBtn.m in Sources */,
 				C3FB3BCD192DC6460039D052 /* MyEPeriodData.m in Sources */,
 				8C39C776199F5E990029C8BF /* RecPathManagement.m in Sources */,
 				B2520A0817C216EB00CB56BA /* NSString+Common.m in Sources */,
@@ -3083,6 +3094,7 @@
 				C3FDB4E918FA6044009B423D /* MyEHouseListViewController.m in Sources */,
 				C39498751919D7F70075ABD3 /* Common.m in Sources */,
 				8C39C771199F5E990029C8BF /* PicPathDBUtils.mm in Sources */,
+				8C85CDAF19B02AB0000AF89C /* MyEEventDetailViewController.m in Sources */,
 				C3FDB81418FA82AE009B423D /* MyEThermostatPeriodData.m in Sources */,
 				C3FDB50D18FA62A0009B423D /* MyEUniversal.m in Sources */,
 				C3CB5E89193446A00043440C /* MyEVacationEditFromStaycationViewController.m in Sources */,

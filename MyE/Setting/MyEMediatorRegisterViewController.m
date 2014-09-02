@@ -143,7 +143,7 @@
             }
             [self refreshUI];
         }else
-            [SVProgressHUD showErrorWithStatus:@"fail"];
+            [SVProgressHUD showErrorWithStatus:@"Fail"];
     }
     if ([name isEqualToString:@"register"]) {
         if ([string isEqualToString:@"OK"]) {
@@ -154,7 +154,7 @@
             }else
                 [self dismissViewControllerAnimated:YES completion:nil];
         }else
-            [SVProgressHUD showErrorWithStatus:@"fail"];
+            [SVProgressHUD showErrorWithStatus:@"Fail!Please check your MID or Network"];
     }
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error loaderName:(NSString *)name{

@@ -13,7 +13,7 @@
 @class MyEHouseData;
 
 
-@interface MyEAppDelegate : UIResponder <UIApplicationDelegate>
+@interface MyEAppDelegate : UIResponder <UIApplicationDelegate,UITextFieldDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (assign, nonatomic) NSInteger dataLength; //用于摄像头传输时的速度

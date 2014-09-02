@@ -21,5 +21,6 @@
 @property (nonatomic, strong) MyEDevice *device;
 @property (nonatomic, strong) MyESocketInfo *socketInfo;
 @property (nonatomic) BOOL isAddDevice;
+@property (weak, nonatomic) IBOutlet UIButton *irCodeBtn;
 
 @end

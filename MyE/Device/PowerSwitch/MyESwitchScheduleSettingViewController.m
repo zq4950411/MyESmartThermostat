@@ -81,16 +81,17 @@
     NSLog(@"%@ is %@",name,loader.name);
 }
 -(void)uploadInfoToServer{
+    _scheduleNew.runFlag = 1;   //保存的时候进程的启用状态肯定为1，不能为0
     // 估计这里会有问题，因为数组没有转变为字符串(特别注意这里是怎么样转化为字符串的)
     //这里保存时默认是启用进程的
-    [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:[NSString stringWithFormat:@"%@?houseId=%li&tId=%@&deviceId=%i&scheduleId=%li&onTime=%@&offTime=%@&channels=%@&weeks=%@&runFlag=1&action=%li",
+    [self doThisWhenNeedDownLoadOrUploadInfoWithURLString:[NSString stringWithFormat:@"%@?houseId=%li&tId=%@&deviceId=%i&scheduleId=%li&onTime=%@&offTime=%@&channels=%@&weeks=%@&runFlag=%i&action=%li",
                                                            GetRequst(URL_FOR_SWITCH_SCHEDULE_SAVE),
                                                            (long)MainDelegate.houseData.houseId, self.device.tid,[self.device.deviceId intValue],
                                                            (long)_scheduleNew.scheduleId,
                                                            _scheduleNew.onTime,
                                                            _scheduleNew.offTime,
                                                            [_scheduleNew.channels componentsJoinedByString:@","],
-                                                           [_scheduleNew.weeks componentsJoinedByString:@","],
+                                                           [_scheduleNew.weeks componentsJoinedByString:@","],_scheduleNew.runFlag,
                                                            (long)self.actionType] andName:@"scheduleEdit"];
 }
 -(NSMutableArray *)changeIndexSetToArrayWithIndexSet:(NSIndexSet *)indexSet{

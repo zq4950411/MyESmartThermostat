@@ -115,11 +115,12 @@
         
         [[UISegmentedControl appearance] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor whiteColor],UITextAttributeFont: [UIFont systemFontOfSize:14],UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0, 0)]} forState:UIControlStateSelected];
     }
-    UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.window.bounds.size.width, 38.0f)];
-    UIBarButtonItem *spaceBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    UIBarButtonItem *doneBarItem = [[UIBarButtonItem alloc] initWithTitle:@"Done"                                                                    style:UIBarButtonItemStyleDone target:self action:@selector(resignKeyboard:)];
-    [keyboardToolbar setItems:[NSArray arrayWithObjects:spaceBarItem, doneBarItem, nil]];
-    [UITextField appearance].inputAccessoryView = keyboardToolbar;
+//    UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.window.bounds.size.width, 38.0f)];
+//    UIBarButtonItem *spaceBarItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//    UIBarButtonItem *doneBarItem = [[UIBarButtonItem alloc] initWithTitle:@"Done"                                                                    style:UIBarButtonItemStyleDone target:self action:@selector(resignKeyboard:)];
+//    [keyboardToolbar setItems:[NSArray arrayWithObjects:spaceBarItem, doneBarItem, nil]];
+//    [UITextField appearance].inputAccessoryView = keyboardToolbar;
+    [UITextField appearance].delegate = self;
 }
 - (void)resignKeyboard:(id)sender
 {
@@ -383,5 +384,9 @@
     completionHandler(UIBackgroundFetchResultNoData);
 }
 #endif
-
+#pragma mark - UITextField delegate method
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self resignKeyboard:nil];
+    return YES;
+}
 @end

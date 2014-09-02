@@ -25,20 +25,16 @@
 {
     [super viewDidLoad];
     NSLog(@"%@",self.instruction);
-    [self.learnBtn setFlatStyleType:ACPButtonBlue];
-    [self.validateKeyBtn setFlatStyleType:ACPButtonPurple];
-    [self.deleteKeyBtn setFlatStyleType:ACPButtonCancel];
-    [self.cancelBtn setFlatStyleType:ACPButtonBlue];
-//    if (!IS_IOS6) {
-//        for (UIButton *btn in self.view.subviews) {
-//            if ([btn isKindOfClass:[UIButton class]] && btn.tag != 100) {
-//                [btn.layer setMasksToBounds:YES];
-//                [btn.layer setCornerRadius:5];
-//                [btn.layer setBorderWidth:1];
-//                [btn.layer setBorderColor:btn.tintColor.CGColor];
-//            }
-//        }
-//    }
+    if (!IS_IOS6) {
+        for (UIButton *btn in self.view.subviews) {
+            if ([btn isKindOfClass:[UIButton class]]) {
+                [btn.layer setMasksToBounds:YES];
+                [btn.layer setCornerRadius:4];
+                [btn.layer setBorderWidth:1];
+                [btn.layer setBorderColor:btn.tintColor.CGColor];
+            }
+        }
+    }
     self.keyNameTextfield.text = self.instruction.name;  //这里更改名称
 }
 

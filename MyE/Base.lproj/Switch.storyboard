@@ -512,14 +512,14 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="Jc6-sq-cFs">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="Jc6-sq-cFs" customClass="MYESwitchCell">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s24-cP-iDJ">
+                                        <button opaque="NO" tag="101" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s24-cP-iDJ" customClass="MYEActiveBtn">
                                             <rect key="frame" x="100" y="0.0" width="120" height="120"/>
                                             <state key="normal" image="switch-on">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -557,6 +557,12 @@
                                 </view>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="customSize" width="320" height="120"/>
+                                <connections>
+                                    <outlet property="switchBtn" destination="s24-cP-iDJ" id="y32-0E-apA"/>
+                                    <outlet property="timeBtn" destination="a26-NC-6bi" id="TKG-M0-RZj"/>
+                                    <outlet property="timeDelayLbl" destination="IZ9-YX-EEm" id="Wac-A5-FVd"/>
+                                    <outlet property="timeSetLbl" destination="mpU-2N-gO6" id="aEv-sU-Xr7"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>

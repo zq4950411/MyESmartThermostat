@@ -106,6 +106,13 @@
 //-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
 //    [self.view endEditing:YES];
 //}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (_camera.isOnline) {
+        return 3;
+    }else
+        return 1;
+}
+
 #pragma mark - UITableView dataSource methods
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
