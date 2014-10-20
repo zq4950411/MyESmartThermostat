@@ -439,21 +439,7 @@
             break;
     }
 }
--(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles
-{
-    switch (pickerView.tag)
-    {
-        case 1:
-            [brandBtn setTitle:titles[0] forState:UIControlStateNormal];
-            [self refreshModuleArrayWithRow:[brandNameArray indexOfObject:brandBtn.currentTitle]];
-            break;
-        case 2:
-            [modelBtn setTitle:titles[0] forState:UIControlStateNormal];
-            break;
-        default:
-            break;
-    }
-}
+
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     switch (pickerTag) {

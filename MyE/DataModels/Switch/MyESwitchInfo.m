@@ -21,6 +21,7 @@
         self.roomId = [dic[@"roomId"] intValue];
         self.powerType = [dic[@"powerType"] intValue];
         self.reportTime = [dic[@"reporteTime"] intValue];
+        self.powerFactor = [NSString stringWithFormat:@"%.2f",[dic[@"powerFactor"] floatValue]];
         NSArray *array = dic[@"locationList"];
         self.rooms = [NSMutableArray array];
         for (NSDictionary *d in array) {

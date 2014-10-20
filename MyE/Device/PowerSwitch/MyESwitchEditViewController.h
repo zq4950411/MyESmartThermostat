@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "MyESwitchInfo.h"
 #import "MyEDevice.h"
+#import "MYEPickerView.h"
 #import "EGORefreshTableHeaderView.h"
 
-@interface MyESwitchEditViewController : UITableViewController<MyEDataLoaderDelegate,IQActionSheetPickerView,EGORefreshTableHeaderDelegate>{
+@interface MyESwitchEditViewController : UITableViewController<MyEDataLoaderDelegate,MYEPickerViewDelegate,EGORefreshTableHeaderDelegate>{
     MBProgressHUD *HUD;
     MyERoom *_room;
     NSArray *_initArray;  //这里采用数组来记录初始值，以前都是使用的字典

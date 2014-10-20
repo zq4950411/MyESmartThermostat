@@ -131,6 +131,12 @@
                         cell.detailTextLabel.text = @"Socket";
                     }else if(self.device.typeId.intValue == 7){
                         cell.detailTextLabel.text = @"Smart DIY";
+                    }else if(self.device.typeId.intValue == 9){
+                        cell.detailTextLabel.text = @"Intrusion Detecto";
+                    }else if(self.device.typeId.intValue == 10){
+                        cell.detailTextLabel.text = @"Smoke Detector";
+                    }else if(self.device.typeId.intValue == 11){
+                        cell.detailTextLabel.text = @"Door/window Sensor";
                     }else if(self.device.typeId.intValue == 0){
                         cell.detailTextLabel.text = @"Thermostat";
                     }else{

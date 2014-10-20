@@ -260,9 +260,9 @@
     viewController.camera = camera;
     viewController.m_PPPPChannelMgt = _m_PPPPChannelMgt;
 
-    viewController.modalPresentationStyle = UIModalPresentationNone;
-    viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self presentViewController:viewController animated:YES completion:nil];
+//    viewController.modalPresentationStyle = UIModalPresentationNone;
+//    viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:viewController animated:NO completion:nil];
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
