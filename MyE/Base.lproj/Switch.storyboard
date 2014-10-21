@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="3RW-rZ-XcX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="3RW-rZ-XcX">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
-        <!--MyE Switch Edit View Controller - Edit-->
+        <!--Edit-->
         <scene sceneID="hFG-qq-nHc">
             <objects>
                 <tableViewController storyboardIdentifier="switchEdit" hidesBottomBarWhenPushed="YES" id="M5M-gE-Khe" customClass="MyESwitchEditViewController" sceneMemberID="viewController">
@@ -59,7 +58,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lFr-f9-CZ1">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text=" " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lFr-f9-CZ1">
                                                     <rect key="frame" x="261" y="11" width="44" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
@@ -82,7 +81,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jv9-Cl-q6R">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text=" " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jv9-Cl-q6R">
                                                     <rect key="frame" x="261" y="11" width="44" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
@@ -110,7 +109,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8cD-Nt-f8u">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text=" " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8cD-Nt-f8u">
                                                     <rect key="frame" x="261" y="11" width="44" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
@@ -134,7 +133,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VoW-1g-RCR">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text=" " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VoW-1g-RCR">
                                                     <rect key="frame" x="261" y="11" width="44" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
@@ -193,7 +192,7 @@
             </objects>
             <point key="canvasLocation" x="-2258" y="-1319"/>
         </scene>
-        <!--MyE Switch Auto View Controller - Auto Control-->
+        <!--Auto Control-->
         <scene sceneID="wyX-vj-LSL">
             <objects>
                 <tableViewController id="dkM-g8-1nN" customClass="MyESwitchAutoViewController" sceneMemberID="viewController">
@@ -224,7 +223,7 @@
                                                     <color key="textColor" red="0.27058823529411763" green="0.78431372549019607" blue="0.86274509803921573" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" tag="201" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n5M-Ug-PcY">
+                                                <switch opaque="NO" tag="201" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n5M-Ug-PcY">
                                                     <rect key="frame" x="241" y="22" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="enableProcess:" destination="dkM-g8-1nN" eventType="valueChanged" id="R0K-sY-uBn"/>
@@ -348,7 +347,7 @@
             </objects>
             <point key="canvasLocation" x="-1356" y="-975"/>
         </scene>
-        <!--MyE Switch Schedule Setting View Controller - Program-->
+        <!--Program-->
         <scene sceneID="B73-n4-YZw">
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="Rxx-PR-FYh" customClass="MyESwitchScheduleSettingViewController" sceneMemberID="viewController">
@@ -433,7 +432,6 @@
                             </label>
                             <view tag="500" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfa-oW-PMB" customClass="MYEWeekButtons">
                                 <rect key="frame" x="20" y="156" width="280" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="e0s-xV-aUd"/>
@@ -441,7 +439,6 @@
                             </view>
                             <view tag="501" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yWB-h3-Nks" customClass="MYEWeekButtons">
                                 <rect key="frame" x="20" y="234" width="280" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="xuy-fP-vgq"/>
@@ -497,7 +494,7 @@
             </objects>
             <point key="canvasLocation" x="-969" y="-975"/>
         </scene>
-        <!--MyE Switch Manual Control View Controller - Manual Control-->
+        <!--Manual Control-->
         <scene sceneID="MpH-fh-bhq">
             <objects>
                 <collectionViewController autoresizesArchivedViewToFullSize="NO" id="ERS-yz-baA" customClass="MyESwitchManualControlViewController" sceneMemberID="viewController">
@@ -582,7 +579,7 @@
             </objects>
             <point key="canvasLocation" x="-1356" y="-1623"/>
         </scene>
-        <!--Navigation Controller - Manual-->
+        <!--Manual-->
         <scene sceneID="ygH-FB-zqh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="848-3H-rZz" sceneMemberID="viewController">
@@ -601,7 +598,7 @@
             </objects>
             <point key="canvasLocation" x="-1721" y="-1623"/>
         </scene>
-        <!--Navigation Controller - Auto-->
+        <!--Auto-->
         <scene sceneID="Mo4-wi-I7f">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kSN-pu-LcA" sceneMemberID="viewController">
@@ -639,7 +636,7 @@
             </objects>
             <point key="canvasLocation" x="-1292" y="-2397"/>
         </scene>
-        <!--MyE Delay Time Set View Controller - Duration-->
+        <!--Duration-->
         <scene sceneID="yio-UT-8JX">
             <objects>
                 <tableViewController id="vBa-jk-Mnt" customClass="MyEDelayTimeSetViewController" sceneMemberID="viewController">
@@ -690,7 +687,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tOI-Sb-lzg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-916" y="-2233"/>
+            <point key="canvasLocation" x="-969" y="-2397"/>
         </scene>
     </scenes>
     <resources>

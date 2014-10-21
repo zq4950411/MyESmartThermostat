@@ -61,15 +61,9 @@
 
 #pragma mark - IBAction methods
 - (IBAction)setScheduleTime:(UIButton *)sender {
-    if (sender.tag == 301) {
-        [MyEUniversal doThisWhenNeedPickerWithTitle:@"Start time" andDelegate:self andTag:1 andArray:@[_headTimeArray,_tailTimeArray] andSelectRow:[self changeStringToInt:sender.currentTitle] andViewController:self];
-//        _picker = [[MYEPickerView alloc] initWithView:self.view andTag:sender.tag title:@"select startTime" dataSource:_startTimeArray andSelectRow:[_startTimeArray containsObject:sender.currentTitle]?[_startTimeArray indexOfObject:sender.currentTitle]:0];
-    }else
-        [MyEUniversal doThisWhenNeedPickerWithTitle:@"End time" andDelegate:self andTag:2 andArray:@[_headTimeArray,_tailTimeArray] andSelectRow:[self changeStringToInt:sender.currentTitle] andViewController:self];
-
-//        _picker = [[MYEPickerView alloc] initWithView:self.view andTag:sender.tag title:@"select endTime" dataSource:_endTimeArray andSelectRow:[_endTimeArray containsObject:sender.currentTitle]?[_endTimeArray indexOfObject:sender.currentTitle]:0];
-//    _picker.delegate = self;
-//    [_picker showInView:self.view];
+    MYETimePicker *picker = [[MYETimePicker alloc] initWithView:self.view andTag:sender.tag title:sender.tag == 301?@"Start Time":@"End Time" interval:10 andDelegate:self];
+    picker.time = sender.currentTitle;
+    [picker show];
 }
 - (IBAction)save:(UIBarButtonItem *)sender {
     if (![self isTimeUsefull]) {
@@ -184,18 +178,14 @@
 -(void)weekButtons:(UIView *)weekButtons selectedButtonTag:(NSArray *)buttonTags{
     _newSchedule.weeks = [NSMutableArray arrayWithArray:buttonTags];
 }
-#pragma mark - IQActionSheetPickerView delegate methods
--(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles{
-    if (pickerView.tag == 1) {
-        [self.startTimeBtn setTitle:[titles componentsJoinedByString:@":"] forState:UIControlStateNormal];
-        _newSchedule.onTime = [titles componentsJoinedByString:@":"];
-    }else{
-        [self.endTimeBtn setTitle:[titles componentsJoinedByString:@":"] forState:UIControlStateNormal];
-        _newSchedule.offTime = [titles componentsJoinedByString:@":"];
-    }
-}
 
 #pragma mark - MYEPickerView delegate methods
+-(void)MYETimePicker:(UIView *)picker didSelectString:(NSString *)title{
+    UIButton *btn = (UIButton *)[self.view viewWithTag:picker.tag];
+    [btn setTitle:title forState:UIControlStateNormal];
+    _newSchedule.onTime = self.startTimeBtn.currentTitle;
+    _newSchedule.offTime = self.endTimeBtn.currentTitle;
+}
 -(void)MYEPickerView:(UIView *)pickerView didSelectTitles:(NSString *)title andRow:(NSInteger)row{
     UIButton *btn = (UIButton *)[self.view viewWithTag:pickerView.tag];
     [btn setTitle:title forState:UIControlStateNormal];

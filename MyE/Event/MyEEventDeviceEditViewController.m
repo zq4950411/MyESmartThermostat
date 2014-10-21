@@ -298,7 +298,11 @@
         label.text = [NSString stringWithFormat:@"Light %i",indexPath.row + 1];
     }else
         label.text = [NSString stringWithFormat:@"Channel %i",indexPath.row + 1];
-    NSString *string = [_instructions.channel substringWithRange:NSMakeRange(indexPath.row, 1)];
+    NSString *string = nil;
+    if (_instructions.channel == nil || [_instructions.channel isEqualToString:@""]) {
+        _instructions.channel = @"111111";
+    }
+    string = [_instructions.channel substringWithRange:NSMakeRange(indexPath.row, 1)];
     [status setOn:[string isEqualToString:@"1"] animated:YES];
     status.enabled = NO;
     if (string.intValue == 2 && _deviceType.typeId == 8) {

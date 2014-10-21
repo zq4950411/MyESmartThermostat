@@ -266,18 +266,19 @@ static const int kStateKey=0;
 }
 
 - (void)TPKeyboardAvoiding_initializeView:(UIView*)view {
-    if ( [view isKindOfClass:[UITextField class]] && ((UITextField*)view).returnKeyType == UIReturnKeyDefault && (![(id)view delegate] || [(id)view delegate] == self) ) {
-        [(id)view setDelegate:self];
-        UIView *otherView = nil;
-        CGFloat minY = CGFLOAT_MAX;
-        [self TPKeyboardAvoiding_findTextFieldAfterTextField:view beneathView:self minY:&minY foundView:&otherView];
-        
-        if ( otherView ) {
-            ((UITextField*)view).returnKeyType = UIReturnKeyNext;
-        } else {
-            ((UITextField*)view).returnKeyType = UIReturnKeyDone;
-        }
-    }
+#warning 这里注释掉了
+//    if ( [view isKindOfClass:[UITextField class]] && ((UITextField*)view).returnKeyType == UIReturnKeyDefault && (![(id)view delegate] || [(id)view delegate] == self) ) {
+//        [(id)view setDelegate:self];
+//        UIView *otherView = nil;
+//        CGFloat minY = CGFLOAT_MAX;
+//        [self TPKeyboardAvoiding_findTextFieldAfterTextField:view beneathView:self minY:&minY foundView:&otherView];
+//        
+//        if ( otherView ) {
+//            ((UITextField*)view).returnKeyType = UIReturnKeyNext;
+//        } else {
+//            ((UITextField*)view).returnKeyType = UIReturnKeyDone;
+//        }
+//    }
 }
 
 @end

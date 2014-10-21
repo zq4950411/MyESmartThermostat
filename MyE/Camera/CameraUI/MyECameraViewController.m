@@ -208,7 +208,7 @@
 }
 -(void)popUpTop{
     [self _stopCamera];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
     //    [self.navigationController popViewControllerAnimated:YES];
 }
 

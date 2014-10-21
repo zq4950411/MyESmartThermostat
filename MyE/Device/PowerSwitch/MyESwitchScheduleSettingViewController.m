@@ -165,10 +165,14 @@
 }
 #pragma mark - IBAction methods
 - (IBAction)startBtnPressed:(UIButton *)sender{
-    [MyEUniversal doThisWhenNeedPickerWithTitle:@"Start time" andDelegate:self andTag:1 andArray:@[_headTimeArray,_tailTimeArray] andSelectRow:[self changeStringToInt:sender.currentTitle] andViewController:self];
+    MYETimePicker *picker = [[MYETimePicker alloc] initWithView:self.view andTag:1 title:@"Start Time" interval:10 andDelegate:self];
+    picker.time = sender.currentTitle;
+    [picker show];
 }
 - (IBAction)endBtnPressed:(UIButton *)sender {
-    [MyEUniversal doThisWhenNeedPickerWithTitle:@"End time" andDelegate:self andTag:2 andArray:@[_headTimeArray,_tailTimeArray] andSelectRow:[self changeStringToInt:sender.currentTitle] andViewController:self];
+    MYETimePicker *picker = [[MYETimePicker alloc] initWithView:self.view andTag:2 title:@"End Time" interval:10 andDelegate:self];
+    picker.time = sender.currentTitle;
+    [picker show];
 }
 - (IBAction)saveEditor:(UIBarButtonItem *)sender {
     if (![self isTimeUsefull]) {
@@ -213,15 +217,16 @@
         _scheduleNew.weeks = [buttonTags mutableCopy];
 }
 #pragma mark - IQActionSheetPickerView delegate methods
--(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles{
-    if (pickerView.tag == 1) {
-        [self.startBtn setTitle:[titles componentsJoinedByString:@":"] forState:UIControlStateNormal];
-        _scheduleNew.onTime = [titles componentsJoinedByString:@":"];
+-(void)MYETimePicker:(UIView *)picker didSelectString:(NSString *)title{
+    if (picker.tag == 1) {
+        [self.startBtn setTitle:title forState:UIControlStateNormal];
+        _scheduleNew.onTime = title;
     }else{
-        [self.endBtn setTitle:[titles componentsJoinedByString:@":"] forState:UIControlStateNormal];
-        _scheduleNew.offTime = [titles componentsJoinedByString:@":"];
+        [self.endBtn setTitle:title forState:UIControlStateNormal];
+        _scheduleNew.offTime = title;
     }
 }
+
 #pragma mark - url delegate methods
 -(void)didReceiveString:(NSString *)string loaderName:(NSString *)name userDataDictionary:(NSDictionary *)dict{
     NSLog(@"receive string is %@",string);

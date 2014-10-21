@@ -263,19 +263,7 @@
     }
     [self decideIfComfortChanged];
 }
--(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles{
-    if (pickerView.tag == 1) {
-        [self.lowTemBtn setTitle:titles[0] forState:UIControlStateNormal];
-        if ([titles[0] length] < 3) {
-            self.acTempMonitor.minTemp = [[titles[0] substringToIndex:2] intValue];
-        }else
-            self.acTempMonitor.minTemp = [[titles[0] substringToIndex:3] intValue];
-    }else{
-        [self.highTemBtn setTitle:titles[0]forState:UIControlStateNormal];
-        self.acTempMonitor.maxTemp = [[titles[0] substringToIndex:3] intValue];
-    }
-    [self decideIfComfortChanged];
-}
+
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, [pickerView rowSizeForComponent:0].width, [pickerView rowSizeForComponent:0].height)];
     label.textAlignment = NSTextAlignmentCenter;

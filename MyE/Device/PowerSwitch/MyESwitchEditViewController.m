@@ -53,19 +53,25 @@
             for (MyERoom *r in self.switchInfo.rooms) {
                 [array addObject:r.roomName];
             }
-            [MyEUniversal doThisWhenNeedPickerWithTitle:@"Select Room" andDelegate:self andTag:1 andArray:@[array] andSelectRow:[self.roomLabel.text length]!=0?@[@([array indexOfObject:self.roomLabel.text])]:@[@0] andViewController:self];
+            MYEPickerView *picker = [[MYEPickerView alloc] initWithView:self.view andTag:1 title:@"Select Room" dataSource:array andSelectRow:[self.roomLabel.text length]!=0?[array indexOfObject:self.roomLabel.text]:0];
+            picker.delegate = self;
+            [picker showInView:self.view];
         }
     }
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            [MyEUniversal doThisWhenNeedPickerWithTitle:@"Bulb Type" andDelegate:self andTag:2 andArray:@[[self.switchInfo typeArray]] andSelectRow:@[@(self.switchInfo.type)] andViewController:self];
+            MYEPickerView *picker = [[MYEPickerView alloc] initWithView:self.view andTag:2 title:@"Bulb Type" dataSource:[self.switchInfo typeArray] andSelectRow:self.switchInfo.type];
+            picker.delegate = self;
+            [picker showInView:self.view];
         }else{
             if (self.switchInfo.type == 1) {
                 return;
             }
             NSArray *array = @[@"0.5",@"0.55",@"0.6",@"0.65",@"0.7",@"0.75",@"0.8",@"0.85",@"0.9",@"0.95",@"1"];
             NSInteger i = [array containsObject:self.switchInfo.powerFactor]?[array indexOfObject:self.switchInfo.powerFactor]:0;
-            [MyEUniversal doThisWhenNeedPickerWithTitle:@"Power Factor" andDelegate:self andTag:3 andArray:@[array] andSelectRow:@[@(i)] andViewController:self];
+            MYEPickerView *picker = [[MYEPickerView alloc] initWithView:self.view andTag:3 title:@"Power Factor" dataSource:array andSelectRow:i];
+            picker.delegate = self;
+            [picker showInView:self.view];
         }
     }
 //    if (indexPath.section == 1) {
@@ -156,19 +162,19 @@
     [SVProgressHUD showErrorWithStatus:@"Connection Fail"];
 }
 
-
--(void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray *)titles{
+#pragma mark - MYEPickerView delegate methods
+-(void)MYEPickerView:(UIView *)pickerView didSelectTitles:(NSString *)title andRow:(NSInteger)row{
     if (pickerView.tag == 1) {
-        self.roomLabel.text = titles[0];
+        self.roomLabel.text = title;
         [self.tableView reloadData];
         for (MyERoom *r in self.switchInfo.rooms) {
-            if ([r.roomName isEqualToString:titles[0]]) {
+            if ([r.roomName isEqualToString:title]) {
                 _room = r;
             }
         }
     }else if(pickerView.tag == 2){
-        self.typeLbl.text = titles[0];
-        if ([titles[0] isEqualToString:@"Incandescent Lamp"]) {
+        self.typeLbl.text = title;
+        if ([title isEqualToString:@"Incandescent Lamp"]) {
             self.valueLbl.text = @"1";
             self.switchInfo.powerFactor = @"1";
             self.switchInfo.type = 1;
@@ -178,8 +184,8 @@
             self.switchInfo.type = 0;
         }
     }else if (pickerView.tag == 3){
-        self.valueLbl.text = titles[0];
-        self.switchInfo.powerFactor = titles[0];
+        self.valueLbl.text = title;
+        self.switchInfo.powerFactor = title;
     }
 }
 #pragma mark - UIScrollViewDelegate Methods

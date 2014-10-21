@@ -12,7 +12,7 @@
 #import "EGORefreshTableHeaderView.h"
 #import "MyEInstructionManageViewController.h"
 
-@interface MyEDeviceAddOrEditTableViewController : UITableViewController<IQActionSheetPickerView,MyEDataLoaderDelegate,UIAlertViewDelegate,MYEPickerViewDelegate,EGORefreshTableHeaderDelegate>
+@interface MyEDeviceAddOrEditTableViewController : UITableViewController<MyEDataLoaderDelegate,UIAlertViewDelegate,MYEPickerViewDelegate,EGORefreshTableHeaderDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *acTypeLbl;

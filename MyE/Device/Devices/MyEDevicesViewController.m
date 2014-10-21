@@ -245,8 +245,17 @@
         case 8:
             string = @"switch";
             break;
+        case 9:
+            string = @"ir";
+            break;
+        case 10:
+            string = @"smoke";
+            break;
+        case 11:
+            string = @"door";
+            break;
         default:
-            string = @"";
+            string = @"rf";
             break;
     }
     return string;
