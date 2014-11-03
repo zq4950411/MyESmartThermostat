@@ -172,16 +172,16 @@
 //        photoController.photoFilename = photoFilename;
 //    }
     
-    if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] ) {
-        SWRevealViewControllerSegue *swSegue = (SWRevealViewControllerSegue*) segue;
-        
-        swSegue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc) {
-            
-            UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
-            [navController setViewControllers: @[dvc] animated: NO ];
-            [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
-        };
-    }
+//    if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] ) {
+//        SWRevealViewControllerSegue *swSegue = (SWRevealViewControllerSegue*) segue;
+//        
+//        swSegue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc) {
+//            
+//            UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+//            [navController setViewControllers: @[dvc] animated: NO ];
+//            [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+//        };
+//    }
 }
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
     if (self.tableView.indexPathForSelectedRow.row == 5) {
