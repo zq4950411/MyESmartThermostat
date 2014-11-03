@@ -15,3 +15,4 @@ build/*
 *.pbxuser
 *.xcworkspace
 *.xcuserdata
+MyE.xcodeproj/xcuserdata/snyuan.xcuserdatad/xcschemes/*
