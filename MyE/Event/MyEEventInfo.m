@@ -181,7 +181,8 @@
         }else
             return [NSString stringWithFormat:@"%@ %iF",controlMode[self.controlMode - 1],self.point];
     }else if(self.typeId == 6){
-        return [self.instructionName isEqualToString:@"1"]?@"ON":@"OFF";
+        return self.instructionName;
+//        return [self.instructionName isEqualToString:@"1"]?@"ON":@"OFF";
     }else if (self.typeId == 1){
         return self.instructionName;
     }else

@@ -213,8 +213,13 @@
                 _instruction.instructionId = 0;
                 [btn setTitle:@"OFF" forState:UIControlStateNormal];
             }else{
-                _instruction.instructionId = [_device.instructionName intValue];
-                [btn setTitle:_instruction.instructionId == 0?@"OFF":@"ON" forState:UIControlStateNormal];
+                if ([_device.instructionName isEqualToString:@"ON"]) {
+                    _instruction.instructionId = 1;
+                }else
+                    _instruction.instructionId = 0;
+                [btn setTitle:_device.instructionName forState:UIControlStateNormal];
+//                _instruction.instructionId = [_device.instructionName intValue];
+//                [btn setTitle:_instruction.instructionId == 0?@"OFF":@"ON" forState:UIControlStateNormal];
             }
         }else{
             if (_isAdd) {
