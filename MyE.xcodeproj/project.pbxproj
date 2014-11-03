@@ -3400,7 +3400,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "dd55ccf6-51db-48cd-a9f8-2a44b05c9b31";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "c42d73c9-d2d0-4ea6-ab86-c4ee3cc3f676";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;

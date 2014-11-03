@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1We-eV-6yv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1We-eV-6yv">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
-        <!--MyEQR Scan View Controller - QR scan-->
+        <!--QR scan-->
         <scene sceneID="sbI-h5-kKe">
             <objects>
                 <viewController storyboardIdentifier="scan" id="Zw2-Mk-mdq" customClass="MyEQRScanViewController" sceneMemberID="viewController">
@@ -25,7 +25,7 @@
             </objects>
             <point key="canvasLocation" x="-670" y="-1335"/>
         </scene>
-        <!--MyE House Add View Controller - Add House-->
+        <!--Add House-->
         <scene sceneID="8gh-Y4-ity">
             <objects>
                 <tableViewController id="m77-dI-LAg" customClass="MyEHouseAddViewController" sceneMemberID="viewController">
@@ -190,7 +190,7 @@
             </objects>
             <point key="canvasLocation" x="-131" y="-1335"/>
         </scene>
-        <!--MyE Mediator Register View Controller - Register Gateway-->
+        <!--Register Gateway-->
         <scene sceneID="T03-h0-LuM">
             <objects>
                 <tableViewController storyboardIdentifier="registerGateway" id="oVd-WL-KtG" customClass="MyEMediatorRegisterViewController" sceneMemberID="viewController">
@@ -370,7 +370,7 @@
             </objects>
             <point key="canvasLocation" x="-779" y="-282"/>
         </scene>
-        <!--MyE House Usefull View Controller - House-->
+        <!--House-->
         <scene sceneID="yjc-W3-WGL">
             <objects>
                 <tableViewController id="hye-3b-g1K" customClass="MyEHouseUsefullViewController" sceneMemberID="viewController">
@@ -399,7 +399,7 @@
             </objects>
             <point key="canvasLocation" x="-244" y="-633"/>
         </scene>
-        <!--MyE Time Zone View Controller - Time Zone-->
+        <!--Time Zone-->
         <scene sceneID="j0x-4o-AIe">
             <objects>
                 <tableViewController storyboardIdentifier="timeZone" id="KfF-xq-vlK" customClass="MyETimeZoneViewController" sceneMemberID="viewController">
@@ -434,7 +434,7 @@
             </objects>
             <point key="canvasLocation" x="-235" y="9"/>
         </scene>
-        <!--MyE Settings View Controller - Settings-->
+        <!--Settings-->
         <scene sceneID="vFq-bC-Mxm">
             <objects>
                 <tableViewController storyboardIdentifier="settings" id="MpA-FZ-bTf" customClass="MyESettingsViewController" sceneMemberID="viewController">
@@ -671,7 +671,7 @@
             </objects>
             <point key="canvasLocation" x="-3084" y="-519"/>
         </scene>
-        <!--MyE Settings About View Controller - About-->
+        <!--About-->
         <scene sceneID="sgn-YM-YEk">
             <objects>
                 <viewController id="z5I-jU-Z6k" customClass="MyESettingsAboutViewController" sceneMemberID="viewController">
@@ -730,7 +730,7 @@
             </objects>
             <point key="canvasLocation" x="-2593" y="-250"/>
         </scene>
-        <!--MyE Account View Controller - Account-->
+        <!--Account-->
         <scene sceneID="Q6P-f7-wXz">
             <objects>
                 <tableViewController storyboardIdentifier="account" id="f00-uP-NHV" customClass="MyEAccountViewController" sceneMemberID="viewController">
@@ -811,7 +811,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oZh-V0-nnc">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oZh-V0-nnc">
                                                     <rect key="frame" x="251" y="6" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="changeNoti:" destination="f00-uP-NHV" eventType="valueChanged" id="kXC-Zm-616"/>
@@ -845,7 +845,7 @@
             </objects>
             <point key="canvasLocation" x="-3121" y="-1909"/>
         </scene>
-        <!--MyE Settings Password Reset View Controller - Password-->
+        <!--Password-->
         <scene sceneID="jP3-ny-Cut">
             <objects>
                 <tableViewController id="02O-78-vNI" customClass="MyESettingsPasswordResetViewController" sceneMemberID="viewController">
@@ -946,7 +946,7 @@
             </objects>
             <point key="canvasLocation" x="-2640" y="-1609"/>
         </scene>
-        <!--MyE Settings Username Reset View Controller - Username-->
+        <!--Username-->
         <scene sceneID="1He-hd-lf8">
             <objects>
                 <tableViewController id="ULW-bG-IzD" customClass="MyESettingsUsernameResetViewController" sceneMemberID="viewController">
@@ -966,7 +966,6 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter New UserName" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3Ae-zb-Ej1">
                                                     <rect key="frame" x="20" y="0.0" width="280" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                                                 </textField>
@@ -996,7 +995,7 @@
             </objects>
             <point key="canvasLocation" x="-2640" y="-2253"/>
         </scene>
-        <!--MyE Terminals View Controller - Terminals-->
+        <!--Terminals-->
         <scene sceneID="Vcs-cT-DoW">
             <objects>
                 <tableViewController id="HTK-uy-EEU" customClass="MyETerminalsViewController" sceneMemberID="viewController">
@@ -1042,7 +1041,7 @@
             </objects>
             <point key="canvasLocation" x="-2593" y="-809"/>
         </scene>
-        <!--MyE Terminal Edit View Controller - Edit-->
+        <!--Edit-->
         <scene sceneID="0cm-Vm-lDj">
             <objects>
                 <tableViewController id="Q2F-oe-D0M" customClass="MyETerminalEditViewController" sceneMemberID="viewController">
@@ -1167,7 +1166,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MEa-0m-3yD">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MEa-0m-3yD">
                                                     <rect key="frame" x="251" y="6" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
@@ -1290,14 +1289,12 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dsz-e0-OQa">
                                                     <rect key="frame" x="15" y="11" width="43" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q5c-v7-Bb1">
                                                     <rect key="frame" x="94" y="11" width="206" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="206" id="2iL-S5-o2y"/>
                                                     </constraints>
@@ -1321,14 +1318,12 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pA-uD-jW7">
                                                     <rect key="frame" x="15" y="11" width="25" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtL-1j-OVc">
                                                     <rect key="frame" x="91" y="11" width="209" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="209" id="tbr-3f-aJu"/>
                                                     </constraints>
@@ -1352,14 +1347,12 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Signal Strength" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UfV-AD-r4A">
                                                     <rect key="frame" x="15" y="11" width="112" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Ft-DG-muP">
                                                     <rect key="frame" x="265" y="4" width="35" height="35"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="35" id="PGg-TK-TE5"/>
                                                     </constraints>
@@ -1385,7 +1378,6 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgK-nf-9fb">
                                                     <rect key="frame" x="15" y="11" width="280" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>

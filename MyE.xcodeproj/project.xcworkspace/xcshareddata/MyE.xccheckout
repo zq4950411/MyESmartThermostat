@@ -12,20 +12,24 @@
 	<dict>
 		<key>196C978B-B53B-45D3-A337-B6BC9D8AD426</key>
 		<string>https://github.com/snyuan/MyESmartThermostat</string>
+		<key>3BADA34B7136C859D34E38A3CEE02907A879B7B0</key>
+		<string>https://github.com/snyuan/MyESmartThermostat.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>MyE.xcodeproj/project.xcworkspace</string>
+	<string>MyE.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>196C978B-B53B-45D3-A337-B6BC9D8AD426</key>
+		<string>../../../MyESmartThermostat</string>
+		<key>3BADA34B7136C859D34E38A3CEE02907A879B7B0</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/snyuan/MyESmartThermostat</string>
+	<string>https://github.com/snyuan/MyESmartThermostat.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>196C978B-B53B-45D3-A337-B6BC9D8AD426</string>
+	<string>3BADA34B7136C859D34E38A3CEE02907A879B7B0</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>196C978B-B53B-45D3-A337-B6BC9D8AD426</string>
 			<key>IDESourceControlWCCName</key>
 			<string>MyESmartThermostat</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3BADA34B7136C859D34E38A3CEE02907A879B7B0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MyESmartThermostat_V3</string>
 		</dict>
 	</array>
 </dict>
