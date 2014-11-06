@@ -133,7 +133,7 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (indexPath.section == 2 && indexPath.row == 0) {
-        MyELaunchIntroViewController *vc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"launchinfo"];
+        MyELaunchIntroViewController *vc = [[UIStoryboard storyboardWithName:@"MainStoryboard"  bundle:nil] instantiateViewControllerWithIdentifier:@"launchinfo"];
         vc.jumpFromSettingPanel = YES;
         [self presentViewController:vc animated:YES completion:nil];
     }

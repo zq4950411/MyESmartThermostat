@@ -141,7 +141,8 @@
                                                    UIRemoteNotificationTypeAlert)];
     // Required
     [APService setupWithOption:launchOptions];
-    
+    if(IS_IPAD) NSLog(@"这是iPad");
+    else NSLog(@"这是iPhone");
     /**
      说明与备忘：
         下面这一段的目的是为程序添加一个Startup Introduction ScrollView。

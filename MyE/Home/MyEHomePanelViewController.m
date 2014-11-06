@@ -163,14 +163,14 @@
         [SVProgressHUD showSuccessWithStatus:@"No devcie with electricity usage stats."];
         return;
     }
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"  bundle:nil];
     MyEUsageStatsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ElecUsageStat"];
     vc.fromHome = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)goAlerts:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"  bundle:nil];
     MyEUsageStatsViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"Alerts"];
     vc.fromHome = YES;
     [self.navigationController pushViewController:vc animated:YES];

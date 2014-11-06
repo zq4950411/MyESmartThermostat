@@ -334,7 +334,7 @@
 //                MyETerminalData *thermostatData = [houseData.terminals objectAtIndex:0];// 用该房子的第一个T
 //                MainDelegate.terminalData = thermostatData;
                 
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"  bundle:nil];
                 SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
                 [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
                 MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
@@ -356,12 +356,12 @@
                     defaultHouseData = [self.accountData firstValidHouseInList];
                 MainDelegate.houseData = defaultHouseData;
                 MainDelegate.terminalData = [MainDelegate.houseData firstConnectedThermostat];
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"  bundle:nil];
                 SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
                 [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
                 MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController
             } else {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"  bundle:nil];
                 UINavigationController *nav = [storyboard instantiateViewControllerWithIdentifier:@"houseListNav"];
                 MyEHouseListViewController *vc = nav.childViewControllers[0];
                 vc.jumpFromLogin = YES;
@@ -463,7 +463,7 @@
      “MainTabViewController”的TabBarController,
      并present它。必须在Storyboard里面为这个TabBarController输入了标示符。
      这些语句和最后面的语句功能相同。
-     UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+     UIStoryboard *story = [UIStoryboard storyboardWithName:@"MainStoryboard"  bundle:nil];
      UITabBarController *rootViewController = [story     instantiateViewControllerWithIdentifier:@"MainTabViewController"];
      [self presentViewController:rootViewController animated:YES completion: nil];
      */

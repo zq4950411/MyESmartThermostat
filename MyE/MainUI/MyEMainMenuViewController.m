@@ -140,7 +140,7 @@
     }
 
     if (self.menuItems.count-1 == indexPath.row) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"  bundle:nil];
         MyELoginViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
         [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
         MainDelegate.window.rootViewController = vc;
@@ -161,8 +161,9 @@
     UINavigationController *destViewController = (UINavigationController*)segue.destinationViewController;
     destViewController.title = [[_menuItems objectAtIndex:indexPath.row] capitalizedString];
     if(self.tableView.indexPathForSelectedRow.row == 5){
-        MyEUsageStatsViewController *dvc = (MyEUsageStatsViewController*)segue.destinationViewController;
-        dvc.fromHome = NO;
+        UINavigationController *nc = segue.destinationViewController;
+        MyEUsageStatsViewController *uvc = (MyEUsageStatsViewController*)[nc childViewControllers][0];
+        uvc.fromHome = NO;
     }
      
 //    // Set the photo if it navigates to the PhotoView

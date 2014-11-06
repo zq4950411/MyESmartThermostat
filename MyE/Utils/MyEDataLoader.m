@@ -190,7 +190,7 @@
 - (BOOL)_processHttpRespondForString:(NSString *)respondText {
     NSInteger respondInt = [respondText intValue];// 从字符串开始寻找整数，如果碰到字母就结束，如果字符串不能转换成整数，那么此转换结果就是0
     if ( respondInt == -994 ) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"  bundle:nil];
         MyEHouseListViewController *hlvc = [storyboard instantiateViewControllerWithIdentifier:@"HouseListVC"];
         [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
         MainDelegate.window.rootViewController = hlvc;// 用主Navigation VC作为程序的rootViewController
@@ -208,7 +208,7 @@
         return NO;
     }
     if (respondInt == -996 ) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"  bundle:nil];
         MyELoginViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
         lvc.accountData = MainDelegate.accountData;
         [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
@@ -217,7 +217,7 @@
         return NO;
     }
     if (respondInt == -999 ) {
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"  bundle:nil];
 //        SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
 //        [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];
 //        MainDelegate.window.rootViewController = vc;// 用主Navigation VC作为程序的rootViewController

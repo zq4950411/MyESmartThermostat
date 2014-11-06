@@ -293,7 +293,7 @@
     [prefs synchronize];
 
 
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"  bundle:nil];
     SWRevealViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SlideMenuVC"];
     
     [MainDelegate.window.rootViewController dismissViewControllerAnimated:NO completion:nil];

@@ -48,6 +48,10 @@
 
 #define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double )568) < DBL_EPSILON )
 #define IS_IOS6 (([[UIDevice currentDevice].systemVersion intValue]-6)?NO:YES)
+#define IOS_NEWER_OR_EQUAL_TO_7 ( [[[UIDevice currentDevice] systemVersion ] floatValue ] >= 7.0 )
+#define IS_IPAD ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+#define IS_IPHONE_6P ([UIScreen mainScreen].scale > 2.1) 
+
 
 #define MainDelegate ((MyEAppDelegate *)[[UIApplication sharedApplication] delegate])
 #define MainColor [UIColor colorWithRed:0.27 green:0.78 blue:0.86 alpha:1]

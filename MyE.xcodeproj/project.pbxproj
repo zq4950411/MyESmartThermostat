@@ -3351,7 +3351,7 @@
 					"$(PROJECT_DIR)/MyE/Camera/P2PCam/include",
 				);
 				INFOPLIST_FILE = "MyE/MyE-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Framework/LIB/ZBarSDK/ZBarSDK\"",
@@ -3362,7 +3362,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3389,7 +3389,7 @@
 					"$(PROJECT_DIR)/MyE/Camera/P2PCam/include",
 				);
 				INFOPLIST_FILE = "MyE/MyE-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Framework/LIB/ZBarSDK/ZBarSDK\"",
@@ -3402,7 +3402,7 @@
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "c42d73c9-d2d0-4ea6-ab86-c4ee3cc3f676";
 				SKIP_INSTALL = NO;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
