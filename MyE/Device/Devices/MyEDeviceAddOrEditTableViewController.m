@@ -16,6 +16,7 @@
     MYEPickerView *_pickerView;
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _isRefreshing;
+    BOOL _isEditInstruction;
 }
 @end
 
@@ -30,6 +31,7 @@
         self.device = [[MyEDevice alloc] init];
     }else
         self.title = self.device.deviceName;
+    
     [self downloadInfoFromServer];
     if (!_refreshHeaderView) {
         EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.tableView.frame.size.width, self.tableView.bounds.size.height)];
@@ -47,7 +49,8 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    if (_device.typeId.intValue == 1) {
+    if (_device.typeId.intValue == 1 && _isEditInstruction) {
+        _isEditInstruction = NO;
         [self refreshUI];
     }
 }
@@ -167,7 +170,7 @@
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%i A",_newDevice.maxCurrent];
     }
-    [self.tableView reloadData];
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 -(void)doThisWhenNeedAlert{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Connect failed! You cann't add or edit device" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -179,6 +182,7 @@
 }
 #pragma mark - IBAction methods
 - (IBAction)EditAcInstruction:(UIButton *)sender {
+    _isEditInstruction = YES;
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"AcInstruction" bundle:nil];
     MyEInstructionManageViewController *vc = [story instantiateViewControllerWithIdentifier:@"instructionVC"];
     vc.device = self.device;
@@ -251,7 +255,7 @@
 
 #pragma mark - UITableView dataSource method
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (self.device.typeId.intValue == 1) {
+    if (self.device.typeId.intValue == 1 && !_isAddDevice) {
         return 2;
     }
     return 1;
@@ -282,12 +286,12 @@
             break;
         case 3:    //tid
             //2:TV,  3: Audio, 4:Automated Curtain, 5: Other,  6 智能插座,7:通用控制器, 8:智能开关
-             if ((self.device.typeId.intValue == 0 ||self.device.typeId.intValue == 6 || self.device.typeId.intValue == 7 || _device.typeId.intValue == 8)) {
+            if ((self.device.typeId.intValue == 0 ||self.device.typeId.intValue == 6 || self.device.typeId.intValue == 7 || _device.typeId.intValue == 8)) {
                     return;
             }
-            if (!_isAddDevice && self.device.typeId.intValue == 1) {
-                return;
-            }
+//            if (!_isAddDevice && self.device.typeId.intValue == 1) {
+//                return;
+//            }
             if (![_terminals count]) {  //这里是个保护措施，当终端为零时点击之后没反应
                 [SVProgressHUD showErrorWithStatus:@"No SmartRemote"];
                 return;
@@ -320,7 +324,7 @@
             _newDevice = edit.device;  //这里存放的是device数据
             NSLog(@"_newDevice is %@",_newDevice);
             [self getArraysFromMainData];
-            [self refreshUI];
+            [self performSelector:@selector(refreshUI) withObject:nil afterDelay:0.1f];
         }
     }
     if ([name isEqualToString:@"downloadOtherInfo"]) {

@@ -38,12 +38,12 @@
 }
 #pragma mark - IBAction methods
 - (IBAction)changeMode:(UIBarButtonItem *)sender {
-    if ([sender.title isEqualToString:@"Edit"]) {
-        sender.title = @"Done";
+    if ([sender.title isEqualToString:@"Record"]) {
+        sender.title = @"Exit";
         self.isControlMode = NO;
         self.view.backgroundColor = [UIColor colorWithRed:0.84 green:0.93 blue:0.95 alpha:1];
     }else{
-        sender.title = @"Edit";
+        sender.title = @"Record";
         self.isControlMode = YES;
         self.view.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
     }
@@ -66,13 +66,13 @@
     formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {
         // Passing data
         UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-        navController.topViewController.title = @"Key Study";
+        navController.topViewController.title = @"Key Record";
         MyEIrStudyEditKeyModalViewController *modalVc = (MyEIrStudyEditKeyModalViewController *)navController.topViewController;
         modalVc.device = self.device;
         modalVc.isAddKey = YES;  //这里表示的新增按键
         modalVc.instructions = self.instructions;
         modalVc.instruction = [[MyEInstruction alloc] init];
-        [modalVc.learnBtn setTitle:@"Study" forState:UIControlStateNormal];
+        [modalVc.learnBtn setTitle:@"Record" forState:UIControlStateNormal];
         modalVc.validateKeyBtn.enabled = NO;
         modalVc.deleteKeyBtn.enabled = NO;
         [modalVc viewDidLoad];  //继续执行一遍

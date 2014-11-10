@@ -17,12 +17,14 @@
 @property (nonatomic, strong) MyEEventConditionCustom *conditionCustom;
 @property (nonatomic, assign) BOOL isAdd;
 
-@property (weak, nonatomic) IBOutlet UIView *mainView;
+@property (weak, nonatomic) IBOutlet UIView *indoorView;
+@property (weak, nonatomic) IBOutlet UIView *outdoorView;
 
 @property (weak, nonatomic) IBOutlet UIButton *conditionBtn;
 @property (weak, nonatomic) IBOutlet UIButton *terminalBtn;
 @property (weak, nonatomic) IBOutlet UIButton *relationBtn;
-@property (weak, nonatomic) IBOutlet UIButton *valueBtn;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *btns;
+@property (weak, nonatomic) IBOutlet UIButton *relationBtn1;
 
+@property (weak, nonatomic) IBOutlet UIButton *valueBtn;
+@property (weak, nonatomic) IBOutlet UIButton *valueBtn1;
 @end

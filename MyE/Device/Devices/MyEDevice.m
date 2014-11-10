@@ -29,7 +29,7 @@
         self.deviceName = @"";
         self.locationId = 0;
         self.locationName = @"";
-        self.typeId = 0;
+        self.typeId = @"1";
         self.tid = @"";
         self.point = 0;
         self.instructionName = @"";

@@ -3339,7 +3339,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Yichun MyEnergy Domain Inc (4J69VHKV9T)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: qiang zhai (9Y96YRY36M)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3361,7 +3361,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e9c630ea-6b6b-4324-99ac-fadd033fb165";
+				PROVISIONING_PROFILE = "fe1282a8-006f-4208-80a4-08f4b3f86e84";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -3399,7 +3399,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e9c630ea-6b6b-4324-99ac-fadd033fb165";
+				PROVISIONING_PROFILE = "c42d73c9-d2d0-4ea6-ab86-c4ee3cc3f676";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "e9c630ea-6b6b-4324-99ac-fadd033fb165";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;

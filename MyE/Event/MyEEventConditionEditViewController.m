@@ -32,11 +32,21 @@
     _newCustom = [self.conditionCustom copy];
     self.navigationItem.title = _isAdd?@"New Condition":@"Condition Edit";
     NSLog(@"%@",_newCustom);
-    for (UIButton *btn in self.btns) {
-        [btn setBackgroundImage:[[UIImage imageNamed:@"detailBtn"] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
-        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
+    for (UIButton *btn in self.indoorView.subviews) {
+        if ([btn isKindOfClass:[UIButton class]]) {
+            [btn setBackgroundImage:[[UIImage imageNamed:@"detailBtn"] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
+        }
     }
-    
+    for (UIButton *btn in self.outdoorView.subviews) {
+        if ([btn isKindOfClass:[UIButton class]]) {
+            [btn setBackgroundImage:[[UIImage imageNamed:@"detailBtn"] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+            [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
+        }
+    }
+    [_conditionBtn setBackgroundImage:[[UIImage imageNamed:@"detailBtn"] stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+    [_conditionBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 30)];
+
     /*------------初始化数组-----------------*/
     NSMutableArray *array = [NSMutableArray array];
     for (MyETerminalData *t in MainDelegate.houseData.terminals) {
@@ -80,20 +90,21 @@
             _selectedIndex4 = 20;
         }else
             _selectedIndex4 = 50;
-        _isShow = YES;
         [self changeTmpOrHum];
+        [self setIndoorViewHidden:NO];
     }else{
         _selectedIndex1 = _newCustom.dataType - 1;
         _selectedIndex3 = _newCustom.parameterType - 1;
         if (_newCustom.dataType == 1 || _newCustom.dataType == 3) {  //说明此时是温度
             _selectedIndex4 = [_tmpArray indexOfObject:[NSString stringWithFormat:@"%i F",_newCustom.parameterValue]];
             [_valueBtn setTitle:_tmpArray[_selectedIndex4] forState:UIControlStateNormal];
+            [_valueBtn1 setTitle:_tmpArray[_selectedIndex4] forState:UIControlStateNormal];
         }else{
             _selectedIndex4 = [_humArray indexOfObject:[NSString stringWithFormat:@"%i %%RH",_newCustom.parameterValue]];
             [_valueBtn setTitle:_humArray[_selectedIndex4] forState:UIControlStateNormal];
+            [_valueBtn1 setTitle:_humArray[_selectedIndex4] forState:UIControlStateNormal];
         }
         if (_newCustom.dataType == 1 || _newCustom.dataType == 2) {  //这个表示的是室内
-            _isShow = YES;
             if ([_terminals count]) {
                 for (int i = 0; i < [_terminals count]; i++) {
                     MyETerminalData *t = _terminals[i];
@@ -105,14 +116,15 @@
                 }
             }else
                 _selectedIndex2 = 0;
+            [self setIndoorViewHidden:NO];
         }else{
-            _isShow = YES;
-//            [self refreshUIWithBool:NO];
-#warning 修改
-            [self performSelector:@selector(refreshUIWithBool:) withObject:nil afterDelay:1.0f];
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self refreshUIWithBool:NO];
-//            });
+            [self setIndoorViewHidden:YES];
+//            _isShow = YES;
+////            [self refreshUIWithBool:NO];
+//            [self performSelector:@selector(refreshUIWithBool:) withObject:nil afterDelay:1.0f];
+////            dispatch_async(dispatch_get_main_queue(), ^{
+////                [self refreshUIWithBool:NO];
+////            });
         }
     }
     [_conditionBtn setTitle:_conditonArray[_selectedIndex1] forState:UIControlStateNormal];
@@ -123,6 +135,7 @@
     }else
         [_terminalBtn setTitle:@"No terminal" forState:UIControlStateNormal];
     [_relationBtn setTitle:_relationArray[_selectedIndex3] forState:UIControlStateNormal];
+    [_relationBtn1 setTitle:_relationArray[_selectedIndex3] forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning
@@ -154,29 +167,55 @@
     [picker showInView:self.view];
 }
 #pragma mark - private methods
+-(void)setIndoorViewHidden:(BOOL)hidden{
+    self.indoorView.hidden = hidden;
+    self.outdoorView.hidden = !hidden;
+}
 -(void)refreshUIWithBool:(BOOL)yes{
     if (yes) { //yes值为YES，则是要显示view,NO就是不显示
         if (_isShow) {
             return;
         }
-        [UIView animateWithDuration:0.3 animations:^{
-            CGRect newFrame = self.mainView.frame;
-            newFrame.origin.y += 45;
-            self.mainView.frame = newFrame;
-        }completion:^(BOOL finish){
-            _isShow = YES;
-        }];
+        _isShow = YES;
+//        [UIView beginAnimations:@"" context:NULL];
+//        [UIView setAnimationDuration:0.3];
+//        CGRect newFrame = self.mainView.frame;
+//        newFrame.origin.y += 45;
+//        self.mainView.frame = newFrame;
+//        _isShow = YES;
+//        [UIView commitAnimations];
+//        [UIView animateWithDuration:0.3 animations:^{
+//            NSLog(@"%@",NSStringFromCGRect(self.mainView.frame));
+//            CGRect newFrame = self.mainView.frame;
+//            newFrame.origin.y += 45;
+//            self.mainView.frame = newFrame;
+//            NSLog(@"%@",NSStringFromCGRect(self.mainView.frame));
+//            [self.view performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
+//        }completion:^(BOOL com){
+//            _isShow = YES;
+//        }];
     }else{
-        if (!_isShow) {
-            return;
-        }
-        [UIView animateWithDuration:0.3 animations:^{
-            CGRect newFrame = self.mainView.frame;
-            newFrame.origin.y -= 45;
-            self.mainView.frame = newFrame;
-        }completion:^(BOOL finish){
-            _isShow = NO;
-        }];
+//        if (!_isShow) {
+//            return;
+//        }
+        [UIView beginAnimations:@"" context:NULL];
+        [UIView setAnimationDuration:0.3];
+//        CGRect newFrame = self.mainView.frame;
+//        newFrame.origin.y -= 45;
+//        self.mainView.frame = newFrame;
+        _isShow = NO;
+        [UIView commitAnimations];
+        
+//        [UIView animateWithDuration:0.3 animations:^{
+//            NSLog(@"%@",NSStringFromCGRect(self.mainView.frame));
+//            CGRect newFrame = self.mainView.frame;
+//            newFrame.origin.y -= 45;
+//            self.mainView.frame = newFrame;
+//            NSLog(@"%@",NSStringFromCGRect(self.mainView.frame));
+//            [self.view performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
+//        }completion:^(BOOL com){
+//            _isShow = NO;
+//        }];
     }
 }
 -(void)changeTmpOrHum{
@@ -184,9 +223,11 @@
     if ([_conditionBtn.currentTitle rangeOfString:@"Temperature"].location != NSNotFound) {
         _selectedIndex4 = 20;
         [_valueBtn setTitle:_tmpArray[_selectedIndex4] forState:UIControlStateNormal];
+        [_valueBtn1 setTitle:_tmpArray[_selectedIndex4] forState:UIControlStateNormal];
     }else{
         _selectedIndex4 = 50;
         [_valueBtn setTitle:_humArray[_selectedIndex4] forState:UIControlStateNormal];
+        [_valueBtn1 setTitle:_humArray[_selectedIndex4] forState:UIControlStateNormal];
     }
 }
 #pragma mark - MYEPickerView delegate methods
@@ -196,9 +237,10 @@
         [_conditionBtn setTitle:title forState:UIControlStateNormal];
         _newCustom.dataType = row + 1;
         if (_newCustom.dataType == 1 || _newCustom.dataType == 2) {
-            [self refreshUIWithBool:YES];
-        }else
-            [self refreshUIWithBool:NO];
+            [self setIndoorViewHidden:NO];
+        }else{
+            [self setIndoorViewHidden:YES];
+        }
         [self changeTmpOrHum];
     }else if (pickerView.tag == 101){
         _selectedIndex2 = row;
@@ -208,10 +250,12 @@
     }else if (pickerView.tag == 102){
         _selectedIndex3 = row;
         [_relationBtn setTitle:title forState:UIControlStateNormal];
+        [_relationBtn1 setTitle:title forState:UIControlStateNormal];
         _newCustom.parameterType = row + 1;
     }else{
         _selectedIndex4 = row;
         [_valueBtn setTitle:title forState:UIControlStateNormal];
+        [_valueBtn1 setTitle:title forState:UIControlStateNormal];
         if (_newCustom.dataType == 1 || _newCustom.dataType == 3) {  //表示的是温度
             _newCustom.parameterValue = row + 30;
         }else

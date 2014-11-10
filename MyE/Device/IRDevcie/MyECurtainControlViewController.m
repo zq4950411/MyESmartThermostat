@@ -28,12 +28,12 @@
 }
 #pragma mark - IBAction methods
 - (IBAction)editKey:(UIBarButtonItem *)sender {
-    if ([sender.title isEqualToString:@"Edit"]) {
-        sender.title = @"Done";
+    if ([sender.title isEqualToString:@"Record"]) {
+        sender.title = @"Exit";
         self.isControlMode = NO;
         self.view.backgroundColor = [UIColor colorWithRed:0.84 green:0.93 blue:0.95 alpha:1];
     }else{
-        sender.title = @"Edit";
+        sender.title = @"Record";
         self.isControlMode = YES;
         self.view.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
     }

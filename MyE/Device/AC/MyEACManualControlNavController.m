@@ -22,11 +22,11 @@
     if (!self.device.isSystemDefined) {
         MyEAcUserModelViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"customControl"];
         vc.device = self.device;
-        [self setViewControllers:@[vc] animated:YES];
+        [self setViewControllers:@[vc] animated:NO];
     }else{
         MyEAcManualControlViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"standerdControl"];
         vc.device = self.device;
-        [self setViewControllers:@[vc] animated:YES];
+        [self setViewControllers:@[vc] animated:NO];
     }
 }
 - (void)didReceiveMemoryWarning

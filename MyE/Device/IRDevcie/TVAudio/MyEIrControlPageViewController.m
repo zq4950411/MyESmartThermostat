@@ -48,8 +48,8 @@
 }
 
 - (IBAction)changMode:(UIBarButtonItem *)sender {
-    if ([sender.title isEqualToString:@"Edit"]) {
-        sender.title = @"Done";
+    if ([sender.title isEqualToString:@"Record"]) {
+        sender.title = @"Exit";
         if (self.device.typeId.intValue == 2) {
             self.tvDefaultViewController.isControlMode = NO;
             self.tvDefaultViewController.view.backgroundColor = [UIColor colorWithRed:0.84 green:0.93 blue:0.95 alpha:1];
@@ -60,7 +60,7 @@
         self.irUserKeyViewController.isControlMode = NO;
         self.irUserKeyViewController.view.backgroundColor = [UIColor colorWithRed:0.84 green:0.93 blue:0.95 alpha:1];
     }else{
-        sender.title = @"Edit";
+        sender.title = @"Record";
         if (self.device.typeId.intValue == 2) {
             self.tvDefaultViewController.isControlMode = YES;
             self.tvDefaultViewController.view.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
